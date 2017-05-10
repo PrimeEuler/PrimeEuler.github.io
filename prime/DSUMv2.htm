@@ -1,0 +1,40 @@
+
+<html>
+<body>
+<script type="text/javascript">
+var R=0;
+
+var response="";
+
+for (R=0;R<=10000;R+=1)
+{
+		document.write(P_Lattice_Count(R));
+		document.write("<br />");
+}
+
+function P_Lattice_Count(n)
+{
+
+	response = "D(\t" + n + "\t)=";
+
+	var sqrtfloor=Math.floor(Math.sqrt(n));
+	var u=0;
+	var dsum= 0;
+	var d= 0;
+	for (u=1;u<=sqrtfloor;u+=1)
+	{
+		d = (2*Math.floor((n-(u*u))/u))+1;
+
+		response +=" \t" + d + "\t ";
+		dsum+=d;
+		if(u!= sqrtfloor){response +="+";}
+	}
+	
+	return response + "=\t" + dsum + "" ;
+
+}
+
+
+</script>
+</body>
+</html>
