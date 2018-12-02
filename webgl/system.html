@@ -294,19 +294,22 @@
 	var GyroReady = false;
 	function onGyroReady(){
 		GyroReady = true;
+		gn.isAvailable().deviceOrientationAvailable;
 		console.log('gyro ready')
-		gn.start(gyroEvent)
-		function gyroEvent(data){
-			var radians = {
-				alpha:  data.do.alpha   * radian,
-				beta:   data.do.beta    * radian,
-				gamma:  data.do.gamma   * radian
-			    }
-		    	mX = radians.alpha;
-            		mY = radians.beta;
-		    
-		    
-		};
+		if(gn.isAvailable().deviceOrientationAvailable===true){
+			gn.start(gyroEvent)
+			function gyroEvent(data){
+				var radians = {
+					alpha:  data.do.alpha   * radian,
+					beta:   data.do.beta    * radian,
+					gamma:  data.do.gamma   * radian
+				    }
+				mX = radians.alpha;
+				mY = radians.beta;
+
+
+			};
+		}
 	}
 		
 		
