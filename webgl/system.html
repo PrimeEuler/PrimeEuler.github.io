@@ -264,7 +264,7 @@
               };
         })();
 	function update() {
-	    if (mD == 1) {
+	    if (mD == 1 || GyroReady===true) {
 	        particleSystem.rotation.y = pSY +( - Math.PI * ((mDX - mX) / 500));
 	        particleSystem.rotation.x = pSX - (Math.PI * ((mDY - mY) / 500));
 	    }
@@ -292,6 +292,19 @@
 	var GyroReady = false;
 	function onGyroReady(){
 		GyroReady = true;
+		console.log('gyro ready')
+		gn.start(gyroEvent)
+		function gyroEvent(data){
+			var radians = {
+				alpha:  data.do.alpha   * radian,
+				beta:   data.do.beta    * radian,
+				gamma:  data.do.gamma   * radian
+			    }
+		    	mX = radians.alpha;
+            		mY = radians.beta;
+		    
+		    
+		};
 	}
 		
 		
