@@ -63,7 +63,7 @@
 	
 	<script type="text/javascript">
 
-	var mX, mY, mD, mDY, mDX, pSY=0, pSX=0, cPZoom = 300, pV = true;
+	var mX=0, mY=0, mD=0, mDY=0, mDX=0, pSY=0, pSX=0, cPZoom = 300, pV = true;
 
     var WIDTH = window.innerWidth ,
         HEIGHT = window.innerHeight;
@@ -265,7 +265,7 @@
         })();
 	function update() {
 	    if (mD == 1 || GyroReady===true) {
-		    console.log(pSY +( - Math.PI * ((mDX - mX) / 500)) , pSX - (Math.PI * ((mDY - mY) / 500)) )
+		//console.log(pSY +( - Math.PI * ((mDX - mX) / 500)) , pSX - (Math.PI * ((mDY - mY) / 500)) )
 	        particleSystem.rotation.y = pSY +( - Math.PI * ((mDX - mX) / 500));
 	        particleSystem.rotation.x = pSX - (Math.PI * ((mDY - mY) / 500));
 	    }
