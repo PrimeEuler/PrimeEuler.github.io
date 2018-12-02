@@ -55,7 +55,7 @@
         </table>
 		</div>
 
-	
+	<script type='text/javascript' src="./gyronorm.complete.min.js"></script>
 	
 	<script type="text/javascript" src="./jquery.min.js"></script>
 	<script type="text/javascript" src="./three.min.js"></script>
@@ -274,5 +274,26 @@
 		requestAnimFrame(update);
 }
 	requestAnimFrame(update);
+		
+		
+	var gnArgs = {
+		frequency:100,                   // ( How often the object sends the values - milliseconds )
+		gravityNormalized:true,         // ( If the garvity related values to be normalized )
+		orientationBase:GyroNorm.WORLD,      // ( Can be GyroNorm.GAME or GyroNorm.WORLD. gn.GAME returns orientation values with respect to the head direction of the device. gn.WORLD returns the orientation values with respect to the actual north direction of the world. )
+		decimalCount:2,                 // ( How many digits after the decimal point will there be in the return values )
+		logger:null,                    // ( Function to be called to log messages from gyronorm.js )
+		screenAdjusted:false            // ( If set to true it will return screen adjusted values. )
+	};
+	var gn = new GyroNorm();
+	gn.init(gnArgs).then(onGyroReady).catch(function(e){
+	    console.log(e)
+		//shell.stdErr.write(e)
+	});
+	var GyroReady = false;
+	function onGyroReady(){
+		GyroReady = true;
+	}
+		
+		
 	</script>
 </body></html>
