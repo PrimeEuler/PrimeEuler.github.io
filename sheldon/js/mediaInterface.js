@@ -421,7 +421,13 @@ window.mediaInterface = (function (){
                 createEncoder(mediaStream)
                 self.mediaElement.play(mediaStream);
             });
-            self.mediaElement.src = URL.createObjectURL(mediaStream);
+            //self.mediaElement.src = URL.createObjectURL(mediaStream);
+            try {
+                self.mediaElement.srcObject = mediaStream;
+            } catch (error) {
+                self.mediaElement.src = URL.createObjectURL(mediaStream);
+            }
+            
         }
         self.start = function(){
             navigator.getUserMedia( constraints, onMediaSuccess, options.log||function noop(){}); 
