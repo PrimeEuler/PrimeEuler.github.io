@@ -222,6 +222,20 @@
                 
                 
         }
+	    
+	    
+        const Http = new XMLHttpRequest();
+        //const url='https://jsonplaceholder.typicode.com/posts';
+        
+        SHELL.context.wget = function(url){
+            Http.open("GET", url);
+            Http.send();
+        }
+        Http.onreadystatechange=(e)=>{
+        //console.log(Http.responseText)
+            //SHELL.context.REPL.PRINT.ansi( Http.responseText)
+            TERMINAL.write( Http.responseText)
+        }	    
     var streamIndex = -1;
     function streamUI(stream){
                 streamIndex+=5;
