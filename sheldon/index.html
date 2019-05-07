@@ -140,6 +140,7 @@
             Http.send();
         }
         SHELL.context.socket    = function(url){
+		//https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/
             var socket = io(url)
             SHELL.context.sockets.push(  socket );
             
