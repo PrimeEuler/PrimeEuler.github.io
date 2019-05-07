@@ -156,6 +156,8 @@
                 ss(socket).on(stream.id,function(e){
                     stream.emit(e.event,e.data);
                 });
+		stream.width = 666;
+                stream.height = 533;
                 EDITOR(stream,path,socket)
             })
             
