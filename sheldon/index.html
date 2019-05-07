@@ -141,6 +141,9 @@
         }
         SHELL.context.socket    = function(url){
 		//https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/
+		if(url==='default'){
+			url = 'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/'
+		}
             var socket = io(url)
             SHELL.context.sockets.push(  socket );
             
@@ -236,8 +239,6 @@
                 terminal.destroy();
             })
         }
-    
-    
     function EDITOR(stream,path,socket){
             streamUI(stream)
             var title_bar = '<span style="float:left;">' +
