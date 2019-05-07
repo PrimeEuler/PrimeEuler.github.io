@@ -13,22 +13,26 @@
     <script type='text/javascript' src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/jquery.dialogextend.min.js"></script>
     <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
-    
+
+    <!--xterm, pubsub, sheldon, mediaInterface, editor-->
     <link rel="stylesheet" href="css/client.css"/>
     <link rel="stylesheet" href="js/bower_components/xterm.js/dist/xterm.css" />
-    
     <script type="text/javascript" src="js/bower_components/xterm.js/dist/xterm.js"></script>
 	<script type="text/javascript" src="js/bower_components/xterm.js/addons/fit/fit.js"></script>
 	<script type="text/javascript" src="js/pubsub.min.js"></script>
 	<script type="text/javascript" src="js/bundle.js"></script>
 	<script type="text/javascript" src="js/schema.js"></script>
 	<script type="text/javascript" src="js/mediaInterface.js"></script>
-	
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+	<script type="text/javascript" src="js/ace.js"></script>
+	<!--socket.io-stream-->
+    <script type='text/javascript' src="js/socket.io.js"></script>
+    <script type='text/javascript' src="js/socket.io-stream.js"></script>
+
 	
 </head>
 <body >
     <script type="text/javascript">
+    var Http = new XMLHttpRequest();
     var sheldon     = require('sheldon');
     var SHELL       = new sheldon.shell();
     var termOptions = { cols: 100, rows: 35, screenKeys: true, convertEol:true, cursorBlink:true }
@@ -37,6 +41,14 @@
         TERMINAL.on('data',function(data,e,f){
             SHELL.write(data)
         })
+        
+        Http.onreadystatechange=function(e){
+            if(e){ TERMINAL.write( e ) }
+            TERMINAL.write( Http.responseText )
+            SHELL.context.responseText =  Http.responseText
+        }
+        
+        
         SHELL.on('data',function(data){
             TERMINAL.write(data.toString())
         })
@@ -46,7 +58,7 @@
         })
         SHELL.context.window = window
         SHELL.context.REPL.LOOP.ansi();
-        SHELL.context.pubMedia = function(options){
+        SHELL.context.pubMedia  = function(options){
             var stream = new sheldon.stream.Transform({
                     writableObjectMode: true,
                     transform:function(chunk, encoding, callback) {
@@ -56,7 +68,7 @@
                 stream.id = 'publish_' + options.id
                 stream.width = 666;
                 stream.height = 533;
-                streamUI(stream)
+                streamUI( stream )
             var config = {
                 constraints:{ video: true, audio:true },
                 mimeType:'video/webm; codecs="vp8, opus"',
@@ -79,7 +91,7 @@
         	    })
         	    encoder.start();
         }
-        SHELL.context.subMedia = function(options){
+        SHELL.context.subMedia  = function(options){
             var stream = new sheldon.stream.Transform({
                     writableObjectMode: true,
                     transform:function(chunk, encoding, callback) {
@@ -111,17 +123,120 @@
                 
                 
         }
-        SHELL.context.editor = function(options){
+        SHELL.context.editor    = function(path){
             var stream = new sheldon.stream.Transform({
                     objectMode: true,
                     transform:function(chunk, encoding, callback) {
                         callback(null, chunk);
                     }
                 });
-                stream.id = 'edit_' + options.path 
+                stream.id = 'edit_' + path 
                 stream.width = 666;
                 stream.height = 533;
-                streamUI(stream)
+                EDITOR(stream,path)
+        }
+        SHELL.context.wget      = function(url){
+            Http.open("GET", url);
+            Http.send();
+        }
+        SHELL.context.socket    = function(url){
+            var socket = io(url)
+            SHELL.context.sockets.push(  socket );
+            
+            socket.on('connect', function() { SHELL.context.REPL.PRINT.ansi({connect:socket.id}) });
+            socket.on('error', SHELL.context.REPL.PRINT.ansi );
+            socket.on('disconnect', SHELL.context.REPL.PRINT.ansi );
+            socket.io.on("connect_error",function(e){
+                SHELL.context.REPL.PRINT.ansi(e);
+            })
+            
+            
+            ss(socket).on('EDITOR',function(stream,path){
+                ss(socket).on(stream.id,function(e){
+                    stream.emit(e.event,e.data);
+                });
+                EDITOR(stream,path,socket)
+            })
+            
+            return socket
+        } 
+        SHELL.context.sockets   = []
+        SHELL.context.wssh     = function(sIndex){
+            var socket = SHELL.context.sockets[parseInt(sIndex)]
+            var stream = ss.createStream({encoding:'utf8',decodeStrings: false})
+            var _rows = 24;
+            var _cols = 80;
+            var _width = 700;
+            var _height = 400;
+            var _size =  {width:_width , height:_height};
+            var charWidth  = parseInt(_width / _cols);
+            var charHeight = parseInt(_height / _rows);
+            var terminal = new Terminal({ cols: _cols, rows: _rows, screenKeys: true, convertEol:true, cursorBlink:true });
+            
+            function getSize(){
+                _width =  Math.ceil ( $("#" + stream.id).dialog( "option", "width" ) );
+			    _height = Math.ceil ( $("#" + stream.id).dialog( "option", "height" ) ) ;
+                _size = terminal.proposeGeometry();
+                charWidth = parseInt(_width / _size.cols) ;
+                charHeight = parseInt(_height / _size.rows);
+            }
+            function setSize(g){
+                $("#" + stream.id).dialog( "option", "width", (g.cols * charWidth) + 50 ) ;
+                $("#" + stream.id).dialog( "option", "height", (g.rows * charHeight) + 25 ) ;
+                terminal.resize(g.cols, g.rows)
+            }
+            
+            ss(socket).emit('TERMINAL', stream, terminal.options);
+            ss(socket).on( stream.id, function(e){ stream.emit(e.event,e.data); });
+            
+            stream.ioCTL = function(event){
+                //TIOCSWINSZ
+                if(event.type.indexOf('resize') > -1){
+                    getSize()
+                    var e = {
+                        event:'window-change',//'resize',
+                        data:{
+                            rows:_size.rows,
+                            cols:_size.cols,
+                        }
+                    };
+                    ss(socket).emit(stream.id,e);
+                }
+            };
+			stream.width    = _width
+			stream.height   = _height
+            streamUI(stream);
+
+            terminal.open(document.getElementById(stream.id));
+            
+            getSize()
+            setSize({ cols: _cols, rows: _rows })
+            
+            terminal.on('resize',function(size){
+                console.log('term:', size.cols, size.rows,charWidth,charHeight )
+            })
+            stream.on('resize', function(e){
+                setSize(e)
+            });
+            stream.on('data',function(data){
+                //console.log(data)
+                terminal.write(data.toString())
+            })
+            stream.on('rtt',function(data){
+                ss(socket).emit(stream.id,{ event:'rtt', data:data });
+            })
+            terminal.on('data',function(data,e,f){
+                stream.write(data)
+            })
+            stream.on('end',function(){
+                $( "#" + stream.id ).dialog( "destroy" )
+                terminal.destroy();
+            })
+        }
+    
+    
+    function EDITOR(stream,path,socket){
+            streamUI(stream)
             var title_bar = '<span style="float:left;">' +
                                 '<button title="share" '+
                                 'style="height:20px;width:30px;" ' +
@@ -139,8 +254,12 @@
                 $('#save_'  + stream.id).button({ icons: { primary: 'ui-icon-disk' } });
                 $('#save_'  + stream.id).click(function () { 
                     var e = { event:'save', path:path } 
-                    SHELL.util.set(options.path, eval(editor.getValue()) );
-                    SHELL.context.REPL.PRINT.ansi(e)
+                    if(!socket){
+                        SHELL.util.set(path, eval(editor.getValue()) );
+                        SHELL.context.REPL.PRINT.ansi(e)
+                    }else{
+                        ss(socket).emit(stream.id,e);
+                    }
                 });   
             var editor = ace.edit(stream.id);
                 editor.setByAPI = false;
@@ -157,85 +276,35 @@
                     }
                 });
                 stream.on('data',function(data){
-                    SHELL.context.REPL.PRINT.ansi(data)
-                })
-                var ob = SHELL.util.get(options.path)
-                
-                switch(typeof ob){
-                    case 'function':
-                        ob = ob.toString();
-                        break;
-                    case 'object':
-                        ob = sheldon.util.inspect(ob,false,10,false)
-                        //ob = convertToText(ob)
-                        break;
-                    default:
-                        break;
-                }
-                
-                
-                editor.setValue(options.path + ' = ' + ob)
-                
-                //Make an object a string that evaluates to an equivalent object
-                //  Note that eval() seems tricky and sometimes you have to do
-                //  something like eval("a = " + yourString), then use the value
-                //  of a.
-                //
-                //  Also this leaves extra commas after everything, but JavaScript
-                //  ignores them.
-                function convertToText(obj) {
-                    //create an array that will later be joined into a string.
-                    var string = [];
-                
-                    //is object
-                    //    Both arrays and objects seem to return "object"
-                    //    when typeof(obj) is applied to them. So instead
-                    //    I am checking to see if they have the property
-                    //    join, which normal objects don't have but
-                    //    arrays do.
-                    if (typeof(obj) == "object" && (obj.join == undefined)) {
-                        string.push("{");
-                        for (prop in obj) {
-                            string.push(prop, ": ", convertToText(obj[prop]), ",");
-                        };
-                        string.push("}");
-                
-                    //is array
-                    } else if (typeof(obj) == "object" && !(obj.join == undefined)) {
-                        string.push("[")
-                        for(prop in obj) {
-                            string.push(convertToText(obj[prop]), ",");
-                        }
-                        string.push("]")
-                
-                    //is function
-                    } else if (typeof(obj) == "function") {
-                        string.push(obj.toString())
-                
-                    //all other values can be done with JSON.stringify
-                    } else {
-                        string.push(JSON.stringify(obj))
+                    if(!socket){
+                        SHELL.context.REPL.PRINT.ansi(data)
+                    }else{
+                        editor.setByAPI = true;
+                        editor.getSession().getDocument().applyDeltas([data.data]);
+                        editor.setByAPI = false;
                     }
+                })
                 
-                    return string.join("")
+                if(!socket){
+                    var ob = SHELL.util.get(path)
+                    switch(typeof ob){
+                        case 'function':
+                            ob = ob.toString();
+                            break;
+                        case 'object':
+                            ob = sheldon.util.inspect(ob,false,10,false)
+                            break;
+                        default:
+                            break;
+                    }
+                    editor.setValue(path + ' = ' + ob)
                 }
+
                 
                 
-        }
-	    
-	    
-        const Http = new XMLHttpRequest();
-        //const url='https://jsonplaceholder.typicode.com/posts';
         
-        SHELL.context.wget = function(url){
-            Http.open("GET", url);
-            Http.send();
-        }
-        Http.onreadystatechange=(e)=>{
-        //console.log(Http.responseText)
-            //SHELL.context.REPL.PRINT.ansi( Http.responseText)
-            TERMINAL.write( Http.responseText)
-        }	    
+    }
+        
     var streamIndex = -1;
     function streamUI(stream){
                 streamIndex+=5;
@@ -262,7 +331,6 @@
                         "titlebar": "transparent",
                         "minimizeLocation": "left"
                     }
-                    
                 var ui = $('<div/>', div )
                     .appendTo( "body" )
                     .dialog( dialog )
