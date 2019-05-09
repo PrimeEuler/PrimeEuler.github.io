@@ -141,9 +141,9 @@
         }
         SHELL.context.socket    = function(url){
 		//https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/
-		if(url==='default'){
-			url = 'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/'
-		}
+    		if(url==='default'){
+    			url = 'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/'
+    		}
             var socket = io(url)
             SHELL.context.sockets.push(  socket );
             
@@ -153,15 +153,16 @@
             socket.io.on("connect_error",function(e){
                 SHELL.context.REPL.PRINT.ansi(e);
             })
-            
-            
-            ss(socket).on('EDITOR',function(stream,path){
-                ss(socket).on(stream.id,function(e){
-                    stream.emit(e.event,e.data);
-                });
-		stream.width = 666;
-                stream.height = 533;
-                EDITOR(stream,path,socket)
+            ss(socket).on('stream',function(stream,options){
+                sbind(stream,socket)
+                switch(options.type){
+                    case 'editor':
+                        stream.width = 666;
+                        stream.height = 533;
+                        EDITOR(stream,options.path,socket)
+                        break;
+                }
+                
             })
             
             return socket
@@ -192,8 +193,8 @@
                 terminal.resize(g.cols, g.rows)
             }
             
-            ss(socket).emit('TERMINAL', stream, terminal.options);
-            ss(socket).on( stream.id, function(e){ stream.emit(e.event,e.data); });
+            ss(socket).emit('stream', stream, { type:'shell' } );
+            sbind(stream,socket)
             
             stream.ioCTL = function(event){
                 //TIOCSWINSZ
@@ -239,6 +240,22 @@
                 terminal.destroy();
             })
         }
+        
+        
+        
+    function sbind(stream,socket){
+        function emit(e){
+            stream.emit(e.event,e.data);
+        }
+        function remove(){
+            ss(socket).removeListener(stream.id,emit)
+        }
+        ss(socket).on(stream.id, emit) ;
+        stream.on('end',remove)
+        stream.on('socket.io',function(e){
+            ss(socket).emit(stream.id,e)
+        })
+    }    
     function EDITOR(stream,path,socket){
             streamUI(stream)
             var title_bar = '<span style="float:left;">' +
@@ -308,7 +325,6 @@
                 
         
     }
-        
     var streamIndex = -1;
     function streamUI(stream){
                 streamIndex+=5;
