@@ -133,7 +133,8 @@
                 stream.id = 'edit_' + path 
                 stream.width = 666;
                 stream.height = 533;
-                EDITOR(stream,path)
+		stream.path = path
+                editor(stream)
         }
         SHELL.context.wget      = function(url){
             Http.open("GET", url);
@@ -145,6 +146,19 @@
     			url = 'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/'
     		}
             var socket = io(url)
+            var startTime;
+            socket.log = 'rtt'
+            socket.ping = function(){
+                socket.emit('rtt',Date.now(),function(ts){
+                    socket.rtt  = Date.now() - ts
+                    if(socket.log === 'rtt'){
+                        SHELL.context.REPL.PRINT.ansi( {id:socket.id, rtt: socket.rtt } )
+                    }
+                });
+
+            }
+
+            
             SHELL.context.sockets.push(  socket );
             
             socket.on('connect', function() { SHELL.context.REPL.PRINT.ansi({connect:socket.id}) });
@@ -157,9 +171,10 @@
                 sbind(stream,socket)
                 switch(options.type){
                     case 'editor':
+			stream.path = options.path
                         stream.width = 666;
                         stream.height = 533;
-                        EDITOR(stream,options.path,socket)
+                        editor(stream,socket)
                         break;
                 }
                 
@@ -168,69 +183,45 @@
             return socket
         } 
         SHELL.context.sockets   = []
-        SHELL.context.wssh     = function(sIndex){
-            var socket = SHELL.context.sockets[parseInt(sIndex)]
-            var stream = ss.createStream({encoding:'utf8',decodeStrings: false})
-            var _rows = 24;
-            var _cols = 80;
-            var _width = 700;
-            var _height = 400;
-            var _size =  {width:_width , height:_height};
-            var charWidth  = parseInt(_width / _cols);
-            var charHeight = parseInt(_height / _rows);
-            var terminal = new Terminal({ cols: _cols, rows: _rows, screenKeys: true, convertEol:true, cursorBlink:true });
-            
-            function getSize(){
-                _width =  Math.ceil ( $("#" + stream.id).dialog( "option", "width" ) );
-			    _height = Math.ceil ( $("#" + stream.id).dialog( "option", "height" ) ) ;
-                _size = terminal.proposeGeometry();
-                charWidth = parseInt(_width / _size.cols) ;
-                charHeight = parseInt(_height / _size.rows);
+        SHELL.context.stream     = function(options){
+            var socket = SHELL.context.sockets[0]
+            var stream = ss.createStream({encoding:'utf8',decodeStrings: false})            
+            ss(socket).emit('stream', stream, options );
+            sbind( stream, socket )
+            switch( options.type ){
+                case 'vty':
+                    vty( stream )
+                    break;
+                case 'pub':
+                    var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
+                            stream.write(data)
+                    })
+                    stream.on('end',function(){
+                        PubSub.unsubscribe(subscriber)
+                    })
+                    break;
+                case 'sub':
+                    stream.on("data",function(data){
+                        PubSub.publish( options.id ,data)
+                    }) 
+                    break;
             }
-            function setSize(g){
-                $("#" + stream.id).dialog( "option", "width", (g.cols * charWidth) + 50 ) ;
-                $("#" + stream.id).dialog( "option", "height", (g.rows * charHeight) + 25 ) ;
-                terminal.resize(g.cols, g.rows)
-            }
-            
-            ss(socket).emit('stream', stream, { type:'shell' } );
-            sbind(stream,socket)
-            
-            stream.ioCTL = function(event){
-                //TIOCSWINSZ
-                if(event.type.indexOf('resize') > -1){
-                    getSize()
-                    var e = {
-                        event:'window-change',//'resize',
-                        data:{
-                            rows:_size.rows,
-                            cols:_size.cols,
-                        }
-                    };
-                    ss(socket).emit(stream.id,e);
-                }
-            };
-			stream.width    = _width
-			stream.height   = _height
-            streamUI(stream);
 
-            terminal.open(document.getElementById(stream.id));
+
+        }
+        
+        
+    function vty(stream){
+        
+        var terminal = new Terminal({ cols: 80, rows: 24, screenKeys: true, convertEol:true, cursorBlink:true });
+        
+            stream.width    = 700
+	        stream.height   = 400
+            streamUI(stream);
+            terminal.open( document.getElementById(stream.id) );
             
-            getSize()
-            setSize({ cols: _cols, rows: _rows })
-            
-            terminal.on('resize',function(size){
-                console.log('term:', size.cols, size.rows,charWidth,charHeight )
-            })
-            stream.on('resize', function(e){
-                setSize(e)
-            });
             stream.on('data',function(data){
-                //console.log(data)
                 terminal.write(data.toString())
-            })
-            stream.on('rtt',function(data){
-                ss(socket).emit(stream.id,{ event:'rtt', data:data });
             })
             terminal.on('data',function(data,e,f){
                 stream.write(data)
@@ -239,24 +230,26 @@
                 $( "#" + stream.id ).dialog( "destroy" )
                 terminal.destroy();
             })
-        }
+            stream.on('close',function(){
+                $( "#" + stream.id ).dialog( "destroy" )
+                terminal.destroy();
+            })
         
-        
-        
-    function sbind(stream,socket){
+    }    
+    function sbind(stream, socket){
         function emit(e){
             stream.emit(e.event,e.data);
         }
-        function remove(){
+        function absorb(){
             ss(socket).removeListener(stream.id,emit)
         }
         ss(socket).on(stream.id, emit) ;
-        stream.on('end',remove)
+        stream.on('end',absorb)
         stream.on('socket.io',function(e){
             ss(socket).emit(stream.id,e)
         })
     }    
-    function EDITOR(stream,path,socket){
+    function editor(stream,socket){
             streamUI(stream)
             var title_bar = '<span style="float:left;">' +
                                 '<button title="share" '+
@@ -274,25 +267,25 @@
                 $('#share_' + stream.id).click(function () { var e = { event:'share'} });    
                 $('#save_'  + stream.id).button({ icons: { primary: 'ui-icon-disk' } });
                 $('#save_'  + stream.id).click(function () { 
-                    var e = { event:'save', path:path } 
+                    var e = { event:'save', path:stream.path } 
                     if(!socket){
-                        SHELL.util.set(path, eval(editor.getValue()) );
+                        SHELL.util.set(stream.path, eval(editor.getValue()) );
                         SHELL.context.REPL.PRINT.ansi(e)
                     }else{
-                        ss(socket).emit(stream.id,e);
+                        ss(socket).emit( stream.id, e );
                     }
                 });   
-            var editor = ace.edit(stream.id);
-                editor.setByAPI = false;
-                editor.setFontSize(12);
-                editor.setShowPrintMargin(false);
-                editor.setTheme("ace/theme/monokai");
-                editor.getSession().setMode("ace/mode/javascript");
-                editor.on('beforeChange', function(cm,change){
+            var edit = ace.edit(stream.id);
+                edit.setByAPI = false;
+                edit.setFontSize(12);
+                edit.setShowPrintMargin(false);
+                edit.setTheme("ace/theme/monokai");
+                edit.getSession().setMode("ace/mode/javascript");
+                edit.on('beforeChange', function(cm,change){
                     //console.log(cm,change)
                 });
-                editor.on('change', function (delta) {
-                    if(!editor.setByAPI){
+                edit.on('change', function (delta) {
+                    if(!edit.setByAPI){
                         stream.write(delta)
                     }
                 });
@@ -300,14 +293,14 @@
                     if(!socket){
                         SHELL.context.REPL.PRINT.ansi(data)
                     }else{
-                        editor.setByAPI = true;
-                        editor.getSession().getDocument().applyDeltas([data.data]);
-                        editor.setByAPI = false;
+                        edit.setByAPI = true;
+                        edit.getSession().getDocument().applyDeltas([data.data]);
+                        edit.setByAPI = false;
                     }
                 })
                 
                 if(!socket){
-                    var ob = SHELL.util.get(path)
+                    var ob = SHELL.util.get(stream.path)
                     switch(typeof ob){
                         case 'function':
                             ob = ob.toString();
@@ -318,7 +311,7 @@
                         default:
                             break;
                     }
-                    editor.setValue(path + ' = ' + ob)
+                    edit.setValue(stream.path + ' = ' + ob)
                 }
 
                 
