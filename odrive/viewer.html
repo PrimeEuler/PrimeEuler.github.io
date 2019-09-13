@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <title>odrive</title>
+        <!--custom jquery-->
+    <link rel="stylesheet"  type="text/css" media="screen" href="css/flat-8139-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <script type='text/javascript' src="js/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    
+    <!--touch, dialogextend and jquery mouswheel plugin -->
+    <script type='text/javascript' src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/jquery.dialogextend.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+    <!--xterm, odrive-->
+    <link rel="stylesheet" href="css/client.css"/>
+    <link rel="stylesheet" href="js/bower_components/xterm.js/dist/xterm.css" />
+    <script type="text/javascript" src="js/bower_components/xterm.js/dist/xterm.js"></script>
+	<script type="text/javascript" src="js/bower_components/xterm.js/addons/fit/fit.js"></script>
+	<script type="text/javascript" src="js/bundle.js"></script>
+	<script type="text/javascript" src="js/odrive_web.js"></script>
+	<script type="text/javascript" src="js/fibre_web.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.2.0/jquery.json2html.min.js"></script>
+    
+    
+    <style>
+    
+		#page {     min-height:600px;
+		       		background-color: #262626;
+		            border-radius: 5px 5px 5px 5px;
+		            box-shadow: 0 0 5px #000000;
+		            clear: left;
+		            padding: 60px 0 0;
+		            margin-top:0px;}
+		#header, #page, #footer {
+		            margin: 0 auto;
+		            position: relative;
+		            width: 670px;}   
+		html {      background-color: #262626;}
+	    body {      background-color: transparent;
+		            font-family: monospace;
+		            font-size: 10pt;
+		            padding: 0px 0 30px;}
+		            
+		.package {  margin-left:10px;
+		            padding:3px;
+		            border-radius:10px;
+		            background-color:transparent; 
+		            margin-top:2px;}
+		.header {   cursor:pointer;}
+		.name   {   color:#cc8139;}
+		.array {    background-color:#262626;
+		            border:thin solid #595540}
+		.object {   background-color:transparent; 
+		            //background-color:#262626;
+		            border:thin solid #595540}
+		.string {   color:papayawhip;}
+		.number {   color:papayawhip;}
+		.function { color:papayawhip;}
+		.boolean { color:papayawhip;}
+		.open .children {display:block;}
+		.closed .children {display:none;}
+		
+		.arrow {    //background-image:url("/js/d.png"); 
+		            background-image:url("/css/flat-8139-theme/images/ui-icons_595540_256x240.png"); 
+		            background-repeat:no-repeat; 
+		            background-color:transparent; 
+		            height:15px; width:15px; 
+		            display:inline-block;}
+		.open .arrow {background-position:-64px -15px;}
+		.closed .arrow {background-position:-32px -15px;}
+		.type {     color:gray;
+		            font-size:8pt;
+		            float:right;}
+		.hide {     display:none;}
+		.ui-autocomplete{width:100px;}
+		.ui-menu { color:#cc8139;}
+        .input {
+                    background-color: #262626;
+                    color: papayawhip;
+                    font-family: monospace;
+                    border: 5px solid #595540;}		
+
+	</style>
+</head>
+<body >
+<div id="control"></div>
+    <script type="text/javascript">
+    var Odrive      = require('odrive');
+    var objectPath  = require('odrive').objectPath;
+    var Fibre       = require('fibre');
+    var stream      = require('fibre').stream;
+    var Buffer      = require('fibre').Buffer;
+    var odrive      = new Odrive();
+    var fibre       = new Fibre();
+    var oidView     = []
+    var msgStats    = { ts:Date.now(), ms:0, count:0 };
+    var odrv0       = {json:''} ;
+    var xIndex      = 0;
+    var control   = {
+            usb:{
+            vendorId: 0x1209,
+            configuration: 1,
+            interface:2,
+            endpoint:3,   
+            connect:function(){
+                    navigator.usb.requestDevice( { filters: [{ vendorId: control.usb.vendorId }] } )
+                    .then(selectedDevice => {
+                            device = selectedDevice;
+                            xwindow({ id:'odrv0', width:640, height:480, end:function(){ delete odrv0 } })
+                            toHTML(odrv0,"odrv0")
+                            return device.open();
+                         }
+                    )
+                    .then(() => device.selectConfiguration(control.usb.configuration)) // Select configuration #1 for the device.
+                    .then(() => device.claimInterface(control.usb.interface)) // Request exclusive control over interface #2.
+                    .then(() => {
+                        control.usb.error = 'NONE'
+                        var native = new stream.Duplex({
+                                read:function(size){ },
+                                write:function(chunk, encoding, callback){
+                                    device.transferOut(control.usb.endpoint,chunk)
+                                    callback()
+                                }
+                            } )
+                            async function pull(){
+                                var result = await device.transferIn(control.usb.endpoint, 64);
+                                    if(result.data){
+                                            native.push(new Buffer.from( result.data.buffer ))
+                                            await pull()
+                                    }
+                                    if (result.status === 'stall') {
+                                        control.usb.error = 'Endpoint stalled. Clearing.'
+                                        await device.clearHalt(1);
+                                    }
+                            }
+                            pull()
+                            native.on('error', function(er){ control.usb.error = er })
+                            native
+                                .pipe(fibre)
+                                .pipe(native)   })
+                    .then(() => {
+                            fibre.get(0,512,function(buffer){
+                                    odrive.JSON = buffer.toString()
+                                    fibre.endpoints   = JSON.parse( odrive.JSON  )
+                                    odrv0       = odrive.marshal( JSON.parse( odrive.JSON  ) )
+                                    delete odrv0['']
+                                    toHTML(odrv0,"odrv0")
+                                    
+                            })
+                    })
+                    .catch(error => { control.usb.error = error });
+            },
+            error:'NONE'
+            },
+            odrive : {
+                enums: function(){
+                    xwindow({ id:'enums', width:640, height:480, end:function(){  } })
+                    
+                    proxy(odrive.enums,"enums")
+                    
+                    toHTML(odrive.enums,"enums")
+                },
+                error:'NONE'
+            },
+            fibre : {
+                msgQueue:0,
+                'msgs/sec':0,
+                endpoints:function(){
+                    xwindow({ id:'endpoints', width:640, height:480, end:function(){ } })
+                    proxy( fibre.endpoints, 'endpoints')
+                    toHTML( fibre.endpoints,"endpoints")
+                },
+                error:'NONE'
+            }
+    };
+    var transforms  = {
+        object: { '<>': 'div', class: 'package ${show} ${type}',  html: [
+                    { '<>': 'div', class: 'header', oid: '${oid}' + '.header',  html: [
+                        {   '<>': 'div',  class: getArrow },
+                		{   '<>': 'span', class: 'name',  oid: '${oid}' + '.name',    html: '${name} : ' },
+                		{   '<>': 'span', class: 'value', oid: '${oid}' + '.value',   html: function (obj) { return  getValue(obj.value) } }
+                	]},
+                	{   '<>': 'div', class: 'children',  html: function (obj) { return getChildren(obj.value); } }
+                ]}
+    };
+    var visable     = $('.value[oid*="odrv0"]:visible')
+    var updateView  = setInterval( function(){
+        var oids = []
+        for(var i =0;i<visable.length;i++){ 
+            var oid =  $( visable[i] ).attr('oid')
+            if(oid.indexOf('odrv0')===0)
+            oids.push(oid.replace('.value',''))
+        }
+        oidView = oids
+    }, 500 )
+    var updateOIDS  = setInterval( function(){
+        oidView.forEach(function(oid){
+            objectPath.get(window,  oid);
+        })
+        
+    }, 500 )
+    var updateStats = setInterval( function(){ 
+        msgStats.ms     = Date.now() -  msgStats.ts
+        msgStats.ts     = Date.now()
+        msgStats.count  =  control.fibre.msgQueue - fibre.source.length 
+        control.fibre['msgs/sec'] = Math.floor((1000/msgStats.ms) * msgStats.count)
+        control.fibre.msgQueue = fibre.source.length 
+        
+    }, 100 )   
+
+
+        function xwindow(X){
+                    if($('#' + X.id).length ){ return }
+                    xIndex+=20;
+                    var div     = { 
+                            id: X.id, 
+                            style: 'background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;'
+                        };
+                    var dialog  = {
+                            "width": X.width,
+                            "height": X.height,
+                            "minHeight":X.height,
+                            "minWidth": X.width,
+                            "position": [50 + xIndex   ,50 + xIndex],
+                            "title": "X(" + X.id + ")",
+                            "style":'font-size: 20pt; background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;',
+                            "close" : function(event, ui){ X.end(); $("#" + X.id).remove()  }
+                        };
+                    var extend = {
+                            "closable": true,
+                            "minimizable": true,
+                            "maximizable": true,
+                            "collapsable": true,
+                            "dblclick": "collapse",
+                            "titlebar": "transparent",
+                            "minimizeLocation": "left"
+                        }
+                    var ui = $('<div/>', div )
+                        .appendTo( "body" )
+                        .dialog( dialog )
+                        .dialogExtend( extend )
+                        .data("uiDialog")._title = function (title) { title.html(this.options.title); };
+                        //document.getElementById( X.id).style.textShadow = "1px 1px 1px #000000";
+        }
+        function proxy(object,name ){
+                function paths(value, path, parent){
+                        var type = typeof(value)
+                        Array.isArray(value)?type='array':null;
+                        switch(type){
+                            case 'object':
+                                for (var p in value) {
+                                    paths(value[p], path ? path+"."+p : p, value);
+                                }
+                            break;
+                            case 'array':
+                                for(var i=0; i< value.length; i++){
+                                    paths(value[i], path + "[" + i + "]", value);
+                                }
+                            break;
+                            default:
+                                Object.defineProperty(parent, path.split('.').pop(), { 
+                                    get:function(){ return value },
+                                    set:function(val){
+                                        value = val
+                                        var el = $('[oid="' + name + '.' + path + '.value"]');
+                                        if( el.is(":focus")!==true){ el.text(val) }
+                                    }
+                                })
+                            break;
+                        }
+                }
+                paths(object,'',{})
+                return object
+        }
+        function getArrow(obj){
+            if (getValue(obj.value) !== undefined) 
+            return ('arrow hide');
+            else 
+            return ('arrow');
+        }
+        function toHTML(json, path) {
+            $('#' + path).html('');
+            $('#' + path).json2html(convert(path, path, json, 'open', path), transforms.object);
+            regEvents();
+            visable = $('.value[oid*="odrv0"]:visible')
+        }
+        function getValue(obj) {
+            var type = $.type(obj);
+            switch (type) {
+                case 'array':
+                case 'object':
+                    return undefined;
+                    break;
+                case 'function':
+                    return '()';
+                    break;
+                case 'string':
+                    return obj ;
+                    break;
+                default:
+                    return obj;
+                    break;
+            }
+        }
+        function getChildren(obj) {
+            var type = $.type(obj);
+            switch (type) {
+                case 'array':
+                case 'object':
+                    return (json2html.transform(obj, transforms.object));
+                    break;
+                default:
+                    break;
+            }
+        }
+        function convert(oid, name, obj, show, path) {
+            var type = $.type(obj);
+            var value = [];
+            var delimiter = "";
+            if (oid != '') { delimiter = "."; }
+    
+            switch (type) {
+                case 'array':
+                    var len = obj.length;
+                    show = 'closed';
+                    for (var j = 0; j < len; ++j) {
+                        if (path.indexOf(oid + delimiter + j) > -1 || oid == ''||path===oid) {
+                            show = 'open';
+                        } 
+                        value[j] = convert(oid + delimiter + j, j, obj[j], show, path);
+                    }
+                    break;
+                case 'object':
+                    var j = 0;
+                    show = 'closed';
+                    for (var prop in obj) {
+                        if (path.indexOf(oid + delimiter + prop) > -1 || oid == '' || path === oid) {
+                            show = 'open';
+                        }
+                        value[j] = convert(oid + delimiter + prop, prop, obj[prop], show, path);
+                        j++;
+                    }
+                    break;
+                default:
+                    show = 'closed';
+    
+                    value = obj;
+                    break;
+            }
+            return ({ 'oid': oid, 'name': name, 'value': value, 'type': type, 'show': show, 'path': path});
+        }
+        function regEvents() {
+            $('.package.object').off('click').on('click',  function () {
+                visable = $('.value[oid*="odrv0"]:visible')
+            })
+            $('.header').off('click').on('click',  function () {
+                var oid =  $(this).attr('oid').replace('.header','') 
+                var parent = $(this).parent();
+                if (parent.hasClass('closed')) {
+                    parent.removeClass('closed');
+                    parent.addClass('open');
+                } else 
+                if (parent.hasClass('open')){
+                    parent.removeClass('open');
+                    parent.addClass('closed');
+                }
+                
+            });
+            $('.value').off('click').on('click', function (event) {
+                    var oid = $(this).attr('oid').replace('.value','')
+                    if($(this).text()==='()'){
+                         objectPath.get(window, oid )()
+                    }else{
+                        $(this).prop('contenteditable', true);
+                        $(this).css('background-color', '#cc8139')
+                        $(this).focus()
+                        
+                       
+                    }
+            })
+            $('.value').blur( function () {
+                    var oid = $(this).attr('oid').replace('.value','')
+                    var value   =   $(this).text()
+                    $(this).prop('contenteditable', false);
+                    $(this).css('background-color', '#262626');
+                    if(value!=='()'){
+                        objectPath.set(window, oid, value  );
+                    }
+            });
+    
+        }
+    
+        fibre.on('error',function(error){ control.fibre.error = error })
+        fibre.on('info',function(error){ control.fibre.error = error })
+        fibre.on('download.start',function(value){
+            var el =  $('[oid="odrv0.json.value"]')
+                el.html('')
+                el.width(200).height(5).css({ 'background': '#cc8139' })
+                el.progressbar({ value:0, max:27380 })
+                fibre.on('download.update',function(value){
+                   el.progressbar( "option", "value", value );
+                })
+                fibre.on('download.complete',function(value){
+                    el.progressbar( "option", "value", value );
+                })
+        })
+
+        
+        odrive.on('error',function(error){ control.odrive.error = error })
+        odrive.on('get',function(endpoint,callback){
+            
+                fibre.get(endpoint.id, endpoint.length, function(data){
+                    callback(data)
+                    var el =  $('[oid="odrv0'+ endpoint.namespace + '.value"]')
+                    if( el.is(":focus")!==true && endpoint.type !=='function'){
+                        el.text( endpoint.read(0) )
+                    }
+                    
+                });
+                
+
+        })
+        odrive.on('set',function(endpoint,callback){
+                fibre.set(endpoint.id, endpoint.buffer, function(data){
+                    callback(data)
+                    var el =  $('[oid="odrv0'+ endpoint.namespace + '.value"]')
+                    if( el.is(":focus")!==true && endpoint.type !=='function'){
+                        el.text( endpoint.read(0) )
+                    }
+                    
+                });
+        })
+
+        proxy(control,'control')
+        toHTML(control,"control")
+    
+    
+    </script>
+</body>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <title>pipe</title>
+    
+    <!--custom jquery-->
+    <link rel="stylesheet"  type="text/css" media="screen" href="css/flat-8139-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <script type='text/javascript' src="js/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    
+    <!--touch, dialogextend and jquery mouswheel plugin -->
+    <script type='text/javascript' src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/jquery.dialogextend.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+    <!--xterm, pubsub, sheldon, mediaInterface, editor-->
+    <link rel="stylesheet" href="css/client.css"/>
+    <link rel="stylesheet" href="js/bower_components/xterm.js/dist/xterm.css" />
+    <script type="text/javascript" src="js/bower_components/xterm.js/dist/xterm.js"></script>
+	<script type="text/javascript" src="js/bower_components/xterm.js/addons/fit/fit.js"></script>
+	<script type="text/javascript" src="js/pubsub.min.js"></script>
+	<script type="text/javascript" src="js/bundle.js"></script>
+	<script type="text/javascript" src="js/schema.js"></script>
+	<script type="text/javascript" src="js/mediaInterface.js"></script>
+	<script type="text/javascript" src="js/ace.js"></script>
+    <script type="text/javascript" src="js/odrive_bundle.js"></script>
+	<!--socket.io-stream-->
+    <script type='text/javascript' src="js/socket.io.js"></script>
+    <script type='text/javascript' src="js/socket.io-stream.js"></script>
+
+	
+</head>
+<body >
+    <script type="text/javascript">
+    var Http = new XMLHttpRequest();
+    var sheldon     = require('sheldon');
+    var odrive      = require('odrive');
+    var SHELL       = new sheldon.shell();
+    var termOptions = { cols: 100, rows: 35, screenKeys: true, convertEol:true, cursorBlink:true }
+    var TERMINAL    = new Terminal(termOptions);
+        TERMINAL.open(document.body);
+        TERMINAL.on('data',function(data,e,f){
+            SHELL.write(data)
+        })
+        
+        Http.onreadystatechange=function(e){
+            if(e){ TERMINAL.write( e ) }
+            TERMINAL.write( Http.responseText )
+            SHELL.context.responseText =  Http.responseText
+        }
+        
+        
+        SHELL.on('data',function(data){
+            TERMINAL.write(data.toString())
+        })
+        SHELL.on('end',function(){
+            $( "#" + SHELL.id ).dialog( "destroy" )
+            TERMINAL.destroy();
+        })
+        SHELL.context.window = window
+        
+        SHELL.context.odrive = new odrive()
+        SHELL.context.usb = {
+            connect: function(vid){
+                        navigator.usb.requestDevice({ filters: [{ vendorId: 0x1209 }] })
+                        .then(selectedDevice => {
+                               device = selectedDevice;
+                               return device.open(); // Begin a session.
+                             }
+                        )
+                        .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
+                        .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
+                        .then(() => {
+                            var deviceDescriptor = {}
+                                deviceDescriptor.productName        = device.productName
+                                deviceDescriptor.manufacturerName   = device.manufacturerName
+                                SHELL.context.REPL.PRINT.ansi( deviceDescriptor )
+                                SHELL.context.usb.device = device
+                                SHELL.context.usb.native = new sheldon.stream.Duplex({
+                                    read:function(size){ },
+                                    write:function(chunk, encoding, callback){
+                                        SHELL.context.usb.device.transferOut(3,chunk)
+                                        callback()
+                                    }
+                                } )
+                                SHELL.context.usb.native.on('error',SHELL.context.REPL.PRINT.ansi)
+                                SHELL.context.odrive.fibre.on('error',SHELL.context.REPL.PRINT.ansi)
+                                SHELL.context.odrive.fibre.on('payload.start',SHELL.context.REPL.PRINT.ansi)
+                                SHELL.context.odrive.fibre.on('payload.update',SHELL.context.REPL.PRINT.ansi)
+                                SHELL.context.odrive.fibre.on('payload.complete',SHELL.context.REPL.PRINT.ansi)
+                                SHELL.context.odrive.on('error', SHELL.context.REPL.PRINT.ansi )
+                                SHELL.context.odrive.on('remoteObject', function(object){
+                                        delete object[''] 
+                                            SHELL.context.odrive.unmarshal(object)
+                                            SHELL.context.odrv0 = object
+                                            setTimeout(function(){
+                                                SHELL.context.REPL.PRINT.ansi('Connected to ODrive ' + object.serial_number  + ' as odrv0.')
+                                            },100)
+                                        
+                                }) 
+                                SHELL.context.odrive.connect( )
+                                SHELL.context.odrive.fibre.connect(SHELL.context.usb.native)
+                            
+                            async function pull(){
+                                var result = await SHELL.context.usb.device.transferIn(3, 96);
+                                    if(result.data){
+                                            SHELL.context.usb.native.push(new sheldon.Buffer.from( result.data.buffer ))
+                                            await pull()
+                                    }
+                                    if (result.status === 'stall') {
+                                        SHELL.context.REPL.PRINT.ansi('Endpoint stalled. Clearing.');
+                                        await device.clearHalt(1);
+                                    }
+                            }
+                            pull()
+
+                        })
+                        .catch(error => { SHELL.context.REPL.PRINT.ansi(error); });
+            }
+        }
+        
+        
+        
+        
+        SHELL.context.REPL.LOOP.ansi();
+        SHELL.context.pubMedia  = function(options){
+            var stream = new sheldon.stream.Transform({
+                    writableObjectMode: true,
+                    transform:function(chunk, encoding, callback) {
+                        callback(null, chunk);
+                    }
+                });
+                stream.id = 'publish_' + options.id
+                stream.width = 666;
+                stream.height = 533;
+                streamUI( stream )
+            var config = {
+                constraints:{ video: true, audio:true },
+                mimeType:'video/webm; codecs="vp8, opus"',
+                interval:100,
+                log:options.log?SHELL.context.REPL.PRINT.ansi:null,
+                on_data:function(data){
+                    stream.write( new sheldon.Buffer(data) )
+                }
+            }
+            var encoder = mediaInterface.createMediaEncoder(config);
+                $(encoder.canvas).width(640).height(480).appendTo( $("#" + stream.id) );
+                stream.on("data",function(data){
+                    PubSub.publish( options.id ,data)
+                })  
+                stream.on('error',function(e){
+                   SHELL.context.REPL.PRINT.ansi(e)
+        	    })
+                stream.on('end',function(){
+                    encoder.end()
+        	    })
+        	    encoder.start();
+        }
+        SHELL.context.subMedia  = function(options){
+            var stream = new sheldon.stream.Transform({
+                    writableObjectMode: true,
+                    transform:function(chunk, encoding, callback) {
+                        callback(null, chunk);
+                    }
+                });
+                stream.id = 'subscribe_' + options.id
+                stream.width = 666;
+                stream.height = 533;
+                streamUI(stream)
+            var config = {
+                mimeType:'video/webm; codecs="vp8, opus"',
+                log:options.log?SHELL.context.REPL.PRINT.ansi:null
+            }
+            var decoder = mediaInterface.createMediaDecoder(config);
+            $(decoder.canvas).width(640).height(480).appendTo( $("#" + stream.id) );
+            var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
+                    stream.write(data)
+            })
+            stream.on('data',function(data){
+                decoder.write(data)
+            })
+            stream.on('end',function(){
+                PubSub.unsubscribe(subscriber)
+                decoder.end()
+            })
+            decoder.start();
+                
+                
+                
+        }
+        SHELL.context.editor    = function(path){
+            var stream = new sheldon.stream.Transform({
+                    objectMode: true,
+                    transform:function(chunk, encoding, callback) {
+                        callback(null, chunk);
+                    }
+                });
+                stream.id = 'edit_' + path 
+                stream.width = 666;
+                stream.height = 533;
+		stream.path = path
+                editor(stream)
+        }
+        SHELL.context.wget      = function(url){
+            Http.open("GET", url);
+            Http.send();
+        }
+        SHELL.context.socket    = function(url){
+		//https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/
+    		if(url==='default'){
+    			url = 'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/'
+    		}
+            var socket = io(url)
+            var startTime;
+            socket.log = 'rtt'
+            socket.ping = function(){
+                socket.emit('rtt',Date.now(),function(ts){
+                    socket.rtt  = Date.now() - ts
+                    if(socket.log === 'rtt'){
+                        SHELL.context.REPL.PRINT.ansi( {id:socket.id, rtt: socket.rtt } )
+                    }
+                });
+
+            }
+
+            
+            SHELL.context.sockets.push(  socket );
+            
+            socket.on('connect', function() { SHELL.context.REPL.PRINT.ansi({connect:socket.id}) });
+            socket.on('error', SHELL.context.REPL.PRINT.ansi );
+            socket.on('disconnect', SHELL.context.REPL.PRINT.ansi );
+            socket.io.on("connect_error",function(e){
+                SHELL.context.REPL.PRINT.ansi(e);
+            })
+            ss(socket).on('stream',function(stream,options){
+                sbind(stream,socket)
+                switch(options.type){
+                    case 'editor':
+			stream.path = options.path
+                        stream.width = 666;
+                        stream.height = 533;
+                        editor(stream,socket)
+                        break;
+                }
+                
+            })
+            
+            return socket
+        } 
+        SHELL.context.sockets   = []
+        SHELL.context.stream     = function(options){
+            var socket = SHELL.context.sockets[0]
+            var stream = ss.createStream({encoding:'utf8',decodeStrings: false})            
+            ss(socket).emit('stream', stream, options );
+            sbind( stream, socket )
+            switch( options.type ){
+                case 'vty':
+                    vty( stream )
+                    break;
+                case 'pub':
+                    var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
+                            stream.write(data)
+                    })
+                    stream.on('end',function(){
+                        PubSub.unsubscribe(subscriber)
+                    })
+                    break;
+                case 'sub':
+                    stream.on("data",function(data){
+                        PubSub.publish( options.id ,data)
+                    }) 
+                    break;
+            }
+
+
+        }
+        
+        
+    function vty(stream){
+        
+        var terminal = new Terminal({ cols: 80, rows: 24, screenKeys: true, convertEol:true, cursorBlink:true });
+        
+            stream.width    = 700
+	        stream.height   = 400
+            streamUI(stream);
+            terminal.open( document.getElementById(stream.id) );
+            
+            stream.on('data',function(data){
+                terminal.write(data.toString())
+            })
+            terminal.on('data',function(data,e,f){
+                stream.write(data)
+            })
+            stream.on('end',function(){
+                $( "#" + stream.id ).dialog( "destroy" )
+                terminal.destroy();
+            })
+            stream.on('close',function(){
+                $( "#" + stream.id ).dialog( "destroy" )
+                terminal.destroy();
+            })
+        
+    }    
+    function sbind(stream, socket){
+        function emit(e){
+            stream.emit(e.event,e.data);
+        }
+        function absorb(){
+            ss(socket).removeListener(stream.id,emit)
+        }
+        ss(socket).on(stream.id, emit) ;
+        stream.on('end',absorb)
+        stream.on('socket.io',function(e){
+            ss(socket).emit(stream.id,e)
+        })
+    }    
+    function editor(stream,socket){
+            streamUI(stream)
+            var title_bar = '<span style="float:left;">' +
+                                '<button title="share" '+
+                                'style="height:20px;width:30px;" ' +
+                                'id="share_' + stream.id + '"/></span>'+
+                            '<span style="float:left;">' + 
+                                '<button title="save" ' + 
+                                'style="height:20px;width:30px;" ' +
+                                'id="save_' + stream.id + '"/></span>' +
+                            '<span style="float:center;">' + 
+                                '<div id="title_' + stream.id + '"> &nbsp &nbsp' +
+                                stream.id + '</div></span>';
+                $("#" + stream.id).dialog('option', 'title', title_bar);
+                $('#share_' + stream.id).button({ icons: { primary: 'ui-icon-signal-diag' } })
+                $('#share_' + stream.id).click(function () { var e = { event:'share'} });    
+                $('#save_'  + stream.id).button({ icons: { primary: 'ui-icon-disk' } });
+                $('#save_'  + stream.id).click(function () { 
+                    var e = { event:'save', path:stream.path } 
+                    if(!socket){
+                        SHELL.util.set(stream.path, eval(editor.getValue()) );
+                        SHELL.context.REPL.PRINT.ansi(e)
+                    }else{
+                        ss(socket).emit( stream.id, e );
+                    }
+                });   
+            var edit = ace.edit(stream.id);
+                edit.setByAPI = false;
+                edit.setFontSize(12);
+                edit.setShowPrintMargin(false);
+                edit.setTheme("ace/theme/monokai");
+                edit.getSession().setMode("ace/mode/javascript");
+                edit.on('beforeChange', function(cm,change){
+                    //console.log(cm,change)
+                });
+                edit.on('change', function (delta) {
+                    if(!edit.setByAPI){
+                        stream.write(delta)
+                    }
+                });
+                stream.on('data',function(data){
+                    if(!socket){
+                        SHELL.context.REPL.PRINT.ansi(data)
+                    }else{
+                        edit.setByAPI = true;
+                        edit.getSession().getDocument().applyDeltas([data.data]);
+                        edit.setByAPI = false;
+                    }
+                })
+                
+                if(!socket){
+                    var ob = SHELL.util.get(stream.path)
+                    switch(typeof ob){
+                        case 'function':
+                            ob = ob.toString();
+                            break;
+                        case 'object':
+                            ob = sheldon.util.inspect(ob,false,10,false)
+                            break;
+                        default:
+                            break;
+                    }
+                    edit.setValue(stream.path + ' = ' + ob)
+                }
+
+                
+                
+        
+    }
+    var streamIndex = -1;
+    function streamUI(stream){
+                streamIndex+=5;
+                var div     = { 
+                        id: stream.id, 
+                        style: 'background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;'
+                    };
+                var dialog  = {
+                        "width": stream.width,
+                        "height": stream.height,
+                        "minHeight":stream.height,
+                        "minWidth": stream.width,
+                        "position": [50 + streamIndex   ,50 + streamIndex],
+                        "title": stream.id,
+                        "style":'font-size: 20pt; background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;',
+                        "close" : function(event, ui){ stream.end(); $("#" + stream.id).remove()  }
+                    };
+                var extend = {
+                        "closable": true,
+                        "minimizable": true,
+                        "maximizable": true,
+                        "collapsable": true,
+                        "dblclick": "collapse",
+                        "titlebar": "transparent",
+                        "minimizeLocation": "left"
+                    }
+                var ui = $('<div/>', div )
+                    .appendTo( "body" )
+                    .dialog( dialog )
+                    .dialogExtend( extend )
+                    .data("uiDialog")._title = function (title) { title.html(this.options.title); };
+                    //document.getElementById( stream.id).style.textShadow = "5px 5px 1px #000000";
+                    /*
+                    $("#" + stream.id).bind("dialogdragstop", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogresizestop", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendminimize", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendmaximize", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendcollapse", stream.ioCTL);
+                    $("#" + stream.id).bind("dialogextendrestore", stream.ioCTL);
+                    */
+               
+                    
+
+    }
+        
+        
+        
+    </script>
+</body>
+    
+    
+    
