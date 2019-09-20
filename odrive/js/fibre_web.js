@@ -5898,16 +5898,65 @@ function fibre(){
     var MAX_PACKET_SIZE     = 128;
     var self = new stream.Duplex({
             read:function(size){ },
-            write:function(chunk, encoding, callback){
-                Response(chunk)
+            write:function(buffer, encoding, callback){
+                Response(buffer)
                 callback()
+                self.stats.rx_bytes += buffer.length;
+                self.stats.rx_pkts  ++
+
             }
         } )
+        self.on('data',function(buffer){
+            self.stats.tx_bytes +=buffer.length;
+            self.stats.tx_pkts  ++;
+        })
+        self.stats   = {
+            rx:{ kbs:0, bytes:0, pps:0, pkts:0, late:0},
+            tx:{ kbs:0, bytes:0, pps:0, pkts:0, late:0},
+            ts:Date.now(),
+            epoch:0,
+            rx_bytes:0,
+            tx_bytes:0,
+            rx_pkts:0,
+            tx_pkts:0,
+        }
+        
+        function updateStats(){
+                    
+                    self.stats.epoch = Date.now() -self.stats.ts;
+                    self.stats.ts    = Date.now()
+                    
+                    self.stats.rx.bytes = self.stats.rx_bytes - 0
+                    self.stats.tx.bytes = self.stats.tx_bytes - 0
+                    
+                    self.stats.rx.pkts  = self.stats.rx_pkts  - 0
+                    self.stats.tx.pkts  = self.stats.tx_pkts  - 0
+                    
+                    self.stats.rx.kbs   = (self.stats.rx.bytes * 8) / self.stats.epoch
+                    self.stats.tx.kbs   = (self.stats.tx.bytes * 8) / self.stats.epoch
+                    
+                    self.stats.rx.pps   = (self.stats.rx.pkts / self.stats.epoch) * 1000
+                    self.stats.tx.pps   = (self.stats.tx.pkts / self.stats.epoch) * 1000
+                    
+                    self.stats.rx.late  = (self.stats.epoch / self.stats.rx.pkts)
+                    self.stats.tx.late  = (self.stats.epoch / self.stats.tx.pkts)
+                    self.stats.rx.late  = isFinite(self.stats.rx.late)?self.stats.rx.late:0;
+                    self.stats.tx.late  = isFinite(self.stats.tx.late)?self.stats.tx.late:0;
+
+                    
+                    setTimeout(updateStats, 40 )
+                    
+                    self.stats.rx_bytes = 0;
+                    self.stats.rx_pkts  = 0
+                    self.stats.tx_bytes = 0;
+                    self.stats.tx_pkts  = 0;
+        }
+        updateStats()
         self.latency    = [];
         self.json_crc   = 0x5933;
         self.timeout    = 1000
         self.burst = 1;
-        self.msgStats    = { ts:Date.now(), ms:0, count:0, queue:0 };
+        //self.msgStats    = { ts:Date.now(), ms:0, count:0, queue:0 };
         self.set_json_crc = function(crc){
             self.json_crc = crc
         }
@@ -5961,14 +6010,19 @@ function fibre(){
                     isReady             = false
                     queue[sequence].ts  = Date.now()
                     self.push(buffer)
+                    //stats
+                    //self.stats.tx_bytes += buffer.length;
+                    //self.stats.tx_pkts   ++;
                     queue[sequence].timeout = function(){
                         if(queue[sequence] && queue[sequence].acked === false ){
                             isReady = true
-                            self.emit('info', new Error( 'Ack timeout id: ' + id + '. Sequence: ' + sequence + '\n  Check CRC or fibre connection.'))
-                            delete queue[sequence]
+                            self.emit('info', new Error( 'Ack timeout sequence: ' + sequence + ', endpointID: ' + id ))
+                            delete queue[sequence];
                         }
                     }
                     setTimeout(queue[sequence].timeout, self.timeout )
+                    
+                    
                 }
         }
         setTimeout(txloop,0)
@@ -6008,6 +6062,7 @@ function fibre(){
                 if(payload.length > 0){
                     self.emit('download.update', operation.payload.length)
                     source.unshift(Request(operation))
+                    //self.push( Request( operation ) )
                 }else{
                     self.emit('download.complete', operation.payload.length)
                     var buf = new Buffer.alloc(2)
@@ -6055,8 +6110,9 @@ function fibre(){
             operation.callback  = callback;
             operation.acked     = false;
             operation.ts  = Date.now()
+            //self.push( Request( operation ) )
             source.unshift( Request( operation ) )
-            self.emit('request', operation )
+            //self.emit('request', operation )
             if(id===0){ self.emit('download.start', 512 ) }
     }
     function set_endpoint(id,payload,callback){
@@ -6068,8 +6124,9 @@ function fibre(){
             operation.callback = callback
             operation.acked
             operation.ts  = Date.now()
+            //self.push( Request( operation ) )
             source.unshift( Request(operation))
-            self.emit('request', operation )
+            //self.emit('request', operation )
     }
         self.get = get_endpoint
         self.set = set_endpoint

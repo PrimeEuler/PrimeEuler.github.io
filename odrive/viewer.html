@@ -12,6 +12,20 @@
     <script type='text/javascript' src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/jquery.dialogextend.min.js"></script>
     <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.2.0/jquery.json2html.min.js"></script>
+   
+    
+    <!--socket.io-stream-->
+    <script type='text/javascript' src="js/socket.io.js"></script>
+    <script type='text/javascript' src="js/socket.io-stream.js"></script>
+    <script type="text/javascript" src="js/pubsub.min.js"></script>
+	<script type="text/javascript" src="js/schema.js"></script>
+	<script type="text/javascript" src="js/mediaInterface.js"></script>
+	<script type="text/javascript" src="js/ace.js"></script>
+    
     <!--xterm, odrive-->
     <link rel="stylesheet" href="css/client.css"/>
     <link rel="stylesheet" href="js/bower_components/xterm.js/dist/xterm.css" />
@@ -21,8 +35,6 @@
 	<script type="text/javascript" src="js/odrive_web.js"></script>
 	<script type="text/javascript" src="js/fibre_web.js"></script>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.2.0/jquery.json2html.min.js"></script>
     
     
     <style>
@@ -62,9 +74,7 @@
 		.boolean { color:papayawhip;}
 		.open .children {display:block;}
 		.closed .children {display:none;}
-		
-		.arrow {    //background-image:url("/js/d.png"); 
-		            background-image:url("./css/flat-8139-theme/images/ui-icons_595540_256x240.png"); 
+		.arrow {    background-image:url("./css/flat-8139-theme/images/ui-icons_595540_256x240.png"); 
 		            background-repeat:no-repeat; 
 		            background-color:transparent; 
 		            height:15px; width:15px; 
@@ -95,97 +105,281 @@
     var Buffer      = require('fibre').Buffer;
     var odrive      = new Odrive();
     var fibre       = new Fibre();
+    var socket      = {};
     var oidView     = []
     var msgStats    = { ts:Date.now(), ms:0, count:0 };
     var odrv0       = {json:''} ;
     var xIndex      = 0;
-    var control   = {
-            usb:{
-            vendorId: 0x1209,
-            configuration: 1,
-            interface:2,
-            endpoint:3,   
-            connect:function(){
-                    navigator.usb.requestDevice( { filters: [{ vendorId: control.usb.vendorId }] } )
-                    .then(selectedDevice => {
-                            device = selectedDevice;
-                            xwindow({ id:'odrv0', width:640, height:480, end:function(){ delete odrv0 } })
-                            toHTML(odrv0,"odrv0")
-                            return device.open();
-                         }
-                    )
-                    .then(() => device.selectConfiguration(control.usb.configuration)) // Select configuration #1 for the device.
-                    .then(() => device.claimInterface(control.usb.interface)) // Request exclusive control over interface #2.
-                    .then(() => {
-                        control.usb.error = 'NONE'
-                        var native = new stream.Duplex({
-                                read:function(size){ },
-                                write:function(chunk, encoding, callback){
-                                    device.transferOut(control.usb.endpoint,chunk)
-                                    callback()
+    var control     = {
+            usb: {
+                vendorId: 0x1209,
+                configuration: 1,
+                interface:2,
+                endpoint:3,   
+                connect:function(){
+                        navigator.usb.requestDevice( { filters: [{ vendorId: control.usb.vendorId }] } )
+                        .then(selectedDevice => {
+                                device = selectedDevice;
+                                return device.open();
+                             }
+                        )
+                        .then(() => device.selectConfiguration(control.usb.configuration)) // Select configuration #1 for the device.
+                        .then(() => device.claimInterface(control.usb.interface)) // Request exclusive control over interface #2.
+                        .then(() => {
+                            control.usb.error = 'NONE'
+                            var native = new stream.Duplex({
+                                    read:function(size){ },
+                                    write:function(chunk, encoding, callback){
+                                        device.transferOut(control.usb.endpoint,chunk)
+                                        callback()
+                                    }
+                                } )
+                                async function pull(){
+                                    var result = await device.transferIn(control.usb.endpoint, 64);
+                                        if(result.data){
+                                                native.push(new Buffer.from( result.data.buffer ))
+                                                await pull()
+                                        }
+                                        if (result.status === 'stall') {
+                                            control.usb.error = 'Endpoint stalled. Clearing.'
+                                            await device.clearHalt(1);
+                                        }
                                 }
-                            } )
-                            async function pull(){
-                                var result = await device.transferIn(control.usb.endpoint, 64);
-                                    if(result.data){
-                                            native.push(new Buffer.from( result.data.buffer ))
-                                            await pull()
-                                    }
-                                    if (result.status === 'stall') {
-                                        control.usb.error = 'Endpoint stalled. Clearing.'
-                                        await device.clearHalt(1);
-                                    }
-                            }
-                            pull()
-                            native.on('error', function(er){ control.usb.error = er })
-                            native
-                                .pipe(fibre)
-                                .pipe(native)   })
-                    .then(() => {
-                            fibre.get(0,512,function(buffer){
-                                    odrive.JSON = buffer.toString()
-                                    fibre.endpoints   = JSON.parse( odrive.JSON  )
-                                    odrv0       = odrive.marshal( JSON.parse( odrive.JSON  ) )
-                                    delete odrv0['']
-                                    toHTML(odrv0,"odrv0")
-                                    
-                            })
-                    })
-                    .catch(error => { control.usb.error = error });
-            },
-            error:'NONE'
+                                pull()
+                                native.on('error', function(er){ control.usb.error = er })
+                                native
+                                    .pipe(fibre)
+                                    .pipe(native)   })
+                        .then(() => {
+                                xwindow({ id:'odrv0', width:640, height:480, end:function(){ delete odrv0 } })
+                                toHTML(odrv0,"odrv0")
+                                fibre.get(0,512,function(buffer){
+                                        odrive.JSON = buffer.toString()
+                                        fibre.endpoints   = JSON.parse( odrive.JSON  )
+                                        odrv0       = odrive.marshal( JSON.parse( odrive.JSON  ) )
+                                        delete odrv0['']
+                                        toHTML(odrv0,"odrv0")
+                                        
+                                })
+                        })
+                        .catch(error => { console.log(error); control.usb.error = error });
+                },
+                error:'NONE'
             },
             odrive : {
                 enums: function(){
                     xwindow({ id:'enums', width:640, height:480, end:function(){  } })
-                    
-                    proxy(odrive.enums,"enums")
-                    
+                    proxy( odrive.enums,"enums")
                     toHTML(odrive.enums,"enums")
                 },
                 error:'NONE'
             },
             fibre : {
-                msgQueue:0,
-                'msgs/sec':0,
-                endpoints:function(){
-                    xwindow({ id:'endpoints', width:640, height:480, end:function(){ } })
-                    proxy( fibre.endpoints, 'endpoints')
-                    toHTML( fibre.endpoints,"endpoints")
+                tx_queue:0,
+                tx_pps:0,
+                rx_pps:0,
+                tx_kbs:0,
+                rx_kbs:0,
+                tx_late:0,
+                rx_late:0,
+                error:'NONE'
+            },
+            terminal: {
+                open:function(){
+                    
+                    var termOptions = { 
+                        cols: 75, 
+                        rows: 24, 
+                        screenKeys: true, 
+                        convertEol:true, 
+                        cursorBlink:true }
+                    var xterm = new Terminal(termOptions);
+                        xwindow({ id:'vt100', width:640, height:480, end:function(){ xterm.destroy() } })
+                        xterm.open( document.getElementById('vt100')) ;
+                        xterm.on('data',function(data,e,f){
+                            xterm.write(data)
+                        })
+                }
+            },
+            socket: {
+                url:'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/',
+                rtt:0,
+                connect:function(){
+                    socket = io(control.socket.url)
+                    
+                    socket.on('connect', function(){ 
+                        control.socket.connected = true 
+                        ping()
+                    } )
+                    socket.on('error', function(error){ control.socket.error = error } );
+                    socket.on('disconnect', function(){ control.socket.connected = false }  );
+                    socket.io.on("connect_error", function(error){ control.socket.error = error } );
+                    
+                    var rtt = createPlotter("control.socket.rtt.plot", "control.socket.rtt", 0)
+                        clearInterval(rtt.interval)
+                    function ping(){
+                        socket.emit('rtt',Date.now(),function(ts){
+                            control.socket.rtt  = Date.now() - ts
+                            rtt.update( control.socket.rtt )
+                            control.socket.connected?setTimeout(ping,100):null;
+                        });
+                    }
+                    
+                    
+                    
+                },
+                connected:false,
+                error:'NONE',
+                stream:{
+                    options:{
+                        id:'topic',
+                        type:'pub/sub'
+                    },
+                    create:function(){
+                        var options = control.socket.stream.options;
+                        var transport = ss.createStream({encoding:'utf8',decodeStrings: false})  
+                            transport.id = options.id
+                        ss(socket).emit('stream', transport, options );
+                        sbind( transport, socket )
+                        switch( options.type ){
+                            case 'pub':
+                                var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
+                                        transport.write(data)
+                                })
+                                transport.on('end',function(){
+                                    PubSub.unsubscribe(subscriber)
+                                })
+                                break;
+                            case 'sub':
+                                transport.on("data",function(data){
+                                    PubSub.publish( options.id ,data)
+                                }) 
+                                break;
+                        }
+                    }
+                }
+            },
+            media: {
+                pubTopic:'media_pub',
+                pub: function(){
+                    var topic       = control.media.pubTopic;
+                    var transport   = new stream.Transform({
+                            writableObjectMode: true,
+                            transform:function(chunk, encoding, callback) {
+                                callback(null, chunk);
+                            }
+                        });
+                        transport.id = topic
+                    var config = {
+                        constraints:{ video: true, audio:true },
+                        mimeType:'video/webm; codecs="vp8, opus"',
+                        interval:100,
+                        log:function(){},
+                        on_data:function(data){
+                            transport.write( new Buffer(data) )
+                        }
+                    }
+                    var encoder = mediaInterface.createMediaEncoder(config);
+                        xwindow({ id:topic, width:666, height:533, end:function(){ encoder.end(); transport.end() } })  
+                        $(encoder.canvas).width(640).height(480).appendTo( $("#" + topic ) );
+                        transport.on("data",function(data){
+                            PubSub.publish( topic ,data)
+                        })  
+                        transport.on('error',function(e){
+                           control.media.error = e
+                	    })
+                        transport.on('end',function(){
+                            encoder.end()
+                	    })
+                	    encoder.start();
+                },
+                subTopic:'media_pub',
+                sub: function(){
+                    var topic       = control.media.subTopic;
+                    var transport = new stream.Transform({
+                            writableObjectMode: true,
+                            transform:function(chunk, encoding, callback) {
+                                callback(null, chunk);
+                            }
+                        });
+                        transport.id = topic
+                    var config = {
+                        mimeType:'video/webm; codecs="vp8, opus"',
+                        log:function(){},
+                    }
+                    var decoder = mediaInterface.createMediaDecoder(config);
+                        xwindow({ id:'sub_' + topic , width:666, height:533, end:function(){ decoder.end(); transport.end() } }) 
+                        $(decoder.canvas).width(640).height(480).appendTo( $("#sub_" + topic) );
+                        transport.on('data',function(data){
+                            decoder.write(data)
+                        })
+                        transport.on('end',function(){
+                            PubSub.unsubscribe(subscriber)
+                            decoder.end()
+                        })
+                        decoder.start();
+                    var subscriber = PubSub.subscribe(topic, function(msg,data){
+                                transport.write(data)
+                        })
                 },
                 error:'NONE'
             }
+            
     };
     var transforms  = {
         object: { '<>': 'div', class: 'package ${show} ${type}',  html: [
                     { '<>': 'div', class: 'header', oid: '${oid}' + '.header',  html: [
                         {   '<>': 'div',  class: getArrow },
                 		{   '<>': 'span', class: 'name',  oid: '${oid}' + '.name',    html: '${name} : ' },
-                		{   '<>': 'span', class: 'value', oid: '${oid}' + '.value',   html: function (obj) { return  getValue(obj.value) } }
+                		{   '<>': 'span', class: 'value', oid: '${oid}' + '.value',   html: function (obj) { return  getValue(obj.value) } },
+                		{   '<>': 'span', class: 'plot',  oid: '${oid}' + '.plot',    html: '' }
                 	]},
                 	{   '<>': 'div', class: 'children',  html: function (obj) { return getChildren(obj.value); } }
                 ]}
     };
+    
+    function createPlotter(oid,ref,epoch){
+        var el = $('[oid="' + oid + '"]')
+        var plotter = {
+                samples:    [],
+                sampleMax:  100,
+                start:      Date.now(),
+                ts:         Date.now(),
+                epoch:      0,
+                style:      {
+                            type: 'line',
+                            width:200,
+                            height:20,
+                            //tooltipSuffix: ' ' + ref,
+                            lineColor: '#cc8139',
+                            fillColor: '#595540',
+                            spotColor: '#cc8139',
+                            minSpotColor: '#cc8139',
+                            maxSpotColor: '#cc8139',
+                            highlightSpotColor: '#cc8139',
+                            highlightLineColor: '#cc8139',
+                            normalRangeColor: '#cc8139'
+                },
+                update:     function(value){
+                            if( Date.now()-plotter.ts > 100 ){
+                                plotter.epoch   = Date.now()-plotter.ts;
+                                plotter.ts      = Date.now();
+                                plotter.samples.push(value)
+                                if (plotter.samples.length > plotter.sampleMax){
+                                    plotter.samples.splice(0,1);
+                                }
+                                el.sparkline(plotter.samples, plotter.style )
+                            }
+                },
+                interval:setInterval( function(){ plotter.update( objectPath.get(window, ref) ) }, epoch )
+        }
+        //el.sparkline(plotter.samples, plotter.style )
+        
+        return plotter
+        
+    }
+    
+    
     var visable     = $('.value[oid*="odrv0"]:visible')
     var updateView  = setInterval( function(){
         var oids = []
@@ -202,14 +396,89 @@
         })
         
     }, 500 )
-    var updateStats = setInterval( function(){ 
-        msgStats.ms     = Date.now() -  msgStats.ts
-        msgStats.ts     = Date.now()
-        msgStats.count  =  control.fibre.msgQueue - fibre.source.length 
-        control.fibre['msgs/sec'] = Math.floor((1000/msgStats.ms) * msgStats.count)
-        control.fibre.msgQueue = fibre.source.length 
-        
-    }, 100 )   
+  
+
+
+    function createDeepProxy(target, handler) {
+      const preproxy = new WeakMap();
+    
+      function makeHandler(path) {
+        return {
+          set(target, key, value, receiver) {
+            if (typeof value === 'object') {
+              value = proxify(value, [...path, key]);
+            }
+            target[key] = value;
+    
+            if (handler.set) {
+              handler.set(target, [...path, key], value, receiver);
+            }
+            return true;
+          },
+    
+          deleteProperty(target, key) {
+            if (Reflect.has(target, key)) {
+              unproxy(target, key);
+              let deleted = Reflect.deleteProperty(target, key);
+              if (deleted && handler.deleteProperty) {
+                handler.deleteProperty(target, [...path, key]);
+              }
+              return deleted;
+            }
+            return false;
+          }
+        }
+      }
+    
+      function unproxy(obj, key) {
+        if (preproxy.has(obj[key])) {
+          // console.log('unproxy',key);
+          obj[key] = preproxy.get(obj[key]);
+          preproxy.delete(obj[key]);
+        }
+    
+        for (let k of Object.keys(obj[key])) {
+          if (typeof obj[key][k] === 'object') {
+            unproxy(obj[key], k);
+          }
+        }
+    
+      }
+    
+      function proxify(obj, path) {
+        for (let key of Object.keys(obj)) {
+          if (typeof obj[key] === 'object') {
+            obj[key] = proxify(obj[key], [...path, key]);
+          }
+        }
+        let p = new Proxy(obj, makeHandler(path));
+        preproxy.set(p, obj);
+        return p;
+      }
+    
+      return proxify(target, []);
+    }
+    let obj = {
+      foo: 'baz',
+    }
+    let proxied = createDeepProxy(obj, {
+      set(target, path, value, receiver) {
+        console.log('set', path.join('.'), '=', JSON.stringify(value));
+      },
+    
+      deleteProperty(target, path) {
+        console.log('delete', path.join('.'));
+      }
+    });
+    //marshal
+    proxied.foo = 'bar';
+    proxied.deep = {}
+    proxied.deep.blue = 'sea';
+    delete proxied.foo;
+    delete proxied.deep; // triggers delete on 'deep' but not 'deep.blue'
+
+
+
 
 
         function xwindow(X){
@@ -392,6 +661,20 @@
             });
     
         }
+
+        function sbind(transport, socket){
+            function emit(e){
+                transport.emit(e.event,e.data);
+            }
+            function absorb(){
+                ss(socket).removeListener(transport.id,emit)
+            }
+            ss(socket).on(transport.id, emit) ;
+            transport.on('end',absorb)
+            transport.on('socket.io',function(e){
+                ss(socket).emit(transport.id,e)
+            })
+        } 
     
         fibre.on('error',function(error){ control.fibre.error = error })
         fibre.on('info',function(error){ control.fibre.error = error })
@@ -401,11 +684,12 @@
                 el.width(200).height(5).css({ 'background': '#cc8139' })
                 el.progressbar({ value:0, max:27380 })
                 fibre.on('download.update',function(value){
-                   el.progressbar( "option", "value", value );
+                    el.progressbar( "option", "value", value );
                 })
                 fibre.on('download.complete',function(value){
                     el.progressbar( "option", "value", value );
                 })
+                
         })
 
         
@@ -436,7 +720,16 @@
 
         proxy(control,'control')
         toHTML(control,"control")
-    
+        
+        var tx_queue    = createPlotter("control.fibre.tx_queue.value", "fibre.source.length", 100)
+        var tx_pps      = createPlotter("control.fibre.tx_pps.value", "fibre.stats.tx.pps", 100)
+        var rx_pps      = createPlotter("control.fibre.rx_pps.value", "fibre.stats.rx.pps", 100)
+        var tx_kbs      = createPlotter("control.fibre.tx_kbs.value", "fibre.stats.tx.kbs", 100)
+        var rx_kbs      = createPlotter("control.fibre.rx_kbs.value", "fibre.stats.rx.kbs", 100)
+        var tx_late     = createPlotter("control.fibre.tx_late.value", "fibre.stats.tx.late", 100)
+        var rx_late     = createPlotter("control.fibre.rx_late.value", "fibre.stats.rx.late", 100)
+        
+
     
     </script>
 </body>
