@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-    <title>pipe</title>
-    
-    <!--custom jquery-->
+    <title>odrive</title>
+        <!--custom jquery-->
     <link rel="stylesheet"  type="text/css" media="screen" href="css/flat-8139-theme/jquery-ui-1.10.4.custom.min.css"/>
     <script type='text/javascript' src="js/jquery-1.10.2.min.js"></script>
     <script type='text/javascript' src="js/jquery-ui-1.10.4.custom.min.js"></script>
@@ -13,426 +12,723 @@
     <script type='text/javascript' src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/jquery.dialogextend.min.js"></script>
     <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
-
-    <!--xterm, pubsub, sheldon, mediaInterface, editor-->
+    <script type="text/javascript" src="js/jquery.sparkline.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.2.0/json2html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.2.0/jquery.json2html.min.js"></script>
+   
+    
+    <!--socket.io-stream-->
+    <script type='text/javascript' src="js/socket.io.js"></script>
+    <script type='text/javascript' src="js/socket.io-stream.js"></script>
+    <script type="text/javascript" src="js/pubsub.min.js"></script>
+	<script type="text/javascript" src="js/schema.js"></script>
+	<script type="text/javascript" src="js/mediaInterface.js"></script>
+	<script type="text/javascript" src="js/ace.js"></script>
+    
+    <!--xterm, odrive-->
     <link rel="stylesheet" href="css/client.css"/>
     <link rel="stylesheet" href="js/bower_components/xterm.js/dist/xterm.css" />
     <script type="text/javascript" src="js/bower_components/xterm.js/dist/xterm.js"></script>
 	<script type="text/javascript" src="js/bower_components/xterm.js/addons/fit/fit.js"></script>
-	<script type="text/javascript" src="js/pubsub.min.js"></script>
-	<script type="text/javascript" src="js/bundle.js"></script>
-	<script type="text/javascript" src="js/schema.js"></script>
-	<script type="text/javascript" src="js/mediaInterface.js"></script>
-	<script type="text/javascript" src="js/ace.js"></script>
-    <script type="text/javascript" src="js/odrive_bundle.js"></script>
-	<!--socket.io-stream-->
-    <script type='text/javascript' src="js/socket.io.js"></script>
-    <script type='text/javascript' src="js/socket.io-stream.js"></script>
-
+	<script type="text/javascript" src="js/odrive_web.js"></script>
+	<script type="text/javascript" src="js/fibre_web.js"></script>
 	
+    
+    
+    <style>
+    
+		#page {     min-height:600px;
+		       		background-color: #262626;
+		            border-radius: 5px 5px 5px 5px;
+		            box-shadow: 0 0 5px #000000;
+		            clear: left;
+		            padding: 60px 0 0;
+		            margin-top:0px;}
+		#header, #page, #footer {
+		            margin: 0 auto;
+		            position: relative;
+		            width: 670px;}   
+		html {      background-color: #262626;}
+	    body {      background-color: transparent;
+		            font-family: monospace;
+		            font-size: 10pt;
+		            padding: 0px 0 30px;}
+		            
+		.package {  margin-left:10px;
+		            padding:3px;
+		            border-radius:10px;
+		            background-color:transparent; 
+		            margin-top:2px;}
+		.header {   cursor:pointer;}
+		.name   {   color:#cc8139;}
+		.array {    background-color:#262626;
+		            border:thin solid #595540}
+		.object {   background-color:transparent; 
+		            //background-color:#262626;
+		            border:thin solid #595540}
+		.string {   color:papayawhip;}
+		.number {   color:papayawhip;}
+		.function { color:papayawhip;}
+		.boolean { color:papayawhip;}
+		.open .children {display:block;}
+		.closed .children {display:none;}
+		.arrow {    background-image:url("./css/flat-8139-theme/images/ui-icons_595540_256x240.png"); 
+		            background-repeat:no-repeat; 
+		            background-color:transparent; 
+		            height:15px; width:15px; 
+		            display:inline-block;}
+		.open .arrow {background-position:-64px -15px;}
+		.closed .arrow {background-position:-32px -15px;}
+		.type {     color:gray;
+		            font-size:8pt;
+		            float:right;}
+		.hide {     display:none;}
+		.ui-autocomplete{width:100px;}
+		.ui-menu { color:#cc8139;}
+        .input {
+                    background-color: #262626;
+                    color: papayawhip;
+                    font-family: monospace;
+                    border: 5px solid #595540;}		
+
+	</style>
 </head>
 <body >
+<div id="control"></div>
     <script type="text/javascript">
-    var Http = new XMLHttpRequest();
-    var sheldon     = require('sheldon');
-    var odrive      = require('odrive');
-    var SHELL       = new sheldon.shell();
-    var termOptions = { cols: 100, rows: 35, screenKeys: true, convertEol:true, cursorBlink:true }
-    var TERMINAL    = new Terminal(termOptions);
-        TERMINAL.open(document.body);
-        TERMINAL.on('data',function(data,e,f){
-            SHELL.write(data)
-        })
-        
-        Http.onreadystatechange=function(e){
-            if(e){ TERMINAL.write( e ) }
-            TERMINAL.write( Http.responseText )
-            SHELL.context.responseText =  Http.responseText
-        }
-        
-        
-        SHELL.on('data',function(data){
-            TERMINAL.write(data.toString())
-        })
-        SHELL.on('end',function(){
-            $( "#" + SHELL.id ).dialog( "destroy" )
-            TERMINAL.destroy();
-        })
-        SHELL.context.window = window
-        
-        SHELL.context.odrive = new odrive()
-        SHELL.context.usb = {
-            connect: function(vid){
-                        navigator.usb.requestDevice({ filters: [{ vendorId: 0x1209 }] })
+    var Odrive      = require('odrive');
+    var objectPath  = require('odrive').objectPath;
+    var Fibre       = require('fibre');
+    var stream      = require('fibre').stream;
+    var Buffer      = require('fibre').Buffer;
+    var odrive      = new Odrive();
+    var fibre       = new Fibre();
+    var socket      = {};
+    var oidView     = []
+    var msgStats    = { ts:Date.now(), ms:0, count:0 };
+    var odrv0       = {json:''} ;
+    var xIndex      = 0;
+    var control     = {
+            usb: {
+                vendorId: 0x1209,
+                configuration: 1,
+                interface:2,
+                endpoint:3,   
+                connect:function(){
+                        navigator.usb.requestDevice( { filters: [{ vendorId: control.usb.vendorId }] } )
                         .then(selectedDevice => {
-                               device = selectedDevice;
-                               return device.open(); // Begin a session.
+                                device = selectedDevice;
+                                return device.open();
                              }
                         )
-                        .then(() => device.selectConfiguration(1)) // Select configuration #1 for the device.
-                        .then(() => device.claimInterface(2)) // Request exclusive control over interface #2.
+                        .then(() => device.selectConfiguration(control.usb.configuration)) // Select configuration #1 for the device.
+                        .then(() => device.claimInterface(control.usb.interface)) // Request exclusive control over interface #2.
                         .then(() => {
-                            var deviceDescriptor = {}
-                                deviceDescriptor.productName        = device.productName
-                                deviceDescriptor.manufacturerName   = device.manufacturerName
-                                SHELL.context.REPL.PRINT.ansi( deviceDescriptor )
-                                SHELL.context.usb.device = device
-                                SHELL.context.usb.native = new sheldon.stream.Duplex({
+                            control.usb.error = 'NONE'
+                            var native = new stream.Duplex({
                                     read:function(size){ },
                                     write:function(chunk, encoding, callback){
-                                        SHELL.context.usb.device.transferOut(3,chunk)
+                                        device.transferOut(control.usb.endpoint,chunk)
                                         callback()
                                     }
                                 } )
-                                SHELL.context.usb.native.on('error',SHELL.context.REPL.PRINT.ansi)
-                                SHELL.context.odrive.fibre.on('error',SHELL.context.REPL.PRINT.ansi)
-                                SHELL.context.odrive.fibre.on('payload.start',SHELL.context.REPL.PRINT.ansi)
-                                SHELL.context.odrive.fibre.on('payload.update',SHELL.context.REPL.PRINT.ansi)
-                                SHELL.context.odrive.fibre.on('payload.complete',SHELL.context.REPL.PRINT.ansi)
-                                SHELL.context.odrive.on('error', SHELL.context.REPL.PRINT.ansi )
-                                SHELL.context.odrive.on('remoteObject', function(object){
-                                        delete object[''] 
-                                            SHELL.context.odrive.unmarshal(object)
-                                            SHELL.context.odrv0 = object
-                                            setTimeout(function(){
-                                                SHELL.context.REPL.PRINT.ansi('Connected to ODrive ' + object.serial_number  + ' as odrv0.')
-                                            },100)
+                                async function pull(){
+                                    var result = await device.transferIn(control.usb.endpoint, 64);
+                                        if(result.data){
+                                                native.push(new Buffer.from( result.data.buffer ))
+                                                await pull()
+                                        }
+                                        if (result.status === 'stall') {
+                                            control.usb.error = 'Endpoint stalled. Clearing.'
+                                            await device.clearHalt(1);
+                                        }
+                                }
+                                pull()
+                                native.on('error', function(er){ control.usb.error = er })
+                                native
+                                    .pipe(fibre)
+                                    .pipe(native)   })
+                        .then(() => {
+                                xwindow({ id:'odrv0', width:640, height:480, end:function(){ delete odrv0 } })
+                                toHTML(odrv0,"odrv0")
+                                fibre.get(0,512,function(buffer){
+                                        odrive.JSON = buffer.toString()
+                                        fibre.endpoints   = JSON.parse( odrive.JSON  )
+                                        odrv0       = odrive.marshal( JSON.parse( odrive.JSON  ) )
+                                        delete odrv0['']
+                                        toHTML(odrv0,"odrv0")
                                         
-                                }) 
-                                SHELL.context.odrive.connect( )
-                                SHELL.context.odrive.fibre.connect(SHELL.context.usb.native)
-                            
-                            async function pull(){
-                                var result = await SHELL.context.usb.device.transferIn(3, 96);
-                                    if(result.data){
-                                            SHELL.context.usb.native.push(new sheldon.Buffer.from( result.data.buffer ))
-                                            await pull()
-                                    }
-                                    if (result.status === 'stall') {
-                                        SHELL.context.REPL.PRINT.ansi('Endpoint stalled. Clearing.');
-                                        await device.clearHalt(1);
-                                    }
-                            }
-                            pull()
-
+                                })
                         })
-                        .catch(error => { SHELL.context.REPL.PRINT.ansi(error); });
-            }
-        }
-        
-        
-        
-        
-        SHELL.context.REPL.LOOP.ansi();
-        SHELL.context.pubMedia  = function(options){
-            var stream = new sheldon.stream.Transform({
-                    writableObjectMode: true,
-                    transform:function(chunk, encoding, callback) {
-                        callback(null, chunk);
-                    }
-                });
-                stream.id = 'publish_' + options.id
-                stream.width = 666;
-                stream.height = 533;
-                streamUI( stream )
-            var config = {
-                constraints:{ video: true, audio:true },
-                mimeType:'video/webm; codecs="vp8, opus"',
-                interval:100,
-                log:options.log?SHELL.context.REPL.PRINT.ansi:null,
-                on_data:function(data){
-                    stream.write( new sheldon.Buffer(data) )
+                        .catch(error => { console.log(error); control.usb.error = error });
+                },
+                error:'NONE'
+            },
+            odrive : {
+                enums: function(){
+                    xwindow({ id:'enums', width:640, height:480, end:function(){  } })
+                    proxy( odrive.enums,"enums")
+                    toHTML(odrive.enums,"enums")
+                },
+                error:'NONE'
+            },
+            fibre : {
+                tx_queue:0,
+                tx_pps:0,
+                rx_pps:0,
+                tx_kbs:0,
+                rx_kbs:0,
+                tx_late:0,
+                rx_late:0,
+                error:'NONE'
+            },
+            terminal: {
+                open:function(){
+                    
+                    var termOptions = { 
+                        cols: 75, 
+                        rows: 24, 
+                        screenKeys: true, 
+                        convertEol:true, 
+                        cursorBlink:true }
+                    var xterm = new Terminal(termOptions);
+                        xwindow({ id:'vt100', width:640, height:480, end:function(){ xterm.destroy() } })
+                        xterm.open( document.getElementById('vt100')) ;
+                        xterm.on('data',function(data,e,f){
+                            xterm.write(data)
+                        })
                 }
-            }
-            var encoder = mediaInterface.createMediaEncoder(config);
-                $(encoder.canvas).width(640).height(480).appendTo( $("#" + stream.id) );
-                stream.on("data",function(data){
-                    PubSub.publish( options.id ,data)
-                })  
-                stream.on('error',function(e){
-                   SHELL.context.REPL.PRINT.ansi(e)
-        	    })
-                stream.on('end',function(){
-                    encoder.end()
-        	    })
-        	    encoder.start();
-        }
-        SHELL.context.subMedia  = function(options){
-            var stream = new sheldon.stream.Transform({
-                    writableObjectMode: true,
-                    transform:function(chunk, encoding, callback) {
-                        callback(null, chunk);
+            },
+            socket: {
+                url:'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/',
+                rtt:0,
+                connect:function(){
+                    socket = io(control.socket.url)
+                    
+                    socket.on('connect', function(){ 
+                        control.socket.connected = true 
+                        ping()
+                    } )
+                    socket.on('error', function(error){ control.socket.error = error } );
+                    socket.on('disconnect', function(){ control.socket.connected = false }  );
+                    socket.io.on("connect_error", function(error){ control.socket.error = error } );
+                    
+                    var rtt = createPlotter("control.socket.rtt.plot", "control.socket.rtt", 0)
+                        clearInterval(rtt.interval)
+                    function ping(){
+                        socket.emit('rtt',Date.now(),function(ts){
+                            control.socket.rtt  = Date.now() - ts
+                            rtt.update( control.socket.rtt )
+                            control.socket.connected?setTimeout(ping,100):null;
+                        });
                     }
-                });
-                stream.id = 'subscribe_' + options.id
-                stream.width = 666;
-                stream.height = 533;
-                streamUI(stream)
-            var config = {
-                mimeType:'video/webm; codecs="vp8, opus"',
-                log:options.log?SHELL.context.REPL.PRINT.ansi:null
-            }
-            var decoder = mediaInterface.createMediaDecoder(config);
-            $(decoder.canvas).width(640).height(480).appendTo( $("#" + stream.id) );
-            var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
-                    stream.write(data)
-            })
-            stream.on('data',function(data){
-                decoder.write(data)
-            })
-            stream.on('end',function(){
-                PubSub.unsubscribe(subscriber)
-                decoder.end()
-            })
-            decoder.start();
-                
-                
-                
-        }
-        SHELL.context.editor    = function(path){
-            var stream = new sheldon.stream.Transform({
-                    objectMode: true,
-                    transform:function(chunk, encoding, callback) {
-                        callback(null, chunk);
+                    
+                    
+                    
+                },
+                connected:false,
+                error:'NONE',
+                stream:{
+                    options:{
+                        id:'topic',
+                        type:'pub/sub'
+                    },
+                    create:function(){
+                        var options = control.socket.stream.options;
+                        var transport = ss.createStream({encoding:'utf8',decodeStrings: false})  
+                            transport.id = options.id
+                        ss(socket).emit('stream', transport, options );
+                        sbind( transport, socket )
+                        switch( options.type ){
+                            case 'pub':
+                                var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
+                                        transport.write(data)
+                                })
+                                transport.on('end',function(){
+                                    PubSub.unsubscribe(subscriber)
+                                })
+                                break;
+                            case 'sub':
+                                transport.on("data",function(data){
+                                    PubSub.publish( options.id ,data)
+                                }) 
+                                break;
+                        }
                     }
-                });
-                stream.id = 'edit_' + path 
-                stream.width = 666;
-                stream.height = 533;
-		stream.path = path
-                editor(stream)
-        }
-        SHELL.context.wget      = function(url){
-            Http.open("GET", url);
-            Http.send();
-        }
-        SHELL.context.socket    = function(url){
-		//https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/
-    		if(url==='default'){
-    			url = 'https://ec2-3-19-28-32.us-east-2.compute.amazonaws.com:8443/'
-    		}
-            var socket = io(url)
-            var startTime;
-            socket.log = 'rtt'
-            socket.ping = function(){
-                socket.emit('rtt',Date.now(),function(ts){
-                    socket.rtt  = Date.now() - ts
-                    if(socket.log === 'rtt'){
-                        SHELL.context.REPL.PRINT.ansi( {id:socket.id, rtt: socket.rtt } )
-                    }
-                });
-
-            }
-
-            
-            SHELL.context.sockets.push(  socket );
-            
-            socket.on('connect', function() { SHELL.context.REPL.PRINT.ansi({connect:socket.id}) });
-            socket.on('error', SHELL.context.REPL.PRINT.ansi );
-            socket.on('disconnect', SHELL.context.REPL.PRINT.ansi );
-            socket.io.on("connect_error",function(e){
-                SHELL.context.REPL.PRINT.ansi(e);
-            })
-            ss(socket).on('stream',function(stream,options){
-                sbind(stream,socket)
-                switch(options.type){
-                    case 'editor':
-			stream.path = options.path
-                        stream.width = 666;
-                        stream.height = 533;
-                        editor(stream,socket)
-                        break;
                 }
-                
-            })
-            
-            return socket
-        } 
-        SHELL.context.sockets   = []
-        SHELL.context.stream     = function(options){
-            var socket = SHELL.context.sockets[0]
-            var stream = ss.createStream({encoding:'utf8',decodeStrings: false})            
-            ss(socket).emit('stream', stream, options );
-            sbind( stream, socket )
-            switch( options.type ){
-                case 'vty':
-                    vty( stream )
-                    break;
-                case 'pub':
-                    var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
-                            stream.write(data)
-                    })
-                    stream.on('end',function(){
-                        PubSub.unsubscribe(subscriber)
-                    })
-                    break;
-                case 'sub':
-                    stream.on("data",function(data){
-                        PubSub.publish( options.id ,data)
-                    }) 
-                    break;
+            },
+            media: {
+                pubTopic:'media_pub',
+                pub: function(){
+                    var topic       = control.media.pubTopic;
+                    var transport   = new stream.Transform({
+                            writableObjectMode: true,
+                            transform:function(chunk, encoding, callback) {
+                                callback(null, chunk);
+                            }
+                        });
+                        transport.id = topic
+                    var config = {
+                        constraints:{ video: true, audio:true },
+                        mimeType:'video/webm; codecs="vp8, opus"',
+                        interval:100,
+                        log:function(){},
+                        on_data:function(data){
+                            transport.write( new Buffer(data) )
+                        }
+                    }
+                    var encoder = mediaInterface.createMediaEncoder(config);
+                        xwindow({ id:topic, width:666, height:533, end:function(){ encoder.end(); transport.end() } })  
+                        $(encoder.canvas).width(640).height(480).appendTo( $("#" + topic ) );
+                        transport.on("data",function(data){
+                            PubSub.publish( topic ,data)
+                        })  
+                        transport.on('error',function(e){
+                           control.media.error = e
+                	    })
+                        transport.on('end',function(){
+                            encoder.end()
+                	    })
+                	    encoder.start();
+                },
+                subTopic:'media_pub',
+                sub: function(){
+                    var topic       = control.media.subTopic;
+                    var transport = new stream.Transform({
+                            writableObjectMode: true,
+                            transform:function(chunk, encoding, callback) {
+                                callback(null, chunk);
+                            }
+                        });
+                        transport.id = topic
+                    var config = {
+                        mimeType:'video/webm; codecs="vp8, opus"',
+                        log:function(){},
+                    }
+                    var decoder = mediaInterface.createMediaDecoder(config);
+                        xwindow({ id:'sub_' + topic , width:666, height:533, end:function(){ decoder.end(); transport.end() } }) 
+                        $(decoder.canvas).width(640).height(480).appendTo( $("#sub_" + topic) );
+                        transport.on('data',function(data){
+                            decoder.write(data)
+                        })
+                        transport.on('end',function(){
+                            PubSub.unsubscribe(subscriber)
+                            decoder.end()
+                        })
+                        decoder.start();
+                    var subscriber = PubSub.subscribe(topic, function(msg,data){
+                                transport.write(data)
+                        })
+                },
+                error:'NONE'
             }
-
-
-        }
-        
-        
-    function vty(stream){
-        
-        var terminal = new Terminal({ cols: 80, rows: 24, screenKeys: true, convertEol:true, cursorBlink:true });
-        
-            stream.width    = 700
-	        stream.height   = 400
-            streamUI(stream);
-            terminal.open( document.getElementById(stream.id) );
             
-            stream.on('data',function(data){
-                terminal.write(data.toString())
-            })
-            terminal.on('data',function(data,e,f){
-                stream.write(data)
-            })
-            stream.on('end',function(){
-                $( "#" + stream.id ).dialog( "destroy" )
-                terminal.destroy();
-            })
-            stream.on('close',function(){
-                $( "#" + stream.id ).dialog( "destroy" )
-                terminal.destroy();
-            })
+    };
+    var transforms  = {
+        object: { '<>': 'div', class: 'package ${show} ${type}',  html: [
+                    { '<>': 'div', class: 'header', oid: '${oid}' + '.header',  html: [
+                        {   '<>': 'div',  class: getArrow },
+                		{   '<>': 'span', class: 'name',  oid: '${oid}' + '.name',    html: '${name} : ' },
+                		{   '<>': 'span', class: 'value', oid: '${oid}' + '.value',   html: function (obj) { return  getValue(obj.value) } },
+                		{   '<>': 'span', class: 'plot',  oid: '${oid}' + '.plot',    html: '' }
+                	]},
+                	{   '<>': 'div', class: 'children',  html: function (obj) { return getChildren(obj.value); } }
+                ]}
+    };
+    
+    function createPlotter(oid,ref,epoch){
+        var el = $('[oid="' + oid + '"]')
+        var plotter = {
+                samples:    [],
+                sampleMax:  100,
+                start:      Date.now(),
+                ts:         Date.now(),
+                epoch:      0,
+                style:      {
+                            type: 'line',
+                            width:200,
+                            height:20,
+                            //tooltipSuffix: ' ' + ref,
+                            lineColor: '#cc8139',
+                            fillColor: '#595540',
+                            spotColor: '#cc8139',
+                            minSpotColor: '#cc8139',
+                            maxSpotColor: '#cc8139',
+                            highlightSpotColor: '#cc8139',
+                            highlightLineColor: '#cc8139',
+                            normalRangeColor: '#cc8139'
+                },
+                update:     function(value){
+                            if( Date.now()-plotter.ts > 100 ){
+                                plotter.epoch   = Date.now()-plotter.ts;
+                                plotter.ts      = Date.now();
+                                plotter.samples.push(value)
+                                if (plotter.samples.length > plotter.sampleMax){
+                                    plotter.samples.splice(0,1);
+                                }
+                                el.sparkline(plotter.samples, plotter.style )
+                            }
+                },
+                interval:setInterval( function(){ plotter.update( objectPath.get(window, ref) ) }, epoch )
+        }
+        //el.sparkline(plotter.samples, plotter.style )
         
-    }    
-    function sbind(stream, socket){
-        function emit(e){
-            stream.emit(e.event,e.data);
+        return plotter
+        
+    }
+    
+    
+    var visable     = $('.value[oid*="odrv0"]:visible')
+    var updateView  = setInterval( function(){
+        var oids = []
+        for(var i =0;i<visable.length;i++){ 
+            var oid =  $( visable[i] ).attr('oid')
+            if(oid.indexOf('odrv0')===0)
+            oids.push(oid.replace('.value',''))
         }
-        function absorb(){
-            ss(socket).removeListener(stream.id,emit)
-        }
-        ss(socket).on(stream.id, emit) ;
-        stream.on('end',absorb)
-        stream.on('socket.io',function(e){
-            ss(socket).emit(stream.id,e)
+        oidView = oids
+    }, 500 )
+    var updateOIDS  = setInterval( function(){
+        oidView.forEach(function(oid){
+            objectPath.get(window,  oid);
         })
-    }    
-    function editor(stream,socket){
-            streamUI(stream)
-            var title_bar = '<span style="float:left;">' +
-                                '<button title="share" '+
-                                'style="height:20px;width:30px;" ' +
-                                'id="share_' + stream.id + '"/></span>'+
-                            '<span style="float:left;">' + 
-                                '<button title="save" ' + 
-                                'style="height:20px;width:30px;" ' +
-                                'id="save_' + stream.id + '"/></span>' +
-                            '<span style="float:center;">' + 
-                                '<div id="title_' + stream.id + '"> &nbsp &nbsp' +
-                                stream.id + '</div></span>';
-                $("#" + stream.id).dialog('option', 'title', title_bar);
-                $('#share_' + stream.id).button({ icons: { primary: 'ui-icon-signal-diag' } })
-                $('#share_' + stream.id).click(function () { var e = { event:'share'} });    
-                $('#save_'  + stream.id).button({ icons: { primary: 'ui-icon-disk' } });
-                $('#save_'  + stream.id).click(function () { 
-                    var e = { event:'save', path:stream.path } 
-                    if(!socket){
-                        SHELL.util.set(stream.path, eval(editor.getValue()) );
-                        SHELL.context.REPL.PRINT.ansi(e)
+        
+    }, 500 )
+  
+
+
+    function createDeepProxy(target, handler) {
+      const preproxy = new WeakMap();
+    
+      function makeHandler(path) {
+        return {
+          set(target, key, value, receiver) {
+            if (typeof value === 'object') {
+              value = proxify(value, [...path, key]);
+            }
+            target[key] = value;
+    
+            if (handler.set) {
+              handler.set(target, [...path, key], value, receiver);
+            }
+            return true;
+          },
+    
+          deleteProperty(target, key) {
+            if (Reflect.has(target, key)) {
+              unproxy(target, key);
+              let deleted = Reflect.deleteProperty(target, key);
+              if (deleted && handler.deleteProperty) {
+                handler.deleteProperty(target, [...path, key]);
+              }
+              return deleted;
+            }
+            return false;
+          }
+        }
+      }
+    
+      function unproxy(obj, key) {
+        if (preproxy.has(obj[key])) {
+          // console.log('unproxy',key);
+          obj[key] = preproxy.get(obj[key]);
+          preproxy.delete(obj[key]);
+        }
+    
+        for (let k of Object.keys(obj[key])) {
+          if (typeof obj[key][k] === 'object') {
+            unproxy(obj[key], k);
+          }
+        }
+    
+      }
+    
+      function proxify(obj, path) {
+        for (let key of Object.keys(obj)) {
+          if (typeof obj[key] === 'object') {
+            obj[key] = proxify(obj[key], [...path, key]);
+          }
+        }
+        let p = new Proxy(obj, makeHandler(path));
+        preproxy.set(p, obj);
+        return p;
+      }
+    
+      return proxify(target, []);
+    }
+    let obj = {
+      foo: 'baz',
+    }
+    let proxied = createDeepProxy(obj, {
+      set(target, path, value, receiver) {
+        console.log('set', path.join('.'), '=', JSON.stringify(value));
+      },
+    
+      deleteProperty(target, path) {
+        console.log('delete', path.join('.'));
+      }
+    });
+    //marshal
+    proxied.foo = 'bar';
+    proxied.deep = {}
+    proxied.deep.blue = 'sea';
+    delete proxied.foo;
+    delete proxied.deep; // triggers delete on 'deep' but not 'deep.blue'
+
+
+
+
+
+        function xwindow(X){
+                    if($('#' + X.id).length ){ return }
+                    xIndex+=20;
+                    var div     = { 
+                            id: X.id, 
+                            style: 'background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;'
+                        };
+                    var dialog  = {
+                            "width": X.width,
+                            "height": X.height,
+                            "minHeight":X.height,
+                            "minWidth": X.width,
+                            "position": [50 + xIndex   ,50 + xIndex],
+                            "title": "X(" + X.id + ")",
+                            "style":'font-size: 20pt; background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;',
+                            "close" : function(event, ui){ X.end(); $("#" + X.id).remove()  }
+                        };
+                    var extend = {
+                            "closable": true,
+                            "minimizable": true,
+                            "maximizable": true,
+                            "collapsable": true,
+                            "dblclick": "collapse",
+                            "titlebar": "transparent",
+                            "minimizeLocation": "left"
+                        }
+                    var ui = $('<div/>', div )
+                        .appendTo( "body" )
+                        .dialog( dialog )
+                        .dialogExtend( extend )
+                        .data("uiDialog")._title = function (title) { title.html(this.options.title); };
+                        //document.getElementById( X.id).style.textShadow = "1px 1px 1px #000000";
+        }
+        function proxy(object,name ){
+                function paths(value, path, parent){
+                        var type = typeof(value)
+                        Array.isArray(value)?type='array':null;
+                        switch(type){
+                            case 'object':
+                                for (var p in value) {
+                                    paths(value[p], path ? path+"."+p : p, value);
+                                }
+                            break;
+                            case 'array':
+                                for(var i=0; i< value.length; i++){
+                                    paths(value[i], path + "[" + i + "]", value);
+                                }
+                            break;
+                            default:
+                                Object.defineProperty(parent, path.split('.').pop(), { 
+                                    get:function(){ return value },
+                                    set:function(val){
+                                        value = val
+                                        var el = $('[oid="' + name + '.' + path + '.value"]');
+                                        if( el.is(":focus")!==true){ el.text(val) }
+                                    }
+                                })
+                            break;
+                        }
+                }
+                paths(object,'',{})
+                return object
+        }
+        function getArrow(obj){
+            if (getValue(obj.value) !== undefined) 
+            return ('arrow hide');
+            else 
+            return ('arrow');
+        }
+        function toHTML(json, path) {
+            $('#' + path).html('');
+            $('#' + path).json2html(convert(path, path, json, 'open', path), transforms.object);
+            regEvents();
+            visable = $('.value[oid*="odrv0"]:visible')
+        }
+        function getValue(obj) {
+            var type = $.type(obj);
+            switch (type) {
+                case 'array':
+                case 'object':
+                    return undefined;
+                    break;
+                case 'function':
+                    return '()';
+                    break;
+                case 'string':
+                    return obj ;
+                    break;
+                default:
+                    return obj;
+                    break;
+            }
+        }
+        function getChildren(obj) {
+            var type = $.type(obj);
+            switch (type) {
+                case 'array':
+                case 'object':
+                    return (json2html.transform(obj, transforms.object));
+                    break;
+                default:
+                    break;
+            }
+        }
+        function convert(oid, name, obj, show, path) {
+            var type = $.type(obj);
+            var value = [];
+            var delimiter = "";
+            if (oid != '') { delimiter = "."; }
+    
+            switch (type) {
+                case 'array':
+                    var len = obj.length;
+                    show = 'closed';
+                    for (var j = 0; j < len; ++j) {
+                        if (path.indexOf(oid + delimiter + j) > -1 || oid == ''||path===oid) {
+                            show = 'open';
+                        } 
+                        value[j] = convert(oid + delimiter + j, j, obj[j], show, path);
+                    }
+                    break;
+                case 'object':
+                    var j = 0;
+                    show = 'closed';
+                    for (var prop in obj) {
+                        if (path.indexOf(oid + delimiter + prop) > -1 || oid == '' || path === oid) {
+                            show = 'open';
+                        }
+                        value[j] = convert(oid + delimiter + prop, prop, obj[prop], show, path);
+                        j++;
+                    }
+                    break;
+                default:
+                    show = 'closed';
+    
+                    value = obj;
+                    break;
+            }
+            return ({ 'oid': oid, 'name': name, 'value': value, 'type': type, 'show': show, 'path': path});
+        }
+        function regEvents() {
+            $('.package.object').off('click').on('click',  function () {
+                visable = $('.value[oid*="odrv0"]:visible')
+            })
+            $('.header').off('click').on('click',  function () {
+                var oid =  $(this).attr('oid').replace('.header','') 
+                var parent = $(this).parent();
+                if (parent.hasClass('closed')) {
+                    parent.removeClass('closed');
+                    parent.addClass('open');
+                } else 
+                if (parent.hasClass('open')){
+                    parent.removeClass('open');
+                    parent.addClass('closed');
+                }
+                
+            });
+            $('.value').off('click').on('click', function (event) {
+                    var oid = $(this).attr('oid').replace('.value','')
+                    if($(this).text()==='()'){
+                         objectPath.get(window, oid )()
                     }else{
-                        ss(socket).emit( stream.id, e );
+                        $(this).prop('contenteditable', true);
+                        $(this).css('background-color', '#cc8139')
+                        $(this).focus()
+                        
+                       
                     }
-                });   
-            var edit = ace.edit(stream.id);
-                edit.setByAPI = false;
-                edit.setFontSize(12);
-                edit.setShowPrintMargin(false);
-                edit.setTheme("ace/theme/monokai");
-                edit.getSession().setMode("ace/mode/javascript");
-                edit.on('beforeChange', function(cm,change){
-                    //console.log(cm,change)
-                });
-                edit.on('change', function (delta) {
-                    if(!edit.setByAPI){
-                        stream.write(delta)
+            })
+            $('.value').blur( function () {
+                    var oid = $(this).attr('oid').replace('.value','')
+                    var value   =   $(this).text()
+                    $(this).prop('contenteditable', false);
+                    $(this).css('background-color', '#262626');
+                    if(value!=='()'){
+                        objectPath.set(window, oid, value  );
                     }
-                });
-                stream.on('data',function(data){
-                    if(!socket){
-                        SHELL.context.REPL.PRINT.ansi(data)
-                    }else{
-                        edit.setByAPI = true;
-                        edit.getSession().getDocument().applyDeltas([data.data]);
-                        edit.setByAPI = false;
-                    }
+            });
+    
+        }
+
+        function sbind(transport, socket){
+            function emit(e){
+                transport.emit(e.event,e.data);
+            }
+            function absorb(){
+                ss(socket).removeListener(transport.id,emit)
+            }
+            ss(socket).on(transport.id, emit) ;
+            transport.on('end',absorb)
+            transport.on('socket.io',function(e){
+                ss(socket).emit(transport.id,e)
+            })
+        } 
+    
+        fibre.on('error',function(error){ control.fibre.error = error })
+        fibre.on('info',function(error){ control.fibre.error = error })
+        fibre.on('download.start',function(value){
+            var el =  $('[oid="odrv0.json.value"]')
+                el.html('')
+                el.width(200).height(5).css({ 'background': '#cc8139' })
+                el.progressbar({ value:0, max:27380 })
+                fibre.on('download.update',function(value){
+                    el.progressbar( "option", "value", value );
+                })
+                fibre.on('download.complete',function(value){
+                    el.progressbar( "option", "value", value );
                 })
                 
-                if(!socket){
-                    var ob = SHELL.util.get(stream.path)
-                    switch(typeof ob){
-                        case 'function':
-                            ob = ob.toString();
-                            break;
-                        case 'object':
-                            ob = sheldon.util.inspect(ob,false,10,false)
-                            break;
-                        default:
-                            break;
-                    }
-                    edit.setValue(stream.path + ' = ' + ob)
-                }
+        })
 
-                
-                
         
-    }
-    var streamIndex = -1;
-    function streamUI(stream){
-                streamIndex+=5;
-                var div     = { 
-                        id: stream.id, 
-                        style: 'background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;'
-                    };
-                var dialog  = {
-                        "width": stream.width,
-                        "height": stream.height,
-                        "minHeight":stream.height,
-                        "minWidth": stream.width,
-                        "position": [50 + streamIndex   ,50 + streamIndex],
-                        "title": stream.id,
-                        "style":'font-size: 20pt; background-image: url("unit1.png"); background-repeat:no-repeat; background-size: contain;background-position: center;',
-                        "close" : function(event, ui){ stream.end(); $("#" + stream.id).remove()  }
-                    };
-                var extend = {
-                        "closable": true,
-                        "minimizable": true,
-                        "maximizable": true,
-                        "collapsable": true,
-                        "dblclick": "collapse",
-                        "titlebar": "transparent",
-                        "minimizeLocation": "left"
+        odrive.on('error',function(error){ control.odrive.error = error })
+        odrive.on('get',function(endpoint,callback){
+            
+                fibre.get(endpoint.id, endpoint.length, function(data){
+                    callback(data)
+                    var el =  $('[oid="odrv0'+ endpoint.namespace + '.value"]')
+                    if( el.is(":focus")!==true && endpoint.type !=='function'){
+                        el.text( endpoint.read(0) )
                     }
-                var ui = $('<div/>', div )
-                    .appendTo( "body" )
-                    .dialog( dialog )
-                    .dialogExtend( extend )
-                    .data("uiDialog")._title = function (title) { title.html(this.options.title); };
-                    //document.getElementById( stream.id).style.textShadow = "5px 5px 1px #000000";
-                    /*
-                    $("#" + stream.id).bind("dialogdragstop", stream.ioCTL);
-                    $("#" + stream.id).bind("dialogresizestop", stream.ioCTL);
-                    $("#" + stream.id).bind("dialogextendminimize", stream.ioCTL);
-                    $("#" + stream.id).bind("dialogextendmaximize", stream.ioCTL);
-                    $("#" + stream.id).bind("dialogextendcollapse", stream.ioCTL);
-                    $("#" + stream.id).bind("dialogextendrestore", stream.ioCTL);
-                    */
-               
                     
+                });
+                
 
-    }
+        })
+        odrive.on('set',function(endpoint,callback){
+                fibre.set(endpoint.id, endpoint.buffer, function(data){
+                    callback(data)
+                    var el =  $('[oid="odrv0'+ endpoint.namespace + '.value"]')
+                    if( el.is(":focus")!==true && endpoint.type !=='function'){
+                        el.text( endpoint.read(0) )
+                    }
+                    
+                });
+        })
+
+        proxy(control,'control')
+        toHTML(control,"control")
         
+        var tx_queue    = createPlotter("control.fibre.tx_queue.value", "fibre.source.length", 100)
+        var tx_pps      = createPlotter("control.fibre.tx_pps.value", "fibre.stats.tx.pps", 100)
+        var rx_pps      = createPlotter("control.fibre.rx_pps.value", "fibre.stats.rx.pps", 100)
+        var tx_kbs      = createPlotter("control.fibre.tx_kbs.value", "fibre.stats.tx.kbs", 100)
+        var rx_kbs      = createPlotter("control.fibre.rx_kbs.value", "fibre.stats.rx.kbs", 100)
+        var tx_late     = createPlotter("control.fibre.tx_late.value", "fibre.stats.tx.late", 100)
+        var rx_late     = createPlotter("control.fibre.rx_late.value", "fibre.stats.rx.late", 100)
         
-        
+
+    
     </script>
 </body>
-    
-    
-    
