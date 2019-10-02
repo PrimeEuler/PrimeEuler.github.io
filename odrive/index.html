@@ -33,8 +33,7 @@
 	<script type="text/javascript" src="js/bower_components/xterm.js/addons/fit/fit.js"></script>
 	<script type="text/javascript" src="js/odrive_web.js"></script>
 	<script type="text/javascript" src="js/fibre_web.js"></script>
-	
-    
+    <script type="text/javascript" src="js/events-browser.js"></script>
     
     <style>
     
@@ -60,17 +59,17 @@
 		            border-radius:10px;
 		            background-color:transparent; 
 		            margin-top:2px;}
-		.header {   cursor:pointer;}
-		.name   {   color:#cc8139;}
-		.array {    background-color:#262626;
+		.header  {  cursor:pointer;}
+		.name    {  color:#cc8139;}
+		.array   {  background-color:#262626;
 		            border:thin solid #595540}
-		.object {   background-color:transparent; 
+		.object  {   background-color:transparent; 
 		            //background-color:#262626;
 		            border:thin solid #595540}
-		.string {   color:papayawhip;}
-		.number {   color:papayawhip;}
-		.function { color:papayawhip;}
-		.boolean { color:papayawhip;}
+		.string  {  color:papayawhip;}
+		.number  {  color:yellow;}
+		.function { color:#cc8139;}
+		.boolean {  color:papayawhip;}
 		.open .children {display:block;}
 		.closed .children {display:none;}
 		.arrow {    background-image:url("./css/flat-8139-theme/images/ui-icons_595540_256x240.png"); 
@@ -97,6 +96,7 @@
 <body >
 <div id="control"></div>
     <script type="text/javascript">
+    var events      = require('events');
     var Odrive      = require('odrive');
     var objectPath  = require('odrive').objectPath;
     var Fibre       = require('fibre');
@@ -223,55 +223,18 @@
                             control.socket.connected?setTimeout(ping,100):null;
                         });
                     }
-                    
-                    
-                    
                 },
                 connected:false,
-                error:'NONE',
-                stream:{
-                    options:{
-                        id:'topic',
-                        type:'pub/sub'
-                    },
-                    create:function(){
-                        var options = control.socket.stream.options;
-                        var transport = ss.createStream({encoding:'utf8',decodeStrings: false})  
-                            transport.id = options.id
-                        ss(socket).emit('stream', transport, options );
-                        sbind( transport, socket )
-                        switch( options.type ){
-                            case 'pub':
-                                var subscriber = PubSub.subscribe( options.id, function(msg,data){      //SHELL.context.REPL.PRINT.ansi(data,function(){})
-                                        transport.write(data)
-                                })
-                                transport.on('end',function(){
-                                    PubSub.unsubscribe(subscriber)
-                                })
-                                break;
-                            case 'sub':
-                                transport.on("data",function(data){
-                                    PubSub.publish( options.id ,data)
-                                }) 
-                                break;
-                        }
-                    }
-                }
+                error:'NONE'
             },
             media: {
-                pubTopic:'media_pub',
+                topic:'avStream',
                 pub: function(){
-                    var topic       = control.media.pubTopic;
-                    var transport   = new stream.Transform({
-                            writableObjectMode: true,
-                            transform:function(chunk, encoding, callback) {
-                                callback(null, chunk);
-                            }
-                        });
-                        transport.id = topic
+                    var topic       = control.media.topic;
+                    var transport   = conflux.pub(topic,true)
                     var config = {
                         constraints:{ video: true, audio:true },
-                        mimeType:'video/webm; codecs="vp8, opus"',
+                        mimeType:control.media.mimeType,
                         interval:100,
                         log:function(){},
                         on_data:function(data){
@@ -281,29 +244,19 @@
                     var encoder = mediaInterface.createMediaEncoder(config);
                         xwindow({ id:topic, width:666, height:533, end:function(){ encoder.end(); transport.end() } })  
                         $(encoder.canvas).width(640).height(480).appendTo( $("#" + topic ) );
-                        transport.on("data",function(data){
-                            PubSub.publish( topic ,data)
-                        })  
                         transport.on('error',function(e){
-                           control.media.error = e
+                            control.media.error = e
                 	    })
                         transport.on('end',function(){
                             encoder.end()
                 	    })
                 	    encoder.start();
                 },
-                subTopic:'media_pub',
                 sub: function(){
-                    var topic       = control.media.subTopic;
-                    var transport = new stream.Transform({
-                            writableObjectMode: true,
-                            transform:function(chunk, encoding, callback) {
-                                callback(null, chunk);
-                            }
-                        });
-                        transport.id = topic
+                    var topic       = control.media.topic;
+                    var transport   = conflux.sub(topic,true)
                     var config = {
-                        mimeType:'video/webm; codecs="vp8, opus"',
+                        mimeType:control.media.mimeType,
                         log:function(){},
                     }
                     var decoder = mediaInterface.createMediaDecoder(config);
@@ -313,14 +266,12 @@
                             decoder.write(data)
                         })
                         transport.on('end',function(){
-                            PubSub.unsubscribe(subscriber)
                             decoder.end()
                         })
                         decoder.start();
-                    var subscriber = PubSub.subscribe(topic, function(msg,data){
-                                transport.write(data)
-                        })
+
                 },
+                mimeType:'video/webm; codecs="vp8, opus"',
                 error:'NONE'
             }
             
@@ -336,6 +287,133 @@
                 	{   '<>': 'div', class: 'children',  html: function (obj) { return getChildren(obj.value); } }
                 ]}
     };
+    var conflux     = {
+        bind: function(transport, socket){
+            function emit(e){
+                transport.emit(e.event,e.data);
+            }
+            function absorb(){
+                ss(socket).removeListener(transport.id,emit)
+            }
+            ss(socket).on(transport.id, emit) ;
+            transport.on('end',absorb)
+            transport.on('socket.io',function(e){
+                ss(socket).emit(transport.id,e)
+            })
+        } ,
+        pub:function(topic,global){
+            var transport;
+                if(global && socket.connected){
+                    transport = ss.createStream({encoding:'utf8',decodeStrings: false, objectMode:true })  
+                    ss(socket).emit('stream', transport, {id:topic, type:'pub'} );
+                    conflux.bind( transport , socket )
+                }else{
+                    transport = new stream.Transform({
+                        objectMode: true,
+                        transform:function(chunk, encoding, callback) {
+                            callback(null, chunk);
+                        }
+                    });
+                    transport.on("data",function(data){
+                        PubSub.publish( topic ,data)
+                    })
+                }
+            return transport
+        },
+        sub:function(topic,global){
+            var transport;
+                if(global && socket.connected){
+                    transport = ss.createStream({encoding:'utf8',decodeStrings: false, objectMode:true })  
+                    ss(socket).emit('stream', transport, {id:topic, type:'sub'} );
+                    conflux.bind( transport , socket )
+                }else{
+                    transport = new stream.Transform({
+                        objectMode: true,
+                        transform:function(chunk, encoding, callback) {
+                            callback(null, chunk);
+                        }
+                    });
+                    var subscriber = PubSub.subscribe(topic, function(msg,data){
+                            transport.write(data)
+                    })
+                    transport.on('end',function(){
+                            PubSub.unsubscribe(subscriber)
+                    })
+                }
+            return transport
+        }
+    }
+
+    var accessor            = new events.EventEmitter()
+        accessor.varBinds   = {};
+        accessor.on('oid.get',function(oid){ 
+            console.log('get', oid ) 
+        })
+        accessor.on('oid.set',function(oid,value){ 
+                console.log('set',oid,value )
+        })
+        accessor.on('get',function(identifier){ 
+            //console.log('get', identifier ) 
+             //objectPath.get(remote.object, endpoint.path ) 
+        })
+        accessor.on('set',function(identifier,value){ 
+                //console.log('set',identifier,value )
+                var el = $('[oid="' +  identifier + '.value"]');
+                if( el.is(":focus")!==true){ el.text(value) }
+        })
+        accessor.unmarshal  = function(object){
+           return JSON.parse( JSON.stringify(object) )
+        }
+        accessor.marshal    = function( schema, identifier, parent, oid ){
+                var object  = {}
+                var type    = typeof(schema)
+                    if( schema === null ){ type = null }
+                    Array.isArray(schema)?type='array':null;
+                    switch(type){
+                        case 'object':
+                            var properties   = Object.keys(schema)
+                            var property     = '';
+                                for( var index = 0; index < properties.length; index++){
+                                    property = properties[index]
+                                    if(property !== '__proto__')
+                                    var name = identifier ? identifier + '.' + property : property
+                                    var id  = oid ? oid + '.' + index : index
+                                    object[property] = accessor
+                                    .marshal( schema[property], name , object, id )
+                                }
+                            break;
+                        case 'array'://tabular
+                                object  = []
+                                for( var index = 0; index < schema.length; index++){
+                                    var name    = identifier ? identifier + '.' + index : index;
+                                    var id      = oid ? oid + '.' + index : index
+                                    object[index] = accessor
+                                    .marshal( schema[index], name , object, id  )
+                                }
+                            break;
+                        default://scalar
+                            var property = identifier.split('.').pop()
+                                object = schema
+                                accessor.varBinds[oid.toString()] = object
+                                Object.defineProperty(parent, property , { 
+                                    get:function(){ 
+                                        accessor.emit('get', identifier )
+                                        accessor.emit('oid.get', oid )
+                                        return  accessor.varBinds[oid.toString()]
+                                        
+                                    },
+                                    set:function(value){
+                                        accessor.varBinds[oid.toString()] = value
+                                        accessor.emit('set', identifier, value )
+                                        accessor.emit('oid.set', oid, value )
+                                    }
+                                })
+                            break;
+                    }
+                    return object
+                    
+        }
+
     
     function createPlotter(oid,ref,epoch){
         var el = $('[oid="' + oid + '"]')
@@ -398,87 +476,6 @@
   
 
 
-    function createDeepProxy(target, handler) {
-      const preproxy = new WeakMap();
-    
-      function makeHandler(path) {
-        return {
-          set(target, key, value, receiver) {
-            if (typeof value === 'object') {
-              value = proxify(value, [...path, key]);
-            }
-            target[key] = value;
-    
-            if (handler.set) {
-              handler.set(target, [...path, key], value, receiver);
-            }
-            return true;
-          },
-    
-          deleteProperty(target, key) {
-            if (Reflect.has(target, key)) {
-              unproxy(target, key);
-              let deleted = Reflect.deleteProperty(target, key);
-              if (deleted && handler.deleteProperty) {
-                handler.deleteProperty(target, [...path, key]);
-              }
-              return deleted;
-            }
-            return false;
-          }
-        }
-      }
-    
-      function unproxy(obj, key) {
-        if (preproxy.has(obj[key])) {
-          // console.log('unproxy',key);
-          obj[key] = preproxy.get(obj[key]);
-          preproxy.delete(obj[key]);
-        }
-    
-        for (let k of Object.keys(obj[key])) {
-          if (typeof obj[key][k] === 'object') {
-            unproxy(obj[key], k);
-          }
-        }
-    
-      }
-    
-      function proxify(obj, path) {
-        for (let key of Object.keys(obj)) {
-          if (typeof obj[key] === 'object') {
-            obj[key] = proxify(obj[key], [...path, key]);
-          }
-        }
-        let p = new Proxy(obj, makeHandler(path));
-        preproxy.set(p, obj);
-        return p;
-      }
-    
-      return proxify(target, []);
-    }
-    let obj = {
-      foo: 'baz',
-    }
-    let proxied = createDeepProxy(obj, {
-      set(target, path, value, receiver) {
-        console.log('set', path.join('.'), '=', JSON.stringify(value));
-      },
-    
-      deleteProperty(target, path) {
-        console.log('delete', path.join('.'));
-      }
-    });
-    //marshal
-    proxied.foo = 'bar';
-    proxied.deep = {}
-    proxied.deep.blue = 'sea';
-    delete proxied.foo;
-    delete proxied.deep; // triggers delete on 'deep' but not 'deep.blue'
-
-
-
-
 
         function xwindow(X){
                     if($('#' + X.id).length ){ return }
@@ -514,6 +511,7 @@
                         //document.getElementById( X.id).style.textShadow = "1px 1px 1px #000000";
         }
         function proxy(object,name ){
+            var prox = {}
                 function paths(value, path, parent){
                         var type = typeof(value)
                         Array.isArray(value)?type='array':null;
@@ -529,12 +527,16 @@
                                 }
                             break;
                             default:
-                                Object.defineProperty(parent, path.split('.').pop(), { 
-                                    get:function(){ return value },
+                                var property = path.split('.').pop()
+                                Object.defineProperty(parent, property , { 
+                                    get:function(){ 
+                                        accessor.emit('get', name + '.' + path )
+                                        return value 
+                                        
+                                    },
                                     set:function(val){
                                         value = val
-                                        var el = $('[oid="' + name + '.' + path + '.value"]');
-                                        if( el.is(":focus")!==true){ el.text(val) }
+                                        accessor.emit('set', name + '.' + path, value )
                                     }
                                 })
                             break;
@@ -661,19 +663,7 @@
     
         }
 
-        function sbind(transport, socket){
-            function emit(e){
-                transport.emit(e.event,e.data);
-            }
-            function absorb(){
-                ss(socket).removeListener(transport.id,emit)
-            }
-            ss(socket).on(transport.id, emit) ;
-            transport.on('end',absorb)
-            transport.on('socket.io',function(e){
-                ss(socket).emit(transport.id,e)
-            })
-        } 
+        
     
         fibre.on('error',function(error){ control.fibre.error = error })
         fibre.on('info',function(error){ control.fibre.error = error })
