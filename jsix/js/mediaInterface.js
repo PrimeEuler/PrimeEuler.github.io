@@ -144,6 +144,8 @@ window.mediaInterface = (function (){
                                         initStart = e[1].start;
                                         break;
                                     case 'Cluster':
+                                        //add init headers evey cluster for streaming
+                                        //possible to do adaptive streaming with updated initSegment
                                         var _beg = data.subarray( 0 ,  e[1].start )
                                         var _end = data.subarray( e[1].start      )
                                             if(initStart==0){
