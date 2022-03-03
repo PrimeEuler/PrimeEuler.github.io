@@ -155,7 +155,7 @@ window.mediaInterface = (function (){
                                                 initSegment = data.subarray( initStart, e[1].start )
                                                 initStart = -1
                                             }
-                                        dec.write(initSegment,console.log)
+                                        //dec.write(initSegment,console.log)
                                         var size = _beg.length + initSegment.length + _end.length   
                                             data = new Uint8Array(size)
                                             data.set(_beg)
