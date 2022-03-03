@@ -168,6 +168,7 @@ window.mediaInterface = (function (){
                                 encoder.ondata(data)
                             }
                         })
+                        dec.write(data,console.log)
                     })
     
                 }
