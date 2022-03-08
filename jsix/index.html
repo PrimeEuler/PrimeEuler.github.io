@@ -103,7 +103,7 @@
                                             var element = mediaInterface.createMediaElement(decoder)
                                                 encoder.ondata = decoder.appendBuffer 
                                                 element.video.addEventListener('canplay',function(){
-                                                    var X = {   id: stream.id + 'decoder',
+                                                    var X = {   id: 'mediaDecoder', //id: stream.id + 'decoder',
                                                                 width: element.video.videoWidth + 30, 
                                                                 height: element.video.videoHeight + 50,
                                                                 end:function(){
