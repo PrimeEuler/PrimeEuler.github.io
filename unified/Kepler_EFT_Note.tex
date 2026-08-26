@@ -1,0 +1,221 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Fast Phase, Slow Moment Map]{Fast Phase, Slow Moment Map:\\
+An Effective Field Theory for the Kepler--Oscillator\\
+Correspondence on the AM--GM Cone, Assembled and Averaged}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Several notes in this project --- \cite{Ebert2026LeviCivita} on the Levi-Civita position spinor, \cite{Ebert2026Epicycle} on its epicycle decomposition, and \cite{Ebert2026Cone} on the AM--GM cone's $\mathfrak{so}(2,1)$ symmetry --- already assemble, without saying so in one place, the standard architecture of a collective-coordinate effective field theory: a fast, rapidly-varying phase and a slow, conserved ``shape'' sector living on a group orbit. This note collects them under that reading, and then completes it: we carry out the effective-field-theory averaging step \cite{Ebert2026Cone} itself flags but does not pursue, for the simplest genuine perturbation (linear drag), and verify the result numerically against the true dynamics. We show the closed-form quadratic invariants
+\[
+K_0:=\tfrac12\Big(|u|^2+|u'|^2/\omega^2\Big),\qquad K_1:=-\tfrac12\operatorname{Re}(A_+A_-),\qquad K_2:=\operatorname{Im}(\bar uu')/\omega,
+\]
+built directly from the Levi-Civita position spinor $u(s)$ and its fictitious-time derivative, reproduce \cite{Ebert2026Cone}'s cone coordinates $(K_0,K_1,K_2)=(T,X,Y)$ exactly and identically satisfy the null-cone relation $K_0^2=K_1^2+K_2^2$ (verified symbolically below) --- i.e., that they are the moment map for the ``4D oscillator phase space'' $(u,u')\in\mathbb C^2$ onto $\mathfrak{so}(2,1)^*\cong\mathbb R^{2,1}$ that \cite{Ebert2026Cone} needed but did not construct. We derive the Lie-Poisson bracket $\{X,Y\}=T,\{Y,T\}=-X,\{T,X\}=-Y$ that this identification carries on $\mathfrak{so}(2,1)^*$, verify it against the Casimir $Q=X^2+Y^2-T^2$, and identify the null cone $Q=0$ --- already shown in \cite{Ebert2026Cone} to be a single $SO(2,1)_0$-orbit --- as the degenerate coadjoint orbit through a null covector, carrying the Kirillov--Kostant--Souriau (KKS) symplectic structure inherited from this bracket: the \emph{KKS sector} of the theory. We then read \cite{Ebert2026Cone}'s dynamic slicing operator as exactly the effective-field-theory step of integrating out the fast phase, and, for linear drag $P=-\gamma v$, actually perform that integration: using the classical, independently-verified identity $\langle1/r\rangle_{\rm time}=1/T$, we derive $\langle\dot T\rangle=-2\gamma T$, $\langle\dot Y\rangle=-2\gamma Y$, $\langle\dot X\rangle=-2\gamma X$ --- the entire shape vector contracts homologously toward the cone's vertex, exactly preserving eccentricity, in sharp and falsifiable contrast to the known circularizing behavior of realistic (quadratic) drag --- and confirm this against direct numerical integration of the true dynamics over $40$ orbits, tracking to within $0.3\%$ throughout. A genuine structural surprise falls out along the way: the averaged generator is a pure dilation of $(T,X,Y)$, a symmetry of the null cone but not an element of $\mathfrak{so}(2,1)$ itself, which we record without resolving. Reconstructing the physical orbit from the pair (fast phase, slow shape) closes the loop back to $\zeta=u^2$. We are precise throughout about which claims are re-derivations of established results under new names, which are new but elementary, which are now new and numerically verified, and which are analogies to the established Kepler dynamical-group literature \cite{BacryRueggSouriau1966,Souriau1970,Moser1970} asserted here without independent re-derivation.
+\end{abstract}
+
+\section{Introduction}
+
+An effective field theory, in the sense used here, separates a system's degrees of freedom into a fast sector, whose detailed motion is not tracked, and a slow sector of collective coordinates, typically valued in an orbit of the system's own symmetry group, whose effective dynamics is what survives after the fast sector is averaged or integrated out. The clearest classical examples are the moduli-space dynamics of solitons and the coadjoint-orbit dynamics of a spinning rigid body or a quantum-Hall droplet, in both of which the slow sector is a symplectic leaf of a Lie--Poisson bracket --- a Kirillov--Kostant--Souriau (KKS) orbit --- and the fast sector is a phase conjugate to it.
+
+This project's own corpus already contains every piece of exactly this structure for the Kepler problem, assembled for different purposes in different notes:
+
+\begin{itemize}
+\item \cite{Ebert2026LeviCivita} regularizes the planar Kepler problem by Levi-Civita's classical device, writing the position as the square of a spinor $u(s)$, $s$ a fictitious time, and showing $u$ obeys an exact harmonic-oscillator equation with a single fast phase $E/2$ ($E$ the eccentric anomaly);
+\item \cite{Ebert2026Epicycle} decomposes $u$ into two counter-rotating circular components and shows every cone coordinate is an algebraic function of their two constant radii;
+\item \cite{Ebert2026Cone} identifies the cone $X^2+Y^2=T^2$ that these coordinates satisfy with the null cone of a Minkowski form on which $SO(2,1)$ acts transitively, and shows that perturbed orbital evolution is exactly the flow of a time-dependent element of $\mathfrak{so}(2,1)$.
+\end{itemize}
+
+What is missing from all three, taken separately, is the map connecting them: an explicit formula, built directly from the oscillator phase-space data $(u,u')$, for the conserved quantities that land on \cite{Ebert2026Cone}'s cone --- i.e., the moment map for the fast/slow split, and the Poisson structure the slow sector inherits as a result. Supplying that map, its bracket, and the resulting reading of \cite{Ebert2026Cone}'s dynamic slicing operator as an averaging (EFT-integrating-out) statement is the content of this note. Diagrammatically, the object of study is
+\[
+\text{Kepler phase space} \xrightarrow{\ \text{Levi-Civita}\ } \text{4D oscillator phase space } (u,u')\in\mathbb C^2,
+\]
+which splits into a fast orbital phase $\psi:=E/2$ and slow quadratic invariants $(K_0,K_1,K_2)$; the latter are the $SO(2,1)$ moment map onto the null cone, whose $SO(2,1)_0$-orbit structure is the KKS sector; recombining $\psi$ with $(K_0,K_1,K_2)$ --- \emph{not} a further reduction, but the reconstruction map run in reverse --- returns the physical orbit.
+
+\subsection*{Roadmap} Section~2 recalls the Levi-Civita spinor and its fast phase from \cite{Ebert2026LeviCivita}. Section~3 constructs the moment map $(K_0,K_1,K_2)$ directly from $(u,u')$ and verifies it against \cite{Ebert2026Cone}'s $(T,X,Y)$. Section~4 derives the Lie-Poisson bracket on $\mathfrak{so}(2,1)^*$ these coordinates carry and identifies the null cone as the KKS sector. Section~5 reads \cite{Ebert2026Cone}'s dynamic slicing operator as the EFT step of integrating out the fast phase, actually carries this out for linear drag, verifies the result numerically, and closes the loop by reconstructing the physical orbit. Section~6 is explicit about scope.
+
+\section{The Fast Phase: Recap of the Levi-Civita Spinor}
+
+We recall only what is needed; all definitions and proofs are in \cite{Ebert2026LeviCivita}. For an unperturbed Kepler orbit of semi-major axis $T$ and gravitational parameter $\mu$, fictitious time $s$ is defined by $dt=r\,ds$, and the eccentric anomaly is exactly linear in $s$: $E(s)=E_0+\sqrt{\mu/T}\,s$. Writing $x=T+X=r_a$, $y=T-X=r_p$ for the apoapsis/periapsis pair, the Levi-Civita position spinor
+\begin{equation}
+u(s)=\sqrt y\,\cos\theta(s)+i\sqrt x\,\sin\theta(s),\qquad \theta(s):=\tfrac12E(s)=\omega s+\phi_0,\quad \omega:=\tfrac12\sqrt{\mu/T}, \tag{2.1}
+\end{equation}
+satisfies $u(s)^2=\zeta(s)$, the instantaneous complex planar position, and the exact harmonic-oscillator equation $u''(s)+\omega^2u(s)=0$. The single dynamical variable that evolves along an unperturbed orbit is the phase $\theta=E/2$; everything else in (2.1) --- $x,y$, equivalently $T,X$ --- is constant. We call $\psi:=\theta$ the \emph{orbital phase}: it is the fast variable of the fast/slow split, advancing uniformly in fictitious time at the fixed rate $\omega$ that is itself built from the (conserved) shape data.
+
+\section{The Slow Sector: A Moment Map from \texorpdfstring{$(u,u')$}{(u,u')} to the Cone}
+
+\cite{Ebert2026Epicycle} already isolates three quantities built from $u$ and its fictitious-time derivative $u'$ that are constant along the unperturbed flow (2.1): the epicycle radii $R_\pm$ and their product, and the spinor angular momentum $L_u=\operatorname{Im}(\bar uu')$. We now give the direct, self-contained construction and identify it explicitly as a moment map.
+
+\begin{definition}[Quadratic invariants]\label{def:moment}
+For $u(s)$ as in (2.1) and $u'=du/ds$, define
+\begin{equation}
+K_0:=\frac12\left(|u|^2+\frac{|u'|^2}{\omega^2}\right),\qquad K_1:=-\frac12\operatorname{Re}(A_+A_-),\qquad K_2:=\frac{\operatorname{Im}(\bar uu')}{\omega}, \tag{3.1}
+\end{equation}
+where $A_\pm:=u\mp iu'/\omega$ are the epicycle amplitudes of \cite{Ebert2026Epicycle}.
+\end{definition}
+
+Each of $K_0,K_1,K_2$ is manifestly a real quadratic (Hermitian bilinear) function of $(u,u')$, exactly the sense in which \cite{Ebert2026Table,Ebert2026EigenCoord,Ebert2026Quantum} already use ``quadratic invariant'' for this project's other realizations of $\mathfrak{so}(2,1)$ and its oscillator substrates.
+
+\begin{theorem}[The moment map onto the cone]\label{thm:momentmap}
+Along the unperturbed flow (2.1), $K_0,K_1,K_2$ are each constant in $s$, and
+\begin{equation}
+(K_0,K_1,K_2)=(T,X,Y) \tag{3.2}
+\end{equation}
+identically. Consequently $K_0^2=K_1^2+K_2^2$ identically: the image of $\mu:(u,u')\mapsto(K_0,K_1,K_2)$ lies exactly on \cite{Ebert2026Cone}'s null cone $\mathcal C:X^2+Y^2=T^2$.
+\end{theorem}
+
+\begin{proof}[Verification]
+Substituting (2.1) and $u'(s)=\omega(-\sqrt y\sin\theta+i\sqrt x\cos\theta)$ into (3.1) and simplifying with $x=T+X$, $y=T-X$, $Y=\sqrt{xy}$: $|u|^2=T-X\cos2\theta$ and $|u'|^2/\omega^2=T+X\cos2\theta$, so their average is $T$ identically, with the $\theta$-dependence cancelling --- this is $K_0=T$. For $K_1$: $A_+A_-=(\sqrt x+\sqrt y)(\sqrt y-\sqrt x)e^{i\theta}e^{-i\theta}=y-x=-2X$ exactly (already noted, as a real, $s$-independent quantity, in \cite{Ebert2026Epicycle}), so $K_1=-\tfrac12(-2X)=X$. For $K_2$: $\operatorname{Im}(\bar uu')=\omega\sqrt{xy}=\omega Y$ (\cite{Ebert2026Epicycle}, Proposition~4.1), so $K_2=Y$. All three identities, together with the resulting cone relation $K_0^2-K_1^2-K_2^2=0$, were checked independently here by computer algebra (symbolic substitution of (2.1)--(2.1$'$) into (3.1), returning exactly $0$ for each of $K_0-T$, $K_1-X$, $K_2-Y$, and for $K_0^2-K_1^2-K_2^2$), not merely asserted from the cited papers' own results.
+\end{proof}
+
+\begin{remark}[In what sense this is a moment map]
+Theorem~\ref{thm:momentmap} exhibits $(K_0,K_1,K_2)$ as invariants of the fast phase $\theta$ --- built quadratically from the oscillator data $(u,u')$, constant exactly where $\theta$ is the only quantity that moves --- landing on the orbit space $\mathcal C\subset\mathfrak{so}(2,1)^*$ that \cite{Ebert2026Cone} already equips with an $SO(2,1)$ action. This is the structure a moment map is required to have. What we have \emph{not} done is verify the stronger, genuinely symplectic statement --- that $\mu$ intertwines a specific choice of canonical symplectic form on the oscillator phase space $(u,u')\in\mathbb C^2$ with the Lie--Poisson structure of Section~4 below, in the full equivariant sense of Souriau's moment map \cite{Souriau1970}. That $(u,u')$-based Kepler--oscillator correspondences of exactly this kind carry a genuine symplectic moment map is well established in the literature on the Kepler dynamical group \cite{BacryRueggSouriau1966} and on Kepler regularization \cite{Moser1970,KustaanheimoStiefel1965}, generally phrased in terms of a canonical momentum conjugate to $u$ rather than the fictitious-time derivative $u'$ used here; we invoke that literature by analogy for the terminology, and flag the direct verification, in this project's own $(u,u',s)$ variables, as open.
+\end{remark}
+
+\section{The Null Cone as a Coadjoint Orbit: The KKS Sector}
+
+\cite{Ebert2026Cone} records the generators $L,B_X,B_Y$ of $\mathfrak{so}(2,1)$, satisfying $[L,B_X]=B_Y$, $[L,B_Y]=-B_X$, $[B_X,B_Y]=-L$, and the fact (its Corollary on transitivity) that $SO(2,1)_0$ acts transitively on $\mathcal C\setminus\{0\}$: the future null cone is a single Lorentz orbit. We now make this a coadjoint-orbit statement.
+
+\begin{proposition}[Lie--Poisson bracket on the cone coordinates]\label{prop:bracket}
+Identify $\mathfrak{so}(2,1)^*\cong\mathfrak{so}(2,1)\cong\mathbb R^{2,1}$, with basis vectors $e_T,e_X,e_Y$ dual to $L,B_X,B_Y$ respectively and Minkowski pairing $\langle\cdot,\cdot\rangle_\eta$, $\eta=\mathrm{diag}(1,1,-1)$, so that $(X,Y,T)$ are the linear coordinate functions $X=\langle\cdot,e_X\rangle_\eta$, $Y=\langle\cdot,e_Y\rangle_\eta$, $T=-\langle\cdot,e_T\rangle_\eta$. Then the Lie--Poisson bracket of these coordinate functions is
+\begin{equation}
+\{X,Y\}=T,\qquad \{Y,T\}=-X,\qquad \{T,X\}=-Y. \tag{4.1}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For linear functions $f_v(\xi)=\langle\xi,v\rangle_\eta$, the Lie--Poisson bracket is $\{f_v,f_w\}=f_{[v,w]}$. Since $[L,B_X]=B_Y$, i.e.\ $[e_T,e_X]=e_Y$ under the stated identification, $\{-T,X\}=\{f_{e_T},f_{e_X}\}=f_{[e_T,e_X]}=f_{e_Y}=Y$, i.e.\ $\{T,X\}=-Y$; similarly $[e_T,e_Y]=-e_X$ gives $\{-T,Y\}=-X$, i.e.\ $\{Y,T\}=-X$; and $[e_X,e_Y]=-e_T$ gives $\{X,Y\}=f_{-e_T}=-f_{e_T}=T$. \qedhere
+\end{proof}
+
+\begin{remark}[Verification against the Casimir]
+The quadratic Casimir of $\mathfrak{so}(2,1)$ in these coordinates is $Q:=X^2+Y^2-T^2$, and a Lie--Poisson bracket must annihilate every Casimir of the algebra it comes from. Direct computation from (4.1) gives $\{Q,X\}=2Y\{Y,X\}-2T\{T,X\}=-2YT+2TY=0$, and the analogous computations for $\{Q,Y\}$ and $\{Q,T\}$ also vanish identically; we checked all three by hand as a consistency check on the sign conventions fixed in the proof of Proposition~\ref{prop:bracket}, since a genuine sign error in any one bracket would generically break this cancellation in at least one of the three checks, and none does.
+\end{remark}
+
+\begin{theorem}[The null cone is the KKS sector]\label{thm:kks}
+The symplectic leaves of the Poisson bracket (4.1) are the level sets $Q=\mathrm{const}$ (two-sheeted hyperboloids for $Q<0$, one-sheeted for $Q>0$) together with the degenerate leaf $Q=0$, the null cone $\mathcal C$ itself minus its vertex. By \cite{Ebert2026Cone}'s transitivity result, $\mathcal C\setminus\{0\}$ is a single $SO(2,1)_0$-orbit, hence a single coadjoint orbit in the sense of Kirillov--Kostant--Souriau, carrying the KKS symplectic form induced by restricting (4.1). Every physical Kepler orbit's shape data $(T,X,Y)$ --- being subject to the identity $T^2=X^2+Y^2$ by construction, not merely on this particular leaf by choice of initial condition --- lies exactly in this one degenerate orbit, never on a generic leaf $Q\ne0$: the Kepler shape sector is the KKS sector of $\mathfrak{so}(2,1)^*$, not an arbitrary one among many.
+\end{theorem}
+
+\begin{proof}
+Standard: the rank of a Lie--Poisson bracket at a point $\xi$ is the dimension of the coadjoint orbit through $\xi$, and level sets of the Casimir are unions of coadjoint orbits; that $Q=0$ (minus the vertex, where the orbit degenerates to a point) is a single orbit is exactly \cite{Ebert2026Cone}'s transitivity corollary, restated here in coadjoint language via the self-duality of $\mathfrak{so}(2,1)$ under $\eta$. The last sentence is immediate from $T^2=X^2+Y^2$ (\cite{Ebert2026Cone}, equation~(1); equivalently Theorem~\ref{thm:momentmap} above), which holds for \emph{every} $(x,y)=(r_a,r_p)$, not for a distinguished subfamily.
+\end{proof}
+
+\section{Integrating Out the Fast Phase, and Back Again}
+
+\cite{Ebert2026Cone}'s dynamic slicing operator $\hat S(t)=\exp\big(\int_0^t[a(\tau)L+b(\tau)B_X+c(\tau)B_Y]\,d\tau\big)$ evolves $(X,Y,T)$ under a perturbation, with generator coefficients (its equation~(13), for atmospheric drag) evaluated pointwise at the orbit's instantaneous $(r,v)$ --- quantities that in general depend on the fast phase $\theta$ as well as on the slow shape $(T,X,Y)$. \cite{Ebert2026Cone} itself flags, without pursuing it, that these coefficients ``may be evaluated pointwise along an orbit, or averaged over one revolution $\ldots$ to obtain the usual secular decay rates, which we do not pursue further here.'' This is exactly the effective-field-theory step of integrating out the fast sector: replacing the instantaneous, phase-dependent generator by its average over one period of the fast phase, giving an effective slow generator whose flow on the KKS sector of Theorem~\ref{thm:kks} approximates the true evolution to leading order in the separation of time scales --- the classical averaging principle for near-integrable Hamiltonian systems, applied here to a flow valued in a coadjoint orbit rather than in $\mathbb R^n$. We now carry this out explicitly for the simplest genuine case.
+
+\subsection{Linear Drag, Exactly}
+
+For $P(t)=-\gamma v$ (constant $\gamma$), the exact instantaneous rates of change of specific energy and angular momentum are
+\begin{equation}
+\dot h = P\cdot v = -\gamma v^2, \qquad \dot\ell = r\times P = -\gamma\ell, \tag{5.1}
+\end{equation}
+using the general perturbed-orbit formulas of \cite{Ebert2026LeviCivita}. The second identity is already exact and phase-independent --- $\ell(t)=\ell_0e^{-\gamma t}$, no averaging needed --- while the first still depends on the fast phase through $v^2(\theta)$.
+
+\begin{lemma}[Classical orbital average]\label{lem:avg}
+$\langle1/r\rangle_{\rm time}:=\frac1{P_{\rm orb}}\oint\frac{dt}{r}=\frac1T$, where $P_{\rm orb}=2\pi\sqrt{T^3/\mu}$.
+\end{lemma}
+
+\begin{proof}[Verification]
+Standard, via $dt=\sqrt{T^3/\mu}(1-e\cos E)\,dE$, $r=T(1-e\cos E)$, integrated over one period in eccentric anomaly; confirmed here by independent numerical quadrature at $e=0.6$: computed period matches Kepler's third law to machine precision, $\langle1/r\rangle_{\rm time}=1.0000000000$ against $1/T=1$.
+\end{proof}
+
+\begin{corollary}\label{cor:v2avg}
+$\langle v^2\rangle_{\rm time}=\mu/T$, independent of eccentricity, by vis-viva and Lemma~\ref{lem:avg}.
+\end{corollary}
+
+\begin{theorem}[Homologous decay under linear drag]\label{thm:homologous}
+Treating $T,\ell$ as adiabatically frozen over one orbit (valid for $\gamma\ll\sqrt{\mu/T^3}$),
+\begin{equation}
+\langle\dot T\rangle=-2\gamma T, \qquad \langle\dot Y\rangle=-2\gamma Y, \qquad \langle\dot X\rangle=-2\gamma X. \tag{5.2}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+$\langle\dot h\rangle=-\gamma\mu/T$ (Corollary~\ref{cor:v2avg}), and $\langle\dot T\rangle=T'(h)\langle\dot h\rangle=(2T^2/\mu)(-\gamma\mu/T)=-2\gamma T$. For $Y$: $d(Y^2)/dt=(\ell^2/2h^2)\dot h+(-\ell/h)\dot\ell$; substituting $\dot\ell=-\gamma\ell$ (exact), $\langle\dot h\rangle$ for the driving term, and $\ell^2=\mu Y^2/T$ gives $\langle d(Y^2)/dt\rangle=-4\gamma Y^2$ (verified symbolically), so $\langle\dot Y\rangle=-2\gamma Y$. The $X$ identity follows from $X^2=T^2-Y^2$: $\langle d(X^2)/dt\rangle=-4\gamma T^2+4\gamma Y^2=-4\gamma X^2$, verified symbolically to vanish identically as an internal consistency check.
+\end{proof}
+
+\begin{corollary}[Eccentricity is preserved, to leading order]\label{cor:ecc}
+Since $T,X,Y$ decay at the identical rate $2\gamma$, $e=X/T$ is constant along the averaged flow.
+\end{corollary}
+
+\begin{remark}[A falsifiable, and physically meaningful, prediction]
+Realistic atmospheric drag is quadratic in speed, $P\propto-|v|v$, and is well known to circularize orbits, driving $e\to0$. This idealized linear model instead predicts no secular change in shape at all, only in scale --- the two models make different, checkable predictions about eccentricity evolution, exactly the kind of falsifiable content a genuine averaged secular theory should produce.
+\end{remark}
+
+\subsection{Numerical Verification}
+
+\begin{proposition}[The averaged theory matches the true dynamics]\label{prop:numcheck}
+Direct integration of the full (unaveraged) equations of motion from an orbit with $T_0=1,e_0=0.6,\mu=1,\gamma=0.002$, over $40$ orbital periods (during which $T$ shrinks from $1.00$ to $0.366$ and $Y$ from $0.80$ to $0.293$), tracks $T(t)=T_0e^{-2\gamma t}$, $Y(t)=Y_0e^{-2\gamma t}$ to within $0.3\%$ at every sampled point, with osculating eccentricity remaining at $0.599$--$0.600$ throughout against an initial $0.600$.
+\end{proposition}
+
+\begin{proof}[Verification]
+Direct fine-step numerical integration ($dt=10^{-4}$ against an orbital period of order unity) of the exact perturbed two-body problem, sampling osculating $(T,Y)$ from the instantaneous Cartesian state at $20$ points per orbit across the full run, compared against the closed-form exponentials of Theorem~\ref{thm:homologous}.
+\end{proof}
+
+This is precisely the check flagged above as needed to promote the averaging identification from an organizing observation to an established result, carried out here for linear drag.
+
+\begin{remark}[A structural surprise: the generator is not in $\mathfrak{so}(2,1)$]
+The dynamic slicing operator is built from $a(t)L+b(t)B_X+c(t)B_Y\in\mathfrak{so}(2,1)$, but the averaged flow of Theorem~\ref{thm:homologous} is a uniform dilation, $(T,X,Y)\mapsto e^{-2\gamma t}(T,X,Y)$ --- and no element of $\mathfrak{so}(2,1)$ generates a uniform rescaling of all three coordinates simultaneously (each of $L,B_X,B_Y$ generates a rotation or boost preserving a nondegenerate quadratic form, not a scaling of it). The dilation is nonetheless a genuine symmetry of the null cone specifically (any rescaling of a null vector remains null), just not one expressible within the operator's own stated generator space. We do not resolve what this means for the dynamic slicing operator's completeness as a description of secularly decaying orbits; we record it as a genuine structural finding this calculation surfaced, not anticipated in advance, and worth checking against that operator's own formalism directly.
+\end{remark}
+
+\begin{proposition}[Reconstructing the physical orbit]\label{prop:reconstruct}
+Given the slow data $(T,X,Y)\in\mathcal C$ and the fast phase $\theta$, the physical position is recovered exactly, with no further input, by
+\begin{equation}
+\zeta=u^2,\qquad u=\sqrt{T-X}\,\cos\theta+i\sqrt{T+X}\,\sin\theta. \tag{5.3}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+This is (2.1) with $x=T+X$, $y=T-X$ substituted, together with \cite{Ebert2026LeviCivita}'s Theorem on the closed form of $u$; nothing new is proved here beyond noting explicitly that (5.3) is the reverse of the map $(u,u')\mapsto(K_0,K_1,K_2)=(T,X,Y)$ of Theorem~\ref{thm:momentmap}, run using only $u$ (not $u'$) together with the phase, which is available once $(T,X,Y)$ and $\theta$ are both known.
+\end{proof}
+
+So the diagram of the introduction closes: the fast phase $\theta$ and the slow KKS-sector data $(T,X,Y)$, obtained by separate routes from the same $(u,u')$, are jointly sufficient --- and, by (5.3), only jointly sufficient --- to reconstruct the orbit that the Levi-Civita map started from.
+
+\section{Scope}
+
+We separate what this note establishes from what it organizes and from what it defers, since these are different kinds of claims.
+
+\emph{New and verified here.} The explicit quadratic-invariant map $\mu:(u,u')\mapsto(K_0,K_1,K_2)$ of Definition~\ref{def:moment}, built directly from the Levi-Civita spinor and its fictitious-time derivative rather than imported from \cite{Ebert2026Epicycle}'s separate epicycle and angular-momentum computations; its exact identification with $(T,X,Y)$ and the resulting null-cone relation (Theorem~\ref{thm:momentmap}), checked here by independent symbolic substitution; the explicit Lie--Poisson bracket (4.1) that $(X,Y,T)$ carry as coordinates on $\mathfrak{so}(2,1)^*$, together with its Casimir consistency check (Proposition~\ref{prop:bracket}); the resulting identification of the null cone, via \cite{Ebert2026Cone}'s own transitivity result, as a single coadjoint (KKS) orbit (Theorem~\ref{thm:kks}); and, completing what earlier drafts of this note left open, the averaged secular equations for linear drag (Theorem~\ref{thm:homologous}), the resulting eccentricity-preservation prediction (Corollary~\ref{cor:ecc}) with its explicit contrast to known quadratic-drag circularization, and direct numerical verification that this averaged theory tracks the true dynamics over a genuine secular timescale (Proposition~\ref{prop:numcheck}).
+
+\emph{Re-derivations under new names.} The fast phase itself (Section~2) and the orbit-reconstruction formula (Proposition~\ref{prop:reconstruct}) restate \cite{Ebert2026LeviCivita} without new content; the transitivity fact underlying Theorem~\ref{thm:kks} is \cite{Ebert2026Cone}'s own corollary, restated in coadjoint-orbit language.
+
+\emph{Organizing observations, not theorems.} The dilation-generator structural point (Section~5) is recorded but not resolved: we do not know what it implies for the dynamic slicing operator's completeness as a description of secularly decaying orbits.
+
+\emph{Explicitly not established.} A genuine symplectic (as opposed to merely orbit-theoretic) moment-map property for $\mu$, in Souriau's own sense --- that a specific symplectic form on $(u,u')\in\mathbb C^2$ pushes forward under $\mu$ to the bracket (4.1) --- is asserted here only by analogy with the established Kepler dynamical-group and regularization literature \cite{BacryRueggSouriau1966,Moser1970,KustaanheimoStiefel1965}, which constructs such moment maps using genuine canonical momenta conjugate to the regularized position; we have not carried out the corresponding canonical (Hamiltonian, not merely kinematic) analysis for this project's own $(u,u',s)$ variables, and we do not know whether $u'=du/ds$ is proportional to that canonical momentum with the correct constant for the bracket to close exactly as (4.1) predicts. Nor do we construct an explicit effective Lagrangian or Hamiltonian for the slow sector (e.g., a Wess--Zumino-type term built from the KKS symplectic potential, of the kind standard in coadjoint-orbit effective field theories of spin or of quantum-Hall edge modes) --- Section~5 identifies where such a term would live, on the coadjoint orbit of Theorem~\ref{thm:kks}, but does not write one down. The averaging of Section~5 is carried out only for linear drag; quadratic (realistic) drag, or any other perturbation type (third-body, oblateness), would require redoing the averaging integral with a different phase-dependence and is not attempted here. All of these are natural next steps this note does not take.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in drafting this manuscript, in symbolic verification of Theorem~\ref{thm:momentmap}'s three quadratic-invariant identities and the resulting cone relation (via computer algebra: direct substitution of the closed-form $u(s)$, $u'(s)$ into Definition~\ref{def:moment} and simplification, returning exactly zero for each of $K_0-T$, $K_1-X$, $K_2-Y$, and for $K_0^2-K_1^2-K_2^2$), and in the hand-derivation and Casimir cross-check of Proposition~\ref{prop:bracket}'s Lie--Poisson bracket. This also includes, completing what an earlier draft of this note left as an organizing observation: symbolic derivation of the averaged secular equations (Theorem~\ref{thm:homologous}) from the exact instantaneous drag formulas and the classical orbit-averaging identity; independent numerical verification of the classical identity $\langle1/r\rangle_{\rm time}=1/T$ itself (Lemma~\ref{lem:avg}) via direct quadrature, rather than taking it as given; direct numerical integration of the true perturbed two-body dynamics over $40$ orbits and comparison against the closed-form averaged prediction (Proposition~\ref{prop:numcheck}); and identification of the dilation-generator structural point of Section~5, which was not anticipated before the calculation and follows directly from noting that $T,X,Y$ share a common decay rate. The organizing claim of this note --- that the existing corpus's Levi-Civita, epicycle, and cone constructions already assemble a fast/slow, moment-map/coadjoint-orbit structure --- and the explicit construction of $\mu$ and its bracket, are the author's; the Scope section above was written to separate these, and the now-completed averaging calculation, from the surrounding literature analogies and from what remains genuinely open. All mathematical and numerical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ebert2026Quantum} J.~Ebert, \emph{Two Oscillators, Two Algebras: SU(2) and SU(1,1) Realizations of the Cone's Symmetry, and the Fate of the Power Map}, Preprint (2026).
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\bibitem{Ebert2026Epicycle} J.~Ebert, \emph{Two Circles Make an Ellipse: The Cone's Parabolas and Hyperbola as Epicycle Invariants of the Levi-Civita Position Spinor}, Preprint (2026).
+\bibitem{KustaanheimoStiefel1965} P.~Kustaanheimo, E.~Stiefel, Perturbation theory of Kepler motion based on spinor regularization, \emph{J.\ Reine Angew.\ Math.} \textbf{218} (1965), 204--219.
+\bibitem{Moser1970} J.~Moser, Regularization of Kepler's problem and the averaging method on a manifold, \emph{Comm.\ Pure Appl.\ Math.} \textbf{23} (1970), 609--636.
+\bibitem{BacryRueggSouriau1966} H.~Bacry, H.~Ruegg, J.-M.~Souriau, Dynamical groups and spherical potentials in classical mechanics, \emph{Comm.\ Math.\ Phys.} \textbf{3} (1966), 323--333.
+\bibitem{Souriau1970} J.-M.~Souriau, \emph{Structure des syst\`emes dynamiques}, Dunod, Paris, 1970; English transl.\ \emph{Structure of Dynamical Systems}, Birkh\"auser, 1997.
+\bibitem{Kirillov2004} A.~A.~Kirillov, \emph{Lectures on the Orbit Method}, Graduate Studies in Mathematics \textbf{64}, American Mathematical Society, 2004.
+\bibitem{Kostant1970} B.~Kostant, Quantization and unitary representations, in \emph{Lectures in Modern Analysis and Applications III}, Lecture Notes in Mathematics \textbf{170}, Springer, 1970, 87--208.
+\end{thebibliography}
+
+\end{document}
