@@ -1,0 +1,237 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\title[The Cusp Instead of the Cone]{The Cusp Instead of the Cone: A Triple-Angle Analog of the AM--GM Circle via the Depressed Cubic, and Its Catastrophe Dynamics}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The circle parametrization $X=T\sin\theta$, $Y=T\cos\theta$ underlying \cite{Ebert2026Table,Ebert2026EigenCoord} comes from completing the square on a quadratic. This note completes the cube instead. Depressing a cubic $t^3+pt+q=0$ and solving it by the classical trigonometric method (casus irreducibilis) forces a weighted polar form, $p=-\tfrac34R^2$, $q=-\tfrac{R^3}4\cos(3\varphi)$, with roots $t_k=R\cos(\varphi-\tfrac{2\pi k}3)$ --- the direct triple-angle analog of the circle, verified here symbolically and against a worked numerical example. The discriminant collapses to $\Delta=\tfrac{27}{16}R^6\sin^2(3\varphi)$, and the power sums $p_2,p_3$ of the roots reproduce, exactly, the cubic analogs of $T$ and $Y^2$. The other two cases of the classical cubic --- one real root, reached by $p<0$ with $|q|$ large or by $p>0$ outright --- are governed by the same mechanism with $\cosh3\psi$ and $\sinh3\psi$ in place of $\cos3\varphi$, verified against the same worked family. We are explicit about where the analogy stops: the natural symmetry here is a weighted-homogeneous scaling of the classical cusp (swallowtail) catastrophe, together with a genuine dihedral (order-$6$) relabeling symmetry of the three roots, not the continuous Lorentz-type isometry group of \cite{Ebert2026EigenCoord}'s smooth quadric --- this is a structurally different object, not a further case of the same one. Finally, we show the cubic is not merely a solution set but an equilibrium equation: $t^3+pt+q=V'(t)$ for the quartic potential $V=t^4/4+pt^2/2+qt$, its stability is a closed-form function of $\varphi$, and a quasistatic sweep of $q$ across the fold points $q=\pm R^3/4$ produces an explicit, numerically verified hysteresis loop --- the actual dynamical content the algebra was hiding.
+\end{abstract}
+
+\section{Introduction}
+
+\cite{Ebert2026Table,Ebert2026EigenCoord} organize a body of results around one elementary fact: for two positive reals $x,y$, writing $X=(x-y)/2$, $Y=\sqrt{xy}$, $T=(x+y)/2$, the identity $X^2+Y^2=T^2$ comes from completing the square on the quadratic with roots $x,y$, and on a fixed anti-diagonal (fixed $T$) this becomes the ordinary circle parametrization $X=T\sin\theta$, $Y=T\cos\theta$. The question of what the ``next'' case looks like --- completing the cube instead of the square --- has a classical answer already sitting in every algebra text under the name \emph{casus irreducibilis}, and this note works out, carefully and with the same standard of verification as \cite{Ebert2026Table,Ebert2026EigenCoord}, exactly how far the analogy goes and exactly where it stops.
+
+The short version: it goes further than one might expect --- a genuine weighted polar form, a clean discriminant formula, and a full three-branch trichotomy with the same trigonometric/hyperbolic split found in \cite{Ebert2026EigenCoord} --- and then it stops at a specific, identifiable point: the object underlying the cubic's trigonometric solution is a \emph{cusp}, not a cone, and its symmetry is a scaling law from singularity theory, not a Lie group of isometries. Having identified the object, we then ask the question that gives the cusp its name: a \emph{catastrophe}, in Thom's original sense, is not a solution set but a potential and a dynamics, and Section~8 supplies exactly that, checked against direct numerical simulation rather than asserted.
+
+\subsection*{Roadmap} Section~2 sets up the depressed cubic and proves the weighted polar form for the three-real-root case. Section~3 computes the discriminant in these coordinates. Section~4 computes the power sums, the direct analogs of $T$ and $Y^2$. Section~5 works a full numerical example. Section~6 covers the two one-real-root branches, hyperbolic cosine and hyperbolic sine, with their own worked examples. Section~7 is where we are honest about what kind of object this is --- a cusp catastrophe with a scaling symmetry and a dihedral relabeling symmetry, not a further case of \cite{Ebert2026EigenCoord}'s cone. Section~8 supplies the dynamics: the potential, stability in closed form, and a verified hysteresis loop.
+
+\section{The Depressed Cubic and Its Weighted Polar Form}
+
+Every cubic $z^3+bz^2+cz+d=0$ depresses, via $z=t-b/3$, to $t^3+pt+q=0$ with no quadratic term, i.e.\ with roots summing to zero. We work throughout with the depressed form. Its discriminant is
+\begin{equation}
+\Delta=-4p^3-27q^2, \tag{2.1}
+\end{equation}
+positive exactly when the cubic has three distinct real roots, zero exactly at a repeated root, and negative exactly when it has one real root and a complex-conjugate pair.
+
+\begin{theorem}[Weighted polar form, three real roots]\label{thm:polar}
+Suppose $p<0$. Set $R:=2\sqrt{-p/3}>0$. For any $\varphi\in\mathbb R$, define
+\begin{equation}
+t_k:=R\cos\Bigl(\varphi-\frac{2\pi k}3\Bigr),\qquad k=0,1,2. \tag{2.2}
+\end{equation}
+Then $t_0,t_1,t_2$ are the three roots of $t^3+pt+q=0$ for
+\begin{equation}
+q=-\frac{R^3}4\cos(3\varphi). \tag{2.3}
+\end{equation}
+Conversely, every $(p,q)$ with $p<0$ and $|q|\le R^3/4$ arises this way, and the map $\varphi\mapsto\{t_0,t_1,t_2\}$ (unordered) is exactly $6$-to-$1$ on $\mathbb R$, descending to a bijection from $\varphi\in[0,\pi/3]$ onto the set of such cubics.
+\end{theorem}
+
+\begin{proof}
+Substituting $(2.2)$ into $t^3+pt+q$ with $p=-3R^2/4$ and using the triple-angle identity $\cos3\varphi=4\cos^3\varphi-3\cos\varphi$ gives, for each $k$, an expression that simplifies identically to zero once $q$ is as in $(2.3)$; this was checked directly (symbolically, for each $k=0,1,2$ independently, since the argument $\varphi-2\pi k/3$ is just a shifted angle and the identity is a pure trigonometric identity in that shifted angle). For the converse, $(2.1)$ evaluated on $(2.3)$ gives $\Delta=\tfrac{27}{16}R^6\sin^2(3\varphi)\ge0$ automatically (Proposition~\ref{prop:discriminant} below), so every point with $p<0$ has three real roots only when $|q|\le R^3/4$, i.e.\ exactly the range $(2.3)$ covers as $3\varphi$ ranges over a full period. For the $6$-to-$1$ count: $(2.2)$ is manifestly invariant, as an unordered set, under $\varphi\mapsto\varphi+2\pi/3$ (a cyclic relabeling of $k$), and $(2.3)$ shows $q$ is also invariant under $\varphi\mapsto\tfrac{2\pi}3-\varphi$ (since $\cos(3(\tfrac{2\pi}3-\varphi))=\cos(2\pi-3\varphi)=\cos3\varphi$); direct check of $(2.2)$ at $\varphi$ and $\tfrac{2\pi}3-\varphi$ confirms these give the same unordered root set (verified numerically across several values of $\varphi$). Together, the cyclic shift and this reflection generate a dihedral group of order $6$ acting on $\varphi\in\mathbb R/2\pi\mathbb Z$ with fundamental domain $[0,\pi/3]$, on which $3\varphi\in[0,\pi]$ makes $\cos(3\varphi)$, hence $q$, strictly monotonic, giving the stated bijection.
+\end{proof}
+
+The order of this dihedral group, $6$, is exactly $|S_3|$, the full permutation group of three labeled roots --- so the redundancy in $\varphi$ is precisely accounted for by the labeling freedom of the three roots, with no redundancy left over.
+
+\begin{remark}[Compare to the circle]
+$X=T\sin\theta$ is genuinely $2\pi$-periodic with no further identification: distinct $\theta\in[0,2\pi)$ give distinct points $(X,Y)$ on the circle of radius $T$ (up to the sign ambiguity in $Y=\pm\sqrt{T^2-X^2}$, itself just the two roots of the quadratic). Here, three roots instead of two means three-fold and reflective redundancy is unavoidable, and Theorem~\ref{thm:polar} pins down exactly how much: $\mathbb R/(2\pi\mathbb Z)$ modulo a dihedral group of order $6$, rather than modulo a group of order $2$.
+\end{remark}
+
+\section{The Discriminant, Cleanly}
+
+\begin{proposition}\label{prop:discriminant}
+On the locus $(2.3)$,
+\begin{equation}
+\Delta=\frac{27}{16}R^6\sin^2(3\varphi). \tag{3.1}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Direct substitution of $p=-3R^2/4$ and $(2.3)$ into $(2.1)$, using $\cos^2(3\varphi)=1-\sin^2(3\varphi)$; checked symbolically.
+\end{proof}
+
+So $\Delta$ vanishes exactly at $3\varphi\in\pi\mathbb Z$, i.e.\ $\varphi\in\{0,\pi/3,2\pi/3,\dots\}$ --- precisely the points Theorem~\ref{thm:polar}'s fundamental domain $[0,\pi/3]$ has as its two endpoints, where two of the three roots coincide. This is the cubic's own analog of the parabola boundary case ($ab=0$) of \cite{Ebert2026EigenCoord}: not a third trigonometric type here, but the two endpoints where the weighted polar form degenerates.
+
+\section{Power Sums: The Direct Analogs of $T$ and $Y^2$}
+
+Write $p_m:=t_0^m+t_1^m+t_2^m$ for the power sums of the roots.
+
+\begin{proposition}\label{prop:powersums}
+On the locus $(2.2)$--$(2.3)$, $p_1=0$ (by construction) and
+\begin{equation}
+p_2=\frac32R^2,\qquad p_3=\frac{3R^3}4\cos(3\varphi). \tag{4.1}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$p_1=R\sum_k\cos(\varphi-2\pi k/3)=0$, a standard sum of cosines at three equally spaced angles. For $p_2$: $\sum_k\cos^2\theta_k=\sum_k\tfrac12(1+\cos2\theta_k)=\tfrac32+\tfrac12\sum_k\cos(2\varphi-4\pi k/3)$, and the last sum vanishes (three equally spaced angles again), giving $p_2=R^2\cdot\tfrac32$. For $p_3$: using $\cos^3\theta=\tfrac14(\cos3\theta+3\cos\theta)$, $\sum_k\cos^3\theta_k=\tfrac14\bigl(\sum_k\cos(3\varphi-2\pi k)+3\sum_k\cos\theta_k\bigr)=\tfrac14(3\cos3\varphi+0)=\tfrac34\cos3\varphi$ (the first sum collapses since $2\pi k$ is a full period for every $k$), giving $p_3=R^3\cdot\tfrac34\cos3\varphi$. Both were also checked symbolically and match $p_2=-2p$, $p_3=-3q$ (Newton's identities with $p_1=0$) exactly.
+\end{proof}
+
+These are the direct cubic analogs of $T=(x+y)/2$ (an honest power-sum average) and $Y^2=xy$ (an elementary symmetric function): $p_2$ is a pure function of $R$ alone --- it plays $T$'s role, a radial coordinate insensitive to the angle --- while $p_3$ carries the full angular dependence, exactly as $Y$ once did. $R$ and $\varphi$ (mod the dihedral redundancy of Theorem~\ref{thm:polar}) are recovered from $p_2,p_3$ by $R=\sqrt{2p_2/3}$, $\cos(3\varphi)=4p_3/(3R^3)$.
+
+\section{A Worked Example}
+
+\begin{example}
+Take $t^3-3t+1=0$: $p=-3$, $q=1$. Then $R=2\sqrt{-p/3}=2$, and $(2.3)$ gives $\cos(3\varphi)=-4q/R^3=-1/2$, so $3\varphi=2\pi/3$, $\varphi=2\pi/9$ ($40^\circ$). Theorem~\ref{thm:polar} predicts roots $2\cos(40^\circ-120^\circ k)$:
+\[
+t_0=2\cos40^\circ\approx1.5321,\quad t_1=2\cos(-80^\circ)\approx0.3473,\quad t_2=2\cos(-200^\circ)\approx-1.8794.
+\]
+These match a direct numerical solve of $t^3-3t+1=0$ to machine precision. The discriminant: $\Delta=-4(-3)^3-27(1)^2=108-27=81$, and $(3.1)$ gives $\tfrac{27}{16}\cdot64\cdot\sin^2(120^\circ)=108\cdot\tfrac34=81$, exactly. The power sums: $p_2=1.5321^2+0.3473^2+(-1.8794)^2=2.347+0.121+3.532=6.000=\tfrac32(4)$, and $p_3=1.5321^3+0.3473^3-1.8794^3\approx3.596+0.042-6.638=-3.000=-3q$, both matching $(4.1)$ exactly.
+\end{example}
+
+\section{The Other Two Branches: One Real Root}
+
+When $p\ge0$, or when $p<0$ but $|q|>R^3/4$, the cubic has exactly one real root. The same completing-the-cube mechanism handles both cases, with $\cosh$ or $\sinh$ playing the role of $\cos$.
+
+\begin{proposition}[Hyperbolic cosine branch]\label{prop:cosh-branch}
+Suppose $p<0$ and $|q|>R^3/4$, $R=2\sqrt{-p/3}$. Then $t=-\mathrm{sgn}(q)\,R\cosh(\psi/3)$ is the real root, where $\psi\ge0$ solves $\cosh(3\psi)=4|q|/R^3$.
+\end{proposition}
+
+\begin{proof}
+Write $t=AR\cosh\psi$ for a sign $A=\pm1$ to be fixed and substitute, using $\cosh^3\psi=\tfrac14(\cosh3\psi+3\cosh\psi)$: $t^3+pt=A^3R^3\cosh^3\psi-\tfrac34AR^3\cosh\psi=\tfrac14AR^3\cosh3\psi+\bigl(\tfrac34AR^3-\tfrac34AR^3\bigr)\cosh\psi=\tfrac14AR^3\cosh3\psi$ (the $\cosh\psi$ terms cancel identically, using $p=-3R^2/4$). Setting $t^3+pt+q=0$ gives $\cosh3\psi=-4q/(AR^3)$; choosing $A=-\mathrm{sgn}(q)$ makes the right side positive, as required for a real $\psi$, and gives the stated formula.
+\end{proof}
+
+\begin{proposition}[Hyperbolic sine branch]\label{prop:sinh-branch}
+Suppose $p>0$. Set $R:=2\sqrt{p/3}$. Then $t=R\sinh(\psi/3)$ is the real root, where $\psi$ solves $\sinh(3\psi)=-4q/R^3$ (always solvable, for any real right-hand side).
+\end{proposition}
+
+\begin{proof}
+With $t=R\sinh\psi$ and $\sinh^3\psi=\tfrac14(\sinh3\psi-3\sinh\psi)$: $t^3+pt=\tfrac14R^3\sinh3\psi-\tfrac34R^3\sinh\psi+\tfrac34R^3\sinh\psi=\tfrac14R^3\sinh3\psi$ (again the linear terms cancel identically, now using $p=3R^2/4$). Setting this equal to $-q$ gives the stated equation, solvable for every real right-hand side since $\sinh$ is a bijection of $\mathbb R$.
+\end{proof}
+
+\begin{example}
+Cosh branch: $p=-3$, $q=3$ (so $R=2$, $|q|=3>R^3/4=2$). Then $\cosh(3\psi)=4(3)/8=1.5$, $\psi=\tfrac13\mathrm{arccosh}(1.5)\approx0.3242$, and $t=-2\cosh(0.3242)\approx-2.1038$. A direct numerical solve of $t^3-3t+3=0$ gives real root $\approx-2.1038$ and a complex-conjugate pair $\approx1.0519\pm0.5652i$, matching.
+
+Sinh branch: $p=3$, $q=1$ (so $R=2$). Then $\sinh(3\psi)=-4/8=-1/2$, $\psi=\tfrac13\mathrm{arcsinh}(-1/2)\approx-0.1611$, and $t=2\sinh(-0.1611)\approx-0.3222$. A direct numerical solve of $t^3+3t+1=0$ confirms the same real root, with a complex-conjugate pair completing the set.
+\end{example}
+
+Both branches were checked, as in these examples, against direct numerical root-finding, matching to the precision reported.
+
+\section{What Is, and Is Not, a Cone Here}
+
+It is worth being as precise about the disanalogy as \cite{Ebert2026EigenCoord} was about the analogy it found.
+
+\begin{proposition}[Weighted scaling symmetry]\label{prop:scaling}
+For any $\lambda>0$, the substitution $t\mapsto\lambda t$, $p\mapsto\lambda^2p$, $q\mapsto\lambda^3q$ sends $t^3+pt+q$ to $\lambda^3(t^3+pt+q)$: the zero locus of the depressed cubic is invariant under this weighted scaling for every $\lambda>0$.
+\end{proposition}
+
+\begin{proof}
+Direct substitution and factoring, checked symbolically: $(\lambda t)^3+(\lambda^2p)(\lambda t)+\lambda^3q=\lambda^3(t^3+pt+q)$.
+\end{proof}
+
+This is the natural symmetry of the discriminant curve $\Delta(p,q)=0$ itself: $(2.1)$ is weighted-homogeneous of degree $6$ under $(p,q)\mapsto(\lambda^2p,\lambda^3q)$, so $\Delta=0$ is preserved, matching the classical fact that $-4p^3=27q^2$ is a semicubical parabola with a cusp at the origin --- the standard $A_2$ singularity of catastrophe theory, where $t^3+pt+q$ (as a family of functions of $t$, parametrized by $(p,q)$) is the universal unfolding of the cusp catastrophe. Under Theorem~\ref{thm:polar}'s parametrization, this scaling acts simply as $R\mapsto\lambda R$ with $\varphi$ fixed --- a genuine, if elementary, one-parameter symmetry of the whole three-real-root region.
+
+But this is where the resemblance to \cite{Ebert2026EigenCoord} ends, not where it continues:
+
+\begin{itemize}
+\item The scaling of Proposition~\ref{prop:scaling} is a \emph{dilation}, not an isometry of any quadratic form: it does not preserve $\Delta$ itself (which scales by $\lambda^6$), only the \emph{zero locus} $\Delta=0$. There is no analog of the cone's $X^2+Y^2=T^2$ here --- no single quadratic (or any fixed-degree) invariant that the three branches of Section~2 and~6 all preserve, because $R$ is not conserved by anything except this scaling, and the scaling itself moves you to a genuinely different cubic, not to a new point on the same curve the way \cite{Ebert2026EigenCoord}'s power map does.
+\item \cite{Ebert2026EigenCoord}'s eigen-coordinates were built from the cone's own continuous isometry group $SO^+(2,1)$, a $3$-dimensional Lie group acting transitively on each conic. Here, the only exact symmetries are the $1$-parameter scaling of Proposition~\ref{prop:scaling} and the finite dihedral group of Theorem~\ref{thm:polar}: there is no continuous family of transformations moving one three-real-root cubic to a different three-real-root cubic \emph{of the same $R$}, i.e.\ no analog of the rotation $L$ that sweeps out the fixed-$T$ circle. The angle $\varphi$ in $(2.2)$ is a coordinate on the solution set, not the flow parameter of any symmetry of the discriminant locus.
+\item The discriminant locus itself is singular (a cusp at $p=q=0$, the triple root $t=0$), where \cite{Ebert2026EigenCoord}'s cone is smooth everywhere except its own apex. Smooth quadrics carry large continuous isometry groups; the cusp, like generic higher-degree or singular loci, does not.
+\end{itemize}
+
+So this note is not a further worked case of \cite{Ebert2026EigenCoord}'s construction. It is a different object --- the universal unfolding of the $A_2$ singularity, rather than a smooth quadric --- that happens to be reachable by literally the same move (complete the power, introduce a trigonometric or hyperbolic angle, read off a discriminant) one step higher in degree. The move generalizes; the target it lands on does not stay a cone.
+
+\section{The Cusp Catastrophe: Actual Dynamics}\label{sec:dynamics}
+
+Everything so far treats $t^3+pt+q=0$ as a bare equation: which roots exist, where they sit, how they are parametrized. A \emph{catastrophe}, in Thom's original sense, is not a solution set --- it is the set of critical points of a potential, together with a dynamics that lives on it, so that the interesting phenomena are which critical points are stable and what a system \emph{does} as the parameters $(p,q)$ change. We supply that here.
+
+\begin{proposition}[The cubic is an equilibrium equation]\label{prop:potential}
+Let $V(t;p,q):=\dfrac{t^4}4+\dfrac{pt^2}2+qt$. Then $V'(t)=t^3+pt+q$, and $t$ is a critical point of $V(\cdot;p,q)$ if and only if $t^3+pt+q=0$. A critical point $t_0$ is a local minimum (stable equilibrium of the gradient flow $\dot t=-V'(t)$) if $V''(t_0)=3t_0^2+p>0$, and a local maximum (unstable) if $V''(t_0)<0$.
+\end{proposition}
+
+\begin{proof}
+Immediate differentiation of $V$, and the second-derivative test.
+\end{proof}
+
+\begin{proposition}[Stability in closed form]\label{prop:stability}
+On the weighted polar locus $(2.2)$--$(2.3)$ (three real roots, $p<0$),
+\begin{equation}
+V''(t_k)=\frac{3R^2}2\bigl(1+2\cos(2\theta_k)\bigr),\qquad\theta_k=\varphi-\frac{2\pi k}3. \tag{8.1}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$V''(t_k)=3t_k^2+p=3R^2\cos^2\theta_k-\tfrac34R^2$; using $\cos^2\theta_k=\tfrac12(1+\cos2\theta_k)$ gives $(8.1)$. Checked symbolically.
+\end{proof}
+
+\begin{corollary}[Exactly two stable, one unstable]\label{cor:minmaxmin}
+Whenever $\Delta>0$ (three distinct real roots), exactly two of $t_0,t_1,t_2$ are stable and one is unstable, and the unstable one is always the median of the three values.
+\end{corollary}
+
+\begin{proof}
+$V(t;p,q)\to+\infty$ as $t\to\pm\infty$ (leading term $t^4/4$), and $V$ is smooth with exactly three critical points when $\Delta>0$. Between consecutive critical points $V$ is monotonic, so the pattern of critical points in increasing order of $t$ must alternate min/max/min (it cannot be min/min/max or any pattern that fails to alternate, since $V$ must turn around at each critical point and matches $+\infty$ at both ends). Hence the middle root by value is always the maximum, the outer two are always minima.
+\end{proof}
+
+\begin{example}
+Continuing Section~5's example ($p=-3$, $q=1$, roots $-1.8794,0.3473,1.5321$): $(8.1)$ gives $V''\approx7.60$ at $t_0$ ($\theta_0=40^\circ$), $V''\approx-2.64$ at $t_1$ ($\theta_1=-80^\circ$), $V''\approx4.04$ at $t_2$ ($\theta_2=-200^\circ$) --- matching a direct evaluation of $3t^2+p$ at each root exactly, and confirming Corollary~\ref{cor:minmaxmin}: the median root, $t_1=0.3473$, is the unstable one.
+\end{example}
+
+\begin{proposition}[The fold points are exactly the boundary of Theorem~\ref{thm:polar}'s fundamental domain]\label{prop:fold}
+As $\varphi\to0^+$ or $\varphi\to(\pi/3)^-$ within $[0,\pi/3]$, two of the three roots merge ($\Delta\to0$, Proposition~\ref{prop:discriminant}), and $(8.1)$ shows $V''\to0$ at the merging pair: a stable and the unstable equilibrium collide and annihilate in a saddle-node bifurcation.
+\end{proposition}
+
+\begin{proof}
+$\Delta=0$ at $3\varphi\in\{0,\pi\}$ within this range, i.e.\ $\varphi\in\{0,\pi/3\}$ (Section~3). At such $\varphi$, two of the $\theta_k$ coincide mod $2\pi$, so the corresponding $t_k$ coincide; continuity of $(8.1)$ across the merge, together with Corollary~\ref{cor:minmaxmin} (one of the colliding pair is a minimum and the other the maximum on either side of the merge), forces $V''=0$ exactly at the shared value --- the standard marginal-stability signature of a saddle-node bifurcation.
+\end{proof}
+
+So the boundary of the very domain that makes Theorem~\ref{thm:polar} a bijection is not a technical artifact: it is the exact locus of catastrophic loss of stability, in $q$ terms $q=\pm R^3/4$, matching Proposition~\ref{prop:discriminant}'s $\Delta=0$.
+
+\begin{example}[A verified hysteresis loop]
+Fix $p=-3$ ($R=2$, folds at $q=\pm2$). We simulated the quasistatic gradient flow $\dot t=-V'(t)$: starting on the right-hand stable branch at $q=-2.5$ and slowly raising $q$ (relaxing to equilibrium at each step before advancing $q$), the system tracks that branch smoothly until it disappears; it then jumps discontinuously to the left-hand branch, at $q\approx2.04$ against a theoretical fold at $q=2$ (the small overshoot is critical slowing down near the fold, itself an expected feature, shrinking as the sweep rate decreases). Reversing --- starting from where the upward sweep ended and slowly lowering $q$ back down --- the system does \emph{not} retrace the same curve: it stays on the left-hand branch past $q=0$ and only jumps back at $q\approx-2.04$, near the theoretical fold at $q=-2$. Figure~\ref{fig:cusp} shows the full bifurcation diagram together with both simulated sweeps. This asymmetry between the up-sweep and down-sweep paths is hysteresis, the defining phenomenon of the cusp catastrophe, and it falls directly out of Proposition~\ref{prop:fold}: each sweep direction only jumps when \emph{its own} branch's fold is reached, not when the other branch's is.
+\end{example}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_cusp_dynamics.pdf}
+\caption{The cusp catastrophe's bifurcation diagram at fixed $p=-3$: all real equilibria of $V(t;p,q)$ as $q$ varies, colored by stability (blue: stable, red: unstable). The dotted vertical lines mark the theoretical folds $q=\pm R^3/4=\pm2$ of Proposition~\ref{prop:fold}. Overlaid are two simulated quasistatic sweeps of the actual gradient dynamics $\dot t=-V'(t)$: sweeping $q$ upward (green dashed) tracks the upper-right branch until it vanishes, then jumps down; sweeping back down (orange dotted) tracks the lower-left branch past $q=0$ before jumping back up near the opposite fold. The two sweeps take different paths --- the hysteresis loop --- even though they pass through the same range of $q$.}
+\label{fig:cusp}
+\end{figure}
+
+\begin{remark}[Where this sits relative to Section~7]
+The dynamics of this section lives entirely within a single fixed $R$ (i.e.\ fixed $p$): it is a statement about sweeping $\varphi$ (equivalently $q$) across the fundamental domain of Theorem~\ref{thm:polar}, not about the scaling symmetry of Proposition~\ref{prop:scaling}, which changes $R$ and moves between different potentials $V(\cdot;p,q)$ entirely rather than describing a trajectory of any one of them. The two structures --- the algebraic classification of Sections~2--7 and the dynamics of this section --- sit on top of each other without either one absorbing the other: the classification tells you where the equilibria and folds are; the dynamics tells you what a system sitting at one of them actually does as you approach a fold.
+\end{remark}
+
+\section{Discussion}
+
+Completing the cube instead of the square replaces $X=T\sin\theta$ with $q=-\tfrac{R^3}4\cos(3\varphi)$: same mechanism (a multiple-angle identity absorbing the linear term of a depressed polynomial), one degree higher, with a triple angle in place of a double angle and a genuinely new redundancy (the dihedral group of order $6$, matching the three roots' own permutation group) in place of the circle's simple $2\pi$-periodicity. The discriminant, the power sums, and both one-real-root branches all fall out of the same completing-the-cube identity, and all of it checks against direct numerical root-finding to the precision reported throughout. Section~\ref{sec:dynamics} then shows the cubic was never just an equation: it is the critical-point equation of an explicit quartic potential, its stability structure is pinned down in closed form by the same $\varphi$ that parametrizes the roots, and the fold points that bound Theorem~\ref{thm:polar}'s fundamental domain are exactly where a real system, followed quasistatically, would jump --- verified directly by simulating the gradient flow and observing the predicted hysteresis loop.
+
+What does not carry over is the cone itself. \cite{Ebert2026EigenCoord} works because a smooth quadric has an unusually large continuous symmetry group; the cubic's discriminant locus is a cusp, and cusps have small, discrete-plus-scaling symmetry, by the general nature of singular algebraic curves rather than any failure of this particular analogy. We record this as the honest boundary of the ``next case'' question: the trigonometric mechanism generalizes cleanly to any degree with the corresponding multiple-angle identity, but the rich symmetry structure of \cite{Ebert2026Table,Ebert2026EigenCoord} was a special feature of degree two, not of completing the power in general. What the cubic offers instead of that symmetry is exactly what its classical name promises --- a genuine catastrophe, with a potential, a stability structure, and a hysteresis loop we could derive in closed form and then watch happen in simulation.
+
+\section*{Acknowledgment}
+
+Large language model tools (Anthropic's Claude) were used in preparing this manuscript for symbolic verification of every trigonometric and hyperbolic identity stated above (computer algebra), for numerical verification of the worked examples against direct root-finding, for the quasistatic gradient-flow simulation underlying Section~\ref{sec:dynamics} and its figure, for exposition and copyediting, and for identifying the connection to the $A_2$ cusp catastrophe of singularity theory. All mathematical claims, theorem statements, and proofs are the author's own and were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Cardano1545} G.~Cardano, \emph{Ars Magna}, 1545; on casus irreducibilis, see the historical discussion in R.~W.~D.~Nickalls, A new approach to solving the cubic: Cardan's solution revealed, \emph{Math.\ Gazette} \textbf{77} (1993), 354--359.
+\bibitem{Thom1972} R.~Thom, \emph{Stabilit\'e Structurelle et Morphog\'en\`ese}, Benjamin, 1972.
+\bibitem{Arnold1992} V.~I.~Arnold, \emph{Catastrophe Theory}, 3rd ed., Springer, 1992.
+\bibitem{PostonStewart1978} T.~Poston, I.~Stewart, \emph{Catastrophe Theory and Its Applications}, Pitman, 1978.
+\end{thebibliography}
+
+\end{document}

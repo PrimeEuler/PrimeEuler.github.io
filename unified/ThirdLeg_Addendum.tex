@@ -1,0 +1,173 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\title{The Third Leg: An Exact Elliptic Revival in the $U(N)$ Framework for Loop Quantum Gravity Intertwiners}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{QuantumRealizations} finds that mixing the two quantized generators attached to a single spin-network edge --- $SU(2)$ rotation and $SU(1,1)$ two-mode squeezing, realized as $\mathfrak{su}(2)$ and $\mathfrak{su}(1,1)$ on one Schwinger-boson pair --- produces a generic elliptic-type generator whose flow revives every state exactly, at twice the classical period. This note asks whether that phenomenon survives when the squeezing operator is replaced by the operator loop quantum gravity actually uses: the gauge-invariant, area-changing operator $F_{ij}$ of the $U(N)$ intertwiner framework \cite{BorjaEtal,FreidelLivine}, built by pairing the Schwinger oscillators of \emph{two different} legs of a vertex rather than doubling a single leg's own pair. We find a clean dichotomy fixed by the number of legs. At a bivalent vertex ($N=2$), the relevant algebra is exactly $\mathfrak{su}(2)\oplus\mathfrak{su}(1,1)$ --- the Schwinger and squeezing pieces commute outright, matching Girelli and Sellaroli's identification of the two-leg intertwiner space with $SO^*(4)\cong SU(2)\times SU(1,1)$ \cite{GirelliSellaroli} --- and no combination of a rotation and a squeeze ever closes into a bounded orbit. At a trivalent vertex ($N=3$), mixing a rotation between two legs with a squeeze that shares exactly one of those legs produces a genuinely new generator with eigenvalues $0,\pm\sqrt{m^2-p^2}$, elliptic exactly when the rotation strength exceeds the squeeze strength, and we prove --- by explicit block-diagonalization of the Heisenberg equations of motion, not merely by numerical or symbolic spot-check --- that every state revives, up to phase, after exactly one classical period, with no factor-of-two ambiguity of the kind found in \cite{QuantumRealizations}. This uses only the operators already present in the established $U(N)/SO^*(2N)$ toolkit for loop quantum gravity intertwiners; no new operators are introduced.
+\end{abstract}
+
+\section{Introduction}
+
+\cite{ConicTheorem} shows that every line through the multiplication table is the orbit of an explicit one-parameter subgroup of $SO^+(2,1)$; \cite{EigenCoordinates} extracts from that subgroup an eigen-coordinate and a power map; \cite{QuantumRealizations} asks whether any of this survives quantization on the two-oscillator (Schwinger boson) substrate natural to the construction, and finds a sharp trichotomy: the rotation generator's radius-changing half is forbidden outright by Casimir centrality, the squeezing generator recovers its classical flow only in a semiclassical limit with an explicit residual, and the generic mixed generator --- built by combining rotation and squeezing on the \emph{same} pair of oscillators --- revives every state exactly, but only after twice its own classical period, a fact traced to the familiar half-angle doubling of spin representations.
+
+That two-oscillator substrate is not a private construction. It is, up to relabeling, exactly the substrate of the $U(N)$ framework for loop quantum gravity intertwiners \cite{GirelliLivine,FreidelLivine,BorjaEtal}: an $N$-valent vertex is modeled by $N$ Schwinger-boson pairs, one per leg, and the $SU(2)$-gauge-invariant operators acting on the resulting intertwiner space split into a passive $\mathfrak u(N)$ piece $E_{ij}=a_i^\dagger a_j+b_i^\dagger b_j$, which redistributes area between legs while conserving the total, and an active piece $F_{ij}=a_ib_j-a_jb_i$, which changes the total area by exactly two quanta. Girelli and Sellaroli identify the full algebra these generate as $SO^*(2N)$ \cite{GirelliSellaroli}. \cite{QuantumRealizations}'s single-edge story is the $N=1$ special case of this substrate, and its squeezing generator $K_+=a^\dagger b^\dagger$ is a self-pairing that has no counterpart among the genuine multi-leg $F_{ij}$: at $N=1$ there is no second leg to pair with. This note asks the question that follows immediately: what does \cite{QuantumRealizations}'s revival story become once it is retold using the operators loop quantum gravity itself actually uses?
+
+The answer is not simply ``the same thing on more oscillators.'' Section~\ref{sec:two-legs} shows the two-leg case is structurally trivial: $SO^*(4)\cong SU(2)\times SU(1,1)$ is a genuine \emph{direct product}, so the passive and active pieces commute exactly, and mixing them never produces a bounded orbit --- a fact with no analogue in \cite{QuantumRealizations}, where $L$ and $B_Y$ do not commute. Section~\ref{sec:three-legs} shows that three legs are enough to recover, and in one respect sharpen, the revival phenomenon: $SO^*(6)\cong SU(3,1)$ is simple, and routing a rotation and a squeeze through a shared leg produces exactly the elliptic/hyperbolic trichotomy and exact quantum revival of \cite{QuantumRealizations}'s Theorem~6.2, now on legitimate gauge-invariant vertex operators, and --- we show explicitly --- without that theorem's factor-of-two subtlety.
+
+\section{The $U(N)$ Substrate}
+
+Fix a vertex with $N$ legs, and attach to leg $i$ an independent Schwinger-boson pair $a_i,b_i$, $[a_i,a_j^\dagger]=[b_i,b_j^\dagger]=\delta_{ij}$, all other commutators zero. Following \cite{BorjaEtal,FreidelLivine}, define for $i,j=1,\dots,N$
+\[
+E_{ij}:=a_i^\dagger a_j+b_i^\dagger b_j,\qquad (i<j)\quad F_{ij}:=a_ib_j-a_jb_i,\qquad F_{ij}^\dagger = a_i^\dagger b_j^\dagger - a_j^\dagger b_i^\dagger,
+\]
+and write $S:=\sum_i E_{ii}$ for twice the total area at the vertex.
+
+\begin{proposition}[Standard facts, \cite{BorjaEtal}]\label{prop:standard}
+The $E_{ij}$ close under commutation as $\mathfrak u(N)$, $[E_{ij},E_{kl}]=\delta_{jk}E_{il}-\delta_{il}E_{kj}$; consequently $[S,E_{ij}]=0$ for all $i,j$. For any fixed pair $i<j$, $[S,F_{ij}]=-2F_{ij}$ and $[S,F_{ij}^\dagger]=2F_{ij}^\dagger$.
+\end{proposition}
+\begin{proof}
+Direct computation from the canonical commutators; see \cite{BorjaEtal}, or verify directly: $[S,F_{ij}]=[E_{ii}+E_{jj},a_ib_j-a_jb_i]=(-a_ib_j)-(-a_jb_i)\cdot(-1)=-2(a_ib_j-a_jb_i)=-2F_{ij}$, using $[n_{a_i},a_i]=-a_i$ and that $F_{ij}$ commutes with every $E_{kk}$, $k\neq i,j$.
+\end{proof}
+
+\section{Two Legs: A Direct Product, No Revival}\label{sec:two-legs}
+
+Take $N=2$ and set $D:=E_{11}-E_{22}$.
+
+\begin{proposition}\label{prop:n2}
+$\{E_{12},E_{21},D\}$ closes as $\mathfrak{su}(2)$, and $\{F_{12},F_{12}^\dagger,S\}$ closes as $\mathfrak{su}(1,1)$ with Cartan element $K_z=(S+2)/2$, satisfying $[K_z,F_{12}^\dagger]=F_{12}^\dagger$, $[K_z,F_{12}]=-F_{12}$, $[F_{12},F_{12}^\dagger]=2K_z$. The two subalgebras commute exactly:
+\[
+[E_{12},F_{12}]=[E_{12},F_{12}^\dagger]=[E_{21},F_{12}]=[E_{21},F_{12}^\dagger]=[D,F_{12}]=[D,F_{12}^\dagger]=0.
+\]
+\end{proposition}
+\begin{proof}
+The $\mathfrak{su}(2)$ relations follow from Proposition~\ref{prop:standard}. For $[F_{12},F_{12}^\dagger]$: direct expansion gives $F_{12}F_{12}^\dagger - F_{12}^\dagger F_{12} = 2+n_{a_1}+n_{a_2}+n_{b_1}+n_{b_2}=S+2$, and $S+2=2K_z$ by definition. The vanishing cross-brackets are direct computation: $E_{12}=a_1^\dagger a_2+b_1^\dagger b_2$ involves only number-preserving bilinears on modes $1,2$, while $F_{12}=a_1b_2-a_2b_1$ is built from the same four modes but is annihilated by the adjoint action of $E_{12}$, since $[a_1^\dagger a_2, a_1b_2-a_2b_1] = a_1^\dagger[a_2,a_1b_2]... $ each term cancels against its partner; carried out in full this is a routine, if tedious, four-mode computation, confirmed here by exact symbolic operator algebra (not a truncated or approximate check).
+\end{proof}
+
+This is the Schwinger-boson face of Girelli and Sellaroli's identification $SO^*(4)\cong SU(2)\times SU(1,1)$ \cite{GirelliSellaroli}: for two legs, the passive and active generators form a genuine \emph{direct product}, not merely commuting accidentally in some representation.
+
+\begin{corollary}\label{cor:n2-no-revival}
+For any real $p,m$, the generator $\hat G_{p,m}:=p(E_{21}-E_{12})+m(F_{12}-F_{12}^\dagger)$ has Heisenberg-picture eigenvalues $\pm m\pm ip$ (each multiplicity $2$) on the four modes $a_1,a_2,b_1^\dagger,\dots$ Consequently $\exp(\theta\hat G_{p,m})$ is periodic in $\theta$ if and only if $m=0$.
+\end{corollary}
+\begin{proof}
+Since $[E_{21}-E_{12},F_{12}-F_{12}^\dagger]=0$ (Proposition~\ref{prop:n2}), $\exp(\theta\hat G_{p,m})=\exp(\theta p(E_{21}-E_{12}))\exp(\theta m(F_{12}-F_{12}^\dagger))$ exactly, a product of a compact (elliptic, period $2\pi/p$) and a non-compact (hyperbolic, unbounded for $m\neq0$) one-parameter group; the eigenvalues follow from separately diagonalizing each commuting factor and adding.
+\end{proof}
+
+Corollary~\ref{cor:n2-no-revival} is the precise sense in which \cite{QuantumRealizations}'s Theorem~6.2 does \emph{not} survive the most literal generalization to genuine multi-leg operators: at a bivalent vertex, rotation and squeeze are independent, and mixing them destroys periodicity rather than creating a new bounded orbit.
+
+\section{Three Legs: An Elliptic/Hyperbolic Trichotomy, and Exact Revival}\label{sec:three-legs}
+
+$SO^*(2N)$ is simple for $N\geq3$; in particular $SO^*(6)\cong SU(3,1)$ is simple, so the passive $\mathfrak u(3)$ subalgebra cannot be a direct factor. Concretely:
+
+\begin{lemma}\label{lem:cross}
+For distinct legs $i,j,k$, $[E_{ij},F_{ik}]=-F_{jk}$.
+\end{lemma}
+\begin{proof}
+Direct computation: $E_{ij}=a_i^\dagger a_j+b_i^\dagger b_j$ and $F_{ik}=a_ib_k-a_kb_i$ share the index $i$ but not $j,k$; expanding the commutator using $[a_i^\dagger a_j,a_ib_k]=-a_jb_k$ (from $[a_i^\dagger,a_i]=-1$ acting through $a_j$) and $[b_i^\dagger b_j,-a_kb_i]=a_kb_j$ (analogously) gives $[E_{ij},F_{ik}]=-a_jb_k+a_kb_j=-F_{jk}$.
+\end{proof}
+
+Lemma~\ref{lem:cross} is the concrete mechanism: a rotation between legs $i,j$ does not commute with a squeeze between legs $i,k$ whenever $i,j,k$ are three genuinely distinct legs --- exactly the configuration unavailable at $N=2$.
+
+Fix legs $1,2,3$ and define
+\[
+\hat H_{p,m}:=p\,(E_{12}-E_{21})+m\,(F_{13}-F_{13}^\dagger),\qquad p,m\in\mathbb R,
+\]
+the rotation and the squeeze sharing leg $1$.
+
+\begin{theorem}\label{thm:trichotomy}
+The Heisenberg-picture generator $\hat H_{p,m}$ acts on the twelve operators $a_1,a_2,a_3,b_1,b_2,b_3,a_1^\dagger,\dots,b_3^\dagger$ through a $12\times12$ matrix whose spectrum is
+\[
+0\ (\text{multiplicity }4),\qquad \pm\sqrt{m^2-p^2}\ (\text{multiplicity }4\text{ each}).
+\]
+In particular the flow is elliptic ($|p|>|m|$: eigenvalues $0,\pm i\omega$, $\omega:=\sqrt{p^2-m^2}$) or hyperbolic ($|p|<|m|$: eigenvalues real and nonzero), exactly reproducing the trichotomy of \cite{ConicTheorem}'s Theorem~2.1 and \cite{QuantumRealizations}'s Theorem~6.2, now on genuinely gauge-invariant three-leg operators.
+\end{theorem}
+
+\begin{proof}
+Direct computation of $[a_1,\hat H_{p,m}]$ etc.\ (using $[a_1,E_{12}]=a_2$, $[a_1,E_{21}]=0$, $[a_1,F_{13}]=0$, $[a_1,F_{13}^\dagger]=b_3^\dagger$, and the parallel computations for the other eleven operators) shows the twelve-dimensional space decomposes into four invariant three-dimensional blocks:
+\[
+\{a_1,a_2,b_3^\dagger\},\quad \{a_1^\dagger,a_2^\dagger,b_3\},\quad \{b_1,b_2,a_3^\dagger\},\quad \{b_1^\dagger,b_2^\dagger,a_3\}.
+\]
+On the first block the equations of motion are
+\[
+\dot a_1 = p\,a_2 - m\,b_3^\dagger,\qquad \dot a_2=-p\,a_1,\qquad \dot b_3^\dagger = -m\,a_1,
+\]
+i.e.\ $\dot v = Mv$, $v=(a_1,a_2,b_3^\dagger)^\top$,
+\[
+M=\begin{pmatrix}0&p&-m\\-p&0&0\\-m&0&0\end{pmatrix},\qquad
+\det(M-\lambda I) = -\lambda\big(\lambda^2+(p^2-m^2)\big),
+\]
+giving eigenvalues $0,\pm\sqrt{m^2-p^2}$ on this block. The remaining three blocks are related to this one by Hermitian conjugation and by the $(a\leftrightarrow b,\,1\leftrightarrow \text{itself},\,2\leftrightarrow3\text{-type relabeling})$ symmetry of $\hat H_{p,m}$'s definition, and yield the identical characteristic polynomial by the same computation. Summing the four blocks gives the stated $12\times12$ spectrum. (Cross-checked independently by exact symbolic computer algebra on the full $12\times12$ matrix, and numerically by direct matrix exponentiation for several $(p,m)$ pairs.)
+\end{proof}
+
+\begin{theorem}[Exact revival, no doubling]\label{thm:revival}
+For $|p|>|m|$, write $\omega=\sqrt{p^2-m^2}$ and $T:=2\pi/\omega$. Then $U(T):=\exp(T\hat H_{p,m})$ satisfies $U(T)^\dagger a_i U(T)=a_i$ and $U(T)^\dagger b_i U(T) = b_i$ for every leg $i=1,2,3$; consequently, since the Fock representation of the canonical commutation relations on six modes is irreducible (Stone--von Neumann), Schur's lemma forces
+\[
+U(T)=e^{i\alpha}\,\mathbb 1
+\]
+for some real phase $\alpha$. Every state of the trivalent vertex --- not merely a state of definite total area --- returns to itself, up to overall phase, after exactly one classical period $T$, with $T$ the true minimal period.
+\end{theorem}
+
+\begin{proof}
+On the block $\{a_1,a_2,b_3^\dagger\}$, the matrix $M$ above has one-dimensional kernel (solve $Mv=0$: $pv_2=mv_3$, $v_1=0$, giving $v\propto(0,m,p)$), matching its algebraic multiplicity $1$, and non-degenerate eigenvalues $\pm i\omega$; hence $M$ is diagonalizable, and $\exp(TM)$ acts as $\mathrm{diag}(1,e^{i\omega T},e^{-i\omega T})=\mathrm{diag}(1,1,1)=I$ in the diagonalizing basis, since $\omega T=2\pi$. The same holds on each of the four blocks of Theorem~\ref{thm:trichotomy}, so $\exp(T\hat H_{p,m})=I$ exactly as a $12\times12$ matrix acting on the ladder operators, which is precisely the stated conjugation identity. Minimality of $T$: direct computation shows $\exp(\theta\hat H_{p,m})\neq\pm I$ for $\theta=T/2$ and $\theta=T/4$ (verified explicitly; also confirmed by tracking the independent physical observables $S$, $E_{22}$, $E_{33}$, $E_{12}$, $F_{13}$ under the flow, none of which return to their initial values before $\theta=T$).
+\end{proof}
+
+\begin{remark}[Contrast with the single-edge case]
+\cite{QuantumRealizations}'s Theorem~6.2 needed $\theta=2T_{cl}$, not $T_{cl}$, because its quantum generator's spectrum was $\pm i\sqrt{ab}$ with \emph{no zero eigenvalue}, while the classical period was pinned to the classical generator's eigenvalue $2\sqrt{ab}$ --- twice the quantum one, forcing a compensating factor of two and an intermediate $-1$ phase (a rotation-by-$\pi$ parity operator) at $T_{cl}$ itself. Here the presence of a genuine zero eigenvalue in each three-dimensional block, together with the fact that $T$ is defined directly from the quantum generator's own frequency $\omega$ rather than from a separately-derived classical limit, removes that source of doubling: $U(T)=+\mathbb 1$ outright, with no intermediate sign flip. This was checked independently in two ways --- by exact diagonalization (above) and by tracking $S,E_{22},E_{33},D_{12},E_{12},F_{13}$ under the exact linear mean-field flow from a generic initial condition, all of which return to their initial values at $\theta=T$ and only at $\theta=T$ (not at $T/2$).
+\end{remark}
+
+\begin{remark}[A sub-period does exist, for one observable]\label{rem:subperiod}
+The area of the shared leg, $E_{11}=n_{a_1}+n_{b_1}$, satisfies $E_{11}(\theta+T/2)=E_{11}(\theta)$ for all $\theta$ (verified by direct evolution of the linear mean-field equations from several generic initial conditions): the leg common to both the rotation and the squeeze completes two cycles for every one full revival of the state. This does not contradict Theorem~\ref{thm:revival}: the aggregate quantities that characterize the full state --- $S$, the individual areas $E_{22},E_{33}$ of the other two legs, and the correlations $E_{12},F_{13}$ --- all fail to return to their initial values at $T/2$, confirming $T$ and not $T/2$ as the period of the state as a whole. A single observable may close early inside a cycle that the full system only completes once around.
+\end{remark}
+
+\section{The Area Selection Rule}
+
+\begin{proposition}\label{prop:selection}
+Under the flow generated by $\hat H_{p,m}$ (or any real combination of $E_{ij}$'s and $F_{ik}$'s at a vertex with any number of legs), the total area $S$ of a state initially in a definite-$S$ sector $S_0$ has support, at every later time, only on sectors $S_0+2\mathbb Z$.
+\end{proposition}
+\begin{proof}
+By Proposition~\ref{prop:standard}, $[S,E_{ij}]=0$ for every passive generator, while $[S,F_{ik}]=\mp2F_{ik}^{(\dagger)}$ for every active one: no term in any order of the Baker--Campbell--Hausdorff expansion of $\exp(\theta\hat H_{p,m})$ can change $S$ by any amount other than an even integer.
+\end{proof}
+
+This is the direct three-leg descendant of \cite{QuantumRealizations}'s Proposition~6.1, now proved for the operators loop quantum gravity's own $U(N)$ formalism actually supplies, rather than for a single isolated edge's self-squeezing.
+
+\section{Discussion}
+
+Three legs are not merely ``enough oscillators''; they are exactly what is needed for $SO^*(2N)$ to stop being a direct product and start being simple, which is the only way a rotation and a squeeze can be tilted into a genuinely new, bounded generator rather than simply commuting past each other. That the resulting revival theorem is, if anything, cleaner than its single-edge ancestor --- no factor of two, no intermediate parity phase, at the level of the full quantum state --- was not something either \cite{QuantumRealizations} or the present author anticipated going in; it fell out of the computation.
+
+We are explicit about scope, in keeping with \cite{QuantumRealizations,EigenCoordinates,ConicTheorem}. $\hat H_{p,m}$ is a bilinear (Gaussian) toy generator built from legitimate $U(N)$-framework operators; it is not, and is not claimed to be, the Hamiltonian constraint of loop quantum gravity, which is neither bilinear nor fixed on a fixed oscillator space. What is established here is narrower and, we think, solid: that the specific algebraic mechanism behind \cite{QuantumRealizations}'s single-edge revival --- a non-abelian mixture of a compact and a non-compact generator producing a genuinely new elliptic one-parameter subgroup with an exact quantum revival --- has a legitimate home inside the operator algebra loop quantum gravity already uses for its intertwiners, provided one goes to at least a trivalent vertex to find it. Whether this toy revival phenomenon has any bearing on the actual dynamics of spin-network states under the Hamiltonian constraint is a separate, harder question we do not address.
+
+\begin{thebibliography}{99}
+
+\bibitem{ConicTheorem} J. Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+
+\bibitem{EigenCoordinates} J. Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+
+\bibitem{QuantumRealizations} J. Ebert, \emph{Two Oscillators, Two Algebras: $SU(2)$ and $SU(1,1)$ Realizations of the Cone's Symmetry, and the Fate of the Power Map}, Preprint (2026).
+
+\bibitem{GirelliLivine} F. Girelli, E. R. Livine, \emph{Reconstructing quantum geometry from quantum information: spin networks as harmonic oscillators}, Class. Quantum Grav. \textbf{22} (2005), 3295--3314, arXiv:gr-qc/0501075.
+
+\bibitem{FreidelLivine} L. Freidel, E. R. Livine, \emph{The Fine Structure of $SU(2)$ Intertwiners from $U(N)$ Representations}, J. Math. Phys. \textbf{51} (2010), 082502, arXiv:0911.3553.
+
+\bibitem{BorjaEtal} E. F. Borja, J. D\'iaz-Polo, I. Garay, E. R. Livine, \emph{$U(N)$ invariant dynamics for a simplified Loop Quantum Gravity model}, arXiv:1012.3832.
+
+\bibitem{GirelliSellaroli} F. Girelli, G. Sellaroli, \emph{$SO^*(2N)$ coherent states for loop quantum gravity}, arXiv:1701.07519.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[The Whole Family]{The Whole Family:\\
+Every Generalized (H\"older) Mean Is Already on the Cone}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026FourMeans} names the four classical Pythagorean means of a factor pair $(x,y)$ in cone coordinates: $HM=Y^2/T$, $GM=Y$, $AM=T$, $RMS=\sqrt{T^2+X^2}$. These are four special cases ($p=-1,0,1,2$) of the one-parameter generalized (H\"older, or power) mean family $M_p(x,y)=\big(\tfrac{x^p+y^p}{2}\big)^{1/p}$. We show the entire family collapses to a single closed form in the cone's own coordinates, $M_p=T\big[\tfrac{(1+e)^p+(1-e)^p}{2}\big]^{1/p}$ ($e:=X/T$), valid uniformly for every real $p\ne0$ (with $p=0$ recovered as the standard limit, verified numerically to converge as $p\to0$). The two remaining named members of the family, minimum and maximum ($p=\mp\infty$), are not new constructions at all: they are $T-X$ and $T+X$, i.e.\ $r_p$ and $r_a$ themselves --- the very quantities $X$ was introduced to measure the difference of, present since the cone's first definition. We verify the cubic mean ($p=3$) in closed form, $M_3^3=T^3+3TX^2=T(T^2+3X^2)$, and the general binomial pattern for every positive integer $p$, and confirm the family's classical monotonicity ($M_p$ increasing in $p$) numerically for the orbit used throughout this project.
+\end{abstract}
+
+\section{One Formula for the Whole Family}
+
+\begin{theorem}[The power-mean family in cone coordinates]\label{thm:general}
+For any real $p\ne0$ and $x=T+X\ge y=T-X>0$,
+\begin{equation}
+M_p(x,y)=\left[\frac{(T+X)^p+(T-X)^p}{2}\right]^{1/p}=T\left[\frac{(1+e)^p+(1-e)^p}{2}\right]^{1/p}, \qquad e:=X/T. \tag{1}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Immediate from $x=T+X$, $y=T-X$ (the defining relations of $X$ in \cite{Ebert2026Table}) substituted into the definition of $M_p$; factoring $T$ from each term and using $X/T=e$ gives the second form.
+\end{proof}
+
+\begin{corollary}[Minimum and maximum are not new]\label{cor:minmax}
+$\lim_{p\to-\infty}M_p=T-X=r_p=y$ and $\lim_{p\to+\infty}M_p=T+X=r_a=x$.
+\end{corollary}
+
+\begin{proof}
+Standard fact for the power-mean family (the term with the larger base dominates as $|p|\to\infty$), specialized via (1); here the two bases are $x=T+X$ and $y=T-X$ directly, so the limits are exactly $x$ and $y$ --- not merely equal to them, but literally the same quantities already named in \cite{Ebert2026Table}.
+\end{proof}
+
+\subsection*{Numerical Verification}
+For the orbit used throughout this project ($T_0=24482$, $X_0=17627.04$): $M_p$ evaluated from (1) reproduces $HM=11790.53$ ($p=-1$), $AM=24482.00$ ($p=1$), $RMS=30167.55$ ($p=2$) exactly, matching \cite{Ebert2026FourMeans} to displayed precision using a single formula rather than four separate ones; $T-X=6854.96=r_p$ and $T+X=42109.04=r_a$ match the minimum and maximum of $(x,y)$ trivially, as they must.
+
+\section{The Cubic Mean, and the General Integer-$p$ Pattern}
+
+\begin{proposition}[Cubic mean, closed form]\label{prop:cubic}
+$M_3^3=(x^3+y^3)/2=T^3+3TX^2=T(T^2+3X^2)$.
+\end{proposition}
+
+\begin{proof}
+$x^3+y^3=(T+X)^3+(T-X)^3$; expanding and cancelling the odd-power terms (which appear with opposite sign in the two cubes) leaves $2(T^3+3TX^2)$, verified symbolically with zero residual.
+\end{proof}
+
+\begin{proposition}[General positive integer $p$]\label{prop:general}
+For positive integer $p$,
+\[
+M_p^p=T^p\!\!\sum_{\substack{0\le k\le p\\k\text{ even}}}\!\!\binom pk e^k,
+\]
+a finite polynomial in $e^2$.
+\end{proposition}
+
+\begin{proof}
+Binomial expansion of $(T+X)^p+(T-X)^p$; odd-$k$ terms cancel between the two expansions (opposite sign), leaving twice the even-$k$ terms, which is (1) with the bracket expanded as a finite sum.
+\end{proof}
+
+\subsection*{Numerical Verification}
+$M_3^3=T^3+3TX^2$ matches the direct evaluation $(x^3+y^3)/2$ exactly (symbolic, zero residual). Evaluated for the standard orbit: $M_3=33469.96$, $M_4=35415.56$ (quartic mean, $p=4$, provided as a second check of Proposition~\ref{prop:general}), both consistent with (1) evaluated directly at $p=3,4$.
+
+\section{Monotonicity, and the $p\to0$ Limit}
+
+\begin{proposition}[The classical ordering, extended]\label{prop:order}
+For the orbit above, $M_p$ is strictly increasing in $p$ across $p\in\{-\infty,-1,0,1,2,3,4,+\infty\}$: $r_p<HM<GM<AM<RMS<M_3<M_4<r_a$.
+\end{proposition}
+
+\subsection*{Numerical Verification}
+$6854.96<11790.53<16989.87<24482.00<30167.55<33469.96<35415.56<42109.04$, confirmed directly; more generally, $M_p$ from (1) was evaluated at $21$ values of $p\in[-5,5]$ and found monotonically non-decreasing throughout, consistent with the classical fact that the power-mean family is monotonic in $p$ for any fixed positive $x,y$.
+
+\begin{proposition}[The $p\to0$ limit]\label{prop:limit}
+$\lim_{p\to0}M_p=GM=Y$, the standard limiting case of the power-mean family, not obtainable by direct substitution into (1).
+\end{proposition}
+
+\subsection*{Numerical Verification}
+Evaluating (1) at $p=0.1$, $0.01$, $0.001$, $0.0001$ gives
+$M_p=17703.3$, $17060.0$, $16996.9$, $16990.6$ respectively,
+converging toward $GM=16989.87$ with the gap shrinking by very nearly a factor of $10$ at each step, consistent with linear-order convergence in $p$.
+
+\section{Discussion}
+
+Every named member of the classical generalized-mean hierarchy --- minimum, harmonic, geometric, arithmetic, quadratic, cubic, and maximum --- is now accounted for in the cone's own $(X,T)$ coordinates by a single formula, with minimum and maximum turning out not to be new content at all but the coordinates $x=T+X$, $y=T-X$ that $X$ was defined to distinguish in the first place. Combined with \cite{Ebert2026FourMeans}, this closes out the classical mean hierarchy: nothing in the standard table of named power means remains unaccounted for in this project's own coordinatization.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical cross-checking, and \LaTeX{} preparation of this note. This includes: symbolic verification of Theorem~1.1's special cases and Proposition~2.1's cubic-mean identity; numerical evaluation of the general formula (1) across the full range $p\in\{-1,0,1,2,3,4,\pm\infty\}$ against the orbit used throughout \cite{Ebert2026Clock,Ebert2026LeviCivita,Ebert2026FourMeans}; the monotonicity check across $21$ sampled values of $p$; and the numerical convergence check for the $p\to0$ limit. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\bibitem{Ebert2026FourMeans} J.~Ebert, \emph{All Four Means: Harmonic and Quadratic Structure Already Present in the AM--GM Cone}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

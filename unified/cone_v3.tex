@@ -1,0 +1,249 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{remark}{Remark}
+
+\title{The Dynamic Slicing Operator on the AM--GM Cone:\\
+A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+
+\begin{document}
+\begin{abstract}
+We present a geometric and operator-theoretic formulation of central-force celestial mechanics using arithmetic mean--geometric mean (AM--GM) coordinates on factor surfaces. By mapping the turning points of an orbit (apoapsis $r_a$ and periapsis $r_p$) to mean-value coordinates $T=(r_a+r_p)/2$, $X=(r_a-r_p)/2$, and $Y=\sqrt{r_ar_p}$, two-body Keplerian trajectories are represented as planar intersections of the Minkowski-like quadric cone $\mathcal C: X^2+Y^2=T^2$. We show that total energy $E$, specific angular momentum $h$, and central mass $M$ isolate cleanly along orthogonal geometric directions of the cone. We then show that the $\mathfrak{so}(2,1)$ symmetry algebra of $\mathcal C$ already contains everything needed to define time-dependent orbital evolution rigorously: the \emph{dynamic slicing operator} $\hat S(t)$ is not an independent construction but the flow of a time-dependent element of $\mathfrak{so}(2,1)$, and its two distinguished one-parameter subgroups are shown to be exactly energy-conserving eccentricity pumping and angular-momentum-conserving energy pumping. We then derive, from first principles (the standard perturbation identities $\dot\varepsilon=\mathbf v\cdot\mathbf a_{\rm pert}$ and $\dot h = r\,a_{\rm pert,\theta}$), the explicit generator coefficients realizing atmospheric drag as a curve in this operator, and recover the classical circular-orbit decay rate as a special case.
+\end{abstract}
+
+\keywords{Kepler problem, AM--GM coordinates, Quadric cone, $\mathfrak{so}(2,1)$ Lie algebra, Dynamic slicing operator, Orbital perturbations, Atmospheric drag}
+
+\maketitle
+
+\section{Introduction}
+
+Classical two-body motion under a $1/r^2$ central force potential is conventionally parameterized via spatial state vectors $(\mathbf r,\mathbf v)$ or osculating Keplerian orbital elements $(a,e,i,\omega,\Omega,\nu)$. While these representations excel at numerical integration, phase-space transitions between bound ($E<0$), parabolic ($E=0$), and hyperbolic ($E>0$) regimes often require piecewise analytic parameterizations involving distinct trigonometric or hyperbolic anomalies.
+
+In recent work on factor lattice geometry \cite{Ebert2026Table}, an arithmetic mean--geometric mean coordinate transformation was introduced to organize binary factor pairs onto the quadric surface $X^2+Y^2=T^2$. In this paper, we extend this construction to continuous classical dynamics. By identifying factor pairs with radial turning points $(r_a,r_p)$, we demonstrate that all Keplerian trajectories manifest as plane slices of a single quadric cone, and that time evolution under external forces can be formalized as a continuous family of slicing operators $\hat S(t)$.
+
+The version of this construction given here differs from an earlier draft in one important respect: rather than \emph{postulating} $\hat S(t)$ as an independently-moving cutting plane $\alpha(t)X+\beta(t)T=\gamma(t)$, we \emph{derive} it as the flow of a time-dependent element of the cone's own isometry algebra $\mathfrak{so}(2,1)$ (Section~5). This is not a cosmetic change: it guarantees, by construction and for every choice of time-dependent coefficients, that the evolving state remains exactly on $\mathcal C$ --- i.e., that the instantaneous $(X,Y,T)$ always correspond to an honest ellipse, at every instant, with no separate consistency check required. Section~6 develops this and then derives, from the standard perturbation equations of celestial mechanics, exactly which flow atmospheric drag realizes.
+
+\section{The Orbital AM--GM Mapping}
+
+Consider a particle of mass $m$ orbiting a central mass $M$ in a Newtonian gravitational potential $V(r)=-\mu/r$, where $\mu=GM$. Let $r_a$ and $r_p$ denote the apoapsis and periapsis distances, respectively.
+
+\begin{definition}[Orbital Mean-Value Mapping]
+The turning points $(r_a,r_p)$ map to the coordinate tuple $(X,Y,T)\in\mathbb R^3$ via
+\[
+T=\frac{r_a+r_p}{2},\qquad X=\frac{r_a-r_p}{2},\qquad Y=\sqrt{r_ar_p}.
+\]
+\end{definition}
+
+Direct substitution yields the fundamental algebraic identity
+\begin{equation}
+X^2+Y^2=\left(\frac{r_a-r_p}{2}\right)^2+r_ar_p=\left(\frac{r_a+r_p}{2}\right)^2=T^2. \tag{1}
+\end{equation}
+Thus every physical realization of radial turning points lies on the cone surface $\mathcal C: X^2+Y^2=T^2$. The physical interpretation of these coordinates is immediate:
+\begin{itemize}
+\item $T=a$: semi-major axis (axial scale);
+\item $Y=b=a\sqrt{1-e^2}$: semi-minor axis (transverse radius);
+\item $X=c=ae$: focal displacement (eccentricity displacement).
+\end{itemize}
+The cone constraint (1) is geometrically equivalent to the standard ellipse relation $(ae)^2+b^2=a^2$.
+
+\section{Physical Invariants as Cone Coordinates}
+
+A major advantage of the AM--GM representation is that scalar physical invariants isolate along principal geometric axes.
+
+\begin{proposition}[Isolation of Physical Invariants]
+For a two-body orbit on the cone $\mathcal C$:
+\begin{enumerate}
+\item[\textup{(a)}] \textbf{Total specific energy $E$} is determined purely by the axial height $T$:
+\begin{equation}
+E=-\frac{\mu}{2T}. \tag{2}
+\end{equation}
+Horizontal slices $T=\mathrm{const.}$ represent constant-energy manifolds.
+\item[\textup{(b)}] \textbf{Specific angular momentum $h$} is determined by the transverse coordinate $Y$ and axial height $T$:
+\begin{equation}
+h=\sqrt{\frac{\mu Y^2}{T}}=\sqrt{\frac{\mu b^2}{a}}. \tag{3}
+\end{equation}
+Hyperbolic cross-sections $Y=\mathrm{const.}$ define manifolds of constant angular momentum.
+\item[\textup{(c)}] \textbf{Central mass extraction.} Let $v_a$ and $v_p$ be the orbital speeds at apoapsis and periapsis. By angular momentum conservation ($h=v_ar_a=v_pr_p$), the central parameter $\mu=GM$ satisfies
+\begin{equation}
+\mu=GM=T\cdot v_av_p \quad\Longrightarrow\quad M=\frac{T\cdot v_av_p}{G}. \tag{4}
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) is the vis-viva energy formula $E=-\mu/(2a)$ rewritten with $T=a$. For (b): since $b^2=a^2(1-e^2)=r_ar_p$, the semi-latus rectum is $p=b^2/a=Y^2/T$, and the standard relation $h^2=\mu p$ gives (3). For (c): $v_a=h/r_a$, $v_p=h/r_p$, so $v_av_p=h^2/(r_ar_p)=h^2/Y^2$. Substituting $h^2=\mu Y^2/T$ from (b) gives $v_av_p=\mu/T$, i.e.\ $\mu=Tv_av_p$.
+\end{proof}
+
+All three identities were checked numerically against a representative orbit ($\mu=398600.4418\ \mathrm{km^3/s^2}$, $r_a=42164$, $r_p=6800\ \mathrm{km}$) and reproduce the standard vis-viva, angular-momentum, and mass-determination formulas to floating-point precision.
+
+\section{Trajectory Classification}
+
+\begin{theorem}[General Orbit Classification]
+Let a family of orbital states satisfy the linear constraint $\alpha r_a+\beta r_p=\gamma$ for $\alpha,\beta,\gamma\in\mathbb R$. The resulting intersection with the cone $\mathcal C$ yields:
+\begin{enumerate}
+\item[\textup{(1)}] \textbf{Elliptic/bound states} ($\alpha\beta>0$): the constraint slices both generators, forming a closed ellipse on $\mathcal C$ corresponding to $E<0$ ($0\le e<1$).
+\item[\textup{(2)}] \textbf{Parabolic/escape states} ($\alpha\beta=0$): the constraint is parallel to a boundary generator ray ($T=\pm X$), representing $E=0$ ($e=1$).
+\item[\textup{(3)}] \textbf{Hyperbolic/unbound states} ($\alpha\beta<0$): the constraint slices both nappes of $\mathcal C$, producing a hyperbola corresponding to $E>0$ ($e>1$).
+\end{enumerate}
+\end{theorem}
+
+This is the direct specialization, to $(r_a,r_p)$ in place of the generic factor pair $(x,y)$, of the General Conic Theorem of \cite{Ebert2026Table}. It also has a second, independent reading worth recording explicitly: a plane $\alpha X+\beta T=\gamma$ (no $Y$-dependence) cutting the cone of revolution $\mathcal C$ at various angles relative to the cone's opening half-angle ($45^\circ$, since the cone's slope in the $(X,T)$-plane is $1$) reproduces exactly the classical Apollonian definition of a conic section by a cutting plane: $|\alpha|<|\beta|$ gives an ellipse, $|\alpha|=|\beta|$ a parabola, $|\alpha|>|\beta|$ a hyperbola --- consistent with the energy sign classification above via $E\propto -1/T$.
+
+\section{The $\mathfrak{so}(2,1)$ Symmetry Algebra of the Cone}
+
+The isometry group preserving the cone $\mathcal C$, equivalently preserving the quadratic form $Q(X,Y,T)=X^2+Y^2-T^2$, is $SO(2,1)$. We record its Lie algebra $\mathfrak{so}(2,1)$ explicitly, in the ordered basis $(X,Y,T)$, since Section~6 will use every generator by name.
+
+\begin{definition}[Generators]
+\[
+L=\begin{pmatrix}0&-1&0\\1&0&0\\0&0&0\end{pmatrix},\qquad
+B_X=\begin{pmatrix}0&0&1\\0&0&0\\1&0&0\end{pmatrix},\qquad
+B_Y=\begin{pmatrix}0&0&0\\0&0&1\\0&1&0\end{pmatrix}.
+\]
+\end{definition}
+
+\begin{lemma}[Isometry and commutation relations]
+Each of $L,B_X,B_Y$ satisfies $G^{\!\top}\eta+\eta G=0$ for $\eta=\mathrm{diag}(1,1,-1)$, i.e.\ each generates a one-parameter group of exact isometries of $Q$. They satisfy the standard $\mathfrak{so}(2,1)$ commutation relations
+\[
+[L,B_X]=B_Y,\qquad [L,B_Y]=-B_X,\qquad [B_X,B_Y]=-L.
+\]
+\end{lemma}
+
+\begin{proof}
+Direct matrix computation; verified symbolically and numerically.
+\end{proof}
+
+\begin{proposition}[Boost generator and rapidity]\label{prop:boost}
+The action of $\exp(sB_X)$ on an initial state $(X_0,Y_0,T_0)$ yields
+\begin{equation}
+\begin{pmatrix}X(s)\\T(s)\end{pmatrix}=\begin{pmatrix}\cosh s&\sinh s\\\sinh s&\cosh s\end{pmatrix}\begin{pmatrix}X_0\\T_0\end{pmatrix}. \tag{5}
+\end{equation}
+This boost preserves $Y=Y_0=b$, leaving specific angular momentum $h$ invariant, while scaling the semi-major axis $a(s)=Y_0\cosh(s)$ and eccentricity $e(s)=\tanh(s)$. The rapidity parameter $s=\tfrac12\ln(r_a/r_p)$ measures the logarithmic radial asymmetry of the orbit.
+\end{proposition}
+
+Both closed forms were checked numerically against a representative orbit: $s=\tfrac12\ln(r_a/r_p)$ reproduces $\tanh(s)=e$ and $Y_0\cosh(s)=T_0$ to floating-point precision.
+
+\begin{remark}[Formal, not physical, continuation across $E=0$]
+Analytic continuation $s\to i\phi$ turns the hyperbolic boost (5) into the trigonometric relation $T(\phi)=Y_0\cos(\phi)$, which is exactly the parametrization of the eccentric anomaly of a bound ellipse. This is a genuine algebraic correspondence between the two closed forms, worth recording as a structural curiosity of the algebra; it is \emph{not} a physical process that continues one orbit into the other, since $E<0$ and $E>0$ orbits are not connected by any continuous physical evolution at fixed $\mu$. We flag this explicitly to avoid the stronger reading.
+\end{remark}
+
+\begin{proposition}[Rotation generator: eccentricity pumping at fixed energy]\label{prop:rotation}
+The action of $\exp(sL)$ on an initial state $(X_0,Y_0,T_0)$ rotates $(X,Y)$ while holding $T$ exactly fixed:
+\[
+X(s)=X_0\cos s-Y_0\sin s,\qquad Y(s)=X_0\sin s+Y_0\cos s,\qquad T(s)=T_0.
+\]
+Since $T=a$ is unchanged, $E=-\mu/(2T)$ is exactly conserved along this flow, while $X=ae$ and $Y=b$ --- hence $e$ and $h$ --- vary continuously.
+\end{proposition}
+
+This was verified numerically: propagating a representative orbit state under $\exp(sL)$ alone leaves $T$ fixed to machine precision at every sampled $s$, while $X,Y$ trace out the expected rotation.
+
+\begin{corollary}[Transitivity]
+The identity component $SO(2,1)_0$ acts transitively on $\mathcal C\setminus\{0\}$ (this is the classical fact that the future null cone in $2{+}1$-dimensional Minkowski space is a single Lorentz orbit). Consequently, every physical orbit state is reachable from every other by \emph{some} combination of $L$, $B_X$, $B_Y$; the vertex $(0,0,0)$ is approached only as $s\to\infty$ along a boost, never reached in finite group parameter.
+\end{corollary}
+
+\section{The Dynamic Slicing Operator}
+
+\subsection{Definition as a Lie-algebra flow}
+
+We now give the operative definition of the dynamic slicing operator, replacing the moving-plane heuristic with the flow it was standing in for.
+
+\begin{definition}[Dynamic Slicing Operator]
+Given time-dependent coefficients $a(t),b(t),c(t)$, the dynamic slicing operator is
+\begin{equation}
+\hat S(t)=\exp\!\left(\int_0^t\big[a(\tau)L+b(\tau)B_X+c(\tau)B_Y\big]\,d\tau\right), \tag{6}
+\end{equation}
+and the instantaneous orbital state is $O(t)=\hat S(t)\cdot O(0)$, where $O(0)=(X_0,Y_0,T_0)\in\mathcal C$.
+\end{definition}
+
+Because $L,B_X,B_Y$ generate isometries of $Q$, $O(t)\in\mathcal C$ for every $t$ automatically, for any choice of $a(t),b(t),c(t)$: the state is guaranteed to represent an honest ellipse at every instant, with no separate verification required. Definition~2 of the original construction --- a plane $\alpha(t)X+\beta(t)T=\gamma(t)$ whose motion was linked only qualitatively to physical effects --- is subsumed by (6): the two qualitative behaviors described there are exactly the two one-parameter subgroups of Section~5, made precise below.
+
+\subsection{The two distinguished flows}
+
+\begin{corollary}
+Under $\hat S(t)$ generated by $L$ alone: $\dot\gamma$-type ``operator tilting'' \emph{is} eccentricity pumping at exactly constant energy (Proposition~\ref{prop:rotation}). Under $\hat S(t)$ generated by $B_X$ alone: ``vertical translation'' \emph{is} angular-momentum-conserving energy exchange (Proposition~\ref{prop:boost}); $\dot s>0$ expands the orbit (low-thrust-type energy gain), $\dot s\to-\infty$ is impossible in finite time (energy loss under this pure flow asymptotically approaches, but never reaches, the circular orbit of radius $Y_0$).
+\end{corollary}
+
+What remains is not a foundational question but a modeling one: given a real perturbing force, which $a(t),b(t),c(t)$ does it realize? We work this out from first principles for atmospheric drag.
+
+\subsection{Generator coefficients from a physical perturbation}
+
+Let $\mathbf a_{\rm pert}=R\,\hat r+S\,\hat\theta$ be a perturbing acceleration in the orbital plane, decomposed into radial ($R$) and transverse ($S$) components. Two classical identities of perturbed two-body motion (see e.g.\ \cite{Vallado2013}, \cite{KingHele1964}) give the instantaneous rate of change of specific energy $\varepsilon=v^2/2-\mu/r$ and specific angular momentum $h$:
+\begin{equation}
+\dot\varepsilon=\mathbf v\cdot\mathbf a_{\rm pert}=v_rR+v_\theta S,\qquad \dot h = r\,S. \tag{7}
+\end{equation}
+Since $T=-\mu/(2\varepsilon)$ and $Y=h\sqrt{T/\mu}$, the chain rule converts (7) directly into rates for the cone coordinates:
+\begin{equation}
+\dot T=\frac{2T^2}{\mu}\big(v_rR+v_\theta S\big), \tag{8}
+\end{equation}
+\begin{equation}
+\dot Y=\sqrt{\frac{T}{\mu}}\,rS+\frac{YT}{\mu}\big(v_rR+v_\theta S\big). \tag{9}
+\end{equation}
+Both were checked numerically against the exact chain-rule computation from $\dot\varepsilon,\dot h$ directly, with agreement to floating-point precision, and (8)--(9) automatically satisfy the cone-tangency condition $X\dot X+Y\dot Y=T\dot T$ inherited from differentiating (1).
+
+Since $\{L,B_X\}$ already span the two-dimensional tangent space to $\mathcal C$ at any point with $X\ne0$ (i.e.\ any non-circular orbit), we may set $c(t)\equiv0$ without loss of generality and solve (6)'s infinitesimal form
+\[
+\dot Y=a(t)X,\qquad \dot T=b(t)X
+\]
+for the coefficients directly:
+\begin{equation}
+a(t)=\frac{\dot Y}{X},\qquad b(t)=\frac{\dot T}{X}. \tag{10}
+\end{equation}
+
+\subsection{Worked example: atmospheric drag}
+
+For drag opposing the velocity vector with ballistic coefficient $B=C_DA/m$ and local density $\rho(r)$,
+\[
+\mathbf a_{\rm pert}=-\tfrac12\rho(r)Bv\,\mathbf v \quad\Longrightarrow\quad R=-\tfrac12\rho Bvv_r,\quad S=-\tfrac12\rho Bvv_\theta.
+\]
+Then $v_rR+v_\theta S=-\tfrac12\rho Bv(v_r^2+v_\theta^2)=-\tfrac12\rho Bv^3$, and using $v_\theta r=h$:
+\[
+rS=-\tfrac12\rho Bv\,h.
+\]
+Substituting into (8)--(9) and simplifying using $Y=h\sqrt{T/\mu}$ and the vis-viva identity $v^2=\mu(2/r-1/T)$ (which gives $1+Tv^2/\mu=2T/r$) collapses both rates to closed form:
+\begin{equation}
+\dot T=-\frac{\rho(r)\,B\,v^3\,T^2}{\mu}, \tag{11}
+\end{equation}
+\begin{equation}
+\dot Y=-\rho(r)\,B\,v\,Y\,\frac{T}{r}. \tag{12}
+\end{equation}
+Both were checked numerically, at an arbitrary non-apsidal point on a representative orbit, against the exact formulas (8)--(9): agreement to floating-point precision.
+
+\begin{corollary}[Circular-orbit reduction]
+For a circular orbit ($r=T=a$, $v^2=\mu/T$), equation (11) reduces to
+\[
+\dot T=-\rho(T)\,B\,v\,T,
+\]
+the classical atmospheric-decay rate for near-circular satellite orbits \textup{(\cite{KingHele1964})}. This was verified numerically: the general formula (11), evaluated at a circular orbit, agrees with $-\rho Bva$ to floating-point precision.
+\end{corollary}
+
+From (10)--(12), the generator coefficients realizing atmospheric drag at any point of a non-circular orbit are
+\begin{equation}
+a(t)=-\frac{\rho(r)\,B\,v\,Y\,T}{r\,X},\qquad b(t)=-\frac{\rho(r)\,B\,v^3\,T^2}{\mu X}, \tag{13}
+\end{equation}
+evaluated at the instantaneous $(r,v)$ of the orbit. Equation (13) is exact and requires no further approximation beyond the standard drag force law; it may be evaluated pointwise along an orbit, or averaged over one revolution (with $\rho(r(\nu))$ and $v(\nu)$ expressed via true anomaly $\nu$) to obtain the usual secular decay rates, which we do not pursue further here.
+
+\begin{remark}
+Both coefficients in (13) are manifestly negative for physical parameters ($\rho,B,v,Y,T,r,X>0$ on a decaying elliptical orbit with $X>0$), consistent with drag simultaneously reducing energy ($b(t)<0$) and pumping eccentricity toward circularization at a rate coupled to it ($a(t)<0$, reducing $X=ae$ relative to the shrinking $T=a$) --- the well-known qualitative behavior of drag-induced circularization, now obtained as an exact consequence of (7) rather than asserted.
+\end{remark}
+
+\section{Conclusion}
+
+The AM--GM conic representation provides a rigorous, computationally linear, and visually unified framework for celestial mechanics. Physical energy states, angular momentum, and central masses isolate into direct spatial dimensions on $X^2+Y^2=T^2$, and the classification of trajectories by energy sign is recovered as the classical Apollonian classification of plane sections of a cone. The dynamic slicing operator $\hat S(t)$, properly understood, is not a separate construction but the flow of a time-dependent element of the cone's own $\mathfrak{so}(2,1)$ symmetry algebra: its two distinguished one-parameter subgroups are exactly energy-conserving eccentricity pumping and angular-momentum-conserving energy exchange, and a real perturbing force is fully specified, with no further modeling freedom, once its instantaneous generator coefficients $a(t),b(t),c(t)$ are derived from the standard perturbation identities (7) --- worked out here in closed form for atmospheric drag, and recovering the classical circular-decay rate as a consistency check.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Roy2004} A.~E. Roy, \emph{Orbital Motion}, 4th ed., CRC Press, Boca Raton, FL (2004).
+\bibitem{Goldstein2002} H. Goldstein, C. Poole, and J. Safko, \emph{Classical Mechanics}, 3rd ed., Addison-Wesley (2002).
+\bibitem{Vallado2013} D.~A. Vallado, \emph{Fundamentals of Astrodynamics and Applications}, 4th ed., Microcosm Press/Springer (2013). (Standard reference for the perturbation identities $\dot\varepsilon=\mathbf v\cdot\mathbf a_{\rm pert}$, $\dot h=r\,a_{{\rm pert},\theta}$, and Gauss's variational equations.)
+\bibitem{KingHele1964} D.~G. King-Hele, \emph{Theory of Satellite Orbits in an Atmosphere}, Butterworths, London (1964). (Classical reference for the circular-orbit atmospheric decay rate.)
+\end{thebibliography}
+
+\end{document}

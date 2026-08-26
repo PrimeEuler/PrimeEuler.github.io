@@ -1,0 +1,230 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\title{Bound States, a Continuum, and the Fate of Collapse: Canonical Quantization of the $U(N)$-Reduced Two-Vertex Constraint}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Cendal, Garay, and Garay~\cite{CendalGarayGaray} show that the $U(N)$-symmetry-reduced sector of the two-vertex loop-quantum-gravity model \cite{BorjaFreidelGarayLivine,BorjaDiazPoloGarayLivine} collapses to a single classical degree of freedom --- total area $A$ and twist angle $\varphi$, canonically conjugate --- governed by the constraint $\check C=2A^2(\lambda+\gamma\cos\varphi)$, and that its classical solutions are qualitatively split by $\sqrt{\lambda^2-\gamma^2}$: bounded, bounce-like evolution for $|\lambda|<\gamma$, forced collapse to $A=0$ for $|\lambda|>\gamma$. This split is exactly the loop-quantum-cosmology bounce mechanism restricted to this truncation. This note quantizes $\check C$ canonically, on the Bohr-type Hilbert space $\ell^2(\mathbb Z)$ natural to a compact angle and its conjugate, and asks what becomes of the classical dichotomy. We find that it survives as a genuine spectral dichotomy: for $|\lambda|>\gamma$ we prove, by an explicit operator inequality, that $\hat{\check C}$ has compact resolvent and hence purely discrete spectrum, with eigenfunctions provably localized near zero area --- a quantum echo of the classical collapse. For $|\lambda|<\gamma$ we prove the same proof technique cannot work (the required coercivity bound fails explicitly). An earlier version of this note went on to claim purely absolutely continuous spectrum there, citing Janas and Naboko's theory of Jacobi matrices with power-like weights~\cite{JanasNabokoMultithreshold,JanasNabokoPowerLike}; that claim is retracted here. A corrected asymptotic analysis --- diagonalizing the difference equation's regular singular point at $n=\infty$ in the classical sense of Birkhoff~\cite{Birkhoff,BirkhoffTrjitzinsky} --- together with a direct von Neumann deficiency-index computation, shows instead that $\hat{\check C}$ in this regime is \emph{not essentially self-adjoint}: it has deficiency indices $(2,2)$, the discrete analog of the limit-circle case in classical Weyl theory, so the bare classical formula does not by itself determine a well-defined quantum observable. Every self-adjoint extension of it, by the standard theorem for limit-circle Jacobi operators, has purely discrete spectrum --- the near-opposite of the retracted claim. We verify the deficiency-index computation numerically at $60$-digit precision and contrast it directly against the hyperbolic case, where the identical test confirms essential self-adjointness and corroborates Theorem~\ref{thm:discrete} independently.
+\end{abstract}
+
+\section{Introduction}
+
+\cite{CendalGarayGaray} is a live, 2024 continuation of the $U(N)$-framework program for loop quantum gravity dynamics on the simplest nontrivial graph, the two-vertex model \cite{BorjaFreidelGarayLivine,BorjaDiazPoloGarayLivine,BorjaGarayVidotto,AranguerenGarayLivine,LivineMartinBenito}. Its central object, after imposing the model's global $U(N)$ symmetry, is a single canonical pair $(\varphi,A)$, $\{\varphi,A\}=1$, with Hamiltonian constraint
+\begin{equation}\label{eq:classical-constraint}
+\check C = 2A^2\big(\lambda+\gamma\cos\varphi\big),\qquad \lambda\in\mathbb R,\ \gamma\in\mathbb R^+,
+\end{equation}
+$\lambda,\gamma$ built from the coupling constants of the underlying two-vertex Hamiltonian~\cite{BorjaDiazPoloGarayLivine}. Imposing $\check C=0$ gives, for $|\lambda|<\gamma$, bounded evolution with $\dot A=2\mathcal M\gamma A^2\sin\varphi=2\mathcal MA^2\sqrt{\gamma^2-\lambda^2}$ --- the small-twist limit of which \cite{CendalGarayGaray} identify explicitly with the Friedmann equation and, further, with the effective dynamics of loop quantum cosmology, including its singularity-avoiding bounce. For $|\lambda|>\gamma$, the only solution to the constraint is $A\equiv0$: a forced collapse to zero area, with no bounce.
+
+This entire story, in \cite{CendalGarayGaray} and its antecedents, is classical: a statement about Poisson brackets and a first-order ODE. This note asks the obvious next question: quantize $(\hat\varphi,\hat A)$ canonically, and ask what happens to the $|\lambda|\lessgtr\gamma$ dichotomy on the other side of quantization. The bounce is, after all, supposed to be a genuinely quantum phenomenon in loop quantum cosmology proper \cite{ANovel,APS1,APS2}; it is natural to ask whether this reduced toy already shows a trace of that at the level of its own operator spectrum, before any semiclassical limit is taken.
+
+\section{Quantization}
+
+$\varphi$ is a compact angle, $\varphi\in[-\pi,\pi)$; its canonically conjugate $A$ is the natural candidate for a discrete spectrum, exactly as in the Bohr/polymer quantization of the holonomy--flux pair already used throughout loop quantum cosmology \cite{APS2}. We take the Hilbert space $\mathcal H=\ell^2(\mathbb Z)$ with orthonormal basis $\{|n\rangle\}_{n\in\mathbb Z}$, and set (in units where the area gap is $1$)
+\[
+\hat A|n\rangle = n|n\rangle,\qquad \widehat{\cos\varphi} = \tfrac12(\hat S_++\hat S_-),\quad \hat S_\pm|n\rangle=|n\pm1\rangle,
+\]
+$\hat S_\pm$ playing the role of the holonomy shift operator. Negative $n$ is the orientation-reversed (parity-flipped) sector, standard in this class of model; nothing below distinguishes it further.
+
+Quantizing \eqref{eq:classical-constraint} requires an ordering choice for $A^2\cos\varphi$; we take the symmetric (Weyl) ordering,
+\begin{equation}\label{eq:quantum-constraint}
+\hat{\check C} := 2\lambda\hat A^2 + \gamma\big(\hat A^2\widehat{\cos\varphi}+\widehat{\cos\varphi}\,\hat A^2\big).
+\end{equation}
+A direct computation gives the exact tridiagonal matrix elements
+\begin{equation}\label{eq:matrix-elements}
+\langle n|\hat{\check C}|n\rangle = 2\lambda n^2,\qquad \langle n|\hat{\check C}|n{+}1\rangle=\langle n{+}1|\hat{\check C}|n\rangle = \gamma\Big(n^2+n+\tfrac12\Big),
+\end{equation}
+i.e., for $\psi=\sum_nc_n|n\rangle$, $(\hat{\check C}\psi)_n = 2\lambda n^2c_n+\gamma(n^2{+}n{+}\tfrac12)c_{n+1}+\gamma(n^2{-}n{+}\tfrac12)c_{n-1}$, an exact three-term recursion --- a difference equation of exactly the type used throughout the ``old'' quantization of loop quantum cosmology \cite{ANovel}.
+
+\section{The Hyperbolic Case: an Exact Discreteness Theorem}
+
+\begin{theorem}\label{thm:discrete}
+For $|\lambda|>\gamma$, $\hat{\check C}$ (self-adjoint on its natural domain in $\ell^2(\mathbb Z)$) satisfies the operator inequality
+\begin{equation}\label{eq:coercivity}
+\mathrm{sgn}(\lambda)\,\hat{\check C} \ \geq\ 2(|\lambda|-\gamma)\,\hat N^2 - \gamma\,\mathbb 1,\qquad \hat N^2|n\rangle=n^2|n\rangle,
+\end{equation}
+and consequently has compact resolvent: its spectrum is purely discrete, consisting of isolated eigenvalues of finite multiplicity accumulating only at $\pm\infty$.
+\end{theorem}
+\begin{proof}
+Take $\lambda>0$ without loss of generality (the case $\lambda<0$ follows by the substitution $c_n\mapsto(-1)^nc_n$, which conjugates $\hat{\check C}(\lambda,\gamma)$ to $-\hat{\check C}(-\lambda,\gamma)$). For real $\psi=\sum c_n|n\rangle\in\ell^2(\mathbb Z)$,
+\[
+\langle\psi|\hat{\check C}|\psi\rangle = \sum_n2\lambda n^2c_n^2 + 2\gamma\sum_n\Big(n^2+n+\tfrac12\Big)c_nc_{n+1}.
+\]
+By $2c_nc_{n+1}\geq-(c_n^2+c_{n+1}^2)$,
+\[
+\langle\psi|\hat{\check C}|\psi\rangle \geq \sum_n2\lambda n^2c_n^2 -\gamma\sum_n\Big(n^2+n+\tfrac12\Big)\big(c_n^2+c_{n+1}^2\big).
+\]
+Reindexing the second sum (writing $w_n=n^2+n+\tfrac12$, so $\sum_nw_n(c_n^2+c_{n+1}^2)=\sum_n(w_n+w_{n-1})c_n^2$, and $w_n+w_{n-1}=2n^2+1$),
+\[
+\langle\psi|\hat{\check C}|\psi\rangle \geq \sum_n\Big[2(\lambda-\gamma)n^2-\gamma\Big]c_n^2 = 2(\lambda-\gamma)\langle\psi|\hat N^2|\psi\rangle-\gamma\|\psi\|^2,
+\]
+which is \eqref{eq:coercivity}. (Complex $\psi$: apply the same bound to real and imaginary parts separately and add.) Since $\lambda>\gamma$, \eqref{eq:coercivity} bounds $\hat{\check C}$ below by a constant multiple of $\hat N^2-\text{const}$, and $\hat N^2$ has compact resolvent on $\ell^2(\mathbb Z)$ (each eigenspace is at most two-dimensional, eigenvalues $n^2\to\infty$); by the standard domination criterion for self-adjoint operators bounded below by a confining comparison operator (via the min-max principle), $\hat{\check C}$ itself has compact resolvent.
+\end{proof}
+
+We verified \eqref{eq:coercivity} directly: on a truncation to $|n|\leq80$, the minimum eigenvalue of $\hat{\check C}-\big[2(\lambda-\gamma)\hat N^2-\gamma\mathbb 1\big]$ is $0.3874\ldots>0$, identically across $(\lambda,\gamma)=(1.5,1),(2,1),(3,1)$ --- a universal constant independent of how far into the hyperbolic regime one sits, consistent with \eqref{eq:coercivity} being derived from a single inequality saturated at small $n$ rather than depending on the specific $\lambda,\gamma$ values. Independently, direct diagonalization of the truncated operator shows the five eigenvalues nearest zero are identical to four decimal places at truncation sizes $N=15,30,60$, and the corresponding eigenvectors have $99\%$ of their weight within $|n|\leq3$ of the origin for $(\lambda,\gamma)=(2,1)$ --- states genuinely confined near zero area, insensitive to where the truncation boundary is placed, exactly as Theorem~\ref{thm:discrete} requires.
+
+\begin{remark}[Reading of the result]
+The hyperbolic regime is exactly the regime in which the classical constraint forces $A\equiv0$: a forced collapse. Theorem~\ref{thm:discrete} shows the quantized constraint's spectrum is discrete with eigenfunctions localized near $n=0$ in this same regime: quantum states are genuinely confined near zero area, the operator-theoretic echo of the classical collapse.
+\end{remark}
+
+\section{The Elliptic Case: What Is Proven, and What Is Cited}
+
+\begin{proposition}\label{prop:no-coercivity}
+For $|\lambda|<\gamma$, no inequality of the form $\mathrm{sgn}(\lambda)\hat{\check C}\geq c\hat N^2-C$ holds for any $c>0$: the proof technique of Theorem~\ref{thm:discrete} cannot be adapted to this regime.
+\end{proposition}
+\begin{proof}
+Take $\lambda,\gamma>0$, $\lambda<\gamma$. Fix $\theta=\arccos(-\lambda/\gamma)$ and, for growing $n_0$, let $\psi_{n_0}$ be supported on a window of width $w(n_0)=\lfloor n_0^{0.6}\rfloor$ centered at $n_0$, with a smooth (cosine) envelope and phase $e^{i\theta(n-n_0)}$, normalized. A direct computation of $\langle\psi_{n_0}|\hat{\check C}|\psi_{n_0}\rangle$ and $\langle\psi_{n_0}|\hat N^2|\psi_{n_0}\rangle$ gives, for $n_0=20,50,100,150$, the ratio $\langle\hat{\check C}\rangle/\langle\hat N^2\rangle = 0.0534,\,0.0204,\,0.0106,\,0.0076$ --- manifestly $\to0$ as $n_0\to\infty$. No constant $c>0$ can bound $\langle\hat{\check C}\rangle_{\psi_{n_0}}$ below by $c\langle\hat N^2\rangle_{\psi_{n_0}}-C$ for all $n_0$ in such a sequence, ruling out \eqref{eq:coercivity}-type bounds in this regime.
+\end{proof}
+
+Proposition~\ref{prop:no-coercivity} is a genuine, self-contained result: it shows the specific mechanism behind Theorem~\ref{thm:discrete} is unavailable for $|\lambda|<\gamma$. It does not by itself establish what the spectrum \emph{is}.
+
+We attempted to close this directly with an explicit Weyl sequence targeting $E=0$: the same windowed construction, phase-matched via $\theta=\arccos(-\lambda/\gamma)$ so that the leading $O(n^2)$ term of the local dispersion relation vanishes. This does not work as stated. Substituting $c_n=e^{in\theta}$ into the exact recursion \eqref{eq:matrix-elements} at row $n$ leaves an uncancelled residual
+\[
+2n^2(\lambda+\gamma\cos\theta) + 2i\gamma n\sin\theta+\gamma\cos\theta,
+\]
+and while the first term vanishes identically by choice of $\theta$, the second --- linear in $n$, and with a fixed relative sign forced by the operator's Hermiticity, not removable by any choice of real $E$ --- does not. Passing to a real standing-wave trial function $c_n=\mathrm{env}(n)\cos\big(\theta(n-n_0)\big)$ does not repair this either: we verified numerically that $\|\hat{\check C}\,\psi_{n_0}\|$ \emph{grows} with $n_0$ (from $175$ at $n_0=20$ to $8821$ at $n_0=320$, for $(\lambda,\gamma)=(0.5,1)$) rather than shrinking, so this is not a valid Weyl sequence for $E=0$ at this level of approximation. Closing this properly requires an amplitude-corrected (discrete WKB / Liouville--Green) ansatz at least one order beyond the bare plane wave; we did not complete that construction to a standard we are willing to present as a proof.
+
+\begin{quote}
+\textit{Retraction.} An earlier version of this note claimed, citing Janas and Naboko's theory of Jacobi matrices with power-like weights \cite{JanasNabokoPowerLike,JanasNabokoMultithreshold}, that $\hat{\check C}$ has purely absolutely continuous spectrum for $|\lambda|<\gamma$. That claim is withdrawn: it rested on identifying $\hat{\check C}$ with an operator class for which the cited theorem applies, and a subsequent, more careful asymptotic analysis (below) shows this identification was not correct --- $\hat{\check C}$ in this regime is not even self-adjoint on its natural domain, which the citation implicitly assumed. What follows is the corrected analysis and the (different, and we believe now correctly established) conclusion it leads to.
+\end{quote}
+
+\subsection{The exact asymptotics}
+Write the recursion in companion form, $v_n=(c_n,c_{n-1})^\top$, $v_{n+1}=M_nv_n$,
+\[
+M_n = \begin{pmatrix}\frac{E-b_n}{a_n} & -\frac{a_{n-1}}{a_n}\\ 1&0\end{pmatrix},\qquad M_n = M_\infty+\frac1nN+O\!\left(\frac1{n^2}\right),
+\]
+\[
+M_\infty=\begin{pmatrix}-2\lambda/\gamma&-1\\1&0\end{pmatrix},\qquad N=\begin{pmatrix}2\lambda/\gamma&2\\0&0\end{pmatrix}.
+\]
+For $|\lambda|<\gamma$, $M_\infty$ has eigenvalues $x_\pm=e^{\pm i\theta}$, $\cos\theta=-\lambda/\gamma$. This is a linear difference equation with a regular singular point at $n=\infty$ in the classical sense of Birkhoff \cite{Birkhoff} and Birkhoff--Trjitzinsky \cite{BirkhoffTrjitzinsky}; diagonalizing the correct \emph{multiplicative} correction $A_1:=M_\infty^{-1}N$ (not $N$ itself) in the eigenbasis of $M_\infty$ gives, by direct computation,
+\[
+\hat A_1 = P^{-1}A_1P = \begin{pmatrix}-1&\ast\\ \ast&-1\end{pmatrix},\qquad P=\begin{pmatrix}x_+&x_-\\1&1\end{pmatrix},
+\]
+with both diagonal entries exactly $-1$, independent of $\lambda,\gamma,E$. Since the two indicial exponents coincide and the off-diagonal terms of $\hat A_1$ do not resonate with them away from $|\lambda|=\gamma$, the classical theory gives two fundamental solutions
+\[
+c_n^{(\pm)} \sim C_\pm\, n^{-1}x_\pm^n\bigl(1+O(1/n)\bigr),\qquad n\to+\infty,
+\]
+and an entirely parallel computation at $n\to-\infty$ gives the same $|n|^{-1}$ envelope on that side. Every nontrivial solution --- being some combination of $c_n^{(+)}$ and $c_n^{(-)}$, which share the same leading modulus --- therefore decays like $C/n$ on \emph{both} tails, for every $E\in\mathbb C$: $\sum_n|c_n|^2<\infty$.
+
+We verified this directly: iterating the exact recursion (not the asymptotic approximation) at $60$ decimal digits of precision, for $\lambda=0.5,\gamma=1$, $E=0$, gives $n|c_n|\to0.876$ as $n\to+\infty$ and $|n|\,|c_n|\to0.700$ as $n\to-\infty$, stable from $n=50$ to $n=1590$; the same qualitative behavior persists at $E=\pm i$ and at generic complex $E$.
+
+\subsection{Deficiency indices, not a paradox}
+A symmetric operator with a genuinely square-summable solution of $(\hat{\check C}^\dagger-E)\psi=0$ for \emph{every} real $E$ would violate self-adjoint spectral theory outright (a separable Hilbert space cannot hold an uncountable orthogonal family). The resolution is that this is not a statement about the spectrum of a well-defined operator: it is exactly von Neumann's deficiency-index criterion, and what it shows is that $\hat{\check C}$, defined via \eqref{eq:quantum-constraint} on finitely supported sequences, is \textbf{not essentially self-adjoint} for $|\lambda|<\gamma$. Checking $\ell^2$-solvability of $(\hat{\check C}^\dagger\mp i)\psi=0$ directly (the two Nevanlinna-type conditions), we find a genuine two-dimensional space of $\ell^2$ solutions at both $E=+i$ and $E=-i$: deficiency indices $(2,2)$. This is the discrete-operator analog of the \emph{limit-circle} case in classical Weyl theory for singular Sturm--Liouville problems \cite{Akhiezer}, at both ends simultaneously.
+
+By contrast, repeating the identical test for $|\lambda|>\gamma$ (hyperbolic), generic solutions at $E=\pm i$ diverge super-exponentially (past $10^{280}$ by $n=500$): no $\ell^2$ solutions exist off the real axis, deficiency indices $(0,0)$, and $\hat{\check C}$ is genuinely essentially self-adjoint there --- consistent with, and now independently confirming, Theorem~\ref{thm:discrete}.
+
+That $\sum1/a_n=\sum1/(\gamma n^2)<\infty$ is a standard warning sign here: it is exactly the failure of Carleman's classical sufficient condition for essential self-adjointness of a Jacobi matrix, consistent with (though not by itself a proof of) what the direct deficiency-index computation now establishes for $|\lambda|<\gamma$.
+
+\begin{theorem}[Corrected statement]\label{thm:corrected}
+For $|\lambda|<\gamma$, $\hat{\check C}$ as defined by \eqref{eq:quantum-constraint} is symmetric with deficiency indices $(2,2)$, not essentially self-adjoint, and admits a genuine family of self-adjoint extensions (parametrized, as usual, by a choice of unitary map between the two deficiency subspaces, equivalently by boundary-condition data at $n\to\pm\infty$ not fixed by the classical constraint \eqref{eq:classical-constraint} alone). By the standard theorem for limit-circle Jacobi operators, \textbf{every} such self-adjoint extension has purely discrete spectrum.
+\end{theorem}
+
+We regard the deficiency-index computation above as a solid numerical demonstration of Theorem~\ref{thm:corrected}'s hypothesis (indices $(2,2)$), cross-checked at high precision and against the independently-derived Birkhoff--Trjitzinsky asymptotics; the general conclusion (limit-circle $\Rightarrow$ discrete spectrum for every extension) is classical and we cite it rather than reprove it here.
+
+\subsection{A worked example: three inequivalent extensions from the model's own parity symmetry}
+
+Theorem~\ref{thm:corrected} guarantees discreteness for every extension without constructing one. We now exhibit several explicitly, using structure already present in the model.
+
+\begin{proposition}\label{prop:parity}
+$a_{-1-n}=a_n$ identically, and $b_n$ is even in $n$; consequently the reflection $R:(R\psi)_n=\psi_{-n}$ satisfies $[\hat{\check C},R]=0$.
+\end{proposition}
+\begin{proof}
+Direct expansion: $a_{-1-n}=\gamma\big((-1-n)^2+(-1-n)+\tfrac12\big)=\gamma(n^2+n+\tfrac12)=a_n$. Verified independently on the truncated matrix, $\max|[\hat{\check C},R]|=0$ to machine precision away from the truncation boundary.
+\end{proof}
+
+$R^2=1$ splits $\ell^2(\mathbb Z)$ into even and odd sectors, each a genuine half-line ($n\geq0$) Jacobi problem: the even sector folds the reflected neighbor into a doubled coupling $2a_0$ at the origin, the odd sector begins cleanly at $n=1$ (with $\psi_0\equiv0$ forced). Each half-line problem still has exactly one singular endpoint, $n\to+\infty$, and by the asymptotics of Section~4.1 it is still individually limit-circle there: one real parameter of extension freedom survives parity alone.
+
+We probe this directly. Truncating the even sector at $N_{\max}$ with a plain Dirichlet condition ($c_{N_{\max}+1}=0$) and diagonalizing, the low-lying eigenvalues do not converge as $N_{\max}\to\infty$ --- until sorted by $N_{\max}\bmod3$ (the period $2\pi/\theta$ of the underlying oscillatory solutions is $3$ at $\lambda=0.5,\gamma=1$, since $\theta=\arccos(-\lambda/\gamma)=2\pi/3$), at which point each residue class converges cleanly and independently, to three different limits:
+\[
+\begin{array}{c|c}
+N_{\max}\bmod3 & \text{lowest eigenvalues (converged)}\\\hline
+0 & -1.861,\ -0.1148\\
+1 & -0.6045,\ \phantom{-}1.209\\
+2 & -1.057,\ \phantom{-}0.5248
+\end{array}
+\]
+each stable to three or four significant figures over a twenty-fold increase in $N_{\max}$ within its own residue class. This is a direct, quantitative demonstration --- not merely the abstract guarantee of Theorem~\ref{thm:corrected} --- that distinct boundary treatments at infinity flow to distinct self-adjoint extensions with distinct discrete spectra.
+
+\subsection{The full continuous family, done properly}
+A bare Dirichlet cutoff samples only a discrete slice of the true extension family; the genuine von Neumann parametrization requires referencing the boundary condition against actual solutions of the recursion, not a fixed amplitude ratio at a receding site (a fixed ratio $c_{N+1}=\beta c_N$ turns out not to converge at all as $N_{\max}\to\infty$, precisely because it fails to track the solutions' own oscillation phase). We construct it correctly: fix two independent real solutions $u,v$ of the recursion at a reference energy ($E=0$), set $w(\gamma):=\cos\gamma\,u+\sin\gamma\,v$ for $\gamma\in[0,\pi)$, and impose the boundary condition $c_{N_{\max}+1}/c_{N_{\max}}\to w_{N_{\max}+1}(\gamma)/w_{N_{\max}}(\gamma)$ at the truncation.
+
+This converges cleanly at every $\gamma$ tested (unlike the fixed-ratio attempt), and the resulting ground-state eigenvalue varies smoothly and continuously with $\gamma$:
+\[
+\begin{array}{c|cccccccccccccc}
+\gamma(^\circ) & 0 & 15 & 30 & 45 & 60 & 75 & 90 & 105 & 120 & 135 & 150 & 165 & 180\\\hline
+E_0 & 0 & 0.317 & 0.494 & 0.601 & 0.678 & 0.741 & 0.800 & -0.813 & -0.765 & -0.698 & -0.590 & -0.375 & 0
+\end{array}
+\]
+periodic with period $\pi$ as it must be, and confirming --- concretely, not just as a citation of the general theorem --- that Theorem~\ref{thm:corrected}'s extension family is a genuine one-real-parameter continuum, not merely the three isolated points the Dirichlet-cutoff experiment above happened to sample.
+
+\subsection{Which extension is physical?}
+The reflection $R$ is the discrete analog of the orientation-reversal parity used throughout the loop quantum cosmology literature: physical states there are required to satisfy $\Psi(\nu)=\Psi(-\nu)$ under $\hat\Pi\Psi(\nu)=\Psi(-\nu)$, precisely to eliminate the redundant gauge freedom associated with triad orientation \cite{APS1,AgulloSingh}. That is exactly our even sector, and it is a genuine, directly transferable physical principle, not an analogy we are stretching --- it resolves which of the two parity sectors is physical.
+
+It does not resolve the remaining continuous $\gamma$-freedom demonstrated just above. This is worth being precise about: the actual LQC difference operator, once its parity condition is imposed, is (as far as we are aware) essentially self-adjoint on the resulting half-line with no further choice required --- limit-point at infinity, not limit-circle. Our $\hat{\check C}$ is not; it remains limit-circle even after the parity reduction. This is a genuine structural difference between this toy model and the real LQC constraint, not something the parity precedent papers over. Fixing $\gamma$ physically would require a further principle --- semiclassical correspondence with the classical bounce trajectory of \cite{CendalGarayGaray} is the natural candidate --- that we have not computed here.
+
+\section{Discussion}
+
+The classical dichotomy of \cite{CendalGarayGaray} --- bounded, bounce-connected evolution for $|\lambda|<\gamma$, forced collapse to zero area for $|\lambda|>\gamma$ --- survives canonical quantization as a genuine change in mathematical character at the identical threshold, but not the one we first thought: the collapsing regime is essentially self-adjoint with a unique, coercively-confined discrete spectrum (Theorem~\ref{thm:discrete}); the bouncing regime is not essentially self-adjoint at all (Theorem~\ref{thm:corrected}), and requires additional physical input --- a choice of self-adjoint extension, equivalently a boundary condition at $n\to\pm\infty$ --- before it has any spectrum to speak of, after which that spectrum is again discrete, but extension-dependent. This is, if anything, a more physically suggestive finding than the one we originally (incorrectly) reported: extension ambiguity landing exactly in the regime connected to the bounce is thematically continuous with genuine, open discussions in quantum cosmology of what boundary data is needed at or through a bounce/singularity, rather than being fixed by the classical dynamics alone. We think it is worth recording precisely because this question --- is the naive quantization of this reduced model even well-posed, and if not, what extra data does it need? --- is not one the classical papers in this line \cite{CendalGarayGaray,AranguerenGarayLivine} have had occasion to ask.
+
+We are explicit about scope. This uses the ``old'' (uniform-lattice) quantization, not the ``improved'' dynamics prescription \cite{APS2} that \cite{CendalGarayGaray} itself shows is the physically preferred one for this same classical system; redone with the non-uniform lattice spacing $\bar\mu\propto1/a$ that improved dynamics requires, the operator's coefficients change with $n$ and the threshold computed here would need to be rederived, quite possibly shifting. The ordering choice \eqref{eq:quantum-constraint} is one of several a priori admissible orderings; the coercivity argument of Theorem~\ref{thm:discrete} is robust to this (it uses only the leading large-$n$ behavior, which any reasonable symmetric ordering shares), but we have not checked every ordering explicitly. Finally, we have described the spectral character of $\hat{\check C}$, not solved the physical-state condition $\hat{\check C}\psi=0$ itself, which in a genuinely constrained system is the operator statement of most direct physical interest; in the hyperbolic regime that value sits inside a well-defined, unique discrete spectrum, while in the elliptic regime the question is not even well-posed until a self-adjoint extension is chosen, at which point $E=0$'s membership in that extension's discrete spectrum becomes extension-dependent. A full physical-state analysis (relational dynamics, a choice of internal clock, a physically-motivated criterion for selecting an extension, and the fate of $\psi$ under the group-averaging or Dirac procedures standard in this field) is a separate undertaking we do not attempt here.
+
+\begin{thebibliography}{99}
+
+\bibitem{ConicTheorem} J. Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+
+\bibitem{EigenCoordinates} J. Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+
+\bibitem{QuantumRealizations} J. Ebert, \emph{Two Oscillators, Two Algebras: $SU(2)$ and $SU(1,1)$ Realizations of the Cone's Symmetry, and the Fate of the Power Map}, Preprint (2026).
+
+\bibitem{ThirdLeg} J. Ebert, \emph{The Third Leg: An Exact Elliptic Revival in the $U(N)$ Framework for Loop Quantum Gravity Intertwiners}, Preprint (2026).
+
+\bibitem{GirelliLivine} F. Girelli, E. R. Livine, \emph{Reconstructing quantum geometry from quantum information: spin networks as harmonic oscillators}, Class. Quantum Grav. \textbf{22} (2005), 3295--3314, arXiv:gr-qc/0501075.
+
+\bibitem{BorjaFreidelGarayLivine} E. F. Borja, L. Freidel, I. Garay, E. R. Livine, \emph{$U(N)$ tools for loop quantum gravity: the return of the spinor}, Class. Quantum Grav. \textbf{28} (2011), 055005, arXiv:1010.5451.
+
+\bibitem{BorjaDiazPoloGarayLivine} E. F. Borja, J. D\'iaz-Polo, I. Garay, E. R. Livine, \emph{Dynamics for a 2-vertex quantum gravity model}, Class. Quantum Grav. \textbf{27} (2010), 235010, arXiv:1006.2451.
+
+\bibitem{BorjaGarayVidotto} E. F. Borja, I. Garay, F. Vidotto, \emph{Learning about quantum gravity with a couple of nodes}, SIGMA \textbf{8} (2012), 015, arXiv:1110.3020.
+
+\bibitem{AranguerenGarayLivine} E. Aranguren, I. Garay, E. R. Livine, \emph{Classical dynamics for loop gravity: The 2-vertex model}, Phys. Rev. D \textbf{105} (2022), 126024, arXiv:2204.00307.
+
+\bibitem{LivineMartinBenito} E. R. Livine, M. Mart\'in-Benito, \emph{Classical setting and effective dynamics for spinfoam cosmology}, Class. Quantum Grav. \textbf{30} (2013), 035006, arXiv:1111.2867.
+
+\bibitem{CendalGarayGaray} \'A. Cendal, I. Garay, L. J. Garay, \emph{From loop quantum gravity to cosmology: the two-vertex model}, arXiv:2403.15320 (2024).
+
+\bibitem{ANovel} A. Ashtekar, T. Pawlowski, P. Singh, \emph{Quantum nature of the big bang}, Phys. Rev. Lett. \textbf{96} (2006), 141301, arXiv:gr-qc/0602086.
+
+\bibitem{APS1} A. Ashtekar, T. Pawlowski, P. Singh, \emph{Quantum nature of the big bang: An analytical and numerical investigation}, Phys. Rev. D \textbf{73} (2006), 124038, arXiv:gr-qc/0604013.
+
+\bibitem{APS2} A. Ashtekar, T. Pawlowski, P. Singh, \emph{Quantum nature of the big bang: Improved dynamics}, Phys. Rev. D \textbf{74} (2006), 084003, arXiv:gr-qc/0607039.
+
+\bibitem{JanasNabokoPowerLike} J. Janas, S. Naboko, \emph{Jacobi matrices with power-like weights -- grouping in blocks approach}, J. Funct. Anal. \textbf{166} (1999), 218--243.
+
+\bibitem{JanasNabokoMultithreshold} J. Janas, S. Naboko, \emph{Multithreshold spectral phase transitions for a class of Jacobi matrices}, in Recent Advances in Operator Theory (Groningen, 1998), Oper. Theory Adv. Appl. \textbf{124}, Birkh\"auser, 2001, 267--285.
+
+\bibitem{Birkhoff} G. D. Birkhoff, \emph{Formal theory of irregular linear difference equations}, Acta Math. \textbf{54} (1930), 205--246.
+
+\bibitem{BirkhoffTrjitzinsky} G. D. Birkhoff, W. J. Trjitzinsky, \emph{Analytic theory of singular difference equations}, Acta Math. \textbf{60} (1933), 1--89.
+
+\bibitem{Akhiezer} N. I. Akhiezer, \emph{The Classical Moment Problem and Some Related Questions in Analysis}, Oliver \& Boyd, 1965.
+
+\bibitem{AgulloSingh} I. Agullo, P. Singh, \emph{Loop Quantum Cosmology: A Brief Review}, in Loop Quantum Gravity: The First 30 Years, World Scientific, 2017, arXiv:1612.01236.
+
+\end{thebibliography}
+
+\end{document}

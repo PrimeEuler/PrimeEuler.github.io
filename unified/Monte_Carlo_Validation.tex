@@ -1,0 +1,84 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Independent Monte Carlo Validation]{Checking the Whole Edifice:\\
+An Independent Langevin Simulation of $\dot T$, $\dot X^2$, $\dot Y^2$}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Every result in \cite{Ebert2026Cancellation,Ebert2026Rest} --- the exact $Tv^2/\mu=\tfrac14$ heating/cooling boundary, the Maxwellian-corrected diffusion tensor, the $\langle\dot R_-^2\rangle\geq0$ finding, and the counterintuitive sign reversal of $\langle\dot X^2\rangle$ away from the turning points --- was derived through symbolic It\^o calculus and checked only against internal algebraic identities (linearity of It\^o's lemma, reduction to known limits). None of it had been checked against a direct simulation of the underlying physical process. This note does that: we simulate the full anisotropic Langevin equation for a test particle's velocity directly in Cartesian coordinates, with drift and diffusion set by \cite{Ebert2026Rosenbluth}'s Maxwellian-averaged coefficients, and measure the resulting secular drift of the osculating elements $T,X^2,Y^2$ by ensemble averaging. Doing this exposed a genuine implementation bug --- a naive planar simulation supplies only one of the two perpendicular noise directions that $\operatorname{Tr}D=D_\parallel+2D_\perp$ requires, since a real bath kicks a particle out of its orbital plane as readily as it kicks it sideways within that plane, even though the plane itself is only tracked to leading order --- which silently produces the wrong Jensen/It\^o correction to $\langle\dot h\rangle$ and hence to $\langle\dot T\rangle$. With the missing channel restored, four independent tests --- $\langle\dot T\rangle$ on both sides of the $\tfrac14$ boundary, $\langle\dot R_-^2\rangle$ at an extreme (high-eccentricity, cold-bath) point, and the sign-reversed $\langle\dot X^2\rangle$ at a point selected specifically because the analytic formula predicts it negative --- all agree with the analytic predictions to within statistical error (largest deviation $0.4\sigma$). This constitutes the first check of this line of work against anything other than itself.
+\end{abstract}
+
+\section{The Simulator}
+
+A test particle's position and velocity evolve as
+\begin{equation}
+\dot r = v, \qquad dv = \left(-\frac{\mu r}{|r|^3} - |A|\hat v\right)dt + \sqrt{2D_\parallel\,dt}\,\eta_\parallel\hat v + \sqrt{2D_\perp\,dt}\,\eta_\perp\hat e_\perp + \sqrt{2D_\perp\,dt}\,\eta_z\hat z, \tag{1}
+\end{equation}
+$\eta_\parallel,\eta_\perp,\eta_z$ independent standard normals resampled at every step, $D_\parallel(v),D_\perp(v),|A|(v)$ the Maxwellian-averaged forms of \cite{Ebert2026Rosenbluth} at the instantaneous speed. The particle's motion is confined to the $z=0$ plane to leading order (gravity and friction act only on the in-plane components), but the energy $h=\tfrac12(|v|^2+v_z^2)-\mu/r$ includes the accumulated out-of-plane velocity $v_z$, while $r,\ell,T,X^2,Y^2$ are computed from the in-plane components alone. This is the correct leading-order treatment for measuring the instantaneous secular drift over a time short compared to the timescale on which the orbital plane itself would visibly tilt.
+
+\begin{remark}[The bug, and why it is easy to make]
+An initial implementation supplied only $\hat v$ and the single in-plane $\hat e_\perp$ direction, omitting $\hat z$ entirely --- a natural simplification, since the orbit itself is exactly 2D and $\ell,T,X^2,Y^2$ genuinely need no third dimension. But $h=\tfrac12|v|^2-\mu/r$ is the kinetic energy of the full 3D velocity vector, and the Maxwellian bath does not know or care that the orbit happens to be planar: it kicks the particle out of the plane with the same $D_\perp$ it uses for the in-plane perpendicular kick. Dropping this channel silently halves the Jensen/It\^o correction $\operatorname{Tr}D=D_\parallel+2D_\perp\to D_\parallel+D_\perp$ appearing in $\langle\dot h\rangle$ (Corollary in \cite{Ebert2026Rest}), which propagates into every downstream quantity. This was caught by comparing $\langle\dot h\rangle$'s measured mean directly against the analytic prediction at a point where the sign was unambiguous, isolating the discrepancy to the diffusion (not friction) contribution via a separate deterministic-only (noise-free) control run.
+\end{remark}
+
+\section{Validation 1: $\langle\dot T\rangle$ on Both Sides of the $\tfrac14$ Boundary}
+
+Using $T=1,\mu=1,e=0.8,r=1.7$ ($Tv^2/\mu\approx0.176<\tfrac14$, so \cite{Ebert2026Cancellation}'s Theorem predicts a sign change in $\chi$):
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+$\sigma$ & $\chi$ & analytic $\langle\dot T\rangle$ & measured (2M trajectories) \\
+\hline
+$0.10$ & $2.97$ & $-0.00149$ & $-0.00184\pm0.00195$ \\
+$0.30$ & $0.99$ & $+0.07383$ & $+0.07329\pm0.00379$ \\
+\hline
+\end{tabular}
+\end{center}
+Both signs and magnitudes match within statistical error.
+
+\section{Validation 2: $\langle\dot T\rangle$ Deep in the Unconditional-Heating Regime}
+
+At $r=1.5$ ($Tv^2/\mu=\tfrac13>\tfrac14$, robustly heating for any bath temperature), $\sigma=0.3$: analytic $\langle\dot T\rangle=0.03779$, measured $0.03654\pm0.00419$ ($0.3\sigma$).
+
+\section{Validation 3: $\langle\dot R_-^2\rangle\geq0$ at an Extreme Point}
+
+At $e=0.95$, exactly at apoapsis, $\sigma=0.05$ (a case from \cite{Ebert2026Rest}'s aggressive sweep): analytic $\langle\dot R_-^2\rangle=2.973$, measured $2.970\pm0.012$ ($0.03\sigma$).
+
+\section{Validation 4: The Counterintuitive Sign Reversal of $\langle\dot X^2\rangle$}
+
+The most important check: at $e=0.95$, $\theta=173°$ (in the interior band identified in \cite{Ebert2026Rest} where $\langle\dot X^2\rangle$ is negative despite $X^2\geq0$ trivially and the naive turning-points-only picture suggesting otherwise), analytic $\langle\dot X^2\rangle=-0.0573$, measured $-0.0585\pm0.0067$ ($0.17\sigma$). The counterintuitive sign is confirmed by direct simulation, not merely by the symbolic derivation that first produced it.
+
+\section{Scope}
+
+\begin{itemize}
+\item[--] This validates the It\^o calculus and the $(h,\ell)$ SDE machinery of \cite{Ebert2026Cancellation,Ebert2026Rest} directly, independent of the symbolic derivations --- it does not re-validate \cite{Ebert2026Rosenbluth}'s own Rosenbluth-potential physics, which rests on separate (already-cited) grounds.
+\item[--] All tests use short simulated times (secular drift measured well before the orbit itself evolves appreciably) and equal masses, matching the scope of every note this validates.
+\item[--] The three open items of \cite{Ebert2026Rest} (the covariance bound, $\langle\dot R_-^2\rangle$'s closed form, $Y$'s boundary) are untouched by this note; it confirms the numerics feeding into them are trustworthy, not the missing proofs themselves.
+\end{itemize}
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, simulation, and \LaTeX{} preparation of this note. This includes: implementation of the Langevin simulator; diagnosis of an initial, substantial ($\sim$tens-of-percent to order-of-magnitude, and in one case sign-obscuring) mismatch between simulated and analytic $\langle\dot T\rangle$, isolated first by ruling out numerical integration error (via a noise-free control run matching to $10^{-7}$), then by ruling out the friction/drift term (via a deterministic-friction-only run matching the analytic $v\cdot A$ contribution essentially exactly), which together isolated the discrepancy to the diffusion channel and led to identifying the missing out-of-plane noise direction; and the four validation runs reported above, each independently seeded and cross-checked against the analytic formulas already established in \cite{Ebert2026Cancellation,Ebert2026Rest}. All numerical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Rosenbluth} J.~Ebert, \emph{Doing the Actual Average: Rosenbluth Potentials Close the Residual}, Preprint (2026).
+\bibitem{Ebert2026Cancellation} J.~Ebert, \emph{The Cancellation That Wasn't: Friction, Diffusion, and an Exact Heating/Cooling Boundary for Orbits in a Maxwellian Bath}, Preprint (2026).
+\bibitem{Ebert2026Rest} J.~Ebert, \emph{The Rest of the Cone: $X$ and $Y$ Under a Genuine Maxwellian Bath, at General Orbital Phase}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

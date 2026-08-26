@@ -1,0 +1,147 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[All Four Means]{All Four Means:\\
+Harmonic and Quadratic Structure Already Present in the AM--GM Cone}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026Table} coordinatizes a factor pair $(x,y)$ by its arithmetic and geometric means, $T=(x+y)/2$ and $Y=\sqrt{xy}$, on the quadric $X^2+Y^2=T^2$. The remaining two classical Pythagorean-type means of $(x,y)$ --- harmonic and quadratic (root-mean-square) --- are not separate constructions requiring new machinery; they are immediate algebraic functions of $(X,Y,T)$ already in hand: $HM=Y^2/T$ and $RMS=\sqrt{T^2+X^2}$, each verified here, together with two quadratic identities extending the classical $GM^2=AM\cdot HM$: namely $AM^2=(RMS^2+GM^2)/2$. In the orbital reading of $(X,Y,T)$, $HM$ is exactly the semi-latus rectum and $RMS$ is exactly the distance from a focus to the point where the orbit's auxiliary circle crosses the minor axis, both verified geometrically and numerically. We further show all four means arise as natural continuous averages of the orbital radius (or, for $RMS$, of the auxiliary-circle distance) over the eccentric or true anomaly, each verified against direct numerical integration to the displayed precision. Finally, since $HM$ was in fact already present, unnamed, in \cite{Ebert2026Cone}'s own angular-momentum formula $h=\sqrt{\mu Y^2/T}=\sqrt{\mu\cdot HM}$ and inherited from there into \cite{Ebert2026Clock}, we document exactly where, rather than revise those papers; $RMS$, by contrast, appears nowhere in the existing project and is introduced here for the first time. This note is written to stand beside \cite{Ebert2026Table} as an immediate consequence of its own definitions, not as downstream application; we say so explicitly rather than editing \cite{Ebert2026Table} itself, to avoid disturbing a citation structure the rest of the project already depends on.
+\end{abstract}
+
+\section{Two Means Already Named, Two Not Yet}
+
+\cite{Ebert2026Table} builds $(X,Y,T)$ from a factor pair $(x,y)$ via the arithmetic mean $T=(x+y)/2$ and geometric mean $Y=\sqrt{xy}$, with $X=(x-y)/2$ completing the cone identity $X^2+Y^2=T^2$. Of the four classical Pythagorean-type means of two positive numbers --- arithmetic, geometric, harmonic, and quadratic (root-mean-square) --- two are named from the start and two are not, despite being equally immediate functions of the same $(X,Y,T)$. We name them here.
+
+\section{The Harmonic Mean}
+
+\begin{definition}
+$HM(x,y):=\dfrac{2xy}{x+y}$.
+\end{definition}
+
+\begin{proposition}[Closed form and classical identity]\label{prop:HM}
+$HM=Y^2/T$, and $GM^2=AM\cdot HM$ (i.e.\ $Y^2=T\cdot HM$) holds identically.
+\end{proposition}
+
+\begin{proof}
+Direct substitution: $Y^2/T=xy/[(x+y)/2]=2xy/(x+y)=HM$, verified symbolically with zero residual; $T\cdot HM=T\cdot Y^2/T=Y^2$ trivially.
+\end{proof}
+
+\begin{proposition}[$HM$ is the semi-latus rectum]\label{prop:HMorbital}
+Under the orbital reading $x=r_a$, $y=r_p$, $HM=T(1-e^2)=p$, the semi-latus rectum.
+\end{proposition}
+
+\begin{proof}
+$HM=Y^2/T=(T^2-X^2)/T=T(1-X^2/T^2)=T(1-e^2)$, using the cone identity and $e:=X/T$.
+\end{proof}
+
+\subsection*{Numerical Verification}
+For $T_0=24482$, $X_0=17627.04$ (the orbit used throughout \cite{Ebert2026Clock,Ebert2026LeviCivita}): $HM=Y_0^2/T_0=11790.53$, matching $T_0(1-e_0^2)$ to displayed precision, and $Y_0^2-T_0\cdot HM=0$ exactly.
+
+\section{The Quadratic Mean (RMS)}
+
+\begin{definition}
+$RMS(x,y):=\sqrt{(x^2+y^2)/2}$.
+\end{definition}
+
+\begin{proposition}[Closed form and a second quadratic identity]\label{prop:RMS}
+$RMS=\sqrt{T^2+X^2}=T\sqrt{1+e^2}$, and $AM^2=(RMS^2+GM^2)/2$ holds identically.
+\end{proposition}
+
+\begin{proof}
+$(x^2+y^2)/2=[(x+y)^2-2xy]/2=2T^2-Y^2$; using $Y^2=T^2-X^2$ gives $(x^2+y^2)/2=T^2+X^2$, so $RMS=\sqrt{T^2+X^2}$, verified symbolically. Since $RMS^2+Y^2=(T^2+X^2)+(T^2-X^2)=2T^2$, dividing by $2$ gives $AM^2=(RMS^2+GM^2)/2$.
+\end{proof}
+
+\begin{proposition}[Geometric meaning: the auxiliary circle]\label{prop:auxcircle}
+$RMS$ is the distance from either focus of the orbit to the point where its auxiliary circle (radius $a=T$, centered at the ellipse's center) crosses the minor axis.
+\end{proposition}
+
+\begin{proof}
+Place the center at the origin, focus at $(X,0)$, auxiliary-circle point at $(0,T)$: distance $=\sqrt{X^2+T^2}=RMS$.
+\end{proof}
+
+\subsection*{Numerical Verification}
+$RMS_0=\sqrt{T_0^2+X_0^2}=30167.5465$; the focus-to-auxiliary-circle-crossing distance, computed directly from the two points $(X_0,0)$ and $(0,T_0)$, matches to $10^{-4}$ (limited by the decimal precision of the input data, not the identity).
+
+\section{The Complete Ordering}
+
+\begin{corollary}
+$HM\le GM\le AM\le RMS$, with equality throughout iff $e=0$.
+\end{corollary}
+For the orbit above: $11790.53\le16989.87\le24482.00\le30167.55$.
+
+\section{Orbital Averages: A Dictionary}
+
+Each mean is not merely an algebraic function of the turning points; each is a natural continuous average of the orbit itself.
+
+\begin{theorem}[Four means, four averages]\label{thm:averages}
+With $r(E)=T(1-e\cos E)$, $r(\nu)=HM/(1+e\cos\nu)$, and $d(E):=\sqrt{T^2+X^2-2TX\cos E}$ (the focus-to-auxiliary-circle distance at parameter $E$, by the law of cosines),
+\begin{equation}
+\langle r(E)\rangle_E=AM,\quad \langle r(\nu)\rangle_\nu=GM,\quad \frac{1}{\langle 1/r(\nu)\rangle_\nu}=HM,\quad \sqrt{\langle d(E)^2\rangle_E}=RMS, \tag{1}
+\end{equation}
+averages taken uniformly over $[0,2\pi]$ in the subscripted variable.
+\end{theorem}
+
+\begin{proof}
+$\langle r(E)\rangle_E=T(1-e\langle\cos E\rangle)=T$ since $\langle\cos E\rangle=0$. $\langle 1/r(\nu)\rangle_\nu=(1/HM)(1+e\langle\cos\nu\rangle)=1/HM$, same reasoning. $\langle d(E)^2\rangle_E=T^2+X^2-2TX\langle\cos E\rangle=T^2+X^2=RMS^2$. For $\langle r(\nu)\rangle_\nu$: $\langle r(\nu)\rangle_\nu=HM\cdot\tfrac1{2\pi}\int_0^{2\pi}\tfrac{d\nu}{1+e\cos\nu}=HM/\sqrt{1-e^2}=T(1-e^2)/\sqrt{1-e^2}=T\sqrt{1-e^2}=GM$, using the standard integral $\int_0^{2\pi}(1+e\cos\nu)^{-1}d\nu=2\pi/\sqrt{1-e^2}$.
+\end{proof}
+
+\begin{corollary}[A fifth, unnamed identity]\label{cor:AMGM}
+$\langle r(\nu)^2\rangle_\nu=AM\cdot GM$.
+\end{corollary}
+
+\begin{proof}
+$\langle r(\nu)^2\rangle_\nu=HM^2\cdot\tfrac1{2\pi}\int_0^{2\pi}(1+e\cos\nu)^{-2}d\nu=HM^2/(1-e^2)^{3/2}$; substituting $HM=T(1-e^2)$ gives $T^2(1-e^2)^{1/2}=T\cdot T\sqrt{1-e^2}=AM\cdot GM$, using $\int_0^{2\pi}(1+e\cos\nu)^{-2}d\nu=2\pi/(1-e^2)^{3/2}$.
+\end{proof}
+
+\subsection*{Numerical Verification}
+Both standard integrals were verified numerically (not merely recalled) at $e=0.3$ and $e=0.72$, matching $2\pi/\sqrt{1-e^2}$ and $2\pi/(1-e^2)^{3/2}$ to $8$ decimal places in each case. All five identities of (1) and Corollary~\ref{cor:AMGM} were then verified by direct numerical integration for the orbit above: $\langle r(E)\rangle_E=24482.0000=AM$; $\langle r(\nu)\rangle_\nu=16989.8730=GM$; $1/\langle1/r(\nu)\rangle_\nu=11790.5265\ (=1/0.00008481)=HM$; $\sqrt{\langle d(E)^2\rangle_E}=30167.5465=RMS$; $\langle r(\nu)^2\rangle_\nu=415946070.99=AM\cdot GM$; each matching its closed form to the displayed precision.
+
+\begin{remark}[Why $RMS$ is different in kind]
+$HM,GM,AM$ are each averages of the physical orbital radius $r$ itself, over one of its two natural angles. $RMS$ is not: $d(E)$ agrees with $r(E)$ only at the two turning points ($E=0,\pi$) and differs from it everywhere else, since $d(E)$ measures to the auxiliary circle, not the ellipse. This is why $RMS$ exceeds every radius the orbit actually attains ($RMS>AM\ge r(E)$ for all $E$), while $HM,GM,AM$ are all values or averages $r$ genuinely takes.
+\end{remark}
+
+\section{Hiding in Plain Sight}
+
+\begin{proposition}
+$HM$ already appears, unnamed, in \cite{Ebert2026Cone}, equation (3): $h=\sqrt{\mu Y^2/T}=\sqrt{\mu\,HM}$, where that paper independently identifies $Y^2/T=b^2/a$ as the semi-latus rectum $p$ without naming it as a Pythagorean mean. \cite{Ebert2026Clock} inherits this formula unchanged, in its own equation for $h$ and in the orbit-radius formula $r=Y^2/(T+X\cos\nu)$ (its equation 14), which is $HM/(1+e\cos\nu)$ written out. No other document in this project uses $Y^2/T$ or an equivalent form.
+\end{proposition}
+
+\begin{remark}[$RMS$ has no such history]
+A systematic search of every document in this project for the pattern $T^2+X^2$ (or an algebraic equivalent) returned no matches anywhere prior to this note. $RMS$ is not a renaming of existing content; it is new.
+\end{remark}
+
+\begin{remark}[Why this is a companion note, not a revision]
+The material above could, in principle, have appeared in \cite{Ebert2026Table} directly, immediately after $X,Y,T$ are first defined --- it requires nothing beyond that paper's own coordinates. We have not edited \cite{Ebert2026Table} or \cite{Ebert2026Cone}, both of which are cited by name, section, and equation number throughout the rest of this project; revising either risks invalidating citations and cross-verifications (several exact to machine precision) that the rest of the project depends on, for a gap that is one of naming, not of mathematical content. This note is written to be citable as the canonical reference for $HM$ and $RMS$ from anywhere in the project going forward, without disturbing anything upstream.
+\end{remark}
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical cross-checking, and \LaTeX{} preparation of this note. This includes: symbolic verification of Propositions~2.2, 3.2, and the two quadratic identities; numerical verification of the auxiliary-circle geometric interpretation (Proposition~3.3) against direct coordinate computation; independent numerical verification (not reliance on recalled formulas) of the two standard trigonometric integrals underlying Theorem~5.1 and Corollary~5.2, at two different eccentricities; numerical verification of all five averaging identities against direct numerical integration for the orbit used throughout \cite{Ebert2026Clock,Ebert2026LeviCivita}; and the systematic textual search across every document in this project underlying Section~6's claims, including the negative result that no prior instance of the $RMS$ pattern exists. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

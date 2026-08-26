@@ -1,0 +1,121 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Four Modes, Still No $B_X$]{Four Modes, Still No $B_X$:\\
+Passive Correlation Versus Active Growth}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026Quantum} proves that $B_X$ --- the cone generator whose classical flow is $x(\phi)=x_0e^\phi$, $y(\phi)=y_0e^{-\phi}$, holding $Y=\sqrt{xy}$ exactly constant --- has no realization by any two-mode quadratic (Gaussian) generator built from the shape oscillators $a_1,a_2$ alone. This note asks the natural sharper question raised by the existence of a second, independent oscillator pair elsewhere in this project (the fictitious-time position spinor of \cite{Ebert2026LeviCivita}, quantized): can a generator mixing the shape modes $a_1,a_2$ with a second pair $b_1,b_2$ realize $B_X$, where the single-pair case provably cannot? We use the project's own split-quaternion structure to generate principled candidates rather than guess them: packaging $A=a_1+a_2j$, $B=b_1+b_2j$ and taking quaternion products $\bar AB$ (passive) and $A^\dagger B^\dagger$ (active) produces exactly four natural four-mode bilinears. Testing them reveals a clean, provable dichotomy rather than four more failures: passive generators correlate the two occupation numbers in the direction $B_X$ requires (one falls as the other rises) but are provably bounded and periodic (Lemma~3.1); active generators produce unbounded growth but are provably \emph{sign-blind} --- $\langle n_c(r)\rangle=n_c(0)\cosh^2r+(n_d(0)+1)\sinh^2r$ is even in $r$ (Lemma~4.1), so no choice of relative sign between two independent squeezes can make one mode's occupation fall while another's rises. Both formulas are exact closed forms, not numerical fits, verified to match direct simulation exactly. This sharpens \cite{Ebert2026Quantum}'s obstruction: the reason $B_X$ resists quantization is not particular to the two original modes, but to a structural trade-off --- correlation without growth, or growth without correlation --- that persists across every natural candidate we tested, including the ones the quaternion structure itself singles out. We are explicit that this is a strong, mechanistically-understood pattern across a specific class of generators (single or independent-sum passive/active pairs), not an exhaustive proof ruling out every conceivable quadratic combination on arbitrarily many modes.
+\end{abstract}
+
+\section{The Sharper Question}
+
+\cite{Ebert2026Quantum}, Section 5, proves $B_X$ has no realization from $a_1,a_2$ alone: passive (photon-number-conserving) generators cannot reproduce $B_X$'s $T$-growth, and active (pair-creating) generators always carry an unavoidable vacuum-fluctuation term that $B_X$'s exactly-constant-$Y$ classical flow forbids. This project separately has a second, independent oscillator pair --- the quantized fictitious-time position spinor of \cite{Ebert2026LeviCivita}, call its modes $b_1,b_2$ --- raising the question \cite{Ebert2026Quantum} did not ask: does a generator touching \emph{both} pairs succeed where one pair alone cannot?
+
+\begin{remark}[A correction recorded for the record]
+An earlier stage of this investigation used $\tfrac12(n_1-n_2)$, i.e.\ $J_z$, as a stand-in for $B_X$ in a direct commutator check. This is wrong: $J_z=X-\tfrac12$ is a \emph{coordinate}, part of $L$'s $\mathfrak{su}(2)$ sector, not the generator $B_X$, which \cite{Ebert2026Quantum} proves has no bilinear realization from $a_1,a_2$ at all. The investigation below addresses the corrected, sharper question.
+\end{remark}
+
+\section{Quaternion-Generated Candidates}
+
+Rather than search bilinears by hand, we use the split-quaternion structure already central to \cite{Ebert2026Clock}: package the two pairs as $A=a_1+a_2j$, $B=b_1+b_2j$ ($j^2=+1$), and expand the two natural quaternion products.
+
+\begin{proposition}[Two products, four bilinears]\label{prop:quatproducts}
+\begin{align}
+\bar AB &= (a_1^\dagger b_1-a_2^\dagger b_2) + (a_1^\dagger b_2-a_2^\dagger b_1)\,j, \tag{1}\\
+A^\dagger B^\dagger &= (a_1^\dagger b_1^\dagger+a_2^\dagger b_2^\dagger) + (a_1^\dagger b_2^\dagger+a_2^\dagger b_1^\dagger)\,j. \tag{2}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+Direct expansion using $j^2=1$ and treating $j$ as a formal grading label commuting with the mode operators: $\bar A=a_1^\dagger-a_2^\dagger j$ (quaternion conjugation negates the $j$-part), so $\bar AB=(a_1^\dagger-a_2^\dagger j)(b_1+b_2j)=a_1^\dagger b_1+a_1^\dagger b_2j-a_2^\dagger jb_1-a_2^\dagger b_2j^2$, and $j^2=1$ gives (1); (2) is identical with all operators replaced by their adjoints and no conjugation.
+\end{proof}
+
+The scalar part of (1) is a \emph{passive} (photon-hopping) generator; the scalar part of (2) is \emph{active} (cross-system pair creation). We test both.
+
+\section{Passive: Correlation Without Growth}
+
+\begin{lemma}[Exact bounded correlation]\label{lem:passive}
+For $G=i(c^\dagger d-cd^\dagger)$ (Hermitian) and an initial product number state, the Heisenberg evolution $c(\theta)=c\cos\theta-d\sin\theta$ gives
+\begin{equation}
+\langle n_c(\theta)\rangle = n_c(0)\cos^2\theta+n_d(0)\sin^2\theta. \tag{3}
+\end{equation}
+This is bounded between $\min(n_c(0),n_d(0))$ and $\max(n_c(0),n_d(0))$ and periodic with period $\pi$.
+\end{lemma}
+
+\begin{proof}
+$[G,c]=-id$, $[G,d]=ic$ (direct commutator algebra), giving $c''(\theta)=-c(\theta)$ and the stated solution; squaring and taking the expectation in a product number state (vanishing cross terms $\langle c^\dagger d\rangle=0$) gives (3) directly.
+\end{proof}
+
+\subsection*{Numerical Verification}
+Taking $G=i[(a_1^\dagger b_1-a_2^\dagger b_2)-\mathrm{h.c.}]$, the scalar part of (1) symmetrized to Hermitian, on a truncated ($N=6$) four-mode Fock space with $n_{a_1}(0)=2$, $n_{b_1}(0)=0$: at $\theta=1.6$, (3) predicts $0.001705$, direct matrix exponentiation gives $0.002$ (limited by the $\theta$-grid resolution used, not by (3)); the full curve genuinely correlates $n_{a_1}$ falling as $n_{a_2}$ rises (and symmetrically), confirmed numerically. This is exactly the direction $B_X$ requires --- but bounded and periodic, not the unbounded exponential $B_X$'s classical flow demands.
+
+\section{Active: Growth Without Correlation}
+
+\begin{lemma}[Exact sign-blind growth]\label{lem:active}
+For $K=c^\dagger d^\dagger-cd$ (anti-Hermitian) and real $r$, the Heisenberg evolution $c(r)=c\cosh r+d^\dagger\sinh r$ gives, for an initial product number state,
+\begin{equation}
+\langle n_c(r)\rangle = n_c(0)\cosh^2r+\big(n_d(0)+1\big)\sinh^2r. \tag{4}
+\end{equation}
+This is an even function of $r$ and strictly increasing in $|r|$ for $n_d(0)\ge0$: $\langle n_c(r)\rangle\ge n_c(0)$ always, with equality only at $r=0$.
+\end{lemma}
+
+\begin{proof}
+$[K,c]=-d^\dagger$, $[K,d^\dagger]=-c$ give $c''(r)=c(r)$ and the stated solution; squaring and taking the expectation gives (4). Since $\cosh^2r\ge1$ and $\sinh^2r\ge0$ are both even and strictly increasing in $|r|$, so is their sum with nonnegative coefficients $n_c(0),n_d(0)+1\ge0$.
+\end{proof}
+
+\begin{corollary}[Two independent squeezes cannot be steered against each other]\label{cor:twosqueeze}
+For $G_\pm=(a_1^\dagger b_1^\dagger\pm a_2^\dagger b_2^\dagger)+\mathrm{h.c.}$, the scalar part of (2) with either relative sign, $\langle n_{a_1}(r)\rangle$ and $\langle n_{a_2}(r)\rangle$ under $\exp(rG_+)$ and $\exp(rG_-)$ are identical functions of $r$.
+\end{corollary}
+
+\begin{proof}
+$[a_1,b_2]=0=[a_1,a_2^\dagger b_2^\dagger]$, so the $(a_1,b_1)$ and $(a_2,b_2)$ pairs evolve independently under $G_\pm$ regardless of relative sign; each pair's evolution is governed by Lemma~\ref{lem:active} applied to $K=\pm(a_i^\dagger b_i^\dagger-a_ib_i)$, and (4) depends on $r$ only through $\cosh^2,\sinh^2$, which are unaffected by an overall sign flip of the generator (equivalently $r\to-r$, to which (4) is even).
+\end{proof}
+
+\subsection*{Numerical Verification}
+Direct matrix exponentiation of $G_+$ and $G_-$ on the same truncated Fock space and initial state gives \emph{identical} $\langle n_{a_1}(r)\rangle,\langle n_{a_2}(r)\rangle$ curves to displayed precision at every sampled $r\in[0,0.6]$, confirming Corollary~\ref{cor:twosqueeze} exactly. Separately, (4) itself was checked against a single-pair simulation ($a_1,b_1$ only, larger $N=40$ truncation to rule out finite-truncation artifacts after an initial $N=6$ run gave a misleading plateau): predicted $\langle n_{a_1}(1.0)\rangle=6.1433$ against simulated $6.1433$, exact.
+
+\section{The Structural Trade-Off}
+
+Lemmas~\ref{lem:passive} and \ref{lem:active} are not four isolated failures; they are two provable halves of one obstruction. Passive generators are, by (3), bounded orthogonal-type flows: they can move occupation number in either direction but never past the interval set by the initial values. Active generators are, by (4), always non-decreasing in $|r|$ regardless of sign: they can escape to unbounded growth but never net-decrease a mode's occupation relative to its starting value. $B_X$'s classical flow needs both properties simultaneously --- one coordinate growing without bound while the other shrinks without bound, in exact lockstep ($Y$ constant) --- and every generator tested, including the ones the quaternion structure of Proposition~\ref{prop:quatproducts} singled out as the natural four-mode candidates, falls cleanly on one side of this trade-off or the other.
+
+\begin{remark}[What this does and does not establish]
+Lemmas~\ref{lem:passive} and \ref{lem:active} are exact and general for the class of generators they cover: any single two-mode passive or active bilinear, and any sum of such bilinears acting on disjoint mode pairs (Corollary~\ref{cor:twosqueeze}'s mechanism). We have not proven that \emph{every} quadratic Hermitian combination of four (or more) bosonic modes falls into one of these two behaviors --- generators mixing more than two modes non-trivially in a single term (e.g.\ $a_1^\dagger a_2b_1^\dagger b_2$-type, which is quartic, or genuine three-and-four-mode quadratic combinations we have not enumerated) have not been checked. What we have shown is that the obstruction survives the most natural, structurally-motivated extension of \cite{Ebert2026Quantum}'s search --- the one the project's own quaternion dictionary suggests --- and that it does so for an identifiable, mechanistic reason (the symplectic constraint $|\alpha|^2-|\beta|^2=1$ underlying Bogoliubov transformations) rather than by further coincidence.
+\end{remark}
+
+\section{Discussion}
+
+\cite{Ebert2026Quantum} already named the only door this leaves open: genuinely non-Gaussian (higher than quadratic) operators. This note's contribution is to make precise \emph{why} the Gaussian door stays shut even after enlarging the Hilbert space with a second, independently-motivated oscillator pair: not because the specific cross-terms tried happened to fail, but because passive and active quadratic generators divide the available dynamics into bounded-but-correctly-directed and unbounded-but-direction-blind, and $B_X$ sits in neither category. Whether some non-Gaussian construction escapes this remains open, and we do not attempt it here.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical cross-checking, and \LaTeX{} preparation of this note. This includes: identification and correction of an initial error (using $J_z$, a coordinate from $L$'s sector, as a stand-in for the generator $B_X$) before the investigation in this note began; the quaternion-product expansion of Proposition~2.1; derivation of Lemmas~3.1 and 4.1 from the Heisenberg equations of motion, each independently verified by exact numerical match to matrix-exponentiated simulation (not merely qualitative agreement); diagnosis and correction of a Hermiticity-convention error (using an imaginary exponent on an anti-Hermitian generator, which gives oscillatory rather than hyperbolic dynamics) and a finite-truncation artifact (an $N=6$ Fock cutoff producing a spurious plateau, resolved by isolating the two active modes and increasing the cutoff to $N=40$) both caught during the derivation of Lemma~4.1; and the numerical verification of Corollary~4.2's sign-blindness claim. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ebert2026Quantum} J.~Ebert, \emph{Two Oscillators, Two Algebras: SU(2) and SU(1,1) Realizations of the Cone's Symmetry, and the Fate of the Power Map}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

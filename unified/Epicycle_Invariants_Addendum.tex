@@ -1,0 +1,157 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Epicycle Invariants of the Position Spinor]{Two Circles Make an Ellipse:\\
+The Cone's Parabolas and Hyperbola as Epicycle Invariants\\
+of the Levi-Civita Position Spinor}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026LeviCivita} writes the fictitious-time position spinor as $u(s)=\sqrt y\cos\theta+i\sqrt x\sin\theta$, $\theta=\omega s+\phi_0$, and shows it traces an ellipse, not a circle, in its own complex plane. We show this ellipse decomposes exactly into two counter-rotating circular components, $u=\tfrac12(A_++A_-)$, $A_\pm=R_\pm e^{\pm i\theta}$, the classical epicycle (Ptolemaic) decomposition of an ellipse, with $R_+=\sqrt x+\sqrt y$, $R_-=\sqrt y-\sqrt x$. We show every coordinate of the cone is an exact function of these two radii: $Y=(R_+^2-R_-^2)/4$, $T=(R_+^2+R_-^2)/4$, and $X=-\tfrac12R_+R_-$ (via the constant product $A_+A_-=-2X$). This gives all four of the cone's own curve families a uniform reading. The row and column parabolas of \cite{Ebert2026Table}, already connected in earlier work to the angular momentum $L_u=\omega Y$ of the spinor's own rotation, are subsumed here. Two further parabola families, obtained by cutting the cone parallel to the \emph{other} pair of generators (fixing $T\mp Y$ rather than a linear combination of $x,y$), turn out to fix a single epicycle radius: $T-Y=k\iff R_-^2=2k$ and $T+Y=k\iff R_+^2=2k$. And the hyperbola of \cite{Ebert2026Table}, the orbit of the boost generator $B_X$, induces on $(R_+,R_-)$ an exact boost at \emph{half} the rapidity --- the direct hyperbolic-generator counterpart to the half-angle rotation of \cite{Ebert2026LeviCivita}'s own Proposition~4.1 --- under which the identity $R_+^2-R_-^2=4Y$ reproduces the cone's own hyperbola one level down, with the same shape identified in the companion note \cite{Ebert2026Wormhole} as the Ellis--Bronnikov wormhole embedding, now with throat $2\sqrt Y$. Every claim below is verified symbolically and, where relevant, numerically.
+\end{abstract}
+
+\section{Setup}
+
+Recall from \cite{Ebert2026LeviCivita}: for a fixed unperturbed Kepler orbit with $x=T+X=r_a$, $y=T-X=r_p$, the fictitious-time position spinor is
+\begin{equation}
+u(s)=\sqrt y\,\cos\theta+i\sqrt x\,\sin\theta, \qquad \theta=\omega s+\phi_0,\quad \omega=\tfrac12\sqrt{\mu/T}, \tag{1}
+\end{equation}
+and $u$ traces an ellipse, not a circle, of semi-axes $\sqrt y,\sqrt x$ in its own complex plane --- $|u(s)|^2$ ranges between $x=r_a$ and $y=r_p$, not constant.
+
+\section{The Epicycle Decomposition}
+
+\begin{theorem}[Two circles]\label{thm:epicycle}
+Define $A_\pm(s):=u(s)\mp i\,u'(s)/\omega$. Then, exactly,
+\begin{equation}
+A_+(s)=(\sqrt x+\sqrt y)\,e^{i\theta}, \qquad A_-(s)=(\sqrt y-\sqrt x)\,e^{-i\theta}, \tag{2}
+\end{equation}
+so that $u(s)=\tfrac12\big(A_+(s)+A_-(s)\big)$: the position spinor is the exact average of two circular motions of constant radii $R_+:=\sqrt x+\sqrt y$ and $R_-:=\sqrt y-\sqrt x$, rotating at $+\omega$ and $-\omega$ respectively.
+\end{theorem}
+
+\begin{proof}
+From (1), $u'(s)=\omega(-\sqrt y\sin\theta+i\sqrt x\cos\theta)$. Direct expansion gives
+\[
+u-\frac{iu'}{\omega}=(\sqrt x+\sqrt y)(\cos\theta+i\sin\theta), \qquad u+\frac{iu'}{\omega}=(\sqrt y-\sqrt x)(\cos\theta-i\sin\theta),
+\]
+which are (2); averaging the two recovers $u$. Verified symbolically. \qedhere
+\end{proof}
+
+This is the classical epicycle (two-counter-rotating-circles) decomposition of an ellipse, applied here to the fictitious-time position spinor itself rather than to the physical orbit --- and it repairs, with an exact statement, the informal picture of \cite{Ebert2026LeviCivita}'s earlier draft: it is not $u$ but each of $A_+,A_-$ individually that traces a genuine circle at rate $\omega$.
+
+\section{The Full Coordinate Dictionary}
+
+\begin{proposition}[$(X,Y,T)$ from the epicycle radii]\label{prop:dictionary}
+\begin{equation}
+R_+^2=2(T+Y), \qquad R_-^2=2(T-Y), \qquad A_+A_-=-2X. \tag{3}
+\end{equation}
+Equivalently, $T=\tfrac14(R_+^2+R_-^2)$, $Y=\tfrac14(R_+^2-R_-^2)$, and $X=-\tfrac12R_+R_-$.
+\end{proposition}
+
+\begin{proof}
+$R_+^2=x+y+2\sqrt{xy}=2T+2Y$; $R_-^2=x+y-2\sqrt{xy}=2T-2Y$, using $Y=\sqrt{xy}$, $T=(x+y)/2$. For the product: $A_+A_-=R_+R_-\,e^{i\theta}e^{-i\theta}=R_+R_-=(\sqrt x+\sqrt y)(\sqrt y-\sqrt x)=y-x=-2X$, a genuinely $s$-independent (conserved) quantity, verified symbolically. \qedhere
+\end{proof}
+
+So every one of the cone's own coordinates is recovered from the two epicycle radii of the fictitious-time motion, exactly, with no approximation.
+
+\section{The Row/Column Family: Angular Momentum}
+
+The row and column parabolas of \cite{Ebert2026Table} fix $x$ (resp.\ $y$) and vary the other, giving $Y^2=xy=cW$ for the free coordinate $W$. This family was already connected, independently of the present note, to the spinor's own angular momentum $L_u:=\operatorname{Im}(\bar u\,u')$:
+
+\begin{proposition}
+$L_u=\omega Y$, hence $h=2\omega Y=2L_u$, where $h=Y\sqrt{\mu/T}$ is the physical specific angular momentum.
+\end{proposition}
+
+\begin{proof}
+Direct computation from (1): $L_u=u_1u_2'-u_2u_1'=\omega\sqrt{xy}=\omega Y$, verified symbolically. The relation $h=2\omega Y$ follows from $\omega=\tfrac12\sqrt{\mu/T}$ and $h=Y\sqrt{\mu/T}$ by substitution.
+\end{proof}
+
+So the row/column family, revolved, is the locus ``the geometric mean of the epicycle radii's squares'' --- more precisely, $Y$ itself is $L_u/\omega$, the spinor's angular momentum divided by its frequency.
+
+\section{The Other Two Parabolas: The Epicycle Radii Themselves}
+
+The row and column planes are parallel to the cone's generators $(\pm1,0,1)$ (zero $Y$-component). The cone's other pair of generators, $(0,\pm1,1)$, gives a second, independent parabola family: planes $T\mp Y=k$.
+
+\begin{proposition}\label{prop:otherparabolas}
+$T-Y=k \iff (\sqrt x-\sqrt y)^2=2k \iff R_-^2=2k$, and $T+Y=k\iff R_+^2=2k$.
+\end{proposition}
+
+\begin{proof}
+$T-Y=\tfrac12(x+y)-\sqrt{xy}=\tfrac12(\sqrt x-\sqrt y)^2$, and $(\sqrt x-\sqrt y)^2=R_-^2$ (since $R_-=\sqrt y-\sqrt x$ and squaring removes the sign); the second identity is the mirror computation with $T+Y=\tfrac12(\sqrt x+\sqrt y)^2=\tfrac12 R_+^2$.
+\end{proof}
+
+So these two parabola families --- genuinely absent from \cite{Ebert2026Table,Ebert2026EigenCoord}, which classify only linear cuts in $(x,y)$ itself, not in $(\sqrt x,\sqrt y)$ --- are exactly the level sets \emph{of the two epicycle radii individually}: $T-Y=k$ holds the clockwise epicycle's radius fixed at $\sqrt{2k}$, and $T+Y=k$ holds the counterclockwise one fixed. Revolving either (about the axis along which the curve is symmetric in $X$) gives a paraboloid of the same algebraic type as the row family, but now reading a single dynamical invariant of the spinor's own motion rather than a product of two.
+
+\begin{remark}[The recursion]
+Writing $T=\tfrac14(R_+^2+R_-^2)$ and $Y=\tfrac14(R_+^2-R_-^2)$ (Proposition~\ref{prop:dictionary}) is exactly the AM--GM cone construction of \cite{Ebert2026Table} applied one level down, to the pair $(R_+^2,R_-^2)$ in place of $(x,y)$. The entire apparatus --- sum, difference, geometric mean, the cone identity $X^2+Y^2=T^2$ --- reappears unforced, built from the two radii of the position spinor's own epicyclic decomposition.
+\end{remark}
+
+\section{The Hyperbola: A Half-Rapidity Boost}
+
+\cite{Ebert2026LeviCivita}, Proposition~4.1, shows $L$'s rotation of $(X,Y,T)$ by angle $\theta$ is the double cover of a half-angle $SO(2)$ rotation of the shape spinor $(\sqrt x,\sqrt y)$. We show the direct hyperbolic-generator analogue for $B_X$ and the constant-product hyperbola.
+
+\begin{theorem}[$B_X$ is the double cover of a half-rapidity boost]\label{thm:boost}
+Under the $B_X$-flow $x(\phi)=x_0e^\phi$, $y(\phi)=y_0e^{-\phi}$ of \cite{Ebert2026EigenCoord}, the epicycle radii transform as an exact boost at half the rapidity:
+\begin{equation}
+R_+(\phi)=R_+(0)\cosh(\phi/2)-R_-(0)\sinh(\phi/2), \qquad R_-(\phi)=R_-(0)\cosh(\phi/2)-R_+(0)\sinh(\phi/2). \tag{4}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+$\sqrt{x(\phi)}=\sqrt{x_0}\,e^{\phi/2}=\sqrt{x_0}\cosh(\phi/2)+\sqrt{x_0}\sinh(\phi/2)$, and similarly $\sqrt{y(\phi)}=\sqrt{y_0}\cosh(\phi/2)-\sqrt{y_0}\sinh(\phi/2)$; summing and differencing gives (4) directly. Verified symbolically and numerically to machine precision. \qedhere
+\end{proof}
+
+\begin{corollary}[The hyperbola recurs one level down]\label{cor:recur}
+$R_+^2-R_-^2=4Y$ holds identically (pure algebra: $(a+b)^2-(b-a)^2=4ab$), and is preserved along the $B_X$-flow of Theorem~\ref{thm:boost}, since $Y$ is exactly what $B_X$ holds fixed. So the epicycle-radius pair $(R_+,R_-)$ itself traces a hyperbola of the identical shape $R_+^2-R_-^2=(2\sqrt Y)^2$ as the orbit moves along the cone's own hyperbola $T^2-X^2=Y$ is held fixed at $Y$.
+\end{corollary}
+
+By \cite{Ebert2026Wormhole}, the cone's constant-product hyperbola is exactly the Ellis--Bronnikov wormhole embedding $r^2=b_0^2+l^2$ with throat $b_0=\sqrt Y$. Corollary~\ref{cor:recur} says the same shape, with throat $2\sqrt Y$, governs the epicycle radii themselves as the underlying orbit is varied along that hyperbola --- the wormhole identification recurring one level down, exactly as the AM--GM construction itself did in Section~5.
+
+\section{Summary Table}
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+cone curve & fixed quantity & epicycle reading \\
+\hline
+row/column (parabola) & $x$ or $y$ & $Y=L_u/\omega$ (Section~4) \\
+spinor-difference (parabola) & $T-Y$ & $R_-^2=2(T-Y)$ (Prop.~\ref{prop:otherparabolas}) \\
+spinor-sum (parabola) & $T+Y$ & $R_+^2=2(T+Y)$ (Prop.~\ref{prop:otherparabolas}) \\
+constant-product (hyperbola) & $Y$ & $R_+^2-R_-^2=4Y$, boost at $\phi/2$ (Thm.~\ref{thm:boost}) \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Scope}
+
+We are explicit about what is and is not established. Theorem~\ref{thm:epicycle}, Proposition~\ref{prop:dictionary}, Proposition~\ref{prop:otherparabolas}, and Theorem~\ref{thm:boost} are exact identities, verified symbolically (and Theorem~\ref{thm:boost} additionally numerically). We do not claim that $L$ and $B_X$'s actions on the shape spinor are the same operators as any generator of the spinor's own fictitious-time dynamics; \cite{Ebert2026LeviCivita}'s own Proposition~4.1 and remark already settle the rotation case (same type of generator, different operator), and nothing here revisits that question for $B_X$ --- Theorem~\ref{thm:boost} is a statement about how the \emph{shape spinor changes across a family of orbits}, exactly parallel in kind to Proposition~4.1, not a claim about the boost acting on a single orbit's own time evolution. We also do not attempt, here, to connect $X,Y$ (only $T$ is treated in \cite{Ebert2026LeviCivita}'s perturbed system) to the epicycle language under perturbation; doing so is a natural next step this note does not take.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical cross-checking, and \LaTeX{} preparation of this note. This includes: symbolic verification of Theorem~\ref{thm:epicycle}'s epicycle decomposition and Proposition~\ref{prop:dictionary}'s coordinate dictionary; symbolic and numerical (machine-precision) verification of Theorem~\ref{thm:boost}'s half-rapidity boost, including the invariance check underlying Corollary~\ref{cor:recur}; and identification of the connection to \cite{Ebert2026Wormhole}'s wormhole identification. A candidate connection to the Flamm paraboloid of general relativity was investigated and explicitly rejected: the coefficient structure matches only in magnitude, not sign, and is shown to follow from the AM--GM cone's own fixed normalization rather than any shared physical origin; this negative result is recorded here for completeness though the investigation itself is not reproduced. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\bibitem{Ebert2026Wormhole} J.~Ebert, \emph{The Same Hyperbola: The AM--GM Cone's Fermat Curve as the Ellis--Bronnikov Wormhole, and a Chebyshev Classification of Its Algebraic Cousins}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

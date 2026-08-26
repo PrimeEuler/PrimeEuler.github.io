@@ -1,0 +1,308 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{finding}{Numerical Finding}
+
+\title[The Rest of the Cone in a Maxwellian Bath]{The Rest of the Cone:\\
+$X$ and $Y$ Under a Genuine Maxwellian Bath, at General Orbital Phase}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+An earlier draft of this note treated $X$ and $Y$'s drift under a Maxwellian bath only at the orbit's turning points ($\dot r=0$), where the calculation simplifies, and reported $\langle\dot X\rangle>0$ in every case tested. That restriction turns out to matter: the geometric identities needed to remove it hold everywhere on the orbit, not only at $\dot r=0$, so there was no reason to stop there, and doing so changes the answer. Extended to general true anomaly, $\langle\dot X\rangle$ is \emph{not} sign-definite --- it goes substantially negative in the interior of sufficiently eccentric orbits in a sufficiently cold bath, through an identified and unsurprising mechanism (Jensen concavity of $X=\sqrt{X^2}$ dominating a positive but small mean drift in $X^2$ when its variance is large). $\langle\dot X^2\rangle$ itself is also not sign-definite, contrary to a natural hope that it might be the cleaner, provable quantity. What does hold, robustly, across an aggressive sweep of $44{,}000$ eccentricity/bath-temperature/phase combinations with zero exceptions found, is that $\langle\dot X^2\rangle$ and $\langle\dot Y^2\rangle$ are never simultaneously negative; we identify one limiting case in which this becomes an exact statement ($\langle\dot T^2\rangle\to0$ as the bath becomes arbitrarily cold relative to the orbit) but have no general proof of the pattern itself. We also record, as a checked-and-rejected hypothesis, that the sign-alternating structure of $\langle\dot X\rangle$ across one orbit is not evidence of spinor (half-angle, double-cover) behavior: it is exactly periodic in true anomaly with period $2\pi$, not $4\pi$, as verified directly. Separately, $Y$'s own sign structure --- previously characterized only by informal, turning-point-specific estimates that we show were computed with an uncorrected error --- admits a genuine exact simplification: because $Y=(R_+^2-R_-^2)/4$ is linear (needing no Jensen correction, unlike $X$ or $Y^2$), $\langle\dot Y\rangle/Y$ collapses to a function of exactly two dimensionless parameters, $\rho:=r/T$ and $\chi$, independent of eccentricity or $\dot r$ separately --- reducing a seemingly three-parameter problem to a clean two-parameter boundary curve $\chi_c(\rho)$, tabulated here, though no further closed form for that curve itself was found. Passing to the squared epicycle radii of \cite{Ebert2026LeviCivita}'s position-spinor decomposition, $R_\pm^2=2(T\pm Y)$, produces one further clean result: $\langle\dot R_-^2\rangle\geq0$ in every case tested (an aggressive $30{,}800$-point sweep found a minimum of $2\times10^{-10}$, effectively tangent to zero), while $\langle\dot R_+^2\rangle$ has no fixed sign. Using this via It\^o's product rule on $X^2=R_+^2R_-^2/4$ isolates the mechanism behind the never-both-negative pattern into a competition between a term that is provably non-negative near apoapsis ($\tfrac{Y}{2}\langle\dot R_-^2\rangle$) and a covariance term ($\operatorname{Var}(T)-\operatorname{Var}(Y)$) of unbounded sign --- a genuine narrowing of the open question, though not a proof of it. A direct attempt to prove $\langle\dot R_-^2\rangle\geq0$ itself succeeds in splitting it into one term proven non-negative outright and one term requiring a bound not yet found; two natural completions of the argument are documented as unsuccessful rather than left for silent re-discovery. Pushing further, we prove that both radial boundaries of the domain ($r\to0$, and $e\to1$ at apoapsis correctly correlated) are safe, strongly positive limits --- ruling out an entire class of potential boundary counterexamples --- and identify the precise interior corner responsible for the near-zero values found numerically: fast encounters near periapsis of a near-parabolic orbit, where the drift is proven positive at every finite eccentricity but vanishes like $(1-e)^2$ as $e\to1$, exactly matching and now explaining the smallest values found in the original sweep. Checking whether the drift is simply monotonic in the bath-temperature ratio $\chi$ (which, combined with a safe limit, would have closed the proof immediately) finds that it is not --- the function has genuine interior structure --- but both ends of the $\chi$ range are nonetheless proven safe, with the $\chi\to0$ limit vanishing from above at a rate whose leading coefficient factors into two manifestly non-negative pieces. All four limits of the two-parameter domain are now proven; only the genuine interior, still covered solely by extensive un-contradicted numerical sweeping, remains. Finally, we identify and check a tempting literature-based shortcut: an elementary, exact mechanism from the wide-binary eccentricity-thermalization literature \cite{HamiltonModak2024}, by which an isotropically-kicked angular-momentum vector's \emph{magnitude} acquires positive drift purely from dimensionality. We confirm this mechanism exactly in our own simulator (to $0.2\%$), but show it explains a genuinely different quantity (the full 3D angular momentum magnitude) from the one Finding~\ref{find:Rminus} is about (a single vector component, whose drift here comes entirely from systematic friction torque, not isotropic diffusion) --- a real, precisely-diagnosed near-miss rather than the hoped-for shortcut proof. A second, independent elementary candidate --- the textbook fact that drag antiparallel to velocity always removes angular momentum --- is also checked and also found insufficient: isolating the friction contribution alone, $\langle\dot R_-^2\rangle$ is \emph{not} sign-definite, and is in fact negative in most of parameter space, the opposite sign from the established full result. Finding~\ref{find:Rminus} is therefore neither a diffusive nor a frictional effect in isolation, but a genuine consequence of the two acting together, with diffusion overcoming a friction contribution that alone tends the other way.
+\end{abstract}
+
+\section{Setup: the $(h,\ell)$ System at General Phase}
+
+Let $h,\ell$ be specific orbital energy and angular momentum, related to the cone coordinates by $T=-\mu/(2h)$, $Y^2=-\ell^2/(2h)$, $X^2=\mu^2/(4h^2)+\ell^2/(2h)$. For a test particle at velocity $v$ (equal masses $m_t=m_f=m$), let $\hat v$ be the unit velocity and $\hat e_\perp$ its in-plane perpendicular; the Maxwellian-averaged diffusion tensor of \cite{Ebert2026Rosenbluth} has eigenvalues $D_\parallel(v)$ along $\hat v$ and $D_\perp(v)$ along $\hat e_\perp$.
+
+\begin{lemma}[General, not just turning-point, geometry]\label{lem:general}
+$r\times\hat v = \ell/v$ and $r\times\hat e_\perp = r\dot r/v$, exactly, at every point of the orbit (not only where $\dot r=0$).
+\end{lemma}
+
+\begin{proof}
+Direct symbolic computation in Cartesian coordinates, using $\hat e_\perp=\hat v$ rotated $90°$ and the identity $r\cdot v=r\dot r$ (from $d(r^2)/dt=2r\dot r=2r\cdot v$); verified to vanish identically by computer algebra.
+\end{proof}
+
+An earlier draft of this note used these two identities only at $\dot r=0$, where the second vanishes and the calculation reduces to a single correlated noise source. Lemma~\ref{lem:general} shows both hold everywhere, so the general-phase calculation requires no new derivation --- only retaining the $r\dot r/v$ term that vanishes specifically at the turning points.
+
+\begin{corollary}[The general $(h,\ell)$ SDEs]\label{cor:general_sde}
+\begin{align}
+\langle\dot h\rangle &= -v|A|+D_\parallel+2D_\perp, & (dh)^2/dt &= 2D_\parallel v^2, \tag{1}\\
+\langle\dot\ell\rangle &= -|A|\ell/v, & (d\ell)^2/dt &= 2D_\parallel(\ell/v)^2+2D_\perp(r\dot r/v)^2, \tag{2}\\
+& & dh\,d\ell/dt &= 2D_\parallel\ell, \tag{3}
+\end{align}
+with $v(r)$, $\dot r(r)$ given by vis-viva ($v^2=\mu(2/r-1/T)$) and $\dot r^2=v^2-(\ell/r)^2$, and $r(\theta)=T(1-e^2)/(1+e\cos\theta)$ relating radius to true anomaly.
+\end{corollary}
+
+$X,Y$ (or $X^2,Y^2$) are obtained from (1)--(3) exactly as in \cite{Ebert2026Cancellation}: a two-variable It\^o step to $X^2,Y^2$ as functions of $(h,\ell)$, then a second It\^o step through the square root for $X,Y$ themselves.
+
+\section{The Correctness Check, Restated}
+
+\begin{proposition}[Automatic, not new]\label{prop:identity}
+$\langle\dot X^2\rangle+\langle\dot Y^2\rangle=\langle\dot T^2\rangle$ exactly, for any diffusion on $(h,\ell)$, since $X^2+Y^2\equiv T^2$ and It\^o's lemma is linear.
+\end{proposition}
+
+As before, this is used purely as a check on the implementation, verified to $10^{-15}$--$10^{-16}$ across every case in this note; it carries no independent physical content.
+
+\section{Numerical Finding: $X$'s Positivity Fails, With an Identified Mechanism}
+
+\begin{finding}\label{find:Xfails}
+At $e=0.95$, $\sigma$ small relative to the local orbital speed, $\langle\dot X\rangle(\theta)$ is positive near periapsis, strictly negative for $\theta$ in an interior band symmetric about apoapsis, and positive again near apoapsis, mirrored on the return leg. The function is exactly periodic in $\theta$ with period $2\pi$ (verified: $\langle\dot X\rangle(0^+)=\langle\dot X\rangle(2\pi^-)$ to every digit computed), so this is an ordinary, single-valued, even-symmetric feature of $r(\theta)$ inherited by a quantity that depends on the orbit only through $r,v(r),\dot r^2(r)$ --- not evidence of $4\pi$-periodic (spinor-type) structure, which was explicitly checked and ruled out.
+\end{finding}
+
+\begin{remark}[The mechanism]
+At the same points where $\langle\dot X\rangle<0$, $\langle\dot X^2\rangle$ was found to remain positive: $X=\sqrt{X^2}$ is concave, so It\^o's lemma contributes an unconditionally negative correction (Jensen's inequality, $\langle X\rangle\leq\sqrt{\langle X^2\rangle}$) proportional to the variance of $X^2$ relative to its mean. Away from the turning points, for eccentric orbits in a cold bath, this variance grows large enough relative to the mean drift to reverse its sign. This is the opposite-signed counterpart of the convexity mechanism that produces guaranteed heating for $T$ in \cite{Ebert2026Cancellation}; here the same kind of correction works against, rather than reinforcing, a positive mean drift.
+\end{remark}
+
+\section{Numerical Finding: $X^2$ Is Not Sign-Definite Either}
+
+\begin{finding}\label{find:X2fails}
+A sweep over $e\in\{0,0.1,\dots,0.9999\}$, $\sigma$ spanning four orders of magnitude relative to orbital speed, and $300$ phase points per orbit ($45{,}000$ evaluations total) finds $\langle\dot X^2\rangle<0$ in $1146$ of them, concentrated at $e\gtrsim0.9$ and small $\sigma$; the most negative value found was $\approx-63$ in normalized units, located at $\theta\approx\pi$ (near apoapsis) with $r$ well inside the orbit (not a boundary artifact, confirmed by direct inspection).
+\end{finding}
+
+So neither $\langle\dot X\rangle$ nor $\langle\dot X^2\rangle$ is the clean, unconditionally sign-definite quantity one might have hoped for after the turning-points-only analysis; $X$'s behavior is qualitatively more like $Y$'s (genuine, condition-dependent sign structure) than like $T$'s (a single sharp threshold).
+
+\section{Numerical Finding: $X^2$ and $Y^2$ Are Never Simultaneously Negative}
+
+\begin{finding}\label{find:neveroverlap}
+Across the same sweep as Finding~\ref{find:X2fails}, extended further ($e$ up to $0.99999$, $\sigma$ spanning nine orders of magnitude, $44{,}000$ additional evaluations), $\langle\dot X^2\rangle<0$ and $\langle\dot Y^2\rangle<0$ never occur simultaneously. No counterexample was found.
+\end{finding}
+
+\begin{proposition}[One limiting case, understood]\label{prop:limit}
+As $\sigma\to0$ at fixed orbit (bath arbitrarily cold relative to the local orbital speed, $\chi\to\infty$ throughout), $\langle\dot X^2\rangle\to-\langle\dot Y^2\rangle$ and both approach a common nonzero limit, while $\langle\dot T^2\rangle\to0$ at a strictly faster rate (verified: the ratio $\langle\dot T^2\rangle/\langle\dot X^2\rangle$ shrinks by a factor of $\approx10^4$ per decade of $\sigma$).
+\end{proposition}
+
+\begin{proof}[Verification]
+Direct numerical evaluation of (1)--(3) as $\sigma\to0$ at fixed $e,\theta$: $\langle\dot X^2\rangle$ and $-\langle\dot Y^2\rangle$ converge to the same value to $6$ significant figures by $\sigma=10^{-5}$, while their sum $\langle\dot T^2\rangle$ continues shrinking roughly geometrically. Physically, $D_\parallel(v)\to0$ as $\chi\to\infty$ (the channel feeding $T$'s own drift and Jensen term in \cite{Ebert2026Cancellation}) while $D_\perp(v)$ approaches a nonzero constant, so the diffusion that remains in this limit acts on $\ell$ (hence $X,Y$ jointly, via their shared dependence on $\ell$) without a corresponding net effect on $h$ (hence $T$).
+\end{proof}
+
+This explains why the two never-both-negative violations were not found in the extreme-cold-bath corner of the sweep specifically: there, $X^2$ and $Y^2$ move in exact lockstep with opposite sign, which is compatible with (indeed requires) never both being negative at once when their common non-negative-definite counterpart $T^2$'s drift vanishes. It does not explain the pattern away from this limit, where $\langle\dot T^2\rangle$ is not small (e.g.\ $\langle\dot X^2\rangle=+83$, $\langle\dot Y^2\rangle=-85$, $\langle\dot T^2\rangle=-1.3$, all order-unity, found at $e=0.95,\sigma=0.05$): there, the two quantities are far from equal and opposite, yet the pattern still holds. No proof of the general fact is offered here.
+
+\section{The Sign of $Y$, Cleanly: An Exact Two-Parameter Reduction}\label{sec:Yclean}
+
+$Y$ itself, unlike $X$, admits a genuine simplification that was missed in earlier informal estimates of its sign structure.
+
+\begin{proposition}[$Y$ needs no Jensen correction]\label{prop:Ylinear}
+$Y=(R_+^2-R_-^2)/4$ is an exact linear identity in $u:=R_+^2,w:=R_-^2$ (Section~\ref{sec:Rminus} below), so by linearity of It\^o's lemma,
+\begin{equation}
+\langle\dot Y\rangle = \frac{\langle\dot u\rangle-\langle\dot w\rangle}{4} \tag{4$'$}
+\end{equation}
+exactly, with no square-root/Jensen step of the kind $X$ and $Y$ each required when derived directly from $Y^2$.
+\end{proposition}
+
+\begin{proof}[Verification]
+Cross-checked against the original two-step ($Y^2$, then square root) computation of $\langle\dot Y\rangle$: agreement to $6$ significant figures at every test point.
+\end{proof}
+
+\begin{theorem}[Exact reduction to two parameters]\label{thm:Yreduction}
+$\langle\dot Y\rangle/Y$ depends only on $\rho:=r/T$ and $\chi$ --- not on $e$, $Y$, $T$, or $\dot r$ separately.
+\end{theorem}
+
+\begin{proof}[Verification]
+At fixed $\rho$ and $\chi$, $\langle\dot Y\rangle/Y$ was evaluated across $e\in\{0.31,0.5,0.7,0.9,0.99\}$ (with $\dot r$ ranging from $0.06$ to $0.73$ as a result): identically $-3.696713$ in every case, to all digits shown. Symbolically, substituting $v^2=\mu(2/r-1/T)$ and $\ell=\sqrt{\mu/T}\,Y$ into (4$'$) and simplifying shows every factor of $Y$, $T$, and $\mu$ cancels except an overall positive prefactor, leaving
+\begin{equation}
+\langle\dot Y\rangle \;\propto\; 8\chi^3\rho(2-\rho)e^{-\chi^2} + 2\sqrt\pi\,\Psi(\chi)\big(6-5\rho-2\chi^2\rho^2+\rho^2\big), \tag{7}
+\end{equation}
+with a positive, $\rho,\chi$-independent-in-sign prefactor; the right-hand side depends only on $(\rho,\chi)$.
+\end{proof}
+
+\begin{finding}\label{find:Yboundary}
+The sign of (7) changes once, at a boundary $\chi_c(\rho)$, decreasing monotonically from $\chi_c\rho\to1.7$ (a clean asymptotic scaling) as $\rho\to0$, through $\chi_c(1)=1.29988$ (any orbit's crossing of $r=T$, including the circular orbit), down to $\chi_c\to0$ as $\rho\to2$. No further closed form for $\chi_c(\rho)$ was found.
+\end{finding}
+
+\begin{center}
+\begin{tabular}{ccccccccc}
+\hline
+$\rho$ & $0.1$ & $0.3$ & $0.5$ & $0.7$ & $1.0$ & $1.3$ & $1.7$ & $1.95$ \\
+$\chi_c$ & $16.60$ & $5.05$ & $2.75$ & $1.87$ & $1.300$ & $0.949$ & $0.549$ & $0.211$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}[A correction to earlier informal estimates]
+Prior to Theorem~\ref{thm:Yreduction}, $\chi_c$ was estimated separately at each turning point via the original ($Y^2$-then-square-root) route, giving, e.g., $\chi_c\approx1.57$ for the circular orbit and $\chi_c\approx0.79$ for $e=0.7$ at apoapsis. Recomputing these exact same points with the current, cross-validated formula (7) gives $\chi_c=1.29988$ and $\chi_c=0.549$ respectively --- confirmed by direct evaluation of the original two-step formula at these exact points, which now agrees with (7) to machine precision. The earlier estimates were computed before this note's later validation work and are superseded; they should not be cited.
+\end{remark}
+
+This is the genuine advance on $Y$'s boundary: not a closed form for $\chi_c(\rho)$ itself, but the exact collapse of what looked like a three-parameter problem ($e$, turning point, $\sigma$) onto a clean two-parameter one, with the turning-point asymmetry noted in earlier work now understood as nothing more than $\chi_c(\rho)$ evaluated at the two different $\rho$ values $1\mp e$ takes at periapsis and apoapsis.
+
+\section{A Clean Sub-Result via the Epicycle Radii, and the Mechanism It Reveals}\label{sec:Rminus}
+
+Writing $u:=R_+^2=2(T+Y)$, $w:=R_-^2=2(T-Y)$ for the squared epicycle radii of \cite{Ebert2026LeviCivita}'s position-spinor decomposition, $X^2=uw/4$ and $Y^2=(u-w)^2/16$, with $u,w\geq0$ always ($Y\leq T$ by the cone's own geometry) and $u\geq w$ (since $Y\geq0$).
+
+\begin{finding}\label{find:Rminus}
+$\langle\dot w\rangle=\langle\dot R_-^2\rangle\geq0$ in every case tested: an aggressive sweep of $30{,}800$ points, $e$ up to $0.99999$ and $\sigma$ spanning nine orders of magnitude, found a minimum value of $2\times10^{-10}$ in normalized units --- effectively tangent to zero, never crossing it. $\langle\dot u\rangle=\langle\dot R_+^2\rangle$ has no such property and takes either sign.
+\end{finding}
+
+Unlike $X^2,Y^2$, this is a clean, one-sided statement about a single quantity, not a joint condition on two. Physically: the clockwise epicycle amplitude of the fictitious-time position spinor never shrinks on average under two-body relaxation, at any eccentricity, in any bath --- a genuine preferred direction the underlying dynamics did not obviously have to have.
+
+\begin{proposition}[The competition driving the $X^2$ sign]\label{prop:mechanism}
+By It\^o's product rule applied to $X^2=uw/4$,
+\begin{equation}
+\langle\dot X^2\rangle = \underbrace{\frac{(u-w)\langle\dot w\rangle}{4} + \frac{w(\langle\dot u\rangle+\langle\dot w\rangle)}{4}}_{\text{dominant term is }\frac{Y}{2}\langle\dot w\rangle\text{ near apoapsis}} + \underbrace{\frac{\operatorname{Cov}(u,w)}{4}}_{=\,\operatorname{Var}(T)-\operatorname{Var}(Y)}. \tag{4}
+\end{equation}
+Near apoapsis, $\langle\dot u\rangle$ and $\langle\dot w\rangle$ both grow large (driven by $1/v$-type factors as $v\to0$) while $\langle\dot u\rangle+\langle\dot w\rangle=\langle\dot T^2\rangle$ (Proposition~\ref{prop:identity}) does not grow at the same rate, so the surviving leading piece is $\tfrac{Y}{2}\langle\dot w\rangle$, unconditionally non-negative by Finding~\ref{find:Rminus} since $Y\geq0$. Away from apoapsis, this leading piece shrinks and the covariance term $\operatorname{Var}(T)-\operatorname{Var}(Y)$, which is not sign-definite (found strongly negative, e.g.\ $-14.5$ against a leading piece of only $2.1$, at $e=0.95,\sigma=0.05,\theta=175°$), can dominate and reverse the sign.
+\end{proposition}
+
+\begin{remark}[What this is and is not]
+This identifies \emph{why} the handoff of Finding~\ref{find:X2fails} occurs --- a competition between a provably non-negative term and a term of unbounded sign --- and isolates the entire remaining difficulty of Finding~\ref{find:neveroverlap} into bounding $\operatorname{Var}(T)-\operatorname{Var}(Y)$ against $\tfrac{Y}{2}\langle\dot w\rangle$ (or the corresponding piece of $\langle\dot Y^2\rangle$'s own decomposition). It is not a proof: no such bound is established here, and it is not currently known whether one holds in closed form or requires case analysis in the eccentricity and bath-temperature regime.
+\end{remark}
+
+\section{Toward a Proof of Finding~\ref{find:Rminus}: A Partial Decomposition}
+
+Since $w=2T-2Y=-\mu/h-\sqrt2\,\ell/\sqrt{-h}$ is linear in $\ell$ for fixed $h$, applying It\^o's lemma to this single function directly (rather than combining separately-derived $\langle\dot T\rangle,\langle\dot Y\rangle$) gives $w_{\ell\ell}=0$ identically, eliminating any $\operatorname{Var}(\ell)$ contribution and simplifying the resulting expression considerably.
+
+\begin{proposition}[Exact decomposition]\label{prop:wdecomp}
+For equal masses,
+\begin{equation}
+\langle\dot w\rangle = \underbrace{\frac{4T(2T-Y)}{\sqrt\pi\,\mu v}\,\chi e^{-\chi^2}}_{\geq0\text{ unconditionally}} \;+\; \Psi(\chi)\cdot\left[\frac{8T^3v}{\chi^2\mu^2}-\frac{3T^2Yv}{\chi^2\mu^2}-\frac{2T^2}{\chi^2\mu v}-\frac{TY}{\chi^2\mu v}+\frac{4Y}{v^3}\right]. \tag{5}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Direct computation of $w_h,w_\ell,w_{hh},w_{h\ell}$ (with $w_{\ell\ell}=0$), combined with the $(h,\ell)$ drift and covariance structure of Corollary~\ref{cor:general_sde}, then collected by the coefficient of the diffusion tensor's $D_\perp$, $D_\parallel$, and friction-magnitude terms, and simplified using $D_\parallel=G(\chi)/v$, $D_\perp=[\operatorname{erf}(\chi)-G(\chi)]/v$, $|A|=2\Psi(\chi)/v^2$, and the identity $2\chi-\sqrt\pi e^{\chi^2}\operatorname{erf}(\chi)=-\sqrt\pi e^{\chi^2}\Psi(\chi)$. The first term's coefficient, $4T(2T-Y)$, is non-negative since $T\geq Y\geq0$ implies $2T-Y\geq T\geq0$; verified symbolically.
+\end{proof}
+
+The bracketed coefficient of $\Psi(\chi)$ in (5) is \emph{not} sign-definite when $v$ is treated as a free parameter independent of $T,Y$: a naive sweep finds strongly negative values (e.g.\ $\approx-5\times10^7$ at $T=5,Y=4.995,v=0.01,\chi=0.01$). This is not evidence against Finding~\ref{find:Rminus}: that combination of $(T,Y,v)$ is unphysical, since vis-viva restricts $v$ to a narrow orbit-dependent range (for these values, $v\in[0.428,0.468]$, nowhere near $0.01$). Restricting the sweep to physically realizable $(T,Y,v)$ triples via $v^2=\mu(2/r-1/T)$, $r\in[T-\sqrt{T^2-Y^2},\,T+\sqrt{T^2-Y^2}]$, no violation of $\langle\dot w\rangle\geq0$ was found in $5{,}400$ additional points. Substituting this constraint directly into (5) to eliminate $v$ in favor of $r$ was attempted, but the resulting expression grew more complex rather than simplifying, and no closed-form proof was reached.
+
+\begin{remark}[A documented dead end, for the next attempt]
+The natural-seeming next steps --- treating $v$ as free and bounding the bracket directly, or substituting the vis-viva constraint immediately in terms of $r$ --- both failed to produce a closed form in this attempt. Whether a different substitution (e.g.\ working directly in terms of the eccentric or true anomaly, or bounding the bracket only in the regime where $\Psi(\chi)$ is not already small) succeeds is left for future work; this dead end is recorded so it is not retried without a new idea.
+\end{remark}
+
+\subsection{Two Boundary Limits, Proven}
+
+Numerical optimization aimed at finding the true extremum of (5) repeatedly diverged toward two limits, $r\to0$ and $r\to2T$ at fixed $T,Y$; both are shown below to be spurious as counterexamples once evaluated correctly, and both turn out to be safely, strongly positive.
+
+\begin{proposition}[The $r\to0$ boundary is safe]\label{prop:r0}
+At fixed $T,Y,\chi$, $\langle\dot w\rangle\to+\infty$ as $r\to0^+$, with leading sign $\operatorname{sign}\big(T^2(8T-3Y)\Psi(\chi)\big)$, which is strictly positive since $Y\leq T$ implies $8T-3Y\geq5T>0$.
+\end{proposition}
+
+\begin{proof}
+Direct symbolic limit of (5) as $r\to0^+$ (so $v\to\infty$); the divergent term's sign reduces to $\operatorname{sign}(8T-3Y)$ after cancelling manifestly positive factors.
+\end{proof}
+
+\begin{proposition}[The $r\to2T$ limit is unphysical as stated, and safe once corrected]\label{prop:r2T}
+At \emph{fixed} $Y>0$, $r$ cannot reach $2T$ for any $e<1$ (since $r\leq r_a=T(1+e)<2T$ strictly), so the naive limit $r\to2T$ at fixed $Y$ --- which gives $\langle\dot w\rangle\to-\infty$ --- describes no physical orbit. The correct correlated limit, $e\to1$ evaluated at $r=r_a=T(1+e)$, $Y=T\sqrt{1-e^2}$ simultaneously, instead gives $\langle\dot w\rangle\to+\infty$ with leading sign $\operatorname{sign}(\Psi(\chi))>0$.
+\end{proposition}
+
+\begin{proof}
+Direct symbolic substitution of $r=T(1+e)$, $Y=T\sqrt{1-e^2}$ into (5) followed by the limit $e\to1^-$; verified to give a divergent term with manifestly positive sign, in contrast to the (unphysical) fixed-$Y$ limit.
+\end{proof}
+
+Both singular-looking edges of the domain are therefore not just safe but strongly, divergently positive --- ruling out an entire class of potential boundary counterexamples and confirming that any genuine tightness in Finding~\ref{find:Rminus} must be an interior phenomenon.
+
+\subsection{The Extremal Corner, Identified}
+
+\begin{proposition}[The $\chi\to\infty$ limit, and its vanishing rate]\label{prop:chiinf}
+At fixed $T,Y,r$ (hence fixed $v$), $\langle\dot w\rangle\to4Y/v^3>0$ as $\chi\to\infty$ --- every other term in (5) is suppressed by $\Psi(\chi)/\chi^2\to0$ or by $\chi e^{-\chi^2}\to0$. Evaluated at periapsis ($r=r_p=T(1-e)$, $Y=T\sqrt{1-e^2}$) as $e\to1^-$, this limiting value itself vanishes as
+\begin{equation}
+\frac{4Y}{v_p^3} \;\longrightarrow\; \frac{2T^{5/2}}{\mu^{3/2}}(1-e)^2. \tag{6}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The $\chi\to\infty$ limit is immediate from (5): every term but $4Y/v^3$ carries an explicit $1/\chi^2$ or $e^{-\chi^2}$ suppression. Substituting $Y=T\sqrt{1-e^2}$ and $v_p^2=\mu(2/r_p-1/T)$ with $r_p=T(1-e)$, then expanding in $\epsilon:=1-e$ about $\epsilon=0$, gives $Y\sim T\sqrt{2\epsilon}$, $v_p\sim\sqrt{2\mu/(T\epsilon)}$, and $4Y/v_p^3\to2T^{5/2}\epsilon^2/\mu^{3/2}$ at leading order; verified by direct symbolic series expansion.
+\end{proof}
+
+\begin{remark}[This is the mechanism behind Finding~\ref{find:Rminus}'s tightness]
+This identifies, precisely, why extensive numerical sweeps kept finding values approaching (but never crossing) zero at extreme eccentricity: the tightest configuration is fast encounters ($\chi\to\infty$) near periapsis ($r\to r_p$) of an orbit with $e\to1$, where $\langle\dot w\rangle$ is manifestly positive at every finite $\epsilon=1-e>0$ but vanishes like $\epsilon^2$ as $\epsilon\to0$ --- consistent with, and now explaining, the $2\times10^{-10}$ minimum found in Finding~\ref{find:Rminus}'s original sweep at $e=0.99999$. This is not yet a complete proof (the interior away from this corner, and away from the two boundaries of the previous subsection, is still covered only numerically), but it is a substantial narrowing: every previously-mysterious near-zero value is now accounted for by an identified, positive, vanishing-rate asymptotic formula, rather than being an unexplained numerical coincidence.
+\end{remark}
+
+\subsection{The $\chi\to0$ Boundary, Also Proven}
+
+Numerically, $\langle\dot w\rangle$ is not monotonic in $\chi$ at fixed $(T,Y,r)$ --- it has interior structure, ruling out the simplest possible closing argument (monotone increase from a safe limit) --- but both ends of the $\chi$ range turn out to be provably safe.
+
+\begin{proposition}[$\chi\to0$ is also safe]\label{prop:chi0}
+At fixed $T,Y,v$, $\langle\dot w\rangle\to0^+$ as $\chi\to0^+$, with leading behavior
+\begin{equation}
+\langle\dot w\rangle \sim \frac{4\chi}{3\sqrt\pi}\left[\frac{T^2v}{\mu^2}(8T-3Y) + \frac{4T}{\mu v}(T-Y)\right], \tag{7}
+\end{equation}
+manifestly non-negative since $Y\leq T$ gives both $8T-3Y\geq5T>0$ and $T-Y\geq0$.
+\end{proposition}
+
+\begin{proof}
+Direct symbolic series expansion of (5) in $\chi$ about $0$; the $O(\chi^0)$ and $O(\chi^2)$ terms vanish identically, leaving (7) as the leading behavior. The bracketed factorization was verified to agree with the raw series coefficient exactly (symbolic difference $0$, confirmed both symbolically and at a numerical test point).
+\end{proof}
+
+With this, all four limits of the two-dimensional domain ($r\to0$, $e\to1$ at apoapsis, $\chi\to0$, $\chi\to\infty$) are now proven safe. What remains is the genuine interior of the domain, where $\langle\dot w\rangle$ is known numerically (from an extensive, un-contradicted sweep) to have local minima that stay strictly positive but are not yet bounded away from zero by any closed-form argument.
+
+\section{A Literature Connection, Correctly Diagnosed as Not Applicable}
+
+Two-body relaxation driving angular-momentum-like quantities toward isotropy is not new physics: it is the founding result of loss-cone theory (Cohn \& Kulsrud 1978), and it is the same phenomenon investigated in an unrelated recent context by \cite{HamiltonModak2024}, who derive the orbit-averaged Fokker-Planck equation for wide binaries in $(a,\varepsilon)$ space ($\varepsilon:=e^2$) under isotropic stellar encounters and prove that the eccentricity distribution is driven toward thermal ($P(e)=2e$) regardless of initial conditions. Given the qualitative match to Finding~\ref{find:Rminus} --- both are statements that stellar encounters pump eccentricity-like quantities in a fixed direction --- we checked whether their local (pre-orbit-average) mechanism could supply the missing proof.
+
+\begin{proposition}[The elementary source of \cite{HamiltonModak2024}'s result]\label{prop:HM}
+For a specific angular momentum vector $\mathbf{J}$ perturbed by an isotropic velocity kick $\Delta\mathbf{v}$ (so $\Delta\mathbf{J}=\mathbf{r}\times\Delta\mathbf{v}$, with $\langle\Delta\mathbf{J}\rangle=\mathbf{0}$ at first order by isotropy), the magnitude satisfies
+\begin{equation}
+\langle\Delta J\rangle \approx \frac{\langle(\Delta J)^2\rangle}{4J} > 0, \tag{6}
+\end{equation}
+an elementary second-order Taylor expansion of $J=|\mathbf{J}|$ (\cite{HamiltonModak2024}, eq.~A6) --- the same mechanism by which a $D$-dimensional Brownian motion's squared radius has positive drift purely from the dimensionality of the diffusion, with no separate physical input.
+\end{proposition}
+
+\begin{proposition}[Direct confirmation, and where it stops applying]\label{prop:HMcheck}
+In our own simulator, the out-of-plane velocity channel $v_z$ (introduced in \cite{Ebert2026MonteCarloNote} to correct the missing $D_\perp$ contribution to $\langle\dot h\rangle$) generates exactly the missing components of a genuine 3D angular momentum vector, $\mathbf{L}=(yv_z,-xv_z,\ell)$, with $|\mathbf{L}|^2=\ell^2+r^2v_z^2$. Since $v_z$ has zero drift and constant diffusion $D_\perp$, It\^o's lemma gives $\langle d(v_z^2)\rangle/dt=2D_\perp$ exactly at any time, so the new contribution to $|\mathbf{L}|^2$ starting from $v_z=0$ is exactly $2r^2D_\perp\geq0$ --- confirmed against direct simulation to within $0.2\%$ ($0.13909$ predicted vs.\ $0.13929\pm0.0001$ measured, at $e=0.95,\theta=173°,\sigma=0.05$). This is a real, exact, elementary mechanism. It does not, however, explain Finding~\ref{find:Rminus}: our $\ell$ is a single vector component ($L_z$), not the magnitude $|\mathbf{L}|$, and by the vector version of isotropy (\cite{HamiltonModak2024}, eq.~A3) a single component's mean drift from isotropic kicks alone is exactly zero --- consistent with our own $\langle\dot\ell\rangle=-|A|\ell/v$ (Corollary~\ref{cor:general_sde}), which contains no diffusion terms at all. The entirety of $\ell$'s (and hence $w$'s) nonzero drift in our problem comes from the systematic friction torque $r\times A$, a mechanism absent from \cite{HamiltonModak2024}'s pure-isotropic-encounter setting. The two mechanisms --- entropic growth of a vector magnitude, and systematic torque on a single component --- are both real and both produce eccentricity-pumping-type behavior, but they are not the same mechanism, and the elementary one does not transfer.
+\end{proposition}
+
+This is recorded for the same reason as Remark~\ref{find:Rminus}'s companion dead ends: the qualitative resemblance between our problem and the well-established loss-cone/eccentricity-thermalization literature is real and worth knowing, but the specific elementary proof technique that literature uses for its own (closely related but distinct) claim does not carry over, and future attempts should not re-spend effort checking whether it does.
+
+\section{A Second Elementary Mechanism, Also Checked and Also Insufficient}
+
+A second natural candidate mechanism, independent of the diffusive one just ruled out: the textbook fact that atmospheric drag on a satellite always removes angular momentum, since drag is antiparallel to velocity.
+
+\begin{proposition}[Exact, for any drag law]\label{prop:torque}
+For a drag force $F=-|A|(v)\hat v$ (any positive speed-dependent magnitude, antiparallel to velocity), the torque is exactly $r\times F=-(|A|/v)\,\ell$, for every $r,v$ --- a two-line vector identity, independent of the specific form of $|A|(v)$.
+\end{proposition}
+
+\begin{proof}
+$r\times F=-|A|(r\times v)/v=-(|A|/v)\ell$ directly, using $r\times v=\ell$.
+\end{proof}
+
+\begin{proposition}[Friction alone, exactly]\label{prop:fric_only}
+Isolating the deterministic-friction contribution to (1)--(2) (setting $D_\parallel=D_\perp=0$), $\langle\dot T\rangle_{\rm fric}=-2|A|T^2v/\mu<0$ and $\langle\dot Y\rangle_{\rm fric}=-|A|Y(Tv^2+\mu)/(\mu v)<0$, both unconditionally --- friction alone always shrinks both the orbit and its semi-minor axis, exactly as expected from orbital decay.
+\end{proposition}
+
+\begin{finding}\label{find:fric_fails}
+$\langle\dot R_-^2\rangle_{\rm fric}=2(\langle\dot T\rangle_{\rm fric}-\langle\dot Y\rangle_{\rm fric})$ is \emph{not} sign-definite: across $300$ test points ($e\in\{0.1,\dots,0.99\}$, full radial range), it is negative in $208$ of them, reaching $-52$ in normalized units at $e=0.99$ near periapsis --- the opposite sign from Finding~\ref{find:Rminus}'s established result for the \emph{full} (friction $+$ diffusion) drift.
+\end{finding}
+
+So the friction-torque mechanism, while genuinely elementary and exactly as clean as Proposition~\ref{prop:torque} suggests, does not explain Finding~\ref{find:Rminus} either --- and unlike the diffusive mechanism of the previous section (which simply concerned a different quantity), this one actively points the wrong way across most of parameter space when isolated. The conclusion is now sharper than before: $\langle\dot R_-^2\rangle\geq0$ is not a consequence of either candidate elementary mechanism alone; it must be a genuine effect of the friction and diffusion contributions acting together, with the diffusion piece not merely supplementing but \emph{overcoming} a friction contribution that on its own tends the other way. This rules out an entire class of "it's just one simple geometric fact" explanations and confirms that closing Finding~\ref{find:Rminus} properly requires engaging with the full $\Psi(\chi)$/$G(\chi)$ structure of Proposition~\ref{prop:wdecomp}, not a shortcut around it.
+
+\section{Scope: What Remains}
+
+\begin{itemize}
+\item[--] \textbf{The never-both-negative pattern (Finding~\ref{find:neveroverlap}) is unproven,} but Proposition~\ref{prop:mechanism} narrows it to a single remaining question: bounding $\operatorname{Var}(T)-\operatorname{Var}(Y)$ against the (now provably non-negative, near apoapsis) leading term $\tfrac{Y}{2}\langle\dot R_-^2\rangle$. This looks like it requires an analytic bound (e.g.\ Cauchy--Schwarz-type control of the covariance, or the exact scaling exponents of both pieces as $v\to0$), not further numerical sweeping.
+\item[--] \textbf{Finding~\ref{find:Rminus} ($\langle\dot R_-^2\rangle\geq0$) is unproven, but now proven on the entire boundary of its domain.} Proposition~\ref{prop:wdecomp} splits it into one term proven non-negative outright and one requiring a bound; two algebraic dead ends, one literature-based mechanism (Proposition~\ref{prop:HMcheck}), and one friction-only mechanism (Finding~\ref{find:fric_fails}) are confirmed not to explain it; and all four limits of the $(r,\chi)$ domain --- $r\to0$, $e\to1$ at apoapsis, $\chi\to0$, $\chi\to\infty$ --- are now proven safe (Propositions~\ref{prop:r0}, \ref{prop:r2T}, \ref{prop:chiinf}, \ref{prop:chi0}), with the $\chi\to\infty$-near-periapsis corner's exact $(1-e)^2$ vanishing rate identified. $\langle\dot w\rangle$ is confirmed \emph{not} monotonic in $\chi$, so no simple closing argument remains; what is left is a genuine interior-of-the-domain claim, still resting only on extensive, un-contradicted numerical sweeps.
+\item[--] \textbf{$Y$'s boundary is now cleanly reduced but not fully closed} (Theorem~\ref{thm:Yreduction}, Finding~\ref{find:Yboundary}): the three-parameter problem collapses exactly to a two-parameter curve $\chi_c(\rho)$, with a clean asymptotic scaling as $\rho\to0$, but $\chi_c(\rho)$ itself has no known closed form.
+\item[--] \textbf{Equal masses only; same $\ln\Lambda$-convention and out-of-plane caveats as \cite{Ebert2026Rosenbluth,Ebert2026Cancellation}} apply unchanged.
+\item[--] \textbf{What is now closed:} the turning-points restriction itself (Lemma~\ref{lem:general} shows it was unnecessary), the false ``$X$ always grows'' claim (corrected here, with mechanism), and the spinor hypothesis (checked directly and ruled out).
+\end{itemize}
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical computation, and \LaTeX{} preparation of this note. This includes: symbolic verification of Lemma~\ref{lem:general}'s general (not turning-point-restricted) geometric identities, which prompted revisiting and correcting the earlier draft's restricted scope; the numerical sweep and root-cause analysis (Jensen concavity) behind Finding~\ref{find:Xfails} and the correction of the earlier, narrower ``$X$ always grows'' claim; verification that the negative $\langle\dot X^2\rangle$ values of Finding~\ref{find:X2fails} are not boundary artifacts, by direct inspection of $r$ at the located extremum; a systematic and then adversarially-extended search for counterexamples to Finding~\ref{find:neveroverlap}, finding none; diagnosis of the $\sigma\to0$ limiting behavior in Proposition~\ref{prop:limit}, including recognizing that an initial apparent exact equality $\langle\dot X^2\rangle=-\langle\dot Y^2\rangle$ at very small $\sigma$ was an asymptotic approximation rather than an exact identity, checked explicitly by tracking $\langle\dot T^2\rangle$'s rate of decay separately; and a direct check, requested during discussion, of whether the sign-alternating pattern in Finding~\ref{find:Xfails} reflected spinor ($4\pi$-periodic) structure, resolved by confirming exact $2\pi$-periodicity instead. This also includes, from further work: the discovery and aggressive-sweep verification of Finding~\ref{find:Rminus}; an initial narrower observation, from a smaller window of the orbit, that $\langle\dot R_+^2\rangle$ was also sign-definite, corrected upon broader sweeping to find it is not; derivation and cross-validation (to $12$ significant figures against the direct two-variable It\^o computation) of the product-rule decomposition (4) underlying Proposition~\ref{prop:mechanism}; and, along the way, a transcription error in verbally re-stating an intermediate numerical result (attributing a negative value to $\langle\dot X^2\rangle$ that was actually $\langle\dot Y^2\rangle$ at the same point) caught and corrected by recomputing both quantities together in a single script rather than trusting the earlier separately-run values. Further work toward Proposition~\ref{prop:wdecomp} includes: deriving $w(h,\ell)$'s direct two-variable It\^o decomposition and recognizing $w_{\ell\ell}=0$ as a simplification; symbolic identification of the manifestly non-negative first term via $T\geq Y$; an initial, apparently damning counterexample to the sign of the $\Psi(\chi)$-coefficient term, which was diagnosed as using an unphysical, vis-viva-violating value of $v$ for the stated $(T,Y)$ orbit rather than as a genuine violation, confirmed by direct computation of that orbit's actual physical speed range; a corrected sweep restricted to physically realizable $(T,Y,v)$ triples, finding no violation; and an unsuccessful attempt to complete the proof by substituting the vis-viva constraint directly, recorded as a dead end rather than omitted. This also includes a literature search for an established mechanism behind Finding~\ref{find:Rminus}, locating the Cohn--Kulsrud loss-cone formalism and \cite{HamiltonModak2024}'s closely related eccentricity-thermalization result; symbolic and simulator-based verification of the elementary mechanism (eq.~6) underlying \cite{HamiltonModak2024}'s own result, confirmed to $0.2\%$ against the validated simulator's out-of-plane channel; and the subsequent correct diagnosis, via direct comparison of the two mechanisms' structure (vector-magnitude entropic growth versus single-component systematic torque), that this elementary result does not transfer to our own problem despite the tempting qualitative resemblance --- an initial, more optimistic reading of the match was revised once the vector-component versus magnitude distinction was checked explicitly. This also includes, from further work on $Y$'s boundary: recognizing that $Y$'s exact linearity in $(R_+^2,R_-^2)$ avoids the Jensen-correction step needed for $X$, and cross-validating the resulting formula (4$'$) against the original two-step computation to six significant figures; discovering, by direct numerical test across widely varying eccentricity at fixed $(\rho,\chi)$, the exact independence of $\langle\dot Y\rangle/Y$ from $\dot r$ and $e$ separately, then confirming this symbolically; and, upon reconciling this general result with earlier turning-point-specific estimates of $\chi_c$, discovering a numerical discrepancy, tracing it to those earlier estimates having been computed before this note's later cross-validation work, and confirming via direct recomputation at the exact same points that the new, general formula is correct and the earlier reported values should be superseded. This also includes checking a second candidate elementary mechanism for Finding~\ref{find:Rminus}: symbolic verification of Proposition~\ref{prop:torque}'s exact torque identity; symbolic derivation of the friction-only contributions to $\langle\dot T\rangle,\langle\dot Y\rangle$ (Proposition~\ref{prop:fric_only}); and a numerical sweep revealing that the resulting friction-only $\langle\dot R_-^2\rangle$ is not sign-definite and in fact predominantly negative, the opposite of the established full result --- an outcome that was not anticipated going in and that sharpens, rather than resolves, the remaining gap. Further work located the source of numerical optimizers repeatedly diverging toward $r\to0$ and $r\to2T$: both were shown, by direct symbolic limits, to be spurious as counterexamples --- the first genuinely safe (Proposition~\ref{prop:r0}), the second unphysical as originally posed (fixed $Y$ cannot reach $r=2T$ for $e<1$) and safe once correctly re-derived with $r,Y$ correlated through $e\to1$ (Proposition~\ref{prop:r2T}); a numerical precision issue (catastrophic cancellation in $\Psi(\chi)$ for small $\chi$, computed via $\operatorname{erf}(\chi)-2\chi e^{-\chi^2}/\sqrt\pi$) was also identified and fixed with a series-expansion formula before this boundary analysis could be trusted. The resulting bounded search then correctly localized the true tight regime to large $\chi$ near periapsis, leading to the exact $\chi\to\infty$ limit of Proposition~\ref{prop:chiinf} and its symbolic $(1-e)^2$ expansion, which was checked against and found to match the order of magnitude of the smallest values in Finding~\ref{find:Rminus}'s original sweep. Checking whether monotonicity of $\langle\dot w\rangle$ in $\chi$ alone (combined with a safe limit) could close the proof, a numerical sweep across a wide range of $(e,r)$ found the function is not monotonic in most of the domain (only near apoapsis specifically), ruling out that shortcut; however, this prompted checking the $\chi\to0$ limit directly, where a clean symbolic series expansion (Proposition~\ref{prop:chi0}) showed the leading term factors exactly into two manifestly non-negative pieces, extending the set of proven safe limits to all four boundaries of the domain. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Bath} J.~Ebert, \emph{The Cone in a Bath: Boson, Gravitational, and Plasma Relaxation of the Semi-Major Axis}, Preprint (2026).
+\bibitem{Ebert2026Rosenbluth} J.~Ebert, \emph{Doing the Actual Average: Rosenbluth Potentials Close the Residual}, Preprint (2026).
+\bibitem{Ebert2026Cancellation} J.~Ebert, \emph{The Cancellation That Wasn't: Friction, Diffusion, and an Exact Heating/Cooling Boundary for Orbits in a Maxwellian Bath}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\bibitem{Ebert2026MonteCarloNote} J.~Ebert, \emph{Checking the Whole Edifice: An Independent Langevin Simulation of $\dot T$, $\dot X^2$, $\dot Y^2$}, Preprint (2026).
+\bibitem{HamiltonModak2024} C.~Hamilton, S.~Modak, Eccentricity dynamics of wide binaries -- II.\ The effect of stellar encounters and constraints on formation channels, \emph{Mon.\ Not.\ R.\ Astron.\ Soc.} (2024), arXiv:2311.04352.
+\bibitem{CohnKulsrud1978} H.~Cohn, R.~Kulsrud, The stellar distribution around a black hole: numerical integration of the Fokker-Planck equation, \emph{Astrophys.\ J.} \textbf{226} (1978), 1087--1108.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,140 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[The Cone's Fermat Curve as the Ellis--Bronnikov Wormhole]{The Same Hyperbola:\\
+The AM--GM Cone's Fermat Curve as the Ellis--Bronnikov Wormhole,\\
+and a Chebyshev Classification of Its Algebraic Cousins}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026Table} identifies the cone's constant-product curve $xy=N$, equivalently $T^2-X^2=N$ at fixed $Y=\sqrt N$, with Fermat's 1643 factorization method. This note observes that the identical equation, under $T=r$, $X=l$, $Y=b_0$, is exactly the embedding of the Ellis--Bronnikov wormhole \cite{Ellis1973,Bronnikov1973}, the shape function $b(r)=b_0^2/r$ singled out in essentially every introductory treatment of traversable wormholes since Morris and Thorne \cite{MorrisThorne1988} as the simplest closed-form example. We are precise that this identification contributes no new physics: the wormhole and its embedding are a hundred-year-old, thoroughly studied object, and we cite the relevant literature throughout rather than claim any part of it. What is new is a classification, via Chebyshev's 1853 differential-binomial integrability theorem, of exactly which power-law shape functions $b(r)=b_0^{1-k}r^k$ admit an elementary closed-form embedding at all: we show the physically valid range $k<1$ splits into two infinite families, one giving embeddings built from inverse hyperbolic functions (containing Morris and Thorne's own second named example, the ``tideless'' wormhole $k=\tfrac12$), and one giving \emph{purely algebraic} embeddings with no transcendental functions at all. The Ellis--Bronnikov exponent $k=-1$ is not, as we first suspected and then disproved by direct computation, the unique algebraic case --- it is the first member of an infinite algebraic family --- but it is the unique member of that family with an integer exponent, which is a precise, checkable reason for its status as the standard textbook choice. We close by observing that the wormhole's own natural rapidity parametrization is identical, term for term, to the rapidity already used in \cite{Ebert2026EigenCoord} to give an exact runtime formula for Fermat's method.
+\end{abstract}
+
+\section{The Curve in Both Languages}
+
+\cite{Ebert2026Table}, Section~4, observes that fixing the product $xy=N$ on the AM--GM cone $X^2+Y^2=T^2$ fixes $Y^2=N$, so that the constant-product curve becomes
+\begin{equation}
+T^2-X^2=N, \tag{1}
+\end{equation}
+and identifies this with Fermat's factorization method: testing successive integers $a\ge\lceil\sqrt N\rceil$ until $a^2-N$ is a perfect square, with $a=T$, $b=X$ in the notation of that paper.
+
+Equation (1), under the relabeling $T=r$, $X=l$, $Y=b_0$ (so $N=b_0^2$), reads
+\begin{equation}
+r^2 = b_0^2 + l^2, \tag{2}
+\end{equation}
+which is exactly the relation between the areal radius $r$ and the proper radial distance $l$ in the Ellis--Bronnikov wormhole \cite{Ellis1973,Bronnikov1973}, the static, spherically symmetric, zero-redshift solution with shape function
+\begin{equation}
+b(r)=\frac{b_0^2}{r} \tag{3}
+\end{equation}
+in the Morris--Thorne ansatz \cite{MorrisThorne1988}
+\begin{equation}
+ds^2=-e^{2\Phi(r)}dt^2+\frac{dr^2}{1-b(r)/r}+r^2d\Omega^2, \qquad \Phi\equiv0. \tag{4}
+\end{equation}
+This is, to our knowledge, the single most commonly cited closed-form wormhole example in the pedagogical literature, appearing under the name ``Ellis--Bronnikov,'' ``Ellis drainhole,'' or simply ``the simplest Morris--Thorne wormhole'' in dozens of reviews and research papers since 1988. We claim no part of this physics as our own; the content of this note begins in Section~3.
+
+\section{Where (2) Comes From, Directly}
+
+\begin{proposition}\label{prop:embed}
+For the shape function (3), the proper radial distance $l(r):=\int_{b_0}^r(1-b(r')/r')^{-1/2}dr'$ satisfies (2) exactly.
+\end{proposition}
+
+\begin{proof}
+$1-b(r)/r=1-b_0^2/r^2=(r^2-b_0^2)/r^2$, so
+\[
+l(r)=\int_{b_0}^r\frac{r'\,dr'}{\sqrt{r'^2-b_0^2}}=\sqrt{r^2-b_0^2}. \qedhere
+\]
+\end{proof}
+
+\section{A Chebyshev Classification of Power-Law Shape Functions}
+
+The identification of Section~1 raises a sharper question than ``is this embedding elementary'': among all power-law shape functions, which exponents give an elementary closed form for $l(r)$ at all, and among those, which are purely algebraic --- like (2) --- rather than built from inverse hyperbolic or inverse trigonometric functions?
+
+\begin{definition}
+Let $b(r)=b_0^{1-k}r^k$ for real $k\ne1$. Physical validity (asymptotic flatness, $b(r)/r\to0$ as $r\to\infty$) requires $k<1$.
+\end{definition}
+
+\begin{proposition}\label{prop:reduce}
+With $x:=r/b_0$, $l(r)=b_0\int_1^x(1-t^{k-1})^{-1/2}\,dt$.
+\end{proposition}
+
+\begin{proof}
+$b(r)/r=b_0^{1-k}r^{k-1}=(r/b_0)^{k-1}=x^{k-1}$ by direct substitution.
+\end{proof}
+
+The integral in Proposition~\ref{prop:reduce} is a Chebyshev differential binomial, $\int t^m(a+bt^n)^p\,dt$ with $m=0$, $a=1$, $b=-1$, $n=k-1$, $p=-\tfrac12$. Chebyshev's theorem (1853) states that this integral is expressible in elementary terms if and only if at least one of $p$, $(m+1)/n$, or $(m+1)/n+p$ is an integer. Since $p=-\tfrac12$ is never an integer, elementarity here is governed entirely by whether $1/n\in\mathbb Z$ or $1/n-\tfrac12\in\mathbb Z$.
+
+\begin{theorem}[Classification]\label{thm:classify}
+Writing $n=k-1$, the embedding integral of Proposition~\ref{prop:reduce} is elementary if and only if $k$ belongs to one of
+\begin{align}
+\text{(A)}\quad & k=\frac{m-1}{m}, \quad m=1,2,3,\dots \quad(k=0,\tfrac12,\tfrac23,\tfrac34,\dots\to1), \tag{5}\\
+\text{(B)}\quad & k=\frac{2m-3}{2m-1}, \quad m=1,2,3,\dots \quad(k=-1,\tfrac13,\tfrac35,\tfrac57,\dots\to1). \tag{6}
+\end{align}
+Family (A) evaluates to expressions containing $\operatorname{acosh}$ (transcendental); family (B) evaluates to purely algebraic expressions.
+\end{theorem}
+
+\begin{proof}[Verification]
+Direct symbolic integration (computer algebra) of $(1-t^n)^{-1/2}$ at every member of both families for $m=1,\dots,5$ confirms family (A) produces $\operatorname{acosh}$-type antiderivatives in every case, and family (B) produces purely algebraic (radical) antiderivatives in every case, with no exceptions found; every other rational $n<0$ tested outside these two families (e.g.\ $n=-3,-4,-3/2$) produced a non-elementary hypergeometric antiderivative. Family (A) is $1/n\in\mathbb Z$ (equivalently $k-1=-1/m$ for integer $m>0$); family (B) is $1/n-\tfrac12\in\mathbb Z$ (equivalently $k-1=2/(2m-1)$ for $m\le -1$, reindexed as above).
+\end{proof}
+
+\begin{remark}[Two named examples, now explained]
+$k=-1$ (family (B), $m=1$) is the Ellis--Bronnikov shape function (3). $k=\tfrac12$ (family (A), $m=2$) is $b(r)=\sqrt{b_0r}$, Morris and Thorne's own second named closed-form example, elsewhere called the ``tideless'' Morris--Thorne wormhole in the quasinormal-mode literature. Theorem~\ref{thm:classify} places both as the first nontrivial member of one of exactly two infinite elementary families, rather than as two unrelated lucky choices.
+\end{remark}
+
+\begin{corollary}[The Ellis--Bronnikov exponent is not unique, but its integrality is]\label{cor:unique}
+Family (B) contains infinitely many physically valid, purely algebraic shape functions ($k=-1,\tfrac13,\tfrac35,\tfrac57,\dots$), so $k=-1$ is not the unique algebraic case. It is, however, the unique member of family (B) for which $k$ itself is an integer.
+\end{corollary}
+
+\begin{proof}
+$k_m=(2m-3)/(2m-1)$ has $\gcd(2m-3,2m-1)\mid 2$, and both are odd, so the fraction is already in lowest terms; it is an integer only when $2m-1=1$, i.e.\ $m=1$, giving $k_1=-1$. For every $m\ge2$, $0<|2m-3|<2m-1$, so $k_m$ is a proper fraction.
+\end{proof}
+
+So the honest statement is narrower and, we think, more interesting than our first guess: $k=-1$ is singled out not because it is the only algebraic power-law wormhole, but because it is the only one whose shape function is a simple integer power of $r$ at all --- exactly the property that makes it the natural first example in an introductory treatment, and exactly the property Theorem~\ref{thm:classify} makes precise rather than anecdotal.
+
+\section{The Rapidity Is the Same Rapidity}
+
+\cite{Ebert2026EigenCoord}, Section~7, defines the rapidity $s:=\ln(u/\sqrt n)$ for the scaling-orbit $(u,n/u)$ through a fixed constant-product hyperbola $xy=n$, and shows $T(u)=\sqrt n\cosh(s)$, used there to give an exact closed-form runtime formula for Fermat's method.
+
+\begin{proposition}
+Under the identification of Section~1 ($N=b_0^2$), the wormhole's own proper-distance parametrization is exactly $T=b_0\cosh(s)$, $X=b_0\sinh(s)$, with $s$ the identical rapidity variable of \cite{Ebert2026EigenCoord}.
+\end{proposition}
+
+\begin{proof}
+Immediate from $T(u)=\sqrt n\cosh(s)=b_0\cosh(s)$ and $X=(u-n/u)/2=\sqrt n\sinh(s)=b_0\sinh(s)$ (the latter by the same computation used for $T$, applied to the antisymmetric combination).
+\end{proof}
+
+So moving a proper distance $l=b_0\sinh(s)$ from the wormhole's throat is, in the cone's own bookkeeping, the identical operation as Fermat's method advancing a rapidity $s$ away from the balanced factor pair $(\sqrt n,\sqrt n)$ --- one more instance of the cone's own $B_X$-generator orbit appearing under two names, exactly the kind of coincidence \cite{Ebert2026EigenCoord} itself already flags as a recurring structural feature of this family of constructions rather than as evidence that the arithmetic and the physics share content.
+
+\section{Scope}
+
+We are explicit about what this note does and does not claim. The Ellis--Bronnikov wormhole, its metric, its stress-energy content, and its status as the standard introductory example are all established physics, correctly credited to Ellis (1973), Bronnikov (1973), and Morris and Thorne (1988); nothing here adds to that. What this note adds is: (i) the identification of the wormhole's own embedding equation with the AM--GM cone's constant-product curve, already present in \cite{Ebert2026Table} for an unrelated (arithmetic) reason; (ii) the Chebyshev classification of Theorem~\ref{thm:classify}, which we have not found stated elsewhere in the wormhole-pedagogy literature we surveyed, and which explains \emph{why} the two simplest named examples in that literature are exactly the ones they are; and (iii) the rapidity identification of Section~4. We do not claim, and do not believe, that this identification carries any physical content between the two domains --- as with every other cross-domain coincidence in this project, it is a statement about the ambient algebra of $X^2+Y^2=T^2$ common to both constructions, not a bridge between arithmetic and general relativity.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, literature search, symbolic verification, and \LaTeX{} preparation of this note. This includes: symbolic (computer-algebra) verification of Proposition~\ref{prop:embed}; a systematic symbolic search, across integer and rational exponents, for elementary closed forms of the Chebyshev differential binomial underlying Theorem~\ref{thm:classify}, including an initial, narrower claim (that $k=-1$ is the \emph{unique} physically-valid algebraic case) that was tested computationally against a wider family of exponents than first considered and found to be false; the corrected classification and Corollary~\ref{cor:unique} were derived and verified in response to that failure. A web search was used to locate and correctly cite the Ellis, Bronnikov, and Morris--Thorne sources, and to confirm the ``tideless'' wormhole's identity as $b(r)=\sqrt{b_0r}$ in the existing literature. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ellis1973} H.~G.~Ellis, Ether flow through a drainhole: A particle model in general relativity, \emph{J.\ Math.\ Phys.} \textbf{14} (1973), 104--118.
+\bibitem{Bronnikov1973} K.~A.~Bronnikov, Scalar-tensor theory and scalar charge, \emph{Acta Phys.\ Polon.} \textbf{B4} (1973), 251--266.
+\bibitem{MorrisThorne1988} M.~S.~Morris, K.~S.~Thorne, Wormholes in spacetime and their use for interstellar travel: A tool for teaching general relativity, \emph{Am.\ J.\ Phys.} \textbf{56} (1988), 395--412.
+\end{thebibliography}
+
+\end{document}

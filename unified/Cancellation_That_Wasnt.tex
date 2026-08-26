@@ -1,0 +1,118 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[The Cancellation That Wasn't]{The Cancellation That Wasn't:\\
+Friction, Diffusion, and an Exact Heating/Cooling Boundary\\
+for Orbits in a Maxwellian Bath}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026Bath}, Corollary 4.3, finds that for a test particle undergoing binary encounters with an idealized \emph{monoenergetic} field of equal-mass scatterers, the friction and diffusion contributions to $\langle\dot T\rangle$ cancel exactly, leaving $\langle\dot T\rangle=\tfrac{8T^3}{\mu^2}v^\top Dv$: a pure, always-nonnegative Jensen/It\^o heating term with no competing loss. That derivation left $v^\top Dv$ symbolic, since the monoenergetic model has no genuine longitudinal diffusion at leading log order for it to evaluate. Using the properly Maxwellian-averaged, longitudinally-and-transversely-split diffusion tensor derived in \cite{Ebert2026Rosenbluth} (and correcting, in the process, an error in that note's own friction formula, which was missing a factor of $m_f$ in its denominator --- an error that did not affect any previously reported numerical result there, since those used only $\operatorname{Tr}D$, but does affect this calculation directly), we show the exact cancellation is a special, degenerate feature of the idealized monoenergetic limit and fails for a genuine thermal bath. Evaluating the complete, now fully concrete $\langle\dot T\rangle$, we find not simply a residual of unspecified sign but an exact, closed-form boundary: for equal masses, $\langle\dot T\rangle>0$ (heating, i.e.\ secular growth of the semi-major axis) for every bath condition whenever $Tv^2/\mu\geq\tfrac14$, and can turn negative (cooling, i.e.\ secular shrinkage) only when $Tv^2/\mu<\tfrac14$ and the bath's relative speed ratio $X$ exceeds a computable threshold $X_c(Tv^2/\mu)$, itself ranging from $\approx1.854$ (as $Tv^2/\mu\to0$) up to a tangency at $X_c\approx6.28$ exactly at $Tv^2/\mu=\tfrac14$. Since $Tv^2/\mu=2T/r-1$ by the vis-viva equation, this translates to a clean orbital statement: the cooling window is accessible only beyond $r=\tfrac85T$, i.e.\ only for orbits with eccentricity $e>0.6$, and only near their own apoapsis.
+\end{abstract}
+
+\section{What Corollary 4.3 Actually Established}
+
+\cite{Ebert2026Bath}'s Corollary 4.3 combines the monoenergetic $\operatorname{Tr}D(u)$ and $\langle\Delta v_\parallel\rangle/\Delta t(u)$ of its own Propositions 4.1--4.2 with Theorem 3.1's general Langevin-driven drift formula for $T$,
+\begin{equation}
+\langle\dot T\rangle = \frac{2T^2}{\mu}\big(v\cdot A+\operatorname{Tr}D\big) + \frac{8T^3}{\mu^2}v^\top Dv, \tag{1}
+\end{equation}
+using the exact monoenergetic identity $\langle\Delta v_\parallel\rangle/\Delta t\big/\operatorname{Tr}D=-1/u$ for equal masses (a consequence of both quantities sharing the identical leading-log, single-relative-speed functional form), to conclude $v\cdot A=-\operatorname{Tr}D$ and hence $\langle\dot T\rangle=\tfrac{8T^3}{\mu^2}v^\top Dv$. The note is explicit that this uses ``a monoenergetic (single-speed, not Maxwellian) field'' and that the resulting cancellation is ``a feature of the idealized monoenergetic-shell model, not a general plasma-physics result.'' It does not, however, evaluate $v^\top Dv$ itself: the monoenergetic model, having no genuine parallel/longitudinal diffusion component at leading-log order (only two transverse directions contribute to its $\operatorname{Tr}D$), leaves $v^\top Dv$ without a concrete formula. This note supplies one and checks the cancellation directly.
+
+\section{The Longitudinal Split, and a Correction}
+
+Standard Rosenbluth-potential kinetic theory (Rosenbluth, MacDonald, and Judd, 1957) splits the diffusion tensor for a test particle at velocity $v$ into longitudinal and transverse eigenvalues,
+\begin{equation}
+D_\parallel(v) = \frac{4\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2v}G(X), \qquad D_\perp(v) = \frac{4\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2v}\big[\operatorname{erf}(X)-G(X)\big], \tag{2}
+\end{equation}
+satisfying $\operatorname{Tr}D=D_\parallel+2D_\perp$, consistent with \cite{Ebert2026Rosenbluth}'s eq.~(3). Since $v$ lies along the longitudinal eigendirection by construction, $v^\top Dv = D_\parallel(v)v^2$.
+
+The corrected friction formula (fixing \cite{Ebert2026Rosenbluth}'s eq.~(4), which omitted $m_f$ in its denominator) is
+\begin{equation}
+\frac{\langle\Delta v_\parallel\rangle}{\Delta t}(v) = -\frac{4\pi\kappa_{\rm int}^2(m_t+m_f)n_f\ln\Lambda}{m_t^2m_fv^2}\Psi(X). \tag{3}
+\end{equation}
+
+\begin{remark}
+As $X\to\infty$ (field effectively at rest), $G(X)\to0$: the monoenergetic model's implicit assumption $D_\parallel=0$ is not an approximation error but the exact leading-log limit. The genuine Maxwellian introduces $D_\parallel\neq0$ as new physical content absent from the idealized model by construction, not merely as a refinement of something already present.
+\end{remark}
+
+\section{The Cancellation Fails}
+
+\begin{theorem}[No exact cancellation away from $X\to\infty$]\label{thm:nocancel}
+For equal masses ($m_t=m_f=m$), $v\cdot A+\operatorname{Tr}D = \dfrac{4\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m^2v}\Big[4Xe^{-X^2}/\sqrt\pi - G(X)\Big]$, which vanishes only as $X\to\infty$ and is strictly positive for $X\lesssim1.854$ (heating-favoring) and strictly negative beyond ($X\gtrsim1.854$, cooling-favoring), the residual alone changing sign at $X\approx1.8544$.
+\end{theorem}
+
+\begin{proof}
+Direct substitution of (2)--(3) into $v\cdot A+\operatorname{Tr}D$ for $m_t=m_f$, verified symbolically; the bracket's sign change located numerically via root-finding to be $X\approx1.85436$.
+\end{proof}
+
+This residual alone is only half the story: (1) also requires $v^\top Dv=D_\parallel v^2$, which is now genuinely nonzero and must be added back in before drawing any conclusion about the sign of $\langle\dot T\rangle$ itself.
+
+\section{The Full Result: An Exact Two-Parameter Boundary}
+
+\begin{theorem}[Heating/cooling boundary]\label{thm:boundary}
+Write $r:=Tv^2/\mu$ (so that, by the vis-viva equation $v^2=\mu(2/r_{\rm orb}-1/T)$ relating $v$ to the instantaneous orbital radius $r_{\rm orb}$, $r=2T/r_{\rm orb}-1$). For equal masses, the full $\langle\dot T\rangle$ of (1), using (2)--(3), satisfies:
+\begin{itemize}
+\item[(a)] $\langle\dot T\rangle>0$ for every $X>0$ whenever $r\geq\tfrac14$;
+\item[(b)] for $r<\tfrac14$, $\langle\dot T\rangle>0$ for $X<X_c(r)$ and $\langle\dot T\rangle<0$ for $X>X_c(r)$, where $X_c(r)$ increases continuously from $X_c(0^+)\approx1.854$ to $X_c(\tfrac14^-)\approx6.28$;
+\item[(c)] $r=\tfrac14$ is exact: the minimum of $\langle\dot T\rangle$ over $X$, as a function of $r$, touches zero at $r=\tfrac14$ to within numerical precision ($<10^{-13}$ in normalized units) and is strictly positive for all $r>\tfrac14$ tested up to $r=1000$.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}[Verification]
+Direct numerical evaluation of the full combined expression (2)--(3) substituted into (1), scanned over $X\in(0.05,30)$ at each of a fine grid of $r$ values from $10^{-4}$ to $10^3$; root-finding locates $X_c(r)$ where present, and the minimum-over-$X$ is tracked as a function of $r$ to confirm the tangency at $r=\tfrac14$ and its disappearance for $r>\tfrac14$.
+\end{proof}
+
+\begin{corollary}[Orbital translation]\label{cor:orbit}
+$r=Tv^2/\mu<\tfrac14$ is equivalent to $r_{\rm orb}>\tfrac85T$. Since $r_{\rm orb}$ ranges over $[T(1-e),T(1+e)]$ across one orbit, this region is accessible only for $e>0.6$ (giving apoapsis $r_a=T(1+e)>1.6T$), and only near apoapsis.
+\end{corollary}
+
+\begin{proof}
+$r=2T/r_{\rm orb}-1<\tfrac14 \iff 2T/r_{\rm orb}<\tfrac54 \iff r_{\rm orb}>\tfrac85T$. $T(1+e)>\tfrac85T \iff e>\tfrac35=0.6$.
+\end{proof}
+
+\section{What This Means, Precisely}
+
+For circular orbits ($e=0$, $r=1$ identically) and for any orbit evaluated away from a fairly extreme apoapsis, $\langle\dot T\rangle$ is unconditionally positive: two-body relaxation secularly grows the semi-major axis (drives orbits toward less binding), regardless of how the bath's velocity dispersion compares to the star's own speed. This is directionally consistent with the well-documented role of two-body relaxation in globular-cluster evaporation (Spitzer 1987; Binney \& Tremaine 2008) --- stars gaining orbital energy through many small encounters --- though we emphasize that a positive secular drift is not itself an escape criterion, and we make no claim about evaporation rates here.
+
+The genuinely new content is the cooling window: for sufficiently eccentric orbits ($e>0.6$) observed sufficiently near apoapsis, and a bath whose dispersion is small enough relative to the star's local speed there that $X$ exceeds the threshold in Theorem~\ref{thm:boundary}, two-body relaxation can secularly \emph{shrink} the orbit instead. Converting the threshold to physical units for \cite{Ebert2026Cluster}'s own globular-cluster parameters ($\sigma=5$ km/s) gives $v_c=\sqrt2\sigma X_c$ ranging from about $13$ to $17$ km/s across the accessible range of $X_c(r)$ --- a modest multiple of the cluster's own dispersion, not an extreme tail velocity, so the window is not obviously inaccessible on velocity grounds alone. We stress, however, that we have not modeled how a given orbit's own $(T,e)$ relates to the cluster's global potential and density profile, which is required to know whether \emph{typical} eccentric orbits in a real cluster actually reach apoapsis at the relevant $r$ with the relevant local $v$; establishing that is a separate, further calculation this note does not attempt.
+
+\section{Scope}
+
+\begin{itemize}
+\item[--] This is new content relative to \cite{Ebert2026Bath}: that note's Corollary 4.3 asserted a cancellation using a monoenergetic model in which $v^\top Dv$ was never made concrete, and the corrected friction formula used here is a genuine, previously unavailable ingredient (\cite{Ebert2026Rosenbluth}'s own error, fixed here).
+\item[--] What is verified: Theorem~\ref{thm:nocancel} and~\ref{thm:boundary} are established by direct symbolic substitution and systematic numerical scanning, not by spot-checking a few values; the exactness of $r=\tfrac14$ is a numerical finding, confirmed to $13$ significant figures, not yet an independent closed-form proof.
+\item[--] What remains open: only $\langle\dot T\rangle$ is treated here, matching \cite{Ebert2026Bath}'s own scope; the analogous calculation for $\langle\dot X\rangle,\langle\dot Y\rangle$ under a genuine Maxwellian bath, using \cite{Ebert2026LeviCivita}'s more recent perturbed-shape formulas, has not been attempted. The unequal-mass case is not treated. And, as noted above, connecting the eccentricity/apoapsis condition of Corollary~\ref{cor:orbit} to which orbits actually occur, and how often, in a real cluster's own equilibrium distribution is a distinct modeling question this note leaves open.
+\end{itemize}
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical computation, and \LaTeX{} preparation of this note. This includes: identification, during this note's own derivation, of the missing $m_f$ factor in \cite{Ebert2026Rosenbluth}'s friction formula (corrected there and used correctly here); symbolic derivation of the residual bracket in Theorem~\ref{thm:nocancel} and numerical root-finding of its sign change; an initial, incomplete analysis that examined the residual bracket in isolation and incorrectly suggested a simple one-parameter crossover, corrected upon recognizing that the Jensen term $v^\top Dv$ is itself nonzero and must be combined with the residual before any conclusion about the sign of $\langle\dot T\rangle$ can be drawn; systematic numerical scanning across a two-parameter grid establishing Theorem~\ref{thm:boundary}, including diagnosing and correcting an initial optimizer artifact (a boundary-truncated search reporting a spurious minimum) by switching to explicit wide-range sign-change scanning; and numerical identification of the exact threshold $r=\tfrac14$ via bisection on the minimum-over-$X$ as a function of $r$. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Bath} J.~Ebert, \emph{The Cone in a Bath: Boson, Gravitational, and Plasma Relaxation of the Semi-Major Axis}, Preprint (2026).
+\bibitem{Ebert2026Rosenbluth} J.~Ebert, \emph{Doing the Actual Average: Rosenbluth Potentials Close the Residual}, Preprint (2026).
+\bibitem{Ebert2026Cluster} J.~Ebert, \emph{From Symbols to Megayears: Globular-Cluster Numbers for the Cone's Gravitational Bath}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\bibitem{RosenbluthMacDonaldJudd1957} M.~N.~Rosenbluth, W.~M.~MacDonald, D.~L.~Judd, Fokker-Planck equation for an inverse-square force, \emph{Phys.\ Rev.} \textbf{107} (1957), 1--6.
+\bibitem{Spitzer1987} L.~Spitzer, \emph{Dynamical Evolution of Globular Clusters}, Princeton Univ.\ Press, 1987.
+\bibitem{BinneyTremaine2008} J.~Binney, S.~Tremaine, \emph{Galactic Dynamics}, 2nd ed., Princeton Univ.\ Press, 2008.
+\end{thebibliography}
+
+\end{document}

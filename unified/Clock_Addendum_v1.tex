@@ -1,0 +1,117 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[The Orbital Phase Equation on the AM--GM Cone]{Closing the Clock:\\
+An Exact Orbital-Phase Equation on the AM--GM Cone}
+\author{Jeremy Ebert}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The AM--GM cone construction of \cite{Ebert2026Cone} represents an orbit's turning points $(r_a,r_p)$ as a point $(X,Y,T)$ on the quadric $X^2+Y^2=T^2$, and shows that total energy, angular momentum, and central mass isolate along coordinate directions of that cone. That construction is a description of orbital \emph{shape} only: it fixes $(a,e)$, equivalently $(X,Y,T)$, but says nothing about where the body sits on its orbit at a given time. We supply the missing piece. Writing the orbital radius $r$ directly in cone coordinates as $r=Y^2/(T+X\cos\nu)$, and combining this with the cone's own angular-momentum formula $h=\sqrt{\mu Y^2/T}$, Kepler's equal-area law $r^2\dot\nu=h$ becomes an explicit, closed-form ODE for the true anomaly $\nu(t)$ in terms of $(X,Y,T)$ alone. This equation couples directly to the shape-evolution equations already derived for perturbed motion in \cite{Ebert2026Cone}, giving a single coupled system $(\dot X,\dot Y,\dot T,\dot\nu)$ that tracks both the orbit's shape and its instantaneous position, closing the gap explicitly left open there. We verify the unperturbed case numerically against direct Cartesian integration of the two-body equations of motion, with agreement to floating-point precision.
+\end{abstract}
+
+\section{The Gap}
+
+The dynamic slicing operator of \cite{Ebert2026Cone} evolves the point $(X,Y,T)\in\mathbb{R}^3$ under a Lie-algebra flow in $\mathfrak{so}(2,1)$, and this is exactly the orbit's osculating \emph{shape}: $T=a$, $X=ae$, $Y=b$. Nothing in that construction determines the body's position on the ellipse at a given time $t$; $(X,Y,T)$ is silent on the true anomaly $\nu$, the classical clock variable of the two-body problem. This note adds that variable, expressed in the same coordinates, so that the cone construction and ordinary orbital timekeeping sit in one coupled system rather than two disconnected ones.
+
+\section{The Radius in Cone Coordinates}
+
+Recall the standard orbit equation $r=\dfrac{a(1-e^2)}{1+e\cos\nu}$, where $\nu$ is the true anomaly measured from periapsis.
+
+\begin{proposition}[Radius as a function of $(X,Y,T,\nu)$]
+Under $a=T$, $e=X/T$, and using the cone identity $T^2-X^2=Y^2$,
+\begin{equation}
+r(X,Y,T,\nu)=\frac{Y^2}{T+X\cos\nu}. \tag{14}
+\end{equation}
+In particular $r(\nu=0)=T-X=r_p$ and $r(\nu=\pi)=T+X=r_a$, recovering the two turning points the cone was built from in the first place.
+\end{proposition}
+
+\begin{proof}
+Substituting $a=T$, $e=X/T$ into the orbit equation gives
+\[
+r=\frac{T\left(1-\frac{X^2}{T^2}\right)}{1+\frac{X}{T}\cos\nu}=\frac{T^2-X^2}{T+X\cos\nu}.
+\]
+Since $T^2-X^2=Y^2$ on the cone, this is exactly (14). At $\nu=0$: $r=(T^2-X^2)/(T+X)=T-X$. At $\nu=\pi$: $r=(T^2-X^2)/(T-X)=T+X$.
+\end{proof}
+
+\section{The Orbital Phase Equation}
+
+\begin{theorem}[The clock equation]
+Let $(X(t),Y(t),T(t))$ be any state on the cone $X^2+Y^2=T^2$ evolving under a (possibly time-dependent) flow, and let $\nu(t)$ denote the corresponding true anomaly. Then
+\begin{equation}
+\dot\nu \;=\; \frac{\sqrt{\mu}\,\bigl(T+X\cos\nu\bigr)^{2}}{Y^{3}\sqrt{T}}. \tag{15}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Kepler's second law states $r^2\dot\nu=h$, with $h$ the (possibly time-dependent, if the orbit is perturbed) specific angular momentum. By Proposition 3.1(b) of \cite{Ebert2026Cone}, $h=\sqrt{\mu Y^2/T}$. Substituting this together with (14):
+\[
+\dot\nu=\frac{h}{r^2}=\frac{\sqrt{\mu Y^2/T}}{\left(\dfrac{Y^2}{T+X\cos\nu}\right)^{2}}=\frac{\sqrt{\mu}\,Y\,(T+X\cos\nu)^2}{\sqrt{T}\,Y^4}=\frac{\sqrt{\mu}\,(T+X\cos\nu)^2}{Y^3\sqrt{T}}. \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[The unperturbed case]
+If $(X,Y,T)$ are constant (the unperturbed Kepler problem, Section 5 of \cite{Ebert2026Cone}), (15) is a single first-order ODE in $\nu$ alone, and integrating it reproduces ordinary Keplerian motion exactly: it is Kepler's equal-area law written in cone coordinates rather than in $(a,e)$, not a new dynamical law.
+\end{corollary}
+
+\begin{corollary}[The perturbed, coupled system]
+Under a perturbing acceleration realized as a flow $\dot X, \dot Y, \dot T$ via equations (8)--(13) of \cite{Ebert2026Cone} (e.g.\ the atmospheric-drag generator coefficients (13)), equation (15) couples directly to that flow through $r=r(X,Y,T,\nu)$: the full state $(X,Y,T,\nu)$, evolving under
+\[
+\dot X = \text{(as in \cite{Ebert2026Cone})},\quad
+\dot Y = \text{(as in \cite{Ebert2026Cone})},\quad
+\dot T = \text{(as in \cite{Ebert2026Cone})},\quad
+\dot\nu = \frac{\sqrt{\mu}\,(T+X\cos\nu)^2}{Y^3\sqrt T},
+\]
+is a closed, self-contained system that tracks both the osculating shape of the orbit and its instantaneous position along that orbit. This is precisely the missing half of the dynamic slicing operator: (14)--(15) supply the clock that \cite{Ebert2026Cone} leaves external to the construction.
+\end{corollary}
+
+\begin{remark}[What this is, and is not]
+Equation (15) is algebraically equivalent to the standard true-anomaly rate equation of two-body mechanics, $\dot\nu=h/r^2$ with $h,r$ expressed in the usual orbital elements; nothing here is new orbital mechanics. What is supplied is the explicit rewriting of that equation entirely in terms of $(X,Y,T)$, so that it can be integrated alongside the cone's own shape-evolution equations rather than requiring a separate $(a,e)\to\nu$ bookkeeping step outside the construction. We are not aware of a stated closed-form clock equation for the AM--GM cone construction prior to this note.
+\end{remark}
+
+\section{Numerical Verification}
+
+We integrate (15) for a fixed, unperturbed orbit ($\mu=398600.4418\ \mathrm{km^3/s^2}$, $a=24482\ \mathrm{km}$, $e=0.72$, starting at periapsis) and compare the resulting $\nu(t)$ against direct numerical integration of the Cartesian two-body equations of motion $\ddot{\mathbf r}=-\mu\mathbf r/r^3$, an independent ground truth not derived from (14)--(15).
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+Quantity & Value \\
+\hline
+$\nu(t{=}20{,}000\ \mathrm{s})$ from (15) & $3.17792779558008$ rad \\
+$\nu(t{=}20{,}000\ \mathrm{s})$ from Cartesian integration & $3.17792779558011$ rad \\
+Difference & $-2.9\times10^{-14}$ rad \\
+\hline
+\end{tabular}
+\end{center}
+
+Agreement is at the level of floating-point roundoff, confirming (14)--(15) exactly reproduce two-body motion in the unperturbed case.
+
+\section{Discussion}
+
+The cone construction of \cite{Ebert2026Cone} isolates orbital shape --- energy, angular momentum, mass, eccentricity --- as geometric directions on $X^2+Y^2=T^2$, but by construction says nothing about time-of-flight along a given orbit. This note closes that gap with two short, exact steps: rewriting the orbit equation in cone coordinates (Proposition 2.1), and combining it with the cone's own angular-momentum formula to obtain a closed-form clock equation (Theorem 3.1). The result is a genuine extension of the construction's reach --- from a static description of shape to a coupled description of shape \emph{and} position-in-time --- rather than a reinterpretation of any coordinate already carrying a physical meaning in \cite{Ebert2026Cone}. In particular, $T$ remains the semi-major axis throughout; time enters only as the independent variable of the new ODE (15), exactly as it already does in the shape-evolution equations of \cite{Ebert2026Cone}.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, cross-checking, and LaTeX preparation of this note, including symbolic verification of Proposition 2.1 and numerical verification of Theorem 3.1 against independent Cartesian integration. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

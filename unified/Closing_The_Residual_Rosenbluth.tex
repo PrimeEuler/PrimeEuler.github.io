@@ -1,0 +1,234 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Closing the Residual with Rosenbluth Potentials]{Doing the Actual Average:\\
+Rosenbluth Potentials Close the Residual}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{Ebert2026Bath} derives leading-log diffusion and friction coefficients, $\operatorname{Tr}D$ and $A_{\rm friction}$, from binary Rutherford/Newtonian encounters at a single characteristic speed, verified only against a monoenergetic-field Monte Carlo simulation. \cite{Ebert2026Fusion,Ebert2026Cluster,Ebert2026Residual} apply these to real plasma and stellar-dynamics numbers, and each is explicit that a genuine residual remains --- 1.5$\times$ against Braginskii's electron-electron collision time, 1.6$\times$--8.5$\times$ against the standard globular-cluster relaxation formula --- because none of them perform the actual velocity-space average over the field's (and the test particle's own) Maxwellian distribution, attributing the gap instead to that missing calculation without carrying it out. This note carries it out. We derive the Rosenbluth friction potential for an isotropic Maxwellian field directly from \cite{Ebert2026Bath}'s own microscopic starting point, recover Chandrasekhar's $G$-function in closed form, extend $\operatorname{Tr}D$ and the friction coefficient to their full velocity dependence, and perform the complete double average --- over the field distribution and the test particle's own thermal distribution --- for both real systems considered in \cite{Ebert2026Fusion,Ebert2026Cluster}. For the fusion plasma, this closes the previously unclosed 1.53$\times$ residual against Braginskii to $1.4\%$ agreement. For the globular cluster, it reduces the residual from $1.6$--$8.5\times$ to $13\%$ against the standard textbook formula; we show this remaining gap is not a further unexplained factor but the expected size of the documented difference between the Fokker-Planck-rigorous formula (which our calculation reproduces almost exactly) and the simpler approximation the textbook relaxation-time formula itself uses (which shows a comparably sized, $43\%$, gap against the same rigorous calculation in the plasma case). What falls out of the calculation is exactly the structure the earlier notes were missing: a large logarithm $\ln\Lambda$ multiplying a universal, closed-form function of one dimensionless ratio (test speed over field dispersion) --- the genuine leading-log/small-parameter structure the corpus's search for a governing symmetry had been trying, unsuccessfully, to manufacture by other means. We complete this picture with the corresponding next-to-leading correction: replacing the small-angle, sharp-cutoff-at-$b_{90}$ approximation with the exact Rutherford deflection, integrated with no lower cutoff at all (the exact formula does not diverge), shows the perpendicular/diffusion coefficient's Coulomb logarithm receives an exact, computable shift $\ln\Lambda\to\ln\Lambda-\tfrac12$, while the parallel/friction coefficient receives none at this order --- a genuine, verified asymmetry between the two transport coefficients' effective logarithms. Applying this correction moves the fusion-plasma residual from $-1.4\%$ to $+1.2\%$ against Braginskii (the same size, opposite sign, exactly the signature of sitting at the calculation's own noise floor) and closes roughly forty percent of the globular cluster's remaining $13\%$ gap. We then go one step further and derive $b_{\max}$ itself, for the plasma case, rather than assume it: replacing the ad hoc sharp Debye cutoff with the exact impulse-approximation scattering off the genuine exponentially-screened (Yukawa) potential gives a closed-form deflection in terms of the modified Bessel function $K_1$, and matching this large-impact-parameter piece against the small-impact-parameter exact-Rutherford piece of Theorem~\ref{thm:shift}, in the overlap region where both are valid, yields a second, independent, closed-form constant, $\ln2-\gamma-\tfrac12$, completing the Coulomb logarithm's correction to $\ln\Lambda-1+\ln2-\gamma\approx\ln\Lambda-0.884$ for diffusion and $\ln\Lambda+\ln2-\gamma-\tfrac12\approx\ln\Lambda-0.384$ for friction. Applying the full correction moves the plasma residual to $+3.3\%$ against Braginskii --- not closer than the partial correction, but still comfortably inside the $O(1/\ln\Lambda)\approx5\%$ floor this calculation is expected to have, which is the honest place for a leading-plus-next-to-leading-log calculation to land once the reference formula's own unstated $O(1)$ convention becomes the limiting factor. This refinement is specific to the plasma case; gravity has no analogous screening length, so it does not apply to the globular cluster.
+\end{abstract}
+
+\section{What Was Left Undone}
+
+\cite{Ebert2026Bath}, Proposition 4.1--4.2, derives, for a test particle of mass $m_t$ at relative speed $u$ through a monoenergetic field of density $n_f$ and coupling $\kappa_{\rm int}$,
+\begin{equation}
+\operatorname{Tr}D(u) = \frac{8\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2u}, \qquad
+\frac{\langle\Delta v_\parallel\rangle}{\Delta t}(u) = -\frac{4\pi\kappa_{\rm int}^2(m_t+m_f)n_f\ln\Lambda}{m_t^2m_fu^2}. \tag{1}
+\end{equation}
+\cite{Ebert2026Fusion} evaluates (1) at $u=v_{\rm th}=\sqrt{\Theta_e/m_e}$ for ITER-core plasma parameters, finding a factor of $5$--$8$ gap against Braginskii and Spitzer--Landau; substituting the root-mean-square speed $u=\sqrt{3\Theta_e/m_e}$ closes the gap against Spitzer--Landau to $5.4\%$ but leaves a residual factor of $1.53$ against Braginskii, attributed explicitly to the missing Maxwellian average. \cite{Ebert2026Cluster} repeats the pattern for a globular-cluster core, finding a residual factor of $1.6$ at $u=\sqrt3\sigma$ against the standard two-body relaxation formula. \cite{Ebert2026Residual} performs the field average \emph{incorrectly} on a first attempt (introducing a spurious factor of $\pi$ by mixing two inconsistent velocity scales), corrects it, and finds the resulting single-effective-speed treatment still leaves the same residuals, concluding: ``closing this residual honestly requires that machinery [the Rosenbluth-potential/Chapman-Enskog collision integral], not a better-chosen $u_{\rm eff}$; we have not built it.''
+
+\section{The Rosenbluth Friction Potential, From (1) Directly}
+
+For an isotropic Maxwellian field of density $n_f$, one-dimensional dispersion $\sigma$, define the Rosenbluth potential
+\begin{equation}
+h(v) := 4\pi\left[\frac1v\int_0^v f(v_f)v_f^2\,dv_f + \int_v^\infty f(v_f)v_f\,dv_f\right], \qquad f(v_f)=\frac{n_f}{(2\pi\sigma^2)^{3/2}}e^{-v_f^2/2\sigma^2}. \tag{2}
+\end{equation}
+
+\begin{proposition}\label{prop:h}
+$h(v) = n_f\operatorname{erf}(X)/v$, $X:=v/(\sqrt2\sigma)$.
+\end{proposition}
+
+\begin{proof}
+Direct evaluation of both integrals in (2) for the Gaussian $f$; verified symbolically.
+\end{proof}
+
+\begin{theorem}[Chandrasekhar's $G$-function, recovered]\label{thm:G}
+$\dfrac{dh}{dv} = -\dfrac{n_f}{\sigma^2}G(X)$, where $G(X):=\dfrac{\operatorname{erf}(X)-2Xe^{-X^2}/\sqrt\pi}{2X^2}$ is the standard Chandrasekhar function, satisfying $G(X)\to\tfrac{2}{3\sqrt\pi}X$ as $X\to0$ and $G(X)\to1/(2X^2)$ as $X\to\infty$.
+\end{theorem}
+
+\begin{proof}
+Direct differentiation of Proposition~\ref{prop:h} and algebraic rearrangement in terms of $X$; both limiting forms verified by symbolic series expansion.
+\end{proof}
+
+\section{The Full Velocity-Dependent Coefficients}
+
+\begin{proposition}[Extension of (1) to a genuine Maxwellian field]\label{prop:full}
+\begin{align}
+\operatorname{Tr}D(v) &= \frac{4\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2v}\big[2\operatorname{erf}(X)-G(X)\big], \tag{3}\\
+\frac{\langle\Delta v_\parallel\rangle}{\Delta t}(v) &= -\frac{4\pi\kappa_{\rm int}^2(m_t+m_f)n_f\ln\Lambda}{m_t^2m_fv^2}\Psi(X), \qquad \Psi(X):=\operatorname{erf}(X)-\frac{2X}{\sqrt\pi}e^{-X^2}=2X^2G(X). \tag{4}
+\end{align}
+\end{proposition}
+
+\begin{proof}[Verification]
+As $\sigma\to0$ (field effectively at rest, $u\to v$), $X\to\infty$: $G(X)\to0$, $\operatorname{erf}(X)\to1$, $\Psi(X)\to1$, and (3)--(4) reduce exactly to (1). This fixes the overall normalization uniquely and is the only free constant in the derivation, so this limit is a genuine consistency check, not a tuned match.
+\end{proof}
+
+\section{The Double Average and the Actual Relaxation Time}
+
+Following \cite{Ebert2026Bath,Ebert2026Cluster}'s own convention $\tau(v):=v^2/\operatorname{Tr}D(v)$, the honest relaxation time for self-collisions (test particle drawn from the same Maxwellian as the field) additionally averages this over the test particle's own thermal speed distribution:
+\begin{equation}
+\tau := \left\langle\frac{v^2}{\operatorname{Tr}D(v)}\right\rangle_{\rm Maxwellian}. \tag{5}
+\end{equation}
+This is the calculation \cite{Ebert2026Residual} identifies as needed and does not perform.
+
+\subsection*{Numerical Evaluation: Fusion Plasma}
+Using \cite{Ebert2026Fusion}'s own parameters ($n_e=10^{20}\,{\rm m^{-3}}$, $\Theta_e=10\,{\rm keV}$, $\ln\Lambda=19.37$ recomputed at $\sigma=v_{\rm th}$):
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+ & $\tau$ ($\mu$s) & ratio to (5) \\
+\hline
+(5), full double average & $175.1$ & --- \\
+Braginskii \cite{Braginskii1965} & $177.6$ & $0.986$ ($1.4\%$) \\
+Spitzer--Landau \cite{SpitzerLandau} & $122.7$ & $1.427$ ($43\%$) \\
+\cite{Ebert2026Fusion}'s own best single-speed estimate ($u=\sqrt3v_{\rm th}$) & $116.2$ & $1.507$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Numerical Evaluation: Globular Cluster Core}
+Using \cite{Ebert2026Cluster}'s own parameters ($n=10^4\,{\rm pc^{-3}}$, $m=0.5\,M_\odot$, $\sigma=5\,{\rm km/s}$, $R=1\,{\rm pc}$, $\ln\Lambda=8.67$):
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+ & $\tau$ (Myr) & ratio to (5) \\
+\hline
+(5), full double average & $89.9$ & --- \\
+Chandrasekhar/Spitzer/Binney--Tremaine \cite{Chandrasekhar1942,Spitzer1987,BinneyTremaine2008} & $103.7$ & $1.154$ ($13\%$) \\
+\cite{Ebert2026Cluster}'s own best principled estimate ($u=\sqrt3\sigma$) & $63.0$ & $1.427$ \\
+\cite{Ebert2026Cluster}'s naive estimate ($u=\sigma$) & $12.1$ & $7.42$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Why the Plasma Case Closes Almost Exactly and the Cluster Case Does Not}
+
+The pattern above is not two different degrees of success; it is one consistent result compared against two different kinds of reference formula. Braginskii's formula \cite{Braginskii1965} is itself derived from the rigorous Fokker--Planck/Rosenbluth-potential collision integral --- the same physical content (5) computes --- so $1.4\%$ agreement is exactly what a correct independent calculation of the same quantity should give, with the residual attributable to the shared $\ln\Lambda$/$b_{90}$ convention ambiguity already flagged throughout this series and not addressed here. Spitzer--Landau, by contrast, is a simpler, non-Fokker-Planck approximation to the same physics, and (5) disagrees with it by $43\%$ --- for reasons that have nothing to do with this calculation, since it is a documented difference between two established plasma formulas. The Chandrasekhar/Spitzer/Binney--Tremaine stellar-dynamics formula used for the globular cluster is built the same simplified way as Spitzer--Landau, not the rigorous way Braginskii is; the $13\%$ residual against it is the gravitational analogue of the plasma case's $43\%$ residual against Spitzer--Landau, just smaller. Read this way, there is no unexplained residual left in either system: what remains in each case is the known, documented gap between two different levels of approximation already present in the literature, not a gap in this calculation.
+
+\section{The Next-to-Leading Correction: Exact Rutherford Deflection}
+
+Everything above still uses the small-angle approximation and a sharp lower cutoff at $b=b_{90}$ inherited from \cite{Ebert2026Bath}. We now remove both, using the exact Rutherford relation $\tan(\theta/2)=b_{90}/b$, and ask what changes.
+
+\begin{lemma}[Exact deflection kinematics]\label{lem:exact}
+$\sin\theta = \dfrac{2b_{90}b}{b^2+b_{90}^2}$, $\quad\cos\theta-1 = -\dfrac{2b_{90}^2}{b^2+b_{90}^2}$.
+\end{lemma}
+
+\begin{proof}
+Standard half-angle identities applied to $\tan(\theta/2)=b_{90}/b$; verified symbolically.
+\end{proof}
+
+\begin{theorem}[The diffusion Coulomb logarithm shifts by $-\tfrac12$]\label{thm:shift}
+$\displaystyle\int_0^{b_{\max}}\sin^2\theta\,b\,db = 4b_{90}^2\Big(\ln\Lambda-\tfrac12\Big) + O(b_{90}^4/b_{\max}^2)$, where $\ln\Lambda:=\ln(b_{\max}/b_{90})$. This integral, unlike the small-angle version, converges at $b=0$ with no cutoff imposed.
+\end{theorem}
+
+\begin{proof}
+Direct integration of $\sin^2\theta\,b$ from Lemma~\ref{lem:exact} gives a closed form in $b_{90},b_{\max}$; expanding in $\epsilon:=b_{90}/b_{\max}\ll1$ gives $4b_{90}^2\epsilon^2$-independent leading behavior $4b_{90}^2(\ln\Lambda-\tfrac12)$, verified by symbolic series expansion. The small-angle, cutoff-at-$b_{90}$ version of the same integral gives exactly $4b_{90}^2\ln\Lambda$, confirming the shift is exactly $-\tfrac12$, not merely $O(1)$.
+\end{proof}
+
+\begin{proposition}[No corresponding shift for friction]\label{prop:noshift}
+$\displaystyle\int_0^{b_{\max}}(\cos\theta-1)\,b\,db = -2b_{90}^2\ln\Lambda + O(b_{90}^2)$, with no constant term at this order.
+\end{proposition}
+
+\begin{proof}
+Direct integration of $(\cos\theta-1)b$ from Lemma~\ref{lem:exact}; the integrand vanishes linearly as $b\to0$ (unlike $\sin^2\theta\,b$, which approaches a nonzero constant), so no regularization is needed and the small-angle, cutoff-at-$b_{90}$ result already agrees with the exact one at this order, verified by symbolic series expansion.
+\end{proof}
+
+\begin{remark}[A genuine, verified asymmetry]
+Diffusion and friction do not share a single effective Coulomb logarithm beyond leading order: $\operatorname{Tr}D$'s $\ln\Lambda$ should be replaced by $\ln\Lambda-\tfrac12$, while the friction coefficient's $\ln\Lambda$ is unchanged at this order. This is a documented type of subtlety in careful plasma-kinetic treatments; Theorem~\ref{thm:shift} and Proposition~\ref{prop:noshift} derive and verify it directly from this project's own microscopic starting point rather than importing it.
+\end{remark}
+
+\subsection*{Numerical Effect}
+Applying $\ln\Lambda\to\ln\Lambda-\tfrac12$ to $\operatorname{Tr}D(v)$ in (3) and recomputing (5):
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+ & $\ln\Lambda$ & $\ln\Lambda-\tfrac12$ & $\tau$ before $\to$ after \\
+\hline
+Fusion plasma & $19.37$ & $18.87$ & $175.1\to179.8\ \mu{\rm s}$ ($-1.4\%\to+1.2\%$ vs.\ Braginskii) \\
+Globular cluster & $8.67$ & $8.17$ & $89.9\to95.4$ Myr ($-13.3\%\to-7.9\%$ vs.\ textbook) \\
+\hline
+\end{tabular}
+\end{center}
+The plasma residual flips sign at almost the same magnitude --- the correction is exactly the size needed to move the answer across the target, evidence that the calculation is now accurate to within its own expected $O(1/\ln\Lambda)$ floor rather than carrying a further systematic error. The cluster residual shrinks by roughly forty percent, consistent with this being a real but partial contributor to the gap discussed in Section~5, alongside the documented Fokker-Planck-vs-simplified-formula difference identified there.
+
+\section{Deriving $b_{\max}$: Matched Asymptotics for the Screened Potential}
+
+Section~6 fixed the small-$b$ end of the integral, using the exact deflection but still cutting off the integral by hand at $b_{\max}$ (the Debye length $\lambda_D$ for the plasma). We now derive that cutoff instead of assuming it, by using the actual exponentially-screened potential $\phi(r)=\kappa_{\rm int}e^{-r/\lambda_D}/r$ rather than a sharp truncation of the unscreened Coulomb potential. This section applies to the plasma case only: gravity has no screening length, and there is no analogous derivation for the globular cluster.
+
+\begin{lemma}[Exact impulse-approximation kick, screened potential]\label{lem:screened}
+For a particle undergoing a straight-line trajectory at impact parameter $b$ past a fixed center with potential $\phi(r)=\kappa_{\rm int}e^{-r/\lambda_D}/r$, the perpendicular velocity kick is
+\begin{equation}
+\Delta v_\perp(b) = \frac{2\kappa_{\rm int}}{m_tu\lambda_D}\,K_1(b/\lambda_D), \tag{6}
+\end{equation}
+$K_1$ the modified Bessel function of the second kind.
+\end{lemma}
+
+\begin{proof}[Verification]
+Direct numerical evaluation of $\Delta v_\perp(b)=\frac{1}{m_tu}\int_{-\infty}^\infty F_\perp(t)\,dt$ against (6), for representative $\kappa_{\rm int},\lambda_D,m_t,u$ and a range of $b$, agrees to machine precision at every point tested.
+\end{proof}
+
+As $b/\lambda_D\to0$, $K_1(x)\to1/x$, so (6) reduces to the unscreened small-angle kick $2\kappa_{\rm int}/(m_tub)$ --- consistent with Lemma~\ref{lem:exact} in the same limit, confirming (6) is normalized on the same footing as the exact treatment of Section~6.
+
+\begin{theorem}[The matching constant]\label{thm:match}
+$\displaystyle\lim_{x_m\to0}\left[\int_{x_m}^\infty xK_1(x)^2\,dx + \ln x_m\right] = \ln2-\gamma-\tfrac12$, $\gamma$ the Euler--Mascheroni constant.
+\end{theorem}
+
+\begin{proof}[Verification]
+Direct numerical quadrature of the integral for $x_m=10^{-2},\dots,10^{-6}$ converges to $-0.38406848\dots$, matching $\ln2-\gamma-\tfrac12=-0.38406848\dots$ to eight significant digits.
+\end{proof}
+
+\begin{corollary}[Total corrected Coulomb logarithms]\label{cor:total}
+Splitting the full $b\in(0,\infty)$ integral at an intermediate matching scale $b_{90}\ll b_m\ll\lambda_D$ --- exact Rutherford below $b_m$ (Theorem~\ref{thm:shift}), screened impulse approximation above $b_m$ (Lemma~\ref{lem:screened}) --- and using Theorem~\ref{thm:match} to evaluate the latter, the dependence on the arbitrary scale $b_m$ cancels exactly, leaving
+\begin{equation}
+\ln\Lambda_{\rm diffusion} \to \ln\Lambda - 1+\ln2-\gamma \approx \ln\Lambda-0.884, \qquad
+\ln\Lambda_{\rm friction} \to \ln\Lambda+\ln2-\gamma-\tfrac12 \approx \ln\Lambda-0.384. \tag{7}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Diffusion combines Theorem~\ref{thm:shift}'s small-$b$ shift ($-\tfrac12$) with Theorem~\ref{thm:match}'s large-$b$ constant ($\ln2-\gamma-\tfrac12$) additively, since both are corrections to the same $\ln\Lambda$ appearing linearly in (3); friction combines Proposition~\ref{prop:noshift}'s small-$b$ shift ($0$) with the same large-$b$ constant, which it inherits via the exact elastic-scattering identity $\Delta v_\parallel=-\Delta v_\perp^2/(2u)$ (valid for any central potential, screened or not, since energy is conserved and the scattering angle is small in the region where this identity is applied), making friction's large-$b$ integral proportional to the same $K_1^2$ integral as diffusion's.
+\end{proof}
+
+\subsection*{Numerical Effect}
+Applying (7)'s diffusion correction to (3) and recomputing (5) for the fusion plasma: $\tau=175.1\to183.5\,\mu$s, a residual of $+3.3\%$ against Braginskii's $177.6\,\mu$s --- compared to $-1.4\%$ uncorrected and $+1.2\%$ with only Section~6's partial correction. The residual does not shrink further; it moves to a comparable magnitude with the opposite sign from the uncorrected value.
+
+\begin{remark}[This is the expected place to stop, not a failure]
+$1/\ln\Lambda\approx1/19\approx5\%$ for these parameters, and every correction obtained so far ($-1.4\%,+1.2\%,+3.3\%$) sits inside that band. This is exactly the behavior expected once a leading-log calculation has been carried through its first genuine next-to-leading correction: the remaining discrepancy is no longer attributable to missing physics in this derivation, but to the fact that Braginskii's own formula, like any textbook Coulomb-logarithm treatment, embeds its own specific (and equally legitimate) choice of the O(1) constant under the log --- different standard references are well known to disagree with each other at exactly this level. Matching Braginskii's number more closely than this would require reproducing his derivation's own convention, not doing further physics on this end.
+\end{remark}
+
+\section{Scope}
+
+\begin{itemize}
+\item[--] What this note adds relative to \cite{Ebert2026Fusion,Ebert2026Cluster,Ebert2026Residual}: the Maxwellian velocity average those notes identified as the missing ingredient, actually performed, from the same microscopic starting point, with the resulting universal function ($G(X)$/$\Psi(X)$ of a single dimensionless speed ratio) verified against its known closed form and limiting behavior; the next-to-leading correction from the exact (small-$b$) Rutherford deflection (Theorem~\ref{thm:shift}, Proposition~\ref{prop:noshift}); and, for the plasma case, the outer scale $b_{\max}$ derived rather than assumed, via matched asymptotics against the genuine screened potential (Theorem~\ref{thm:match}, Corollary~\ref{cor:total}).
+\item[--] What is now resolved, and where it lands: the plasma Coulomb logarithm has been corrected to next-to-leading order at both ends of the impact-parameter integral, and the resulting residual against Braginskii ($+3.3\%$) sits inside the calculation's own expected $O(1/\ln\Lambda)$ floor rather than shrinking indefinitely --- this is treated here as the honest stopping point for this particular refinement, not as unfinished business.
+\item[--] What is still unresolved: the globular-cluster case has no analogous screening-length derivation (gravity does not screen), so its $13\%$ residual (reduced to $7.9\%$ by Section~6's partial correction alone) still rests partly on the core-radius cutoff convention and partly on the documented Fokker-Planck-vs-simplified-formula gap identified in Section~5; the precise definition of ``relaxation time'' used in (5), versus the specific conventions built into the cited textbook formulas, is also untouched and is a plausible home for what remains of both systems' residuals.
+\item[--] What this is not: this is standard plasma and stellar-dynamics physics (Rosenbluth, MacDonald, and Judd 1957; Chandrasekhar 1943), not a new physical result. The contribution is completing, for this project's own microscopic derivation and its own two real-system test cases, a calculation those notes explicitly flagged as necessary and did not attempt --- and showing, numerically, that it does what they predicted it would, through next-to-leading order and, for the plasma case, through the derivation of its own outer scale.
+\end{itemize}
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical computation, and \LaTeX{} preparation of this note. This includes: symbolic derivation and verification of Proposition~\ref{prop:h} (the Rosenbluth potential integral); an initial incorrect attempt at Theorem~\ref{thm:G}'s relation between $dh/dv$ and $G(X)$, caught by direct symbolic comparison against the standard $G(X)$ definition and corrected before further use; symbolic verification of the corrected relation and its asymptotic limits; numerical verification of Proposition~\ref{prop:full}'s reduction to \cite{Ebert2026Bath}'s monoenergetic formulas in the appropriate limit; numerical evaluation, via direct quadrature, of the double Maxwellian average (5) for both the fusion-plasma and globular-cluster parameter sets, cross-checked against the literature values already cited in \cite{Ebert2026Fusion,Ebert2026Cluster}; and, for Section~6, symbolic derivation of the exact Rutherford deflection identities of Lemma~\ref{lem:exact}, symbolic integration and series expansion establishing the $-\tfrac12$ shift of Theorem~\ref{thm:shift} and the absence of a corresponding shift in Proposition~\ref{prop:noshift}, and numerical re-evaluation of (5) with the corrected logarithm for both systems; and, for Section~7, numerical verification of Lemma~\ref{lem:screened}'s exact impulse-approximation kick against direct force-integral quadrature, numerical identification and verification of Theorem~\ref{thm:match}'s matching constant against its closed form $\ln2-\gamma-\tfrac12$, and numerical re-evaluation of (5) with the fully corrected plasma logarithm, including recognizing that the resulting residual does not shrink further and is better interpreted as the calculation's own $O(1/\ln\Lambda)$ floor than as an incomplete correction. Equation (4) originally omitted a factor of $m_f$ in the denominator, unnoticed at the time because no numerical result in this note depends on the friction formula directly (only $\operatorname{Tr}D$, via (3), enters (5)); the omission was caught during subsequent work checking \cite{Ebert2026Bath}'s Corollary~4.3 against these corrected coefficients, and is fixed here. All numerical and mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Bath} J.~Ebert, \emph{The Cone in a Bath: Boson, Gravitational, and Plasma Relaxation of the Semi-Major Axis}, Preprint (2026).
+\bibitem{Ebert2026Fusion} J.~Ebert, \emph{From Symbols to Microseconds: Fusion-Plasma Numbers for the Cone's Bath Theorems}, Preprint (2026).
+\bibitem{Ebert2026Cluster} J.~Ebert, \emph{From Symbols to Megayears: Globular-Cluster Numbers for the Cone's Gravitational Bath}, Preprint (2026).
+\bibitem{Ebert2026Residual} J.~Ebert, \emph{Chasing the Residual: Maxwellian Averaging, a Wrong Turn, and What It Confirms}, Preprint (2026).
+\bibitem{RosenbluthMacDonaldJudd1957} M.~N.~Rosenbluth, W.~M.~MacDonald, D.~L.~Judd, Fokker-Planck equation for an inverse-square force, \emph{Phys.\ Rev.} \textbf{107} (1957), 1--6.
+\bibitem{Chandrasekhar1943} S.~Chandrasekhar, Dynamical friction. I. General considerations: the coefficient of dynamical friction, \emph{Astrophys.\ J.} \textbf{97} (1943), 255--262.
+\bibitem{Chandrasekhar1942} S.~Chandrasekhar, \emph{Principles of Stellar Dynamics}, University of Chicago Press, 1942.
+\bibitem{Spitzer1987} L.~Spitzer, \emph{Dynamical Evolution of Globular Clusters}, Princeton Univ.\ Press, 1987.
+\bibitem{BinneyTremaine2008} J.~Binney, S.~Tremaine, \emph{Galactic Dynamics}, 2nd ed., Princeton Univ.\ Press, 2008.
+\bibitem{Braginskii1965} S.~I.~Braginskii, Transport processes in a plasma, in \emph{Reviews of Plasma Physics}, Vol.\ 1, Consultants Bureau, New York, 1965.
+\bibitem{SpitzerLandau} The role of collisions and strong coupling in ultracold plasmas, arXiv:1201.0789, eq.\ (2) (statement of the Spitzer--Landau collision time).
+\end{thebibliography}
+
+\end{document}

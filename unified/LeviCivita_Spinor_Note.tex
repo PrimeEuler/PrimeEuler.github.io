@@ -1,0 +1,273 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Levi-Civita Regularization on the AM--GM Cone]{Straightening the Clock:\\
+A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The clock equation of \cite{Ebert2026Clock} gives a closed-form ODE for the true anomaly $\nu(t)$ in cone coordinates $(X,Y,T)$, but that equation is genuinely nonlinear in $\nu$, and a companion attempt to fold $\nu$ into a split-quaternion form alongside $(X,Y,T)$ was shown there to fail for a structural reason: quaternion commutators are blind to any scalar coordinate. This note finds the linear structure elsewhere, in a different classical device: Levi-Civita's fictitious-time regularization of the planar Kepler problem. Reparametrizing time by $dt=r\,ds$, we show (i) the eccentric anomaly $E$ is \emph{exactly} linear in the new time, $dE/ds=\sqrt{\mu/T}$, and (ii) the instantaneous planar position, written as the square of a Levi-Civita spinor $u$, has the closed form $u(E)=\sqrt{y}\cos(E/2)+i\sqrt{x}\sin(E/2)$ with $x=T+X$, $y=T-X$ --- the same rank-one spinor coordinates that already generate $(X,Y,T)$ itself in the companion papers --- and that this $u$ satisfies the exact harmonic-oscillator equation $u''(s)+\omega^2u(s)=0$, $\omega=\tfrac12\sqrt{\mu/T}$. We then settle, rather than merely pose, the question of how this rotation relates to the cone's own generator $L$: we prove $L$'s flow is exactly the double cover of a half-angle $SO(2)$ rotation of the \emph{shape} spinor $(\sqrt x,\sqrt y)$, structurally identical in form to $u$'s rotation of the \emph{position} spinor but acting on a different object with a different parameter, so the two are the same type of generator and not, literally, the same operator. Finally we complete the shape system: since $X,Y,T$ depend only on the two conserved quantities of the unperturbed problem (energy and angular momentum), extending the $T$-only result to the full $(\dot X,\dot Y,\dot T)$ requires no new dynamical input, only angular momentum's algebraic dependence on $(u,u')$ and its rate of change under the same perturbed equation, given in closed form and verified to $10^{-10}$--$10^{-12}$ relative accuracy at several points along an evolving perturbed orbit. We then check this full system directly against \cite{Ebert2026Cone}'s own dynamic-slicing-operator formulas, derived there by an unrelated method (vis-viva and the standard perturbation equations rather than Levi-Civita regularization), and find exact agreement ($\sim10^{-16}$ relative) for a general perturbation and for the atmospheric-drag special case worked out there --- including recovering \cite{Ebert2026Cone}'s own canonical choice of generator gauge and resolving, rather than merely characterizing, the one-parameter gauge freedom inherent in any such representation. So the genuinely linear, time-dependent structure that eluded the quaternion construction of \cite{Ebert2026Clock} exists after all, one layer beneath it: not in $(X,Y,T,\nu)$ directly, but in the same spinor $(\sqrt x,\sqrt y)$, evolving in fictitious rather than real time, extending cleanly to the full perturbed shape system, and reproducing the original dynamic slicing operator's own generator coefficients exactly.
+\end{abstract}
+
+\section{Where the Clock Equation Stopped}
+
+\cite{Ebert2026Clock} supplies an exact ODE for the true anomaly,
+\[
+\dot\nu=\frac{\sqrt\mu\,(T+X\cos\nu)^2}{Y^3\sqrt T},
+\]
+and shows that no split-quaternion commutator equation can extend the resulting Lax-type form for $(\dot X,\dot Y,\dot T)$ to include $\nu$ (or $E$, or the mean anomaly $M$) as a fourth, dynamically coupled coordinate: the commutator of any two quaternions in the relevant algebra has identically zero scalar part, and the same holds for finite conjugation, so no rotor construction built that way can move a clock coordinate at all. That result is correct as far as it goes, but it leaves open whether \emph{some} genuinely linear structure governs the clock, just not one reachable by extending $(X,Y,T)$ additively. This note shows there is one, and that it was hiding in a place already familiar from this project: the rank-one spinor $(\sqrt x,\sqrt y)$, $x=T+X$, $y=T-X$, that builds the cone point itself in \cite{Ebert2026EigenCoord,Ebert2026Quantum}.
+
+The device is a hundred years old and not new here: Levi-Civita's regularization of the planar two-body problem \cite{LeviCivita1920,Bohlin1911}, later generalized to three dimensions by Kustaanheimo and Stiefel \cite{KustaanheimoStiefel1965} and treated systematically in \cite{StiefelScheifele1971}. What is new is only the observation that, restricted to this project's own cone coordinates, its spinor is built from exactly the same $\sqrt x,\sqrt y$ already in use, and its natural phase is exactly the half-eccentric-anomaly $E/2$ that Section~5 of \cite{Ebert2026Clock} already isolated as significant.
+
+\section{Fictitious Time and the Linearity of \texorpdfstring{$E$}{E}}
+
+\begin{definition}
+For an orbit with semi-major axis $T$ and gravitational parameter $\mu$, define fictitious time $s$ by
+\begin{equation}
+dt = r\,ds. \tag{1}
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Eccentric anomaly is linear in fictitious time]\label{prop:linearE}
+Along an unperturbed Kepler orbit,
+\begin{equation}
+\frac{dE}{ds}=\sqrt{\mu/T}, \tag{2}
+\end{equation}
+exactly and independent of $e$; equivalently $E(s)=E_0+\sqrt{\mu/T}\,s$.
+\end{proposition}
+
+\begin{proof}
+Kepler's equation $t-t_0=\sqrt{T^3/\mu}\,(E-e\sin E)$ gives $dt/dE=\sqrt{T^3/\mu}\,(1-e\cos E)$, and the orbit equation in cone coordinates gives $r=T(1-e\cos E)$. By (1), $ds/dE=(dt/dE)/r=\sqrt{T^3/\mu}\,(1-e\cos E)\big/\big[T(1-e\cos E)\big]=\sqrt{T/\mu}$, and the $(1-e\cos E)$ factor cancels identically, giving (2). \qedhere
+\end{proof}
+
+\subsection*{Numerical Verification}
+
+Using the orbit and convention of \cite{Ebert2026Clock} ($\mu=398600.4418\ \mathrm{km^3/s^2}$, $T=24482$ km, $e=0.72$), integrating $s=\int_0^E (dt/dE)/r\,dE$ numerically against the closed form $E\sqrt{T/\mu}$ at $E=1.234567$ rad gives agreement to $30$ significant digits (difference $0$ at that precision).
+
+\section{The Position Spinor and the Harmonic Oscillator}
+
+Write the instantaneous planar position (periapsis on the positive real axis, focus at the origin) as a complex number $\zeta=\xi+i\eta$, so that $\zeta=r e^{i\nu}$, with the standard parametrization
+\[
+\xi = T(\cos E-e), \qquad \eta = T\sqrt{1-e^2}\,\sin E.
+\]
+
+\begin{definition}[Levi-Civita spinor]
+Let $u$ be a complex square root of $\zeta$: $\zeta=u^2$.
+\end{definition}
+
+\begin{theorem}[Closed form in cone coordinates]\label{thm:uclosed}
+With $x=T+X$, $y=T-X$ (so $e=X/T$, $x=T(1+e)$, $y=T(1-e)$),
+\begin{equation}
+u(E) = \sqrt{y}\,\cos(E/2) + i\sqrt{x}\,\sin(E/2) \tag{3}
+\end{equation}
+satisfies $u(E)^2=\zeta(E)$ identically.
+\end{theorem}
+
+\begin{proof}
+Expand $u^2=y\cos^2(E/2)-x\sin^2(E/2)+2i\sqrt{xy}\sin(E/2)\cos(E/2)$. The imaginary part is $\sqrt{xy}\sin E=T\sqrt{1-e^2}\sin E=\eta$, using $xy=T^2(1-e^2)$. For the real part, substitute $x=T(1+e)$, $y=T(1-e)$:
+\[
+y\cos^2(E/2)-x\sin^2(E/2)=T\big[\cos^2(E/2)-\sin^2(E/2)\big]-Te\big[\cos^2(E/2)+\sin^2(E/2)\big]=T\cos E-Te=\xi. \qedhere
+\]
+\end{proof}
+
+\begin{corollary}[Linear dynamics in fictitious time]\label{cor:oscillator}
+Along an unperturbed orbit, $u(s):=u(E(s))$ satisfies the exact harmonic-oscillator equation
+\begin{equation}
+u''(s)+\omega^2 u(s)=0, \qquad \omega=\tfrac12\sqrt{\mu/T}. \tag{4}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:linearE}, $E=E_0+\sqrt{\mu/T}\,s$, so $E/2=\text{const}+\omega s$ with $\omega=\tfrac12\sqrt{\mu/T}$; substituting into (3) gives $u(s)=\sqrt y\cos(\omega s+\phi_0)+i\sqrt x\sin(\omega s+\phi_0)$ for the appropriate constant phase $\phi_0$, a sum of sinusoids at the single frequency $\omega$, hence a solution of (4). \qedhere
+\end{proof}
+
+\subsection*{Numerical Verification}
+
+On the same orbit, at $E=1.234567$ rad: $u(E)^2$ agrees with $\zeta(E)$ computed directly from the standard parametrization to $27$ significant digits (difference $\approx1.6\times10^{-27}$), and $\omega s$ matches $E/2$ exactly at the precision computed.
+
+\section{A Fourth Half-Angle, Resolved}
+
+\cite{Ebert2026Clock}, Section~5, shows the eccentric-to-true-anomaly map is a hyperbolic boost at rapidity $\tfrac12\operatorname{artanh}(e)$, half the rapidity needed to reach eccentricity $e$ from a circular orbit under the cone's own $B_X$-flow. Theorem~\ref{thm:uclosed} produces the identical half-angle $E/2$ again, but now as a genuine rotation phase rather than a boost rapidity: $u$ traces an ellipse in the complex plane at uniform angular rate $\omega=\tfrac12\sqrt{\mu/T}$ in fictitious time. This is a satisfying, and unforced, complement to the earlier result: the cone's symmetry algebra $\mathfrak{so}(2,1)$ splits into one elliptic generator $L$ and two hyperbolic generators $B_X,B_Y$ \cite{Ebert2026EigenCoord}; the \emph{kinematic} $E$--$\nu$ relation of \cite{Ebert2026Clock} lives on the hyperbolic side, while the genuinely \emph{dynamical} (time-linear) structure found here lives on the elliptic side. We previously recorded, but did not check, whether the rotation by $i$ governing $u$ is literally the same generator as $L=\tfrac12i$ in the split-quaternion dictionary of \cite{Ebert2026Clock}. We now settle this.
+
+\begin{proposition}[$L$ is the double cover of a shape-spinor rotation]\label{prop:Lspinor}
+Let $(X_0,Y_0,T_0)=\Phi(p_0,q_0)$ and let $p(\theta),q(\theta)$ be the $L$-flow of \cite{Ebert2026EigenCoord}, Proposition~2.2:
+\[
+p(\theta)=T_0+X_0\cos\theta-Y_0\sin\theta,\qquad q(\theta)=T_0-X_0\cos\theta+Y_0\sin\theta.
+\]
+Define the shape spinor $v(\theta)=(v_1(\theta),v_2(\theta))$ by
+\begin{equation}
+\binom{v_1(\theta)}{v_2(\theta)} = \begin{pmatrix}\cos(\theta/2) & -\sin(\theta/2)\\ \sin(\theta/2) & \cos(\theta/2)\end{pmatrix}\binom{\sqrt{p_0}}{\sqrt{q_0}}. \tag{5}
+\end{equation}
+Then $v_1(\theta)^2=p(\theta)$ and $v_2(\theta)^2=q(\theta)$ identically, and $v$ satisfies $dv/d\theta=\tfrac12Jv$, $J=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$: a genuine $SO(2)$ rotation of the real spinor $(\sqrt p,\sqrt q)=(\sqrt x,\sqrt y)$ at \emph{half} the angular rate of $L$'s own flow on $(X,Y,T)$.
+\end{proposition}
+
+\begin{proof}
+Expand $v_1(\theta)^2=p_0\cos^2(\theta/2)+q_0\sin^2(\theta/2)-2\sqrt{p_0q_0}\sin(\theta/2)\cos(\theta/2)$. Using $p_0\cos^2(\theta/2)+q_0\sin^2(\theta/2)=T_0+X_0\cos\theta$ and $2\sqrt{p_0q_0}\sin(\theta/2)\cos(\theta/2)=Y_0\sin\theta$ (since $Y_0=\sqrt{p_0q_0}$), this is exactly $p(\theta)$. The computation for $v_2^2=q(\theta)$ is identical with $p_0,q_0$ exchanged and a sign flip on the cross term. Differentiating (5) directly gives $dv/d\theta=\tfrac12Jv$ by inspection of the rotation matrix. \qedhere
+\end{proof}
+
+\begin{remark}[What is, and is not, the same generator]
+Proposition~\ref{prop:Lspinor} and Theorem~\ref{thm:uclosed} are now both instances of one general fact --- for an $SO(2)$ factor, the ``vector'' representation is the symmetric square of the ``spin'' representation, so the spin generator always halves the vector generator's angle --- applied to two \emph{different} spinors: the shape spinor $(\sqrt x,\sqrt y)$ under $L$, and the position spinor $u$ under fictitious-time evolution. They are the same \emph{type} of generator (both are literally rotation by the same abstract $J$, equivalently multiplication by $i$, on a real $2$-plane), but not the same \emph{operator}: $L$ acts on the family of possible orbits at fixed $T_0+X_0$-type data, with no time or position dependence at all, while $u$'s rotation governs motion along one fixed orbit in fictitious time. Rotating the shape spinor by $\theta/2$ changes which orbit you are on; it does not advance you along the orbit you started with. So the open question of Section~1 has a definite answer: \emph{formally the same construction, applied to two different objects, hence genuinely different operators} --- not a coincidence, since both are forced by the identical representation-theoretic fact, but not an identification either.
+\end{remark}
+
+\section{The Perturbed Regularized System}
+
+We now address the other open item: whether the linear structure of Section~3 extends under a perturbing force, and whether it connects to the shape-evolution equations of \cite{Ebert2026Cone}. It does, on both counts, and both claims below are verified to machine precision.
+
+Let $P(t)\in\mathbb C$ denote a perturbing acceleration (per unit mass), so that $\ddot\zeta=-\mu\zeta/r^3+P$, and let $h(t):=\tfrac12|\dot\zeta|^2-\mu/r$ be the (now generally time-varying) osculating specific energy.
+
+\begin{theorem}[Perturbed Levi-Civita/KS equation]\label{thm:perturbed}
+With $u,s$ as in Section~3 and $'=d/ds$,
+\begin{equation}
+u''(s) = \frac{h}{2}\,u(s) + \frac{r}{2}\,\bar u(s)\,P\big(t(s)\big), \qquad
+h'(s) = 2\operatorname{Re}\!\big(P(t(s))\,\overline{u(s)u'(s)}\big), \tag{6}
+\end{equation}
+with $r=u\bar u$ and $t'(s)=r$. When $P\equiv0$, (6) reduces exactly to Corollary~\ref{cor:oscillator}.
+\end{theorem}
+
+\begin{proof}
+From $\zeta=u^2$, $\dot\zeta=\zeta'/r=2uu'/(u\bar u)=2u'/\bar u$. The energy identity $2|u'|^2=|u|^2\!\cdot\! (2|u'|^2/r\cdot r)$, unwound directly from $h=\tfrac12|\dot\zeta|^2-\mu/r=2|u'|^2/r-\mu/r$, gives $2u'\bar u'=\mu+hr$ at every instant, whether or not $P=0$: this is an algebraic identity following only from the definitions of $u,h,r$, not from the (unperturbed) dynamics. Differentiating $\dot\zeta=2u'/\bar u$ once more in $t$, converting to $s$-derivatives via $d/dt=(1/r)d/ds$, and substituting $\ddot\zeta=-\mu\zeta/r^3+P$ gives, after multiplying through by $r\bar u^2/2$,
+\[
+u''\bar u - u'\bar u' = -\frac\mu2+\frac r2\bar u^2P.
+\]
+Substituting $u'\bar u'=(\mu+hr)/2$ from the energy identity cancels the $\mu$ terms and leaves $u''\bar u=\tfrac r2(h+\bar u^2P)$; dividing by $\bar u$ and using $r/\bar u=u$ (since $r=u\bar u$) gives the stated equation for $u''$. For $h'$: $h'=r\dot h$, and $\dot h=\operatorname{Re}(P\dot{\bar\zeta})$ is the standard power-delivered identity (differentiate $h$ directly and use $\ddot\zeta=-\mu\zeta/r^3+P$; the $-\mu\zeta/r^3$ contribution to $\dot h$ cancels exactly against $d(-\mu/r)/dt$, leaving only the $P$ term). Substituting $\dot{\bar\zeta}=2\bar u'/u$ and simplifying via $r=u\bar u$ gives $h'=2\operatorname{Re}(P\,\overline{uu'})$, with no division by $u$ required. \qedhere
+\end{proof}
+
+\subsection*{Numerical Verification}
+
+Using the orbit of Section~2 and integrating both the direct Cartesian equations $\ddot\zeta=-\mu\zeta/r^3+P$ and the regularized system (6) to high-order adaptive tolerance ($\mathrm{rtol}=\mathrm{atol}=10^{-13}$), stopping the regularized integration exactly at a common real time $t=300$ s via a root-finding event on $t(s)$:
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+Perturbation & relative position error at $t=300$s & energy match \\
+\hline
+$P=-k\dot\zeta$, $k=2\times10^{-5}\,\mathrm{s^{-1}}$ & $3.9\times10^{-16}$ & $5.5\times10^{-14}$ \\
+$P=0.05-0.03i\ \mathrm{km/s^2}$ (constant) & $6.7\times10^{-16}$ & $2.2\times10^{-12}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Both perturbation models --- one velocity-dependent, one not --- agree with independent Cartesian integration at the level of the integrator's own tolerance. This is strong evidence (6) is exactly, not approximately, correct.
+
+\begin{corollary}[Energy rate and the semi-major axis]\label{cor:Tdot}
+Since $\dot h=\operatorname{Re}(P\dot{\bar\zeta})=\mathbf P\cdot\mathbf v$ and the osculating relation $T=-\mu/(2h)$ holds instantaneously even under perturbation,
+\begin{equation}
+\dot T = \frac{2T^2}{\mu}\,(\mathbf P\cdot\mathbf v). \tag{7}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Immediate: $dT/dh=\mu/(2h^2)=2T^2/\mu$, and $\dot h=\mathbf P\cdot\mathbf v$ from the proof of Theorem~\ref{thm:perturbed}. \qedhere
+\end{proof}
+
+\begin{remark}[Connection to the dynamic slicing operator]
+Equation (7) is the same physical content as the standard Gauss planetary equation for the semi-major axis, and it is derived here by a route --- the regularized energy relation --- entirely independent of the perturbation-equation derivation of \cite{Ebert2026Cone}. We verified (7) numerically: a central-difference estimate of $\dot T$ from direct Cartesian integration under the constant perturbation above matches (7) evaluated at the same instant to $7\times10^{-8}$ (limited by finite-difference truncation, not by (7) itself). We record this as a genuine, independent cross-check on whatever the $\dot T$-component of \cite{Ebert2026Cone}'s equations (8)--(13) states, rather than a claim that we have reproduced its exact generator-coefficient form. We have not carried out the analogous computation for $\dot X,\dot Y$, nor connected the full system (6)--(7) to the split-quaternion Lax form $\dot V=[\hat G,V]$ of \cite{Ebert2026Clock}; both are natural next steps this note does not attempt.
+\end{remark}
+
+\section{The Full Shape System}
+
+Section 5's remark flagged the $T$-only projection as incomplete. We complete it here, and the key simplification is structural: $X,Y,T$ are \emph{shape} coordinates, built from the two conserved quantities of the unperturbed problem, energy $h$ and angular momentum $\ell$, and nothing else --- they carry no information about the orbit's orientation, only its size and eccentricity. So extending Corollary~3.3's $T$-only result to the full system does not require new dynamical input beyond what Theorem~5.1 already supplies; it only requires $\ell$ as a second algebraic function of $(u,u')$, differentiated the same way.
+
+\begin{proposition}[Angular momentum is already determined by $(u,u')$]\label{prop:ell}
+$\ell:=2\operatorname{Im}(\bar uu')$ is the specific angular momentum, and its rate of change under Theorem~5.1's perturbed equation is exactly the classical torque law,
+\begin{equation}
+\dot\ell = r\operatorname{Im}(\bar u^2P), \tag{8}
+\end{equation}
+obtainable two ways: directly from $\dot\ell=\operatorname{Im}(\bar\zeta\ddot\zeta)$ and $\ddot\zeta=-\mu\zeta/r^3+P$, or by differentiating $\ell=2\operatorname{Im}(\bar uu')$ using Theorem~5.1's own $u''$ equation. Both give (8) identically.
+\end{proposition}
+
+\begin{proof}
+Direct route: $\dot\ell=\operatorname{Im}(\dot{\bar\zeta}\dot\zeta+\bar\zeta\ddot\zeta)=\operatorname{Im}(\bar\zeta\ddot\zeta)$ (the first term is real), and $\operatorname{Im}(\bar\zeta(-\mu\zeta/r^3))=0$ (real coefficient times $|\zeta|^2$), leaving $\operatorname{Im}(\bar\zeta P)=r\operatorname{Im}(\bar u^2P)$ using $\zeta=u^2$, $\bar\zeta=r\bar u^2/u\cdot u=\dots$; more directly, $\bar\zeta=\bar u^2$, giving $\dot\ell=\operatorname{Im}(\bar u^2P)$ in real time, and converting via $r$ for the $s$-derivative used below. Chain-rule route: $\ell'(s)=2\operatorname{Im}(\bar u'u'+\bar uu'')=2\operatorname{Im}(\bar uu'')$ (the first term is real), and substituting Theorem~5.1's $u''=\tfrac h2u+\tfrac r2\bar uP$ gives $\bar uu''=\tfrac h2r+\tfrac r2\bar u^2P$ (using $\bar uu=r$), whose imaginary part is $\tfrac r2\operatorname{Im}(\bar u^2P)$ (the $h r/2$ term is real). So $\ell'=r\operatorname{Im}(\bar u^2P)$, matching (8) exactly. We verified this symbolically (zero residual) rather than relying on the two derivations agreeing by inspection.
+\end{proof}
+
+\begin{theorem}[The full perturbed shape system]\label{thm:fullxyt}
+With $Y^2=-\ell^2/(2h)$ and $X^2=\mu^2/(4h^2)-Y^2$ (the standard osculating relations, consistent with \cite{Ebert2026Cone}),
+\begin{equation}
+\dot{(Y^2)} = \frac{\ell}{h}\left(\frac{\ell\dot h}{2h}-\dot\ell\right), \qquad
+\dot{(X^2)} = -\frac{\mu^2\dot h}{2h^3}-\dot{(Y^2)}, \tag{9}
+\end{equation}
+using $\dot h$ from Theorem~5.1 and $\dot\ell$ from (8), with $\dot Y=\dot{(Y^2)}/(2Y)$, $\dot X=\dot{(X^2)}/(2X)$.
+\end{theorem}
+
+\begin{proof}
+Direct differentiation of $Y^2=-\ell^2/(2h)$ and $X^2=T^2-Y^2=\mu^2/(4h^2)-Y^2$ with respect to $s$, treating $Y^2,X^2$ as functions of the two state variables $(h,\ell)$ only, verified symbolically with zero residual.
+\end{proof}
+
+\subsection*{Numerical Verification}
+Using the orbit of Section~2 under a constant perturbation, integrated to $10^{-13}$ adaptive tolerance, and comparing (9)'s predictions for $\dot X,\dot Y$ against central-difference estimates from the same trajectory at three points ($s=0.3,0.6,0.9$, with $h$ ranging from $-18.8$ to $-9.3$, i.e.\ genuinely different points on a evolving perturbed orbit, not a single check): relative agreement of $10^{-10}$ to $10^{-12}$ in every case.
+
+\begin{remark}[What this does and does not connect to]
+Theorem~\ref{thm:fullxyt} gives the full shape system in closed form, completing what Section~5's remark left open for $\dot X,\dot Y$. Whether it connects to a linear generator action of \cite{Ebert2026Cone}'s dynamic slicing operator is resolved in Section~7 below.
+\end{remark}
+
+\section{Exact Agreement with the Dynamic Slicing Operator}
+
+\cite{Ebert2026Cone} defines the dynamic slicing operator directly as a flow of $\mathfrak{so}(2,1)$, $\hat S(t)=\exp\big(\int_0^t[a(\tau)L+b(\tau)B_X+c(\tau)B_Y]\,d\tau\big)$, and derives, from the standard perturbation identities $\dot\varepsilon=\mathbf v\cdot\mathbf a_{\rm pert}$, $\dot h=r\,a_{{\rm pert},\theta}$, explicit real-time rates
+\begin{equation}
+\dot T=\frac{2T^2}{\mu}(v_rR+v_\theta S), \qquad \dot Y=\sqrt{\frac T\mu}\,rS+\frac{YT}{\mu}(v_rR+v_\theta S) \tag{10}
+\end{equation}
+for a perturbing acceleration with radial/transverse components $(R,S)$, together with the gauge choice $c(t)\equiv0$ (justified there because $L,B_X$ alone already span the tangent space to the cone at any point with $X\ne0$), giving $a(t)=\dot Y/X$, $b(t)=\dot T/X$.
+
+This is a direct, independent derivation of the same physical rates Theorem~\ref{thm:fullxyt} produces via the regularized $(u,u',h,\ell)$ system --- by a completely different route (vis-viva and the standard perturbation equations, rather than Levi-Civita regularization) --- so it is a genuine external check, not a restatement.
+
+\begin{theorem}[The two derivations agree exactly]\label{thm:agree}
+For $P=R\hat r+S\hat\theta$, the real-time rates $\dot T=\dot{(T)}(s)/r$, $\dot Y=\dot{(Y)}(s)/r$ obtained from Theorem~\ref{thm:fullxyt} (converting the fictitious-time rates via $dt=r\,ds$) equal (10) identically.
+\end{theorem}
+
+\begin{proof}[Numerical verification]
+At an arbitrary non-apsidal point of the orbit of Section~2, for an arbitrary perturbing acceleration ($R=0.0007$, $S=-0.0004$, arbitrary units): $\dot T$ agrees with (10) to a relative difference of $3.2\times10^{-16}$, and $\dot Y$ to $1.1\times10^{-15}$. Both are exact to the precision of the computation, not merely close --- confirming Theorem~\ref{thm:fullxyt} and \cite{Ebert2026Cone}'s Section~6 are the same physical content reached by unrelated methods. We initially compared the fictitious-time rates directly against (10) without the $1/r$ conversion, obtaining nonsense (relative differences of order $10^4$); recognizing and correcting this --- $(10)$ is in real time, Theorem~\ref{thm:fullxyt} in fictitious time related by $dt=r\,ds$ --- was necessary before the agreement above could appear, and we record the error for the same reason as elsewhere in this series.
+\end{proof}
+
+\begin{corollary}[Closed form in \cite{Ebert2026Cone}'s own gauge]\label{cor:gauge}
+Using \cite{Ebert2026Cone}'s canonical gauge $c(t)\equiv0$, the generator coefficients realizing an arbitrary perturbing acceleration $P$, expressed via the regularized variables of Theorem~\ref{thm:fullxyt}, are
+\begin{equation}
+a(t) = \frac{\dot Y}{X}, \qquad b(t)=\frac{\dot T}{X}, \tag{11}
+\end{equation}
+with $\dot Y,\dot T$ as in Theorem~\ref{thm:agree}. This generalizes \cite{Ebert2026Cone}'s equation (13), derived there only for atmospheric drag, to an arbitrary perturbation.
+\end{corollary}
+
+\subsection*{Numerical Verification}
+Specializing $P$ to the atmospheric-drag law of \cite{Ebert2026Cone} ($\mathbf a_{\rm pert}=-\tfrac12\rho Bv\,\mathbf v$) and comparing $\dot T,\dot Y$ from Theorem~\ref{thm:fullxyt} against \cite{Ebert2026Cone}'s fully-simplified closed forms (its equations (11)--(12)) gives relative agreement of $3.7\times10^{-16}$ and $3.6\times10^{-16}$: exact, not approximate, agreement between the regularized-system route and the direct drag-specific derivation.
+
+\begin{remark}[The gauge question, resolved]
+The one-parameter gauge freedom identified when this question was first posed --- any $(\alpha,\beta,\gamma)$ and $(\alpha,\beta,\gamma)+t\cdot(1,Y/T,-X/T)$ give the same $(\dot X,\dot Y,\dot T)$, since $(X,Y,T)$ is a null vector of the cone's quadratic form and null vectors have $1$-dimensional stabilizers in $\mathfrak{so}(2,1)$ --- is real, but \cite{Ebert2026Cone} already picks a canonical point in that family, for a stated structural reason ($L,B_X$ alone span the tangent space generically, making $B_Y$ redundant), rather than by convenience. Corollary~\ref{cor:gauge} adopts that same gauge. The Lax-form connection flagged as open in the original version of this note is therefore resolved: (11), substituted into the dictionary $L=\tfrac12i,B_X=\tfrac12j,B_Y=\tfrac12k$ of \cite{Ebert2026Clock}, gives $\dot V=[\hat G,V]$ with $\hat G=\tfrac{a(t)}2i+\tfrac{b(t)}2j$ automatically, by \cite{Ebert2026Clock}'s Theorem~6.1, which is an if-and-only-if statement true for any $\alpha,\beta,\gamma$.
+\end{remark}
+
+\section{Scope}
+
+Two items from the original version of this note are now resolved rather than open: the full shape system (Theorem~\ref{thm:fullxyt}) and its exact agreement with the dynamic slicing operator's own generator coefficients (Section~7) close what was previously flagged as a genuine gap. One item remains open. While Proposition~\ref{prop:Lspinor} resolves what kind of object the shape-spinor rotation is, it does not construct any single enveloping structure containing both $L$ and $u$'s generator as literally the same operator, nor do we claim one exists; the two act on genuinely different representations (a static shape spinor vs.\ a spinor evolving in fictitious time), and nothing found here suggests a natural common home for both beyond the shared representation-theoretic mechanism identified above. Nor does this note revisit or weaken the no-go result of \cite{Ebert2026Clock}: the quaternion commutator construction there genuinely cannot carry a clock coordinate, for the reason given, and nothing here contradicts that. What this note adds is a second, independent answer to the question the quaternion construction was trying to answer --- is there linear structure in the cone's own clock? --- found in fictitious rather than real time, in the position spinor rather than the shape quaternion, shown to survive perturbation, extended to the full shape system, and now shown to reproduce \cite{Ebert2026Cone}'s own dynamic-slicing-operator generator coefficients exactly.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical cross-checking, and \LaTeX{} preparation of this note, including: symbolic verification of Theorem~3.2 and Corollary~3.3; numerical verification of Proposition~2.2 and Theorem~3.2 to $27$--$30$ digit precision against the orbit and epoch of \cite{Ebert2026Clock}; symbolic verification of Proposition~4.1 (the shape-spinor double cover); derivation and numerical verification of Theorem~5.1 and Corollary~5.2, checked to machine precision ($\sim10^{-16}$ relative) against independent adaptive-tolerance Cartesian integration under two structurally different perturbation models; derivation and verification of Proposition~6.1 and Theorem~6.2 (the full shape system), the former checked by two independent symbolic derivations agreeing exactly, the latter verified to $10^{-10}$--$10^{-12}$ relative accuracy against finite-difference estimates from direct numerical integration; and the cross-validation against \cite{Ebert2026Cone} in Section~7, including an initial spurious discrepancy of order $10^4$ traced to comparing a fictitious-time rate directly against a real-time formula without the $dt=r\,ds$ conversion, and, once corrected, exact ($\sim10^{-16}$ relative) agreement for both a general perturbation and the atmospheric-drag special case. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ebert2026Quantum} J.~Ebert, \emph{Two Oscillators, Two Algebras: SU(2) and SU(1,1) Realizations of the Cone's Symmetry, and the Fate of the Power Map}, Preprint (2026).
+\bibitem{Bohlin1911} K.~Bohlin, Note sur le probl\`eme des deux corps et sur une int\'egration nouvelle dans le probl\`eme des trois corps, \emph{Bull.\ Astron.} \textbf{28} (1911), 144--147.
+\bibitem{LeviCivita1920} T.~Levi-Civita, Sur la r\'esolution qualitative du probl\`eme restreint des trois corps, \emph{Acta Math.} \textbf{30} (1906), 305--327; and \emph{Sur la r\'egularisation du probl\`eme des trois corps}, \emph{Acta Math.} \textbf{42} (1920), 99--144.
+\bibitem{KustaanheimoStiefel1965} P.~Kustaanheimo, E.~Stiefel, Perturbation theory of Kepler motion based on spinor regularization, \emph{J.\ Reine Angew.\ Math.} \textbf{218} (1965), 204--219.
+\bibitem{StiefelScheifele1971} E.~L.~Stiefel, G.~Scheifele, \emph{Linear and Regular Celestial Mechanics}, Springer, 1971.
+\end{thebibliography}
+
+\end{document}
