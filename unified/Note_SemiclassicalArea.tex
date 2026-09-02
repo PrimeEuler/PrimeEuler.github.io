@@ -1,0 +1,225 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}[proposition]{Remark}
+\theoremstyle{remark}
+\newtheorem*{example}{Example}
+
+\title{A Semiclassical Band-Area Correspondence for the AM--GM Cone}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Working from the cone $X^2+Y^2=T^2$ and the exact $\mathfrak{su}(2)$ Schwinger-boson
+representation attached to it in \cite{Ebert2026}, we compute in closed form the
+true (induced) surface area of the band of the cone lying between two consecutive
+anti-diagonals $x+y=K$ and $x+y=K+2$, and compare its large-$K$ growth against the
+semiclassical limit of the loop quantum gravity area-operator spectrum
+$A(j)\approx 8\pi\gamma\ell_P^2 j$. Identifying one lattice unit with one Planck
+length, the two grow with the same functional form in $j=(K-1)/2$, and matching
+coefficients fixes an effective Barbero--Immirzi parameter $\gamma_{\rm eff}=1/(4\sqrt2)\approx0.177$.
+We record this as a self-contained, fully worked consistency check, and are explicit
+about what it does and does not establish: it is a coincidence of normalization, not a
+derivation of $\gamma$, and it does not repair the mismatch, already noted in
+\cite{Ebert2026}, between a single edge of the construction (an entire anti-diagonal)
+and a single quantum of area (a puncture).
+\end{abstract}
+
+\section{Setup}
+
+We use the coordinates and conventions of \cite{Ebert2026}: for a factor pair
+$(x,y)$ of positive reals,
+\[
+X=\frac{x-y}2,\qquad Y=\sqrt{xy},\qquad T=\frac{x+y}2,
+\]
+satisfying $X^2+Y^2=T^2$. Fixing the anti-diagonal $x+y=K$ fixes $T=K/2$; under the
+ladder substitution of \cite[\S5.1]{Ebert2026}, $K=2j+1$ identifies this anti-diagonal
+with the spin-$j$ irreducible representation realized by the Schwinger bosons of
+\cite[\S5.2]{Ebert2026}, whose Casimir eigenvalue is $j(j+1)=(T-\tfrac12)(T+\tfrac12)$.
+
+Loop quantum gravity assigns to a single spin-network edge carrying label $j$ a
+quantized area
+\begin{equation}
+A(j) = 8\pi\gamma\ell_P^2\sqrt{j(j+1)}, \tag{1}
+\end{equation}
+$\gamma$ the Barbero--Immirzi parameter, $\ell_P$ the Planck length \cite{Rovelli2004}.
+The present note asks a narrow, purely formal question: does the classical
+(differential-geometric) area of the region of the cone naturally associated to one
+anti-diagonal grow, in $K$, at the same rate as (1) grows in $j$ -- and if a matching
+normalization is imposed, what $\gamma$ does it force?
+
+\section{The band area, exactly}
+
+\begin{proposition}\label{prop:diffeo}
+The map $(x,y)\mapsto(X,Y)$ restricts, on the open strip
+$\{(x,y): x,y>0,\ K\le x+y\le K+2\}$, to a diffeomorphism onto the half-annulus
+$\{(X,Y): T_1\le\sqrt{X^2+Y^2}\le T_2,\ Y\ge0\}$, $T_1=K/2$, $T_2=(K+2)/2$.
+\end{proposition}
+\begin{proof}
+For fixed $s=x+y$, the point $(X,Y)=\big(\tfrac{x-y}2,\sqrt{xy}\big)$ satisfies
+$X^2+Y^2=(s/2)^2$ identically, and as $x$ ranges over $(0,s)$, $X$ ranges monotonically
+over $(-s/2,s/2)$ with $Y=\sqrt{(s/2)^2-X^2}\ge0$: the full upper semicircle of radius
+$s/2$. Varying $s\in[K,K+2]$ sweeps every such semicircle exactly once, giving the
+stated bijection; smoothness and non-vanishing of the Jacobian on $x,y>0$ give the
+diffeomorphism.
+\end{proof}
+
+By Proposition~\ref{prop:diffeo} and the change-of-variables theorem, the flat-shadow
+area of the strip is exactly the area of the half-annulus,
+$\tfrac\pi2(T_2^2-T_1^2)=\tfrac\pi2(K+1)$, with no approximation and no lattice-cell
+summation required. The physically relevant quantity, however, is the true induced
+area on the cone as embedded in Euclidean $3$-space, not its flat shadow.
+
+\begin{proposition}\label{prop:3darea}
+Parametrizing the cone by $(T,\theta)\mapsto(T\sin\theta,T\cos\theta,T)$,
+$\theta\in[-\pi/2,\pi/2]$, the induced area element is $dA=\sqrt2\,T\,dT\,d\theta$, and
+the exact $3$-dimensional surface area of the band between anti-diagonals $K$ and $K+2$ is
+\begin{equation}
+A_{\rm band}(K) = \frac{\pi}{\sqrt2}\big(T_2^2-T_1^2\big) = \frac{\pi}{\sqrt2}(K+1). \tag{2}
+\end{equation}
+\end{proposition}
+\begin{proof}
+With $r(T,\theta)=(T\sin\theta,T\cos\theta,T)$, $r_T=(\sin\theta,\cos\theta,1)$,
+$r_\theta=(T\cos\theta,-T\sin\theta,0)$, and $|r_T\times r_\theta|
+=|(T\sin\theta,\,T\cos\theta,\,-T)|=T\sqrt2$. Integrating over
+$\theta\in[-\pi/2,\pi/2]$ (length $\pi$) and $T\in[T_1,T_2]$ gives (2); this agrees with
+the elementary frustum formula $\tfrac12\pi(T_1+T_2)\cdot\sqrt2(T_2-T_1)$ for a $45^\circ$
+half-angle cone restricted to its $Y\ge0$ half.
+\end{proof}
+
+Equation (2) is exact for every $K\ge1$, not merely asymptotic.
+
+\begin{remark}[An independent Cartesian cross-check]\label{rem:cartesian}
+Proposition~\ref{prop:3darea} computes $dA$ via the cross product $|r_T\times r_\theta|$ in the polar parametrization $(T,\theta)$. As a check obtained by an unrelated route, pull back the embedding $(x,y)\mapsto(X,Y,T)=\big(\tfrac{x-y}2,\sqrt{xy},\tfrac{x+y}2\big)$ directly in the original Cartesian factor-pair coordinates. Writing $E=X_x^2+Y_x^2+T_x^2$, $G=X_y^2+Y_y^2+T_y^2$, $F=X_xX_y+Y_xY_y+T_xT_y$ for the first fundamental form, direct computation gives
+\[
+E=\frac{2x+y}{4x},\qquad G=\frac{x+2y}{4y},\qquad F=\frac14,\qquad
+EG-F^2=\frac{(x+y)^2}{8xy},
+\]
+so that
+\begin{equation}
+dA=\sqrt{EG-F^2}\,dx\,dy=\frac{x+y}{2\sqrt2\,\sqrt{xy}}\,dx\,dy=\frac{T}{\sqrt2\,Y}\,dx\,dy. \tag{2$'$}
+\end{equation}
+This is the same area element as Proposition~\ref{prop:3darea}, in different coordinates: converting $(2')$ to $(T,\theta)$ via the Jacobian $\big|\partial(T,\theta)/\partial(x,y)\big|=1/(2\sqrt{xy})$ (itself a direct computation from $T=\tfrac{x+y}2$ and $\theta=\arctan(X/Y)$) gives $dA=\sqrt2\,T\,dT\,d\theta$ exactly, matching Proposition~\ref{prop:3darea} with no free constant to adjust. The local distortion factor $T/(\sqrt2\,Y)$ in $(2')$ is minimized, at value $1/\sqrt2$, exactly on the diagonal $x=y$, and grows without bound as a cell moves off the diagonal ($Y\to0$ at fixed $T$) --- so while $Y^2=xy$ recovers a cell's flat area as a single number, the patch of cone surface that cell actually occupies is not uniform across the table, a fact this note's band-area computation already accounts for correctly since Proposition~\ref{prop:3darea} integrates the exact element rather than assuming a constant one.
+\end{remark}
+
+\begin{proposition}[Exact area of a single lattice cell]\label{prop:cellarea}
+For $x_0,y_0\ge0$, write $\Delta_{3/2}(t_0):=(t_0+1)^{3/2}-t_0^{3/2}$ and $\Delta_{1/2}(t_0):=\sqrt{t_0+1}-\sqrt{t_0}$. The true induced area on the cone of the image, under $(x,y)\mapsto(X,Y,T)$, of the unit cell $[x_0,x_0+1]\times[y_0,y_0+1]$ is
+\begin{equation}
+A_{\rm cell}(x_0,y_0)=\frac{\sqrt2}3\Big[\Delta_{3/2}(x_0)\,\Delta_{1/2}(y_0)+\Delta_{1/2}(x_0)\,\Delta_{3/2}(y_0)\Big], \tag{4}
+\end{equation}
+exact in closed form, not merely asymptotic, and not requiring the local density $(2')$ to be constant across the cell.
+\end{proposition}
+
+\begin{proof}
+By $(2')$, $dA=\frac1{2\sqrt2}\big(\sqrt{x/y}+\sqrt{y/x}\,\big)\,dx\,dy$. Fix $x$ and integrate over $y\in[y_0,y_0+1]$: $\int\sqrt{x/y}\,dy=\sqrt x\cdot2\sqrt y$ contributes $2\sqrt x\,\Delta_{1/2}(y_0)$, and $\int\sqrt{y/x}\,dy=\tfrac1{\sqrt x}\cdot\tfrac23y^{3/2}$ contributes $\tfrac2{3\sqrt x}\Delta_{3/2}(y_0)$. Integrating the sum over $x\in[x_0,x_0+1]$: $\int2\sqrt x\,dx=\tfrac43x^{3/2}$ contributes $\tfrac43\Delta_{3/2}(x_0)\,\Delta_{1/2}(y_0)$, and $\int\tfrac2{3\sqrt x}\,dx=\tfrac43\sqrt x$ contributes $\tfrac43\Delta_{1/2}(x_0)\,\Delta_{3/2}(y_0)$. Multiplying the sum by the prefactor $\tfrac1{2\sqrt2}$ gives (4). Verified independently by direct numerical double integration and by symbolic integration in a computer algebra system, agreeing to floating-point precision throughout.
+\end{proof}
+
+\begin{example}
+The $(1,1)$ cell ($x_0=y_0=0$) has exact area $A_{\rm cell}(0,0)=\tfrac{2\sqrt2}3\approx0.9428$. The $(2,6)$ cell used as the worked example in \cite{Ebert2026} ($x_0=2,y_0=6$) has exact area $A_{\rm cell}(2,6)\approx0.7919$. For cells away from the coordinate axes the centroid approximation $A_{\rm cell}(x_0,y_0)\approx T_c/(\sqrt2\,Y_c)$, evaluated at the cell's own center $(x_0+\tfrac12,y_0+\tfrac12)$, is already accurate --- $0.7894$ against the exact $0.7919$ for the $(2,6)$ cell --- but it fails badly for the $(1,1)$ cell, giving $1/\sqrt2\approx0.7071$ against the exact $0.9428$, since that cell touches the coordinate axes where the density $(2')$ is unbounded near $x=0$ or $y=0$ even though it stays finite and equal to $1/\sqrt2$ along the diagonal itself; the cell average is pulled well above the centroid value by that nearby singularity. Proposition~\ref{prop:cellarea} is exact in both regimes, since it integrates $(2')$ directly rather than approximating it as constant.
+\end{example}
+
+Writing $K=2j+1$, so $K+1=2j+2$, (2) becomes exactly
+\[
+A_{\rm band}(j)=\frac{\pi}{\sqrt2}(2j+2)=\sqrt2\,\pi\,(j+1)\ \sim\ \sqrt2\,\pi\,j\quad(j\to\infty).
+\]
+Comparing against the large-$j$ limit of (1), $A(j)\approx8\pi\gamma\ell_P^2j$, and
+setting $\ell_P\equiv1$ (one lattice unit identified with one Planck length):
+\begin{equation}
+\sqrt2\,\pi\,j = 8\pi\gamma\,j \quad\Longrightarrow\quad \gamma_{\rm eff}=\frac1{4\sqrt2}\approx0.1768. \tag{3}
+\end{equation}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{r r r r}
+$K$ & $j=(K-1)/2$ & $A_{\rm band}(K)$, eq.\ (2) & implied $\gamma=A_{\rm band}/(8\pi j)$ \\
+\hline
+10 & 4.5 & 24.436 & 0.216 \\
+30 & 14.5 & 68.865 & 0.189 \\
+100 & 49.5 & 224.366 & 0.180 \\
+1000 & 499.5 & 2223.663 & 0.177 \\
+\end{tabular}
+\caption{Convergence of the implied $\gamma$ to $\gamma_{\rm eff}=1/(4\sqrt2)$.}
+\end{table}
+
+\section{What this does and does not show}
+
+\begin{remark}[Genuine content]
+The functional form matches by construction: both (1) and (2) are, at leading order,
+linear in $j$, so any classically-computed area attached to a growing spin label will
+reproduce this shape. What is a nontrivial, checked fact is that the coefficient
+convergence in Table~1 is exact and monotone, following from Propositions
+\ref{prop:diffeo}--\ref{prop:3darea} rather than from a numerically fitted discrete sum.
+\end{remark}
+
+\begin{remark}[Which constants are forced, and which are stipulated]
+It should be stressed that $\gamma_{\rm eff}$ is not a free parameter tuned to fit:
+once the two identifications below are made, its value is forced by two facts that are
+themselves not free. The factor $\sqrt2$ in (2) is the cone's own $45^\circ$ opening
+angle, fixed identically by $X^2+Y^2=T^2$ before any physical input is introduced; the
+factor $8\pi$ in (1) is fixed by the normalization $\kappa=8\pi G$ of the Einstein field
+equations underlying the Ashtekar--Barbero flux variables, not a convention internal to
+this note. The only genuine freedom in the entire calculation is the pair of
+stipulative identifications: (i) one lattice unit $\equiv$ one Planck length, and (ii)
+``the area of one edge'' $\equiv$ this classical band. Given (i)--(ii),
+$\gamma_{\rm eff}=1/(4\sqrt2)$ follows deterministically.
+\end{remark}
+
+\begin{remark}[Running the identification the other way]
+Rather than fixing the lattice unit and solving for $\gamma$, one may fix $\gamma$ at
+its physically determined value and solve (3) for the lattice unit $L$ in Planck
+lengths: $L=\sqrt{4\sqrt2\,\gamma}\,\ell_P$. Using $\gamma\approx0.2375$
+\cite{Meissner2004} gives $L\approx1.159\,\ell_P$; using
+$\gamma=\ln2/(\pi\sqrt3)\approx0.1274$ \cite{Ashtekar-Baez-Krasnov2000} gives
+$L\approx0.849\,\ell_P$. Both land within a factor of order unity of $\ell_P$ itself
+without further adjustment, which is a mildly more suggestive fact than any particular
+value of $\gamma_{\rm eff}$ -- though it remains a consequence of the two stipulative
+identifications above, not a derivation of the Planck scale from the multiplication
+table.
+\end{remark}
+
+\begin{remark}[The unresolved scale mismatch, now quantitative]
+This calculation identifies a classical \emph{band} of the cone -- an entire two-row
+strip, containing on the order of $K$ lattice cells -- with a \emph{single} LQG edge
+label $K$. It therefore does not resolve, and should not be read as resolving, the
+mismatch already noted informally: by Proposition~\ref{prop:cellarea}, a single unit
+lattice cell carries only order-unity area ($A_{\rm cell}(0,0)\approx0.94$,
+$A_{\rm cell}(2,6)\approx0.79$, and in general $A_{\rm cell}=O(1)$ for any fixed cell),
+while the band $A_{\rm band}(K)=\tfrac\pi{\sqrt2}(K+1)$ of equation (2) grows linearly in
+$K$ and contains on the order of $K$ such cells: two genuinely different orders of
+coarse-graining, not merely an unquantified qualitative gap. So ``one cell'' and ``one
+puncture'' remain different objects at different
+levels of coarse-graining. The correspondence developed here is between an edge label
+and a \emph{band}, not between a lattice cell and a puncture.
+\end{remark}
+
+\section{Conclusion}
+
+The exact band-area formula (2), following from Propositions \ref{prop:diffeo}
+and \ref{prop:3darea}, matches the large-$j$ growth rate of the loop quantum gravity
+area spectrum (1) up to an overall constant. Fixing that constant by an
+otherwise-unmotivated choice of units yields $\gamma_{\rm eff}=1/(4\sqrt2)$, a number
+of the right order of magnitude but with no independent physical justification. We
+record this as a fully worked, self-contained numerical curiosity attached to the
+cone construction of \cite{Ebert2026}, useful chiefly as a template for how such a
+semiclassical comparison would have to be set up rigorously, and explicitly not as a
+claim of any relation between the multiplication table and quantum gravity.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026} J.~Ebert, \emph{AM--GM Coordinates and the Cone $X^2+Y^2=T^2$: A
+Unified Treatment of Integer Factorization, Orbital Mechanics, and Modulus 12}, 2026.
+\bibitem{Rovelli2004} C.~Rovelli, \emph{Quantum Gravity}, Cambridge University Press, 2004.
+\bibitem{Meissner2004} K.~A.~Meissner, Black hole entropy in loop quantum gravity,
+\emph{Class.\ Quantum Grav.} \textbf{21} (2004), 5245--5251.
+\bibitem{Ashtekar-Baez-Krasnov2000} A.~Ashtekar, J.~Baez, K.~Krasnov, Quantum geometry
+of isolated horizons and black hole entropy, \emph{Adv.\ Theor.\ Math.\ Phys.}
+\textbf{4} (2000), 1--94.
+\end{thebibliography}
+
+\end{document}
