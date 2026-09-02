@@ -17,8 +17,9 @@
 \maketitle
 
 \begin{abstract}
-Working from the cone $X^2+Y^2=T^2$ and the exact $\mathfrak{su}(2)$ Schwinger-boson
-representation attached to it in \cite{Ebert2026}, we compute in closed form the
+Working from the cone $X^2+Y^2=T^2$ developed in \cite{Ebert2026Table} and the exact
+$\mathfrak{su}(2)$ Schwinger-boson representation attached to it in
+\cite{Ebert2026Quantum}, we compute in closed form the
 true (induced) surface area of the band of the cone lying between two consecutive
 anti-diagonals $x+y=K$ and $x+y=K+2$, and compare its large-$K$ growth against the
 semiclassical limit of the loop quantum gravity area-operator spectrum
@@ -27,22 +28,23 @@ length, the two grow with the same functional form in $j=(K-1)/2$, and matching
 coefficients fixes an effective Barbero--Immirzi parameter $\gamma_{\rm eff}=1/(4\sqrt2)\approx0.177$.
 We record this as a self-contained, fully worked consistency check, and are explicit
 about what it does and does not establish: it is a coincidence of normalization, not a
-derivation of $\gamma$, and it does not repair the mismatch, already noted in
-\cite{Ebert2026}, between a single edge of the construction (an entire anti-diagonal)
+derivation of $\gamma$, and it does not repair the unresolved mismatch between a
+single edge of the construction (an entire anti-diagonal)
 and a single quantum of area (a puncture).
 \end{abstract}
 
 \section{Setup}
 
-We use the coordinates and conventions of \cite{Ebert2026}: for a factor pair
+We use the coordinates and conventions of \cite{Ebert2026Table}: for a factor pair
 $(x,y)$ of positive reals,
 \[
 X=\frac{x-y}2,\qquad Y=\sqrt{xy},\qquad T=\frac{x+y}2,
 \]
 satisfying $X^2+Y^2=T^2$. Fixing the anti-diagonal $x+y=K$ fixes $T=K/2$; under the
-ladder substitution of \cite[\S5.1]{Ebert2026}, $K=2j+1$ identifies this anti-diagonal
-with the spin-$j$ irreducible representation realized by the Schwinger bosons of
-\cite[\S5.2]{Ebert2026}, whose Casimir eigenvalue is $j(j+1)=(T-\tfrac12)(T+\tfrac12)$.
+oscillator dictionary of \cite[\S2]{Ebert2026Quantum}, $K=2j+1$ identifies this
+anti-diagonal with the spin-$j$ irreducible representation realized by the
+Schwinger bosons of \cite[\S3]{Ebert2026Quantum}, whose Casimir eigenvalue is
+$j(j+1)=(T-\tfrac12)(T+\tfrac12)$.
 
 Loop quantum gravity assigns to a single spin-network edge carrying label $j$ a
 quantized area
@@ -122,7 +124,7 @@ By $(2')$, $dA=\frac1{2\sqrt2}\big(\sqrt{x/y}+\sqrt{y/x}\,\big)\,dx\,dy$. Fix $x
 \end{proof}
 
 \begin{example}
-The $(1,1)$ cell ($x_0=y_0=0$) has exact area $A_{\rm cell}(0,0)=\tfrac{2\sqrt2}3\approx0.9428$. The $(2,6)$ cell used as the worked example in \cite{Ebert2026} ($x_0=2,y_0=6$) has exact area $A_{\rm cell}(2,6)\approx0.7919$. For cells away from the coordinate axes the centroid approximation $A_{\rm cell}(x_0,y_0)\approx T_c/(\sqrt2\,Y_c)$, evaluated at the cell's own center $(x_0+\tfrac12,y_0+\tfrac12)$, is already accurate --- $0.7894$ against the exact $0.7919$ for the $(2,6)$ cell --- but it fails badly for the $(1,1)$ cell, giving $1/\sqrt2\approx0.7071$ against the exact $0.9428$, since that cell touches the coordinate axes where the density $(2')$ is unbounded near $x=0$ or $y=0$ even though it stays finite and equal to $1/\sqrt2$ along the diagonal itself; the cell average is pulled well above the centroid value by that nearby singularity. Proposition~\ref{prop:cellarea} is exact in both regimes, since it integrates $(2')$ directly rather than approximating it as constant.
+The $(1,1)$ cell ($x_0=y_0=0$) has exact area $A_{\rm cell}(0,0)=\tfrac{2\sqrt2}3\approx0.9428$. The $(2,6)$ cell used as the worked example in \cite{Ebert2026Table} ($x_0=2,y_0=6$) has exact area $A_{\rm cell}(2,6)\approx0.7919$. For cells away from the coordinate axes the centroid approximation $A_{\rm cell}(x_0,y_0)\approx T_c/(\sqrt2\,Y_c)$, evaluated at the cell's own center $(x_0+\tfrac12,y_0+\tfrac12)$, is already accurate --- $0.7894$ against the exact $0.7919$ for the $(2,6)$ cell --- but it fails badly for the $(1,1)$ cell, giving $1/\sqrt2\approx0.7071$ against the exact $0.9428$, since that cell touches the coordinate axes where the density $(2')$ is unbounded near $x=0$ or $y=0$ even though it stays finite and equal to $1/\sqrt2$ along the diagonal itself; the cell average is pulled well above the centroid value by that nearby singularity. Proposition~\ref{prop:cellarea} is exact in both regimes, since it integrates $(2')$ directly rather than approximating it as constant.
 \end{example}
 
 Writing $K=2j+1$, so $K+1=2j+2$, (2) becomes exactly
@@ -207,13 +209,15 @@ area spectrum (1) up to an overall constant. Fixing that constant by an
 otherwise-unmotivated choice of units yields $\gamma_{\rm eff}=1/(4\sqrt2)$, a number
 of the right order of magnitude but with no independent physical justification. We
 record this as a fully worked, self-contained numerical curiosity attached to the
-cone construction of \cite{Ebert2026}, useful chiefly as a template for how such a
+cone construction of \cite{Ebert2026Table,Ebert2026Quantum}, useful chiefly as a
 semiclassical comparison would have to be set up rigorously, and explicitly not as a
 claim of any relation between the multiplication table and quantum gravity.
 
 \begin{thebibliography}{9}
-\bibitem{Ebert2026} J.~Ebert, \emph{AM--GM Coordinates and the Cone $X^2+Y^2=T^2$: A
-Unified Treatment of Integer Factorization, Orbital Mechanics, and Modulus 12}, 2026.
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the
+Multiplication Table Is a Conic Section}, 2026.
+\bibitem{Ebert2026Quantum} J.~Ebert, \emph{Two Oscillators, Two Algebras: SU(2) and
+SU(1,1) Realizations of the Cone's Symmetry, and the Fate of the Power Map}, 2026.
 \bibitem{Rovelli2004} C.~Rovelli, \emph{Quantum Gravity}, Cambridge University Press, 2004.
 \bibitem{Meissner2004} K.~A.~Meissner, Black hole entropy in loop quantum gravity,
 \emph{Class.\ Quantum Grav.} \textbf{21} (2004), 5245--5251.
