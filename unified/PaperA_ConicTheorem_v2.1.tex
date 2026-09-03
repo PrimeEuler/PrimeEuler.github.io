@@ -19,7 +19,7 @@
 \maketitle
 
 \begin{abstract}
-Write out the ordinary multiplication table and draw a straight line through it. What curve does that line trace, once factor pairs are plotted in coordinates built from their sum, difference, and geometric mean? We classify the resulting sections completely: ellipse, parabola, or hyperbola according to the sign of the line coefficients. Anti-diagonals give circles and individual rows or columns give parabolas. We also isolate an exact tangency between every row/column parabola and the anti-diagonal circle whose diameter equals the fixed factor level. The same coordinates restate Fermat factorization and reorganize the classical Dirichlet divisor summatory identity around nested diagonal gnomons.
+Write out the ordinary multiplication table and draw a straight line through it. What curve does that line trace, once factor pairs are plotted in coordinates built from their sum, difference, and geometric mean? We classify the resulting sections completely: ellipse, parabola, or hyperbola according to the sign of the line coefficients. Anti-diagonals give circles and individual rows or columns give parabolas. We also isolate an exact tangency between every row/column parabola and the anti-diagonal circle whose diameter equals the fixed factor level, and give the true semi-axes and eccentricity of the general ellipse section. The same coordinates restate Fermat factorization and reorganize the classical Dirichlet divisor summatory identity around nested diagonal gnomons.
 \end{abstract}
 
 \section{Introduction}
@@ -85,11 +85,55 @@ C_{u/2}:\quad X^2+Y^2=(u/2)^2.
 The row is tangent at $(X,Y)=(u/2,0)$ and the column at $(-u/2,0)$. Equivalently, both tangent points lie on the cone slice $T=u/2$ and on its two null generators $X=\pm T$, $Y=0$.
 \end{proposition}
 \begin{proof}
-The row projection is $Y^2=u^2-2uX$, whose vertex is $(u/2,0)$; the column projection is $Y^2=u^2+2uX$, whose vertex is $(-u/2,0)$. Each vertex lies on $C_{u/2}$. Implicit differentiation of the row gives $2YY'=-2u$ and of the circle gives $2X+2YY'=0$. At $(u/2,0)$ both have vertical tangent; the column case is its reflection across $X=0$.
+The row projection is $Y^2=u^2-2uX$, whose vertex is $(u/2,0)$; the column projection is $Y^2=u^2+2uX$, whose vertex is $(-u/2,0)$. Each vertex lies on $C_{u/2}$. Implicit differentiation shows that each parabola and its circle have the same vertical tangent at the corresponding vertex.
 \end{proof}
 
 \begin{remark}
-This gives a useful exact dictionary: factor level $u$ corresponds to tangent-circle radius $T=u/2$. Consequently a factor mesh of spacing $1/m$ induces a tangent-circle radius mesh of spacing $1/(2m)$. This is a geometric statement about the coordinate map, not an arithmetic invariance claim.
+Factor level $u$ therefore corresponds exactly to tangent-circle radius $T=u/2$. Consequently a factor mesh of spacing $1/m$ induces a tangent-circle radius mesh of spacing $1/(2m)$. This is a geometric statement about the coordinate map, not an arithmetic invariance claim.
+\end{remark}
+
+\begin{proposition}[Coordinate maximum of an ellipse]\label{prop:semiaxes}
+For $ab>0$, $Y^2$ is maximized at $x=c/(2a)$, where
+\[
+Y_{\max}^2=\frac{c^2}{4ab}.
+\]
+This point is the midpoint of the line's two axis intercepts in factor coordinates.
+\end{proposition}
+\begin{proof}
+Differentiate $Y^2=(c/b)x-(a/b)x^2$ and set the derivative to zero. Substitution gives the stated maximum.
+\end{proof}
+
+\begin{proposition}[True ellipse axes and eccentricity]\label{prop:trueaxes}
+For $ab>0$, the ellipse cut from the cone by $ax+by=c$ has semi-minor axis
+\[
+b_{\rm semi}=\frac{c}{2\sqrt{ab}},
+\]
+semi-major axis
+\[
+a_{\rm semi}=\frac{c\sqrt{2(a^2+b^2)}}{4ab},
+\]
+and eccentricity
+\[
+e=\frac{|a-b|}{\sqrt{a^2+b^2}}.
+\]
+In particular the eccentricity depends only on the slope ratio $a/b$, not on the scale $c$, and $e=0$ exactly for the anti-diagonal case $a=b$.
+\end{proposition}
+\begin{proof}
+The section is symmetric under $Y\mapsto-Y$. Its pure-$Y$ semi-axis is $Y_{\max}=c/(2\sqrt{ab})$. At $Y=0$ the two endpoints correspond to factor intercepts $(c/a,0)$ and $(0,c/b)$, hence to cone points
+\[
+\left(\frac{c}{2a},0,\frac{c}{2a}\right),\qquad
+\left(-\frac{c}{2b},0,\frac{c}{2b}\right).
+\]
+Their Euclidean distance is the full major axis, giving the stated $a_{\rm semi}$. Finally $e^2=1-b_{\rm semi}^2/a_{\rm semi}^2$ simplifies to $(a-b)^2/(a^2+b^2)$.
+\end{proof}
+
+For the illustrative cut $8x+4y=32$, these formulas give
+\[
+a_{\rm semi}=\sqrt{10},\qquad b_{\rm semi}=2\sqrt2,\qquad e=\frac1{\sqrt5}.
+\]
+
+\begin{remark}
+The conic classification itself is a special case of the classical plane-section theorem for a quadric. The contribution here is the explicit factor-coordinate dictionary: the sign of $ab$ classifies the section, the coefficients determine the ellipse geometry above, and the row/column family carries the exact tangent-circle correspondence of Proposition~\ref{prop:tangent}.
 \end{remark}
 
 \section{Constant-Product Curves and Fermat Factorization}
@@ -119,7 +163,7 @@ D(n)=2\sum_{u=1}^{\lfloor\sqrt n\rfloor}\left\lfloor\frac nu\right\rfloor-\lfloo
 This is the classical symmetric Dirichlet hyperbola identity, now read as nested gnomons whose arms are pieces of the row/column parabolas cut off by $xy=n$.
 
 \section{Discussion}
-The cone identity organizes three elementary structures on one carrier: linear conditions become conic sections, constant products become Lorentz-type hyperbolas, and the divisor summatory region decomposes into diagonal gnomons. Proposition~\ref{prop:tangent} adds an exact bridge between the first two visual layers: each fixed factor level determines both a row/column parabola and a unique tangent anti-diagonal circle of radius $u/2$.
+The cone identity organizes three elementary structures on one carrier: linear conditions become conic sections, constant products become Lorentz-type hyperbolas, and the divisor summatory region decomposes into diagonal gnomons. Proposition~\ref{prop:tangent} adds an exact bridge between the visual layers: each fixed factor level determines both a row/column parabola and a unique tangent anti-diagonal circle of radius $u/2$. Propositions~\ref{prop:semiaxes} and~\ref{prop:trueaxes} retain the full metric information of the general ellipse section.
 
 This is the natural stopping point for the geometric paper. Later arithmetic or operator constructions may use the same cone and its two generator rays, but they should be cited as companion results rather than imported into the proof of the elementary statements above.
 
