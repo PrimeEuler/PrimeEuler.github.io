@@ -1,0 +1,215 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\title{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The companion paper \cite{Ebert2026Table} shows that every line $ax+by=c$ through the multiplication table traces an ellipse, a parabola, or a hyperbola on the cone $X^2+Y^2=T^2$, according to the sign of $ab$, and remarks --- without pursuing it --- that the hyperbola case ($ab<0$) is ``a family distinct from the constant-product hyperbolas'' and is not developed further there. We develop it here, and along the way find more than we were looking for. We show that the curve any such line traces is not merely a conic section but the complete orbit of a single, explicit one-parameter subgroup of the cone's own symmetry group $SO^+(2,1)$, and that the ellipse/parabola/hyperbola trichotomy of \cite{Ebert2026Table} is exactly the elliptic/parabolic/hyperbolic trichotomy of that subgroup, with the group element's eigenvalues equal to $\pm2\sqrt{-ab}$ up to sign. This gives a second, independent proof of the classification theorem of \cite{Ebert2026Table}, via a closed identity $|\zeta|=c$ (or $\eta_+\eta_-=c^2$) in a natural complex or split-complex eigen-coordinate $\zeta$ built from $X,Y,T$. Raising that eigen-coordinate to an integer power $n$ turns out to send a point on $ax+by=c$ to a point on the same-shape curve $ax+by=c^n$: an explicit, closed-form ``power map'' companion to every line through the table, subsuming as special cases the two flows already named in the symmetry algebra of the cone. We work out the parallel, and genuinely different, construction for the constant-product hyperbolas of \cite{Ebert2026Table}, verify all formulas symbolically and numerically, and close with the one case that resists this treatment entirely --- the rows and columns themselves.
+\end{abstract}
+
+\section{Introduction}
+
+Take the second worked example from \cite{Ebert2026Table}: the line $2x+5y=20$, which that paper's own Figure 1 draws through the table, showing it trace an ellipse on the cone. Theorem~\ref{thm:conic-recap} below (restated from \cite{Ebert2026Table}) tells you that curve is an ellipse because $2\cdot5>0$; it does not tell you anything about the ellipse beyond its shape. This paper asks a question \cite{Ebert2026Table} raises and sets aside: that paper notes that a fixed-\emph{difference} line like $x-y=d$ produces ``a genuinely different construction from the constant-product hyperbolas,'' arising ``from a linear rather than a multiplicative condition,'' and states plainly, ``we do not develop it further here.'' We take up exactly that thread, and it leads somewhere more general than the one case it names.
+
+The short answer is: every line through the table, ellipse or hyperbola alike, is not just \emph{some} curve on the cone --- it is the full orbit of one specific, canonical symmetry of the cone, and that symmetry has its own natural coordinate in which the whole curve collapses to a single clean equation, $|\zeta|=c$. Once you have that coordinate, raising it to the $n$-th power is free, and it does something concrete: it moves you from the curve $ax+by=c$ to the curve $ax+by=c^n$, the same shape, further out. This holds for \emph{every} line with $ab\ne0$ --- not just the circle ($a=b$) or the fixed-difference line ($a=-b$) that happen to coincide with the two flows already singled out in the cone's symmetry algebra.
+
+\subsection*{Roadmap} Section~2 recalls, from \cite{Ebert2026Table}, the conic classification we build on, and derives from scratch the cone's own three-generator symmetry algebra. Section~3 proves that the curve cut by $ax+by=c$ is the orbit of an explicit generator $G_{a,b}$, with eigenvalues that reproduce the sign-of-$ab$ classification exactly. Section~4 finds that generator's eigen-coordinate and the identity $|\zeta_{a,b}|=c$, giving a second proof of the classification theorem. Section~5 is the main construction: the power map $\zeta_{a,b}\mapsto\zeta_{a,b}^n$, its two named special cases, and a worked example continuing \cite{Ebert2026Table}'s own $2x+5y=20$. Section~6 treats the one case this machinery does not reach directly --- the constant-product hyperbolas --- with its own, structurally different power map. Section~7 records the fully degenerate case, $ab=0$, where no power map exists at all, and explains why. Section~8 discusses what has and has not been unified.
+
+\section{What We Build On}
+
+\begin{theorem}[Conic classification; Theorem 3.1 of \cite{Ebert2026Table}]\label{thm:conic-recap}
+Let $a,b\in\mathbb R$, not both zero, $c\in\mathbb R$. The line $ax+by=c$, intersected with the multiplication table and mapped to the cone $X^2+Y^2=T^2$ via $X=(x-y)/2$, $Y=\sqrt{xy}$, $T=(x+y)/2$, traces an ellipse if $ab>0$, a parabola if $ab=0$, and a hyperbola if $ab<0$. In the ellipse and hyperbola cases the trace lies in the plane
+\begin{equation}
+(a-b)X+(a+b)T=c. \tag{2.1}
+\end{equation}
+\end{theorem}
+
+We also need the cone's own symmetry algebra, which we derive here rather than import, since it is short and puts the whole paper on one self-contained footing.
+
+\begin{proposition}[The symmetry algebra of the cone]\label{thm:generators-recap}
+Let $\eta=\mathrm{diag}(1,1,-1)$, so $X^2+Y^2-T^2=(X,Y,T)\eta(X,Y,T)^\top$. The matrices
+\[
+L=\begin{pmatrix}0&-1&0\\1&0&0\\0&0&0\end{pmatrix},\quad
+B_X=\begin{pmatrix}0&0&1\\0&0&0\\1&0&0\end{pmatrix},\quad
+B_Y=\begin{pmatrix}0&0&0\\0&0&1\\0&1&0\end{pmatrix}
+\]
+each satisfy $G^\top\eta+\eta G=0$, hence generate one-parameter groups of exact isometries of the cone, and they satisfy $[L,B_X]=B_Y$, $[L,B_Y]=-B_X$, $[B_X,B_Y]=-L$ (direct computation). Exponentiating each, starting from a point $(X_0,Y_0,T_0)=\Phi(p_0,q_0)$ on the cone (so $p_0=T_0+X_0$, $q_0=T_0-X_0$, $Y_0=\sqrt{p_0q_0}$), gives exactly the three elementary operations on the pair $(p,q)$: $L$ holds $p+q$ fixed and varies the split,
+\[
+p(\theta)=T_0+X_0\cos\theta-Y_0\sin\theta,\qquad q(\theta)=T_0-X_0\cos\theta+Y_0\sin\theta;
+\]
+$B_X$ holds $pq$ fixed and rescales, $p(\phi)=p_0e^\phi,\ q(\phi)=q_0e^{-\phi}$; and $B_Y$ holds $p-q$ fixed,
+\[
+p(\phi)=X_0+T_0\cosh\phi+Y_0\sinh\phi,\qquad Y(\phi)=Y_0\cosh\phi+T_0\sinh\phi.
+\]
+\end{proposition}
+
+\begin{proof}
+$G^\top\eta+\eta G=0$ is checked directly for each of $L,B_X,B_Y$; this is exactly the condition for $\exp(tG)$ to preserve the quadratic form $X^2+Y^2-T^2$ for every $t$, i.e.\ to map the cone to itself. The bracket relations are a direct $3\times3$ matrix computation. For the flows: $L$ has zero third row and column, so $T$ is instantaneously (hence, on exponentiating, exactly) fixed, and $\exp(\theta L)$ acts as an ordinary rotation on $(X,Y)$; substituting $p=T+X$, $q=T-X$ and the standard rotation formulas gives the stated $p(\theta),q(\theta)$. $B_X$ has zero second row and column, so $Y$ is fixed, and $\exp(\phi B_X)$ acts as a hyperbolic rotation on $(X,T)$ that is diagonal in the light-cone coordinates $p=T+X$, $q=T-X$ of that plane, giving $p(\phi)=p_0e^\phi$, $q(\phi)=q_0e^{-\phi}$ directly. $B_Y$ has zero first row and column, so $X$ is fixed, and $\exp(\phi B_Y)$ is a hyperbolic rotation on $(Y,T)$, giving the stated $T(\phi)=T_0\cosh\phi+Y_0\sinh\phi$ (hence $p(\phi)=X_0+T(\phi)$) and $Y(\phi)=Y_0\cosh\phi+T_0\sinh\phi$.
+\end{proof}
+
+Everything below is elementary given Theorem~\ref{thm:conic-recap} and Proposition~\ref{thm:generators-recap}; the point of this paper is to notice what they imply together.
+
+\section{Every Line Is a Single Orbit}
+
+\begin{theorem}\label{thm:orbit}
+For $a,b$ with $ab\ne0$, let
+\begin{equation}
+G_{a,b}:=(a+b)\,L+(a-b)\,B_Y\ \in\mathfrak{so}(2,1). \tag{3.1}
+\end{equation}
+Then: \textup{(a)} $G_{a,b}$ annihilates the vector $m=(a-b,\,0,\,-(a+b))$, i.e.\ $\langle m,\cdot\rangle_\eta$ (with $\eta=\mathrm{diag}(1,1,-1)$) is exactly the linear functional $(a-b)X+(a+b)T$ of \textup{(2.1)}, so every flow line of $G_{a,b}$ stays on a single plane $ax+by=c$. \textup{(b)} The eigenvalues of $G_{a,b}$ are $0,\ \pm2i\sqrt{ab}$ if $ab>0$, and $0,\ \pm2\sqrt{-ab}$ if $ab<0$. \textup{(c)} Consequently, the full curve that $ax+by=c$ traces on the cone (Theorem~\ref{thm:conic-recap}) is a single orbit $\{\exp(tG_{a,b})\cdot p_0: t\in\mathbb R\}$ of any one of its points $p_0$.
+\end{theorem}
+
+\begin{proof}
+(a) Direct computation: for $G=\alpha L+\gamma B_Y$, $Gm=0$ forces (writing $m=(m_1,0,m_3)$) $\gamma m_3=0$ and $\alpha m_1+\gamma m_3=0$ and $\gamma m_1=0$; for $m_1,m_3$ not both zero this forces the $B_X$-component to vanish and pins $(\alpha,\gamma)$ up to scale to $(m_3,-m_1)=(-(a+b),\,-(a-b))$, matching $(3.1)$ up to an overall sign (a reparametrization of $t$). Since $G\in\mathfrak{so}(2,1)$ satisfies $G^\top\eta+\eta G=0$, $Gm=0$ gives $\frac{d}{dt}\langle m,p(t)\rangle_\eta=\langle m,Gp\rangle_\eta=-\langle Gm,p\rangle_\eta=0$ along any flow line $p(t)=\exp(tG)p_0$, so $\langle m,p\rangle_\eta=(a-b)X-(a+b)(-T)=(a-b)X+(a+b)T$ is conserved, i.e.\ the flow stays on the plane $(2.1)$ through its own starting point.
+(b) The characteristic polynomial of $(3.1)$ is $\lambda(\lambda^2+4ab)$ (direct computation in the basis $(X,Y,T)$), giving the stated roots.
+(c) By (a) the orbit lies in the plane, hence (Theorem~\ref{thm:conic-recap}) on the conic that plane cuts; by (b), for $ab\ne0$ the orbit is $2$-dimensional in the sense that $G_{a,b}$ has a $2$-dimensional non-kernel eigenspace, matching the dimension of the conic itself, so the orbit is not merely contained in the conic but equal to it (a $1$-parameter flow with a $1$-dimensional non-degenerate orbit inside a $1$-dimensional curve fills that curve).
+\end{proof}
+
+So $ab>0$ (ellipse) means $G_{a,b}$ has purely imaginary nonzero eigenvalues --- it is \emph{elliptic}, a rotation, exactly as its name suggests. And $ab<0$ (hyperbola) means real nonzero eigenvalues --- \emph{hyperbolic}, a boost. The sign of $ab$ was already doing double duty in \cite{Ebert2026Table} without saying so: it is simultaneously the sign that decides the conic's shape and the sign that decides the causal type of the flow that sweeps it out.
+
+\begin{remark}[Where this sign really comes from]
+The plane $(2.1)$ has normal vector $n=(a-b,0,a+b)$ in $(X,Y,T)$-space. Its Minkowski norm is $\|n\|_\eta^2=(a-b)^2-(a+b)^2=-4ab$ --- we verified this by direct expansion. So $ab>0\iff n$ timelike, $ab<0\iff n$ spacelike, $ab=0\iff n$ null. This is the standard classification of one-parameter subgroups of a Lorentz-type group by the causal type of their fixed axis, and Theorem~\ref{thm:orbit}(b)'s eigenvalues, $\lambda^2=-4ab=\|n\|_\eta^2$, make the match exact: the conic type of Theorem~\ref{thm:conic-recap} and the causal type of the corresponding flow's axis are the same invariant, computed two different ways.
+\end{remark}
+
+\begin{example}
+At $a=b$, $G_{a,a}=2aL$: pure rotation, matching \cite{Ebert2026Table}'s own remark that $a=b$ degenerates to the circle of the cone's Section 2. At $a=-b$, $G_{a,-a}=2aB_Y$: pure $B_Y$-boost, exactly the fixed-difference generator of Proposition~\ref{thm:generators-recap} --- and exactly the case \cite{Ebert2026Table} flagged and left undeveloped. Every other $(a,b)$ with $ab\ne0$ gives a genuinely new one-parameter subgroup, a specific real combination of $L$ and $B_Y$ that has not been named before.
+\end{example}
+
+\section{Eigen-Coordinates, and a Second Proof of the Classification}
+
+\begin{theorem}\label{thm:eigencoord}
+For $ab>0$ (ellipse case), define
+\begin{equation}
+\zeta_{a,b}:=(a+b)X+(a-b)T+2i\sqrt{ab}\,Y\ \in\mathbb C. \tag{4.1}
+\end{equation}
+Then along any flow line of $G_{a,b}$, $\zeta_{a,b}(t)=\zeta_{a,b}(0)\,e^{2i\sqrt{ab}\,t}$, and on the curve $ax+by=c$ itself,
+\begin{equation}
+|\zeta_{a,b}|=c \tag{4.2}
+\end{equation}
+identically. For $ab<0$ (hyperbola case), define the two real eigen-coordinates
+\begin{equation}
+\eta_\pm:=(a+b)X+(a-b)T\pm2\sqrt{-ab}\,Y, \tag{4.3}
+\end{equation}
+each satisfying $\eta_\pm(t)=\eta_\pm(0)e^{\pm2\sqrt{-ab}\,t}$, with
+\begin{equation}
+\eta_+\eta_-=c^2 \tag{4.4}
+\end{equation}
+identically on $ax+by=c$.
+\end{theorem}
+
+\begin{proof}
+$(4.1)$ is (up to normalization) the left eigenvector of $G_{a,b}$ for eigenvalue $2i\sqrt{ab}$: a direct nullspace computation gives $w=(a+b,\ 2i\sqrt{ab},\ a-b)$ satisfying $w^\top G_{a,b}=2i\sqrt{ab}\,w^\top$, and $\zeta_{a,b}=w^\top(X,Y,T)^\top$; the stated flow equation follows immediately from $\frac{d}{dt}\zeta_{a,b}=w^\top G_{a,b}\,p(t)=2i\sqrt{ab}\,\zeta_{a,b}(t)$. For $(4.2)$: substitute $T=\bigl(c-(a-b)X\bigr)/(a+b)$ from $(2.1)$ and $Y^2=T^2-X^2$ into $|\zeta_{a,b}|^2=\bigl((a+b)X+(a-b)T\bigr)^2+4ab\,Y^2$; this simplifies identically to $c^2$ (direct algebraic expansion). The hyperbolic case is identical with $2i\sqrt{ab}$ replaced by the real eigenvalue $2\sqrt{-ab}$ and its negative, giving the two real eigenvectors $(a+b,\pm2\sqrt{-ab},a-b)$, and the same substitution gives $\eta_+\eta_-=c^2$ identically.
+\end{proof}
+
+Both identities were checked symbolically (the substitution above, carried out by computer algebra, returns exactly $0$ for $|\zeta_{a,b}|^2-c^2$ and for $\eta_+\eta_--c^2$) and numerically to floating-point precision along explicit flow lines.
+
+\begin{corollary}[A second proof of Theorem~\ref{thm:conic-recap}]
+On the plane $(2.1)$, the map $(X,Y,T)\mapsto\zeta_{a,b}$ (ellipse case) or $(X,Y,T)\mapsto(\eta_+,\eta_-)$ (hyperbola case) is a real-linear change of coordinates in which the curve's own equation becomes, respectively, $|\zeta_{a,b}|=c$ --- a circle, hence an ellipse in any linear image of the plane --- or $\eta_+\eta_-=c^2$ --- a hyperbola, by definition, in the $(\eta_+,\eta_-)$ coordinates. This is an independent proof of Theorem~\ref{thm:conic-recap}'s classification, via a single completed-square identity rather than the quadratic-in-$x$ argument of \cite{Ebert2026Table}.
+\end{corollary}
+
+\section{The Power Map}
+
+The identity $(4.2)$ or $(4.4)$ is what makes the next step free.
+
+\begin{theorem}[Power map]\label{thm:powermap}
+For $ab>0$, define $\Psi_n$ on the curve $ax+by=c$ by $\zeta_{a,b}\mapsto\zeta_{a,b}^{\,n}$, then solving the linear system
+\begin{equation}
+(a+b)X_n+(a-b)T_n=\mathrm{Re}(\zeta_{a,b}^n),\qquad(a-b)X_n+(a+b)T_n=c^n, \tag{5.1}
+\end{equation}
+for $(X_n,T_n)$, and setting $Y_n=\mathrm{Im}(\zeta_{a,b}^n)/(2\sqrt{ab})$. Then $(X_n,Y_n,T_n)$ lies on the cone $X^2+Y^2=T^2$ and on the curve $ax+by=c^n$: the same conic shape (Proposition 3.3 of \cite{Ebert2026Table} shows the eccentricity of $ax+by=c$ depends only on $a/b$, so $c\mapsto c^n$ changes only the size, not the shape). Moreover $\Psi_n\circ\mathrm{flow}_t=\mathrm{flow}_{nt}\circ\Psi_n$ for the flow of $G_{a,b}$. The hyperbola case ($ab<0$) is identical with $\eta_\pm\mapsto\eta_\pm^{\,n}$ in place of $\zeta_{a,b}\mapsto\zeta_{a,b}^n$, again landing on $ax+by=c^n$.
+\end{theorem}
+
+\begin{proof}
+By $(4.2)$, $|\zeta_{a,b}^n|=|\zeta_{a,b}|^n=c^n$, so $(5.1)$'s second equation is consistent with the modulus of $\zeta_{a,b}^n$ and the same completed-square identity used to prove $(4.2)$, run in reverse, shows $(X_n,Y_n,T_n)$ satisfies $X_n^2+Y_n^2=T_n^2$ and $(a-b)X_n+(a+b)T_n=c^n$. The intertwining property follows from $\zeta_{a,b}(nt)=\zeta_{a,b}(0)e^{2i\sqrt{ab}\,nt}=\bigl(\zeta_{a,b}(0)e^{2i\sqrt{ab}\,t}\bigr)^n=\zeta_{a,b}(t)^n$ for real $n$, and by continuity/analyticity for integer $n$ generally. The hyperbola case is the same argument with $(4.4)$ in place of $(4.2)$.
+\end{proof}
+
+\begin{example}[Continuing Figure 1 of \cite{Ebert2026Table}]
+Take $a=2,b=5$, the line $2x+5y=20$ from \cite{Ebert2026Table}'s own worked example, at the point $(x,y)=(1,3.6)$: $X_0=-1.3$, $T_0=2.3$, $Y_0=\sqrt{3.6}\approx1.897$. Then
+\[
+\zeta_{2,5}=(7)(-1.3)+(-3)(2.3)+2i\sqrt{10}(1.897)=-9.1-6.9+12i=-16+12i,
+\]
+and indeed $|-16+12i|=\sqrt{256+144}=\sqrt{400}=20=c$, confirming $(4.2)$. Squaring, $\zeta_{2,5}^2=(-16+12i)^2=112-384i$, with $|112-384i|=\sqrt{112^2+384^2}=400=c^2$; solving $(5.1)$ gives $(X_2,Y_2,T_2)=(49.6,\,60.72,\,78.4)$; concretely, $x_2=T_2+X_2=128$, $y_2=T_2-X_2=28.8$, and $2(128)+5(28.8)=256+144=400=c^2$ exactly, landing on the same-shape ellipse $2x+5y=400$. Cubing instead gives $(X_3,Y_3,T_3)=(1092.8,\,1183.96,\,1611.2)$, on $2x+5y=8000=c^3$. All three were verified symbolically and numerically to match $(5.1)$ to floating-point precision. Figure~\ref{fig:powermap} shows this concretely: the same three points, plotted at true scale (where the $n=2,3$ ellipses dwarf the original), and again after dividing every point by its own $c^n$, where all three collapse onto one shared curve --- confirming visually that $\Psi_n$ does not change the ellipse's shape at all, only its phase and its size.
+\end{example}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{fig_power_map.pdf}
+\caption{The power map applied to \cite{Ebert2026Table}'s own example line $2x+5y=20$, at the point $(x,y)=(1,3.6)$. (a) At true scale: the three curves $2x+5y=20,\,400,\,8000$ (i.e.\ $c,c^2,c^3$ for $c=20$) are the same shape --- eccentricity depends only on $a/b=2/5$ --- growing rapidly, with the marked point advancing from curve to curve under $\Psi_1\to\Psi_2\to\Psi_3$. (b) The same three points after dividing by $c^n$: they collapse onto a single normalized curve, landing at three different points along it --- exactly the statement that $\Psi_n$ advances the eigen-coordinate's phase by a factor of $n$ without altering $|\zeta_{a,b}|/c^n=1$.}
+\label{fig:powermap}
+\end{figure}
+
+\begin{corollary}[The two named flows are the two symmetric special cases]
+At $a=b$: $\zeta_{a,a}=2a(X+iY)$, $|\zeta_{a,a}|=2aT=c$ recovers $T=c/(2a)$ (the anti-diagonal's own radius), and $\Psi_n$ gives $T_n=c^n/(2a)$; tracking through $(5.1)$ with $a=b$ shows this is exactly $T_n=T^n\cdot(2a)^{n-1}$, i.e.\ (up to the harmless normalization constant fixed by the choice $c=2aT$) the map $T\mapsto T^n$ along the anti-diagonal circle. At $a=-b$: $\eta_\pm=2a(T\pm Y)$, and $\Psi_n$ reduces to $X_n=X^n$ (up to the same normalization), the fixed-difference power map.
+\end{corollary}
+
+\section{The Fourth Case: Constant Product}
+
+Every plane in Theorem~\ref{thm:orbit} has normal vector $n=(a-b,0,a+b)$ with zero $Y$-component, since Theorem~\ref{thm:conic-recap} only ever considers \emph{linear} cuts $ax+by=c$. So $B_X$'s own axis, $(0,1,0)$, is never realized as some $G_{a,b}$: $B_X$ is fundamentally outside the family Sections~3--5 describe. This matches \cite{Ebert2026Table} exactly: $B_X$'s orbits are the constant-\emph{product} curves $xy=N$ of that paper's Section~4 --- a nonlinear cut, not a plane section at all in the $(x,y)$-picture, and so it needs its own, structurally different power map.
+
+\begin{theorem}[Product-fixed power map]\label{thm:productpower}
+For $x,y>0$ with $Y=\sqrt{xy}$, define $X_n:=(x^n-y^n)/2$, $T_n:=(x^n+y^n)/2$. Then $X_n=Y^n\sinh(ns)$ and $T_n=Y^n\cosh(ns)$, where $s=\tfrac12\ln(x/y)$, so that
+\begin{equation}
+T_n^2-X_n^2=Y^{2n} \tag{6.1}
+\end{equation}
+identically: $(X_n,\,Y^n,\,T_n)$ lies on the same cone $X^2+Y^2=T^2$. The map $\Psi_n^{B_X}:(x,y)\mapsto(x^n,y^n)$ intertwines with the $B_X$-flow: $\Psi_n^{B_X}\circ\mathrm{flow}_\phi=\mathrm{flow}_{n\phi}\circ\Psi_n^{B_X}$.
+\end{theorem}
+
+\begin{proof}
+Writing $x=Ye^s$, $y=Ye^{-s}$, $x^n-y^n=Y^n(e^{ns}-e^{-ns})=2Y^n\sinh(ns)$ and similarly for $T_n$; $(6.1)$ follows from $\cosh^2-\sinh^2=1$. The intertwining property is immediate from $x^n=Y^ne^{ns}$: replacing $s$ by $s+\phi$ (the $B_X$-flow) and then raising to the $n$-th power gives the same result as raising to the $n$-th power (rapidity $ns$) and then flowing by $n\phi$.
+\end{proof}
+
+\begin{remark}[A cheap, but not the cheapest, factorization]
+$(x,y)\mapsto(x^n,y^n)$ gives, for free, a specific factorization of $N^n$ (namely $x^n\cdot y^n$) from any factorization $N=xy$, with rapidity exactly $n$ times the original. Since Fermat's method (Section 4 of \cite{Ebert2026Table}) runs fastest at small rapidity, and this map \emph{multiplies} rapidity by $n$, it moves you further from the balanced pair, not closer: it is a free byproduct, not a shortcut for factoring $N^n$ near its square root.
+\end{remark}
+
+\section{The Degenerate Case: No Power Map for Rows and Columns}
+
+At $ab=0$ --- the row/column, parabola case of Theorem~\ref{thm:conic-recap} --- the eigenvalues of $G_{a,b}$ from Theorem~\ref{thm:orbit}(b) collapse to $0,0,0$: all three vanish, and (for $a\ne b$, i.e.\ genuinely $ab=0$ rather than the doubly-degenerate $a=b=0$ excluded from the start) $G_{a,b}$ is nilpotent rather than diagonalizable. There is no eigen-coordinate, no $\zeta$, and no completed-square identity to raise to a power: the flow that sweeps out a row or column is a shear, not a rotation or a boost, and shears do not diagonalize. Concretely, a row $x=c$ satisfies $X+T=c$ identically (Proposition 3.2 of \cite{Ebert2026Table}); the natural one-parameter family that preserves this is literal translation, $y\mapsto y+d$, under which $X+T$ is manifestly unchanged but which has no multiplicative structure to exploit --- there is nothing analogous to $(4.2)$ to raise to the $n$-th power. This is not a gap in the present construction; it is the actual boundary case, consistent with $\lambda^2=-4ab\to0$ being the shared limit of both the ellipse and the hyperbola families as $ab\to0$, and with a parabola being, in the classical sense, the curve you get exactly at that limit.
+
+\section{Discussion}
+
+\begin{center}
+\begin{tabular}{lllll}
+\hline
+case & condition & generator & eigen-coordinate & power law \\
+\hline
+circle & $a=b$ & $2aL$ & $X+iY$ & $T_n=T^n$ (up to scale) \\
+fixed diff. & $a=-b$ & $2aB_Y$ & $T\pm Y$ & $X_n=X^n$ (up to scale) \\
+general line & $ab\ne0$ & $G_{a,b}$ (3.1) & $\zeta_{a,b}$ or $\eta_\pm$ & $ax+by=c\mapsto ax+by=c^n$ \\
+constant product & --- & $B_X$ & $x,\,y$ themselves & $(x,y)\mapsto(x^n,y^n)$ \\
+row/column & $ab=0$ & nilpotent & none & none \\
+\hline
+\end{tabular}
+\end{center}
+
+Every line through the multiplication table with $ab\ne0$ turns out to be the complete orbit of a single, explicit symmetry of the cone, and that symmetry's own eigen-coordinate collapses the line's ellipse or hyperbola to a one-line identity, $|\zeta_{a,b}|=c$ or $\eta_+\eta_-=c^2$, which is simultaneously a second proof of \cite{Ebert2026Table}'s classification theorem and the mechanism behind an exact power map $ax+by=c\mapsto ax+by=c^n$. The two flows already named in Proposition~\ref{thm:generators-recap}'s symmetry algebra, $L$ and $B_Y$, are exactly the two symmetric special cases $a=b$ and $a=-b$; every other line gets its own generator, not previously named anywhere in this project. The third named flow, $B_X$, sits genuinely outside this family --- its own power map is structurally different, acting directly on $(x,y)$ rather than through a plane-section eigen-coordinate --- and the parabola case sits outside it in the other direction, admitting no power map at all, for the same reason a shear cannot be diagonalized.
+
+We are precise about scope. This paper does not produce new arithmetic content in the sense of \cite{Ebert2026Table}'s Fermat and divisor-function results: the power map of Theorem~\ref{thm:powermap} sends a rational or irrational point on one conic to a point on another conic in the same family, and says nothing new about which \emph{integer} points $ax+by=c$ contains beyond what \cite{Ebert2026Table} already establishes. What is new is structural: the recognition that \cite{Ebert2026Table}'s sign-of-$ab$ classification, stated purely as a fact about a quadratic in $x$, is secretly a statement about the causal type of a Lorentz-group element's axis, and that this identification is constructive --- it hands you the exact coordinate in which the curve's own defining equation becomes a single modulus condition, ready to be raised to any power.
+
+\section*{Acknowledgment}
+
+Large language model tools (Anthropic's Claude) were used in preparing this manuscript for symbolic and numerical verification of every identity and theorem stated above (via computer algebra and direct numerical simulation of the flows, checked to floating-point precision), for exposition and copyediting, and for generating the accompanying figure from the author's specifications. All mathematical claims, theorem statements, and proofs are the author's own and were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\end{thebibliography}
+
+\end{document}

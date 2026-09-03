@@ -1,0 +1,240 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\title[Two Algebras: SU(2) and SU(1,1) on the Cone]{Two Oscillators, Two Algebras: SU(2) and SU(1,1) Realizations of the Cone's Symmetry, and the Fate of the Power Map}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The companion paper \cite{Ebert2026EigenCoord} attaches to every generator of the cone's symmetry algebra $\mathfrak{so}(2,1)$ an exact power map: an eigen-coordinate that can be raised to the $n$-th power, sending one orbit to a larger one of the same shape. This note asks whether that construction survives quantization, using the two-oscillator (Schwinger boson) substrate already natural to the cone's factor-pair coordinates. We find a clean three-way split. The rotation generator $L$ is exactly $\mathfrak{su}(2)$ angular momentum on a fixed spin-$j$ multiplet, and here only half the power map survives: the phase-doubling half is exact (it is just group composition), but the radius-growth half has no operator realization at all, for a reason we prove outright --- the Casimir is central in $\mathfrak{su}(2)$, so no rotation can ever change it. The fixed-difference generator $B_Y$, by contrast, is exactly the standard $\mathfrak{su}(1,1)$ algebra of two-mode squeezing, and here the correspondence is genuinely richer: the classical invariant $X$ survives quantization exactly (it is the Bargmann index, a bona fide quantum number, which we compute in closed form), while the classical flow in $T$ is recovered only in a semiclassical, large-photon-number limit, with an exact closed-form residual term we derive and verify against direct numerical simulation of the squeezing operator on a truncated Fock space. The product-fixed generator $B_X$ appears to admit no realization by any two-mode quadratic (Gaussian) generator at all, for a structural reason we make precise. Finally, we examine the generic ellipse generator $G_{a,b}=(a+b)L+(a-b)B_Y$ that governs every other line through the table: an exact selection rule confines its quantum flow to spin sectors differing by integers, and — once the quantum flow parameter is correctly matched to the classical one, accounting for the same half-angle relationship already established for $B_Y$ — we prove exactly, not merely observe numerically, that the resulting flow returns every state to itself after precisely twice the classical orbital period, and every definite-photon-number state to itself after precisely one period, via an explicit Heisenberg-picture computation and Schur's lemma. This is a fourth regime, and in a precise sense a cleaner correspondence with the classical construction than either pure case achieves on its own. We are explicit throughout about which of these claims are theorems and which are numerically-supported semiclassical statements.
+\end{abstract}
+
+\section{Introduction}
+
+\cite{Ebert2026EigenCoord} shows that every one-parameter symmetry of the cone $X^2+Y^2=T^2$ comes with a companion: an eigen-coordinate in which the symmetry's own flow becomes multiplication by a complex or real exponential, so that raising the eigen-coordinate to an integer power $n$ sends one orbit to another, larger orbit of the same shape. That paper works entirely with real numbers --- $X,Y,T$ are coordinates built from a positive real pair $(x,y)$. This note asks the natural next question: the same pair $(x,y)$ has, in a different corner of this project, already been identified with the occupation numbers of two independent quantum harmonic oscillators, carrying a genuine $\mathfrak{su}(2)$ representation. Given that identification, does the power map survive being made quantum mechanical?
+
+The short answer is: partially, and unevenly, and the unevenness is itself the interesting content. One generator's power map turns out to be half-trivial and half-forbidden by a hard operator-algebra fact. A second generator's power map turns out to have a genuine quantum home we had not been looking for, exact in one of its two coordinates and approximate --- but precisely, quantifiably approximate --- in the other. The third generator's power map appears to have no quantum home of the kind the other two enjoy, and we explain structurally why.
+
+\subsection*{Roadmap} Section~2 sets up the shared substrate: two oscillators, their Fock states, and the dictionary $x=n_1+1$, $y=n_2$ already implicit in the factor-pair coordinates. Section~3 treats the rotation generator $L$: its exact $\mathfrak{su}(2)$ realization, and a short, rigorous argument for why the radius-growing half of its power map cannot be quantized. Section~4 is the main new content: the fixed-difference generator $B_Y$ realized as $\mathfrak{su}(1,1)$ two-mode squeezing, with an exact Casimir/Bargmann-index computation, an exact conservation law, and an exact closed-form formula for how far the quantum mean-field trajectory departs from the classical one. Section~5 argues, with an explicit structural obstruction rather than a case-by-case search, that the product-fixed generator $B_X$ has no comparable realization. Section~6 examines the generic ellipse generator $G_{a,b}$, a genuine mixture of $L$ and $B_Y$: an exact selection rule on which spin sectors it can reach, and a proof --- not merely a numerical observation --- that its quantum flow revives exactly at twice the classical orbital period. Section~7 discusses what has and has not been established.
+
+\section{The Shared Substrate: Two Oscillators}
+
+Let $a_1,a_2$ be independent bosonic annihilation operators, $[a_i,a_j^\dagger]=\delta_{ij}$, $[a_i,a_j]=0$, acting on the Fock space spanned by $|n_1,n_2\rangle=|n_1\rangle\otimes|n_2\rangle$, $n_1,n_2=0,1,2,\dots$, with number operators $n_1=a_1^\dagger a_1$, $n_2=a_2^\dagger a_2$. We use the identification already implicit in the factor-pair coordinates of \cite{Ebert2026Table,Ebert2026EigenCoord}:
+\begin{equation}
+x:=n_1+1,\qquad y:=n_2, \tag{2.1}
+\end{equation}
+so that a basis state $|n_1,n_2\rangle$ carries the classical coordinates $X=(x-y)/2=(n_1-n_2+1)/2$, $Y=\sqrt{xy}$, $T=(x+y)/2=(n_1+n_2+1)/2$. Every quadratic (at most bilinear in $a_i,a_i^\dagger$) Hermitian combination of $a_1,a_2$ generates, by exponentiation, a linear (Bogoliubov) transformation of $(a_1,a_2,a_1^\dagger,a_2^\dagger)$; the two we need turn out to be exactly the two Lie algebras $\mathfrak{su}(2)$ and $\mathfrak{su}(1,1)$, realized on this same pair of oscillators in the two different ways standard in the quantum-optics literature \cite{YurkeMcCallKlauder1986}.
+
+\section{$L$ as $\mathfrak{su}(2)$: What Survives Quantization, and What Cannot}
+
+\begin{proposition}[Schwinger realization of $L$]\label{prop:su2}
+The operators
+\[
+J_+:=a_1^\dagger a_2,\qquad J_-:=a_2^\dagger a_1,\qquad J_z:=\tfrac12(n_1-n_2)
+\]
+satisfy $[J_z,J_\pm]=\pm J_\pm$, $[J_+,J_-]=2J_z$ --- the $\mathfrak{su}(2)$ algebra --- and the Casimir $J^2:=J_z^2+\tfrac12(J_+J_-+J_-J_+)$ acts on $|n_1,n_2\rangle$ as $j(j+1)$ with $j=(n_1+n_2)/2=T-\tfrac12$. In particular $J^2$ is exactly $(T-\tfrac12)(T+\tfrac12)$, and $J_z=X-\tfrac12$.
+\end{proposition}
+
+\begin{proof}
+Direct operator algebra: $[n_1,a_1^\dagger a_2]=[n_1,a_1^\dagger]a_2=a_1^\dagger a_2$ and $[n_2,a_1^\dagger a_2]=a_1^\dagger[n_2,a_2]=-a_1^\dagger a_2$, so $[J_z,J_+]=\tfrac12(a_1^\dagger a_2-(-a_1^\dagger a_2))=a_1^\dagger a_2=J_+$; similarly for $J_-$. For the bracket $[J_+,J_-]=a_1^\dagger a_2a_2^\dagger a_1-a_2^\dagger a_1a_1^\dagger a_2=n_1(n_2+1)-n_2(n_1+1)=n_1-n_2=2J_z$ (using that operators on different modes commute freely). The Casimir eigenvalue $j(j+1)$ with $j=(n_1+n_2)/2$ is the standard fact for this realization; substituting $n_1+n_2=x+y-1=2T-1$ gives $j=T-\tfrac12$, and $J_z=(n_1-n_2)/2=(x-1-y)/2=X-\tfrac12$.
+\end{proof}
+
+So fixing $T$ --- an anti-diagonal $x+y=K$ of the multiplication table --- is exactly fixing the spin $j=(K-1)/2$ of an irreducible $\mathfrak{su}(2)$ multiplet, and $\exp(-i\theta J_y)$ (say) realizes the $L$-flow of \cite{Ebert2026EigenCoord} as an honest rotation operator on that multiplet, in the sense that spin coherent states $|\theta\rangle=\exp(-i\theta J_y)|j,j\rangle$ trace, in their expectation values $\langle J_x\rangle,\langle J_y\rangle,\langle J_z\rangle$, a great circle on the sphere of radius $j$ --- the semiclassical shadow of the classical circle $X^2+Y^2=T^2$ at fixed $T=j+\tfrac12$, exact in the large-$j$ limit where coherent states become sharply localized \cite{Radcliffe1971,Arecchi1972}.
+
+\begin{theorem}[The radius-growth half of the power map cannot be quantized]\label{thm:nogo-L}
+There is no element $G$ of the $\mathfrak{su}(2)$ algebra spanned by $J_x,J_y,J_z$, and no state $|\psi\rangle$, for which $\langle\psi|e^{-i\theta G}J^2e^{-i\theta G}|\psi\rangle$ depends on $\theta$.
+\end{theorem}
+
+\begin{proof}
+$J^2$ is the Casimir of $\mathfrak{su}(2)$: $[J^2,J_x]=[J^2,J_y]=[J^2,J_z]=0$, hence $[J^2,G]=0$ for every real linear combination $G$ of $J_x,J_y,J_z$. Then $e^{i\theta G}J^2e^{-i\theta G}=J^2$ identically (the commutator vanishing makes every term in the Baker--Campbell--Hausdorff expansion beyond the zeroth vanish), so $\langle\psi|e^{i\theta G}J^2e^{-i\theta G}|\psi\rangle=\langle\psi|J^2|\psi\rangle$ for every $\theta$ and every $|\psi\rangle$.
+\end{proof}
+
+Since $T=j+\tfrac12$ is determined by $J^2=j(j+1)$, Theorem~\ref{thm:nogo-L} says exactly that: no rotation, of any state whatsoever, can change $\langle T\rangle$. The power map of \cite{Ebert2026EigenCoord} sends $\zeta=X+iY=Te^{i\theta}\mapsto\zeta^n$, i.e.\ $T\mapsto T^n$ together with $\theta\mapsto n\theta$; here we learn that the $\theta\mapsto n\theta$ half is exact and trivial (it is just $(e^{-i\theta J_y})^n=e^{-in\theta J_y}$, ordinary group composition), while the $T\mapsto T^n$ half is not merely unrealized but \emph{impossible} within this algebra, by a one-line centrality argument rather than a failed search. Growing $j$ at all requires leaving the $\mathfrak{su}(2)$ algebra of a single multiplet --- e.g.\ by symmetrizing $n$ independent copies of the doublet, which gives $j\mapsto nj$ (linear in $n$), a different, weaker growth than the classical $T\mapsto T^n$ and not something Theorem~\ref{thm:nogo-L} forbids, since it is not a rotation of a fixed multiplet at all.
+
+\section{$B_Y$ as $\mathfrak{su}(1,1)$: An Exact Quantum Number and a Quantified Semiclassical Limit}
+
+\subsection{The algebra}
+
+\begin{proposition}[Two-mode squeezing realization of $B_Y$]\label{prop:su11}
+The operators
+\[
+K_z:=\tfrac12(n_1+n_2+1),\qquad K_+:=a_1^\dagger a_2^\dagger,\qquad K_-:=a_1a_2
+\]
+satisfy $[K_z,K_\pm]=\pm K_\pm$, $[K_+,K_-]=-2K_z$ --- the $\mathfrak{su}(1,1)$ algebra --- and the Casimir $C:=K_z^2-\tfrac12(K_+K_-+K_-K_+)$ acts on $|n_1,n_2\rangle$ as
+\begin{equation}
+C=k(k-1),\qquad k=\frac{n_1-n_2+1}2=X, \tag{4.1}
+\end{equation}
+exactly, for every $n_1,n_2$: the Bargmann index of the representation is exactly the classical invariant $X$ of $B_Y$.
+\end{proposition}
+
+\begin{proof}
+$[K_z,K_+]=\tfrac12[n_1+n_2,a_1^\dagger a_2^\dagger]=\tfrac12(a_1^\dagger a_2^\dagger+a_1^\dagger a_2^\dagger)=K_+$, and similarly $[K_z,K_-]=-K_-$. For the remaining bracket, $K_+K_-=a_1^\dagger a_2^\dagger a_1a_2=n_1n_2$ and $K_-K_+=a_1a_2a_1^\dagger a_2^\dagger=(n_1+1)(n_2+1)$ (different modes commute freely), so $[K_+,K_-]=n_1n_2-(n_1+1)(n_2+1)=-(n_1+n_2+1)=-2K_z$. For the Casimir, $\tfrac12(K_+K_-+K_-K_+)=\tfrac12[n_1n_2+(n_1+1)(n_2+1)]=n_1n_2+K_z$, so
+\[
+C=K_z^2-n_1n_2-K_z=\tfrac14(n_1+n_2+1)^2-n_1n_2-\tfrac12(n_1+n_2+1).
+\]
+Writing $\ell=n_1-n_2$ and using $4n_1n_2=(n_1+n_2)^2-\ell^2$, this simplifies (direct algebra, and verified symbolically) to $C=(\ell^2-1)/4$, which equals $k(k-1)$ for $k=(\ell+1)/2$; substituting $\ell=n_1-n_2$ and $X=(n_1-n_2+1)/2$ gives $k=X$ exactly.
+\end{proof}
+
+So $K_\pm$ --- literally the two-mode squeezing operators of quantum optics, creating or destroying a photon pair, one in each mode --- change $n_1$ and $n_2$ together and leave $n_1-n_2$, hence $X$, exactly fixed. This is not an approximation: $X$ is a genuine, exactly conserved quantum number (the Bargmann index) under any evolution generated by $K_z,K_+,K_-$, for every state, not only coherent ones.
+
+\subsection{The flow, and where it stops being exact}
+
+The squeezing operator $S(r):=\exp[r(K_+-K_-)]$ generates, in the Heisenberg picture, the standard two-mode Bogoliubov transformation $S^\dagger(r)a_1S(r)=a_1\cosh r+a_2^\dagger\sinh r$, $S^\dagger(r)a_2S(r)=a_2\cosh r+a_1^\dagger\sinh r$. Take an initial coherent product state $|\alpha_1,\alpha_2\rangle$ with $\alpha_1,\alpha_2>0$ real, and write $x_0:=\alpha_1^2+1$, $y_0:=\alpha_2^2$ (so $x_0,y_0$ are the classical factor pair the coherent state's mean occupation numbers correspond to under $(2.1)$), $T_0=(x_0+y_0)/2$, $Y_0=\sqrt{x_0y_0}$, $X_0=(x_0-y_0)/2$.
+
+\begin{proposition}[Exact mean-occupation formulas]\label{prop:meanocc}
+\begin{equation}
+\langle n_1(r)\rangle=(\alpha_1\cosh r+\alpha_2\sinh r)^2+\sinh^2r,\qquad \langle n_2(r)\rangle=(\alpha_2\cosh r+\alpha_1\sinh r)^2+\sinh^2r. \tag{4.2}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+$n_1(r)=a_1(r)^\dagger a_1(r)=(a_1^\dagger\cosh r+a_2\sinh r)(a_1\cosh r+a_2^\dagger\sinh r)=n_1\cosh^2r+(a_1^\dagger a_2^\dagger+a_1a_2)\sinh r\cosh r+(n_2+1)\sinh^2r$; taking the expectation in $|\alpha_1,\alpha_2\rangle$, using $\langle n_1\rangle=\alpha_1^2$, $\langle n_2\rangle=\alpha_2^2$, $\langle a_1^\dagger a_2^\dagger\rangle=\langle a_1a_2\rangle=\alpha_1\alpha_2$, and completing the square gives $(4.2)$; $n_2(r)$ is identical with indices swapped.
+\end{proof}
+
+We verified $(4.2)$ by direct numerical simulation: exponentiating the truncated matrix $r(K_+-K_-)$ on a $60$-dimensional-per-mode Fock space and evolving $|\alpha_1,\alpha_2\rangle=(1.2,0.8)$ reproduces $(4.2)$ to five decimal places at $r=0.1,0.3,0.5$.
+
+\begin{corollary}[Exact conservation of $X$]\label{cor:Xexact}
+$\langle n_1(r)\rangle-\langle n_2(r)\rangle=\alpha_1^2-\alpha_2^2$ for every $r$: exactly the value at $r=0$.
+\end{corollary}
+
+\begin{proof}
+Factor the difference of the two squared terms in $(4.2)$ as a difference of squares: $(\alpha_1\cosh r+\alpha_2\sinh r)^2-(\alpha_2\cosh r+\alpha_1\sinh r)^2=\bigl[(\alpha_1+\alpha_2)(\cosh r+\sinh r)\bigr]\bigl[(\alpha_1-\alpha_2)(\cosh r-\sinh r)\bigr]=(\alpha_1^2-\alpha_2^2)(\cosh^2r-\sinh^2r)=\alpha_1^2-\alpha_2^2$; the $\sinh^2r$ terms in $(4.2)$ cancel in the difference.
+\end{proof}
+
+Corollary~\ref{cor:Xexact} is the mean-value shadow of Proposition~\ref{prop:su11}'s exact statement: $X$ is conserved operator-theoretically, not just on average.
+
+\begin{theorem}[Exact residual between the quantum and classical flows in $T$]\label{thm:residual}
+Writing $T_q(r):=\bigl(\langle n_1(r)\rangle+\langle n_2(r)\rangle+1\bigr)/2$ for the quantum mean-field trajectory and $T_{\rm cl}(\varphi):=T_0\cosh\varphi+Y_0\sinh\varphi$ for the classical $B_Y$-flow of Proposition~2.2 of \cite{Ebert2026EigenCoord}, we have, exactly, at $\varphi=2r$:
+\begin{equation}
+T_q(2r)-T_{\rm cl}(2r)=Y_0\sinh(2r)\left(\sqrt{1-\frac1{x_0}}-1\right). \tag{4.3}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+From $(4.2)$, $\langle n_1(r)\rangle+\langle n_2(r)\rangle=(\alpha_1^2+\alpha_2^2)\cosh(2r)+2\alpha_1\alpha_2\sinh(2r)+2\sinh^2r$ (expand both squares and use $\sinh^2r+\cosh^2r=\cosh2r$, $2\sinh r\cosh r=\sinh2r$); adding $1=\cosh(2r)-2\sinh^2r$ and dividing by $2$ gives $T_q(2r)=\tfrac12(x_0+y_0)\cosh(2r)+\alpha_1\alpha_2\sinh(2r)$ (using $x_0=\alpha_1^2+1$). Subtracting $T_{\rm cl}(2r)=T_0\cosh(2r)+Y_0\sinh(2r)$, the $\cosh(2r)$ terms cancel exactly (both equal $T_0\cosh2r$), leaving $\bigl(\alpha_1\alpha_2-Y_0\bigr)\sinh(2r)$. Since $\alpha_1=\sqrt{x_0-1}$, $\alpha_2=\sqrt{y_0}$, and $Y_0=\sqrt{x_0y_0}$, this is $\sqrt{y_0}\bigl(\sqrt{x_0-1}-\sqrt{x_0}\bigr)\sinh(2r)=Y_0\bigl(\sqrt{1-1/x_0}-1\bigr)\sinh(2r)$ (dividing and multiplying by $\sqrt{x_0}$). This identity was also checked symbolically by computer algebra.
+\end{proof}
+
+So the classical $B_Y$-flow is recovered at $\varphi=2r$ --- the flow parameter is exactly twice the squeezing parameter, the same half-angle doubling familiar from spin representations --- up to a residual that is \emph{exactly} $(4.3)$, not merely small: it vanishes only in the limit $x_0\to\infty$, where it falls off as $-Y_0/(2x_0)\cdot\sinh(2r)$, an explicit $O(1/x_0)$ correction. Table~1 records this quantitatively.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{r r r r}
+$(\alpha_1,\alpha_2)$ & $x_0$ & $T_q(0.6)$ & relative error vs.\ $T_{\rm cl}(0.6)$ \\
+\hline
+$(1.2,0.8)$ & $2.44$ & $2.437$ & $-7.0\%$ \\
+$(3.6,2.4)$ & $13.96$ & $17.189$ & $-1.2\%$ \\
+$(12,8)$ & $145$ & $185.000$ & $-0.11\%$ \\
+$(36,24)$ & $1297$ & $1660.257$ & $-0.013\%$ \\
+\hline
+\end{tabular}
+\caption{Convergence of the quantum mean-field flow $T_q$ to the classical $B_Y$ flow $T_{\rm cl}$, at fixed $r=0.3$ ($\varphi=0.6$), as the coherent-state amplitude --- and hence the mean photon number, and hence how ``classical'' the state is --- grows. The relative error shrinks like $1/x_0$, exactly as $(4.3)$ predicts.}
+\end{table}
+
+\section{$B_X$: A Structural Obstruction}
+
+Every quadratic (at most bilinear) Hermitian generator built from $a_1,a_2,a_1^\dagger,a_2^\dagger$ falls into one of two kinds. \emph{Passive} generators --- real combinations of $n_1,n_2,a_1^\dagger a_2,a_2^\dagger a_1$ --- conserve $n_1+n_2$ exactly (this is the $\mathfrak{su}(2)$ family of Section~3, together with the identity and relative phase). \emph{Active} generators --- any combination involving $a_1^\dagger a_2^\dagger$ or $a_1a_2$, or single-mode squeezing terms $a_i^{\dagger2},a_i^2$ --- do not conserve $n_1+n_2$, but they always create or destroy quanta in \emph{pairs} from the vacuum, and it is a standard fact about such Bogoliubov transformations that the resulting mean-occupation formulas always carry an unavoidable additive term (the $\sinh^2r$ term of $(4.2)$ is the specific instance we computed) coming from vacuum fluctuations, present for every nonzero active generator and vanishing only when there is none.
+
+$B_X$'s classical target is $x(\phi)=x_0e^\phi$, $y(\phi)=y_0e^{-\phi}$, with $Y=\sqrt{xy}=\sqrt{x_0y_0}$ exactly constant for \emph{every} $\phi$ --- no fluctuation term, ever, at any order. A passive generator cannot produce this, since $x_0e^\phi+y_0e^{-\phi}$ is not constant (ruling out the $\mathfrak{su}(2)$ family outright). An active generator can produce exponential-in-$\phi$ growth in the mean occupation numbers (Theorem~\ref{thm:residual}'s $\cosh(2r),\sinh(2r)$ terms already show this), but by the mechanism of Section~4 it does so together with an unavoidable, nonzero additive correction of exactly the kind $B_X$'s classical formula has none of.
+
+\begin{remark}[What this is, and is not, a proof of]
+We have not searched every conceivable quantum operation, only the two-mode quadratic (Gaussian) generators natural to this substrate --- exactly the class that gives $L$ and $B_Y$ their realizations. Within that class, the argument above is a genuine structural obstruction, not a failed search: passive generators fail because they conserve the wrong quantity, and active generators fail because activity itself forces the fluctuation term that $B_X$'s classical formula categorically excludes. Whether some non-Gaussian (higher-than-quadratic) operator could reproduce $B_X$'s flow is a different, harder question we do not address here.
+\end{remark}
+
+\section{The Generic Ellipse: $G_{a,b}$ as a Bounded, Structured Connector Between Spin Sectors}
+
+Sections~3 and~4 quantize only the two symmetric special cases of the ellipse/hyperbola family: $a=b$ (pure $L$) and $a=-b$ (pure $B_Y$). \cite{Ebert2026EigenCoord} shows that every other line $ax+by=c$ with $ab\ne0$ is the orbit of its own generator,
+\begin{equation}
+G_{a,b}=(a+b)L+(a-b)B_Y,\tag{6.1}
+\end{equation}
+with eigenvalues $0,\pm2i\sqrt{ab}$ for $ab>0$ (elliptic type, every ellipse, classical period $T_{\rm cl}=\pi/\sqrt{ab}$) and $0,\pm2\sqrt{-ab}$ for $ab<0$ (hyperbolic type). This section asks the natural question neither earlier section addresses: what does the generic ellipse's generator ($ab>0$, $a\ne b$) do quantum mechanically, given that it is a genuine mixture of $L$ (Section~3's exactly $j$-conserving rotation) and $B_Y$ (Section~4's exactly $j$-nonconserving squeezing)?
+
+Matching the parametrization already fixed by Sections~3 and~4 --- $\exp(-i\theta J_y)$ realizes $L$-flow at unit rate, while $\varphi=2r$ relates the classical $B_Y$-flow parameter to the quantum squeezing parameter --- the correctly time-matched quantum generator is
+\begin{equation}
+\hat G_{a,b}:=(a+b)(-iJ_y)+\frac{a-b}2(K_+-K_-),\tag{6.2}
+\end{equation}
+so that $\exp(\theta\hat G_{a,b})$ is unitary for real $\theta$, and $\theta$ is meant to match $(6.1)$'s own flow parameter directly, with no residual rescaling left unaccounted for.
+
+\begin{proposition}[Exact selection rule]\label{prop:selection}
+For $a\ne b$, every matrix element of $\hat G_{a,b}$ between Fock states $|n_1,n_2\rangle$ and $|n_1',n_2'\rangle$ vanishes unless $n_1'+n_2'-(n_1+n_2)\in\{0,\pm2\}$. Consequently, under the flow $\exp(\theta\hat G_{a,b})$, a state starting in a single spin-$j_0$ sector ($n_1+n_2=2j_0$) has support only on sectors with $j-j_0\in\mathbb Z$: it can never reach a sector of the opposite half-integer parity.
+\end{proposition}
+
+\begin{proof}
+$J_y$ is built from $J_+=a_1^\dagger a_2$ and $J_-=a_2^\dagger a_1$, each of which conserves $n_1+n_2$ exactly (Section~3): its matrix elements vanish unless $n_1'+n_2'=n_1+n_2$. $K_+=a_1^\dagger a_2^\dagger$ raises $n_1+n_2$ by exactly $2$; $K_-=a_1a_2$ lowers it by exactly $2$ (Proposition~\ref{prop:su11}). No term in $(6.2)$ changes $n_1+n_2$ by any other amount, so no term in any order of the Baker--Campbell--Hausdorff expansion of $\exp(\theta\hat G_{a,b})$ can either. Since $2j=n_1+n_2$, a shift of $n_1+n_2$ by any even integer is a shift of $j$ by an integer, proving the claim.
+\end{proof}
+
+\begin{theorem}[Exact quantum revival, at twice the classical period]\label{thm:revival}
+Let $T_{\rm cl}=\pi/\sqrt{ab}$ be the classical period of $(6.1)$. Then, as operator identities on the Fock space,
+\[
+\exp(T_{\rm cl}\hat G_{a,b})=e^{i\alpha}\exp\!\big(i\pi(n_1+n_2)\big),\qquad
+\exp(2T_{\rm cl}\hat G_{a,b})=e^{2i\alpha}\,\mathbb 1,
+\]
+for some real phase $\alpha$. Consequently, every state with a definite total photon number returns to itself, up to an overall phase, after exactly one classical period, and \emph{every} state whatsoever --- not merely a Fock eigenstate, any superposition at all --- returns to itself exactly, up to overall phase, after exactly two classical periods.
+\end{theorem}
+
+\begin{proof}
+Since $\hat G_{a,b}$ is bilinear in $a_1,a_2,a_1^\dagger,a_2^\dagger$, the Heisenberg equation $d v/d\theta=[v,\hat G_{a,b}]$ for $v=(a_1,a_2,a_1^\dagger,a_2^\dagger)^{\!\top}$ is exactly linear, $dv/d\theta=Av$, with
+\[
+A=\begin{pmatrix}0&-p&0&m\\ p&0&m&0\\ 0&m&0&-p\\ m&0&p&0\end{pmatrix},\qquad p=\tfrac{a+b}2,\ m=\tfrac{a-b}2,
+\]
+obtained directly from $[a_i,\hat G_{a,b}]$. Direct computation gives $A$'s eigenvalues as exactly $\pm i\sqrt{ab}$, each with multiplicity $2$ --- precisely half the magnitude of $(6.1)$'s own eigenvalues $\pm2i\sqrt{ab}$, the same half-angle relationship already noted for pure $B_Y$ in Section~4. Direct exponentiation (symbolic, exact, for general $a,b$) gives $\exp(T_{\rm cl}A)=-\mathbb 1_4$ and $\exp(2T_{\rm cl}A)=\mathbb 1_4$ exactly, so $U(T_{\rm cl}):=\exp(T_{\rm cl}\hat G_{a,b})$ satisfies $U(T_{\rm cl})^\dagger a_iU(T_{\rm cl})=-a_i$ for $i=1,2$ (and the Hermitian conjugate relations for $a_i^\dagger$). The number-parity operator $\exp(i\pi(n_1+n_2))$ satisfies the identical conjugation relation, so $U(T_{\rm cl})\exp(-i\pi(n_1+n_2))$ commutes with every $a_i,a_i^\dagger$; since the Fock representation of the canonical commutation relations on two modes is irreducible (Stone--von Neumann), Schur's lemma forces this product to be a scalar $e^{i\alpha}\mathbb1$, giving the first identity. Squaring gives the second.
+\end{proof}
+
+\begin{example}[Numerical confirmation]\label{ex:revival}
+Truncating each mode to $N=30$ Fock levels and evolving the sharp state $|n_1,n_2\rangle=|3,2\rangle$ under $\exp(\theta\hat G_{a,b})$ for $a=2,b=1$: fidelity to the initial state reaches $0.999995$ at $\theta\approx T_{\rm cl}=\pi/\sqrt2\approx2.221$ and $1.000000$ at $\theta\approx2T_{\rm cl}\approx4.443$, exactly as Theorem~\ref{thm:revival} predicts (the definite-parity state $|3,2\rangle$, with $n_1+n_2=5$ odd, picks up the $-1$ phase at $T_{\rm cl}$ and returns to $+1$ at $2T_{\rm cl}$); a further check at $\theta\approx3T_{\rm cl}\approx6.664$ again gives fidelity $0.999998$, consistent with the same $-1/+1$ alternation. The match holds equally well, to five or six decimal places, for other $(a,b)$ pairs ($a{=}3,b{=}1$; $a{=}5,b{=}2$), for a different initial Fock state, and for a larger truncation $N=45$ --- the small residual departures from exact unit fidelity are consistent with finite Fock-space truncation, not a genuine physical deviation, given Theorem~\ref{thm:revival}'s exact proof. Between revivals, the state spreads across a broad, non-bimodal band of allowed $j$-sectors (the inverse participation ratio $1/\sum_jp_j^2$ rises from $1$ toward roughly $13$ of the $30$ available sectors and back), always respecting Proposition~\ref{prop:selection}'s parity constraint.
+\end{example}
+
+\begin{remark}[A third regime, distinct from both pure cases]
+Sections~3 and~4 establish two extremes: $L$ conserves $j$ exactly and forever (Theorem~\ref{thm:nogo-L}); $B_Y$ changes $j$ without bound, growing like $\cosh(2r),\sinh(2r)$ (Proposition~\ref{prop:meanocc}). The generic ellipse generator is neither, but it is not merely "in between" either: Proposition~\ref{prop:selection} shows it moves $j$ only in integer steps, and Theorem~\ref{thm:revival} shows the resulting motion is not just bounded but \emph{exactly} periodic, at a period fixed in closed form by $a,b$ alone. This is a cleaner, stronger correspondence with the classical construction than either pure case enjoys on its own: $L$'s classical invariant $T$ cannot be changed at all (Theorem~\ref{thm:nogo-L}), and $B_Y$'s classical flow is only approximately recovered, with an explicit $O(1/x_0)$ residual (Theorem~4.3 of Section~4); the generic elliptic generator instead reproduces its classical period \emph{exactly}, for every state, a fact with no analogue in either of the two special cases from which it is built.
+\end{remark}
+
+\section{Discussion}
+
+\begin{center}
+\small
+\begin{tabular}{lllll}
+\hline
+generator & classical invariant & algebra & exact quantum content & approximate content \\
+\hline
+$L$ & $T$ & $\mathfrak{su}(2)$ & phase doubling $\theta\mapsto n\theta$ & --- ($T\mapsto T^n$: impossible) \\
+$B_Y$ & $X$ & $\mathfrak{su}(1,1)$ & $X$ (Bargmann index) & $T$-flow, $O(1/x_0)$ residual $(4.3)$ \\
+$B_X$ & $Y$ & --- & --- & --- (no realization found) \\
+$G_{a,b}$, $ab{>}0$, $a{\ne}b$ & --- & mixed & selection rule; revival at $2T_{\rm cl}$ & --- \\
+\hline
+\end{tabular}
+\end{center}
+
+The three named generators of \cite{Ebert2026EigenCoord}'s power-map story fare very differently under quantization, and the differences are not accidents of which examples we happened to check. $L$'s failure is a hard theorem (Casimir centrality); $B_Y$'s partial success is exact in exactly the coordinate that is already an exact quantum number (the Bargmann index) and approximate in exactly the coordinate that is not, with the size of the approximation pinned down in closed form rather than left as a numerical curiosity; $B_X$'s absence follows from a structural dichotomy (passive vs.\ active generators) rather than an exhaustive search. The generic ellipse generator $G_{a,b}$, examined in Section~6, is not on this list because it fails or succeeds outright but because it is a genuine mixture of the first two: once correctly time-matched to the classical flow, it turns out to reproduce that flow's period \emph{exactly} (Theorem~\ref{thm:revival}), a cleaner correspondence than either pure case manages alone, and one that could not have been anticipated from either pure case in isolation. None of this was visible from the classical cone alone --- \cite{Ebert2026EigenCoord}'s power map treats all these generators as formally on the same footing, and it is only in asking which of them can be realized on an actual Hilbert space that the asymmetry we already knew was there (Section 6 of \cite{Ebert2026EigenCoord}, on $B_X$ sitting outside the linear eigen-coordinate family) reappears, independently, as a fact about representation theory rather than plane geometry.
+
+We are precise about scope, in keeping with the rest of this project: we have not shown that quantum mechanics ``explains'' the classical power map, or that the cone is secretly quantum. We have shown that two of its three generators happen to coincide with two of the best-studied Lie algebras in quantum optics, realized on the same two-oscillator substrate the factor-pair coordinates already suggest, and that asking a sharp, checkable question --- does the classical power map survive as an operator statement? --- has three different, precise answers rather than one vague one.
+
+\section*{Acknowledgment}
+
+Large language model tools (Anthropic's Claude) were used in preparing this manuscript for symbolic and numerical verification of every identity and theorem stated above (operator-algebra computations checked by computer algebra, and the two-mode squeezing dynamics checked by direct numerical simulation on a truncated Fock space, both to the precision reported), for exposition and copyediting, and for locating the relevant quantum-optics literature. All mathematical claims, theorem statements, and proofs are the author's own and were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Schwinger1965} J.~Schwinger, On angular momentum, U.S.\ AEC Report NYO-3071 (1952), repr.\ in L.~C.~Biedenharn and H.~Van Dam, eds., \emph{Quantum Theory of Angular Momentum}, Academic Press, 1965, 229--279.
+\bibitem{YurkeMcCallKlauder1986} B.~Yurke, S.~L.~McCall, J.~R.~Klauder, SU(2) and SU(1,1) interferometers, \emph{Phys.\ Rev.\ A} \textbf{33} (1986), 4033--4054.
+\bibitem{Radcliffe1971} J.~M.~Radcliffe, Some properties of coherent spin states, \emph{J.\ Phys.\ A} \textbf{4} (1971), 313--323.
+\bibitem{Arecchi1972} F.~T.~Arecchi, E.~Courtens, R.~Gilmore, H.~Thomas, Atomic coherent states in quantum optics, \emph{Phys.\ Rev.\ A} \textbf{6} (1972), 2211--2237.
+\bibitem{Perelomov1986} A.~Perelomov, \emph{Generalized Coherent States and Their Applications}, Springer, 1986.
+\bibitem{Caves1981} C.~M.~Caves, Quantum-mechanical noise in an interferometer, \emph{Phys.\ Rev.\ D} \textbf{23} (1981), 1693--1708.
+\bibitem{WallsMilburn2008} D.~F.~Walls, G.~J.~Milburn, \emph{Quantum Optics}, 2nd ed., Springer, 2008.
+\end{thebibliography}
+
+\end{document}

@@ -3,6 +3,20 @@
 This folder collects the algebraic discriminant-12 branch of the Cone project
 and the audited derivation trail used to build it.
 
+## Foundation papers
+
+The `foundations/` directory contains the current repository versions of the
+four papers on which this branch directly builds:
+
+- `PaperA_ConicTheorem_v2.tex` and `.pdf` — factor-cone and conic geometry;
+- `PaperB_EigenCoordinates.tex` and `.pdf` — Lorentz dynamics and eigenframe;
+- `PaperC_QuantumRealizations.tex` and `.pdf` — compact/noncompact oscillator
+  realizations and Casimir completion;
+- `Note_SemiclassicalArea.tex` and `.pdf` — audited band-area comparison.
+
+These are copied here as project-local reference snapshots. Their original
+files remain in the parent `unified/` directory.
+
 ## Papers
 
 - `Discriminant_12_Return_v0.1.tex` and `.pdf` — theorem-first opening of the
