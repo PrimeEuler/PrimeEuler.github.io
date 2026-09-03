@@ -27,7 +27,7 @@ jobs:
       - name: Build area paper
         run: bash unified/discriminant-12-return/foundations/build_area_paper.sh
 
-      - name: Commit compiled PDF
+      - name: Commit compiled outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -38,6 +38,8 @@ jobs:
             echo "Outputs unchanged"
           else
             git commit -m "Build area paper v1.1 outputs"
+            git reset --hard HEAD
+            git clean -fd
             git pull --rebase origin master
             git push
           fi
