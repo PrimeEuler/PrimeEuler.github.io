@@ -1,8 +1,8 @@
 # Cone Derivation Ledger v13.170 — Rational Refinement and Continuous Completion of Divisor Shells
 
-**Status:** Audited extension of v13.169  
+**Status:** Audited extension of v13.169; notation corrected after comparison with Paper A  
 **Date:** 2026-09-03  
-**Scope:** Fractional-lattice divisor shells, tangent points, rational completion, and the logarithmic/rapidity parameterization.
+**Scope:** Fractional-lattice divisor shells, tangent points, rational completion, and rapidity parameterization.
 
 ## Audit convention
 
@@ -17,104 +17,57 @@
 
 ## 1. Fractional-grid divisor shells
 
-Fix `n>0` and a positive integer `m`. Define the `1/m`-grid divisor shell
+For `n>0` and positive integer `m`, define
 
 \[
-\mathcal D_m(n)
-=
-\left\{(x,y)\in\left(\frac1m\mathbb Z_{>0}\right)^2:xy=n\right\}.
+\mathcal D_m(n)=\left\{(x,y)\in\left(\frac1m\mathbb Z_{>0}\right)^2:xy=n\right\}.
 \]
 
-Write
+Writing `x=a/m`, `y=b/m` gives
 
 \[
-x=\frac a m,\qquad y=\frac b m,
-\qquad a,b\in\mathbb Z_{>0}.
+xy=n\iff ab=nm^2.
 \]
 
-Then
+Hence, whenever `nm^2` is integral,
 
 \[
-xy=n
-\iff
-\frac{ab}{m^2}=n
-\iff
-\boxed{ab=nm^2}.
+\boxed{\mathcal D_m(n)=\left\{\left(\frac am,\frac bm\right):ab=nm^2\right\}},
 \]
 
-Therefore, whenever `nm^2` is an integer,
+and for ordered factor pairs
 
 \[
-\boxed{
-\mathcal D_m(n)
-=
-\left\{
-\left(\frac a m,\frac b m\right):ab=nm^2
-\right\}.
-}
+\boxed{|\mathcal D_m(n)|=d(nm^2)}.
 \]
 
-**[D] Fractional-grid divisor theorem.** A divisor point on a `1/m` lattice is exactly an ordinary integer factor pair of the dilated integer `nm^2`, rescaled by `1/m`.
-
-If ordered factor pairs are counted, then
-
-\[
-\boxed{|\mathcal D_m(n)|=d(nm^2)}
-\]
-
-for integral `nm^2`.
-
-Examples:
-
-\[
-m=2:\qquad ab=4n,
-\]
-
-\[
-m=3:\qquad ab=9n.
-\]
-
-Thus half-integer and third-integer divisor points are not ad hoc constructions; they are exact rescalings of ordinary factorization problems.
+**[D] Fractional-grid divisor theorem.** Fractional-grid shell points are exactly ordinary factor pairs of the dilated integer `nm^2`, rescaled by `1/m`.
 
 ---
 
-## 2. Compatibility with the Cone coordinates
+## 2. Compatibility with Paper A coordinates
 
-Use Paper A's coordinates
+Paper A uses
 
 \[
-X=\frac{x-y}{2},\qquad
-Y=\sqrt{xy},\qquad
-T=\frac{x+y}{2}.
+X=\frac{x-y}{2},\qquad Y=\sqrt{xy},\qquad T=\frac{x+y}{2}.
 \]
 
-For a point `(a/m,b/m)` on `\mathcal D_m(n)`,
+For `(a/m,b/m)\in\mathcal D_m(n)`,
 
 \[
-X=\frac{a-b}{2m},
-\qquad
-Y=\frac{\sqrt{ab}}m=\sqrt n,
-\qquad
-T=\frac{a+b}{2m}.
+X=\frac{a-b}{2m},\qquad Y=\sqrt n,\qquad T=\frac{a+b}{2m}.
 \]
 
-Hence every refinement level satisfies the same shell equations
+Thus every refinement level lies on the same exact section
 
 \[
-\boxed{X^2+Y^2=T^2},
-\]
-
-\[
-\boxed{Y^2=n},
-\]
-
-and
-
-\[
+\boxed{X^2+Y^2=T^2},\qquad
+\boxed{Y^2=n},\qquad
 \boxed{T^2-X^2=n}.
 \]
 
-**[D]** Refining the lattice changes only the discrete sampling of the shell; it does not change the underlying Cone section.
+**[D]** Refinement changes the sampling lattice, not the underlying cone or hyperbola.
 
 ---
 
@@ -124,70 +77,41 @@ If `m|M`, then
 
 \[
 \frac1m\mathbb Z\subset\frac1M\mathbb Z,
+\qquad
+\mathcal D_m(n)\subseteq\mathcal D_M(n).
 \]
 
-so
+A convenient nested sequence is `m_j=j!`.
 
-\[
-\boxed{\mathcal D_m(n)\subseteq\mathcal D_M(n)}.
-\]
-
-A convenient nested sequence is
-
-\[
-1,\ 2,\ 6,\ 24,\ldots,
-\]
-
-or generally `m_j=j!`, because every earlier grid is contained in every later one.
-
-**[Audit]** The grids `1/2,1/3,1/4,...` are not pairwise nested unless the denominators divide one another. The correct global object is their union, or a divisibility-nested subsequence such as factorial denominators.
+**[Audit]** The sequence of grids `1/2,1/3,1/4,...` is not pairwise nested. Use their union, or a divisibility-nested subsequence.
 
 ---
 
-## 4. New points introduced at a refinement level
+## 4. New shell points at a refinement level
 
-Let `E_m(n)` denote the number of points whose **minimal common grid denominator** is exactly `m`.
-
-Since every point in `\mathcal D_m(n)` has a unique minimal denominator dividing `m`,
+Let `E_m(n)` be the number of shell points whose minimal common denominator is exactly `m`. Then
 
 \[
-|\mathcal D_m(n)|
-=
-\sum_{d\mid m}E_d(n).
+|\mathcal D_m(n)|=\sum_{d\mid m}E_d(n),
 \]
 
-By Möbius inversion,
+so Möbius inversion gives
 
 \[
-\boxed{
-E_m(n)=
-\sum_{d\mid m}
-\mu\!\left(\frac md\right)
- d(nd^2)
-}
+\boxed{E_m(n)=\sum_{d\mid m}\mu\!\left(\frac md\right)d(nd^2)}.
 \]
 
-whenever the displayed divisor counts are defined integrally.
-
-For a prime refinement `p`,
+For prime `p`,
 
 \[
-\boxed{E_p(n)=d(np^2)-d(n)}.
+E_p(n)=d(np^2)-d(n).
 \]
 
-If `p\nmid n`, then
-
-\[
-d(np^2)=3d(n),
-\]
-
-and therefore
+If `p\nmid n`, this reduces to
 
 \[
 \boxed{E_p(n)=2d(n)}.
 \]
-
-**[D]** This gives an exact arithmetic measure of how many genuinely new shell points appear when passing to a prime-denominator refinement.
 
 ---
 
@@ -196,62 +120,42 @@ and therefore
 Define
 
 \[
-\mathcal D_{\mathbb Q}(n)
-=
-\bigcup_{m\ge1}\mathcal D_m(n).
+\mathcal D_{\mathbb Q}(n)=\bigcup_{m\ge1}\mathcal D_m(n).
 \]
 
-For rational `n>0`, this is precisely
+For rational `n>0`,
 
 \[
-\boxed{
-\mathcal D_{\mathbb Q}(n)
-=
-\{(x,y)\in\mathbb Q_{>0}^2:xy=n\}.
-}
+\boxed{\mathcal D_{\mathbb Q}(n)=\{(x,y)\in\mathbb Q_{>0}^2:xy=n\}}.
 \]
 
-Indeed, if `(x,y)` is a positive rational factor pair, choosing a common denominator `m` puts both coordinates in `(1/m)Z`.
-
-Because positive rationals are dense in positive reals and the map
+Since `Q_{>0}` is dense in `R_{>0}` and `x\mapsto n/x` is continuous,
 
 \[
-x\longmapsto\frac nx
+\boxed{\overline{\mathcal D_{\mathbb Q}(n)}=\{(x,y)\in\mathbb R_{>0}^2:xy=n\}}.
 \]
 
-is continuous on `(0,\infty)`,
+**[D] Rational-completion theorem.** The rational shell points are dense in the positive real factor hyperbola.
 
-\[
-\boxed{
-\overline{\mathcal D_{\mathbb Q}(n)}
-=
-\{(x,y)\in\mathbb R_{>0}^2:xy=n\}.
-}
-\]
-
-**[D] Rational-completion theorem.** For rational `n>0`, the ordinary divisor shell admits a canonical dense rational refinement whose closure is the full positive real hyperbola.
-
-**[Audit]** The usual divisor function `d(n)` does not extend as a finite counting function on the real shell; the real shell has uncountably many factor pairs. The surviving object is the geometry, not the finite arithmetic count.
+**[Audit]** This does not extend the classical divisor function as a finite real-valued count. The full real shell contains uncountably many factor pairs.
 
 ---
 
 ## 6. Tangent-circle / vertex theorem
 
-On the shell
+On
 
 \[
 T^2-X^2=n,
 \]
 
-the minimum value of `T` occurs at
+the minimum `T` occurs at
 
 \[
-X=0,
-\qquad
-T=\sqrt n.
+X=0,\qquad T=\sqrt n,
 \]
 
-In the original factor variables this is
+corresponding to
 
 \[
 x=y=\sqrt n.
@@ -263,7 +167,7 @@ In the flat `(X,Y)` projection, the constant-product line
 Y=\sqrt n
 \]
 
-is tangent to the circle
+is tangent to
 
 \[
 X^2+Y^2=n
@@ -275,72 +179,61 @@ at
 \boxed{(X,Y)=(0,\sqrt n)}.
 \]
 
-Equivalently, the side-view hyperbola has vertex
-
-\[
-\boxed{(X,T)=(0,\sqrt n)}.
-\]
-
-**[D] Tangent-circle theorem.** The AM-GM equality point `x=y=sqrt(n)` is exactly the tangency point of the constant-product section with the smallest anti-diagonal circle that meets that shell.
+**[D]** The AM-GM equality point is exactly the tangent point of the constant-product section with the smallest anti-diagonal circle meeting that shell.
 
 ---
 
-## 7. When does the tangent point lie on a fractional lattice?
+## 7. Fractional-grid tangent criterion
 
-The tangent point lies on the `1/m` factor lattice exactly when
-
-\[
-\sqrt n\in\frac1m\mathbb Z,
-\]
-
-or equivalently
+The tangent point belongs to the `1/m` factor lattice iff
 
 \[
-\boxed{m\sqrt n\in\mathbb Z}.
+\boxed{m\sqrt n\in\mathbb Z},
 \]
 
-Equivalently,
+equivalently iff `nm^2` is a perfect square integer.
+
+Thus exact centered grid tangencies occur at positive rational-square shell values
 
 \[
-\boxed{nm^2\text{ is a perfect square integer}.}
+\boxed{n=(a/m)^2}.
 \]
 
-Thus:
+Since positive rational squares are dense in `R_{>0}`, these exact fractional-grid tangent shells are dense among all positive real shells.
 
-- integer-grid tangent shells are `n=s^2` with `s\in Z_{>0}`;
-- half-grid tangent shells are `n=(a/2)^2`;
-- third-grid tangent shells are `n=(a/3)^2`;
-- the union over all rational grids gives all positive **rational-square** shell values.
-
-**[D]** A centered fractional-grid divisor point exists exactly for rational-square shell values.
-
-For integer nonsquare `n`, `sqrt(n)` is irrational, so no rational refinement ever contains the exact tangent point. Nevertheless the rational shell points approach it arbitrarily closely.
+For integer nonsquare `n`, including `n=11`, no rational grid contains the exact central tangent point, although rational shell points approach it arbitrarily closely.
 
 ---
 
-## 8. Dense tangent-shell values
+## 8. Notation correction: Paper A keeps `u`
 
-The set
+**[Audit — notation correction.]** Paper A already uses `u` as the diagonal/gnomon/parabola level in its divisor-summatory construction. That notation has priority throughout the project.
 
-\[
-\{r^2:r\in\mathbb Q_{>0}\}
-\]
-
-of positive rational squares is dense in `R_{>0}` because `Q_{>0}` is dense and the squaring map is continuous and strictly monotone there.
-
-Therefore the fractional-grid tangent shells themselves are dense among all positive real shells:
+Paper A Section 5 anchors each nested gnomon at
 
 \[
-\boxed{
-\overline{\{(a/m)^2:a,m\in\mathbb Z_{>0}\}}
-=
-\mathbb R_{>0}.
-}
+\boxed{(u,u)},\qquad 1\le u\le\lfloor\sqrt n\rfloor,
 \]
 
-**[D]** Half-integer, third-integer, and higher-denominator tangent constructions form a systematic approximation to the tangent geometry of every positive real shell.
+with a row-parabola arm terminating at the constant-product hyperbola. Its one-sided continuous arm length is
 
-**[I]** This is the precise sense in which the observed half-integer tangent-circle construction extends toward all real shell values: exact centered grid points occur on rational-square shells, while arbitrary real shells appear in the closure.
+\[
+\boxed{\frac nu-u=\frac{n-u^2}{u}},
+\]
+
+and its exact lattice count is
+
+\[
+\boxed{\left\lfloor\frac{n-u^2}{u}\right\rfloor}.
+\]
+
+Accordingly, the logarithmic Lorentz parameter introduced in the first version of this ledger is renamed from `u` to
+
+\[
+\boxed{s}.
+\]
+
+Do not identify Paper A's `u` numerically with rapidity `s`.
 
 ---
 
@@ -349,126 +242,87 @@ Therefore the fractional-grid tangent shells themselves are dense among all posi
 Parameterize the positive real shell `xy=n` by
 
 \[
-\boxed{x=\sqrt n\,e^u,\qquad y=\sqrt n\,e^{-u}}.
+\boxed{x=\sqrt n\,e^s,\qquad y=\sqrt n\,e^{-s}}.
 \]
 
 Then
 
 \[
-X=\frac{x-y}{2}=\sqrt n\,\sinh u,
-\]
-
-\[
-T=\frac{x+y}{2}=\sqrt n\,\cosh u,
+X=\sqrt n\,\sinh s,
+\qquad
+T=\sqrt n\,\cosh s,
 \]
 
 so
 
 \[
-\boxed{T^2-X^2=n}
+T^2-X^2=n.
 \]
 
-is the standard Lorentz hyperbola and `u` is its rapidity coordinate.
-
-The factor exchange `x<->y` becomes
+Factor exchange becomes
 
 \[
-\boxed{u\mapsto-u}.
+\boxed{s\mapsto-s},
 \]
 
-The tangent point `x=y=sqrt(n)` is exactly
+and the tangent point is `s=0`.
 
-\[
-\boxed{u=0}.
-\]
-
-**[D]** The divisor shell therefore carries a canonical real additive coordinate `u` after continuous completion.
+**[D]** The completed real divisor shell carries a canonical additive rapidity coordinate `s`.
 
 ---
 
-## 10. Logarithm as rapidity length
+## 10. Logarithm as rapidity width
 
 From
 
 \[
-x=\sqrt n\,e^u,
+x=\sqrt n\,e^s
 \]
 
 we have
 
 \[
-\boxed{du=\frac{dx}{x}}.
+\boxed{ds=\frac{dx}{x}}.
 \]
 
-The segment of the shell with factor coordinate `1<=x<=n` corresponds to
+The shell segment from `(1,n)` to `(n,1)` spans
 
 \[
--\frac12\log n\le u\le\frac12\log n.
+-\frac12\log n\le s\le\frac12\log n,
 \]
 
-Its rapidity width is therefore
+so
 
 \[
-\boxed{\Delta u=\log n}.
+\boxed{\Delta s=\log n}.
 \]
 
-Hence the classical hyperbolic area term
+Therefore
 
 \[
-\int_1^n\frac n{x}\,dx
-=n\log n
+\int_1^n\frac n{x}\,dx=n\log n=n\,\Delta s.
 \]
 
-can be written as
+**[D]** `n log n` is `n` times the rapidity width of the symmetric continuous factor interval.
 
-\[
-\boxed{n\log n=n\,\Delta u}.
-\]
-
-**[D]** The `n log n` term is exactly `n` times the rapidity length of the symmetric factor interval from `(1,n)` to `(n,1)` on the continuous divisor shell.
-
-This gives the previously observed hierarchy
-
-\[
-n\log n\longrightarrow nH_n\longrightarrow D(n)
-\]
-
-a sharper geometric interpretation:
-
-- `n log n`: continuous rapidity-area term;
-- `nH_n`: discrete sampling of the continuous reciprocal profile;
-- `D(n)`: integer-lattice quantization obtained by flooring.
-
-**[I]** This rapidity reading may be useful in comparing Paper A's divisor geometry with the project's independent Lorentz/Pell structures, but no arithmetic equivalence follows from the shared hyperbolic coordinate alone.
+**[Audit]** This rapidity variable `s` is distinct from Paper A's gnomon variable `u`. Their relation depends on which point of the shell/row geometry is being parameterized and must be stated explicitly when used.
 
 ---
 
-## 11. Relation to the n=11 shell
+## 11. The n=11 shell
 
-For `n=11`, the real shell has tangent/vertex point
+For `n=11`, the real tangent point is
 
 \[
-\boxed{x=y=\sqrt{11}},
+(x,y)=(\sqrt{11},\sqrt{11}),
+\qquad
+(X,Y,T)=(0,\sqrt{11},\sqrt{11}).
 \]
 
-or
+The integer factor endpoints `(1,11)` and `(11,1)` occur at
 
 \[
-\boxed{(X,Y,T)=(0,\sqrt{11},\sqrt{11})}.
-\]
-
-Because `sqrt(11)` is irrational, this central tangent point is not present on any rational `1/m` lattice.
-
-However the integer factor endpoints
-
-\[
-(1,11),\qquad(11,1)
-\]
-
-occur at rapidities
-
-\[
-\boxed{u=\mp\tfrac12\log11},
+\boxed{s=\mp\tfrac12\log11},
 \]
 
 with
@@ -477,44 +331,38 @@ with
 (X,T)=(\mp5,6).
 \]
 
-Thus the `n=11` divisor shell spans the symmetric rapidity interval
+Thus the 11-shell has rapidity interval
 
 \[
-\boxed{[-\tfrac12\log11,\,+\tfrac12\log11]}.
+\boxed{[-\tfrac12\log11,+\tfrac12\log11]}.
 \]
-
-Its total rapidity width is exactly `log 11`.
 
 ---
 
-## 12. Research consequences and open directions
+## 12. Research consequences and next step
 
 ### [D] Established
 
-1. Fractional divisor points at denominator `m` are rescaled factors of `nm^2`.
-2. Divisibility-nested denominators produce nested finite shell samplings.
-3. The union over all denominators equals the rational factor shell for rational `n`.
-4. The rational factor shell is dense in the positive real hyperbola.
-5. The tangent point is `(sqrt(n),sqrt(n))` and lies on a `1/m` grid iff `m sqrt(n)` is integral.
-6. Rational-square tangent shells are dense in all positive real shell values.
-7. The continuous shell has Lorentz rapidity coordinate `u`, with `x=sqrt(n)e^u`, `y=sqrt(n)e^{-u}`.
-8. `log n` is the rapidity width between the extreme factor points `(1,n)` and `(n,1)`.
+1. `1/m` shell points are rescaled integer factors of `nm^2`.
+2. Rational shell points are dense in the real factor hyperbola.
+3. Exact centered tangency on a `1/m` grid occurs iff `m sqrt(n)` is integral.
+4. Rational-square tangent shells are dense in positive real shell values.
+5. Paper A's `u` is the diagonal vertex / row-parabola / gnomon level.
+6. Paper A's one-sided gnomon profile is exactly `(n-u^2)/u=n/u-u`.
+7. Rapidity is denoted `s`, not `u`, with `x=sqrt(n)e^s`, `y=sqrt(n)e^{-s}`.
+8. `log n` is the rapidity width of the complete continuous factor interval.
 
-### [O] To investigate
+### [O] Immediate continuation
 
-1. Whether the user's observed cell-centered tangent-circle patterns admit a canonical Voronoi/cell decomposition for general `1/m` grids.
-2. Whether a normalized counting measure on `\mathcal D_m(n)` converges to a natural measure on the real shell under a carefully chosen refinement sequence.
-3. Whether rapidity spacing, rather than Euclidean spacing, gives the natural normalization for such a limit.
-4. Whether the correction `nH_n-D(n)=sum {n/k}` has a clean geometric interpretation as cumulative sub-cell displacement in the refined Cone picture.
-5. Whether the half-integral phenomena here interact canonically with the independent dyadic/cyclotomic gluing already present in the discriminant-12 work.
+Refine Paper A's own nested-gnomon count on a `1/m` lattice and determine its exact continuum limit before introducing any independent measure on the shell. This is carried out in ledger v13.171.
 
 ---
 
-## Publication guardrails added in v13.170
+## Publication guardrails
 
-1. Do not redefine the classical divisor function on `R` as a finite count; the real shell has uncountably many factor pairs.
-2. Do not call arbitrary real factor pairs ordinary integer divisors. Use terms such as **real factor pair**, **fractional-grid divisor point**, or **rational shell point**.
-3. Do not claim the `1/m` grids are nested unless the denominators divide one another.
-4. Exact grid-centered tangency occurs only when `m sqrt(n)` is integral; for integer nonsquares such as 11, rational refinements only approximate the central tangent point.
-5. The rapidity parameterization is an exact geometric bridge to Lorentz form, not an arithmetic identification with the discriminant-12 Pell lattice.
-6. Any limiting measure obtained from refined divisor counts requires normalization and must be proved separately.
+1. Reserve `u` for Paper A's established diagonal/gnomon/parabola parameter.
+2. Use `s` for Lorentz rapidity.
+3. Do not identify real factor pairs with classical integer divisors.
+4. Do not claim all denominator grids are nested.
+5. Do not infer arithmetic equivalence with the discriminant-12 Pell lattice from the shared Lorentz form.
+6. Any normalized limiting count must be derived from an explicitly stated refined region and lattice.
