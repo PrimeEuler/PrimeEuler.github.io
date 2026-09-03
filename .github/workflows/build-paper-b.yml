@@ -1,0 +1,42 @@
+name: Build Paper B PDF
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'unified/discriminant-12-return/foundations/PaperB_EigenCoordinates_v2.tex'
+      - 'unified/discriminant-12-return/foundations/build_paper_b.sh'
+      - '.github/workflows/build-paper-b.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+      - name: Build Paper B
+        run: bash unified/discriminant-12-return/foundations/build_paper_b.sh
+
+      - name: Commit compiled PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add unified/discriminant-12-return/foundations/PaperB_EigenCoordinates_v2.pdf
+          if git diff --cached --quiet; then
+            echo "PDF unchanged"
+          else
+            git commit -m "Build Paper B v2 PDF"
+            git reset --hard HEAD
+            git clean -fd
+            git pull --rebase origin master
+            git push
+          fi
