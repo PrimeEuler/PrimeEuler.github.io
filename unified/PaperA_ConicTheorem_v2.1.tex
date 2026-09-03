@@ -1,0 +1,130 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Write out the ordinary multiplication table and draw a straight line through it. What curve does that line trace, once factor pairs are plotted in coordinates built from their sum, difference, and geometric mean? We classify the resulting sections completely: ellipse, parabola, or hyperbola according to the sign of the line coefficients. Anti-diagonals give circles and individual rows or columns give parabolas. We also isolate an exact tangency between every row/column parabola and the anti-diagonal circle whose diameter equals the fixed factor level. The same coordinates restate Fermat factorization and reorganize the classical Dirichlet divisor summatory identity around nested diagonal gnomons.
+\end{abstract}
+
+\section{Introduction}
+For a factor pair $(x,y)$ set
+\[
+X=\frac{x-y}{2},\qquad Y=\sqrt{xy},\qquad T=\frac{x+y}{2}.
+\]
+Then
+\[
+X^2+Y^2=T^2.
+\]
+Thus the positive multiplication table embeds in a cone, anti-diagonals $x+y=K$ become fixed-$T$ circles, and a linear condition $ax+by=c$ becomes a plane cutting that cone. This elementary observation is the geometric spine of the paper.
+
+The emphasis here is deliberately geometric and elementary. Arithmetic structures that can subsequently act on this cone are treated in companion work; none is required for the conic classification, the tangency theorem, or the divisor count below.
+
+\section{Mean-Value Coordinates and the Conic Identity}
+For $x,y>0$ define
+\begin{equation}
+X=\frac{x-y}2,\qquad Y=\sqrt{xy},\qquad T=\frac{x+y}2. \tag{2.1}
+\end{equation}
+Then
+\begin{equation}
+X^2+Y^2=T^2. \tag{2.2}
+\end{equation}
+Fixing $x+y=K$ fixes $T=K/2$, so the anti-diagonal is represented by the circle
+\[
+X^2+Y^2=(K/2)^2.
+\]
+The factor-exchange involution $(x,y)\mapsto(y,x)$ acts simply as
+\[
+(X,Y,T)\mapsto(-X,Y,T).
+\]
+
+\section{The General Conic Theorem}
+\begin{theorem}\label{thm:conic}
+Let $a,b$ be real numbers, not both zero, and let $ax+by=c$ meet the positive factor quadrant. On $X^2+Y^2=T^2$ it traces an ellipse when $ab>0$, a parabola when $ab=0$, and a hyperbola when $ab<0$. For $a=b$ the ellipse is the anti-diagonal circle.
+\end{theorem}
+\begin{proof}
+For $b\ne0$, $y=(c-ax)/b$, hence
+\[
+Y^2=xy=\frac cbx-\frac abx^2.
+\]
+The sign of the quadratic coefficient $-a/b$ gives the three cases. The cases $a=0$ or $b=0$ are the row/column parabolas below.
+\end{proof}
+
+\begin{proposition}[Rows and columns]\label{prop:rows}
+For a fixed row $x=u$,
+\[
+X+T=u,\qquad Y^2=u(T-X)=u^2-2uX.
+\]
+For a fixed column $y=u$,
+\[
+T-X=u,\qquad Y^2=u(T+X)=u^2+2uX.
+\]
+Their flat $(X,Y)$ projections are mirror parabolas.
+\end{proposition}
+
+\begin{proposition}[Anti-diagonal tangency]\label{prop:tangent}
+For every $u>0$, the row and column parabolas at factor level $u$ are tangent in the $(X,Y)$ projection to the same anti-diagonal circle
+\[
+C_{u/2}:\quad X^2+Y^2=(u/2)^2.
+\]
+The row is tangent at $(X,Y)=(u/2,0)$ and the column at $(-u/2,0)$. Equivalently, both tangent points lie on the cone slice $T=u/2$ and on its two null generators $X=\pm T$, $Y=0$.
+\end{proposition}
+\begin{proof}
+The row projection is $Y^2=u^2-2uX$, whose vertex is $(u/2,0)$; the column projection is $Y^2=u^2+2uX$, whose vertex is $(-u/2,0)$. Each vertex lies on $C_{u/2}$. Implicit differentiation of the row gives $2YY'=-2u$ and of the circle gives $2X+2YY'=0$. At $(u/2,0)$ both have vertical tangent; the column case is its reflection across $X=0$.
+\end{proof}
+
+\begin{remark}
+This gives a useful exact dictionary: factor level $u$ corresponds to tangent-circle radius $T=u/2$. Consequently a factor mesh of spacing $1/m$ induces a tangent-circle radius mesh of spacing $1/(2m)$. This is a geometric statement about the coordinate map, not an arithmetic invariance claim.
+\end{remark}
+
+\section{Constant-Product Curves and Fermat Factorization}
+Fixing $xy=N$ fixes $Y^2=N$, so
+\begin{equation}
+T^2-X^2=N. \tag{4.1}
+\end{equation}
+For odd $N$, Fermat's method searches integers $T\ge\lceil\sqrt N\rceil$ until $T^2-N=X^2$, at which point
+\[
+N=(T-X)(T+X).
+\]
+Thus the constant-product hyperbola records the same factorization search directly in the mean-value coordinates.
+
+\section{The Divisor Summatory Function via Nested Gnomons}
+Let
+\[
+D(n)=\sum_{k=1}^n d(k)=\#\{(x,y)\in\mathbb Z_{\ge1}^2:xy\le n\}.
+\]
+For each diagonal vertex $(u,u)$, $1\le u\le\lfloor\sqrt n\rfloor$, the horizontal and vertical arms terminate at the constant-product boundary. Their integer arm length is $\lfloor n/u\rfloor-u$. Hence
+\begin{equation}
+D(n)=\sum_{u=1}^{\lfloor\sqrt n\rfloor}\left[2\left(\left\lfloor\frac nu\right\rfloor-u\right)+1\right], \tag{5.1}
+\end{equation}
+and therefore
+\begin{equation}
+D(n)=2\sum_{u=1}^{\lfloor\sqrt n\rfloor}\left\lfloor\frac nu\right\rfloor-\lfloor\sqrt n\rfloor^2. \tag{5.2}
+\end{equation}
+This is the classical symmetric Dirichlet hyperbola identity, now read as nested gnomons whose arms are pieces of the row/column parabolas cut off by $xy=n$.
+
+\section{Discussion}
+The cone identity organizes three elementary structures on one carrier: linear conditions become conic sections, constant products become Lorentz-type hyperbolas, and the divisor summatory region decomposes into diagonal gnomons. Proposition~\ref{prop:tangent} adds an exact bridge between the first two visual layers: each fixed factor level determines both a row/column parabola and a unique tangent anti-diagonal circle of radius $u/2$.
+
+This is the natural stopping point for the geometric paper. Later arithmetic or operator constructions may use the same cone and its two generator rays, but they should be cited as companion results rather than imported into the proof of the elementary statements above.
+
+\begin{thebibliography}{9}
+\bibitem{Dickson} L.~E.~Dickson, \emph{History of the Theory of Numbers, Vol.~I}, Carnegie Institution, 1919, Ch.~14.
+\bibitem{Dirichlet} P.~G.~L.~Dirichlet, \"Uber die Bestimmung der mittleren Werthe in der Zahlentheorie, \emph{Abh. K\"onigl. Preuss. Akad. Wiss.} (1849), 69--83.
+\end{thebibliography}
+\end{document}
