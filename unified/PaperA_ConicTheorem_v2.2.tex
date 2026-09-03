@@ -71,14 +71,14 @@ X^2+Y^2=(K/2)^2.
 
 \section{The General Conic Theorem}
 \begin{theorem}\label{thm:conic}
-Let $a,b$ be real numbers, not both zero, and let $ax+by=c$ meet the positive factor quadrant. On $X^2+Y^2=T^2$ it traces an ellipse when $ab>0$, a parabola when $ab=0$, and a hyperbola when $ab<0$. For $a=b$ the ellipse is the anti-diagonal circle.
+Let $a,b$ be real numbers, not both zero, and let $ax+by=c$ meet the positive factor quadrant. On $X^2+Y^2=T^2$ it traces an ellipse when $ab>0$, a parabola when $ab=0$, and a hyperbola when $ab<0$. When $a=b\ne0$, the ellipse is a fixed-sum circle.
 \end{theorem}
 \begin{proof}
 For $b\ne0$, $y=(c-ax)/b$, hence
 \[
 Y^2=xy=\frac cbx-\frac abx^2.
 \]
-The sign of $-a/b$ gives the three cases. The cases $a=0$ or $b=0$ are the row/column parabolas below.
+The sign of $-a/b$ gives the three cases. The cases $a=0$ or $b=0$ are the row/column parabolas below. If $a=b\ne0$, then $x+y=c/a$ is constant.
 \end{proof}
 
 \begin{proposition}[Rows and columns]\label{prop:rows}
@@ -108,34 +108,54 @@ The row parabola $Y^2=u^2-2uX$ has vertex $(u/2,0)$; the column parabola $Y^2=u^
 Factor level $u$ corresponds exactly to tangent-circle radius $T=u/2$. A factor mesh of spacing $1/m$ therefore induces a tangent-circle radius mesh of spacing $1/(2m)$. This is a geometric statement, not an arithmetic invariance claim.
 \end{remark}
 
+For the metric statements about an ellipse, multiplying the line equation by $-1$ if necessary lets us normalize the nonempty positive-quadrant case to $a,b,c>0$ without changing the geometric line.
+
 \begin{proposition}[Coordinate maximum of an ellipse]\label{prop:semiaxes}
-For $ab>0$, $Y^2$ is maximized at $x=c/(2a)$, where
+Assume $a,b,c>0$. Then $Y^2$ is maximized at
+\[
+x=\frac{c}{2a},\qquad y=\frac{c}{2b},
+\]
+and
 \[
 Y_{\max}^2=\frac{c^2}{4ab}.
 \]
 \end{proposition}
 \begin{proof}
-Differentiate $Y^2=(c/b)x-(a/b)x^2$ and substitute the critical point.
+Differentiate $Y^2=(c/b)x-(a/b)x^2$ and substitute the critical point; the line equation then gives the stated $y$ coordinate.
 \end{proof}
 
 For $8x+4y=32$, the maximum is $(x,y)=(2,4)$ with $Y^2_{\max}=8$. Since $X=(x-y)/2$, this point has $(X,T)=(-1,3)$. Its reflected cut $4x+8y=32$ has maximum $(4,2)$ and $(X,T)=(1,3)$. This fixes the red/purple orientation independently of the drawing.
 
 \begin{proposition}[True ellipse axes and eccentricity]\label{prop:trueaxes}
-For $ab>0$, the ellipse has
+Assume $a,b,c>0$. The ellipse cut from the cone by $ax+by=c$ has semi-minor axis
 \[
-b_{\rm semi}=\frac{c}{2\sqrt{ab}},\qquad
-a_{\rm semi}=\frac{c\sqrt{2(a^2+b^2)}}{4ab},\qquad
+b_{\rm semi}=\frac{c}{2\sqrt{ab}},
+\]
+semi-major axis
+\[
+a_{\rm semi}=\frac{c\sqrt{2(a^2+b^2)}}{4ab},
+\]
+and eccentricity
+\[
 e=\frac{|a-b|}{\sqrt{a^2+b^2}}.
 \]
 Thus eccentricity depends only on $a/b$, and $e=0$ exactly when $a=b$.
 \end{proposition}
 \begin{proof}
-The section is symmetric under $Y\mapsto-Y$. Its pure-$Y$ semi-axis is $Y_{\max}$. At $Y=0$ the endpoints are
+The section is symmetric under $Y\mapsto-Y$, and the $Y$ direction lies in the cutting plane. Its $Y$ semi-axis is therefore $Y_{\max}=c/(2\sqrt{ab})$. At $Y=0$ the two endpoints are
 \[
 \left(\frac{c}{2a},0,\frac{c}{2a}\right),\qquad
 \left(-\frac{c}{2b},0,\frac{c}{2b}\right).
 \]
-Their Euclidean distance gives the full major axis. Substitution into $e^2=1-b_{\rm semi}^2/a_{\rm semi}^2$ gives the stated eccentricity.
+The direction joining these endpoints is orthogonal to the $Y$ direction, so half their Euclidean distance is the other semi-axis, namely
+\[
+\frac{c\sqrt{2(a^2+b^2)}}{4ab}.
+\]
+Moreover
+\[
+\frac{a_{\rm semi}^2}{b_{\rm semi}^2}=\frac{a^2+b^2}{2ab}\ge1,
+\]
+so these are indeed the major and minor axes. Finally $e^2=1-b_{\rm semi}^2/a_{\rm semi}^2=(a-b)^2/(a^2+b^2)$.
 \end{proof}
 
 For $8x+4y=32$,
@@ -181,16 +201,16 @@ The constant-product boundary is
 \[
 xy=11\iff Y=\sqrt{11}\iff T^2-X^2=11,
 \]
-and it meets $x+y=12$ at the two factor pairs $(1,11)$ and $(11,1)$, corresponding to $(X,T)=(-5,6)$ and $(5,6)$.
+and it meets $x+y=12$ at $(1,11)$ and $(11,1)$, corresponding to $(X,T)=(-5,6)$ and $(5,6)$.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{fig_divisor_summatory_11_3panel.png}
-\caption{The divisor summatory geometry for $n=11$ in the same three views as Figure~\ref{fig:table_line}. The $66$ cells inside $x+y\le12$ split exactly into the divisor region $D(11)=29$ and its triangular complement $A_{11}=37$. The boundary $xy=11$ is the horizontal line $Y=\sqrt{11}$ in the flat projection, the hyperbola $T^2-X^2=11$ in the side view, and the section of the cone by the vertical plane $Y=\sqrt{11}$ in three dimensions. The displayed $11\log11$ and $11H_{11}$ values are comparison quantities only; they are not asserted to equal the discrete count.}
+\caption{The divisor summatory geometry for $n=11$ in the same three views as Figure~\ref{fig:table_line}. The $66$ cells inside $x+y\le12$ split exactly into $D(11)=29$ and the triangular complement $A_{11}=37$. The boundary $xy=11$ is $Y=\sqrt{11}$ in the flat projection, $T^2-X^2=11$ in the side view, and the section by the vertical plane $Y=\sqrt{11}$ in three dimensions. The displayed $11\log11$ and $11H_{11}$ values are comparison quantities only; they are not asserted to equal the discrete count.}
 \label{fig:divisor11}
 \end{figure}
 
-The choice $n=11$ is illustrative rather than structural: the identities above hold for general $n$. It is useful here because the extremal factor pairs $(1,11)$ and $(11,1)$ lie exactly on the outer shell $x+y=12$, making the discrete partition and the constant-product boundary visible in one compact picture.
+The choice $n=11$ is illustrative rather than structural: the identities above hold for general $n$. It is useful here because the extremal factor pairs lie exactly on $x+y=12$.
 
 \section{Discussion}
 The cone identity organizes three elementary structures on one carrier: linear conditions become conic sections, constant products become Lorentz-type hyperbolas, and the divisor summatory region decomposes into diagonal gnomons. Proposition~\ref{prop:tangent} adds an exact bridge: each fixed factor level determines both a row/column parabola and a unique tangent anti-diagonal circle of radius $u/2$.
