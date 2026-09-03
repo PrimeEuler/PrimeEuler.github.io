@@ -1,0 +1,161 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[proposition]{Remark}
+
+\title{The Parabola--Secant Divisor Chamber in the AM--GM Circle View}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For the AM--GM coordinates
+\[
+X=\frac{x-y}{2},\qquad Y=\sqrt{xy},\qquad T=\frac{x+y}{2},
+\]
+the positive-factor boundaries $x=1$ and $y=1$ become the mirror parabolas
+\[
+Y^2=1-2X,\qquad Y^2=1+2X,
+\]
+while the constant-product boundary $xy=n$ becomes the horizontal secant $Y=\sqrt n$. We identify the exact curvilinear region enclosed by these three curves, compute its raw Euclidean area in the flat $(X,Y)$ circle view, and recover its original factor-plane area using the canonical transported measure $2\cos\theta\,dX\,dY$.
+\end{abstract}
+
+\section{The canonical positive-factor chamber}
+For $n>1$ define
+\[
+\Omega_n=\{(x,y):x\ge1,\ y\ge1,\ xy\le n\}.
+\]
+This is the continuous region naturally bounded by the positive-lattice coordinate walls and the divisor hyperbola.
+
+Under
+\[
+F(x,y)=\left(\frac{x-y}{2},\sqrt{xy}\right),
+\]
+the boundaries transform as follows:
+\[
+x=1\quad\Longrightarrow\quad Y^2=1-2X,
+\]
+\[
+y=1\quad\Longrightarrow\quad Y^2=1+2X,
+\]
+and
+\[
+xy=n\quad\Longrightarrow\quad Y=\sqrt n.
+\]
+The two parabolas meet at $(X,Y)=(0,1)$, and the secant meets them at
+\[
+X=\pm\frac{n-1}{2},\qquad Y=\sqrt n.
+\]
+Thus $F(\Omega_n)$ is exactly the curvilinear chamber enclosed by the row-$1$ parabola, the column-$1$ parabola, and the secant $Y=\sqrt n$.
+
+\begin{proposition}[Raw Euclidean chamber area]\label{prop:rawchamber}
+The flat Euclidean area of the parabola--secant chamber is
+\[
+\boxed{
+P_n:=\operatorname{Area}_{XY}(F(\Omega_n))
+=\frac{n^{3/2}-3\sqrt n+2}{3}.}
+\]
+\end{proposition}
+
+\begin{proof}
+For $1\le Y\le\sqrt n$, solve the two parabolas for $X$:
+\[
+X_{\rm left}(Y)=\frac{1-Y^2}{2},\qquad
+X_{\rm right}(Y)=\frac{Y^2-1}{2}.
+\]
+Their horizontal separation is therefore
+\[
+X_{\rm right}-X_{\rm left}=Y^2-1.
+\]
+Hence
+\[
+P_n=\int_1^{\sqrt n}(Y^2-1)\,dY
+=\left[\frac{Y^3}{3}-Y\right]_1^{\sqrt n}
+=\frac{n^{3/2}-3\sqrt n+2}{3}.
+\]
+\end{proof}
+
+\begin{proposition}[Factor-plane area of the same chamber]\label{prop:factorchamber}
+The ordinary factor-plane area of $\Omega_n$ is
+\[
+\boxed{
+L_{\rm chamber}(n)
+= n\log n-n+1.}
+\]
+\end{proposition}
+
+\begin{proof}
+For $1\le x\le n$, the vertical range is
+\[
+1\le y\le\frac{n}{x}.
+\]
+Therefore
+\[
+\operatorname{Area}_{xy}(\Omega_n)
+=\int_1^n\left(\frac nx-1\right)dx
+=n\log n-n+1.
+\]
+\end{proof}
+
+\section{Exact transport by the angular measure}
+Let $\theta$ be ordinary polar angle in the $(X,Y)$ half-plane measured from the positive $Y$ axis. The area-distortion companion result gives
+\[
+dx\,dy=2\cos\theta\,dX\,dY.
+\]
+Consequently the two distinct area values above are exact measures of the same transported region.
+
+\begin{corollary}[Exact weighted recovery]\label{cor:weighted}
+For the parabola--secant chamber,
+\[
+\boxed{
+ n\log n-n+1
+=\iint_{F(\Omega_n)}2\cos\theta\,dX\,dY.}
+\]
+Thus
+\[
+\boxed{
+ n\log n-n+1
+\quad\xrightarrow{F}\quad
+\frac{n^{3/2}-3\sqrt n+2}{3}}
+\]
+means that the same region carries the first value under transported factor-area measure and the second under raw Euclidean circle area; the displayed numbers are not equal.
+\end{corollary}
+
+\begin{remark}[Why the chamber is canonical]
+The two parabolas are not auxiliary fitting curves. They are precisely the images of the positive-factor walls $x=1$ and $y=1$. The secant is precisely the image of the divisor boundary $xy=n$. Hence $F(\Omega_n)$ is the natural continuous divisor chamber in the flat circle view.
+\end{remark}
+
+\section{The $n=11$ chamber}
+For $n=11$,
+\[
+Y=\sqrt{11},\qquad X=\pm5
+\]
+at the secant endpoints. The raw flat-circle chamber area is
+\[
+\boxed{
+P_{11}=\frac{8\sqrt{11}+2}{3}\approx9.510999,}
+\]
+while the ordinary factor-plane area of the same region is
+\[
+\boxed{
+11\log11-10\approx16.376848.}
+\]
+The discrete divisor count $D(11)=29$ is a lattice-point/staircase quantity and is not identified with either continuous area. The exact relationship supplied here is geometric transport of the continuous positive-factor chamber.
+
+\section{Conclusion}
+The row-$1$ parabola, column-$1$ parabola, and constant-product secant form a canonical divisor chamber in the flat circle view. Its raw Euclidean area is $(n^{3/2}-3\sqrt n+2)/3$, while the canonical angular weight $2\cos\theta$ recovers exactly the factor-plane area $n\log n-n+1$. This closes the continuous area branch at the natural positive-factor boundary without introducing an additional fitted normalization.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, 2026.
+\bibitem{Ebert2026Area} J.~Ebert, \emph{Area Distortion and Exact Band Geometry of the AM--GM Cone}, 2026.
+\end{thebibliography}
+
+\end{document}
