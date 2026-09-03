@@ -14,6 +14,10 @@ four papers on which this branch directly builds:
   realizations and Casimir completion;
 - `Note_SemiclassicalArea.tex` and `.pdf` — audited band-area comparison.
 
+The Paper A snapshot is accompanied by `fig_cutting_plane_3panel.py` and its
+generated PDF/PNG assets. The recovered generator reproduces the reflected
+cuts \(8x+4y=32\) and \(4x+8y=32\) used in Paper A v2.
+
 These are copied here as project-local reference snapshots. Their original
 files remain in the parent `unified/` directory.
 
