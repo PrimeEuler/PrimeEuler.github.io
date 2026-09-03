@@ -1,0 +1,41 @@
+name: Build Paper A PDF
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'unified/PaperA_ConicTheorem_v2.2.tex'
+      - 'unified/fig_cutting_plane_3panel.py'
+      - 'unified/discriminant-12-return/figures/fig_divisor_summatory_11_3panel.py'
+      - 'unified/build_paper_a.sh'
+      - '.github/workflows/build-paper-a.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-numpy python3-matplotlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+      - name: Build Paper A
+        run: bash unified/build_paper_a.sh
+
+      - name: Commit compiled PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add unified/PaperA_ConicTheorem_v2.2.pdf
+          if git diff --cached --quiet; then
+            echo "PDF unchanged"
+          else
+            git commit -m "Build Paper A v2.2 PDF"
+            git push
+          fi
