@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'unified/PaperA_ConicTheorem_v2.2.tex'
-      - 'unified/fig_cutting_plane_3panel.py'
+      - 'unified/discriminant-12-return/foundations/PaperA_ConicTheorem_v2.2.tex'
+      - 'unified/discriminant-12-return/foundations/fig_cutting_plane_3panel.py'
       - 'unified/discriminant-12-return/figures/fig_divisor_summatory_11_3panel.py'
-      - 'unified/build_paper_a.sh'
+      - 'unified/discriminant-12-return/foundations/build_paper_a.sh'
       - '.github/workflows/build-paper-a.yml'
 
 permissions:
@@ -26,13 +26,13 @@ jobs:
           sudo apt-get install -y python3-numpy python3-matplotlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
       - name: Build Paper A
-        run: bash unified/build_paper_a.sh
+        run: bash unified/discriminant-12-return/foundations/build_paper_a.sh
 
       - name: Commit compiled PDF
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add unified/PaperA_ConicTheorem_v2.2.pdf
+          git add unified/discriminant-12-return/foundations/PaperA_ConicTheorem_v2.2.pdf
           if git diff --cached --quiet; then
             echo "PDF unchanged"
           else
