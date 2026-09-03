@@ -1,0 +1,914 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\disc}{\operatorname{disc}}
+\newcommand{\Fr}{\operatorname{Fr}}
+\newcommand{\Art}{\operatorname{Art}}
+
+\title{\textbf{The Discriminant-$12$ Return}\\
+\large Centered Cayley Reciprocity, Pell--Lorentz Geometry, Cyclotomic Closure, and Finite Reduction}
+\author{Jeremy Ebert}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For $g\in SL_2$ with trace $\tau$, centered part
+$H=g-\tfrac{\tau}{2}I$, and Cayley transform
+$K=(g-I)(g+I)^{-1}$, we prove
+\[
+K=\frac{2}{\tau+2}H,
+\qquad
+KH=\frac{\tau-2}{2}I.
+\]
+In the normalization $\tau=\sigma+2$, the self-reciprocity condition
+$K=H^{-1}$ therefore selects the unique value $\sigma=2$, hence trace $4$
+and characteristic discriminant $12$.  With the period-$[1,2]$ positive
+integral normalization, the selected return is
+\[
+g_{12}=\begin{pmatrix}3&1\\2&1\end{pmatrix},
+\qquad
+\lambda=2+\sqrt3.
+\]
+We realize $g_{12}$ as multiplication by $\lambda$ on the ramified ideal above
+$2$ in $\Q(\sqrt3)$, and its centered generator as multiplication by
+$\sqrt3$.  The same unit acts on the factor-cone null coordinates by
+$(x,y)\mapsto(\lambda x,\lambda^{-1}y)$, translating rapidity by
+$\log\lambda$ on every shell $xy=n$; the row/column parabola tangent endpoints
+are exactly its null eigenrays.  After adjoining $i$, the operator
+$\mathcal Z=(H+iI)/2$ is multiplication by the primitive twelfth root
+$\zeta_{12}$ on the integral cyclotomic ideal
+$\mathfrak p_2\OO_{\Q(\zeta_{12})}$.  The index-$4$ inclusion
+$\Z[\sqrt3,i]\subset\OO_{\Q(\zeta_{12})}$ explains the apparent half-integral
+presentation.  At the ramified prime, the cyclotomic residue field is
+$\F_4$; reduced multiplication by $\zeta_{12}$ has order $3$, while the
+reduced Pell return is the Frobenius involution.  The $n=11$ factor point then
+appears as a distinguished arithmetic specialization: its prime ideal lies in
+the ramified narrow class and its cyclotomic Artin action is $T_{11}$, complex
+conjugation, corresponding to the involution $J$ in the companion
+representation.  No statement about zeta zeros or the Riemann hypothesis is
+used in the proof.
+\end{abstract}
+
+\section{Introduction}
+
+The purpose of this paper is to isolate a single algebraic structure that
+appears simultaneously as a centered $SL_2$ return, a Pell unit, a Lorentz
+boost, a cyclotomic operator, and a finite four-state symmetry.  The starting
+point is deliberately elementary.  If
+\[
+H=g-\frac{\tr(g)}2I,
+\qquad
+K=(g-I)(g+I)^{-1},
+\]
+then $H$ and $K$ lie on the same traceless direction.  Requiring them to be
+reciprocal is rigid: in the normalization $\tr(g)=\sigma+2$ it forces
+$\sigma=2$.
+
+The trace selection occurs before any integral matrix, quadratic field, Cone
+geometry, or cyclotomic field is introduced.  Once trace $4$ is selected, the
+period-$[1,2]$ normalization gives the primitive positive integral return
+\[
+g_{12}=\begin{pmatrix}3&1\\2&1\end{pmatrix},
+\]
+with characteristic discriminant $12$ and eigenvalues $2\pm\sqrt3$.  The
+number $2+\sqrt3$ is therefore not inserted as an independent parameter: it
+is the expanding eigenvalue of the selected return.
+
+The main dependency chain is
+\[
+\boxed{
+\begin{gathered}
+K=H^{-1}
+\Longleftrightarrow \sigma=2
+\Longrightarrow \tau=4
+\Longrightarrow \Delta=12\\
+\Longrightarrow \lambda=2+\sqrt3
+\Longrightarrow g_{12}=\times\lambda\text{ on }\mathfrak p_2
+\Longrightarrow H=\times\sqrt3\\
+\Longrightarrow \mathcal Z=\times\zeta_{12}
+\text{ on }\mathfrak p_2\OO_{\Q(\zeta_{12})}
+\Longrightarrow \text{finite }\F_4\text{ reduction}.
+\end{gathered}}
+\]
+In parallel, the same Pell unit acts on the real factor cone by a Lorentz
+boost.  This supplies the geometric bridge to the factor-shell coordinates
+without identifying the continuous Cone with any finite quotient.
+
+Several symmetry layers must remain distinct.  The Boolean translation group,
+the ramified factor-exchange involution, the cyclotomic Galois group
+$U(12)\cong V_4$, and the affine/semilinear groups of $\F_4$ are related but
+are not interchangeable.  Likewise, the two four-element quotients
+$\mathfrak p_2/2\mathfrak p_2$ and
+$\OO_K/\mathfrak P_2\cong\F_4$ are not the same quotient ring.
+
+\section{Main theorem}
+
+\begin{theorem}[Discriminant-$12$ return package]
+\label{thm:main}
+Let $g\in SL_2(\Q)$, let $\tau=\tr(g)$, assume $g+I$ is invertible, and define
+\[
+H=g-\frac\tau2I,
+\qquad
+K=(g-I)(g+I)^{-1},
+\qquad
+\tau=\sigma+2.
+\]
+Then the following statements hold.
+
+\begin{enumerate}[label=(\roman*)]
+\item
+\[
+K=\frac{2}{\tau+2}H,
+\qquad
+KH=\frac{\tau-2}{2}I.
+\]
+In the hyperbolic range,
+\[
+K=H^{-1}\iff\sigma=2.
+\]
+
+\item At the selected trace $\tau=4$, the period-$[1,2]$ positive integral
+normalization gives
+\[
+g_{12}=\begin{pmatrix}3&1\\2&1\end{pmatrix},
+\qquad
+H_{12}=g_{12}-2I
+=\begin{pmatrix}1&1\\2&-1\end{pmatrix},
+\]
+with
+\[
+\chi_{g_{12}}(X)=X^2-4X+1,
+\qquad
+\Delta_{g_{12}}=12,
+\qquad
+H_{12}^2=3I.
+\]
+
+\item Let
+\[
+F=\Q(\sqrt3),
+\qquad
+\mathfrak p_2=(2,\sqrt3-1)=(1+\sqrt3).
+\]
+In the ordered basis $(2,\sqrt3-1)$ of $\mathfrak p_2$,
+$H_{12}$ and $g_{12}$ are multiplication by $\sqrt3$ and $2+\sqrt3$,
+respectively.  The primitive form
+\[
+q_{12}(x,y)=2x^2-2xy-y^2
+\]
+is preserved by $g_{12}$ and satisfies
+\[
+2q_{12}(x,y)=U^2-V^2,
+\qquad
+(U,V)=(2x-y,\sqrt3\,y).
+\]
+
+\item In factor-cone null coordinates
+\[
+T=\frac{x+y}{2},\qquad X=\frac{x-y}{2},\qquad Y=\sqrt{xy},
+\]
+so that $T^2-X^2-Y^2=0$, the same return acts by
+\[
+\boxed{x'=(2+\sqrt3)x,\qquad y'=(2-\sqrt3)y.}
+\]
+Hence every shell $xy=n$ is invariant and, with
+$x=\sqrt n e^s$, $y=\sqrt n e^{-s}$,
+\[
+s'=s+\log(2+\sqrt3).
+\]
+For every factor level $u>0$, the row and column parabolas are tangent to the
+fixed-$T$ circle at $T=u/2$ and at the two null eigenrays
+$(T,X)=(u/2,\pm u/2)$.
+
+\item Let
+\[
+K_{12}=\Q(\zeta_{12})=\Q(\sqrt3,i),
+\qquad
+\mathfrak P_2=\mathfrak p_2\OO_{K_{12}}.
+\]
+Then
+\[
+\mathcal Z=\frac{H_{12}+iI}{2}
+\]
+is multiplication by
+\[
+\zeta_{12}=\frac{\sqrt3+i}{2}
+\]
+on $\mathfrak P_2$.  In particular
+\[
+\Phi_{12}(\mathcal Z)=0,
+\qquad
+\mathcal Z^{12}=I,
+\qquad
+ g_{12}=-i(I+\mathcal Z)(I-\mathcal Z)^{-1}.
+\]
+Moreover
+\[
+[\OO_{K_{12}}:\Z[\sqrt3,i]]=4.
+\]
+
+\item The residue field at $\mathfrak P_2$ is
+\[
+\OO_{K_{12}}/\mathfrak P_2\cong\F_4.
+\]
+If $\omega$ is the image of $\zeta_{12}$, then
+\[
+\omega^2+\omega+1=0,
+\qquad
+\omega^3=1,
+\]
+so reduced multiplication by $\mathcal Z$ has order $3$.  In a suitable
+additive basis of $\F_4$, the reduction of $g_{12}$ is the Frobenius
+involution $z\mapsto z^2$; equivalently, in the ramified basis it is the
+transvection
+\[
+\bar g_{12}=\begin{pmatrix}1&1\\0&1\end{pmatrix}.
+\]
+The order-$3$ multiplication and order-$2$ Frobenius generate
+$GL_2(\F_2)\cong S_3$.
+\end{enumerate}
+\end{theorem}
+
+\section{Centered Cayley reciprocity}
+
+\begin{lemma}[Centered square]
+For $g\in SL_2$ with trace $\tau$,
+\[
+H^2=\left(\frac{\tau^2}{4}-1\right)I.
+\]
+\end{lemma}
+
+\begin{proof}
+Cayley--Hamilton gives $g^2-\tau g+I=0$.  Hence
+\[
+\left(g-\frac\tau2I\right)^2
+=g^2-\tau g+\frac{\tau^2}{4}I
+=\left(\frac{\tau^2}{4}-1\right)I.
+\]
+\end{proof}
+
+\begin{proposition}[Centered Cayley identity]
+If $g+I$ is invertible, then
+\[
+K=\frac{2}{\tau+2}H,
+\qquad
+KH=\frac{\tau-2}{2}I.
+\]
+\end{proposition}
+
+\begin{proof}
+Cayley--Hamilton gives
+\[
+(g+I)((\tau+1)I-g)=(\tau+2)I,
+\]
+so
+\[
+(g+I)^{-1}=\frac{(\tau+1)I-g}{\tau+2}.
+\]
+Therefore
+\[
+K=\frac{(g-I)((\tau+1)I-g)}{\tau+2}
+=\frac{2g-\tau I}{\tau+2}
+=\frac{2}{\tau+2}H.
+\]
+Multiplying by $H$ and using the centered-square identity gives
+\[
+KH=\frac{2}{\tau+2}
+\left(\frac{\tau^2}{4}-1\right)I
+=\frac{\tau-2}{2}I.
+\]
+\end{proof}
+
+\begin{corollary}[Unique self-reciprocal trace]
+If $g$ is hyperbolic and $\tau=\sigma+2$, then
+\[
+K=H^{-1}\iff\sigma=2.
+\]
+\end{corollary}
+
+\begin{proof}
+Hyperbolicity makes $H$ invertible, so
+$K=H^{-1}$ is equivalent to $KH=I$.  Thus
+$(\tau-2)/2=1$, hence $\tau=4$ and $\sigma=2$.
+\end{proof}
+
+\section{The primitive integral return and the ramified ideal}
+
+Let
+\[
+A_a=\begin{pmatrix}a&1\\1&0\end{pmatrix}.
+\]
+The period $[1,2]$ gives
+\[
+g_{12}=A_1A_2
+=\begin{pmatrix}3&1\\2&1\end{pmatrix}.
+\]
+This is the distinguished primitive positive integral representative used
+throughout the paper.  The Cayley condition selects the trace-$4$ hyperbolic
+class; the period/positivity normalization selects this representative.
+
+Directly,
+\[
+\det g_{12}=1,
+\qquad
+\tr g_{12}=4,
+\qquad
+\chi_{g_{12}}(X)=X^2-4X+1,
+\]
+so its eigenvalues are $2\pm\sqrt3$ and its characteristic discriminant is
+$12$.
+
+Let
+\[
+H_{12}=g_{12}-2I.
+\]
+Then
+\[
+H_{12}^2=3I,
+\qquad
+\Z[H_{12}]\cong\Z[\sqrt3]=\OO_F.
+\]
+
+\begin{proposition}[Ramified ideal realization]
+Let
+\[
+\mathfrak p_2=(2,\sqrt3-1).
+\]
+In the ordered basis
+\[
+f_1=2,
+\qquad
+f_2=\sqrt3-1,
+\]
+multiplication by $\sqrt3$ is $H_{12}$ and multiplication by
+$\lambda=2+\sqrt3$ is $g_{12}$.
+\end{proposition}
+
+\begin{proof}
+One has
+\[
+\sqrt3 f_1=f_1+2f_2,
+\qquad
+\sqrt3 f_2=f_1-f_2.
+\]
+Thus
+\[
+[\times\sqrt3]_f
+=\begin{pmatrix}1&1\\2&-1\end{pmatrix}=H_{12},
+\]
+and adding $2I$ gives
+\[
+[\times(2+\sqrt3)]_f=g_{12}.
+\]
+\end{proof}
+
+There is a second natural basis
+\[
+e_1=1+\sqrt3,
+\qquad
+e_2=3+\sqrt3=\sqrt3 e_1.
+\]
+Since
+\[
+e_1=f_1+f_2,
+\qquad
+e_2=2f_1+f_2,
+\]
+the basis-change matrix is
+\[
+C_{\rm basis}=\begin{pmatrix}1&2\\1&1\end{pmatrix},
+\qquad \det C_{\rm basis}=-1.
+\]
+Consequently
+\[
+C_{\rm basis}^{-1}g_{12}C_{\rm basis}
+=\begin{pmatrix}2&3\\1&2\end{pmatrix},
+\qquad
+C_{\rm basis}^{-1}H_{12}C_{\rm basis}
+=\begin{pmatrix}0&3\\1&0\end{pmatrix}.
+\]
+Thus the centered relation $H_{12}^2=3I$ is literally the relation
+$(\sqrt3)^2=3$ on the ideal lattice.
+
+\section{The Pell--Lorentz norm}
+
+For
+\[
+\alpha=xf_1+yf_2=(2x-y)+y\sqrt3,
+\]
+\[
+N_{F/\Q}(\alpha)
+=(2x-y)^2-3y^2
+=2(2x^2-2xy-y^2).
+\]
+Define
+\[
+q_{12}(x,y)=2x^2-2xy-y^2.
+\]
+Its discriminant is $12$, and multiplication by the norm-one unit
+$2+\sqrt3$ preserves it.
+
+With
+\[
+U=2x-y,
+\qquad
+V=\sqrt3\,y,
+\]
+we have
+\[
+\boxed{2q_{12}=U^2-V^2.}
+\]
+In these coordinates the return is the Lorentz boost
+\[
+\boxed{
+\begin{pmatrix}U'\\V'\end{pmatrix}
+=
+\begin{pmatrix}2&\sqrt3\\\sqrt3&2\end{pmatrix}
+\begin{pmatrix}U\\V\end{pmatrix}.
+}
+\]
+Its null eigendirections have eigenvalues
+\[
+\lambda=2+\sqrt3,
+\qquad
+\lambda^{-1}=2-\sqrt3.
+\]
+
+\section{The factor cone and the real return}
+
+Introduce the factor-cone coordinates
+\[
+X=\frac{x-y}{2},
+\qquad
+Y=\sqrt{xy},
+\qquad
+T=\frac{x+y}{2}.
+\]
+Then
+\[
+T^2-X^2-Y^2=0.
+\]
+The null coordinates of the $(T,X)$ Lorentz plane are exactly
+\[
+x=T+X,
+\qquad
+y=T-X.
+\]
+Therefore the discriminant-$12$ boost acts by
+\[
+\boxed{x'=\lambda x,\qquad y'=\lambda^{-1}y.}
+\]
+It follows immediately that
+\[
+x'y'=xy.
+\]
+Thus every shell $xy=n$ is invariant.
+
+Writing
+\[
+x=\sqrt n e^s,
+\qquad
+y=\sqrt n e^{-s},
+\]
+gives
+\[
+X=\sqrt n\sinh s,
+\qquad
+T=\sqrt n\cosh s,
+\]
+and the return is the rapidity translation
+\[
+\boxed{s'=s+R_{12},\qquad R_{12}=\log(2+\sqrt3).}
+\]
+Factor exchange $(x,y)\mapsto(y,x)$ sends $X\mapsto-X$ and $s\mapsto-s$;
+therefore it reverses the boost.
+
+\subsection{Parabola--circle tangency and the null eigenrays}
+
+For fixed factor level $u$, the row parabola in the flat $(X,Y)$ projection is
+\[
+Y^2=u^2+2uX,
+\]
+with vertex
+\[
+V_u^-=(-u/2,0).
+\]
+The reflected column parabola has vertex
+\[
+V_u^+=(u/2,0).
+\]
+A fixed-$T$ Cone slice projects to
+\[
+X^2+Y^2=T^2.
+\]
+The circle is tangent to the row/column parabola at its vertex exactly when
+\[
+\boxed{T=u/2.}
+\]
+Hence the corresponding side-view points are
+\[
+(T,X)=\left(\frac u2,\pm\frac u2\right),
+\]
+which satisfy $T^2-X^2=0$.  They are precisely the two null eigenrays of the
+boost:
+\[
+B_{12}\binom{u/2}{u/2}
+=\lambda\binom{u/2}{u/2},
+\qquad
+B_{12}\binom{u/2}{-u/2}
+=\lambda^{-1}\binom{u/2}{-u/2}.
+\]
+Thus
+\[
+\boxed{
+\text{factor-parabola tangent endpoints}
+=
+\text{null eigenrays of the discriminant-$12$ return}.}
+\]
+
+\section{The mod-$12$ unit shell}
+
+The units modulo $12$ are
+\[
+U(12)=\{1,5,7,11\}\cong V_4.
+\]
+For each $r\in U(12)$, the factor pair $(r,1)$ and its mirror $(1,r)$ map to
+\[
+T_r=\frac{r+1}{2},
+\qquad
+X_r=\pm\frac{r-1}{2},
+\qquad
+Y_r=\sqrt r.
+\]
+Thus
+\[
+T_r^2-X_r^2=r.
+\]
+Explicitly,
+\[
+\begin{array}{c|cccc}
+r&1&5&7&11\\ \hline
+T_r&1&3&4&6\\
+|X_r|&0&2&3&5\\
+Y_r&1&\sqrt5&\sqrt7&\sqrt{11}.
+\end{array}
+\]
+The outer pair $r=11$ lies on the anti-diagonal $x+y=12$, equivalently
+$T=6$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{mod12_v4_cone_triple.png}
+\caption{The mod-$12$ unit labels embedded in factor-cone coordinates.  The
+geometry realizes the four labels but does not define their modular group
+law.  The outer $r=11$ pair is $(11,1)$ and $(1,11)$ on $x+y=12$.}
+\label{fig:mod12-unit-shell}
+\end{figure}
+
+The standard cyclotomic identification is
+\[
+\Gal(\Q(\zeta_{12})/\Q)\cong U(12),
+\qquad
+T_r:\zeta_{12}\mapsto\zeta_{12}^r.
+\]
+The geometric shell, the Galois $V_4$, and the Boolean translation $V_4$ are
+three different structures carrying the same number of labels.
+
+\section{Cyclotomic completion on an integral ideal}
+
+Let
+\[
+K_{12}=\Q(\zeta_{12})=\Q(\sqrt3,i),
+\qquad
+\zeta=\zeta_{12}=\frac{\sqrt3+i}{2}.
+\]
+Since $H_{12}$ is multiplication by $\sqrt3$,
+\[
+\boxed{\mathcal Z=\frac{H_{12}+iI}{2}=\times\zeta.}
+\]
+This identity is initially written in a complexified rank-$2$ presentation.
+The correct integral carrier is the extended ramified ideal
+\[
+\mathfrak P_2=\mathfrak p_2\OO_{K_{12}}.
+\]
+Let $\alpha=1+\sqrt3$.  Then
+\[
+\mathcal B_{\mathfrak P}
+=\{\alpha,\alpha\zeta,\alpha\zeta^2,\alpha\zeta^3\}
+\]
+is a $\Z$-basis of $\mathfrak P_2$.  Because
+\[
+\Phi_{12}(X)=X^4-X^2+1,
+\qquad
+\zeta^4=\zeta^2-1,
+\]
+multiplication by $\zeta$ has the integral matrix
+\[
+\boxed{
+[\times\zeta]_{\mathcal B_{\mathfrak P}}
+=
+\begin{pmatrix}
+0&0&0&-1\\
+1&0&0&0\\
+0&1&0&1\\
+0&0&1&0
+\end{pmatrix}.}
+\]
+Hence the denominator in $(H+iI)/2$ is a lattice-coordinate effect, not a
+failure of integrality of the cyclotomic operator.
+
+\subsection{The index-$4$ order inclusion}
+
+The full ring of integers is
+\[
+\OO_{K_{12}}=\Z[\zeta_{12}],
+\]
+whereas
+\[
+\OO_0=\Z[\sqrt3,i]
+\]
+is a proper suborder.  Relative to the naive basis
+$\{1,\sqrt3,i,i\sqrt3\}$, the cyclotomic basis
+$\{1,\zeta,\zeta^2,\zeta^3\}$ has determinant of absolute value $1/4$.
+Therefore
+\[
+\boxed{[\OO_{K_{12}}:\OO_0]=4.}
+\]
+Equivalently, the discriminants satisfy
+\[
+\disc(\OO_0)=2304,
+\qquad
+\disc(\OO_{K_{12}})=144,
+\]
+so the index is $\sqrt{2304/144}=4$.
+
+The additive quotient
+\[
+\OO_{K_{12}}/\OO_0\cong(\F_2)^2
+\]
+records the integral-closure gluing.  It should not be confused with the
+residue field used below.
+
+\section{Ramified reduction and the $\F_4$ model}
+
+Reduction of the integral return modulo $2$ in the ramified basis gives
+\[
+\bar g_{12}
+=\begin{pmatrix}1&1\\0&1\end{pmatrix},
+\qquad
+(x,y)\mapsto(x+y,y).
+\]
+The reduced norm is
+\[
+\bar q_{12}(x,y)=y.
+\]
+
+The integral basis change satisfies
+\[
+C_{\rm basis}\equiv
+\Phi=\begin{pmatrix}1&0\\1&1\end{pmatrix}\pmod2.
+\]
+Thus the Boolean relabeling is the reduction of an integral ideal basis
+change, and
+\[
+\Phi\bar g_{12}\Phi^{-1}
+=\begin{pmatrix}0&1\\1&0\end{pmatrix}=P.
+\]
+In the corresponding Boolean coordinates
+$(\epsilon_1,\epsilon_2)$,
+\[
+\bar q_{12}=\epsilon_1+\epsilon_2
+=\epsilon_1\mathbin{\mathrm{xor}}\epsilon_2.
+\]
+Together with the Boolean translations, the factor-exchange involution gives
+\[
+V_4^{\rm tr}\rtimes C_2\cong D_8.
+\]
+
+This ramified four-state quotient is not a field.  The cyclotomic extension
+supplies a different four-state object.  Since
+\[
+N_{K_{12}/\Q}(1+\sqrt3)=4,
+\]
+the prime ideal $\mathfrak P_2$ has residue field
+\[
+\boxed{\OO_{K_{12}}/\mathfrak P_2\cong\F_4.}
+\]
+Reducing the cyclotomic polynomial gives
+\[
+\Phi_{12}(X)
+\equiv X^4+X^2+1
+=(X^2+X+1)^2\pmod2.
+\]
+If $\omega=\bar\zeta$, then
+\[
+\omega^2+\omega+1=0,
+\qquad
+\omega^3=1.
+\]
+Hence multiplication by $\omega$ is the canonical order-$3$ action of
+\[
+\F_4^\times\cong C_3.
+\]
+
+In the additive basis $(1,\omega)$,
+\[
+[\times\omega]
+=\begin{pmatrix}0&1\\1&1\end{pmatrix},
+\]
+while Frobenius $z\mapsto z^2$ is
+\[
+[\Fr]
+=\begin{pmatrix}1&1\\0&1\end{pmatrix}.
+\]
+Thus
+\[
+\boxed{[\Fr]=\bar g_{12}}
+\]
+in this basis, and
+\[
+\Fr\,[\times\omega]\,\Fr^{-1}
+=[\times\omega]^{-1}.
+\]
+Therefore
+\[
+\langle\times\omega,\Fr\rangle
+=GL_2(\F_2)\cong S_3.
+\]
+With translations of the additive four-state space,
+\[
+\operatorname{AGL}(1,4)
+=\F_4\rtimes\F_4^\times
+\cong A_4,
+\]
+and adjoining Frobenius gives
+\[
+\operatorname{A\Gamma L}(1,4)
+\cong S_4.
+\]
+
+\begin{remark}[Two four-state quotients]
+The ramified quotient
+\[
+\mathfrak p_2/2\mathfrak p_2
+\]
+and the residue field
+\[
+\OO_{K_{12}}/\mathfrak P_2\cong\F_4
+\]
+have the same underlying dimension over $\F_2$ but different ring
+structures.  The former is nonreduced; the latter is a field.  The exact
+bridge used here is the compatible linear action: the ramified transvection
+matrix becomes Frobenius in the $\F_4$ model.
+\end{remark}
+
+\section{The distinguished $n=11$ specialization}
+
+The preceding construction does not require choosing $n=11$.  The number
+$11$ enters afterward as a distinguished arithmetic specialization of the
+already selected discriminant-$12$ structure.
+
+Geometrically,
+\[
+(11,1),(1,11)
+\]
+lie on the factor shell $xy=11$ and on the anti-diagonal
+\[
+x+y=12.
+\]
+Their Cone coordinates are
+\[
+\boxed{(X,Y,T)=(\pm5,\sqrt{11},6).}
+\]
+They are ordinary points of the invariant hyperbolic shell, not fixed points
+of the Pell return.
+
+Arithmetically,
+\[
+N_{F/\Q}(1+2\sqrt3)=-11.
+\]
+Let
+\[
+\mathfrak p_{11}=(1+2\sqrt3).
+\]
+Since
+\[
+(1+\sqrt3)(1+2\sqrt3)=7+3\sqrt3
+\]
+is totally positive, the two ideals determine the same narrow ideal class:
+\[
+\boxed{[\mathfrak p_{11}]=[\mathfrak p_2].}
+\]
+For the narrow Hilbert class field
+\[
+K_{12}=\Q(\zeta_{12})
+\]
+of $F=\Q(\sqrt3)$, the Artin action of this class is the cyclotomic
+involution labeled by $11$:
+\[
+\boxed{\Art_{K_{12}/F}(\mathfrak p_{11})=T_{11}.}
+\]
+Because
+\[
+11\equiv-1\pmod{12},
+\]
+\[
+T_{11}(\zeta_{12})
+=\zeta_{12}^{11}
+=\zeta_{12}^{-1}
+=\overline{\zeta_{12}}.
+\]
+Thus $T_{11}$ is complex conjugation in the cyclotomic realization.
+
+In the companion operator representation, this involution corresponds to the
+operator $J$.  We therefore record the representation correspondence
+\[
+\boxed{T_{11}\longleftrightarrow J.}
+\]
+This notation does not identify a field automorphism literally with a matrix
+or operator in another category; it states that the two realize the same
+involution under the established representation.
+
+The full specialization chain is therefore
+\[
+\boxed{
+11
+\longrightarrow
+\mathfrak p_{11}
+\longrightarrow
+[\mathfrak p_{11}]=[\mathfrak p_2]
+\longrightarrow
+T_{11}
+\longleftrightarrow
+J.}
+\]
+The role of $11$ is consequently exemplary rather than foundational: the
+discriminant-$12$ return predicts the setting in which its geometric,
+narrow-class, and cyclotomic properties coincide.
+
+\section{Symmetry layers and scope}
+
+The construction contains several finite groups that should not be conflated:
+\[
+\begin{array}{c|c}
+U(12)\cong V_4 & \text{cyclotomic Galois labels},\\
+V_4^{\rm tr} & \text{Boolean translations},\\
+V_4^{\rm tr}\rtimes C_2\cong D_8 & \text{translations plus factor exchange},\\
+\F_4^\times\cong C_3 & \text{nonzero residue-field multiplication},\\
+\operatorname{AGL}(1,4)\cong A_4 & \text{affine field symmetry},\\
+\operatorname{A\Gamma L}(1,4)\cong S_4 & \text{affine semilinear symmetry}.
+\end{array}
+\]
+Their coexistence is part of the discriminant-$12$ package, but equality of
+orders or cardinalities does not identify the groups or their actions.
+
+A separate analytic companion may realize the same Pell unit at a certified
+operator crossing.  Such a realization is not used here.  In particular,
+this paper proves no statement about the location of zeta zeros and makes no
+claim concerning the Riemann hypothesis.
+
+\section{Conclusion}
+
+Centered Cayley reciprocity selects trace $4$ before arithmetic data are
+introduced.  The positive integral normalization then exposes the Pell unit
+$2+\sqrt3$, whose action can be read in four compatible ways:
+\[
+\boxed{
+\begin{array}{ccl}
+\text{integral return} &:& g_{12}=\times(2+\sqrt3)\text{ on }\mathfrak p_2,\\
+\text{centered generator} &:& H_{12}=\times\sqrt3,\\
+\text{real geometry} &:& (x,y)\mapsto(\lambda x,\lambda^{-1}y),\\
+\text{cyclotomic closure} &:& \mathcal Z=\times\zeta_{12}\text{ on }\mathfrak P_2.
+\end{array}}
+\]
+At the ramified prime, the same structure separates into an order-$3$
+cyclotomic multiplication and an order-$2$ Frobenius return on $\F_4$.  The
+$n=11$ shell then supplies a distinguished arithmetic example in which the
+outer $x+y=12$ factor point, the ramified narrow class, cyclotomic complex
+conjugation $T_{11}$, and the companion involution $J$ meet without being used
+to define the theory.
+
+\end{document}
