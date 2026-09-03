@@ -1,0 +1,553 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\disc}{\operatorname{disc}}
+
+\title{\textbf{The Discriminant-$12$ Return}\\
+\large From Centered Cayley Geometry to Pell, Cyclotomic, and Boolean Structure}
+\author{Jeremy Ebert}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $g\in SL_2$ have trace $\tau$, centered part
+$H=g-\tfrac{\tau}{2}I$, and Cayley transform
+$K=(g-I)(g+I)^{-1}$.  We prove the universal identities
+\[
+K=\frac{2}{\tau+2}H,
+\qquad
+KH=\frac{\tau-2}{2}I.
+\]
+Consequently, in the shear normalization $\tau=\sigma+2$, the
+self-reciprocity condition $K=H^{-1}$ selects the unique value $\sigma=2$.
+The period-$[1,2]$ primitive positive integral return is
+\[
+g_{12}=\begin{pmatrix}3&1\\2&1\end{pmatrix},
+\]
+whose characteristic discriminant is $12$ and whose eigenvalues are
+$2\pm\sqrt3$.  We show that its centered generator realizes multiplication
+by $\sqrt3$ on the ramified ideal $(2,\sqrt3-1)$, that the return preserves
+the primitive form $2x^2-2xy-y^2$, and that this form is a Lorentz norm in
+Pell coordinates.  The same centered generator admits the cyclotomic
+completion $\mathcal Z=(H+iI)/2$, a primitive twelfth root whose integral
+closure carries a four-state parity quotient.  Modulo $2$, the return becomes
+factor exchange on a Boolean cell and its degenerate norm becomes XOR.
+The argument is algebraic and does not depend on zeta zeros, numerical
+certification, or the Riemann hypothesis.
+\end{abstract}
+
+\section{Introduction}
+
+A hyperbolic matrix in $SL_2$ naturally produces two centered objects.  The
+first is its traceless part
+\[
+H=g-\frac{\tr(g)}2I.
+\]
+The second is its Cayley transform
+\[
+K=(g-I)(g+I)^{-1}.
+\]
+Both lie on the one-dimensional traceless direction determined by $g$, but
+their scalar relation depends on the trace.  Requiring them to be reciprocal
+turns out to be rigid: after the normalization $\tr(g)=\sigma+2$, it forces
+\[
+\sigma=2.
+\]
+
+This elementary selection rule is the entrance to a longer arithmetic chain.
+At the selected trace $4$, a primitive positive integral representative has
+characteristic discriminant
+\[
+\Delta_g=\tr(g)^2-4=12
+\]
+and expanding eigenvalue $2+\sqrt3$.  Its centered part squares to $3I$; its
+integral lattice is the ramified ideal above $2$ in $\Q(\sqrt3)$; its norm
+form is an integral Lorentz form; and adjoining the scalar complex structure
+produces a primitive twelfth root.  Reduction at the ramified prime returns
+to a four-state Boolean cell, not as a translation but as factor exchange.
+
+The purpose of this paper is to prove that chain in the order in which its
+dependencies actually occur:
+\[
+\boxed{
+\begin{gathered}
+\text{centered Cayley reciprocity}
+\Longrightarrow \sigma=2
+\Longrightarrow \Delta_g=12
+\Longrightarrow \Q(\sqrt3)\\
+\Longrightarrow \text{Pell--Lorentz lattice}
+\Longrightarrow \Q(\zeta_{12})
+\Longrightarrow \text{ramified Boolean factor exchange}.
+\end{gathered}}
+\]
+
+Three distinctions will be maintained throughout.  First,
+$\Delta_g=\tr(g)^2-4$ is the characteristic discriminant of a matrix; it is
+not automatically the discriminant of an arbitrarily chosen order.  Second,
+the Lorentz dynamics is a discrete hyperbolic orbit, not a closed continuous
+orbit.  Third, the Boolean translation group, the returned factor-exchange
+involution, and the cyclotomic Galois group are separate symmetry layers.
+
+The algebraic theorem proved here is independent of any analytic realization.
+In particular, no identification with a Fredholm flow, no statement about
+zeta zeros, and no implication for the Riemann hypothesis is used or claimed.
+
+\section{Statement of the discriminant-$12$ return theorem}
+
+\begin{theorem}[Discriminant-$12$ return]
+\label{thm:main}
+Let $g\in SL_2(\Q)$, let $\tau=\tr(g)$, and assume $g+I$ is invertible.
+Define
+\[
+H=g-\frac\tau2I,
+\qquad
+K=(g-I)(g+I)^{-1},
+\qquad
+\tau=\sigma+2.
+\]
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item $K=\dfrac{2}{\tau+2}H$ and
+      $KH=\dfrac{\tau-2}{2}I$.
+\item In the hyperbolic range, $K=H^{-1}$ if and only if $\sigma=2$.
+\item At $\sigma=2$, the period-$[1,2]$ primitive positive integral
+representative
+\[
+g_{12}=\begin{pmatrix}3&1\\2&1\end{pmatrix}
+\]
+has characteristic polynomial $X^2-4X+1$, characteristic discriminant $12$,
+and eigenvalues $2\pm\sqrt3$.  Its centered part
+\[
+H_{12}=g_{12}-2I=\begin{pmatrix}1&1\\2&-1\end{pmatrix}
+\]
+satisfies $H_{12}^2=3I$.
+\item On the lattice $\mathfrak p_2=(2,\sqrt3-1)$, written in the ordered
+basis $(2,\sqrt3-1)$, the operators $H_{12}$ and $g_{12}$ are multiplication
+by $\sqrt3$ and $2+\sqrt3$, respectively.  The associated primitive form
+\[
+q_{12}(x,y)=2x^2-2xy-y^2
+\]
+is preserved by $g_{12}$ and obeys
+\[
+2q_{12}(x,y)=U^2-V^2,
+\qquad
+(U,V)=(2x-y,\sqrt3\,y).
+\]
+\item The element
+\[
+\mathcal Z=\frac{H_{12}+iI}{2}
+\]
+satisfies $\Phi_{12}(\mathcal Z)=0$ and generates
+$\Q(\zeta_{12})$.  Moreover
+\[
+g_{12}=-i(I+\mathcal Z)(I-\mathcal Z)^{-1}.
+\]
+The maximal order is
+\[
+\OO_{\Q(\zeta_{12})}
+=\left\{
+\frac{A+B\sqrt3+i(C+D\sqrt3)}2:
+A\equiv D,\ B\equiv C\pmod2
+\right\},
+\]
+and
+\[
+\OO_{\Q(\zeta_{12})}/\Z[\sqrt3,i]\cong(\F_2)^2.
+\]
+\item Modulo $2$,
+\[
+\overline g_{12}(x,y)=(x+y,y),
+\qquad
+\overline q_{12}(x,y)=y.
+\]
+Under $\Phi(x,y)=(\epsilon_1,\epsilon_2)=(x,x+y)$ these become
+\[
+\Phi\overline g_{12}\Phi^{-1}
+(\epsilon_1,\epsilon_2)=(\epsilon_2,\epsilon_1),
+\qquad
+\overline q_{12}=\epsilon_1\oplus\epsilon_2.
+\]
+Thus the return is factor exchange and, together with Boolean translations,
+generates $V_4^{\rm tr}\rtimes C_2\cong D_8$.
+\end{enumerate}
+\end{theorem}
+
+The theorem separates into four proof packages: universal centered-Cayley
+algebra, the integral Pell--Lorentz return, cyclotomic integral closure, and
+the ramified Boolean reduction.  The first two are proved next.
+
+\section{Universal centered-Cayley algebra}
+
+The selection of the trace defect is a consequence of Cayley--Hamilton alone.
+
+\begin{lemma}[Centered square]
+\label{lem:centered-square}
+For $g\in SL_2$ with trace $\tau$,
+\[
+\boxed{H^2=\left(\frac{\tau^2}{4}-1\right)I.}
+\]
+\end{lemma}
+
+\begin{proof}
+Cayley--Hamilton gives $g^2-\tau g+I=0$.  Therefore
+\[
+H^2
+=\left(g-\frac\tau2I\right)^2
+=g^2-\tau g+\frac{\tau^2}{4}I
+=\left(\frac{\tau^2}{4}-1\right)I.
+\]
+\end{proof}
+
+\begin{proposition}[Centered Cayley identity]
+\label{prop:centered-cayley}
+If $g+I$ is invertible, then
+\[
+\boxed{
+K=\frac{2}{\tau+2}H,
+\qquad
+KH=\frac{\tau-2}{2}I.
+}
+\]
+\end{proposition}
+
+\begin{proof}
+From Cayley--Hamilton,
+\[
+(g+I)\bigl((\tau+1)I-g\bigr)
+=(\tau+2)I.
+\]
+Hence
+\[
+(g+I)^{-1}=\frac{(\tau+1)I-g}{\tau+2}.
+\]
+Multiplication gives
+\begin{align*}
+K
+&=\frac{(g-I)((\tau+1)I-g)}{\tau+2}\\
+&=\frac{(\tau+2)g-g^2-(\tau+1)I}{\tau+2}\\
+&=\frac{2g-\tau I}{\tau+2}
+=\frac{2}{\tau+2}H.
+\end{align*}
+Using Lemma~\ref{lem:centered-square},
+\[
+KH
+=\frac{2}{\tau+2}H^2
+=\frac{2}{\tau+2}\left(\frac{\tau^2}{4}-1\right)I
+=\frac{\tau-2}{2}I.
+\]
+\end{proof}
+
+\begin{corollary}[Unique self-reciprocal class]
+\label{cor:self-reciprocal}
+Let $\tau=\sigma+2$ and assume $g$ is hyperbolic.  Then
+\[
+\boxed{K=H^{-1}\quad\Longleftrightarrow\quad\sigma=2.}
+\]
+\end{corollary}
+
+\begin{proof}
+Hyperbolicity implies $H$ is invertible.  By
+Proposition~\ref{prop:centered-cayley},
+\[
+K=H^{-1}
+\quad\Longleftrightarrow\quad
+KH=I
+\quad\Longleftrightarrow\quad
+\frac{\tau-2}{2}=1.
+\]
+Thus $\tau=4$, equivalently $\sigma=2$.
+\end{proof}
+
+\begin{remark}
+The number $2$ is selected here before any integral representative, quadratic
+field, Pell equation, or analytic flow has been introduced.  Later
+appearances of $2+\sqrt3$ and discriminant $12$ are downstream consequences
+of this trace selection.
+\end{remark}
+
+\section{The primitive integral return}
+
+For the standard continued-fraction matrix
+\[
+A_a=\begin{pmatrix}a&1\\1&0\end{pmatrix},
+\]
+the period $[1,2]$ gives, at the selected trace $4$,
+\[
+g_{12}=A_1A_2=\begin{pmatrix}3&1\\2&1\end{pmatrix}.
+\]
+It is positive, primitive, and unimodular.  Directly,
+\[
+\det(g_{12})=1,
+\qquad
+\tr(g_{12})=4,
+\]
+so
+\[
+\chi_{g_{12}}(X)=X^2-4X+1,
+\qquad
+\Delta_{g_{12}}=4^2-4=12.
+\]
+The eigenvalues are $2\pm\sqrt3$.
+
+\begin{proposition}[Real quadratic generator]
+\label{prop:real-generator}
+For
+\[
+H_{12}=g_{12}-2I
+=\begin{pmatrix}1&1\\2&-1\end{pmatrix},
+\]
+one has
+\[
+H_{12}^2=3I,
+\qquad
+\Z[H_{12}]\cong\Z[\sqrt3]=\OO_{\Q(\sqrt3)}.
+\]
+\end{proposition}
+
+\begin{proof}
+Matrix multiplication gives $H_{12}^2=3I$.  Thus evaluation
+$\sqrt3\mapsto H_{12}$ defines an injective homomorphism
+$\Z[\sqrt3]\to M_2(\Z)$ with image $\Z[H_{12}]$.  Since
+$3\equiv3\pmod4$, the maximal order of $\Q(\sqrt3)$ is
+$\Z[\sqrt3]$.
+\end{proof}
+
+Let
+\[
+\mathfrak p_2=(2,\sqrt3-1).
+\]
+This is the unique prime ideal above $2$; indeed $2$ ramifies in the real
+quadratic field of discriminant $12$.
+
+\begin{proposition}[Ideal-lattice action]
+\label{prop:ideal-action}
+In the ordered basis
+\[
+e_1=2,
+\qquad
+e_2=\sqrt3-1
+\]
+of $\mathfrak p_2$, multiplication by $\sqrt3$ and $2+\sqrt3$ is represented
+by $H_{12}$ and $g_{12}$, respectively.
+\end{proposition}
+
+\begin{proof}
+The basis relations are
+\[
+\sqrt3e_1=e_1+2e_2,
+\qquad
+\sqrt3e_2=e_1-e_2.
+\]
+Therefore the columns of the multiplication matrix are $(1,2)^T$ and
+$(1,-1)^T$, giving $H_{12}$.  Since multiplication by $2+\sqrt3$ is
+$2I+H_{12}$, its matrix is $g_{12}$.
+\end{proof}
+
+\section{The Pell--Lorentz norm form}
+
+The ideal norm becomes an integral indefinite binary quadratic form in the
+basis above.  For
+\[
+\alpha=xe_1+ye_2=(2x-y)+y\sqrt3,
+\]
+one has
+\[
+N_{\Q(\sqrt3)/\Q}(\alpha)
+=(2x-y)^2-3y^2
+=2\bigl(2x^2-2xy-y^2\bigr).
+\]
+Define
+\[
+q_{12}(x,y)=2x^2-2xy-y^2.
+\]
+Its binary-form discriminant is
+\[
+(-2)^2-4(2)(-1)=12.
+\]
+
+\begin{proposition}[Integral Lorentz return]
+\label{prop:lorentz-return}
+The form $q_{12}$ is primitive and is preserved by $g_{12}$.  Under
+\[
+(U,V)=(2x-y,\sqrt3\,y),
+\]
+it satisfies
+\[
+\boxed{2q_{12}(x,y)=U^2-V^2.}
+\]
+Moreover $g_{12}$ acts as the discrete Lorentz boost associated with the unit
+$2+\sqrt3$.
+\end{proposition}
+
+\begin{proof}
+Primitivity follows from the coefficients $2,-2,-1$.  By
+Proposition~\ref{prop:ideal-action}, $g_{12}$ is multiplication by the norm-one
+unit $2+\sqrt3$, so it preserves the ideal norm and hence $q_{12}$.  The
+displayed coordinate change is the norm calculation above.  In null
+coordinates $U\pm V$, multiplication by $2+\sqrt3$ scales the two eigendirections
+by $2\pm\sqrt3$.  Thus the iterates of $g_{12}$ form a discrete hyperbolic
+Lorentz orbit on each level of $q_{12}$.
+\end{proof}
+
+\begin{remark}
+The trace determines the recurrence law for the iterates, but not their
+initial data.  Since $g_{12}$ has characteristic polynomial
+$X^2-4X+1$, every scalar coordinate of $g_{12}^nv$ obeys
+\[
+a_{n+2}=4a_{n+1}-a_n,
+\]
+with initial values determined by $v$.
+\end{remark}
+
+\section{The geometric mod-$12$ unit shell}
+\label{sec:mod12-shell}
+
+The arithmetic selected above also has a direct realization in the factor-cone
+coordinates of Paper A.  The unit residues modulo $12$ are
+\[
+U(12)=(\Z/12\Z)^\times=\{1,5,7,11\}.
+\]
+For each $r\in U(12)$, take the factor pair $(r,1)$ together with its mirror
+$(1,r)$.  Under
+\[
+T=\frac{x+y}{2},
+\qquad
+X=\frac{x-y}{2},
+\qquad
+Y=\sqrt{xy},
+\]
+the two points have
+\begin{equation}
+\boxed{
+T_r=\frac{r+1}{2},
+\qquad
+X_r=\pm\frac{r-1}{2},
+\qquad
+Y_r=\sqrt r,
+\qquad
+T_r^2-X_r^2=r.
+}
+\label{eq:mod12-shell}
+\end{equation}
+Thus the four unit labels give the exact data
+\[
+\begin{array}{c|cccc}
+r&1&5&7&11\\ \hline
+T_r&1&3&4&6\\
+|X_r|&0&2&3&5\\
+Y_r&\sqrt1&\sqrt5&\sqrt7&\sqrt{11}.
+\end{array}
+\]
+The outer pair $r=11$ is the factor pair $(11,1)$ and its mirror $(1,11)$;
+it therefore lies on the Paper-A anti-diagonal $x+y=12$, or equivalently the
+fixed-radius cone circle $T=6$.  The remaining units occupy the nested circles
+$T=1,3,4$ along the same distinguished row/column pair $x=1$ and $y=1$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{mod12_v4_cone_triple.png}
+\caption{The mod-$12$ unit shell in factor-cone coordinates.  For each
+$r\in\{1,5,7,11\}=U(12)$, the factor pairs $(r,1)$ and $(1,r)$ map to
+$T=(r+1)/2$, $X=\pm(r-1)/2$, and $Y=\sqrt r$, so that
+$T^2-X^2=r$.  Panel (a) is the flat $(X,Y)$ projection, panel (b) is the
+$(X,T)$ side view, and panel (c) shows the corresponding curves on the null
+cone.  The outer $r=11$ pair lies on $x+y=12$.  The highlighted labels form
+$V_4$ under multiplication modulo $12$; the cone embedding realizes their
+geometry but does not replace the modular group law.}
+\label{fig:mod12-unit-shell}
+\end{figure}
+
+\begin{proposition}[Mod-$12$ Klein group]
+Every element of $U(12)$ has order dividing $2$, and
+\[
+\boxed{U(12)\cong C_2\times C_2=V_4.}
+\]
+Under the cyclotomic identification used below, $r\in U(12)$ acts by
+\[
+\zeta_{12}\longmapsto\zeta_{12}^{,r},
+\]
+so the same four labels index
+$\Gal(\Q(\zeta_{12})/\Q)$.
+\end{proposition}
+
+\begin{proof}
+Directly,
+\[
+1^2\equiv5^2\equiv7^2\equiv11^2\equiv1\pmod{12}.
+\]
+The group has four elements and three nonidentity involutions, hence is
+$C_2\times C_2$.  The Galois statement is the standard cyclotomic
+identification $\Gal(\Q(\zeta_n)/\Q)\cong(\Z/n\Z)^\times$ at $n=12$.
+\end{proof}
+
+\begin{remark}[Layer boundary]
+Figure~\ref{fig:mod12-unit-shell} is a geometric carrier for the four residue
+labels.  Neither proximity nor adjacency in the drawing defines their
+multiplication.  Moreover, the modulus $12$, the characteristic discriminant
+$\Delta_{g_{12}}=12$, the cyclotomic Galois $V_4$, and the Boolean translation
+$V_4^{\rm tr}$ remain logically distinct.  Their agreement in the selected
+return is an exact compatibility developed in this paper, not a definitional
+identity.
+\end{remark}
+
+\section{Roadmap for the arithmetic completion}
+
+The remaining proof packages proceed without altering the hypotheses above.
+First, adjoining the scalar complex structure gives
+\[
+\mathcal Z=\frac{H_{12}+iI}{2},
+\qquad
+\mathcal Z\overline{\mathcal Z}
+=\frac{H_{12}^2+I}{4}=I.
+\]
+The half-element is therefore forced by relative-norm normalization and
+satisfies the twelfth cyclotomic polynomial.  The integral closure introduces
+two parity-gluing classes, yielding a quotient isomorphic as an additive group
+to $(\F_2)^2$.
+
+Second, reduction of the ramified ideal lattice modulo $2$ gives another
+four-state space.  The return reduces to the transvection
+\[
+(x,y)\longmapsto(x+y,y),
+\]
+which becomes factor exchange after the Boolean relabeling
+$(x,y)\mapsto(x,x+y)$.  Its reduced norm becomes XOR.  Equal cardinality does
+not canonically identify this ramified quotient with the cyclotomic gluing
+quotient, and neither should be identified with the cyclotomic Galois $V_4$.
+
+These two packages complete parts (v) and (vi) of
+Theorem~\ref{thm:main}.  They will be developed next from the integral parity
+description rather than inferred from the shared number of states.
+
+\section*{Scope note}
+
+This draft establishes the theorem-first opening and the complete proofs of
+the centered-Cayley and Pell--Lorentz packages.  A separate analytic companion
+may realize the selected value through a certified Suzuki determinant
+crossing.  That realization is not a hypothesis of the algebraic theorem and
+is not used here.
+
+\end{document}

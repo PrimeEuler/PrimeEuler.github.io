@@ -19,9 +19,10 @@ files remain in the parent `unified/` directory.
 
 ## Papers
 
-- `Discriminant_12_Return_v0.1.tex` and `.pdf` — theorem-first opening of the
-  principal paper. The centered-Cayley and Pell–Lorentz packages are proved;
-  the cyclotomic and Boolean proof packages are stated as the next section.
+- `Discriminant_12_Return_v0.1.tex` and `.pdf` — initial theorem-first opening.
+- `Discriminant_12_Return_v0.2.tex` and `.pdf` — current principal-paper draft.
+  It adds the geometric mod-12 unit shell between the Pell–Lorentz and
+  cyclotomic packages.
 - `Casimir_Null_Diamond_Standalone_v2_Audited.tex` and `.pdf` — companion note
   containing the null-edge/Casimir quarter theorem, cyclotomic-quarter
   comparison, and ramified Boolean return.
@@ -34,10 +35,19 @@ files remain in the parent `unified/` directory.
 These are retained as source research notes rather than cited as completed
 theorems.
 
+## Figures
+
+- `mod12_v4_cone_triple.png` — three-panel realization of the unit residues
+  \(\{1,5,7,11\}\) in Paper-A cone coordinates;
+- `make_mod12_v4_cone_triple.py` — portable figure generator.
+
+The figure realizes the four modular labels geometrically. Their \(V_4\)
+operation remains multiplication modulo 12, not adjacency in the drawing.
+
 ## Ledger
 
 The `ledger/` directory preserves audited consolidation checkpoints v13.162
-through v13.168. The latest checkpoint is the current baseline; earlier files
+through v13.169. The latest checkpoint is the current baseline; earlier files
 are retained so the development can be reconstructed.
 
 ## Scope
