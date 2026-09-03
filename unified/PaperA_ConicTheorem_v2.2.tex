@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\graphicspath{{discriminant-12-return/figures/}}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -29,11 +30,7 @@ X=\frac{x-y}{2},\qquad T=\frac{x+y}{2},
 \]
 so the usual square grid appears as a triangular side view of a cone. Every cell still represents the ordinary product $xy$. The outer boundary is the anti-diagonal $x+y=12$, while the dashed line $x+y=8$ passes through the factor cells $(2,6)$, $(4,4)$, and $(6,2)$.
 
-Adding
-\[
-Y=\sqrt{xy}
-\]
-gives the identity
+Adding $Y=\sqrt{xy}$ gives
 \[
 X^2+Y^2=T^2,
 \]
@@ -41,14 +38,14 @@ so every factor pair lies on the cone in panel (c). Anti-diagonals $x+y=K$ becom
 \[
 8x+4y=32,\qquad 4x+8y=32
 \]
-is shown throughout the figure as a concrete example: in the side view these are straight cutting lines; in the flat $(X,Y)$ projection they become mirror ellipses; and in three dimensions they are literally plane sections of the cone.
+is shown throughout the figure as a concrete example.
 
-The emphasis here is deliberately geometric and elementary. Arithmetic structures that can subsequently act on this cone are treated in companion work; none is required for the conic classification, the tangency theorem, the ellipse metric formulas, or the divisor count below.
+The emphasis here is deliberately geometric and elementary. Arithmetic structures that can subsequently act on this cone are treated in companion work; none is required for the results below.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{fig_cutting_plane_3panel.pdf}
-\caption{Three views of the same factor geometry, bounded by the anti-diagonal $x+y=12$. (a) Flat $(X,Y)$ projection: fixed sums $x+y=K$ are concentric circles, the row and column families appear as mirror parabolas, the dashed circle is $x+y=8$, and the red/purple cuts are the mirror ellipses arising from $8x+4y=32$ and $4x+8y=32$. (b) Side view in $(X,T)$: the multiplication table becomes a triangular lattice on the cone side view; $x+y=8$ is the horizontal segment $T=4$, while the two example cuts are straight lines. (c) Full cone $X^2+Y^2=T^2$: the same two lines lift to planes whose intersections with the cone are the two ellipses. The figure is illustrative; all classifications and metric statements are proved algebraically below.}
+\caption{Three views of the same factor geometry, bounded by $x+y=12$. (a) Fixed sums are concentric circles, row and column families are mirror parabolas, and the red/purple cuts are the mirror ellipses from $8x+4y=32$ and $4x+8y=32$. (b) Side view in $(X,T)$, where the multiplication table becomes a triangular lattice. (c) The same cuts as literal plane sections of $X^2+Y^2=T^2$. The figure is illustrative; the claims are proved below.}
 \label{fig:table_line}
 \end{figure}
 
@@ -61,13 +58,15 @@ Then
 \begin{equation}
 X^2+Y^2=T^2. \tag{2.2}
 \end{equation}
-Fixing $x+y=K$ fixes $T=K/2$, so the anti-diagonal is represented by the circle
+The inverse factor coordinates are
+\begin{equation}
+x=T+X,\qquad y=T-X. \tag{2.3}
+\end{equation}
+Thus factor exchange $(x,y)\mapsto(y,x)$ is exactly $X\mapsto-X$ with $Y,T$ fixed. We use this convention throughout; in particular positive $X$ means $x>y$.
+
+Fixing $x+y=K$ fixes $T=K/2$, giving the circle
 \[
 X^2+Y^2=(K/2)^2.
-\]
-The factor-exchange involution $(x,y)\mapsto(y,x)$ acts simply as
-\[
-(X,Y,T)\mapsto(-X,Y,T).
 \]
 
 \section{The General Conic Theorem}
@@ -79,34 +78,34 @@ For $b\ne0$, $y=(c-ax)/b$, hence
 \[
 Y^2=xy=\frac cbx-\frac abx^2.
 \]
-The sign of the quadratic coefficient $-a/b$ gives the three cases. The cases $a=0$ or $b=0$ are the row/column parabolas below.
+The sign of $-a/b$ gives the three cases. The cases $a=0$ or $b=0$ are the row/column parabolas below.
 \end{proof}
 
 \begin{proposition}[Rows and columns]\label{prop:rows}
-For a fixed row $x=u$,
+With the convention $X=(x-y)/2$, a fixed row $x=u$ satisfies
 \[
-X+T=u,\qquad Y^2=u(T-X)=u^2-2uX.
+X+T=u,\qquad Y^2=u(T-X)=u^2-2uX,
 \]
-For a fixed column $y=u$,
+while a fixed column $y=u$ satisfies
 \[
 T-X=u,\qquad Y^2=u(T+X)=u^2+2uX.
 \]
-Their flat $(X,Y)$ projections are mirror parabolas.
+The two projected parabolas are exchanged by $X\mapsto-X$.
 \end{proposition}
 
 \begin{proposition}[Anti-diagonal tangency]\label{prop:tangent}
-For every $u>0$, the row and column parabolas at factor level $u$ are tangent in the $(X,Y)$ projection to the same anti-diagonal circle
+For every $u>0$, the row and column parabolas at factor level $u$ are tangent in the $(X,Y)$ projection to
 \[
 C_{u/2}:\quad X^2+Y^2=(u/2)^2.
 \]
-The row is tangent at $(X,Y)=(u/2,0)$ and the column at $(-u/2,0)$. Equivalently, both tangent points lie on the cone slice $T=u/2$ and on its two null generators $X=\pm T$, $Y=0$.
+The row $x=u$ is tangent at $(X,Y)=(u/2,0)$, and the column $y=u$ at $(-u/2,0)$. On the cone these are $(T,X,Y)=(u/2,\pm u/2,0)$.
 \end{proposition}
 \begin{proof}
-The row projection is $Y^2=u^2-2uX$, whose vertex is $(u/2,0)$; the column projection is $Y^2=u^2+2uX$, whose vertex is $(-u/2,0)$. Each vertex lies on $C_{u/2}$. Implicit differentiation shows that each parabola and its circle have the same vertical tangent at the corresponding vertex.
+The row parabola $Y^2=u^2-2uX$ has vertex $(u/2,0)$; the column parabola $Y^2=u^2+2uX$ has vertex $(-u/2,0)$. Both vertices lie on $C_{u/2}$, and implicit differentiation gives the same vertical tangent there. The signs also follow directly from (2.3): at the row endpoint $y=0$, $X=x/2=u/2$; at the column endpoint $x=0$, $X=-y/2=-u/2$.
 \end{proof}
 
 \begin{remark}
-Factor level $u$ therefore corresponds exactly to tangent-circle radius $T=u/2$. Consequently a factor mesh of spacing $1/m$ induces a tangent-circle radius mesh of spacing $1/(2m)$. This is a geometric statement about the coordinate map, not an arithmetic invariance claim.
+Factor level $u$ corresponds exactly to tangent-circle radius $T=u/2$. A factor mesh of spacing $1/m$ therefore induces a tangent-circle radius mesh of spacing $1/(2m)$. This is a geometric statement, not an arithmetic invariance claim.
 \end{remark}
 
 \begin{proposition}[Coordinate maximum of an ellipse]\label{prop:semiaxes}
@@ -114,51 +113,35 @@ For $ab>0$, $Y^2$ is maximized at $x=c/(2a)$, where
 \[
 Y_{\max}^2=\frac{c^2}{4ab}.
 \]
-This point is the midpoint of the line's two axis intercepts in factor coordinates.
 \end{proposition}
 \begin{proof}
-Differentiate $Y^2=(c/b)x-(a/b)x^2$ and set the derivative to zero. Substitution gives the stated maximum.
+Differentiate $Y^2=(c/b)x-(a/b)x^2$ and substitute the critical point.
 \end{proof}
 
-For the red cut in Figure~\ref{fig:table_line}, $8x+4y=32$, Proposition~\ref{prop:semiaxes} gives the maximum at
-\[
-(x,y)=(2,4),\qquad Y^2_{\max}=8,
-\]
-which is the marked point in the side view. The purple cut is its factor-exchange reflection.
+For $8x+4y=32$, the maximum is $(x,y)=(2,4)$ with $Y^2_{\max}=8$. Since $X=(x-y)/2$, this point has $(X,T)=(-1,3)$. Its reflected cut $4x+8y=32$ has maximum $(4,2)$ and $(X,T)=(1,3)$. This fixes the red/purple orientation independently of the drawing.
 
 \begin{proposition}[True ellipse axes and eccentricity]\label{prop:trueaxes}
-For $ab>0$, the ellipse cut from the cone by $ax+by=c$ has semi-minor axis
+For $ab>0$, the ellipse has
 \[
-b_{\rm semi}=\frac{c}{2\sqrt{ab}},
-\]
-semi-major axis
-\[
-a_{\rm semi}=\frac{c\sqrt{2(a^2+b^2)}}{4ab},
-\]
-and eccentricity
-\[
+b_{\rm semi}=\frac{c}{2\sqrt{ab}},\qquad
+a_{\rm semi}=\frac{c\sqrt{2(a^2+b^2)}}{4ab},\qquad
 e=\frac{|a-b|}{\sqrt{a^2+b^2}}.
 \]
-In particular the eccentricity depends only on the slope ratio $a/b$, not on the scale $c$, and $e=0$ exactly for the anti-diagonal case $a=b$.
+Thus eccentricity depends only on $a/b$, and $e=0$ exactly when $a=b$.
 \end{proposition}
 \begin{proof}
-The section is symmetric under $Y\mapsto-Y$. Its pure-$Y$ semi-axis is $Y_{\max}=c/(2\sqrt{ab})$. At $Y=0$ the two endpoints correspond to factor intercepts $(c/a,0)$ and $(0,c/b)$, hence to cone points
+The section is symmetric under $Y\mapsto-Y$. Its pure-$Y$ semi-axis is $Y_{\max}$. At $Y=0$ the endpoints are
 \[
 \left(\frac{c}{2a},0,\frac{c}{2a}\right),\qquad
 \left(-\frac{c}{2b},0,\frac{c}{2b}\right).
 \]
-Their Euclidean distance is the full major axis, giving the stated $a_{\rm semi}$. Finally $e^2=1-b_{\rm semi}^2/a_{\rm semi}^2$ simplifies to $(a-b)^2/(a^2+b^2)$.
+Their Euclidean distance gives the full major axis. Substitution into $e^2=1-b_{\rm semi}^2/a_{\rm semi}^2$ gives the stated eccentricity.
 \end{proof}
 
-For $8x+4y=32$ these formulas give
+For $8x+4y=32$,
 \[
-a_{\rm semi}=\sqrt{10},\qquad b_{\rm semi}=2\sqrt2,\qquad e=\frac1{\sqrt5}.
+a_{\rm semi}=\sqrt{10},\qquad b_{\rm semi}=2\sqrt2,\qquad e=1/\sqrt5.
 \]
-The mirror cut has the same metric data, as it must.
-
-\begin{remark}
-The conic classification itself is a special case of the classical plane-section theorem for a quadric. The contribution here is the explicit factor-coordinate dictionary: the sign of $ab$ classifies the section, the coefficients determine the ellipse geometry above, and the row/column family carries the exact tangent-circle correspondence of Proposition~\ref{prop:tangent}.
-\end{remark}
 
 \section{Constant-Product Curves and Fermat Factorization}
 Fixing $xy=N$ fixes $Y^2=N$, so
@@ -169,7 +152,7 @@ For odd $N$, Fermat's method searches integers $T\ge\lceil\sqrt N\rceil$ until $
 \[
 N=(T-X)(T+X).
 \]
-Thus the constant-product hyperbola records the same factorization search directly in the mean-value coordinates.
+Thus the constant-product hyperbola records the same factorization search directly in mean-value coordinates.
 
 \section{The Divisor Summatory Function via Nested Gnomons}
 Let
@@ -184,14 +167,37 @@ and therefore
 \begin{equation}
 D(n)=2\sum_{u=1}^{\lfloor\sqrt n\rfloor}\left\lfloor\frac nu\right\rfloor-\lfloor\sqrt n\rfloor^2. \tag{5.2}
 \end{equation}
-This is the classical symmetric Dirichlet hyperbola identity, now read as nested gnomons whose arms are pieces of the row/column parabolas cut off by $xy=n$.
+This is the classical symmetric Dirichlet hyperbola identity, read as nested gnomons whose arms are pieces of the row/column parabolas cut off by $xy=n$.
+
+For $n=11$ the smallest integer anti-diagonal containing the whole positive divisor region is $x+y=12$. It contains
+\[
+T_{11}=1+2+\cdots+11=66
+\]
+positive lattice cells. Within it,
+\[
+D(11)=29,\qquad A_{11}:=T_{11}-D(11)=37.
+\]
+The constant-product boundary is
+\[
+xy=11\iff Y=\sqrt{11}\iff T^2-X^2=11,
+\]
+and it meets $x+y=12$ at the two factor pairs $(1,11)$ and $(11,1)$, corresponding to $(X,T)=(-5,6)$ and $(5,6)$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{fig_divisor_summatory_11_3panel.png}
+\caption{The divisor summatory geometry for $n=11$ in the same three views as Figure~\ref{fig:table_line}. The $66$ cells inside $x+y\le12$ split exactly into the divisor region $D(11)=29$ and its triangular complement $A_{11}=37$. The boundary $xy=11$ is the horizontal line $Y=\sqrt{11}$ in the flat projection, the hyperbola $T^2-X^2=11$ in the side view, and the section of the cone by the vertical plane $Y=\sqrt{11}$ in three dimensions. The displayed $11\log11$ and $11H_{11}$ values are comparison quantities only; they are not asserted to equal the discrete count.}
+\label{fig:divisor11}
+\end{figure}
+
+The choice $n=11$ is illustrative rather than structural: the identities above hold for general $n$. It is useful here because the extremal factor pairs $(1,11)$ and $(11,1)$ lie exactly on the outer shell $x+y=12$, making the discrete partition and the constant-product boundary visible in one compact picture.
 
 \section{Discussion}
-The cone identity organizes three elementary structures on one carrier: linear conditions become conic sections, constant products become Lorentz-type hyperbolas, and the divisor summatory region decomposes into diagonal gnomons. Proposition~\ref{prop:tangent} adds an exact bridge between the visual layers: each fixed factor level determines both a row/column parabola and a unique tangent anti-diagonal circle of radius $u/2$. Propositions~\ref{prop:semiaxes} and~\ref{prop:trueaxes} retain the full metric information of the general ellipse section.
+The cone identity organizes three elementary structures on one carrier: linear conditions become conic sections, constant products become Lorentz-type hyperbolas, and the divisor summatory region decomposes into diagonal gnomons. Proposition~\ref{prop:tangent} adds an exact bridge: each fixed factor level determines both a row/column parabola and a unique tangent anti-diagonal circle of radius $u/2$.
 
-Figure~\ref{fig:table_line} is therefore not a separate heuristic picture but a compact visualization of the same exact dictionary proved in the text: factor cells, circles, row/column parabolas, cutting lines, and cutting planes are different views of the same coordinate map.
+The sign convention is fixed globally by $X=(x-y)/2$: rows terminate on the positive-$X$ generator, columns on the negative-$X$ generator, and factor exchange is reflection through $X=0$. Figures~\ref{fig:table_line} and~\ref{fig:divisor11} use this same convention.
 
-This is the natural stopping point for the geometric paper. Later arithmetic or operator constructions may use the same cone and its two generator rays, but they should be cited as companion results rather than imported into the proof of the elementary statements above.
+This is the natural stopping point for the geometric paper. Later arithmetic or operator constructions may use the same cone and its two generator rays, but they should be cited as companion results rather than imported into these elementary proofs.
 
 \begin{thebibliography}{9}
 \bibitem{Dickson} L.~E.~Dickson, \emph{History of the Theory of Numbers, Vol.~I}, Carnegie Institution, 1919, Ch.~14.
