@@ -1,0 +1,807 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle_\eta}
+
+\title{\textbf{Casimir Completion and Primitive Null Diamonds}\\
+\large Edge centering, cyclotomic normalization, and the ramified Boolean return}
+\author{Jeremy Ebert}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The quadratic Casimirs of the rank-one ladder algebras $SU(2)$ and $SU(1,1)$ admit the familiar completions
+\[
+j(j+1)+\frac14=\left(j+\frac12\right)^2,
+\qquad
+k(k-1)+\frac14=\left(k-\frac12\right)^2.
+\]
+This note gives the common $\tfrac14$ a concrete Lorentz-cone realization.  On the factor cone
+\[
+T^2-X^2-Y^2=0,
+\qquad
+u=T+X,\quad v=T-X,\quad Y^2=uv,
+\]
+a primitive unimodular pair of spinors determines two null vectors whose midpoint has Lorentz norm squared $1/4$.  At general lattice spacing $\delta$, the midpoint norm is $\delta^2/4$.  The exact $SU(2)$ and positive-discrete-series $SU(1,1)$ ladder amplitudes can then be written in the unified edge-centered form
+\[
+A_\pm^2
+=
+\sigma\left(C+M_F^2-Z_\pm^2\right),
+\qquad
+M_F^2=\frac{\delta^2}{4},
+\]
+with $\sigma=+1$ for $SU(2)$ and $\sigma=-1$ for $SU(1,1)$.  Equivalently, the edge-centered representation radius satisfies
+\[
+R^2=C+M_F^2.
+\]
+The result does not assert that Farey arithmetic causes the Weyl or Casimir shift.  Rather, it identifies the shift with the same centered-null-edge quadratic invariant that appears canonically in the arithmetic factor-cone geometry.  A four-corner oscillator transition cell makes the half-step origin of the invariant explicit.  We then compare this cone quarter with the distinct cyclotomic normalization
+\[
+\mathcal Z=\frac{H+iI}{2},\qquad H^2=3I,
+\]
+for which $\mathcal Z\overline{\mathcal Z}=I$, and record the mod-$2$ return of the associated discriminant-$12$ lattice as factor exchange on a four-state Boolean cell.  These are exact constructions sharing a dyadic mechanism type; they are not asserted to be the same operator, norm, or lattice.
+\end{abstract}
+
+\section{The factor cone}
+
+Let
+\[
+u,v>0,\qquad
+X=\frac{u-v}{2},\qquad
+T=\frac{u+v}{2},\qquad
+Y=\sqrt{uv}.
+\]
+Then
+\begin{equation}
+\boxed{T^2-X^2-Y^2=0.}
+\label{eq:cone}
+\end{equation}
+We use the Lorentz bilinear form
+\[
+\ip{(X,Y,T)}{(X',Y',T')}
+=
+TT'-XX'-YY'.
+\]
+Thus \eqref{eq:cone} is the future null cone.  The inverse light-cone coordinates are
+\[
+u=T+X,\qquad v=T-X,
+\]
+and the null condition becomes
+\[
+Y^2=uv.
+\]
+
+A convenient square-root parametrization is obtained from a real spinor
+\[
+\psi=
+\begin{pmatrix}\alpha\\ \beta\end{pmatrix}.
+\]
+Define
+\begin{equation}
+Q(\alpha,\beta)
+=
+\left(
+\frac{\alpha^2-\beta^2}{2},
+\alpha\beta,
+\frac{\alpha^2+\beta^2}{2}
+\right).
+\label{eq:spinormap}
+\end{equation}
+Then $Q(\psi)^2=0$, while
+\[
+u=\alpha^2,\qquad v=\beta^2.
+\]
+Equivalently,
+\[
+\psi\psi^T
+=
+\begin{pmatrix}
+T+X&Y\\
+Y&T-X
+\end{pmatrix},
+\]
+whose determinant is precisely $T^2-X^2-Y^2$.
+
+\section{Primitive unimodular null edges}
+
+The arithmetic ingredient is elementary but rigid.  Take two spinors
+\[
+\psi_1=\begin{pmatrix}a\\b\end{pmatrix},
+\qquad
+\psi_2=\begin{pmatrix}c\\d\end{pmatrix},
+\]
+and let
+\[
+\Delta=\det(\psi_1,\psi_2)=ad-bc.
+\]
+Write $Q_i=Q(\psi_i)$.
+
+\begin{lemma}[Determinant--Lorentz identity]
+\label{lem:detlor}
+For the quadratic map \eqref{eq:spinormap},
+\[
+\boxed{
+\ip{Q_1}{Q_2}
+=
+\frac12(ad-bc)^2
+=
+\frac{\Delta^2}{2}.
+}
+\]
+\end{lemma}
+
+\begin{proof}
+Direct expansion gives
+\begin{align*}
+\ip{Q_1}{Q_2}
+&=
+\frac{(a^2+b^2)(c^2+d^2)}{4}
+-\frac{(a^2-b^2)(c^2-d^2)}{4}
+-abcd\\
+&=
+\frac12(a^2d^2+b^2c^2-2abcd)
+=
+\frac12(ad-bc)^2.
+\end{align*}
+\end{proof}
+
+When $\psi_1,\psi_2$ are primitive integer spinors with $|\Delta|=1$, their projective ratios are Farey adjacent.  We therefore call the corresponding pair $(Q_1,Q_2)$ a \emph{primitive unimodular null edge}.
+
+Define its midpoint and half-difference by
+\[
+M_F=\frac{Q_1+Q_2}{2},
+\qquad
+D_F=\frac{Q_1-Q_2}{2}.
+\]
+
+\begin{proposition}[Null-edge midpoint invariant]
+\label{prop:midpoint}
+For any nondegenerate pair,
+\[
+M_F^2=\frac{\Delta^2}{4},
+\qquad
+D_F^2=-\frac{\Delta^2}{4},
+\qquad
+\ip{M_F}{D_F}=0.
+\]
+In particular, for a primitive unimodular edge,
+\begin{equation}
+\boxed{
+M_F^2=\frac14.
+}
+\label{eq:quarter}
+\end{equation}
+If all cone coordinates are scaled by a lattice spacing $\delta$, then
+\begin{equation}
+\boxed{
+M_F^2=\frac{\delta^2}{4}.
+}
+\label{eq:deltaquarter}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Because $Q_1^2=Q_2^2=0$,
+\[
+M_F^2
+=
+\frac14(Q_1+Q_2)^2
+=
+\frac12\ip{Q_1}{Q_2}
+=
+\frac{\Delta^2}{4}.
+\]
+The formulas for $D_F^2$ and $\ip{M_F}{D_F}$ follow identically.  Scaling the vectors by $\delta$ multiplies all squared norms by $\delta^2$.
+\end{proof}
+
+Equation \eqref{eq:deltaquarter} is the geometric quantity to be compared with the rank-one Casimir completions below.
+
+\section{Edge-centered ladder coordinates}
+
+Let adjacent weights be separated by a spacing $\delta>0$.  For a transition leaving a weight $q$, define the edge-centered coordinate
+\begin{equation}
+\boxed{
+Z_\pm=q\pm\frac{\delta}{2}.
+}
+\label{eq:Zedge}
+\end{equation}
+The elementary identity
+\begin{equation}
+q(q\pm\delta)
+=
+\left(q\pm\frac{\delta}{2}\right)^2-\frac{\delta^2}{4}
+\label{eq:complete}
+\end{equation}
+is the algebraic source of the half-cell term.  Proposition~\ref{prop:midpoint} supplies a canonical arithmetic Lorentz realization of the same quantity:
+\[
+\frac{\delta^2}{4}=M_F^2.
+\]
+
+The point of the construction is not merely that two formulas contain the same number.  Both are edge-centering operations in the same quadratic cone geometry: \eqref{eq:complete} centers adjacent weights, while \eqref{eq:deltaquarter} centers adjacent primitive null rays.
+
+\section{$SU(2)$: compact completion}
+
+For an $SU(2)$ representation with highest weight $J$ and spacing $\delta$, write the quadratic Casimir eigenvalue as
+\begin{equation}
+C_+=J(J+\delta).
+\label{eq:su2cas}
+\end{equation}
+At unit spacing $J=j$ and $C_+=j(j+1)$.
+
+Define the edge-centered representation radius
+\begin{equation}
+R_+=J+\frac{\delta}{2}.
+\label{eq:Rplus}
+\end{equation}
+Then
+\begin{equation}
+R_+^2
+=
+C_++\frac{\delta^2}{4}.
+\label{eq:su2complete}
+\end{equation}
+
+\begin{theorem}[$SU(2)$ Casimir--null-edge completion]
+\label{thm:su2}
+Let $M_F$ be the midpoint of a scaled primitive unimodular null edge of spacing $\delta$.  Then
+\begin{equation}
+\boxed{
+R_+^2=C_++M_F^2.
+}
+\label{eq:su2bridge}
+\end{equation}
+For a raising transition from weight $q$,
+\begin{equation}
+A_+^2
+=
+(J-q)(J+q+\delta)
+=
+R_+^2-Z_+^2,
+\label{eq:su2amp}
+\end{equation}
+where $Z_+=q+\delta/2$.  Hence the transition is represented by the null cone point
+\begin{equation}
+\boxed{
+Q_{J+}
+=
+(X,Y,T)
+=
+\left(
+Z_+,\,
+A_+,\,
+\sqrt{C_++M_F^2}
+\right).
+}
+\label{eq:su2point}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Equation \eqref{eq:su2bridge} follows from \eqref{eq:su2complete} and $M_F^2=\delta^2/4$.  For the amplitude,
+\begin{align*}
+A_+^2
+&=
+(J-q)(J+q+\delta)\\
+&=
+J(J+\delta)-q(q+\delta)\\
+&=
+C_+-\left(Z_+^2-\frac{\delta^2}{4}\right)\\
+&=
+C_++M_F^2-Z_+^2\\
+&=
+R_+^2-Z_+^2.
+\end{align*}
+Therefore $T^2-X^2-Y^2=R_+^2-Z_+^2-A_+^2=0$.
+\end{proof}
+
+For lowering, $Z_-=q-\delta/2$ and the same calculation gives
+\[
+A_-^2=R_+^2-Z_-^2.
+\]
+At unit spacing this is the standard exact coefficient
+\[
+A_+^2=(j-m)(j+m+1)
+=
+\left(j+\frac12\right)^2
+-
+\left(m+\frac12\right)^2.
+\]
+
+Thus the compact ladder lies on the fixed-$T$ circle
+\[
+X^2+Y^2=R_+^2.
+\]
+
+\section{$SU(1,1)$: noncompact completion}
+
+For the positive discrete series of $SU(1,1)$, let $K$ denote the Bargmann-index scale with spacing $\delta$ and write
+\begin{equation}
+C_-=K(K-\delta).
+\label{eq:su11cas}
+\end{equation}
+At unit spacing $K=k$ and $C_-=k(k-1)$.
+
+Define
+\begin{equation}
+R_-=K-\frac{\delta}{2}.
+\label{eq:Rminus}
+\end{equation}
+Then
+\begin{equation}
+R_-^2=C_-+\frac{\delta^2}{4}.
+\label{eq:su11complete}
+\end{equation}
+
+\begin{theorem}[$SU(1,1)$ Casimir--null-edge completion]
+\label{thm:su11}
+With the same scaled primitive null-edge midpoint $M_F$,
+\begin{equation}
+\boxed{
+R_-^2=C_-+M_F^2.
+}
+\label{eq:su11bridge}
+\end{equation}
+For a raising transition from a $K_0$ weight $q$,
+\begin{equation}
+A_+^2
+=
+q(q+\delta)-C_-
+=
+Z_+^2-R_-^2,
+\label{eq:su11amp}
+\end{equation}
+where $Z_+=q+\delta/2$.  Hence
+\begin{equation}
+\boxed{
+Q_{K+}
+=
+(X,Y,T)
+=
+\left(
+\sqrt{C_-+M_F^2},\,
+A_+,\,
+Z_+
+\right)
+}
+\label{eq:su11point}
+\end{equation}
+is null.
+\end{theorem}
+
+\begin{proof}
+Equation \eqref{eq:su11bridge} follows from \eqref{eq:su11complete} and Proposition~\ref{prop:midpoint}.  Using \eqref{eq:complete},
+\begin{align*}
+A_+^2
+&=
+q(q+\delta)-C_-\\
+&=
+Z_+^2-\frac{\delta^2}{4}-C_-\\
+&=
+Z_+^2-(C_-+M_F^2)\\
+&=
+Z_+^2-R_-^2.
+\end{align*}
+Therefore
+\[
+T^2-X^2-Y^2
+=
+Z_+^2-R_-^2-A_+^2=0.
+\]
+\end{proof}
+
+At unit spacing, write $q=k+n$.  Then
+\[
+A_+^2
+=
+(n+1)(2k+n)
+=
+\left(k+n+\frac12\right)^2
+-
+\left(k-\frac12\right)^2.
+\]
+The noncompact ladder therefore lies on the fixed-$X$ hyperbola
+\[
+T^2-Y^2=R_-^2.
+\]
+
+\section{Unified Casimir--null-edge theorem}
+
+The compact and noncompact cases differ only in which cone coordinate carries the completed Casimir radius.
+
+\begin{theorem}[Casimir--null-edge completion]
+\label{thm:unified}
+Let $\delta>0$ be the weight spacing and let $M_F$ be the midpoint of a scaled primitive unimodular null edge, so that
+\[
+M_F^2=\frac{\delta^2}{4}.
+\]
+For the rank-one ladder systems above, define the edge-centered representation radius by
+\[
+R^2=C+M_F^2.
+\]
+Then the exact ladder amplitudes obey
+\begin{equation}
+\boxed{
+A_\pm^2
+=
+\sigma\left(R^2-Z_\pm^2\right)
+=
+\sigma\left(C+M_F^2-Z_\pm^2\right),
+}
+\label{eq:unified}
+\end{equation}
+where
+\[
+Z_\pm=q\pm\frac{\delta}{2},
+\qquad
+\sigma=
+\begin{cases}
++1,&SU(2),\\
+-1,&SU(1,1).
+\end{cases}
+\]
+Equivalently,
+\begin{equation}
+\boxed{
+C=R^2-M_F^2.
+}
+\label{eq:deficit}
+\end{equation}
+\end{theorem}
+
+Equation \eqref{eq:deficit} is the most compact geometric statement: the quadratic Casimir is the edge-centered radius squared minus one universal half-edge square.
+
+The cone embedding is summarized by
+\[
+\begin{array}{c|ccc}
+&X&Y&T\\
+\hline
+SU(2)&Z&A&R\\
+SU(1,1)&R&A&Z
+\end{array}
+\]
+with $T^2-X^2-Y^2=0$ in both cases.  The compact/noncompact change is therefore a permutation of the roles of $T$ and $X$:
+\[
+SU(2):\quad X^2+Y^2=R^2,
+\]
+\[
+SU(1,1):\quad T^2-Y^2=R^2.
+\]
+
+\section{The four-corner oscillator transition cell}
+
+The half-edge interpretation becomes particularly concrete in the two-oscillator realization.  Let
+\[
+|p,q\rangle,\qquad p,q\in\mathbb{Z}_{\ge0},
+\]
+be a two-mode number state, and attach to it the factor cell
+\[
+[\delta p,\delta(p+1)]
+\times
+[\delta q,\delta(q+1)].
+\]
+Its center is
+\[
+(u_c,v_c)
+=
+\delta\left(p+\frac12,q+\frac12\right).
+\]
+
+The four standard quadratic ladder amplitudes occupy the four vertices:
+\[
+\begin{array}{c|c|c}
+\text{operator}&(u,v)&A^2\\
+\hline
+K_-&\delta(p,q)&\delta^2pq\\
+J_+&\delta(p+1,q)&\delta^2(p+1)q\\
+J_-&\delta(p,q+1)&\delta^2p(q+1)\\
+K_+&\delta(p+1,q+1)&\delta^2(p+1)(q+1).
+\end{array}
+\]
+
+Under
+\[
+X=\frac{u-v}{2},
+\qquad
+T=\frac{u+v}{2},
+\]
+the cell center is
+\[
+X_c=\frac{\delta(p-q)}{2},
+\qquad
+T_c=\frac{\delta(p+q+1)}{2},
+\]
+and the four transition vertices are exact cardinal half-steps:
+\[
+\begin{array}{c|cc}
+&\Delta X&\Delta T\\
+\hline
+J_+&+\delta/2&0\\
+J_-&-\delta/2&0\\
+K_+&0&+\delta/2\\
+K_-&0&-\delta/2.
+\end{array}
+\]
+
+Consequently,
+\begin{align*}
+Y_{J+}^2
+&=
+T_c^2-\left(X_c+\frac{\delta}{2}\right)^2
+=
+\delta^2(p+1)q,\\
+Y_{J-}^2
+&=
+T_c^2-\left(X_c-\frac{\delta}{2}\right)^2
+=
+\delta^2p(q+1),\\
+Y_{K+}^2
+&=
+\left(T_c+\frac{\delta}{2}\right)^2-X_c^2
+=
+\delta^2(p+1)(q+1),\\
+Y_{K-}^2
+&=
+\left(T_c-\frac{\delta}{2}\right)^2-X_c^2
+=
+\delta^2pq.
+\end{align*}
+
+Thus the same half-step
+\[
+\frac{\delta}{2}
+\]
+that completes the Casimir is literally the displacement from the state center to a transition edge in the side-view factor cell.  Squaring it produces
+\[
+\frac{\delta^2}{4}.
+\]
+
+\section{Relation to the unimodular null diamond}
+
+The transition cell and the Farey null diamond are not identical objects.  Their exact common structure is the centered quadratic half-edge.
+
+For a primitive arithmetic null edge,
+\[
+Q_\pm=M_F\pm D_F,
+\]
+with
+\[
+M_F^2=-D_F^2=\frac{\delta^2}{4}.
+\]
+For a ladder transition,
+\[
+Z_\pm=q\pm\frac{\delta}{2},
+\]
+and the Casimir completion is
+\[
+R^2=C+\frac{\delta^2}{4}.
+\]
+
+Both constructions therefore implement the same operation:
+\[
+\boxed{
+\text{adjacent objects}
+\longrightarrow
+\text{edge center}
+\longrightarrow
+\left(\frac{\delta}{2}\right)^2.
+}
+\]
+
+The arithmetic construction makes this invariant Lorentz-geometric.  The oscillator construction makes it representation-theoretic and dynamical.
+
+\section{Cyclotomic normalization: a fourth quarter}
+
+The discriminant-$12$ return supplies a fourth exact appearance of a quarter,
+but in a different quadratic structure.  Let
+\[
+g_{12}=\begin{pmatrix}3&1\\2&1\end{pmatrix},
+\qquad
+H=g_{12}-\frac{\operatorname{tr}(g_{12})}{2}I
+=\begin{pmatrix}1&1\\2&-1\end{pmatrix}.
+\]
+Then
+\[
+H^2=3I.
+\]
+After adjoining $i$, define the half-element
+\begin{equation}
+\mathcal Z=\frac{H+iI}{2}.
+\label{eq:cyclotomic-half}
+\end{equation}
+Complex conjugation fixes $H$ and sends $i$ to $-i$, hence
+\begin{equation}
+\boxed{
+\mathcal Z\overline{\mathcal Z}
+=\frac{(H+iI)(H-iI)}{4}
+=\frac{H^2+I}{4}
+=I.
+}
+\label{eq:cyclotomic-quarter}
+\end{equation}
+The denominator $2$ is therefore not cosmetic: its square is exactly the
+factor $4$ required to normalize the relative norm.  Equivalently, the two
+eigenvalues of $\mathcal Z$ are
+\[
+\frac{\sqrt3+i}{2},\qquad \frac{-\sqrt3+i}{2},
+\]
+both primitive twelfth roots, and $\Phi_{12}(\mathcal Z)=0$.
+
+At the integral level, if
+\[
+K=\mathbb Q(\sqrt3,i)=\mathbb Q(\zeta_{12}),
+\qquad
+\mathcal O_0=\mathbb Z[\sqrt3,i],
+\]
+then the maximal order satisfies
+\[
+\mathcal O_K/\mathcal O_0\cong(\mathbb F_2)^2.
+\]
+Thus cyclotomic closure adds a four-state parity gluing.  This statement and
+\eqref{eq:cyclotomic-quarter} constitute the \emph{cyclotomic
+normalization} of the quarter.  They do not identify the relative norm with
+the Lorentz norm or with a representation-theoretic Casimir.
+
+\begin{proposition}[Dyadic quarter taxonomy]
+The following four exact constructions use the same elementary mechanism---a
+canonical half-coordinate becomes a quarter under a quadratic operation:
+\begin{enumerate}[label=(\roman*)]
+\item the factor-cell midpoint square;
+\item the compact/noncompact shifted Casimir;
+\item the primitive null-edge midpoint norm;
+\item the cyclotomic relative-norm normalization.
+\end{enumerate}
+Their common content is a mechanism type, not a universal operator identity.
+\end{proposition}
+
+\section{The ramified Boolean return}
+
+The integral return also has an exact finite reduction.  Modulo $2$,
+\[
+\overline g_{12}
+=\begin{pmatrix}1&1\\0&1\end{pmatrix},
+\qquad
+\overline g_{12}(x,y)=(x+y,y)
+\quad\text{on }\mathbb F_2^2.
+\]
+This involution has one two-cycle and two fixed points.  It therefore cannot
+be conjugate to either nonzero translation of the Boolean cell, since every
+nonzero translation has two two-cycles.
+
+The correct return is exposed by the Boolean relabeling
+\[
+\Phi(x,y)=(\varepsilon_1,\varepsilon_2)=(x,x+y).
+\]
+Indeed,
+\begin{equation}
+\boxed{
+\Phi\,\overline g_{12}\,\Phi^{-1}
+(\varepsilon_1,\varepsilon_2)
+=(\varepsilon_2,\varepsilon_1).
+}
+\label{eq:boolean-exchange}
+\end{equation}
+Thus the ramified arithmetic return is factor exchange, not Boolean
+translation.  If $\overline q_{12}(x,y)=y$ denotes the reduced degenerate norm,
+then under the same relabeling
+\begin{equation}
+\boxed{
+\overline q_{12}
+=\varepsilon_1+\varepsilon_2
+=\varepsilon_1\mathbin{\mathrm{xor}}\varepsilon_2.
+}
+\label{eq:boolean-xor}
+\end{equation}
+
+Let $V_4^{\mathrm{tr}}\cong(\mathbb F_2)^2$ be the translation group of the
+four-state cell.  Adjoining the factor exchange in
+\eqref{eq:boolean-exchange} gives
+\[
+\boxed{
+V_4^{\mathrm{tr}}\rtimes C_2\cong D_8.
+}
+\]
+This is the precise symmetry correction: the return lies in the affine
+dihedral extension, not in the translation $V_4$ itself.
+
+The finite space may be realized as the ramified quotient
+\[
+\mathfrak p_2/2\mathfrak p_2\cong(\mathbb F_2)^2.
+\]
+Although this quotient and $\mathcal O_K/\mathcal O_0$ both have four elements
+and characteristic $2$, cardinality alone supplies no canonical isomorphism
+between them.  Likewise, neither Boolean $V_4^{\mathrm{tr}}$ is to be confused
+with the cyclotomic Galois group
+$\operatorname{Gal}(\mathbb Q(\zeta_{12})/\mathbb Q)\cong V_4$.
+
+\section{Scope of the interpretation}
+
+Several distinctions are important.
+
+First, the identities
+\[
+j(j+1)+\frac14=\left(j+\frac12\right)^2,
+\qquad
+k(k-1)+\frac14=\left(k-\frac12\right)^2
+\]
+are elementary completions of the square, and the appearance of $j+\tfrac12$ also has standard Weyl/Kirillov antecedents.  No claim is made that the Farey graph or multiplication-table geometry is the historical or representation-theoretic origin of that shift.
+
+Second, the cone statement established here is stronger than a numerical coincidence.  The same $\delta^2/4$ is realized as:
+\begin{enumerate}[label=(\roman*)]
+\item the square of the half-spacing of adjacent weights;
+\item the Lorentz norm squared of the midpoint of a scaled primitive unimodular null edge;
+\item the quadratic displacement from the center of the two-mode transition cell to each cardinal transition edge.
+\end{enumerate}
+All three occur inside the same factor-cone quadratic form.
+
+The cyclotomic quarter is an exact fourth realization, but it occurs in a
+relative norm rather than in that factor-cone quadratic form.  Accordingly,
+the common statement across all four cases is dyadic quadratic normalization,
+not equality of the underlying quadratic spaces.
+
+Third, the compact and noncompact ladder systems are not identified with one another.  Their distinction is preserved exactly by the sign in \eqref{eq:unified}, or geometrically by whether the completed Casimir radius occupies the timelike coordinate $T$ or the spacelike coordinate $X$.
+
+\section{Conclusion}
+
+The common quarter shift of the $SU(2)$ and $SU(1,1)$ quadratic Casimirs admits a simple geometric realization on the factor cone.  A primitive unimodular pair of null rays has an edge midpoint of squared Lorentz norm $1/4$, or $\delta^2/4$ at spacing $\delta$.  The exact rank-one ladder amplitudes use precisely this amount to pass from the quadratic Casimir to the edge-centered radius:
+\[
+\boxed{
+R^2=C+M_F^2,
+\qquad
+M_F^2=\frac{\delta^2}{4}.
+}
+\]
+The amplitudes then become cone sections:
+\[
+SU(2):\quad A^2=R^2-Z^2,
+\qquad
+SU(1,1):\quad A^2=Z^2-R^2.
+\]
+
+The resulting synthesis can be summarized as
+\[
+\boxed{
+\text{Casimir completion}
+\;\longleftrightarrow\;
+\text{weight-edge centering}
+\;\longleftrightarrow\;
+\text{primitive null-edge centering}.
+}
+\]
+The arithmetic null diamond should therefore be viewed not as the cause of the Casimir shift, but as a canonical arithmetic realization of the same universal edge-centered invariant.  The cyclotomic half-element supplies a distinct relative-norm completion,
+\[
+\mathcal Z\overline{\mathcal Z}=\frac{H^2+I}{4}=I,
+\]
+while the discriminant-$12$ return reduces to factor exchange with XOR norm on
+a four-state ramified quotient.  Together these results give a four-part
+taxonomy of the quarter while preserving the boundary between Casimir
+completion, null-edge geometry, cyclotomic normalization, and Boolean return.
+
+\section*{Source note}
+
+The oscillator conventions used here are the standard Schwinger $SU(2)$ and two-mode $SU(1,1)$ realizations.  In the author's existing audited quantum-realization manuscript, the factor-cone identification is
+\[
+x=n_1+1,\qquad y=n_2,
+\]
+so that
+\[
+T=\frac{n_1+n_2+1}{2},\qquad
+X=\frac{n_1-n_2+1}{2},
+\]
+with $SU(2)$ Casimir $j(j+1)$, $j=T-\tfrac12$, and $SU(1,1)$ Casimir $k(k-1)$ in the positive discrete series.  The present note isolates and develops the edge-centered geometric consequence of those formulas as a standalone result.
+
+\end{document}
