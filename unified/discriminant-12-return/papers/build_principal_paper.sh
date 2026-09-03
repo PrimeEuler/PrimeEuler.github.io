@@ -4,7 +4,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
 FIG="$ROOT/figures"
-PAPER="Discriminant_12_Return_v0.3.2.tex"
+PAPER="Discriminant_12_Return_v0.3.3.tex"
 
 printf '==> generating publication figures\n'
 python3 "$FIG/make_mod12_v4_cone_triple.py"
