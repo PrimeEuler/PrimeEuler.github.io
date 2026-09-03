@@ -38,5 +38,6 @@ jobs:
             echo "Outputs unchanged"
           else
             git commit -m "Build area paper v1.1 outputs"
+            git pull --rebase origin master
             git push
           fi
