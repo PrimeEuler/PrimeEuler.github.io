@@ -24,21 +24,27 @@ Write out the ordinary multiplication table and draw a straight line through it.
 \end{abstract}
 
 \section{Introduction}
-Figure~\ref{fig:table_line} is the geometric picture behind the paper. Panel (b) is the ordinary multiplication table written in the coordinates
+Figure~\ref{fig:table_line}(b) is the ordinary multiplication table written in the coordinates
 \[
-X=\frac{x-y}{2},\qquad T=\frac{x+y}{2},
+X=\frac{x-y}{2},\qquad T=\frac{x+y}{2}.
 \]
-so the usual square grid appears as a triangular side view of a cone. Every cell still represents the ordinary product $xy$. The outer boundary is the anti-diagonal $x+y=12$, while the dashed line $x+y=8$ passes through the factor cells $(2,6)$, $(4,4)$, and $(6,2)$.
+Every lattice cell still represents the ordinary product $xy$; the coordinate change merely turns the usual square arrangement into a triangular side view. The outer boundary shown is $x+y=12$, and the dashed anti-diagonal $x+y=8$ passes through $(2,6),(4,4),(6,2)$.
 
-Adding $Y=\sqrt{xy}$ gives
+There is also a classical geometric reason for the third coordinate. Given a rectangle with sides $x$ and $y$, place the two lengths end to end as the diameter of a semicircle and erect the perpendicular at their junction. The right-triangle altitude theorem gives that perpendicular length as $\sqrt{xy}$. If
 \[
-X^2+Y^2=T^2,
+Y=\sqrt{xy},\qquad T=\frac{x+y}{2},\qquad X=\frac{x-y}{2},
 \]
-so every factor pair lies on the cone in panel (c). Anti-diagonals $x+y=K$ become fixed-$T$ circles. A general line $ax+by=c$ becomes a cutting plane, and its intersection with the cone is a conic section. The reflected pair
+then the radius, altitude, and signed offset form a right triangle and therefore satisfy
+\[
+X^2+Y^2=T^2.
+\]
+Thus every positive factor pair lies on the cone in Figure~\ref{fig:table_line}(c). For example, $(x,y)=(2,6)$ gives $(X,Y,T)=(-2,\sqrt{12},4)$ and $4+12=16$.
+
+Anti-diagonals $x+y=K$ become fixed-$T$ circles. A general line $ax+by=c$ becomes a cutting plane, and its intersection with the cone is a conic section. The reflected pair
 \[
 8x+4y=32,\qquad 4x+8y=32
 \]
-is shown throughout the figure as a concrete example.
+is shown throughout Figure~\ref{fig:table_line} as a concrete example.
 
 The emphasis here is deliberately geometric and elementary. Arithmetic structures that can subsequently act on this cone are treated in companion work; none is required for the results below.
 
@@ -68,6 +74,11 @@ Fixing $x+y=K$ fixes $T=K/2$, giving the circle
 \[
 X^2+Y^2=(K/2)^2.
 \]
+For integer $K\ge2$, the positive factor lattice contributes the $K-1$ points $(x,K-x)$, $x=1,\ldots,K-1$, to this circle.
+
+\begin{remark}[Area is not preserved]
+Although $Y^2=xy$ records the area of the factor rectangle as a scalar, the map $(x,y)\mapsto(X,Y,T)$ is not area-preserving on the cone. In particular, one should not identify the Euclidean surface area of a cone patch with the area $xy$ of the corresponding multiplication-table cell. The exact distortion and the associated band-area correspondence are treated separately in the companion note \cite{Ebert2026Area}; no area-preservation statement is used in this paper.
+\end{remark}
 
 \section{The General Conic Theorem}
 \begin{theorem}\label{thm:conic}
@@ -92,6 +103,10 @@ T-X=u,\qquad Y^2=u(T+X)=u^2+2uX.
 \]
 The two projected parabolas are exchanged by $X\mapsto-X$.
 \end{proposition}
+
+\begin{proof}
+For $x=u$, equations (2.3) give $T+X=u$ and $y=T-X$, hence $Y^2=xy=u(T-X)$. The column identity is the factor-exchange reflection. In three dimensions the row plane $T+X=u$ is parallel to the cone generator $(-1,0,1)$, and the column plane $T-X=u$ is parallel to $(1,0,1)$, giving the classical plane-section characterization of a parabola.
+\end{proof}
 
 \begin{proposition}[Anti-diagonal tangency]\label{prop:tangent}
 For every $u>0$, the row and column parabolas at factor level $u$ are tangent in the $(X,Y)$ projection to
@@ -162,6 +177,7 @@ For $8x+4y=32$,
 \[
 a_{\rm semi}=\sqrt{10},\qquad b_{\rm semi}=2\sqrt2,\qquad e=1/\sqrt5.
 \]
+The standard circumference formula is therefore also available as $C=4a_{\rm semi}E(e)$, where $E$ denotes the complete elliptic integral of the second kind; we do not otherwise use it here.
 
 \section{Constant-Product Curves and Fermat Factorization}
 Fixing $xy=N$ fixes $Y^2=N$, so
@@ -217,10 +233,13 @@ The cone identity organizes three elementary structures on one carrier: linear c
 
 The sign convention is fixed globally by $X=(x-y)/2$: rows terminate on the positive-$X$ generator, columns on the negative-$X$ generator, and factor exchange is reflection through $X=0$. Figures~\ref{fig:table_line} and~\ref{fig:divisor11} use this same convention.
 
+At the coarsest finite level, an integer factor pair also has an elementary four-state reduction: reducing $(x,y)$ modulo $2$ gives $(\epsilon_1,\epsilon_2)\in\mathbb F_2^2$, factor exchange swaps the two coordinates, and the parity $\epsilon_1\oplus\epsilon_2$ is invariant under that exchange. This observation uses only the factor-coordinate cell itself; no cyclotomic, ideal-theoretic, or operator interpretation is needed here.
+
 This is the natural stopping point for the geometric paper. Later arithmetic or operator constructions may use the same cone and its two generator rays, but they should be cited as companion results rather than imported into these elementary proofs.
 
 \begin{thebibliography}{9}
 \bibitem{Dickson} L.~E.~Dickson, \emph{History of the Theory of Numbers, Vol.~I}, Carnegie Institution, 1919, Ch.~14.
 \bibitem{Dirichlet} P.~G.~L.~Dirichlet, \"Uber die Bestimmung der mittleren Werthe in der Zahlentheorie, \emph{Abh. K\"onigl. Preuss. Akad. Wiss.} (1849), 69--83.
+\bibitem{Ebert2026Area} J.~Ebert, \emph{A Semiclassical Band-Area Correspondence for the AM--GM Cone}, preprint (2026).
 \end{thebibliography}
 \end{document}
