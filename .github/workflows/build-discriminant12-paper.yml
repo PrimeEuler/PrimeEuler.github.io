@@ -1,0 +1,38 @@
+name: Build discriminant-12 principal paper
+
+on:
+  push:
+    paths:
+      - 'unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.3.tex'
+      - 'unified/discriminant-12-return/papers/build_principal_paper.sh'
+      - 'unified/discriminant-12-return/figures/**'
+      - '.github/workflows/build-discriminant12-paper.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX and Python dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended
+          python3 -m pip install --upgrade pip
+          python3 -m pip install numpy matplotlib
+      - name: Build paper
+        run: bash unified/discriminant-12-return/papers/build_principal_paper.sh
+      - name: Commit compiled PDF
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.3.pdf
+          if git diff --cached --quiet; then
+            echo 'Compiled PDF unchanged.'
+          else
+            git commit -m 'Build Discriminant 12 Return v0.3.3 PDF'
+            git push
+          fi
