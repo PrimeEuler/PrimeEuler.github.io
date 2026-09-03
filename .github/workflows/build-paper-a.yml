@@ -37,6 +37,8 @@ jobs:
             echo "PDF unchanged"
           else
             git commit -m "Build Paper A v2.3 PDF"
+            git reset --hard HEAD
+            git clean -fd
             git pull --rebase origin master
             git push
           fi
