@@ -129,8 +129,10 @@ fig.suptitle(
 fig.tight_layout(rect=(0, 0, 1, 0.95))
 
 out = Path(__file__).resolve().parent
-fig.savefig(out / "fig_area_measure_11_2panel.png", dpi=200,
-            bbox_inches="tight", facecolor="white")
-fig.savefig(out / "fig_area_measure_11_2panel.pdf",
-            bbox_inches="tight", facecolor="white")
-print("done:", out / "fig_area_measure_11_2panel.png")
+out_png = out / "paperA_area_measure_11_2panel.png"
+out_pdf = out / "paperA_area_measure_11_2panel.pdf"
+fig.savefig(out_png, dpi=200, bbox_inches="tight", facecolor="white")
+fig.savefig(out_pdf, bbox_inches="tight", facecolor="white")
+plt.close(fig)
+print("saved:", out_png)
+print("saved:", out_pdf)
