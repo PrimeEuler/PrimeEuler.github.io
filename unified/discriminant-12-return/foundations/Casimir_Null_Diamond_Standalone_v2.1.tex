@@ -160,7 +160,7 @@ Direct expansion gives
 \end{align*}
 \end{proof}
 
-When $\psi_1,\psi_2$ are primitive integer spinors with $|\Delta|=1$, their projective ratios are Farey adjacent.  We therefore call the corresponding pair $(Q_1,Q_2)$ a \emph{primitive unimodular null edge}.
+When $\psi_1,\psi_2$ are primitive integer spinors with $|\Delta|=1$, and their projective ratios are written in standard reduced representatives with a common denominator orientation, those ratios are Farey adjacent.  We therefore call the corresponding pair $(Q_1,Q_2)$ a \emph{primitive unimodular null edge}.
 
 Define its midpoint and half-difference by
 \[
@@ -793,15 +793,23 @@ completion, null-edge geometry, cyclotomic normalization, and Boolean return.
 
 \section*{Source note}
 
-The oscillator conventions used here are the standard Schwinger $SU(2)$ and two-mode $SU(1,1)$ realizations.  In the author's existing audited quantum-realization manuscript, the factor-cone identification is
+The oscillator conventions used here are the standard Schwinger $SU(2)$ and two-mode $SU(1,1)$ realizations.  The author's current working quantum-realization manuscript remains under audit and is not used here as an independently audited theorem source.  Its factor-cone state dictionary is
 \[
 x=n_1+1,\qquad y=n_2,
 \]
 so that
 \[
 T=\frac{n_1+n_2+1}{2},\qquad
-X=\frac{n_1-n_2+1}{2},
+X=\frac{n_1-n_2+1}{2}.
 \]
-with $SU(2)$ Casimir $j(j+1)$, $j=T-\tfrac12$, and $SU(1,1)$ Casimir $k(k-1)$ in the positive discrete series.  The present note isolates and develops the edge-centered geometric consequence of those formulas as a standalone result.
+Within the four-corner transition-cell construction of this note, that state point is one transition vertex rather than the cell center.  For the two-mode positive discrete series, fixing the number difference $d=n_1-n_2$ gives the standard Bargmann index
+\[
+k=\frac{|d|+1}{2}.
+\]
+Only after choosing the oriented sector $d\ge0$ does this become
+\[
+k=\frac{d+1}{2}=X.
+\]
+The $SU(2)$ Casimir is $j(j+1)$ with $j=T-\tfrac12$.  The present note isolates and develops the edge-centered geometric consequence of these standard oscillator formulas as a standalone result, without depending on the unresolved broader Paper-C power-map claims.
 
 \end{document}
