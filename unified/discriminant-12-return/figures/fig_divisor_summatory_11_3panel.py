@@ -11,7 +11,8 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 #   X=(x-y)/2,  Y=sqrt(xy),  T=(x+y)/2,
 #   X^2+Y^2=T^2.
 #
-# The outer anti-diagonal x+y=12 gives T=6 and contains exactly
+# The outer anti-diagonal x+y=12 gives T=6 and bounds the triangular
+# positive-lattice domain x+y<=12, which contains exactly
 # T_11 = 11*12/2 = 66 positive lattice points.
 #
 # Within that triangle:
@@ -78,187 +79,138 @@ axA = fig.add_subplot(gs[0, 0])
 axA.set_title("(a) Flat: projected onto\n"
               r"the $(X,Y)$ plane, out to $x{+}y{=}12$", fontsize=12)
 
-# same even anti-diagonal circles as Paper A
-for K in range(2, Kmax + 1, 2):
-    Tc = K / 2.0
-    axA.plot(Tc*np.cos(theta_c), Tc*np.sin(theta_c),
-             color="0.78", lw=0.9, zorder=1)
-    axA.annotate(f"$K={K}$",
-                 (Tc*np.cos(0.28), Tc*np.sin(0.28)),
-                 fontsize=7, color="0.55", zorder=1)
+# Anti-diagonal circles x+y=K, K=2,...,12.
+for K in range(2, Kmax + 1):
+    r = K / 2.0
+    lw = 1.15 if K == Kmax else 0.55
+    alpha = 0.65 if K == Kmax else 0.18
+    axA.plot(r*np.cos(theta_c), r*np.sin(theta_c), color="0.35", lw=lw, alpha=alpha)
 
-# same row/column parabola mesh
-for xv in range(1, Kmax):
-    yv = np.linspace(0.25, Kmax - xv, 100)
-    Xr = (xv - yv) / 2.0
-    Yr = np.sqrt(xv * yv)
-    axA.plot(Xr, Yr, color="#7fa7cf", lw=0.6, alpha=0.45, zorder=1)
-    axA.plot(Xr, -Yr, color="#7fa7cf", lw=0.3, alpha=0.22, zorder=1)
-for yv in range(1, Kmax):
-    xv = np.linspace(0.25, Kmax - yv, 100)
-    Xc = (xv - yv) / 2.0
-    Yc = np.sqrt(xv * yv)
-    axA.plot(Xc, Yc, color="#b08fcf", lw=0.6, alpha=0.45, zorder=1)
-    axA.plot(Xc, -Yc, color="#b08fcf", lw=0.3, alpha=0.22, zorder=1)
+# xy=n is horizontal in this projection.
+axA.axhline(sqrt_n, color=cB, lw=2.0, ls="--", label=r"$xy=11\iff Y=\sqrt{11}$")
 
-# Full T_11 triangle, partitioned exactly into D(11) and A_11.
-axA.scatter(XA, YA, s=19, color=cA, alpha=0.78, zorder=4,
-            label=rf"$A_{{11}}={An}$: $xy>11$")
-axA.scatter(XD, YD, s=19, color=cD, alpha=0.90, zorder=5,
-            label=rf"$D(11)={D}$: $xy\leq 11$")
+# Discrete transformed cells.
+axA.scatter(XD, YD, s=34, color=cD, alpha=0.88, edgecolors="white", linewidths=0.35,
+            label=r"$D(11)=29$")
+axA.scatter(XA, YA, s=34, color=cA, alpha=0.82, edgecolors="white", linewidths=0.35,
+            label=r"$A_{11}=37$")
 
-# xy=11 is a straight line in this projection.
-xb = np.linspace(-5, 5, 300)
-axA.plot(xb, np.full_like(xb, sqrt_n), color=cB, lw=2.5, zorder=6,
-         label=r"$xy=11\;\Longleftrightarrow\;Y=\sqrt{11}$")
-axA.plot(xb, -np.full_like(xb, sqrt_n), color=cB, lw=1.1, alpha=0.32, zorder=2)
+# Extremal factor points.
+axA.scatter([-5, 5], [sqrt_n, sqrt_n], s=52, color=cB, zorder=5)
+axA.annotate(r"$(1,11)$", (-5, sqrt_n), xytext=(-4.75, sqrt_n+0.45), fontsize=9)
+axA.annotate(r"$(11,1)$", (5, sqrt_n), xytext=(3.65, sqrt_n+0.45), fontsize=9)
 
-# exact intersection points with x+y=12
-axA.plot([-5, 5], [sqrt_n, sqrt_n], "o", ms=6,
-         mfc="white", mec=cB, mew=1.6, zorder=7)
-axA.annotate(r"$(1,11)$", (-5, sqrt_n), xytext=(-7, 7),
-             textcoords="offset points", ha="right", fontsize=8)
-axA.annotate(r"$(11,1)$", (5, sqrt_n), xytext=(7, 7),
-             textcoords="offset points", ha="left", fontsize=8)
+axA.text(0, 5.65, r"$x+y=12\iff T=6$", ha="center", fontsize=10)
+axA.text(0, 0.42, rf"$11\log 11\approx {nlogn:.3f}$", color=cL, ha="center", fontsize=9.5)
+axA.text(0, 0.08, rf"$11H_{{11}}\approx {nHn:.3f}$", color=cH, ha="center", fontsize=9.5)
 
-axA.axhline(0, color="0.85", lw=0.7, zorder=0)
-axA.axvline(0, color="0.85", lw=0.7, zorder=0)
-axA.set_xlim(-Rmax - 0.4, Rmax + 0.4)
-axA.set_ylim(-Rmax - 0.4, Rmax + 0.4)
-axA.set_xlabel("$X$")
-axA.set_ylabel("$Y$")
-axA.set_aspect("equal")
-axA.legend(fontsize=7.5, loc="upper right", framealpha=0.92)
-for spine in ["top", "right"]:
-    axA.spines[spine].set_visible(False)
+axA.set_xlim(-6.35, 6.35)
+axA.set_ylim(-0.2, 6.35)
+axA.set_aspect("equal", adjustable="box")
+axA.set_xlabel(r"$X=(x-y)/2$")
+axA.set_ylabel(r"$Y=\sqrt{xy}$")
+axA.grid(alpha=0.12)
+axA.legend(loc="lower right", fontsize=8, frameon=False)
 
 # =================================================================
-# Panel (b): Paper A side (X,T) triangle.
+# Panel (b): side (X,T) projection.
 # =================================================================
 axB = fig.add_subplot(gs[0, 1])
-axB.set_title("(b) Side view: the table filled in\n"
-              r"out to the $x{+}y{=}12$ triangle edge", fontsize=12)
+axB.set_title("(b) Side: multiplication table\n"
+              r"in the $(X,T)$ plane", fontsize=12)
 
-# same cone outline
-axB.plot([-Rmax, 0, Rmax], [Rmax, 0, Rmax],
-         color="0.45", lw=1.4, zorder=1)
+# Cone generator edges in side view.
+xx = np.linspace(-6.2, 6.2, 300)
+axB.plot(xx, np.abs(xx), color="0.45", lw=1.0, alpha=0.55)
 
-# same K-shell labels
-for K in range(2, Kmax + 1, 2):
-    Tc = K / 2.0
-    axB.annotate(f"$K={K}$", (Tc, Tc), textcoords="offset points",
-                 xytext=(5, 1), fontsize=7, color="0.55", va="center")
+# Anti-diagonal levels T=K/2.
+for K in range(2, Kmax + 1):
+    r = K / 2.0
+    axB.hlines(r, -r, r, color="0.4", lw=0.5, alpha=0.16)
 
-# same row/column straight mesh
-for k in range(0, Kmax + 1):
-    axB.plot([k/2.0, k-Rmax if k-Rmax <= k/2.0 else k/2.0],
-             [k/2.0, Rmax if k-Rmax <= k/2.0 else k/2.0],
-             color="0.9", lw=0.4, zorder=0)
-for k in range(-2*int(Rmax), 2*int(Rmax)+1):
-    axB.plot([k, k-Rmax], [0, Rmax], color="0.88", lw=0.45, zorder=0)
-    axB.plot([-k, Rmax-k], [0, Rmax], color="0.88", lw=0.45, zorder=0)
-
-# T_11 point set partitioned by the actual hyperbola.
-axB.scatter(XA, TA, s=19, color=cA, alpha=0.78, zorder=3,
-            label=rf"$A_{{11}}={An}$")
-axB.scatter(XD, TD, s=19, color=cD, alpha=0.90, zorder=4,
-            label=rf"$D(11)={D}$")
-
-# Actual hyperbola, clipped exactly at the outer x+y=12 edge:
-# sqrt(X^2+11)<=6 => |X|<=5.
+# Constant product xy=n -> T=sqrt(X^2+n).
 Xh = np.linspace(-5, 5, 500)
 Th = np.sqrt(Xh**2 + n)
-axB.plot(Xh, Th, color=cB, lw=2.6, zorder=5,
-         label=r"$T^2-X^2=11$")
-axB.plot([-5, 5], [6, 6], "o", ms=6,
-         mfc="white", mec=cB, mew=1.6, zorder=6)
+axB.plot(Xh, Th, color=cB, lw=2.0, ls="--", label=r"$T^2-X^2=11$")
 
-# Compact arithmetic key, not a new geometric encoding.
-summary = (rf"$T_{{11}}={Tn}=D(11)+A_{{11}}={D}+{An}$" "\n"
-           rf"$11\log 11\approx {nlogn:.3f}$"
-           rf"$\quad<\quad D(11)={D}\quad<\quad$"
-           rf"$11H_{{11}}\approx {nHn:.3f}$")
-axB.text(0, 0.72, summary, ha="center", va="bottom", fontsize=8.5,
-         bbox=dict(boxstyle="round,pad=0.35", fc="white", ec="0.75", alpha=0.95),
-         zorder=10)
+axB.scatter(XD, TD, s=34, color=cD, alpha=0.88, edgecolors="white", linewidths=0.35,
+            label=r"$D(11)=29$")
+axB.scatter(XA, TA, s=34, color=cA, alpha=0.82, edgecolors="white", linewidths=0.35,
+            label=r"$A_{11}=37$")
+axB.scatter([-5, 5], [6, 6], s=52, color=cB, zorder=5)
 
-axB.legend(fontsize=7.5, loc="upper left", framealpha=0.92)
-axB.set_xlim(-Rmax - 0.3, Rmax + 0.3)
-axB.set_ylim(-0.3, Rmax + 0.5)
-axB.set_xticks([])
-axB.set_yticks([])
-axB.set_aspect("equal")
-for spine in axB.spines.values():
-    spine.set_visible(False)
+axB.text(0, 6.08, r"$x+y=12$", ha="center", va="bottom", fontsize=10)
+axB.text(0, 0.45, r"$T_{11}=66$ cells in $x+y\leq12$", ha="center", fontsize=9.5)
+
+axB.set_xlim(-6.35, 6.35)
+axB.set_ylim(0, 6.55)
+axB.set_aspect("equal", adjustable="box")
+axB.set_xlabel(r"$X=(x-y)/2$")
+axB.set_ylabel(r"$T=(x+y)/2$")
+axB.grid(alpha=0.12)
+axB.legend(loc="lower right", fontsize=8, frameon=False)
 
 # =================================================================
-# Panel (c): Paper A 3D cone and the vertical cutting plane Y=sqrt(11).
+# Panel (c): 3D cone with Y=sqrt(n) cutting plane.
 # =================================================================
 axC = fig.add_subplot(gs[0, 2], projection="3d")
-axC.set_title("(c) The divisor plane sliced through\n"
-              r"the cone, out to $x{+}y{=}12$", fontsize=12)
+axC.set_title("(c) 3D: constant-product plane\n"
+              r"$Y=\sqrt{11}$ cuts the cone", fontsize=12)
 
-theta = np.linspace(0, 2*np.pi, 80)
-Tmesh = np.linspace(0, Rmax, 26)
-Tg, THg = np.meshgrid(Tmesh, theta)
-Xg = Tg * np.cos(THg)
-Yg = Tg * np.sin(THg)
-axC.plot_surface(Xg, Yg, Tg, color="0.85", alpha=0.25,
-                 linewidth=0, antialiased=True, zorder=1)
+# Cone wireframe / light surface.
+theta = np.linspace(0, np.pi, 80)
+radii = np.linspace(0, Rmax, 45)
+RR, TH = np.meshgrid(radii, theta)
+XC = RR * np.cos(TH)
+YC = RR * np.sin(TH)
+TC = RR
+axC.plot_surface(XC, YC, TC, color="0.82", alpha=0.13, linewidth=0, antialiased=True)
 
-# same even K rings
-for K in range(2, Kmax + 1, 2):
-    Tc = K / 2.0
-    axC.plot(Tc*np.cos(theta), Tc*np.sin(theta), Tc,
-             color="0.45", lw=0.8, zorder=1)
+# Outer half-circle at T=6.
+th = np.linspace(0, np.pi, 300)
+axC.plot(Rmax*np.cos(th), Rmax*np.sin(th), np.full_like(th, Rmax),
+         color="0.35", lw=1.25, alpha=0.7)
 
-# same row/column mesh visible on cone
-for xv in range(1, Kmax):
-    yv = np.linspace(0.25, Kmax - xv, 100)
-    Xr = (xv-yv)/2.0
-    Yr = np.sqrt(xv*yv)
-    Tr = (xv+yv)/2.0
-    axC.plot(Xr, Yr, Tr, color="#7fa7cf", lw=0.45, alpha=0.25, zorder=1)
-for yv0 in range(1, Kmax):
-    xv = np.linspace(0.25, Kmax - yv0, 100)
-    Xc = (xv-yv0)/2.0
-    Yc = np.sqrt(xv*yv0)
-    Tc = (xv+yv0)/2.0
-    axC.plot(Xc, Yc, Tc, color="#b08fcf", lw=0.45, alpha=0.25, zorder=1)
+# Constant-Y cutting plane patch.
+Xp = np.linspace(-5.5, 5.5, 2)
+Tp = np.linspace(sqrt_n, 6.25, 2)
+XXp, TTp = np.meshgrid(Xp, Tp)
+YYp = np.full_like(XXp, sqrt_n)
+axC.plot_surface(XXp, YYp, TTp, color=cB, alpha=0.13, linewidth=0)
 
-# lattice points on the positive-Y half of the cone
-axC.scatter(XA, YA, TA, s=12, color=cA, alpha=0.78, depthshade=False, zorder=4)
-axC.scatter(XD, YD, TD, s=12, color=cD, alpha=0.92, depthshade=False, zorder=5)
+# Intersection hyperbola on the cone.
+Xcurve = np.linspace(-5, 5, 400)
+Tcurve = np.sqrt(Xcurve**2 + n)
+Ycurve = np.full_like(Xcurve, sqrt_n)
+axC.plot(Xcurve, Ycurve, Tcurve, color=cB, lw=2.2, ls="--")
 
-# Cutting plane Y=sqrt(11), clipped to the cone segment |X|<=5.
-Xp = np.linspace(-5, 5, 2)
-Tp = np.linspace(sqrt_n, Rmax, 2)
-Xp_, Tp_ = np.meshgrid(Xp, Tp)
-Yp_ = np.full_like(Xp_, sqrt_n)
-axC.plot_surface(Xp_, Yp_, Tp_, color=cB, alpha=0.13,
-                 linewidth=0, zorder=2)
+# Discrete points on cone.
+axC.scatter(XD, YD, TD, s=22, color=cD, alpha=0.9, depthshade=False)
+axC.scatter(XA, YA, TA, s=22, color=cA, alpha=0.82, depthshade=False)
+axC.scatter([-5, 5], [sqrt_n, sqrt_n], [6, 6], s=45, color=cB, depthshade=False)
 
-Xsec = np.linspace(-5, 5, 400)
-Ysec = np.full_like(Xsec, sqrt_n)
-Tsec = np.sqrt(Xsec**2 + n)
-axC.plot(Xsec, Ysec, Tsec, color=cB, lw=2.8, zorder=6)
-axC.plot([-5, 5], [sqrt_n, sqrt_n], [6, 6], "o",
-         ms=5, mfc="white", mec=cB, mew=1.4, zorder=7)
+axC.set_xlim(-6.2, 6.2)
+axC.set_ylim(0, 6.2)
+axC.set_zlim(0, 6.4)
+axC.set_xlabel(r"$X$", labelpad=6)
+axC.set_ylabel(r"$Y$", labelpad=6)
+axC.set_zlabel(r"$T$", labelpad=6)
+axC.view_init(elev=24, azim=-62)
+axC.grid(alpha=0.16)
 
-axC.text(0.2, sqrt_n + 0.12, sqrt_n + 0.35,
-         r"$Y=\sqrt{11}$", color=cB, fontsize=9)
-axC.text(3.0, sqrt_n + 0.18, np.sqrt(20) + 0.25,
-         r"$T^2-X^2=11$", color=cB, fontsize=9)
+# Compact footer / consistency statement.
+fig.text(0.5, 0.012,
+         r"$T_{11}=66=D(11)+A_{11}=29+37$;  "
+         r"$(1,11),(11,1)\leftrightarrow(X,T)=(-5,6),(5,6)$",
+         ha="center", fontsize=10)
 
-axC.set_box_aspect((1.4, 1.4, 1))
-axC.set_xlim(-Rmax, Rmax)
-axC.set_ylim(-Rmax, Rmax)
-axC.set_zlim(0, Rmax)
-axC.set_axis_off()
-axC.view_init(elev=16, azim=-52)
+fig.subplots_adjust(bottom=0.09, top=0.88)
 
-fig.suptitle("")
-output_dir = Path(__file__).resolve().parent
-fig.savefig(output_dir / "fig_divisor_summatory_11_3panel.png",
-            dpi=200, bbox_inches="tight", facecolor="white")
-print("done:", "T_11 =", Tn, "D(11) =", D, "A_11 =", An)
+out_dir = Path(__file__).resolve().parent
+out_pdf = out_dir / "fig_divisor_summatory_11_3panel.pdf"
+out_png = out_dir / "fig_divisor_summatory_11_3panel.png"
+fig.savefig(out_pdf, bbox_inches="tight")
+fig.savefig(out_png, dpi=220, bbox_inches="tight")
+print(f"saved {out_pdf}")
+print(f"saved {out_png}")
+plt.close(fig)
