@@ -24,7 +24,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-numpy python3-matplotlib cm-super texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          sudo apt-get install -y python3-numpy python3-matplotlib cm-super dvipng texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
       - name: Build principal paper
         run: |
