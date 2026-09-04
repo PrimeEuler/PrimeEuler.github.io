@@ -68,15 +68,19 @@ generators from there when figures are required.
 ## Papers
 
 The principal paper publication baseline is
-`papers/Discriminant_12_Return_v0.3.4.tex` / `.pdf` once the v0.3.4 CI build has
-succeeded. The v0.3.4 source is the foundation-reconciled revision of v0.3.3:
-it separates ramified-ideal coefficients from factor coordinates, uses the
-Paper-A v2.4 two-sided cone and row/column convention, and distinguishes
-literal residue-field multiplication from the transported mod-2 Pell action.
-In particular, multiplication by `zeta_12` reduces literally to multiplication
-by `omega` on `F_4`, while the mod-2 Pell matrix on `p_2/2p_2` becomes
-Frobenius only after the explicit additive `F_2`-linear identification with
-`F_4`; direct residue multiplication by `lambda=2+sqrt(3)` is the identity.
+`papers/Discriminant_12_Return_v0.3.4.tex` / `.pdf`. The v0.3.4 source is the
+foundation-reconciled revision of v0.3.3: it separates ramified-ideal
+coefficients from factor coordinates, uses the Paper-A v2.4 two-sided cone and
+row/column convention, and distinguishes literal residue-field multiplication
+from the transported mod-2 Pell action. In particular, multiplication by
+`zeta_12` reduces literally to multiplication by `omega` on `F_4`, while the
+mod-2 Pell matrix on `p_2/2p_2` becomes Frobenius only after the explicit
+additive `F_2`-linear identification with `F_4`; direct residue multiplication
+by `lambda=2+sqrt(3)` is the identity.
+
+The v0.3.4 publication build completed successfully in GitHub Actions run
+`33904189663` and committed the compiled paper and generated publication
+figures in commit `92faf441e08e61fe8cd4359c7b6b0a63e7cdd22a`.
 
 `Discriminant_12_Return_v0.3.3.tex/.pdf` and
 `build_discriminant12_v0.3.3.sh` are retained as the preceding historical
@@ -124,9 +128,10 @@ is independent of Paper A's divisor generator. The mod-12 generator realizes
 
 `papers/build_discriminant12_v0.3.4.sh` calls all three Discriminant-12-owned
 generators. The build stages a temporary copy whose historical tangent/divisor
-figure names are remapped to the paper-specific outputs. Paper A assets are not
-overwritten. The v0.3.3 build script remains available only for reproducing the
-historical v0.3.3 snapshot.
+figure names are remapped to the paper-specific outputs. The staged source must
+be first on `TEXINPUTS` so TeX does not bypass the remapped copy and compile the
+unstaged source. Paper A assets are not overwritten. The v0.3.3 build script
+remains available only for reproducing the historical v0.3.3 snapshot.
 
 The mod-12 geometry carries the four modular labels; the `V_4` operation remains
 multiplication modulo 12, not adjacency in the drawing.
@@ -162,13 +167,19 @@ Current active mappings are:
 - `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.4.sh` -> `Discriminant_12_Return_v0.3.4.tex`
 
 Publication workflows that invoke Matplotlib with LaTeX rendering install the
-same TeX support used by the local generators, including `cm-super`. Generated
-PDF/PNG binaries are produced and committed by GitHub Actions; connector-side
-binary-write limitations are not part of the CI build path.
+same TeX support used by the local generators, including `cm-super`. The
+principal Discriminant-12 Matplotlib pipeline also requires `dvipng` for
+LaTeX-rendered PNG output on the GitHub runner. Generated PDF/PNG binaries are
+produced and committed by GitHub Actions; connector-side binary-write
+limitations are not part of the CI build path.
 
 Paper C v1.1's CI build completed successfully and committed
 `foundations/PaperC_QuantumRealizations_v1.1.pdf` in commit
 `edf120b01daf520c86d00adbc6a7fe179a536767`.
+
+Principal paper v0.3.4's CI build completed successfully and committed
+`papers/Discriminant_12_Return_v0.3.4.pdf` in commit
+`92faf441e08e61fe8cd4359c7b6b0a63e7cdd22a`.
 
 ## Research notes
 
