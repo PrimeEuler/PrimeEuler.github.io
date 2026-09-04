@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.3.tex'
-      - 'unified/discriminant-12-return/papers/build_discriminant12_v0.3.3.sh'
+      - 'unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.4.tex'
+      - 'unified/discriminant-12-return/papers/build_discriminant12_v0.3.4.sh'
       - 'unified/discriminant-12-return/figures/discriminant12_tangent_null_rays_3panel.py'
       - 'unified/discriminant-12-return/figures/discriminant12_divisor_summatory_11_3panel.py'
       - 'unified/discriminant-12-return/figures/discriminant12_mod12_v4_cone_triple.py'
@@ -28,15 +28,15 @@ jobs:
 
       - name: Build principal paper
         run: |
-          bash unified/discriminant-12-return/papers/build_discriminant12_v0.3.3.sh
-          cp unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.3.local-build.pdf \
-             unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.3.pdf
+          bash unified/discriminant-12-return/papers/build_discriminant12_v0.3.4.sh
+          cp unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.4.local-build.pdf \
+             unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.4.pdf
 
       - name: Commit compiled outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.3.pdf
+          git add unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.4.pdf
           git add unified/discriminant-12-return/figures/discriminant12_tangent_null_rays_3panel.pdf
           git add unified/discriminant-12-return/figures/discriminant12_tangent_null_rays_3panel.png
           git add unified/discriminant-12-return/figures/discriminant12_divisor_summatory_11_3panel.pdf
@@ -45,7 +45,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Outputs unchanged"
           else
-            git commit -m "Build Discriminant 12 Return v0.3.3 outputs"
+            git commit -m "Build Discriminant 12 Return v0.3.4 outputs"
             git pull --rebase origin master
             git push
           fi
