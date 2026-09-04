@@ -20,7 +20,7 @@
 \maketitle
 
 \begin{abstract}
-Write out the ordinary multiplication table and draw a straight line through it. What curve does that line trace, once factor pairs are plotted in coordinates built from their sum, difference, and geometric mean? We classify the resulting sections completely: ellipse, parabola, or hyperbola according to the sign of the line coefficients. Anti-diagonals give circles and individual rows or columns give parabolas. We also isolate an exact tangency between every row/column parabola and the anti-diagonal circle whose diameter equals the fixed factor level, and give the true semi-axes and eccentricity of the general ellipse section. The same coordinates restate Fermat factorization and reorganize the classical Dirichlet divisor summatory identity around nested diagonal gnomons.
+Write out the ordinary multiplication table and draw a straight line through it. What curve does that line trace, once factor pairs are plotted in coordinates built from their sum, difference, and geometric mean? We classify the resulting sections completely: ellipse, parabola, nondegenerate hyperbola, or the corresponding degenerate generator section according to the line coefficients. Anti-diagonals give circles and individual rows or columns give parabolas. We also isolate an exact tangency between every row/column parabola and the anti-diagonal circle whose diameter equals the fixed factor level, and give the true semi-axes and eccentricity of the general ellipse section. The same coordinates restate Fermat factorization and reorganize the classical Dirichlet divisor summatory identity around nested diagonal gnomons.
 \end{abstract}
 
 \section{Introduction}
@@ -77,19 +77,23 @@ X^2+Y^2=(K/2)^2.
 For integer $K\ge2$, the positive factor lattice contributes the $K-1$ points $(x,K-x)$, $x=1,\ldots,K-1$, to this circle.
 
 \begin{remark}[Area is not preserved]
-Although $Y^2=xy$ records the area of the factor rectangle as a scalar, the map $(x,y)\mapsto(X,Y,T)$ is not area-preserving on the cone. In particular, one should not identify the Euclidean surface area of a cone patch with the area $xy$ of the corresponding multiplication-table cell. The exact distortion and the associated band-area correspondence are treated separately in the companion note \cite{Ebert2026Area}; no area-preservation statement is used in this paper.
+Although $Y^2=xy$ records the area of the factor rectangle as a scalar, the map $(x,y)\mapsto(X,Y,T)$ is not area-preserving on the cone. In particular, one should not identify the Euclidean surface area of a cone patch with the area $xy$ of the corresponding multiplication-table cell. The exact Jacobian, band areas, hyperbola/secant transport, and the inverse weighted circle measure are treated separately in the geometry-only companion note \cite{Ebert2026Area}; no area-preservation statement is used in this paper.
 \end{remark}
 
 \section{The General Conic Theorem}
 \begin{theorem}\label{thm:conic}
-Let $a,b$ be real numbers, not both zero, and let $ax+by=c$ meet the positive factor quadrant. On $X^2+Y^2=T^2$ it traces an ellipse when $ab>0$, a parabola when $ab=0$, and a hyperbola when $ab<0$. When $a=b\ne0$, the ellipse is a fixed-sum circle.
+Let $a,b$ be real numbers, not both zero, and let $ax+by=c$ meet the positive factor quadrant. On the cone $X^2+Y^2=T^2$ the section is an ellipse when $ab>0$, a parabola when $ab=0$, and a nondegenerate hyperbola when $ab<0$ and $c\ne0$. When $ab<0$ and $c=0$, the full algebraic section is the degenerate pair of cone generators; its positive-factor part is a single generator ray. When $a=b\ne0$, the ellipse is a fixed-sum circle.
 \end{theorem}
 \begin{proof}
 For $b\ne0$, $y=(c-ax)/b$, hence
 \[
 Y^2=xy=\frac cbx-\frac abx^2.
 \]
-The sign of $-a/b$ gives the three cases. The cases $a=0$ or $b=0$ are the row/column parabolas below. If $a=b\ne0$, then $x+y=c/a$ is constant.
+The sign of $-a/b$ gives the nondegenerate ellipse/parabola/hyperbola cases. If $ab<0$ and $c=0$, then
+\[
+Y^2=-\frac ab x^2,
+\]
+which factors into two lines in the full algebraic cone section; restricting to positive factors retains one generator ray. The cases $a=0$ or $b=0$ are the row/column parabolas below. If $a=b\ne0$, then $x+y=c/a$ is constant.
 \end{proof}
 
 \begin{proposition}[Rows and columns]\label{prop:rows}
@@ -205,7 +209,7 @@ D(n)=2\sum_{u=1}^{\lfloor\sqrt n\rfloor}\left\lfloor\frac nu\right\rfloor-\lfloo
 \end{equation}
 This is the classical symmetric Dirichlet hyperbola identity, read as nested gnomons whose arms are pieces of the row/column parabolas cut off by $xy=n$.
 
-For $n=11$ the smallest integer anti-diagonal containing the whole positive divisor region is $x+y=12$. It contains
+For $n=11$, the smallest integer anti-diagonal bounding the whole positive divisor region is $x+y=12$. The triangular region $x+y\le12$ contains
 \[
 T_{11}=1+2+\cdots+11=66
 \]
@@ -240,6 +244,6 @@ This is the natural stopping point for the geometric paper. Later arithmetic or 
 \begin{thebibliography}{9}
 \bibitem{Dickson} L.~E.~Dickson, \emph{History of the Theory of Numbers, Vol.~I}, Carnegie Institution, 1919, Ch.~14.
 \bibitem{Dirichlet} P.~G.~L.~Dirichlet, \"Uber die Bestimmung der mittleren Werthe in der Zahlentheorie, \emph{Abh. K\"onigl. Preuss. Akad. Wiss.} (1849), 69--83.
-\bibitem{Ebert2026Area} J.~Ebert, \emph{A Semiclassical Band-Area Correspondence for the AM--GM Cone}, preprint (2026).
+\bibitem{Ebert2026Area} J.~Ebert, \emph{Area Distortion and Exact Band Geometry of the AM--GM Cone}, preprint (2026).
 \end{thebibliography}
 \end{document}
