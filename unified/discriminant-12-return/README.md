@@ -3,10 +3,34 @@
 This folder collects the algebraic discriminant-12 branch of the Cone project
 and the audited derivation trail used to build it.
 
+## Project working root — authoritative scope
+
+For this project, **all active research, edits, generated figures, paper revisions,
+and ledger updates must remain inside**:
+
+`unified/discriminant-12-return/`
+
+The parent `unified/` directory is **not** an active working location for this
+project. Files with similar names outside `unified/discriminant-12-return/` are
+legacy/original sources only and must not receive project updates.
+
+Use these project-local locations:
+
+- `foundations/` — Foundation papers A, B, C, companion foundation notes, and
+  their project-local figures/source assets.
+- `papers/` — Principal discriminant-12 paper and companion publication drafts.
+- `research-notes/` — Exploratory findings and source research notes.
+- `figures/` — Project figures and generators not tied to one foundation snapshot.
+- `ledger/` — Derivation, audit, publication, and checkpoint ledger entries.
+
+Before any GitHub write, verify that the target path begins with
+`unified/discriminant-12-return/`. Foundation-paper edits in particular must
+begin with `unified/discriminant-12-return/foundations/`.
+
 ## Foundation papers
 
-The `foundations/` directory contains the current repository versions of the
-four papers on which this branch directly builds:
+The `foundations/` directory contains the **authoritative project-local working
+versions** of the foundation material for this branch:
 
 - `PaperA_ConicTheorem_v2.tex` and `.pdf` — factor-cone and conic geometry;
 - `PaperB_EigenCoordinates.tex` and `.pdf` — Lorentz dynamics and eigenframe;
@@ -18,8 +42,10 @@ The Paper A snapshot is accompanied by `fig_cutting_plane_3panel.py` and its
 generated PDF/PNG assets. The recovered generator reproduces the reflected
 cuts \(8x+4y=32\) and \(4x+8y=32\) used in Paper A v2.
 
-These are copied here as project-local reference snapshots. Their original
-files remain in the parent `unified/` directory.
+Files of the same or similar names in the parent `unified/` directory may be
+retained as historical/original sources, but they are **not** the working copies
+for the discriminant-12-return project and must not be updated as part of this
+project.
 
 ## Papers
 
@@ -50,9 +76,10 @@ operation remains multiplication modulo 12, not adjacency in the drawing.
 
 ## Ledger
 
-The `ledger/` directory preserves audited consolidation checkpoints v13.162
-through v13.169. The latest checkpoint is the current baseline; earlier files
-are retained so the development can be reconstructed.
+The `ledger/` directory preserves the audited derivation trail and publication
+checkpoints for this project. The highest valid checkpoint should be treated as
+the current baseline; earlier files are retained so the development can be
+reconstructed.
 
 ## Scope
 
