@@ -68,9 +68,21 @@ generators from there when figures are required.
 ## Papers
 
 The principal paper publication baseline is
-`papers/Discriminant_12_Return_v0.3.3.tex` / `.pdf`. Earlier v0.1 and v0.2
-sources are retained as historical drafts. Companion publication material is
-kept in the same `papers/` directory.
+`papers/Discriminant_12_Return_v0.3.4.tex` / `.pdf` once the v0.3.4 CI build has
+succeeded. The v0.3.4 source is the foundation-reconciled revision of v0.3.3:
+it separates ramified-ideal coefficients from factor coordinates, uses the
+Paper-A v2.4 two-sided cone and row/column convention, and distinguishes
+literal residue-field multiplication from the transported mod-2 Pell action.
+In particular, multiplication by `zeta_12` reduces literally to multiplication
+by `omega` on `F_4`, while the mod-2 Pell matrix on `p_2/2p_2` becomes
+Frobenius only after the explicit additive `F_2`-linear identification with
+`F_4`; direct residue multiplication by `lambda=2+sqrt(3)` is the identity.
+
+`Discriminant_12_Return_v0.3.3.tex/.pdf` and
+`build_discriminant12_v0.3.3.sh` are retained as the preceding historical
+publication snapshot and reproducible historical build. Earlier v0.1 and v0.2
+sources are also retained as historical drafts. Companion publication material
+is kept in the same `papers/` directory.
 
 ## Figure ownership and naming
 
@@ -110,10 +122,11 @@ family and the emphasized `u=5,6,7` parabola tangencies. The divisor generator
 is independent of Paper A's divisor generator. The mod-12 generator realizes
 `U(12)={1,5,7,11}` geometrically.
 
-`papers/build_discriminant12_v0.3.3.sh` calls all three Discriminant-12-owned
-generators. Because v0.3.3 is retained as a historical publication source, the
-build stages a temporary copy whose historical tangent/divisor figure names are
-remapped to the paper-specific outputs. Paper A assets are not overwritten.
+`papers/build_discriminant12_v0.3.4.sh` calls all three Discriminant-12-owned
+generators. The build stages a temporary copy whose historical tangent/divisor
+figure names are remapped to the paper-specific outputs. Paper A assets are not
+overwritten. The v0.3.3 build script remains available only for reproducing the
+historical v0.3.3 snapshot.
 
 The mod-12 geometry carries the four modular labels; the `V_4` operation remains
 multiplication modulo 12, not adjacency in the drawing.
@@ -146,7 +159,7 @@ Current active mappings are:
 - `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.1.tex`
 - `build-paper-c.yml` -> `foundations/build_paper_c.sh` -> `PaperC_QuantumRealizations_v1.1.tex`
 - `build-casimir-null-diamond.yml` -> `foundations/build_casimir_null_diamond.sh` -> `Casimir_Null_Diamond_Standalone_v2.1.tex`
-- `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.3.sh` -> `Discriminant_12_Return_v0.3.3.tex`
+- `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.4.sh` -> `Discriminant_12_Return_v0.3.4.tex`
 
 Publication workflows that invoke Matplotlib with LaTeX rendering install the
 same TeX support used by the local generators, including `cm-super`. Generated
