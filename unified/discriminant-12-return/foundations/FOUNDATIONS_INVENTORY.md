@@ -1,6 +1,6 @@
 # Foundations Directory Inventory
 
-Status: structural audit baseline, 2026-09-04.
+Status: structural audit baseline, reconciled 2026-09-04.
 
 This manifest records what each tracked item in `unified/discriminant-12-return/foundations/` is for, which files are active, which are historical, and which require further mathematical reconciliation. The authoritative project scope remains `unified/discriminant-12-return/`; similarly named files in the parent `unified/` directory are legacy sources only.
 
@@ -36,7 +36,7 @@ This manifest records what each tracked item in `unified/discriminant-12-return/
 
 | File | Role | Status | Audit note / next action |
 |---|---|---|---|
-| `../papers/Casimir_Null_Diamond_Standalone_v2_Audited.tex` | Exact Casimir completion / primitive null-edge bridge, with oscillator-cell and discriminant-12 interfaces | **AUDITED CORE / FOUNDATION PROMOTION RECOMMENDED** | Core determinant--Lorentz, midpoint-quarter, SU(2), SU(1,1), oscillator-cell, cyclotomic-normalization, and Boolean-return calculations pass the v13.209 audit. Create a corrected next version in `foundations/` rather than moving v2 unchanged. Required corrections are source-status wording, the global positive-discrete-series convention, transition-cell/state-point clarification, and a Farey projective-orientation qualification. Preserve the v2 TeX/PDF in `papers/` as the historical audited snapshot. |
+| `../papers/Casimir_Null_Diamond_Standalone_v2_Audited.tex` | Exact Casimir completion / primitive null-edge bridge, with oscillator-cell and discriminant-12 interfaces | **AUDITED CORE / FOUNDATION PROMOTION RECOMMENDED** | Core determinant--Lorentz, midpoint-quarter, SU(2), SU(1,1), oscillator-cell, cyclotomic-normalization, and Boolean-return calculations pass the v13.209 audit. Create a corrected next version in `foundations/` rather than moving v2 unchanged. Required corrections are source-status wording, the global positive-discrete-series convention, transition-cell/state-point clarification, and a Farey projective-orientation qualification. After corrected v2.1 exists, remove the old live v2 TeX/PDF from `papers/`; Git history preserves the historical snapshot. |
 
 See `../ledger/Cone_Derivation_Ledger_v13.209_Casimir_Null_Diamond_Audit.md` for the full mathematical audit.
 
@@ -48,8 +48,16 @@ See `../ledger/Cone_Derivation_Ledger_v13.209_Casimir_Null_Diamond_Audit.md` for
 | `Note_AreaDistortion_AMGM_Cone_v1.1.pdf` | Compiled area-note snapshot | **ACTIVE SNAPSHOT** | Rebuilt by the area workflow. |
 | `Note_AreaDistortion_AMGM_Cone_v1.0.tex` | Earlier area-note version | **HISTORICAL** | Superseded by v1.1. |
 | `Note_Parabola_Secant_Divisor_Chamber_v1.0.tex` | Focused positive-factor chamber note | **COMPANION / NEEDS PLACEMENT REVIEW** | Studies the `x,y>=1`, `xy<=n` chamber, whose boundaries become two parabolas plus the secant `Y=sqrt(n)`. Mathematically related to the area branch; decide later whether it belongs in `foundations/`, a companion-notes subdirectory, or `research-notes/`. |
-| `Note_SemiclassicalArea.tex` | Cone-band vs loop-quantum-gravity area-scaling comparison | **EXPLORATORY COMPANION** | Explicitly a normalization/consistency comparison rather than a derivation. It also depends on Paper C's oscillator dictionary, so it should remain downstream and non-core until Paper C is reconciled. |
-| `Note_SemiclassicalArea.pdf` | Compiled semiclassical note | **EXPLORATORY SNAPSHOT** | Retain for provenance; rebuild only after upstream Paper C audit if the note remains in the publication branch. |
+
+### Semiclassical/LQG branch — intentionally outside foundations
+
+`Note_SemiclassicalArea.tex` is no longer a foundation file. Ledger v13.196 established that its LQG comparison was not needed for the geometry and that the geometry should be rewritten into the dedicated area-distortion foundation. Ledger v13.200 froze the area branch with `Note_AreaDistortion_AMGM_Cone_v1.1.tex` as the geometry-only publication source, and v13.201 redirected Paper A to that source with no LQG interpretation required.
+
+The exploratory source is preserved at:
+
+`../research-notes/Note_SemiclassicalArea.tex`
+
+It remains available for a possible future LQG investigation, but it is **not part of the active foundation dependency chain**. The former foundation-local TeX and PDF were removed; the historical compiled PDF remains recoverable from Git history. This relocation changes source architecture only and does not promote the LQG normalization comparison to a theorem.
 
 ## Computational utility
 
@@ -65,13 +73,18 @@ See `../ledger/Cone_Derivation_Ledger_v13.209_Casimir_Null_Diamond_Audit.md` for
 | `build_paper_b.sh` | Builds `PaperB_EigenCoordinates_v2.tex` | **BUILD SCRIPT / ACTIVE** | No figure-generation stage at present. |
 | `build_area_paper.sh` | Regenerates the Paper A area-companion figure and builds area note v1.1 in isolation | **BUILD SCRIPT / ACTIVE** | Uses paper-specific `paperA_area_measure_11_2panel.pdf/png`; historical TeX filename is remapped only in the staging build. |
 
-## Removed transient build files
+## Removed transient and superseded foundation-local files
 
-The following TeX byproducts had been committed for Paper A v2.2 and were removed during this audit because they are reproducible transient build state, not source or publication artifacts:
+The following TeX byproducts had been committed for Paper A v2.2 and were removed during the structural audit because they are reproducible transient build state, not source or publication artifacts:
 
 - `PaperA_ConicTheorem_v2.2.aux`
 - `PaperA_ConicTheorem_v2.2.log`
 - `PaperA_ConicTheorem_v2.2.out`
+
+The following LQG exploratory artifacts were removed from `foundations/` during the v13.211 reconciliation because their geometric content had already been rewritten into the active area-distortion companion:
+
+- `Note_SemiclassicalArea.tex` — source moved unchanged to `research-notes/`.
+- `Note_SemiclassicalArea.pdf` — removed from the live foundation directory; preserved in Git history rather than duplicated as a binary research artifact.
 
 ## Current foundation dependency order
 
@@ -82,7 +95,8 @@ The working dependency order is:
 3. **Paper B v2** — Lorentz/eigen-coordinate extension; current but still under audit.
 4. **Paper C** — quantum realization downstream of Paper B; requires reconciliation after Paper B is finalized.
 5. **Casimir / Null-Diamond bridge** — core theorem audited; corrected next version recommended for `foundations/` after the Paper-C convention guardrails are incorporated.
-6. **Semiclassical area note** — exploratory downstream comparison relying on the geometric and quantum dictionaries.
+
+The semiclassical/LQG note is deliberately excluded from this chain and retained only in `research-notes/` for possible future investigation.
 
 The principal Discriminant-12 paper is downstream publication material, but the null-diamond bridge independently rederives the discriminant-12 cyclotomic/Boolean interface it uses, so its core theorem does not logically depend on the principal paper.
 
@@ -90,11 +104,11 @@ The principal Discriminant-12 paper is downstream publication material, but the 
 
 ## Recommended next cleanup, after review
 
-No mathematical source was deleted during this structural audit. The next directory cleanup should be deliberate rather than automatic:
+No current theorem source was discarded during this reconciliation. The next directory cleanup should remain deliberate rather than automatic:
 
-1. Create the corrected next Casimir/null-diamond source version directly in `foundations/`, while retaining the audited v2 TeX/PDF in `papers/` for provenance.
+1. Create the corrected next Casimir/null-diamond source version directly in `foundations/`; after it is established, remove the old live v2 TeX/PDF from `papers/` so there is no duplicate authoritative copy.
 2. Decide whether historical Paper A/B versions stay in `foundations/` or move to a project-local `archive/` subdirectory.
 3. Move `discrete_staircase_pushforward.py` out of `foundations/` into `research-notes/` or `tools/`.
-4. Decide whether the two specialized notes (`Note_Parabola_Secant_Divisor_Chamber_v1.0` and `Note_SemiclassicalArea`) should live in a `companions/` subdirectory rather than beside Papers A/B/C.
+4. Decide whether `Note_Parabola_Secant_Divisor_Chamber_v1.0` remains beside Paper A or moves to a companion/research-notes location.
 5. Complete the Paper B v2 audit before changing the broader Paper C power-map discussion; then reconcile Paper C against the corrected Paper B definitions and invariants.
 6. Add a Paper C build script only after its current authoritative source version is settled.
