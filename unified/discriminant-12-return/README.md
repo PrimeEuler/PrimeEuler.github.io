@@ -68,25 +68,36 @@ generators from there when figures are required.
 ## Papers
 
 The principal paper publication baseline is
-`papers/Discriminant_12_Return_v0.3.4.tex` / `.pdf`. The v0.3.4 source is the
-foundation-reconciled revision of v0.3.3: it separates ramified-ideal
-coefficients from factor coordinates, uses the Paper-A v2.4 two-sided cone and
-row/column convention, and distinguishes literal residue-field multiplication
-from the transported mod-2 Pell action. In particular, multiplication by
-`zeta_12` reduces literally to multiplication by `omega` on `F_4`, while the
-mod-2 Pell matrix on `p_2/2p_2` becomes Frobenius only after the explicit
-additive `F_2`-linear identification with `F_4`; direct residue multiplication
-by `lambda=2+sqrt(3)` is the identity.
+`papers/Discriminant_12_Return_v0.3.5.tex` / `.pdf`. v0.3.5 is the
+theorem-hardened revision produced after the ground-up audit of v0.3.4. It
+retains the foundation reconciliation of v0.3.4 and strengthens the theorem
+packaging by:
 
-The v0.3.4 publication build completed successfully in GitHub Actions run
-`33904189663` and committed the compiled paper and generated publication
-figures in commit `92faf441e08e61fe8cd4359c7b6b0a63e7cdd22a`.
+- stating the full signed Cone boost explicitly as
+  `X'=2X+sqrt(3)T`, `Y'=Y`, `T'=sqrt(3)X+2T`;
+- proving directly that
+  `O_{K_12}/P_2 ~= F_2[omega]/(omega^2+omega+1) ~= F_4`;
+- promoting `bar(q_12)=Tr_{F_4/F_2}` and Boolean XOR parity into the main
+  theorem; and
+- packaging the `n=11` narrow-class / Artin specialization as an explicit
+  proposition while retaining `T_11 <-> J` only as a representation
+  correspondence.
 
-`Discriminant_12_Return_v0.3.3.tex/.pdf` and
-`build_discriminant12_v0.3.3.sh` are retained as the preceding historical
-publication snapshot and reproducible historical build. Earlier v0.1 and v0.2
-sources are also retained as historical drafts. Companion publication material
-is kept in the same `papers/` directory.
+The literal-versus-transported finite-action guardrail remains unchanged:
+multiplication by `zeta_12` reduces literally to multiplication by `omega` on
+`F_4`; the mod-2 Pell matrix on `p_2/2p_2` becomes Frobenius only after the
+explicit additive `F_2`-linear identification with `F_4`; and direct residue
+multiplication by `lambda=2+sqrt(3)` is the identity.
+
+The v0.3.5 publication build completed successfully in GitHub Actions run
+`33922073158` and committed the compiled paper and generated publication
+figures in commit `c49892eeb4316361b6d5a58d918029397af0bf2c`.
+
+`Discriminant_12_Return_v0.3.4.tex/.pdf` and
+`build_discriminant12_v0.3.4.sh` are retained as the preceding audited
+publication snapshot and reproducible historical build. v0.3.3 and earlier
+sources/builds remain historical provenance. Companion publication material is
+kept in the same `papers/` directory.
 
 ## Figure ownership and naming
 
@@ -126,12 +137,12 @@ family and the emphasized `u=5,6,7` parabola tangencies. The divisor generator
 is independent of Paper A's divisor generator. The mod-12 generator realizes
 `U(12)={1,5,7,11}` geometrically.
 
-`papers/build_discriminant12_v0.3.4.sh` calls all three Discriminant-12-owned
+`papers/build_discriminant12_v0.3.5.sh` calls all three Discriminant-12-owned
 generators. The build stages a temporary copy whose historical tangent/divisor
 figure names are remapped to the paper-specific outputs. The staged source must
 be first on `TEXINPUTS` so TeX does not bypass the remapped copy and compile the
-unstaged source. Paper A assets are not overwritten. The v0.3.3 build script
-remains available only for reproducing the historical v0.3.3 snapshot.
+unstaged source. Paper A assets are not overwritten. The v0.3.4 build script
+remains available only for reproducing the historical v0.3.4 snapshot.
 
 The mod-12 geometry carries the four modular labels; the `V_4` operation remains
 multiplication modulo 12, not adjacency in the drawing.
@@ -164,7 +175,7 @@ Current active mappings are:
 - `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.1.tex`
 - `build-paper-c.yml` -> `foundations/build_paper_c.sh` -> `PaperC_QuantumRealizations_v1.1.tex`
 - `build-casimir-null-diamond.yml` -> `foundations/build_casimir_null_diamond.sh` -> `Casimir_Null_Diamond_Standalone_v2.1.tex`
-- `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.4.sh` -> `Discriminant_12_Return_v0.3.4.tex`
+- `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.5.sh` -> `Discriminant_12_Return_v0.3.5.tex`
 
 Publication workflows that invoke Matplotlib with LaTeX rendering install the
 same TeX support used by the local generators, including `cm-super`. The
@@ -177,9 +188,9 @@ Paper C v1.1's CI build completed successfully and committed
 `foundations/PaperC_QuantumRealizations_v1.1.pdf` in commit
 `edf120b01daf520c86d00adbc6a7fe179a536767`.
 
-Principal paper v0.3.4's CI build completed successfully and committed
-`papers/Discriminant_12_Return_v0.3.4.pdf` in commit
-`92faf441e08e61fe8cd4359c7b6b0a63e7cdd22a`.
+Principal paper v0.3.5's CI build completed successfully and committed
+`papers/Discriminant_12_Return_v0.3.5.pdf` in commit
+`c49892eeb4316361b6d5a58d918029397af0bf2c`.
 
 ## Research notes
 
