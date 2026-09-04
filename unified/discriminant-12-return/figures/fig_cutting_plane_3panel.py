@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
+plt.rcParams.update({
+    "text.usetex": True,
+    "text.latex.preamble": r"\usepackage{amsmath}\usepackage{amssymb}",
+})
+
 # Canonical Paper A cutting-plane figure generator.
 #
 # Geometry:
@@ -58,7 +63,6 @@ for curve in CURVES:
         curve["a"], curve["b"], curve["c"]
     )
 
-# Full positive integer factor triangle x+y<=12: exactly T_11=66 cells.
 TABLE_POINTS = [
     (x, y)
     for x in range(1, KMAX)
@@ -66,7 +70,6 @@ TABLE_POINTS = [
 ]
 assert len(TABLE_POINTS) == 66
 
-# Red-cut maximum Y^2 occurs at (x,y)=(2,4).
 XSTAR = (2 - 4) / 2.0
 TSTAR = (2 + 4) / 2.0
 
@@ -75,9 +78,6 @@ gs = fig.add_gridspec(1, 3, width_ratios=[1, 1, 1.05], wspace=0.28)
 
 theta = np.linspace(0, 2 * np.pi, 500)
 
-# =====================================================================
-# (a) Flat (X,Y) projection: complete two-sided conic geometry.
-# =====================================================================
 axA = fig.add_subplot(gs[0, 0])
 axA.set_title(
     "(a) Flat: complete fixed-sum shells\n"
@@ -85,7 +85,6 @@ axA.set_title(
     fontsize=12,
 )
 
-# Every half-step shell T=K/2. K=5,6,7 are the exact tangent examples.
 for K in range(1, KMAX + 1):
     Tc = K / 2.0
     tangent = K in TANGENT_LEVELS
@@ -99,7 +98,6 @@ for K in range(1, KMAX + 1):
         zorder=2 if tangent else 1,
     )
 
-# Complete row and column parabolas within x+y<=12, including both Y signs.
 for u in range(1, KMAX):
     y = np.linspace(0.001, KMAX - u, 240)
     X = (u - y) / 2.0
@@ -120,15 +118,12 @@ for u in range(1, KMAX):
     axA.plot(X, -Y, color=COL_COLOR, lw=0.8 if emph else 0.28,
              alpha=0.55 if emph else 0.18, zorder=3 if emph else 1)
 
-# Integer multiplication-table labels are shown on the upper lift only to keep
-# the lower half readable; the lower geometric copy remains fully drawn.
 for x, y in TABLE_POINTS:
     X = (x - y) / 2.0
     Y = np.sqrt(x * y)
     axA.text(X, Y, str(x * y), fontsize=5.1, color="#333333",
              ha="center", va="center", zorder=6)
 
-# Exact tangent vertices for u=5,6,7.
 label_offsets = {5: (14, -19), 6: (24, -31), 7: (34, -43)}
 for u in TANGENT_LEVELS:
     Tc = u / 2.0
@@ -146,14 +141,12 @@ for u in TANGENT_LEVELS:
         zorder=9,
     )
 
-# Highlight x+y=8, T=4.
 axA.plot(
     4 * np.cos(theta), 4 * np.sin(theta),
     color=HIGHLIGHT_SHELL, lw=2.1, ls="--", zorder=5,
     label=r"$x+y=8$",
 )
 
-# Reflected ellipse pair, complete under Y -> -Y.
 for curve in CURVES:
     axA.plot(curve["X"], curve["Y"], color=curve["color"], lw=2.4,
              zorder=7, label=curve["label"])
@@ -171,9 +164,6 @@ axA.legend(fontsize=7.8, loc="upper right", framealpha=0.9)
 for spine in ["top", "right"]:
     axA.spines[spine].set_visible(False)
 
-# =====================================================================
-# (b) Side view (X,T): the flat multiplication-table carrier Y=0.
-# =====================================================================
 axB = fig.add_subplot(gs[0, 1])
 axB.set_title(
     "(b) Side: flat factor triangle at $Y=0$\n"
@@ -181,10 +171,8 @@ axB.set_title(
     fontsize=12,
 )
 
-# Boundary generators of the positive-factor triangle x,y>=0, x+y<=12.
 axB.plot([-RMAX, 0, RMAX], [RMAX, 0, RMAX], color="0.45", lw=1.4, zorder=2)
 
-# Fixed-sum shells T=K/2.
 for K in range(1, KMAX + 1):
     Tc = K / 2.0
     tangent = K in TANGENT_LEVELS
@@ -196,9 +184,6 @@ for K in range(1, KMAX + 1):
         zorder=2 if tangent else 0,
     )
 
-# Correct positive-factor row/column segments.
-# x=u: T+X=u, from y=0 to x+y=12.
-# y=u: T-X=u, from x=0 to x+y=12.
 for u in range(1, KMAX):
     emph = u in TANGENT_LEVELS
     axB.plot(
@@ -218,26 +203,22 @@ for u in range(1, KMAX):
         zorder=3 if emph else 1,
     )
 
-# Integer table labels on the flat carrier.
 for x, y in TABLE_POINTS:
     X = (x - y) / 2.0
     T = (x + y) / 2.0
     axB.text(X, T, str(x * y), fontsize=5.1, color="#333333",
              ha="center", va="center", zorder=5)
 
-# Exact parabola vertices/tangent points at Y=0.
 for u in TANGENT_LEVELS:
     Tc = u / 2.0
     axB.plot([-Tc, Tc], [Tc, Tc], "o", ms=5.2, color="#111111", zorder=7)
     axB.annotate(rf"$u={u}$", (Tc, Tc), textcoords="offset points",
                  xytext=(5, 3), fontsize=7.5, color="#111111")
 
-# Highlight x+y=8 and its AM-GM midpoint.
 axB.plot([-4, 4], [4, 4], color=HIGHLIGHT_SHELL, lw=2.3, ls="--",
          zorder=6, label=r"$x+y=8$")
 axB.plot([0], [4], "o", color=HIGHLIGHT_SHELL, ms=5.5, zorder=7)
 
-# Cutting planes seen edge-on.
 Xb = np.linspace(-RMAX, RMAX, 500)
 for curve in CURVES:
     Tb = (curve["c"] + (curve["b"] - curve["a"]) * Xb) / (curve["a"] + curve["b"])
@@ -257,9 +238,6 @@ axB.set_aspect("equal")
 for spine in axB.spines.values():
     spine.set_visible(False)
 
-# =====================================================================
-# (c) 3D cone: complete fixed-T circles and literal cutting planes.
-# =====================================================================
 axC = fig.add_subplot(gs[0, 2], projection="3d")
 axC.set_title(
     "(c) 3D: two-sided cone projection\n"
@@ -276,7 +254,6 @@ TC = RR
 axC.plot_surface(XC, YC, TC, color="0.85", alpha=0.22,
                  linewidth=0, antialiased=True, zorder=1)
 
-# Complete fixed-T circle family.
 for K in range(1, KMAX + 1):
     Tc = K / 2.0
     tangent = K in TANGENT_LEVELS
@@ -288,17 +265,14 @@ for K in range(1, KMAX + 1):
         zorder=3 if tangent else 1,
     )
 
-# Exact tangent points lie at Y=0 on the two generator rays.
 for u in TANGENT_LEVELS:
     Tc = u / 2.0
     axC.scatter([-Tc, Tc], [0, 0], [Tc, Tc], s=20,
                 color="#111111", depthshade=False)
 
-# Highlight x+y=8 circle.
 axC.plot(4 * np.cos(th), 4 * np.sin(th), np.full_like(th, 4),
          color=HIGHLIGHT_SHELL, lw=2.0, ls="--", zorder=4)
 
-# Complete reflected conic sections and the two cutting planes.
 for curve in CURVES:
     axC.plot(curve["X"], curve["Y"], curve["T"],
              color=curve["color"], lw=2.6, zorder=6)
