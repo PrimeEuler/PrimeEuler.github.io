@@ -16,11 +16,11 @@ legacy/original sources only and must not receive project updates.
 
 Use these project-local locations:
 
-- `foundations/` — Foundation papers A, B, C, companion foundation notes, and
-  their project-local figures/source assets.
+- `foundations/` — Foundation papers A, B, C and companion foundation notes.
 - `papers/` — Principal discriminant-12 paper and companion publication drafts.
 - `research-notes/` — Exploratory findings and source research notes.
-- `figures/` — Project figures and generators not tied to one foundation snapshot.
+- `figures/` — Canonical project figure generators and generated figure assets,
+  including all figures used by the foundation papers.
 - `ledger/` — Derivation, audit, publication, and checkpoint ledger entries.
 
 Before any GitHub write, verify that the target path begins with
@@ -30,17 +30,21 @@ begin with `unified/discriminant-12-return/foundations/`.
 ## Foundation papers
 
 The `foundations/` directory contains the **authoritative project-local working
-versions** of the foundation material for this branch:
+versions** of the foundation material for this branch. In particular, the
+current Paper A source is:
 
-- `PaperA_ConicTheorem_v2.tex` and `.pdf` — factor-cone and conic geometry;
-- `PaperB_EigenCoordinates.tex` and `.pdf` — Lorentz dynamics and eigenframe;
-- `PaperC_QuantumRealizations.tex` and `.pdf` — compact/noncompact oscillator
-  realizations and Casimir completion;
-- `Note_SemiclassicalArea.tex` and `.pdf` — audited band-area comparison.
+- `PaperA_ConicTheorem_v2.4.tex` — factor-cone and conic geometry with the
+  two-sided projection `Y^2=xy`;
+- `PaperB_EigenCoordinates.tex` / `PaperB_EigenCoordinates_v2.tex` — Lorentz
+  dynamics and eigenframe working sources;
+- `PaperC_QuantumRealizations.tex` — compact/noncompact oscillator realizations
+  and Casimir completion;
+- companion area and geometry notes.
 
-The Paper A snapshot is accompanied by `fig_cutting_plane_3panel.py` and its
-generated PDF/PNG assets. The recovered generator reproduces the reflected
-cuts \(8x+4y=32\) and \(4x+8y=32\) used in Paper A v2.
+Figure generators do **not** belong in `foundations/`. Foundation TeX files read
+publication figures from `../figures/`, and build scripts must invoke generators
+from that directory. This prevents stale local figure files from shadowing the
+canonical generated assets.
 
 Files of the same or similar names in the parent `unified/` directory may be
 retained as historical/original sources, but they are **not** the working copies
@@ -67,11 +71,27 @@ theorems.
 
 ## Figures
 
-- `mod12_v4_cone_triple.png` — three-panel realization of the unit residues
-  \(\{1,5,7,11\}\) in Paper-A cone coordinates;
-- `make_mod12_v4_cone_triple.py` — portable figure generator.
+Paper A uses the canonical generators and assets in `figures/`:
 
-The figure realizes the four modular labels geometrically. Their \(V_4\)
+- `fig_cutting_plane_3panel.py` — stable Paper A entry point. It delegates to the
+  audited tangent-circle geometry and writes `fig_cutting_plane_3panel.pdf/png`.
+- `fig_cutting_plane_tangent_circle_audit.py` — full geometric audit with every
+  fixed-sum shell `K=1,...,12` and explicit `u=5,6,7` tangent-circle checks.
+- `fig_cutting_plane_tangent_circle_publication.py` — publication-layout wrapper
+  around the audited geometry; it changes labels/titles, not mathematics.
+- `fig_divisor_summatory_11_3panel.py` — the `n=11` divisor-summatory figure.
+  Its displayed `(X,Y)` and 3D views intentionally use the upper branch
+  `Y=+sqrt(xy)` as a one-sided visualization; Paper A's underlying geometry is
+  the two-sided relation `Y^2=xy`.
+- `fig_area_measure_11_2panel.py` — companion area-note figure generator.
+- `mod12_v4_cone_triple.png` and `make_mod12_v4_cone_triple.py` — three-panel
+  realization of the unit residues `{1,5,7,11}` in Paper-A cone coordinates.
+
+`foundations/build_paper_a.sh` generates both Paper A figures from `figures/`
+before compiling `PaperA_ConicTheorem_v2.4.tex`. The area-paper build likewise
+invokes its figure generator from `figures/`.
+
+The mod-12 figure realizes the four modular labels geometrically. Their `V_4`
 operation remains multiplication modulo 12, not adjacency in the drawing.
 
 ## Ledger
