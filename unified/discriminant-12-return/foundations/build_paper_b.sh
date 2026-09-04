@@ -2,7 +2,7 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PAPER="PaperB_EigenCoordinates_v2.tex"
+PAPER="PaperB_EigenCoordinates_v2.1.tex"
 
 printf '==> compiling %s in foundations/\n' "$PAPER"
 cd "$HERE"

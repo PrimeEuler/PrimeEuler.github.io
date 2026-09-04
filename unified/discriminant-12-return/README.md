@@ -33,13 +33,22 @@ versions of the foundation material. Its file-by-file role and status are
 recorded in `foundations/FOUNDATIONS_INVENTORY.md`; consult that manifest before
 renaming, moving, archiving, or treating a foundation source as authoritative.
 
-The current Paper A source is `PaperA_ConicTheorem_v2.4.tex`. Paper B's current
-build target is `PaperB_EigenCoordinates_v2.tex`, which remains under audit.
-`PaperC_QuantumRealizations.tex` is downstream foundation material that must be
-reconciled after Paper B because its present formulation still inherits parts
-of the older power-map framework.
+The current audited Paper A source is `PaperA_ConicTheorem_v2.4.tex`.
+The current audited Paper B source is `PaperB_EigenCoordinates_v2.1.tex`.
+Paper B v2.1 is the continuous Lorentz/projective foundation: it uses the
+two-sided Paper-A cone, the metric-dual cutting normal, the normalized generator
+`Ghat=G/(2sqrt(|ab|))`, intrinsic projective normal forms `|z|=1` and
+`xi_+ xi_-=1`, and distinguishes intrinsic orbit powers from chosen-equation
+level-raising powers. `PaperB_EigenCoordinates_v2.tex/.pdf` are historical
+predecessors after this promotion.
 
-`Casimir_Null_Diamond_Standalone_v2.1.tex` is now an active audited foundation.
+`PaperC_QuantumRealizations.tex` is downstream foundation material and is now
+the next theorem-reconciliation target. Its present formulation still inherits
+parts of the older Paper-B power-map framework and also needs the global two-mode
+positive-discrete-series convention corrected to `k=(|n1-n2|+1)/2`, with
+`k=X` only in the oriented `n1>=n2` sector.
+
+`Casimir_Null_Diamond_Standalone_v2.1.tex` is an active audited foundation.
 It is the sole live authoritative null-diamond source. The former
 `papers/Casimir_Null_Diamond_Standalone_v2_Audited.tex/.pdf` artifacts were
 removed after v2.1 was established; Git history preserves that historical
@@ -78,7 +87,7 @@ Canonical implementations:
 `PaperA_ConicTheorem_v2.4.tex`. `foundations/build_area_paper.sh` calls the area
 companion generator before compiling `Note_AreaDistortion_AMGM_Cone_v1.1.tex`.
 
-The area companion now writes paper-specific outputs
+The area companion writes paper-specific outputs
 `paperA_area_measure_11_2panel.pdf/png`; its build script stages the historical
 v1.1 TeX with that filename so the source snapshot can remain unchanged. Paper
 A's cutting-plane and divisor output names are still the names referenced by
@@ -107,9 +116,9 @@ multiplication modulo 12, not adjacency in the drawing.
 
 ### Other foundation papers
 
-`foundations/build_paper_b.sh` contains no figure-generation step; it only
-compiles `PaperB_EigenCoordinates_v2.tex`. Paper C likewise has no active
-publication figure generator in `figures/` at this checkpoint.
+`foundations/build_paper_b.sh` contains no figure-generation step; it compiles
+`PaperB_EigenCoordinates_v2.1.tex`. Paper C has no active publication figure
+generator in `figures/` at this checkpoint.
 
 `foundations/build_casimir_null_diamond.sh` compiles
 `Casimir_Null_Diamond_Standalone_v2.1.tex`; the null-diamond paper currently has
@@ -127,7 +136,7 @@ Current active mappings are:
 
 - `build-paper-a.yml` -> `foundations/build_paper_a.sh` -> `PaperA_ConicTheorem_v2.4.tex`
 - `build-area-paper.yml` -> `foundations/build_area_paper.sh` -> `Note_AreaDistortion_AMGM_Cone_v1.1.tex`
-- `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.tex`
+- `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.1.tex`
 - `build-casimir-null-diamond.yml` -> `foundations/build_casimir_null_diamond.sh` -> `Casimir_Null_Diamond_Standalone_v2.1.tex`
 - `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.3.sh` -> `Discriminant_12_Return_v0.3.3.tex`
 

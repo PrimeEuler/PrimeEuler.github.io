@@ -1,0 +1,565 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\title{Signed Cone Cuts as Lorentz Orbits: Eigen-Coordinates and Power Maps}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+
+\begin{abstract}
+The cutting-plane theorem of \cite{Ebert2026Table} sends a factor pair $(x,y)$ to the two-sided cone lift
+\[
+X=\frac{x-y}{2},\qquad Y=\pm\sqrt{xy},\qquad T=\frac{x+y}{2},
+\]
+so that $X^2+Y^2=T^2$, and classifies the section cut by a line $ax+by=c$ by the sign of $ab$.  We place that result inside the continuous Lorentz symmetry of the cone.  Every connected nondegenerate ellipse or hyperbola cut is a full orbit of the explicit generator
+\[
+G_{a,b}=(a+b)L+(a-b)B_Y\in\mathfrak{so}(2,1),
+\]
+whose characteristic polynomial is $\lambda(\lambda^2+4ab)$.  Thus the conic classification, the causal type of the cutting-plane normal, and the eigenvalue type of the Lorentz generator are the same invariant.  After dividing by $2\sqrt{|ab|}$, the nonzero eigenvalues are canonically $\pm i$ in the elliptic case and $\pm1$ in the hyperbolic case, up to reversal of flow orientation.  We diagonalize the flows in complex and split eigen-coordinates and then normalize the cutting equation to obtain the intrinsic orbit coordinates $|z|=1$ and $\xi_+\xi_-=1$.  Integer powers of the unnormalized coordinates still define exact semiconjugate maps once a particular equation $(a,b,c)$ is chosen, but that level-raising construction is not canonical under arbitrary rescaling of the equation.  In the parabolic boundary case the diagonal eigen-coordinate construction collapses because the generator is nilpotent, although coordinatewise factor powers $(x,y)\mapsto(x^n,y^n)$ still exist.  The same rapidity $s=\tfrac12\log(x/y)$ used here is the continuous Lorentz coordinate that later supports the discriminant-$12$ arithmetic return.
+\end{abstract}
+
+\maketitle
+
+\section{From the factor sheet to the signed cone}
+
+For positive factor coordinates define the two lifts
+\begin{equation}\label{eq:mean}
+X=\frac{x-y}{2},\qquad Y=\pm\sqrt{xy},\qquad T=\frac{x+y}{2}.
+\end{equation}
+Then
+\begin{equation}\label{eq:cone}
+X^2+Y^2=T^2,
+\qquad
+x=T+X,
+\qquad
+y=T-X.
+\end{equation}
+Paper A \cite{Ebert2026Table} now distinguishes the two-sided cone geometry from the one-sided principal lift $Y=+\sqrt{xy}$.  The Lorentz action belongs to the two-sided geometry.
+
+\begin{definition}[Signed future cone]
+Let
+\[
+\mathcal C^+
+=\{(X,Y,T)\in\mathbb R^3:T>0,\ X^2+Y^2=T^2\},
+\]
+with $Y$ allowed to have either sign.  The one-sided principal factor lift is
+\[
+\mathcal C^+_{\rm fac,+}=\mathcal C^+\cap\{Y\ge0\},
+\]
+while the full two-sided lift of Paper A occupies both signs of $Y$.
+\end{definition}
+
+A line $ax+by=c$ becomes, by \eqref{eq:cone},
+\begin{equation}\label{eq:plane}
+(a-b)X+(a+b)T=c.
+\end{equation}
+The corrected cutting-plane classification is: $ab>0$ gives an ellipse, $ab=0$ a parabola, $ab<0$ with $c\ne0$ a nondegenerate hyperbola, while $ab<0,c=0$ is the degenerate generator case \cite{Ebert2026Table}.
+
+\section{The cone symmetry algebra}
+
+Let
+\[
+\eta=\operatorname{diag}(1,1,-1),
+\]
+so the cone is the null set of the quadratic form $X^2+Y^2-T^2$.  Define
+\[
+L=\begin{pmatrix}
+0&-1&0\\
+1&0&0\\
+0&0&0
+\end{pmatrix},
+\qquad
+B_X=\begin{pmatrix}
+0&0&1\\
+0&0&0\\
+1&0&0
+\end{pmatrix},
+\qquad
+B_Y=\begin{pmatrix}
+0&0&0\\
+0&0&1\\
+0&1&0
+\end{pmatrix}.
+\]
+Each satisfies
+\[
+G^{\mathsf T}\eta+\eta G=0,
+\]
+and therefore belongs to $\mathfrak{so}(2,1)$.  Their brackets are
+\[
+[L,B_X]=B_Y,
+\qquad
+[L,B_Y]=-B_X,
+\qquad
+[B_X,B_Y]=-L.
+\]
+
+The three elementary flows have a direct factor interpretation.  The $L$-flow fixes $T$, hence fixes $x+y$; the $B_X$-flow fixes $Y$, hence fixes $xy$; and the $B_Y$-flow fixes $X$, hence fixes $x-y$.  In particular, if
+\[
+s=\frac12\log\frac{x}{y},
+\]
+then the $B_X$ boost acts by translation of rapidity,
+\[
+x\mapsto e^\phi x,
+\qquad
+y\mapsto e^{-\phi}y,
+\qquad
+s\mapsto s+\phi.
+\]
+
+\section{The generator attached to a cutting direction}
+
+\begin{definition}
+For real $a,b$, not both zero, set
+\begin{equation}\label{eq:G}
+G_{a,b}:=(a+b)L+(a-b)B_Y.
+\end{equation}
+Writing
+\[
+\alpha=a+b,
+\qquad
+\gamma=a-b,
+\]
+we have
+\[
+G_{a,b}
+=\begin{pmatrix}
+0&-\alpha&0\\
+\alpha&0&\gamma\\
+0&\gamma&0
+\end{pmatrix}.
+\]
+\end{definition}
+
+\begin{proposition}[Invariant cutting plane]\label{prop:invariant}
+The Lorentz metric-dual normal
+\[
+m=(a-b,0,-(a+b))=(\gamma,0,-\alpha)
+\]
+lies in the kernel of $G_{a,b}$.  Consequently the Lorentz functional
+\[
+\langle m,(X,Y,T)\rangle_\eta
+=(a-b)X+(a+b)T
+\]
+is constant along every $G_{a,b}$ flow line, so every orbit stays in one plane \eqref{eq:plane}.
+\end{proposition}
+
+\begin{proof}
+For $m=(m_1,0,m_3)$ the equation $Gm=0$ is exactly
+\[
+-\alpha\cdot0=0,
+\qquad
+\alpha m_1+\gamma m_3=0,
+\qquad
+\gamma\cdot0=0.
+\]
+Taking $(m_1,m_3)=(\gamma,-\alpha)$ satisfies the middle equation.  Since $G^{\mathsf T}\eta+\eta G=0$,
+\[
+\frac{d}{dt}\langle m,e^{tG}p\rangle_\eta
+=\langle m,Ge^{tG}p\rangle_\eta
+=-\langle Gm,e^{tG}p\rangle_\eta=0.
+\]
+\end{proof}
+
+\begin{proposition}[One invariant, three classifications]\label{prop:classification}
+The characteristic polynomial of $G_{a,b}$ is
+\begin{equation}\label{eq:charpoly}
+\boxed{\chi_{G_{a,b}}(\lambda)=\lambda(\lambda^2+4ab).}
+\end{equation}
+The same metric-dual normal $m$ has Lorentz norm
+\begin{equation}\label{eq:normalnorm}
+\boxed{\langle m,m\rangle_\eta=-4ab.}
+\end{equation}
+Hence:
+\begin{enumerate}[label=(\roman*)]
+\item $ab>0$: $m$ is timelike and the nonzero eigenvalues are $\pm2i\sqrt{ab}$;
+\item $ab<0$: $m$ is spacelike and the nonzero eigenvalues are $\pm2\sqrt{-ab}$;
+\item $ab=0$: $m$ is null and $G_{a,b}$ is nilpotent.
+\end{enumerate}
+Thus Paper A's ellipse/parabola/hyperbola trichotomy is exactly the elliptic/parabolic/hyperbolic trichotomy of the associated Lorentz generator.
+\end{proposition}
+
+\begin{proof}
+A determinant expansion gives \eqref{eq:charpoly}.  Directly,
+\[
+(a-b)^2-(a+b)^2=-4ab,
+\]
+which gives \eqref{eq:normalnorm}; the three cases follow.
+\end{proof}
+
+Common rescaling does not change the cutting direction:
+\[
+(a,b,c)\mapsto(\kappa a,\kappa b,\kappa c),
+\qquad \kappa\ne0,
+\]
+and
+\[
+G_{\kappa a,\kappa b}=\kappa G_{a,b}.
+\]
+Thus the one-parameter subgroup as an unparameterized set is naturally attached to the projective cutting direction, while the sign and speed of its parameter depend on the chosen representative.
+
+For $ab\ne0$ define the normalized Lorentz generator
+\begin{equation}\label{eq:Ghat}
+\boxed{
+\widehat G_{a,b}:=\frac{G_{a,b}}{2\sqrt{|ab|}}.
+}
+\end{equation}
+Its nonzero eigenvalues are
+\[
+\pm i\quad(ab>0),
+\qquad
+\pm1\quad(ab<0).
+\]
+Under a positive common rescaling of $(a,b,c)$, $\widehat G$ is unchanged; a negative rescaling reverses its sign and hence only reverses flow orientation.  This separates the intrinsic projective orbit type from arbitrary time normalization.
+
+\section{Signed cuts are complete Lorentz orbits}
+
+\begin{theorem}[Orbit theorem]\label{thm:orbit}
+Assume $ab\ne0$ and that the plane \eqref{eq:plane} meets the future cone in a nondegenerate section.  On the signed future cone $\mathcal C^+$, each connected nondegenerate section is a full orbit of the one-parameter subgroup $e^{tG_{a,b}}$, equivalently of $e^{\tau\widehat G_{a,b}}$ after time rescaling.  The one-sided principal factor trace is the portion of that orbit lying on $Y\ge0$.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:invariant} shows that every orbit is contained in the plane section.  If $ab>0$, Proposition~\ref{prop:classification} gives an elliptic one-parameter subgroup; after a Lorentz change of frame sending the timelike plane normal to the time axis, the section is a Euclidean circle and the subgroup is an ordinary rotation, hence transitive on it.  If $ab<0$, the normal is spacelike; after a Lorentz change of frame sending it to a spatial axis, the section is the future branch of a hyperbola in a timelike two-plane and the subgroup is an ordinary boost, again transitive on that connected branch.  Returning by the inverse Lorentz change of frame proves the claim.  Restricting to $Y\ge0$ gives the principal one-sided factor trace.
+\end{proof}
+
+\begin{remark}
+The signed-sheet qualification is essential.  For $a=b$, $G_{a,a}=2aL$ rotates the full signed circle, whereas the principal factor lift $Y=+\sqrt{xy}$ displays only its upper semicircle.  Likewise, $a=-b$ gives the full signed $B_Y$ hyperbola, while the principal lift retains only $Y\ge0$.  Paper A's two-sided formulation restores the full algebraic section without identifying the two signs of $Y$ with factor exchange.
+\end{remark}
+
+\section{Eigen-coordinates}
+
+\subsection{Elliptic case}
+Assume $ab>0$ and define
+\begin{equation}\label{eq:zeta}
+\zeta_{a,b}
+=(a+b)X+(a-b)T+2i\sqrt{ab}\,Y.
+\end{equation}
+
+\begin{proposition}[Complex eigen-coordinate]\label{prop:zeta}
+Along the $G_{a,b}$ flow,
+\begin{equation}\label{eq:zetaflow}
+\zeta(t)=e^{2i\sqrt{ab}\,t}\zeta(0).
+\end{equation}
+On the plane \eqref{eq:plane},
+\begin{equation}\label{eq:zetanorm}
+\boxed{|\zeta_{a,b}|^2=c^2,\qquad |\zeta_{a,b}|=|c|.}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The row vector
+\[
+w^{\mathsf T}=(a+b,\ 2i\sqrt{ab},\ a-b)
+\]
+satisfies
+\[
+w^{\mathsf T}G_{a,b}=2i\sqrt{ab}\,w^{\mathsf T},
+\]
+which gives \eqref{eq:zetaflow}.  For the norm, write
+\[
+P=(a+b)X+(a-b)T,
+\qquad
+Q=(a-b)X+(a+b)T=c.
+\]
+A direct expansion gives
+\[
+P^2-Q^2
+=4ab(X^2-T^2)
+=-4abY^2,
+\]
+so
+\[
+|\zeta|^2=P^2+4abY^2=Q^2=c^2.
+\]
+\end{proof}
+
+For a nondegenerate elliptic section $c\ne0$.  Orient the equation by replacing all three coefficients by their negatives if necessary so that $c>0$, and define
+\begin{equation}\label{eq:zprojective}
+\boxed{z:=\frac{\zeta_{a,b}}{c}.}
+\end{equation}
+Then
+\[
+|z|=1.
+\]
+This coordinate is invariant under positive common rescaling of the oriented equation and changes only by the corresponding flow-orientation convention under reversal of the representative.  It is the intrinsic unit-circle coordinate of the projective cut.
+
+\subsection{Hyperbolic case}
+Assume $ab<0$, put
+\[
+r=\sqrt{-ab},
+\]
+and define
+\begin{equation}\label{eq:etas}
+\eta_\pm=(a+b)X+(a-b)T\pm2rY.
+\end{equation}
+
+\begin{proposition}[Split eigen-coordinates]\label{prop:eta}
+Along the flow,
+\[
+\eta_+(t)=e^{2rt}\eta_+(0),
+\qquad
+\eta_-(t)=e^{-2rt}\eta_-(0),
+\]
+and on the cutting plane,
+\begin{equation}\label{eq:etaproduct}
+\boxed{\eta_+\eta_-=c^2.}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The corresponding row vectors are left eigenvectors of $G_{a,b}$ with eigenvalues $\pm2r$.  With the same $P,Q$ as above and $r^2=-ab$,
+\[
+\eta_+\eta_-=P^2-4r^2Y^2
+=P^2+4abY^2
+=Q^2=c^2.
+\]
+\end{proof}
+
+For a nondegenerate hyperbolic section $c\ne0$.  Again orient the equation so that $c>0$ and define
+\begin{equation}\label{eq:xiprojective}
+\boxed{
+\xi_+:=\frac{\eta_+}{c},
+\qquad
+\xi_-:=\frac{\eta_-}{c}.
+}
+\end{equation}
+Then
+\begin{equation}\label{eq:xiproduct}
+\boxed{\xi_+\xi_-=1.}
+\end{equation}
+On each connected future branch the signs of $\xi_\pm$ are fixed, and the normalized flow is multiplicative with opposite exponents.  Thus the elliptic and hyperbolic projective normal forms are
+\[
+|z|=1
+\qquad\text{and}\qquad
+\xi_+\xi_-=1.
+\]
+
+\section{Power maps attached to a chosen equation}
+
+The normalized coordinates above describe the intrinsic projective orbit dynamics.  A stronger level-raising construction is obtained only after choosing a specific equation
+\[
+ax+by=c.
+\]
+Indeed, a geometric line is unchanged by
+\[
+(a,b,c)\mapsto(\kappa a,\kappa b,\kappa c),
+\qquad \kappa\ne0,
+\]
+but the unnormalized eigen-coordinates scale linearly with the coefficients while their $n$th powers scale by $\kappa^n$.  The construction below is therefore attached to a \emph{chosen equation}, not canonically to the unnormalized geometric line.
+
+Throughout this section let
+\[
+n\in\mathbb Z_{\ge1}.
+\]
+
+\subsection{Elliptic power map}
+Assume $ab>0$.  Given a point on the signed section, define
+\[
+\zeta_n:=\zeta_{a,b}^n=P_n+iR_n.
+\]
+Define $(X_n,Y_n,T_n)$ by
+\begin{align}
+(a+b)X_n+(a-b)T_n&=P_n,\label{eq:ellrec1}\\
+(a-b)X_n+(a+b)T_n&=c^n,\label{eq:ellrec2}\\
+2\sqrt{ab}\,Y_n&=R_n.\label{eq:ellrec3}
+\end{align}
+The $2\times2$ coefficient matrix in \eqref{eq:ellrec1}--\eqref{eq:ellrec2} has determinant $4ab\ne0$, so the reconstruction is unique.
+
+\begin{proposition}[Elliptic chosen-equation power map]\label{prop:ellpower}
+The reconstructed point satisfies
+\[
+X_n^2+Y_n^2=T_n^2
+\]
+and lies on the chosen target plane
+\[
+(a-b)X_n+(a+b)T_n=c^n,
+\]
+equivalently $ax_n+by_n=c^n$ for $x_n=T_n+X_n$, $y_n=T_n-X_n$.
+\end{proposition}
+
+\begin{proof}
+Because $|\zeta_n|^2=|\zeta|^{2n}=c^{2n}$,
+\[
+P_n^2+R_n^2=c^{2n}.
+\]
+Let
+\[
+Q_n=(a-b)X_n+(a+b)T_n=c^n.
+\]
+The identity used in Proposition~\ref{prop:zeta} reverses:
+\[
+P_n^2-Q_n^2=4ab(X_n^2-T_n^2).
+\]
+Since $R_n=2\sqrt{ab}\,Y_n$ and $P_n^2+R_n^2=Q_n^2$, we obtain
+\[
+4ab(X_n^2-T_n^2)=-4abY_n^2,
+\]
+hence the cone equation.
+\end{proof}
+
+\subsection{Hyperbolic power map}
+Assume $ab<0$.  Define
+\[
+\eta_{+,n}:=\eta_+^n,
+\qquad
+\eta_{-,n}:=\eta_-^n,
+\]
+then set
+\begin{equation}\label{eq:hyperPQ}
+P_n=\frac{\eta_{+,n}+\eta_{-,n}}{2},
+\qquad
+Y_n=\frac{\eta_{+,n}-\eta_{-,n}}{4\sqrt{-ab}}.
+\end{equation}
+Reconstruct $X_n,T_n$ from
+\begin{align}
+(a+b)X_n+(a-b)T_n&=P_n,\label{eq:hyprec1}\\
+(a-b)X_n+(a+b)T_n&=c^n.\label{eq:hyprec2}
+\end{align}
+The coefficient determinant is again $4ab\ne0$.
+
+\begin{proposition}[Hyperbolic chosen-equation power map]\label{prop:hyppower}
+The reconstructed point lies on the cone and on the chosen target plane with right-hand side $c^n$.
+\end{proposition}
+
+\begin{proof}
+From \eqref{eq:etaproduct},
+\[
+\eta_{+,n}\eta_{-,n}=c^{2n}.
+\]
+Equation \eqref{eq:hyperPQ} gives
+\[
+P_n^2-4(-ab)Y_n^2=c^{2n}.
+\]
+Writing $Q_n=c^n$, this is
+\[
+P_n^2+4abY_n^2=Q_n^2.
+\]
+Using again
+\[
+P_n^2-Q_n^2=4ab(X_n^2-T_n^2)
+\]
+gives $X_n^2+Y_n^2=T_n^2$.
+\end{proof}
+
+\subsection{Semiconjugacy with the Lorentz flow}
+
+\begin{theorem}[Power-flow semiconjugacy]\label{thm:semiconj}
+For either nonparabolic chosen-equation eigen-coordinate construction,
+\begin{equation}\label{eq:semiconj}
+\boxed{
+\Psi_n\circ\operatorname{flow}_t
+=\operatorname{flow}_{nt}\circ\Psi_n.
+}
+\end{equation}
+The same identity holds intrinsically on the normalized orbit coordinates under $z\mapsto z^n$ in the elliptic case and $(\xi_+,\xi_-)\mapsto(\xi_+^n,\xi_-^n)$ in the hyperbolic case.
+\end{theorem}
+
+\begin{proof}
+In an eigen-coordinate $z$ with flow $z(t)=e^{\omega t}z_0$,
+\[
+\Psi_n(z(t))=(e^{\omega t}z_0)^n=e^{\omega nt}z_0^n.
+\]
+The right-hand side is exactly the time-$nt$ flow starting from the output point $\Psi_n(z_0)=z_0^n$.  The split case is the same calculation on the pair $(\eta_+,\eta_-)$ or $(\xi_+,\xi_-)$ with opposite exponents.
+\end{proof}
+
+\begin{remark}[Normalization guardrail]
+The normalized maps $z\mapsto z^n$ and $(\xi_+,\xi_-)\mapsto(\xi_+^n,\xi_-^n)$ are self-maps of the normalized orbit and are projectively well defined after the orientation convention $c>0$.  By contrast, if the same geometric line is rewritten as $(\kappa a)x+(\kappa b)y=\kappa c$, then the unnormalized eigen-coordinate is rescaled before taking its $n$th power.  For $n>1$ this changes the chosen level-raising reconstruction.  Thus the $c^n$ target-plane construction is exact for a fixed chosen equation, but it is not an intrinsic projective operation.
+\end{remark}
+
+\section{The parabolic boundary}
+
+Suppose $ab=0$.  Then Proposition~\ref{prop:classification} gives only the zero eigenvalue and $G_{a,b}$ is nilpotent.  The complex/split diagonal eigen-coordinate constructions above therefore collapse.
+
+\begin{proposition}[What degenerates at a row or column]\label{prop:parabolic}
+For $ab=0$, there is no nonzero diagonal eigen-coordinate of the elliptic/hyperbolic type used above.  Consequently the preceding eigen-coordinate power-map construction does not extend by continuity as a diagonalization argument.
+\end{proposition}
+
+This does \emph{not} mean that no power map exists.  The elementary coordinatewise operation
+\begin{equation}\label{eq:coordpower}
+\boxed{P_n(x,y)=(x^n,y^n)}
+\end{equation}
+sends a row $x=c$ to $x=c^n$, and a column $y=c$ to $y=c^n$.  Its cone coordinates are
+\[
+X_n=\frac{x^n-y^n}{2},
+\qquad
+Y_n=\pm(xy)^{n/2},
+\qquad
+T_n=\frac{x^n+y^n}{2},
+\]
+which satisfy $X_n^2+Y_n^2=T_n^2$ identically.
+
+There are also two distinct one-parameter notions in the parabolic case.  Literal translation $y\mapsto y+d$ preserves a row in factor coordinates, whereas $e^{tG_{a,0}}$ is the nilpotent Lorentz null-rotation flow on the signed cone.  They should not be identified without an explicit parameter correspondence.
+
+\section{Constant product and rapidity}
+
+The coordinatewise power map \eqref{eq:coordpower} is particularly transparent on a constant-product curve:
+\[
+xy=N
+\quad\Longrightarrow\quad
+x^ny^n=N^n.
+\]
+In rapidity,
+\[
+s=\frac12\log\frac{x}{y},
+\]
+we obtain
+\begin{equation}\label{eq:rapiditypower}
+\boxed{s\mapsto ns.}
+\end{equation}
+Thus coordinatewise powers dilate Lorentz rapidity while raising the product level.  This is structurally different from the chosen-equation eigen-coordinate powers above, even though both are naturally expressed in coordinates adapted to one-parameter Lorentz actions.
+
+The rapidity variable is also the one used by the area companion \cite{Ebert2026Area}, where it compactifies into circle angle through
+\[
+\cos\theta=\operatorname{sech}s,
+\qquad
+d\theta=\operatorname{sech}s\,ds.
+\]
+This agreement is an exact coordinate bridge across the continuous Cone framework.
+
+\section{Relation to the discriminant-$12$ return}
+
+The present paper is continuous: it identifies the real Lorentz flows naturally attached to Paper-A cutting directions.  A separate arithmetic construction \cite{Ebert2026D12} selects a distinguished integral return with discriminant $12$ and real boost factor
+\[
+\lambda=2+\sqrt3.
+\]
+In factor light-cone coordinates that return acts as
+\[
+x\mapsto\lambda x,
+\qquad
+y\mapsto\lambda^{-1}y,
+\]
+so its rapidity action is
+\[
+s\mapsto s+\log\lambda.
+\]
+This is a discrete arithmetic element represented inside the same real Lorentz geometry; it is not literally the generic continuous generator $G_{a,b}$ of a cutting plane.
+
+\section{Conclusion}
+
+The continuous symmetry behind Paper A is now explicit.  The metric-dual cutting-plane normal has Lorentz norm $-4ab$, the corresponding generator has characteristic polynomial $\lambda(\lambda^2+4ab)$, and each connected signed nondegenerate section is a full orbit of that generator.  Normalizing by $2\sqrt{|ab|}$ isolates the projective Lorentz dynamics with nonzero spectrum $\pm i$ or $\pm1$.  Complex and split eigen-coordinates reduce the oriented projective sections to the intrinsic normal forms
+\[
+|z|=1,
+\qquad
+\xi_+\xi_-=1.
+\]
+Their integer powers give intrinsic semiconjugate orbit self-maps, while the stronger reconstruction onto a target plane with right-hand side $c^n$ remains an exact but chosen-equation-dependent lift.  The parabolic boundary marks the failure of diagonalization rather than the failure of all power operations.  Together with the common rapidity variable, these results make the present paper the continuous Lorentz-symmetry companion to the elementary geometry of Paper A and the later arithmetic return construction.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, 2026.
+\bibitem{Ebert2026Area} J.~Ebert, \emph{Area Distortion and Exact Band Geometry of the AM--GM Cone}, 2026.
+\bibitem{Ebert2026D12} J.~Ebert, \emph{The Discriminant-$12$ Return: From a Centered Cayley Selection to a Cyclotomic and Finite Arithmetic Structure}, 2026.
+\end{thebibliography}
+
+\end{document}

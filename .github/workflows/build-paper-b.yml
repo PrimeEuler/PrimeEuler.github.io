@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'unified/discriminant-12-return/foundations/PaperB_EigenCoordinates_v2.tex'
+      - 'unified/discriminant-12-return/foundations/PaperB_EigenCoordinates_v2.1.tex'
       - 'unified/discriminant-12-return/foundations/build_paper_b.sh'
       - '.github/workflows/build-paper-b.yml'
 
@@ -30,11 +30,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add unified/discriminant-12-return/foundations/PaperB_EigenCoordinates_v2.pdf
+          git add unified/discriminant-12-return/foundations/PaperB_EigenCoordinates_v2.1.pdf
           if git diff --cached --quiet; then
             echo "PDF unchanged"
           else
-            git commit -m "Build Paper B v2 PDF"
+            git commit -m "Build Paper B v2.1 PDF"
             git reset --hard HEAD
             git clean -fd
             git pull --rebase origin master
