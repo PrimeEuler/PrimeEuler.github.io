@@ -39,9 +39,18 @@ build target is `PaperB_EigenCoordinates_v2.tex`, which remains under audit.
 reconciled after Paper B because its present formulation still inherits parts
 of the older power-map framework.
 
+`Casimir_Null_Diamond_Standalone_v2.1.tex` is now an active audited foundation.
+It is the sole live authoritative null-diamond source. The former
+`papers/Casimir_Null_Diamond_Standalone_v2_Audited.tex/.pdf` artifacts were
+removed after v2.1 was established; Git history preserves that historical
+version. v2.1 incorporates the audit guardrails on Farey representative
+orientation, Paper-C source status, the two-mode positive-discrete-series
+convention, and the distinction between a state transition vertex and the
+four-corner cell center.
+
 Figure generators do **not** belong in `foundations/`. Foundation TeX files read
 publication figures from `../figures/`, and build scripts invoke the paper-owned
-generators from there.
+generators from there when figures are required.
 
 ## Papers
 
@@ -99,9 +108,12 @@ multiplication modulo 12, not adjacency in the drawing.
 ### Other foundation papers
 
 `foundations/build_paper_b.sh` contains no figure-generation step; it only
-compiles `PaperB_EigenCoordinates_v2.tex`. No separate Paper B figure generator
-is therefore being renamed in this cleanup. Paper C likewise has no active
+compiles `PaperB_EigenCoordinates_v2.tex`. Paper C likewise has no active
 publication figure generator in `figures/` at this checkpoint.
+
+`foundations/build_casimir_null_diamond.sh` compiles
+`Casimir_Null_Diamond_Standalone_v2.1.tex`; the null-diamond paper currently has
+no publication figure generator.
 
 ## CI / publication workflow invariant
 
@@ -116,6 +128,7 @@ Current active mappings are:
 - `build-paper-a.yml` -> `foundations/build_paper_a.sh` -> `PaperA_ConicTheorem_v2.4.tex`
 - `build-area-paper.yml` -> `foundations/build_area_paper.sh` -> `Note_AreaDistortion_AMGM_Cone_v1.1.tex`
 - `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.tex`
+- `build-casimir-null-diamond.yml` -> `foundations/build_casimir_null_diamond.sh` -> `Casimir_Null_Diamond_Standalone_v2.1.tex`
 - `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.3.sh` -> `Discriminant_12_Return_v0.3.3.tex`
 
 Publication workflows that invoke Matplotlib with LaTeX rendering install the
@@ -127,9 +140,11 @@ binary-write limitations are not part of the CI build path.
 
 - `Divisor_Summatory_V4_Mod12_Findings.md`
 - `Jx_Jy_V4_Quarter_Shift_Findings.md`
+- `STATUS_2026-09-03_Operator_Cone_Unification.md`
+- `Note_SemiclassicalArea.tex` — exploratory LQG branch retained for possible future work; its geometry-only content was superseded for foundation purposes by `foundations/Note_AreaDistortion_AMGM_Cone_v1.1.tex`.
 
 These are retained as source research notes rather than cited as completed
-theorems.
+theorems unless a later audit explicitly promotes a result.
 
 ## Ledger
 
@@ -137,6 +152,10 @@ The `ledger/` directory preserves the audited derivation trail and publication
 checkpoints for this project. The highest valid checkpoint should be treated as
 the current baseline; earlier files are retained so development can be
 reconstructed.
+
+The expected startup chain for a future working session is:
+
+**README -> current structure/rules -> `foundations/FOUNDATIONS_INVENTORY.md` -> highest ledger checkpoint -> actual source/build/workflow files.**
 
 ## Scope
 
