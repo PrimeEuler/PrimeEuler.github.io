@@ -29,10 +29,15 @@ begin with `unified/discriminant-12-return/foundations/`.
 ## Foundation papers
 
 The `foundations/` directory contains the authoritative project-local working
-versions of the foundation material. The current Paper A source is
-`PaperA_ConicTheorem_v2.4.tex`. Paper B working sources are
-`PaperB_EigenCoordinates.tex` and `PaperB_EigenCoordinates_v2.tex`, and Paper C
-is `PaperC_QuantumRealizations.tex`.
+versions of the foundation material. Its file-by-file role and status are
+recorded in `foundations/FOUNDATIONS_INVENTORY.md`; consult that manifest before
+renaming, moving, archiving, or treating a foundation source as authoritative.
+
+The current Paper A source is `PaperA_ConicTheorem_v2.4.tex`. Paper B's current
+build target is `PaperB_EigenCoordinates_v2.tex`, which remains under audit.
+`PaperC_QuantumRealizations.tex` is downstream foundation material that must be
+reconciled after Paper B because its present formulation still inherits parts
+of the older power-map framework.
 
 Figure generators do **not** belong in `foundations/`. Foundation TeX files read
 publication figures from `../figures/`, and build scripts invoke the paper-owned
@@ -64,11 +69,11 @@ Canonical implementations:
 `PaperA_ConicTheorem_v2.4.tex`. `foundations/build_area_paper.sh` calls the area
 companion generator before compiling `Note_AreaDistortion_AMGM_Cone_v1.1.tex`.
 
-The output asset filenames currently remain
-`fig_cutting_plane_3panel.*`, `fig_divisor_summatory_11_3panel.*`, and
-`fig_area_measure_11_2panel.*` so the existing Paper A and area-note TeX sources
-continue to compile without a publication-content change. The generator source,
-however, has one unambiguous paper-owned name.
+The area companion now writes paper-specific outputs
+`paperA_area_measure_11_2panel.pdf/png`; its build script stages the historical
+v1.1 TeX with that filename so the source snapshot can remain unchanged. Paper
+A's cutting-plane and divisor output names are still the names referenced by
+its current TeX source and can be normalized separately if desired.
 
 ### The Discriminant-12 Return
 
