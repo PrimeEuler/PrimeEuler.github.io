@@ -42,11 +42,15 @@ two-sided Paper-A cone, the metric-dual cutting normal, the normalized generator
 level-raising powers. `PaperB_EigenCoordinates_v2.tex/.pdf` are historical
 predecessors after this promotion.
 
-`PaperC_QuantumRealizations.tex` is downstream foundation material and is now
-the next theorem-reconciliation target. Its present formulation still inherits
-parts of the older Paper-B power-map framework and also needs the global two-mode
-positive-discrete-series convention corrected to `k=(|n1-n2|+1)/2`, with
-`k=X` only in the oriented `n1>=n2` sector.
+The current audited Paper C source is `PaperC_QuantumRealizations_v1.1.tex`,
+with compiled snapshot `PaperC_QuantumRealizations_v1.1.pdf`. Paper C v1.1 is
+the quantum-realization foundation downstream of Paper B v2.1. It uses the
+global positive-discrete-series convention `k=(|n1-n2|+1)/2`, distinguishes the
+conserved signed number-difference coordinate from the Bargmann label, corrects
+the squeezing/classical parameter match, treats the `B_X` result as a scoped
+Gaussian obstruction rather than an unproved universal no-go, and proves the
+generic elliptic revival using `A^2=-ab I`. The former
+`PaperC_QuantumRealizations.tex/.pdf` pair is historical after this promotion.
 
 `Casimir_Null_Diamond_Standalone_v2.1.tex` is an active audited foundation.
 It is the sole live authoritative null-diamond source. The former
@@ -117,8 +121,11 @@ multiplication modulo 12, not adjacency in the drawing.
 ### Other foundation papers
 
 `foundations/build_paper_b.sh` contains no figure-generation step; it compiles
-`PaperB_EigenCoordinates_v2.1.tex`. Paper C has no active publication figure
-generator in `figures/` at this checkpoint.
+`PaperB_EigenCoordinates_v2.1.tex`.
+
+`foundations/build_paper_c.sh` contains no figure-generation step; it compiles
+`PaperC_QuantumRealizations_v1.1.tex`. Paper C currently has no active
+publication figure generator in `figures/`.
 
 `foundations/build_casimir_null_diamond.sh` compiles
 `Casimir_Null_Diamond_Standalone_v2.1.tex`; the null-diamond paper currently has
@@ -137,6 +144,7 @@ Current active mappings are:
 - `build-paper-a.yml` -> `foundations/build_paper_a.sh` -> `PaperA_ConicTheorem_v2.4.tex`
 - `build-area-paper.yml` -> `foundations/build_area_paper.sh` -> `Note_AreaDistortion_AMGM_Cone_v1.1.tex`
 - `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.1.tex`
+- `build-paper-c.yml` -> `foundations/build_paper_c.sh` -> `PaperC_QuantumRealizations_v1.1.tex`
 - `build-casimir-null-diamond.yml` -> `foundations/build_casimir_null_diamond.sh` -> `Casimir_Null_Diamond_Standalone_v2.1.tex`
 - `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.3.sh` -> `Discriminant_12_Return_v0.3.3.tex`
 
@@ -144,6 +152,10 @@ Publication workflows that invoke Matplotlib with LaTeX rendering install the
 same TeX support used by the local generators, including `cm-super`. Generated
 PDF/PNG binaries are produced and committed by GitHub Actions; connector-side
 binary-write limitations are not part of the CI build path.
+
+Paper C v1.1's CI build completed successfully and committed
+`foundations/PaperC_QuantumRealizations_v1.1.pdf` in commit
+`edf120b01daf520c86d00adbc6a7fe179a536767`.
 
 ## Research notes
 
