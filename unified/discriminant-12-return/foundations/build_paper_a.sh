@@ -6,8 +6,8 @@ FIG="$HERE/../figures"
 PAPER="PaperA_ConicTheorem_v2.4.tex"
 
 printf '==> generating Paper A figures from figures/\n'
-python3 "$FIG/fig_cutting_plane_3panel.py"
-python3 "$FIG/fig_divisor_summatory_11_3panel.py"
+python3 "$FIG/paperA_cutting_plane_3panel.py"
+python3 "$FIG/paperA_divisor_summatory_11_3panel.py"
 
 printf '==> compiling %s in foundations/\n' "$PAPER"
 cd "$HERE"
