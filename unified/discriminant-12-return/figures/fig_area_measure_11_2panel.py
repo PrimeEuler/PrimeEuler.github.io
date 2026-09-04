@@ -18,6 +18,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update({
+    "text.usetex": True,
+    "text.latex.preamble": r"\usepackage{amsmath}\usepackage{amssymb}",
+})
+
 n = 11
 S = n + 1
 R = S / 2
@@ -37,9 +42,6 @@ W_L = (2.0 / 3.0) * (n - 1) * sqrt_n
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12.6, 5.8))
 
-# ---------------------------------------------------------------
-# Panel (a): factor plane
-# ---------------------------------------------------------------
 x_shell = np.linspace(0, S, 600)
 y_shell = S - x_shell
 ax1.plot(x_shell, y_shell, lw=1.5, label=r"$x+y=12$")
@@ -48,12 +50,9 @@ ax1.fill_between(x_shell, 0, y_shell, alpha=0.08)
 x_h = np.linspace(1, n, 700)
 y_h = n / x_h
 ax1.plot(x_h, y_h, lw=2.2, label=r"$xy=11$")
-
-# continuous below-hyperbola central region giving n log n
 ax1.fill_between(x_h, 0, y_h, alpha=0.16,
                  label=rf"central area $11\log 11={nlogn:.3f}$")
 
-# discrete divisor lattice
 pts = [(x, y) for x in range(1, S) for y in range(1, S - x + 1)]
 Dp = [(x, y) for x, y in pts if x * y <= n]
 Ap = [(x, y) for x, y in pts if x * y > n]
@@ -79,9 +78,6 @@ factor_text = (
 ax1.text(0.45, 2.0, factor_text, fontsize=9,
          bbox=dict(boxstyle="round,pad=0.35", fc="white", ec="0.7", alpha=0.95))
 
-# ---------------------------------------------------------------
-# Panel (b): flat circle view
-# ---------------------------------------------------------------
 t = np.linspace(0, math.pi, 800)
 Xc = R * np.cos(t)
 Yc = R * np.sin(t)
@@ -92,7 +88,6 @@ Xs = np.linspace(-(n - 1) / 2, (n - 1) / 2, 500)
 Ys = np.full_like(Xs, sqrt_n)
 ax2.plot(Xs, Ys, lw=2.2, label=r"$Y=\sqrt{11}$")
 
-# raw Euclidean regions
 xc_fill = np.linspace(-R, R, 1000)
 ycircle = np.sqrt(np.maximum(0, R * R - xc_fill * xc_fill))
 ax2.fill_between(xc_fill, 0, ycircle, alpha=0.07)
@@ -101,7 +96,6 @@ ax2.fill_between(xc_fill[mask], sqrt_n, ycircle[mask],
                  where=ycircle[mask] >= sqrt_n, alpha=0.18,
                  label=rf"raw cap area $={A_cap:.3f}$")
 
-# angular weight annotation
 th = np.linspace(-math.pi / 2, math.pi / 2, 9)
 rr = 5.45
 for ang in th:
