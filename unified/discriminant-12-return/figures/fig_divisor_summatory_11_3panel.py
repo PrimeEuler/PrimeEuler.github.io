@@ -4,12 +4,17 @@ from pathlib import Path
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 # ---------------------------------------------------------------
-# Divisor-summatory figure for n=11, built directly from Paper A's
-# fig_cutting_plane_3panel.py geometry and layout.
+# Divisor-summatory figure for n=11, using Paper A's canonical geometry.
 #
-# Paper A coordinates:
-#   X=(x-y)/2,  Y=sqrt(xy),  T=(x+y)/2,
+# Fundamental Paper A v2.4 relation:
+#   X=(x-y)/2,  Y^2=xy,  T=(x+y)/2,
 #   X^2+Y^2=T^2.
+#
+# This particular counting figure intentionally displays the UPPER lift
+# Y=+sqrt(xy) only. The reflected lower lift contains the same factor data
+# and is omitted here so the discrete counts D(11)=29 and A_11=37 remain
+# visually readable. This is a presentation convention, not a restriction
+# on Paper A's two-sided cone geometry.
 #
 # The outer anti-diagonal x+y=12 gives T=6 and bounds the triangular
 # positive-lattice domain x+y<=12, which contains exactly
@@ -20,10 +25,11 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 #   A_11  = #{(x,y): x+y<=12 and xy>11} = 37,
 # so T_11 = D(11)+A_11 = 66.
 #
-# The boundary xy=11 becomes
-#   Y=sqrt(11) in the flat (X,Y) projection,
+# On the displayed upper lift, xy=11 becomes
+#   Y=+sqrt(11) in the (X,Y) projection,
 #   T^2-X^2=11 in the side (X,T) projection,
-# and the vertical plane Y=sqrt(11) cutting the cone in 3D.
+# and the vertical plane Y=+sqrt(11) cutting the cone in 3D.
+# The omitted lower lift is obtained by Y -> -Y.
 # ---------------------------------------------------------------
 
 n = 11
@@ -50,52 +56,52 @@ D_pts = [(x, y) for x, y in table_pts if x * y <= n]
 A_pts = [(x, y) for x, y in table_pts if x * y > n]
 assert len(D_pts) == D and len(A_pts) == An
 
-def cone_coords(points):
+
+def upper_cone_coords(points):
+    """Return the intentional upper lift Y=+sqrt(xy) for factor points."""
     X = np.array([(x-y)/2.0 for x, y in points])
     Y = np.array([np.sqrt(x*y) for x, y in points])
     T = np.array([(x+y)/2.0 for x, y in points])
     return X, Y, T
 
-XD, YD, TD = cone_coords(D_pts)
-XA, YA, TA = cone_coords(A_pts)
 
-# Use the same canvas, widths, spacing, and general styling as Paper A.
+XD, YD, TD = upper_cone_coords(D_pts)
+XA, YA, TA = upper_cone_coords(A_pts)
+
 fig = plt.figure(figsize=(16.5, 6.6))
 gs = fig.add_gridspec(1, 3, width_ratios=[1, 1, 1.05], wspace=0.28)
 
-# restrained classification colors
-cD = "#2f6f44"     # divisor region
-cA = "#b65a52"     # A_n complement
-cH = "#7a3db8"     # n H_n text
-cL = "#2f6fb0"     # n log n text
-cB = "#8b1a1a"     # xy=n boundary
+cD = "#2f6f44"
+cA = "#b65a52"
+cH = "#7a3db8"
+cL = "#2f6fb0"
+cB = "#8b1a1a"
 
 theta_c = np.linspace(0, 2*np.pi, 300)
 
 # =================================================================
-# Panel (a): Paper A flat (X,Y) projection.
+# Panel (a): upper-lift (X,Y) projection.
 # =================================================================
 axA = fig.add_subplot(gs[0, 0])
-axA.set_title("(a) Flat: projected onto\n"
-              r"the $(X,Y)$ plane, out to $x{+}y{=}12$", fontsize=12)
+axA.set_title("(a) Upper lift: divisor cells in\n"
+              r"the $(X,Y)$ projection, $Y=+\sqrt{xy}$", fontsize=12)
 
-# Anti-diagonal circles x+y=K, K=2,...,12.
+# Fixed-sum circles; the view window shows their upper arcs because this panel
+# intentionally displays only Y>=0 factor lifts.
 for K in range(2, Kmax + 1):
     r = K / 2.0
     lw = 1.15 if K == Kmax else 0.55
     alpha = 0.65 if K == Kmax else 0.18
     axA.plot(r*np.cos(theta_c), r*np.sin(theta_c), color="0.35", lw=lw, alpha=alpha)
 
-# xy=n is horizontal in this projection.
-axA.axhline(sqrt_n, color=cB, lw=2.0, ls="--", label=r"$xy=11\iff Y=\sqrt{11}$")
+axA.axhline(sqrt_n, color=cB, lw=2.0, ls="--",
+            label=r"$xy=11\iff Y=+\sqrt{11}$")
 
-# Discrete transformed cells.
-axA.scatter(XD, YD, s=34, color=cD, alpha=0.88, edgecolors="white", linewidths=0.35,
-            label=r"$D(11)=29$")
-axA.scatter(XA, YA, s=34, color=cA, alpha=0.82, edgecolors="white", linewidths=0.35,
-            label=r"$A_{11}=37$")
+axA.scatter(XD, YD, s=34, color=cD, alpha=0.88,
+            edgecolors="white", linewidths=0.35, label=r"$D(11)=29$")
+axA.scatter(XA, YA, s=34, color=cA, alpha=0.82,
+            edgecolors="white", linewidths=0.35, label=r"$A_{11}=37$")
 
-# Extremal factor points.
 axA.scatter([-5, 5], [sqrt_n, sqrt_n], s=52, color=cB, zorder=5)
 axA.annotate(r"$(1,11)$", (-5, sqrt_n), xytext=(-4.75, sqrt_n+0.45), fontsize=9)
 axA.annotate(r"$(11,1)$", (5, sqrt_n), xytext=(3.65, sqrt_n+0.45), fontsize=9)
@@ -108,35 +114,32 @@ axA.set_xlim(-6.35, 6.35)
 axA.set_ylim(-0.2, 6.35)
 axA.set_aspect("equal", adjustable="box")
 axA.set_xlabel(r"$X=(x-y)/2$")
-axA.set_ylabel(r"$Y=\sqrt{xy}$")
+axA.set_ylabel(r"$Y=+\sqrt{xy}$")
 axA.grid(alpha=0.12)
 axA.legend(loc="lower right", fontsize=8, frameon=False)
 
 # =================================================================
-# Panel (b): side (X,T) projection.
+# Panel (b): common side projection (X,T); independent of lift sign.
 # =================================================================
 axB = fig.add_subplot(gs[0, 1])
 axB.set_title("(b) Side: multiplication table\n"
               r"in the $(X,T)$ plane", fontsize=12)
 
-# Cone generator edges in side view.
 xx = np.linspace(-6.2, 6.2, 300)
 axB.plot(xx, np.abs(xx), color="0.45", lw=1.0, alpha=0.55)
 
-# Anti-diagonal levels T=K/2.
 for K in range(2, Kmax + 1):
     r = K / 2.0
     axB.hlines(r, -r, r, color="0.4", lw=0.5, alpha=0.16)
 
-# Constant product xy=n -> T=sqrt(X^2+n).
 Xh = np.linspace(-5, 5, 500)
 Th = np.sqrt(Xh**2 + n)
 axB.plot(Xh, Th, color=cB, lw=2.0, ls="--", label=r"$T^2-X^2=11$")
 
-axB.scatter(XD, TD, s=34, color=cD, alpha=0.88, edgecolors="white", linewidths=0.35,
-            label=r"$D(11)=29$")
-axB.scatter(XA, TA, s=34, color=cA, alpha=0.82, edgecolors="white", linewidths=0.35,
-            label=r"$A_{11}=37$")
+axB.scatter(XD, TD, s=34, color=cD, alpha=0.88,
+            edgecolors="white", linewidths=0.35, label=r"$D(11)=29$")
+axB.scatter(XA, TA, s=34, color=cA, alpha=0.82,
+            edgecolors="white", linewidths=0.35, label=r"$A_{11}=37$")
 axB.scatter([-5, 5], [6, 6], s=52, color=cB, zorder=5)
 
 axB.text(0, 6.08, r"$x+y=12$", ha="center", va="bottom", fontsize=10)
@@ -151,43 +154,40 @@ axB.grid(alpha=0.12)
 axB.legend(loc="lower right", fontsize=8, frameon=False)
 
 # =================================================================
-# Panel (c): 3D cone with Y=sqrt(n) cutting plane.
+# Panel (c): upper half of the cone with Y=+sqrt(11) cutting plane.
 # =================================================================
 axC = fig.add_subplot(gs[0, 2], projection="3d")
-axC.set_title("(c) 3D: constant-product plane\n"
-              r"$Y=\sqrt{11}$ cuts the cone", fontsize=12)
+axC.set_title("(c) Upper lift: constant-product plane\n"
+              r"$Y=+\sqrt{11}$ cuts the cone", fontsize=12)
 
-# Cone wireframe / light surface.
 theta = np.linspace(0, np.pi, 80)
 radii = np.linspace(0, Rmax, 45)
 RR, TH = np.meshgrid(radii, theta)
 XC = RR * np.cos(TH)
 YC = RR * np.sin(TH)
 TC = RR
-axC.plot_surface(XC, YC, TC, color="0.82", alpha=0.13, linewidth=0, antialiased=True)
+axC.plot_surface(XC, YC, TC, color="0.82", alpha=0.13,
+                 linewidth=0, antialiased=True)
 
-# Outer half-circle at T=6.
 th = np.linspace(0, np.pi, 300)
 axC.plot(Rmax*np.cos(th), Rmax*np.sin(th), np.full_like(th, Rmax),
          color="0.35", lw=1.25, alpha=0.7)
 
-# Constant-Y cutting plane patch.
 Xp = np.linspace(-5.5, 5.5, 2)
 Tp = np.linspace(sqrt_n, 6.25, 2)
 XXp, TTp = np.meshgrid(Xp, Tp)
 YYp = np.full_like(XXp, sqrt_n)
 axC.plot_surface(XXp, YYp, TTp, color=cB, alpha=0.13, linewidth=0)
 
-# Intersection hyperbola on the cone.
 Xcurve = np.linspace(-5, 5, 400)
 Tcurve = np.sqrt(Xcurve**2 + n)
 Ycurve = np.full_like(Xcurve, sqrt_n)
 axC.plot(Xcurve, Ycurve, Tcurve, color=cB, lw=2.2, ls="--")
 
-# Discrete points on cone.
 axC.scatter(XD, YD, TD, s=22, color=cD, alpha=0.9, depthshade=False)
 axC.scatter(XA, YA, TA, s=22, color=cA, alpha=0.82, depthshade=False)
-axC.scatter([-5, 5], [sqrt_n, sqrt_n], [6, 6], s=45, color=cB, depthshade=False)
+axC.scatter([-5, 5], [sqrt_n, sqrt_n], [6, 6], s=45,
+            color=cB, depthshade=False)
 
 axC.set_xlim(-6.2, 6.2)
 axC.set_ylim(0, 6.2)
@@ -198,7 +198,6 @@ axC.set_zlabel(r"$T$", labelpad=6)
 axC.view_init(elev=24, azim=-62)
 axC.grid(alpha=0.16)
 
-# Compact footer / consistency statement.
 fig.text(0.5, 0.012,
          r"$T_{11}=66=D(11)+A_{11}=29+37$;  "
          r"$(1,11),(11,1)\leftrightarrow(X,T)=(-5,6),(5,6)$",
