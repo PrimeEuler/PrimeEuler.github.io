@@ -29,8 +29,16 @@ This manifest records what each tracked item in `unified/discriminant-12-return/
 | `PaperB_EigenCoordinates_v2.pdf` | Current compiled Paper B v2 snapshot | **ACTIVE SNAPSHOT / NEEDS AUDIT** | Regenerate after the next Paper B mathematical audit. |
 | `PaperB_EigenCoordinates.tex` | Original Paper B power-map/orbit formulation | **HISTORICAL / SUPERSEDED** | Contains stronger claims later weakened in v2 (canonical power map, parabolic obstruction, global-orbit language). Keep for provenance only. |
 | `PaperB_EigenCoordinates.pdf` | Compiled original Paper B | **HISTORICAL / SUPERSEDED** | Provenance only. |
-| `PaperC_QuantumRealizations.tex` | Paper C: SU(2)/SU(1,1) oscillator realizations and quantum fate of the power map | **ACTIVE FOUNDATION MATERIAL / NEEDS RECONCILIATION** | Its opening premise cites the older Paper B claim that every generator carries an exact power map. Because Paper B v2 already weakens that premise, Paper C must be reconciled downstream of the final Paper B audit before being treated as authoritative. |
+| `PaperC_QuantumRealizations.tex` | Paper C: SU(2)/SU(1,1) oscillator realizations and quantum fate of the power map | **ACTIVE FOUNDATION MATERIAL / NEEDS RECONCILIATION** | Its opening premise cites the older Paper B claim that every generator carries an exact power map. Its two-mode SU(1,1) section also needs the positive-discrete-series convention corrected globally to `k=(|n1-n2|+1)/2`, with `k=X` only in the oriented `n1>=n2` sector. Paper C must be reconciled downstream of the final Paper B audit before being treated as authoritative. |
 | `PaperC_QuantumRealizations.pdf` | Compiled Paper C snapshot | **HISTORICAL SNAPSHOT / NEEDS REBUILD AFTER AUDIT** | Do not treat as synchronized with the eventual corrected Paper B framework. |
+
+## Audited foundation candidate currently in `papers/`
+
+| File | Role | Status | Audit note / next action |
+|---|---|---|---|
+| `../papers/Casimir_Null_Diamond_Standalone_v2_Audited.tex` | Exact Casimir completion / primitive null-edge bridge, with oscillator-cell and discriminant-12 interfaces | **AUDITED CORE / FOUNDATION PROMOTION RECOMMENDED** | Core determinant--Lorentz, midpoint-quarter, SU(2), SU(1,1), oscillator-cell, cyclotomic-normalization, and Boolean-return calculations pass the v13.209 audit. Create a corrected next version in `foundations/` rather than moving v2 unchanged. Required corrections are source-status wording, the global positive-discrete-series convention, transition-cell/state-point clarification, and a Farey projective-orientation qualification. Preserve the v2 TeX/PDF in `papers/` as the historical audited snapshot. |
+
+See `../ledger/Cone_Derivation_Ledger_v13.209_Casimir_Null_Diamond_Audit.md` for the full mathematical audit.
 
 ## Geometry and area companion notes
 
@@ -73,7 +81,10 @@ The working dependency order is:
 2. **Area note v1.1** — one-sided measure companion to Paper A.
 3. **Paper B v2** — Lorentz/eigen-coordinate extension; current but still under audit.
 4. **Paper C** — quantum realization downstream of Paper B; requires reconciliation after Paper B is finalized.
-5. **Semiclassical area note** — exploratory downstream comparison relying on the geometric and quantum dictionaries.
+5. **Casimir / Null-Diamond bridge** — core theorem audited; corrected next version recommended for `foundations/` after the Paper-C convention guardrails are incorporated.
+6. **Semiclassical area note** — exploratory downstream comparison relying on the geometric and quantum dictionaries.
+
+The principal Discriminant-12 paper is downstream publication material, but the null-diamond bridge independently rederives the discriminant-12 cyclotomic/Boolean interface it uses, so its core theorem does not logically depend on the principal paper.
 
 `Note_Parabola_Secant_Divisor_Chamber_v1.0` is a focused geometric/area companion and does not alter this dependency chain.
 
@@ -81,8 +92,9 @@ The working dependency order is:
 
 No mathematical source was deleted during this structural audit. The next directory cleanup should be deliberate rather than automatic:
 
-1. Decide whether historical Paper A/B versions stay in `foundations/` or move to a project-local `archive/` subdirectory.
-2. Move `discrete_staircase_pushforward.py` out of `foundations/` into `research-notes/` or `tools/`.
-3. Decide whether the two specialized notes (`Note_Parabola_Secant_Divisor_Chamber_v1.0` and `Note_SemiclassicalArea`) should live in a `companions/` subdirectory rather than beside Papers A/B/C.
-4. Complete the Paper B v2 audit before changing Paper C; then reconcile Paper C against the corrected Paper B definitions and invariants.
-5. Add a Paper C build script only after its current authoritative source version is settled.
+1. Create the corrected next Casimir/null-diamond source version directly in `foundations/`, while retaining the audited v2 TeX/PDF in `papers/` for provenance.
+2. Decide whether historical Paper A/B versions stay in `foundations/` or move to a project-local `archive/` subdirectory.
+3. Move `discrete_staircase_pushforward.py` out of `foundations/` into `research-notes/` or `tools/`.
+4. Decide whether the two specialized notes (`Note_Parabola_Secant_Divisor_Chamber_v1.0` and `Note_SemiclassicalArea`) should live in a `companions/` subdirectory rather than beside Papers A/B/C.
+5. Complete the Paper B v2 audit before changing the broader Paper C power-map discussion; then reconcile Paper C against the corrected Paper B definitions and invariants.
+6. Add a Paper C build script only after its current authoritative source version is settled.
