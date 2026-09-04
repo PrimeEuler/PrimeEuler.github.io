@@ -17,8 +17,8 @@ rm -rf "$BUILD"
 mkdir -p "$BUILD"
 
 sed \
-  -e 's/{fig_cutting_plane_tangent_circle_audit\.pdf}/{discriminant12_tangent_null_rays_3panel.pdf}/g' \
-  -e 's/{fig_divisor_summatory_11_3panel\.png}/{discriminant12_divisor_summatory_11_3panel.png}/g' \
+  -e 's|fig_cutting_plane_tangent_circle_audit.pdf|discriminant12_tangent_null_rays_3panel.pdf|g' \
+  -e 's|fig_divisor_summatory_11_3panel.png|discriminant12_divisor_summatory_11_3panel.png|g' \
   "$HERE/$SRC" > "$STAGED"
 
 printf '==> compiling isolated Discriminant-12 v0.3.4 build\n'
