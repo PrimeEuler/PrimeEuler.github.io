@@ -103,6 +103,26 @@ compiles `PaperB_EigenCoordinates_v2.tex`. No separate Paper B figure generator
 is therefore being renamed in this cleanup. Paper C likewise has no active
 publication figure generator in `figures/` at this checkpoint.
 
+## CI / publication workflow invariant
+
+The GitHub Actions workflows in `.github/workflows/` are part of the publication
+pipeline and must be kept synchronized with the project-local build scripts.
+Whenever an authoritative TeX version changes, a figure generator is renamed,
+a build script changes target, or a generated publication output is renamed,
+the corresponding workflow must be updated in the same change set.
+
+Current active mappings are:
+
+- `build-paper-a.yml` -> `foundations/build_paper_a.sh` -> `PaperA_ConicTheorem_v2.4.tex`
+- `build-area-paper.yml` -> `foundations/build_area_paper.sh` -> `Note_AreaDistortion_AMGM_Cone_v1.1.tex`
+- `build-paper-b.yml` -> `foundations/build_paper_b.sh` -> `PaperB_EigenCoordinates_v2.tex`
+- `build-discriminant12-paper.yml` -> `papers/build_discriminant12_v0.3.3.sh` -> `Discriminant_12_Return_v0.3.3.tex`
+
+Publication workflows that invoke Matplotlib with LaTeX rendering install the
+same TeX support used by the local generators, including `cm-super`. Generated
+PDF/PNG binaries are produced and committed by GitHub Actions; connector-side
+binary-write limitations are not part of the CI build path.
+
 ## Research notes
 
 - `Divisor_Summatory_V4_Mod12_Findings.md`
