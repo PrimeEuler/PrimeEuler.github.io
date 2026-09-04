@@ -54,9 +54,9 @@ project.
 ## Papers
 
 - `Discriminant_12_Return_v0.1.tex` and `.pdf` — initial theorem-first opening.
-- `Discriminant_12_Return_v0.2.tex` and `.pdf` — current principal-paper draft.
-  It adds the geometric mod-12 unit shell between the Pell–Lorentz and
-  cyclotomic packages.
+- `Discriminant_12_Return_v0.2.tex` and `.pdf` — earlier principal-paper draft.
+- `Discriminant_12_Return_v0.3.3.tex` and `.pdf` — current principal-paper
+  publication baseline used for the paper-specific geometry audit.
 - `Casimir_Null_Diamond_Standalone_v2_Audited.tex` and `.pdf` — companion note
   containing the null-edge/Casimir quarter theorem, cyclotomic-quarter
   comparison, and ramified Boolean return.
@@ -71,24 +71,52 @@ theorems.
 
 ## Figures
 
-Paper A uses the canonical generators and assets in `figures/`:
+Figure generators are **paper-owned publication sources** even though they all
+live in the shared `figures/` directory. A generator or output used by one paper
+must not be silently reused as the publication asset for another paper merely
+because the underlying geometry is related. Each publication pipeline should
+have its own generator/output names whenever the visual purpose differs.
+
+### Paper A
+
+Paper A uses:
 
 - `fig_cutting_plane_3panel.py` — self-contained Paper A cutting-plane generator.
   It draws every fixed-sum shell `K=1,...,12`, the complete two-sided row/column
   parabolas and reflected ellipse cuts, the exact `u=5,6,7` tangent-circle
   examples, and the correctly clipped positive-factor row/column mesh in the
   `(X,T)` side view. It writes `fig_cutting_plane_3panel.pdf/png`.
-- `fig_divisor_summatory_11_3panel.py` — the `n=11` divisor-summatory figure.
-  Its displayed `(X,Y)` and 3D views intentionally use the upper branch
+- `fig_divisor_summatory_11_3panel.py` — Paper A's `n=11` divisor-summatory
+  figure. Its displayed `(X,Y)` and 3D views intentionally use the upper branch
   `Y=+sqrt(xy)` as a one-sided visualization; Paper A's underlying geometry is
-  the two-sided relation `Y^2=xy`.
+  the two-sided relation `Y^2=xy`. It writes
+  `fig_divisor_summatory_11_3panel.pdf/png`.
 - `fig_area_measure_11_2panel.py` — companion area-note figure generator.
-- `mod12_v4_cone_triple.png` and `make_mod12_v4_cone_triple.py` — three-panel
-  realization of the unit residues `{1,5,7,11}` in Paper-A cone coordinates.
 
-`foundations/build_paper_a.sh` generates both Paper A figures from `figures/`
-before compiling `PaperA_ConicTheorem_v2.4.tex`. The area-paper build likewise
-invokes its figure generator from `figures/`.
+`foundations/build_paper_a.sh` generates Paper A's publication figures from
+`figures/` before compiling `PaperA_ConicTheorem_v2.4.tex`. The area-paper build
+likewise invokes its figure generator from `figures/`.
+
+### The Discriminant-12 Return
+
+The principal Discriminant-12 paper now has independent publication generators:
+
+- `discriminant12_tangent_null_rays_3panel.py` — reproduces the v0.3.3
+  parabola-circle/null-ray figure with the complete `K=1,...,12` fixed-`T`
+  family and emphasized `u=5,6,7` row/column parabola tangencies. It writes
+  `discriminant12_tangent_null_rays_3panel.pdf/png`.
+- `discriminant12_divisor_summatory_11_3panel.py` — independent `n=11` divisor
+  figure for the principal paper. It writes
+  `discriminant12_divisor_summatory_11_3panel.pdf/png` and does not overwrite
+  Paper A's divisor assets.
+- `make_mod12_v4_cone_triple.py` — three-panel realization of the unit residues
+  `{1,5,7,11}` in factor-cone coordinates, writing `mod12_v4_cone_triple.png`.
+
+`papers/build_discriminant12_v0.3.3.sh` regenerates the Discriminant-12-owned
+figures and compiles an isolated staging copy of v0.3.3 whose two historical
+figure references are remapped to the new paper-specific filenames. The
+historical v0.3.3 source is therefore preserved while the current build no
+longer overwrites Paper A figure outputs.
 
 The mod-12 figure realizes the four modular labels geometrically. Their `V_4`
 operation remains multiplication modulo 12, not adjacency in the drawing.
