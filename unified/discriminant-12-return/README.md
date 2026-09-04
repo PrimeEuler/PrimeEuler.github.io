@@ -19,8 +19,7 @@ Use these project-local locations:
 - `foundations/` — Foundation papers A, B, C and companion foundation notes.
 - `papers/` — Principal discriminant-12 paper and companion publication drafts.
 - `research-notes/` — Exploratory findings and source research notes.
-- `figures/` — Canonical project figure generators and generated figure assets,
-  including all figures used by the foundation papers.
+- `figures/` — Canonical project figure generators and generated figure assets.
 - `ledger/` — Derivation, audit, publication, and checkpoint ledger entries.
 
 Before any GitHub write, verify that the target path begins with
@@ -29,37 +28,75 @@ begin with `unified/discriminant-12-return/foundations/`.
 
 ## Foundation papers
 
-The `foundations/` directory contains the **authoritative project-local working
-versions** of the foundation material for this branch. In particular, the
-current Paper A source is:
-
-- `PaperA_ConicTheorem_v2.4.tex` — factor-cone and conic geometry with the
-  two-sided projection `Y^2=xy`;
-- `PaperB_EigenCoordinates.tex` / `PaperB_EigenCoordinates_v2.tex` — Lorentz
-  dynamics and eigenframe working sources;
-- `PaperC_QuantumRealizations.tex` — compact/noncompact oscillator realizations
-  and Casimir completion;
-- companion area and geometry notes.
+The `foundations/` directory contains the authoritative project-local working
+versions of the foundation material. The current Paper A source is
+`PaperA_ConicTheorem_v2.4.tex`. Paper B working sources are
+`PaperB_EigenCoordinates.tex` and `PaperB_EigenCoordinates_v2.tex`, and Paper C
+is `PaperC_QuantumRealizations.tex`.
 
 Figure generators do **not** belong in `foundations/`. Foundation TeX files read
-publication figures from `../figures/`, and build scripts must invoke generators
-from that directory. This prevents stale local figure files from shadowing the
-canonical generated assets.
-
-Files of the same or similar names in the parent `unified/` directory may be
-retained as historical/original sources, but they are **not** the working copies
-for the discriminant-12-return project and must not be updated as part of this
-project.
+publication figures from `../figures/`, and build scripts invoke the paper-owned
+generators from there.
 
 ## Papers
 
-- `Discriminant_12_Return_v0.1.tex` and `.pdf` — initial theorem-first opening.
-- `Discriminant_12_Return_v0.2.tex` and `.pdf` — earlier principal-paper draft.
-- `Discriminant_12_Return_v0.3.3.tex` and `.pdf` — current principal-paper
-  publication baseline used for the paper-specific geometry audit.
-- `Casimir_Null_Diamond_Standalone_v2_Audited.tex` and `.pdf` — companion note
-  containing the null-edge/Casimir quarter theorem, cyclotomic-quarter
-  comparison, and ramified Boolean return.
+The principal paper publication baseline is
+`papers/Discriminant_12_Return_v0.3.3.tex` / `.pdf`. Earlier v0.1 and v0.2
+sources are retained as historical drafts. Companion publication material is
+kept in the same `papers/` directory.
+
+## Figure ownership and naming
+
+Every publication-facing Python figure generator in `figures/` must identify
+its owning paper or note in its filename. Generic Python builder names are not
+used for active generators. Related papers may use related geometry, but they
+must not silently share a generator when their publication purpose differs.
+
+### Paper A and its area companion
+
+Canonical implementations:
+
+- `paperA_cutting_plane_3panel.py`
+- `paperA_divisor_summatory_11_3panel.py`
+- `paperA_area_measure_11_2panel.py`
+
+`foundations/build_paper_a.sh` calls the first two before compiling
+`PaperA_ConicTheorem_v2.4.tex`. `foundations/build_area_paper.sh` calls the area
+companion generator before compiling `Note_AreaDistortion_AMGM_Cone_v1.1.tex`.
+
+The output asset filenames currently remain
+`fig_cutting_plane_3panel.*`, `fig_divisor_summatory_11_3panel.*`, and
+`fig_area_measure_11_2panel.*` so the existing Paper A and area-note TeX sources
+continue to compile without a publication-content change. The generator source,
+however, has one unambiguous paper-owned name.
+
+### The Discriminant-12 Return
+
+Canonical implementations:
+
+- `discriminant12_tangent_null_rays_3panel.py`
+- `discriminant12_divisor_summatory_11_3panel.py`
+- `discriminant12_mod12_v4_cone_triple.py`
+
+The tangent/null-ray generator preserves the complete `K=1,...,12` fixed-`T`
+family and the emphasized `u=5,6,7` parabola tangencies. The divisor generator
+is independent of Paper A's divisor generator. The mod-12 generator realizes
+`U(12)={1,5,7,11}` geometrically.
+
+`papers/build_discriminant12_v0.3.3.sh` calls all three Discriminant-12-owned
+generators. Because v0.3.3 is retained as a historical publication source, the
+build stages a temporary copy whose historical tangent/divisor figure names are
+remapped to the paper-specific outputs. Paper A assets are not overwritten.
+
+The mod-12 geometry carries the four modular labels; the `V_4` operation remains
+multiplication modulo 12, not adjacency in the drawing.
+
+### Other foundation papers
+
+`foundations/build_paper_b.sh` contains no figure-generation step; it only
+compiles `PaperB_EigenCoordinates_v2.tex`. No separate Paper B figure generator
+is therefore being renamed in this cleanup. Paper C likewise has no active
+publication figure generator in `figures/` at this checkpoint.
 
 ## Research notes
 
@@ -69,63 +106,11 @@ project.
 These are retained as source research notes rather than cited as completed
 theorems.
 
-## Figures
-
-Figure generators are **paper-owned publication sources** even though they all
-live in the shared `figures/` directory. A generator or output used by one paper
-must not be silently reused as the publication asset for another paper merely
-because the underlying geometry is related. Each publication pipeline should
-have its own generator/output names whenever the visual purpose differs.
-
-### Paper A
-
-Paper A uses:
-
-- `fig_cutting_plane_3panel.py` — self-contained Paper A cutting-plane generator.
-  It draws every fixed-sum shell `K=1,...,12`, the complete two-sided row/column
-  parabolas and reflected ellipse cuts, the exact `u=5,6,7` tangent-circle
-  examples, and the correctly clipped positive-factor row/column mesh in the
-  `(X,T)` side view. It writes `fig_cutting_plane_3panel.pdf/png`.
-- `fig_divisor_summatory_11_3panel.py` — Paper A's `n=11` divisor-summatory
-  figure. Its displayed `(X,Y)` and 3D views intentionally use the upper branch
-  `Y=+sqrt(xy)` as a one-sided visualization; Paper A's underlying geometry is
-  the two-sided relation `Y^2=xy`. It writes
-  `fig_divisor_summatory_11_3panel.pdf/png`.
-- `fig_area_measure_11_2panel.py` — companion area-note figure generator.
-
-`foundations/build_paper_a.sh` generates Paper A's publication figures from
-`figures/` before compiling `PaperA_ConicTheorem_v2.4.tex`. The area-paper build
-likewise invokes its figure generator from `figures/`.
-
-### The Discriminant-12 Return
-
-The principal Discriminant-12 paper now has independent publication generators:
-
-- `discriminant12_tangent_null_rays_3panel.py` — reproduces the v0.3.3
-  parabola-circle/null-ray figure with the complete `K=1,...,12` fixed-`T`
-  family and emphasized `u=5,6,7` row/column parabola tangencies. It writes
-  `discriminant12_tangent_null_rays_3panel.pdf/png`.
-- `discriminant12_divisor_summatory_11_3panel.py` — independent `n=11` divisor
-  figure for the principal paper. It writes
-  `discriminant12_divisor_summatory_11_3panel.pdf/png` and does not overwrite
-  Paper A's divisor assets.
-- `make_mod12_v4_cone_triple.py` — three-panel realization of the unit residues
-  `{1,5,7,11}` in factor-cone coordinates, writing `mod12_v4_cone_triple.png`.
-
-`papers/build_discriminant12_v0.3.3.sh` regenerates the Discriminant-12-owned
-figures and compiles an isolated staging copy of v0.3.3 whose two historical
-figure references are remapped to the new paper-specific filenames. The
-historical v0.3.3 source is therefore preserved while the current build no
-longer overwrites Paper A figure outputs.
-
-The mod-12 figure realizes the four modular labels geometrically. Their `V_4`
-operation remains multiplication modulo 12, not adjacency in the drawing.
-
 ## Ledger
 
 The `ledger/` directory preserves the audited derivation trail and publication
 checkpoints for this project. The highest valid checkpoint should be treated as
-the current baseline; earlier files are retained so the development can be
+the current baseline; earlier files are retained so development can be
 reconstructed.
 
 ## Scope
