@@ -23,8 +23,8 @@ sed \
 
 printf '==> compiling isolated Discriminant-12 v0.3.4 build\n'
 cd "$BUILD"
-TEXINPUTS="$HERE:$FIG:" pdflatex -interaction=nonstopmode -halt-on-error "$(basename "$STAGED")"
-TEXINPUTS="$HERE:$FIG:" pdflatex -interaction=nonstopmode -halt-on-error "$(basename "$STAGED")"
+TEXINPUTS=".:$FIG:$HERE:" pdflatex -interaction=nonstopmode -halt-on-error "$(basename "$STAGED")"
+TEXINPUTS=".:$FIG:$HERE:" pdflatex -interaction=nonstopmode -halt-on-error "$(basename "$STAGED")"
 
 cp "$BUILD/Discriminant_12_Return_v0.3.4.pdf" "$HERE/Discriminant_12_Return_v0.3.4.local-build.pdf"
 
