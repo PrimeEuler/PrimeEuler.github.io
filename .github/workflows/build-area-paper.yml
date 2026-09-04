@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - 'unified/discriminant-12-return/foundations/Note_AreaDistortion_AMGM_Cone_v1.1.tex'
-      - 'unified/discriminant-12-return/figures/fig_area_measure_11_2panel.py'
+      - 'unified/discriminant-12-return/figures/paperA_area_measure_11_2panel.py'
       - 'unified/discriminant-12-return/foundations/build_area_paper.sh'
       - '.github/workflows/build-area-paper.yml'
 
@@ -32,8 +32,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add unified/discriminant-12-return/foundations/Note_AreaDistortion_AMGM_Cone_v1.1.pdf
-          git add unified/discriminant-12-return/figures/fig_area_measure_11_2panel.png
-          git add unified/discriminant-12-return/figures/fig_area_measure_11_2panel.pdf
+          git add unified/discriminant-12-return/figures/paperA_area_measure_11_2panel.png
+          git add unified/discriminant-12-return/figures/paperA_area_measure_11_2panel.pdf
           if git diff --cached --quiet; then
             echo "Outputs unchanged"
           else
