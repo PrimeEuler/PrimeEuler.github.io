@@ -1,0 +1,240 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Two Algebras on the Cone]{Two Oscillators, Two Algebras: SU(2) and SU(1,1) Realizations of the Cone's Symmetry}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The signed-cone companion \cite{Ebert2026EigenCoord} separates two notions that were previously conflated: intrinsic projective power self-maps of normalized nonparabolic orbit coordinates, and exact but chosen-equation-dependent level-raising maps in unnormalized eigen-coordinates.  This note asks what survives when the same factor-pair substrate is represented by two bosonic modes.  The fixed-$T$ rotation is the Schwinger $\mathfrak{su}(2)$ action and preserves total number exactly, so it cannot realize radial level growth inside one spin representation.  The fixed-$X$ boost is the standard two-mode $\mathfrak{su}(1,1)$ squeezing algebra: the signed number difference is exactly conserved, while each fixed-difference sector carries positive-discrete-series index $k=(|n_1-n_2|+1)/2$.  For coherent input states we derive the exact mean-occupation trajectory and an exact residual from the classical boost after the parameter identification $\varphi=2r$.  For the product-fixed generator $B_X$ we record a structural obstruction within the natural passive/active Gaussian families but do not claim a universal Gaussian no-go theorem.  Finally, for a generic elliptic cut we prove the exact parity selection rule and the operator revival identity.  The Heisenberg matrix satisfies $A^2=-abI_4$, so definite-parity states revive up to phase at one classical period and arbitrary states are guaranteed to revive up to phase at two.  The paper distinguishes exact operator statements, sector labels, semiclassical comparisons, and open realization questions throughout.
+\end{abstract}
+
+\section{Classical input and quantum substrate}
+Paper A \cite{Ebert2026Table} uses the two-sided lift
+\[
+X=\frac{x-y}{2},\qquad Y=\pm\sqrt{xy},\qquad T=\frac{x+y}{2},\qquad X^2+Y^2=T^2.
+\]
+Paper B \cite{Ebert2026EigenCoord} places the nonparabolic cuts in normalized orbit coordinates.  In the elliptic case $z=\zeta/c$ satisfies $|z|=1$; in the hyperbolic case normalized split coordinates satisfy $\xi_+\xi_-=1$.  Integer powers are intrinsic self-maps of these normalized orbit models.  Unnormalized eigen-coordinates also give exact level-raising maps after a particular equation $ax+by=c$ is chosen, but those maps are not invariant under arbitrary rescaling of the equation.  At the parabolic boundary the diagonal eigen-coordinate construction collapses, although coordinatewise factor powers remain available.  This hierarchy is the classical input used below; no universal canonical orbit-enlarging power map is assumed.
+
+Let $a_1,a_2$ be independent bosonic annihilation operators, with $[a_i,a_j^\dagger]=\delta_{ij}$, number operators $n_i=a_i^\dagger a_i$, and Fock basis $|n_1,n_2\rangle$.  We use
+\begin{equation}\label{eq:dictionary}
+x=n_1+1,\qquad y=n_2,
+\end{equation}
+so that
+\[
+X=\frac{n_1-n_2+1}{2},\qquad T=\frac{n_1+n_2+1}{2}.
+\]
+This basis-state point is a transition vertex in the four-corner oscillator cell used in the null-diamond completion \cite{Ebert2026NullDiamond}; it is not the center of that cell.
+
+\section{The fixed-$T$ rotation and $\mathfrak{su}(2)$}
+Define
+\[
+J_+=a_1^\dagger a_2,\qquad J_-=a_2^\dagger a_1,\qquad J_z=\frac{n_1-n_2}{2}.
+\]
+Then $[J_z,J_\pm]=\pm J_\pm$ and $[J_+,J_-]=2J_z$.  With $N=n_1+n_2$, the Schwinger representation has
+\[
+j=\frac N2=T-\frac12,\qquad J_z=X-\frac12,\qquad J^2=j(j+1).
+\]
+
+\begin{theorem}[Exact fixed-$T$ obstruction]\label{thm:su2}
+For every $G$ in the real span of $J_x,J_y,J_z$,
+\[
+[N,G]=0,
+\]
+and hence every unitary $U(\theta)=e^{-i\theta G}$ preserves the full spectral distribution of
+\[
+T=\frac{N+1}{2}.
+\]
+In particular no such $\mathfrak{su}(2)$ evolution can implement a map that changes $T$ from one spin sector to another.
+\end{theorem}
+\begin{proof}
+Each $J_i$ is a linear combination of $a_1^\dagger a_2$, $a_2^\dagger a_1$, and $n_1-n_2$, all of which commute with $N$.  Thus $[N,G]=0$ and $U^\dagger N U=N$.  The statement for $T$ follows.  Equivalently, the Casimir $J^2$ is central on each irreducible spin sector.
+\end{proof}
+
+Thus angular multiplication is ordinary group composition, whereas radial level growth is outside a fixed Schwinger $\mathfrak{su}(2)$ action.  This is an operator statement and does not identify the equation-dependent classical level-raising map with a quantum operator.
+
+\section{The fixed-$X$ boost and $\mathfrak{su}(1,1)$}
+Define
+\[
+K_z=\frac{n_1+n_2+1}{2},\qquad K_+=a_1^\dagger a_2^\dagger,\qquad K_-=a_1a_2.
+\]
+Then
+\[
+[K_z,K_\pm]=\pm K_\pm,\qquad [K_+,K_-]=-2K_z.
+\]
+
+\begin{proposition}[Casimir and positive-discrete-series sectors]\label{prop:su11}
+Let $D=n_1-n_2$.  The Casimir
+\[
+C=K_z^2-\frac12(K_+K_-+K_-K_+)
+\]
+satisfies
+\[
+C=\frac{D^2-1}{4}.
+\]
+Moreover $[D,K_z]=[D,K_+]=[D,K_-]=0$.  Therefore every fixed-$d$ sector is invariant and carries positive-discrete-series index
+\[
+\boxed{k=\frac{|d|+1}{2}}.
+\]
+For the oriented sector $d\ge0$ only, this equals the classical coordinate $X=(d+1)/2$.
+\end{proposition}
+\begin{proof}
+Using $K_+K_-=n_1n_2$ and $K_-K_+=(n_1+1)(n_2+1)$ gives
+\[
+C=\frac{(n_1-n_2)^2-1}{4}.
+\]
+The commutators with $D$ vanish because $K_\pm$ change both occupation numbers by the same amount.  Solving $C=k(k-1)$ with the positive-discrete-series convention gives $k=(|d|+1)/2$.
+\end{proof}
+
+A superposition of different $d$ sectors therefore has no single Bargmann index.  The signed operator
+\[
+X=\frac{D+1}{2}
+\]
+is nevertheless exactly conserved by the entire two-mode $\mathfrak{su}(1,1)$ action.
+
+\subsection{Exact coherent-state trajectory}
+Let
+\[
+S(r)=\exp[r(K_+-K_-)]
+\]
+and take a coherent product state with real positive amplitudes $\alpha_1,\alpha_2$.  Put
+\[
+x_0=\alpha_1^2+1,\quad y_0=\alpha_2^2,\quad T_0=\frac{x_0+y_0}{2},\quad Y_0=\sqrt{x_0y_0}.
+\]
+The Bogoliubov transformation gives
+\begin{align}
+\langle n_1(r)\rangle&=(\alpha_1\cosh r+\alpha_2\sinh r)^2+\sinh^2r,\\
+\langle n_2(r)\rangle&=(\alpha_2\cosh r+\alpha_1\sinh r)^2+\sinh^2r.
+\end{align}
+In particular the difference is exactly conserved.
+
+Define
+\[
+T_q(r)=\frac{\langle n_1(r)\rangle+\langle n_2(r)\rangle+1}{2}.
+\]
+The classical $B_Y$ boost is
+\[
+T_{\rm cl}(\varphi)=T_0\cosh\varphi+Y_0\sinh\varphi.
+\]
+
+\begin{theorem}[Exact mean-field residual]\label{thm:residual}
+With the classical parameter matched by $\varphi=2r$,
+\[
+\boxed{T_q(r)-T_{\rm cl}(2r)=Y_0\sinh(2r)\left(\sqrt{1-\frac1{x_0}}-1\right).}
+\]
+\end{theorem}
+\begin{proof}
+Direct expansion gives
+\[
+T_q(r)=T_0\cosh(2r)+\alpha_1\alpha_2\sinh(2r).
+\]
+Since $\alpha_1\alpha_2=Y_0\sqrt{1-1/x_0}$, subtraction yields the formula.
+\end{proof}
+
+The bracket has expansion
+\[
+\sqrt{1-1/x_0}-1=-\frac1{2x_0}+O(x_0^{-2}).
+\]
+Thus the absolute residual is
+\[
+-\frac{Y_0}{2x_0}\sinh(2r)+O\!\left(\frac{Y_0}{x_0^2}\right).
+\]
+Any claim of $O(1/x_0)$ convergence must therefore specify whether it refers to the bracket, an absolute error under controlled $Y_0$, or a relative error under a stated joint scaling of $(x_0,y_0)$.
+
+\section{The product-fixed flow: a scoped Gaussian obstruction}
+The classical $B_X$ flow has
+\[
+x(\phi)=x_0e^\phi,\qquad y(\phi)=y_0e^{-\phi},\qquad Y=\sqrt{x_0y_0}
+\]
+exactly.  The natural two-mode quadratic realizations split into passive number-conserving transformations and active Bogoliubov transformations.  Passive transformations cannot reproduce this flow because $x(\phi)+y(\phi)$ is generically not constant.  Standard active squeezing families produce the required hyperbolic growth together with vacuum terms, as the exact formulas above show, and therefore do not reproduce the shifted factor dictionary exactly.
+
+\begin{remark}[Scope]
+This is a structural obstruction for the natural passive and standard active Gaussian families used by the other two generators.  It is \emph{not} presented as a universal theorem excluding every two-mode Gaussian transformation: such a theorem would require a general symplectic/Bogoliubov normal-form argument for arbitrary $U,V$ blocks and arbitrary coherent input.  No claim is made here about non-Gaussian realizations.
+\end{remark}
+
+\section{Generic elliptic cuts: parity and revival}
+For a classical cut $ax+by=c$ with $ab>0$, Paper B uses
+\[
+G_{a,b}=(a+b)L+(a-b)B_Y,
+\]
+whose nonzero classical eigenvalues are $\pm2i\sqrt{ab}$ and whose classical orbital period is
+\[
+T_{\rm cl}=\frac{\pi}{\sqrt{ab}}.
+\]
+To avoid collision with Paper B's normalized classical notation $\widehat G_{a,b}$, define the quantum anti-Hermitian generator
+\[
+\mathcal G^{(q)}_{a,b}=(a+b)(-iJ_y)+\frac{a-b}{2}(K_+-K_-).
+\]
+
+\begin{proposition}[Parity selection rule]\label{prop:parity}
+The unitary $U(\theta)=\exp(\theta\mathcal G^{(q)}_{a,b})$ preserves total-number parity.  A state beginning in spin sector $j_0$ can have support only on sectors satisfying $j-j_0\in\mathbb Z$.
+\end{proposition}
+\begin{proof}
+The $J_y$ term changes $N$ by zero and $K_\pm$ change $N$ by $\pm2$.  Hence every term in the exponential preserves $N$ modulo two.
+\end{proof}
+
+For $v=(a_1,a_2,a_1^\dagger,a_2^\dagger)^\top$, the Heisenberg equation is $dv/d\theta=Av$ with
+\[
+A=\begin{pmatrix}
+0&-p&0&m\\
+p&0&m&0\\
+0&m&0&-p\\
+m&0&p&0
+\end{pmatrix},\qquad p=\frac{a+b}{2},\quad m=\frac{a-b}{2}.
+\]
+
+\begin{theorem}[Guaranteed quantum revivals]\label{thm:revival}
+For $ab>0$,
+\[
+\boxed{A^2=-ab\,I_4.}
+\]
+Consequently
+\[
+e^{T_{\rm cl}A}=-I_4,\qquad e^{2T_{\rm cl}A}=I_4.
+\]
+On Fock space there is a phase $\alpha$ such that
+\[
+U(T_{\rm cl})=e^{i\alpha}(-1)^N,
+\qquad
+U(2T_{\rm cl})=e^{2i\alpha}I.
+\]
+Thus every parity eigenstate revives up to overall phase at one classical period, and every state is guaranteed to revive up to overall phase at two classical periods.  These statements do not assert that the displayed times are minimal for every individual state.
+\end{theorem}
+\begin{proof}
+Direct multiplication gives $A^2=(m^2-p^2)I_4=-abI_4$.  Hence
+\[
+e^{\theta A}=I_4\cos(\sqrt{ab}\,\theta)+\frac{A}{\sqrt{ab}}\sin(\sqrt{ab}\,\theta),
+\]
+which yields the two displayed matrix identities.  At $T_{\rm cl}$ the unitary conjugates every $a_i$ and $a_i^\dagger$ to its negative.  The parity operator $(-1)^N$ has the same conjugation action, so $U(T_{\rm cl})(-1)^N$ commutes with the irreducible two-mode canonical commutation representation and is therefore scalar by Schur's lemma.  Squaring gives the second identity.
+\end{proof}
+
+The one-period statement is therefore a parity statement, not a universal state revival.  In particular an arbitrary superposition of even and odd total-number sectors need not return to itself at $T_{\rm cl}$, although it is guaranteed to do so by $2T_{\rm cl}$.
+
+\section{Conclusion}
+The quantum realization separates four logically different phenomena.  The $L$ action is exact $\mathfrak{su}(2)$ and preserves $T$ sector-by-sector.  The $B_Y$ action is exact two-mode $\mathfrak{su}(1,1)$, preserves the signed number difference, and has positive-discrete-series label $k=(|d|+1)/2$ on each fixed-$d$ sector; its coherent-state $T$ trajectory approaches the classical boost with the exact residual of Theorem~\ref{thm:residual}.  The $B_X$ realization remains open beyond the scoped Gaussian obstruction recorded here.  Generic elliptic cuts have an exact parity rule and an exact two-period operator revival, with one-period revival for parity eigenstates.
+
+These results do not show that quantum mechanics explains the cone or that Paper B's classical level-raising maps are quantum operators.  They show instead that the same factor-pair coordinates support precise representation-theoretic structures whose exact invariants and limitations can be compared, theorem by theorem, with the audited classical cone geometry.
+
+\section*{Acknowledgment}
+Large language model tools were used during development for symbolic checking, numerical checking, exposition, and audit support.  Mathematical claims are separated in the text according to their proved or explicitly limited status.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Signed Cone Cuts as Lorentz Orbits: Eigen-Coordinates and Power Maps}, Preprint (2026).
+\bibitem{Ebert2026NullDiamond} J.~Ebert, \emph{Casimir Completion and the Primitive Null Diamond}, Preprint (2026).
+\bibitem{Schwinger1965} J.~Schwinger, On angular momentum, in \emph{Quantum Theory of Angular Momentum}, Academic Press, 1965, 229--279.
+\bibitem{YurkeMcCallKlauder1986} B.~Yurke, S.~L.~McCall, J.~R.~Klauder, SU(2) and SU(1,1) interferometers, \emph{Phys. Rev. A} \textbf{33} (1986), 4033--4054.
+\end{thebibliography}
+\end{document}
