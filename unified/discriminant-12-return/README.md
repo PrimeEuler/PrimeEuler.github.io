@@ -73,12 +73,11 @@ theorems.
 
 Paper A uses the canonical generators and assets in `figures/`:
 
-- `fig_cutting_plane_3panel.py` — stable Paper A entry point. It delegates to the
-  audited tangent-circle geometry and writes `fig_cutting_plane_3panel.pdf/png`.
-- `fig_cutting_plane_tangent_circle_audit.py` — full geometric audit with every
-  fixed-sum shell `K=1,...,12` and explicit `u=5,6,7` tangent-circle checks.
-- `fig_cutting_plane_tangent_circle_publication.py` — publication-layout wrapper
-  around the audited geometry; it changes labels/titles, not mathematics.
+- `fig_cutting_plane_3panel.py` — self-contained Paper A cutting-plane generator.
+  It draws every fixed-sum shell `K=1,...,12`, the complete two-sided row/column
+  parabolas and reflected ellipse cuts, the exact `u=5,6,7` tangent-circle
+  examples, and the correctly clipped positive-factor row/column mesh in the
+  `(X,T)` side view. It writes `fig_cutting_plane_3panel.pdf/png`.
 - `fig_divisor_summatory_11_3panel.py` — the `n=11` divisor-summatory figure.
   Its displayed `(X,Y)` and 3D views intentionally use the upper branch
   `Y=+sqrt(xy)` as a one-sided visualization; Paper A's underlying geometry is
