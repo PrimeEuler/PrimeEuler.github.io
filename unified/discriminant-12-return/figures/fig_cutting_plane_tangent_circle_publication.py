@@ -1,8 +1,8 @@
 from pathlib import Path
 
 # Publication wrapper for fig_cutting_plane_tangent_circle_audit.py.
-# It preserves the audited geometry exactly and changes only the crowded
-# tangent-point annotations in panel (a).
+# It preserves the audited geometry exactly while changing only publication
+# presentation details: compact tangent labels and neutral panel titles.
 
 source = Path(__file__).with_name("fig_cutting_plane_tangent_circle_audit.py")
 text = source.read_text()
@@ -60,4 +60,20 @@ if old not in text:
     raise RuntimeError("Expected audited annotation block was not found; aborting publication patch.")
 
 text = text.replace(old, new, 1)
+
+# Remove audit-only wording while retaining the audited full K=1,...,12 shell
+# family and the exact u=5,6,7 tangent-circle checks.
+text = text.replace(
+    '"(a) Flat audit: all $K=1,\\\\ldots,12$ circles\\n"\n    "with exact $u=5,6,7$ parabola tangencies"',
+    '"(a) Flat: complete fixed-sum circle family\\n"\n    "with $u=5,6,7$ parabola tangencies"',
+)
+text = text.replace(
+    '"(b) Side audit: half-step $T=K/2$ shells\\n"\n    "and the $u=5,6,7$ generator tangencies"',
+    '"(b) Side: multiplication table and half-step shells\\n"\n    "with the $u=5,6,7$ tangent levels"',
+)
+text = text.replace(
+    '"(c) 3D audit: complete fixed-$T$ circle family\\n"\n    "through the $x+y=12$ boundary"',
+    '"(c) 3D: complete fixed-$T$ circle family\\n"\n    "through the $x+y=12$ boundary"',
+)
+
 exec(compile(text, str(source), "exec"), {"__file__": str(source), "__name__": "__main__"})
