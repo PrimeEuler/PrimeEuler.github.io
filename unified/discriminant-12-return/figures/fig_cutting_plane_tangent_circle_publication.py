@@ -7,7 +7,7 @@ from pathlib import Path
 source = Path(__file__).with_name("fig_cutting_plane_tangent_circle_audit.py")
 text = source.read_text()
 
-old = r'''# Exact tangent points for u=5,6,7: vertices of the mirror parabolas.
+old = '''# Exact tangent points for u=5,6,7: vertices of the mirror parabolas.
 for u in TANGENT_LEVELS:
     Tc = u / 2.0
     axA.plot([-Tc, Tc], [0, 0], "o", ms=5.8, color="#111111", zorder=9)
@@ -29,7 +29,7 @@ for u in TANGENT_LEVELS:
     )
 '''
 
-new = r'''# Exact tangent points for u=5,6,7: vertices of the mirror parabolas.
+new = '''# Exact tangent points for u=5,6,7: vertices of the mirror parabolas.
 # Publication layout: keep both mirror points, but label only the +X side.
 # The coordinate formula (T,X)=(u/2,+-u/2) is already stated in the text
 # and caption, so compact u-labels are clearer here than six coordinate labels.
@@ -61,19 +61,9 @@ if old not in text:
 
 text = text.replace(old, new, 1)
 
-# Remove audit-only wording while retaining the audited full K=1,...,12 shell
-# family and the exact u=5,6,7 tangent-circle checks.
-text = text.replace(
-    '"(a) Flat audit: all $K=1,\\\\ldots,12$ circles\\n"\n    "with exact $u=5,6,7$ parabola tangencies"',
-    '"(a) Flat: complete fixed-sum circle family\\n"\n    "with $u=5,6,7$ parabola tangencies"',
-)
-text = text.replace(
-    '"(b) Side audit: half-step $T=K/2$ shells\\n"\n    "and the $u=5,6,7$ generator tangencies"',
-    '"(b) Side: multiplication table and half-step shells\\n"\n    "with the $u=5,6,7$ tangent levels"',
-)
-text = text.replace(
-    '"(c) 3D audit: complete fixed-$T$ circle family\\n"\n    "through the $x+y=12$ boundary"',
-    '"(c) 3D: complete fixed-$T$ circle family\\n"\n    "through the $x+y=12$ boundary"',
-)
+# Remove audit-only wording without changing any plotted geometry.
+text = text.replace("(a) Flat audit:", "(a) Flat:")
+text = text.replace("(b) Side audit:", "(b) Side:")
+text = text.replace("(c) 3D audit:", "(c) 3D:")
 
 exec(compile(text, str(source), "exec"), {"__file__": str(source), "__name__": "__main__"})
