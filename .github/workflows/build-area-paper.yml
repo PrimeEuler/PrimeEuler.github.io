@@ -22,7 +22,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-numpy python3-matplotlib texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          sudo apt-get install -y python3-numpy python3-matplotlib cm-super texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
       - name: Build area paper
         run: bash unified/discriminant-12-return/foundations/build_area_paper.sh
@@ -38,8 +38,6 @@ jobs:
             echo "Outputs unchanged"
           else
             git commit -m "Build area paper v1.1 outputs"
-            git reset --hard HEAD
-            git clean -fd
             git pull --rebase origin master
             git push
           fi
