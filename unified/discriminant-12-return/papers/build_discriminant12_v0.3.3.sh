@@ -10,7 +10,7 @@ STAGED="$BUILD/Discriminant_12_Return_v0.3.3.tex"
 printf '==> generating Discriminant-12 publication figures\n'
 python3 "$FIG/discriminant12_tangent_null_rays_3panel.py"
 python3 "$FIG/discriminant12_divisor_summatory_11_3panel.py"
-python3 "$FIG/make_mod12_v4_cone_triple.py"
+python3 "$FIG/discriminant12_mod12_v4_cone_triple.py"
 
 printf '==> staging %s with paper-specific figure names\n' "$SRC"
 rm -rf "$BUILD"
