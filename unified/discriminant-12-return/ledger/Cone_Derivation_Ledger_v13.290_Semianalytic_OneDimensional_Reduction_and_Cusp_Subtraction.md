@@ -4,6 +4,8 @@ Date: 2026-09-07
 
 Status: EXACT 2D-TO-1D TRANSLATION-KERNEL REDUCTION + SOURCE-KNOWN CUSP SUBTRACTION + PRIME-BREAKPOINT CONTROL — PREVIOUS NEGATIVE FLOOR IDENTIFIED AS QUADRATURE ARTIFACT — GRH NOT PROVED
 
+> **v13.291 parity clarification:** the numerical odd/even index blocks in this entry are correct, but once the preconditioned matrix is interpreted in the direct Dirichlet `v` basis, differentiation reverses parity: odd mode number corresponds to even `v`, and even mode number to odd `v`. Any parity wording below that does not explicitly distinguish `u=Dv` from `v` is superseded by v13.291. The numerical values themselves are unchanged.
+
 ## 0. Synchronization and purpose
 
 The v13.289 audit removed the numerically assembled compact denominator by diagonalizing `K_a=(-Delta_N)^(-1)` in the Neumann basis and cross-checked the resulting matrix against Suzuki's direct quadratic form. The two forms agreed to roundoff, but the lowest numerical values still drifted toward zero as the 2-D breakpoint-aware quadrature was refined.
@@ -185,7 +187,7 @@ The previous negative values were therefore not evidence for a negative `a=1` gr
 
 At the stabilized remainder order, the smallest parity-resolved values are approximately
 
-| modes | odd minimum | even minimum | overall |
+| modes | odd-index block | even-index block | overall |
 |---:|---:|---:|---:|
 | 6 | `3.24e-11` | `2.12e-8` | `3.24e-11` |
 | 8 | `1.42e-12` | `1.38e-10` | `1.42e-12` |
@@ -195,7 +197,7 @@ At the stabilized remainder order, the smallest parity-resolved values are appro
 | 16 | `2.91e-16` | `-3.96e-15` | `-3.96e-15` |
 | 18 | `8.33e-17` | `-3.94e-15` | `-3.94e-15` |
 
-At 14 modes and above, the sign is plainly below double-precision resolution and should not be interpreted.
+At 14 modes and above, the sign is plainly below double-precision resolution and should not be interpreted. As clarified in v13.291, in the direct Dirichlet `v` basis the odd-index block is the even-`v` sector and the even-index block is the odd-`v` sector.
 
 The correct statement is therefore not that the ground state has been shown to equal zero, but that the previously observed negative spectral floor has been removed down to machine precision.
 
