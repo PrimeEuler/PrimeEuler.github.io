@@ -1,6 +1,13 @@
 # Cone Derivation Ledger v13.300 — Cusp Logarithmic Diagonal and Compact-Remainder Audit
 
-**Status:** CUSP OFF-DIAGONAL STRUCTURE ISOLATED; FINITE HIGH-MODE RESIDUAL NORMS DECAY; COMPACT-REMAINDER INTERPRETATION NUMERICALLY SUPPORTED BUT NOT PROVED. RH/GRH NOT PROVED.
+> **v13.301 correction / supersession note.** The compact-remainder interpretation below is superseded. The exact cusp formula derived in v13.301 shows
+> \[
+> C-D_{\log}=-H_{\rm odd}+K,
+> \qquad (H_{\rm odd})_{mn}=\frac1{m+n},
+> \]
+> where \(H_{\rm odd}\) is one-half of the classical Hilbert matrix and is bounded but noncompact. The apparent norm decay of high-mode finite compressions in this v13.300 experiment was a finite-window truncation effect. After subtracting the explicit Hilbert term, the new residual \(K\) is the compact/Hilbert-Schmidt candidate. All statements below suggesting that \(C-D_{\log}\) itself may be compact should be read as superseded by v13.301.
+
+**Status:** CUSP OFF-DIAGONAL STRUCTURE ISOLATED; FINITE HIGH-MODE RESIDUAL NORMS DECAY; ORIGINAL COMPACT-REMAINDER INTERPRETATION SUPERSEDED BY v13.301 EXACT HILBERT DECOMPOSITION. RH/GRH NOT PROVED.
 
 ## 1. Purpose
 
@@ -83,7 +90,7 @@ C_{31,35}\approx-0.0153382,
 C_{31,41}\approx-0.0140483.
 \]
 
-This is consistent with a boundary/Hankel-type correction whose strength decays as both frequencies move outward.
+v13.301 explains the dominant decay explicitly as the Hankel term \(-1/(m+n)\).
 
 ## 5. Finite-section residual norm audit
 
@@ -93,39 +100,29 @@ Using the first 30 odd modes \(n=1,3,\ldots,59\), the full residual spectral nor
 \|R\|_2\approx1.1651.
 \]
 
-More importantly, nested high-mode tail blocks show clear norm decay:
+Nested high-mode blocks in that fixed finite window gave
 
 \[
 \|R_{n\ge11}\|_2\approx0.4294,
-\]
-
-\[
+\quad
 \|R_{n\ge21}\|_2\approx0.2713,
 \]
 
 \[
 \|R_{n\ge31}\|_2\approx0.1732,
-\]
-
-\[
+\quad
 \|R_{n\ge41}\|_2\approx0.1019.
 \]
 
-The corresponding maximum absolute row sums also decrease:
+The corresponding maximum absolute row sums were
 
 \[
 0.6254,\ 0.3457,\ 0.2022,\ 0.1113.
 \]
 
-This is stronger than simple boundedness. In finite sections it is numerically consistent with
+**Superseded interpretation:** these decreasing values do not show that the infinite high-mode compression norm tends to zero. v13.301 identifies a noncompact Hilbert component whose norm is not seen correctly when the upper endpoint of the finite matrix is held fixed while the lower cutoff is moved upward.
 
-\[
-R=C-D_{\log}
-\]
-
-being compact, because the norm of the high-mode compression appears to tend to zero.
-
-## 6. What is established and what is not
+## 6. What remains valid
 
 Established exactly:
 
@@ -133,53 +130,46 @@ Established exactly:
 - the full cusp matrix has the exact one-dimensional overlap representation;
 - the logarithmic diagonal model is the correct leading diagonal behavior from v13.298.
 
-Established numerically:
+Established numerically in v13.300:
 
-- finite high-mode compressions of \(C-D_{\log}\) have rapidly decreasing spectral norms through odd mode 59;
-- representative off-diagonal entries decrease strongly at high frequency.
+- representative off-diagonal entries decrease strongly with frequency;
+- fixed-window high-mode compressions shrink, but that observation alone does not determine compactness.
 
-Not established:
+Superseded:
 
-- a rigorous formula proving \(C-D_{\log}\) is compact;
-- a certified infinite-tail operator norm bound;
-- a complete coercivity theorem for the Suzuki tail;
+- the inference that \(C-D_{\log}\) itself is compact.
+
+Still not established:
+
+- a fully rigorous infinite-tail coercivity constant;
 - \(\ker G_1\neq\{0\}\), \(\lambda_1=0\), RH, or GRH.
 
-## 7. Updated operator picture
+## 7. Corrected operator picture from v13.301
 
-Combining v13.298-v13.300 gives the evidence-backed structural model
-
-\[
-A_{\rm even}
-= D_{\log}
-+ R_{\rm cusp}
-+ B_{\rm prime}
-+ K_{\rm smooth},
-\]
-
-where
+The correct leading cusp structure is
 
 \[
-D_{\log}=\operatorname{diag}(\log n-\log4),
+C=D_{\log}-H_{\rm odd}+K,
+\qquad
+(H_{\rm odd})_{mn}=\frac1{m+n}.
 \]
 
-\(B_{\rm prime}\) is bounded by the exact shift-operator argument of v13.298,
-\(K_{\rm smooth}\) is bounded by the regularity reduction of v13.299, and
-\(R_{\rm cusp}\) is numerically consistent with compactness.
-
-If compactness of \(R_{\rm cusp}\) can be proved, then the high-mode tail becomes a diverging diagonal plus bounded/compact perturbations, which is the right framework for a rigorous tail-coercivity statement.
-
-## 8. Next checkpoint
-
-v13.301 should derive an explicit closed or semi-closed formula for \(C_{mn}\) in terms of the sum and difference frequencies \(m\pm n\), likely involving sine/cosine-integral expressions. The goal is to prove an estimate of the form
+With odd indices \(m=2j+1\), \(n=2k+1\),
 
 \[
-|R_{mn}|\le \frac{C}{m+n}+\frac{C'}{1+|m-n|}\,\eta_{mn},
+(H_{\rm odd})_{jk}=\frac1{2(j+k+1)},
 \]
 
-with enough decay to imply compactness or at least vanishing high-mode compression norm.
+so \(H_{\rm odd}\) is one-half the classical Hilbert matrix and
 
-## 9. Files
+\[
+\|H_{\rm odd}\|=\frac\pi2.
+\]
+
+The residual \(K\), not \(C-D_{\log}\), is the compact/Hilbert-Schmidt candidate.
+
+## 8. Files
 
 - `research-notes/suzuki_cusp_offdiagonal_audit.py`
 - this ledger entry
+- superseding analysis: `research-notes/suzuki_cusp_exact_hilbert_decomposition.py`
