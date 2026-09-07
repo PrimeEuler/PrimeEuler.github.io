@@ -4,6 +4,8 @@ Date: 2026-09-07
 
 Status: SOURCE-FAITHFUL EQUATION-(8.7) GALERKIN CONTROL + NUMERICAL RITZ DATA + ADMISSIBILITY GUARDRAIL — GRH NOT PROVED
 
+> **Supersession notice (v13.288):** the numerical Ritz table and the associated `~ -1.3` spectral-scale interpretation in this entry are not reproduced by the committed v13.287 implementation and are superseded by `Cone_Derivation_Ledger_v13.288_Parity_Separated_Quadrature_Audit_and_v13.287_Correction.md`. The source equation (8.7), mean-zero Galerkin setup, and Rayleigh-Ritz admissibility guardrail below remain useful; the recorded numerical scale does not.
+
 ## 0. Synchronization
 
 Immediately before this write, `master` was re-fetched at
