@@ -44,9 +44,10 @@ from __future__ import annotations
 
 import math
 
+EULER_GAMMA = 0.577215664901532860606512090082402431
+
 
 def odd_sum2_tail_bound(N: int) -> float:
-    # For odd N and odd n>=N, spacing is 2.  First term + integral comparison.
     return 1.0/N**2 + 1.0/(2.0*N)
 
 
@@ -59,17 +60,12 @@ def odd_sum6_tail_bound(N: int) -> float:
 
 
 def cusp_tail_bound(N: int) -> float:
-    # Rank-one term -2/(pi^2 mn).
     rank_one = (2.0/math.pi**2) * odd_sum2_tail_bound(N)
-
-    # v13.302 off-diagonal error estimate.
     c = 2.0/math.pi**3 + 6.0/math.pi**4
     alpha = 2.0*c/math.pi
     offdiag = 2.0*alpha*math.sqrt(
         (math.pi**2/12.0) * odd_sum6_tail_bound(N)
     )
-
-    # v13.302 diagonal estimate |K_nn| <= C_diag/n^2.
     C_diag = (
         2.0/math.pi**2 + 2.0/math.pi**3 +
         2.0/math.pi**4 + 6.0/math.pi**5
@@ -79,10 +75,6 @@ def cusp_tail_bound(N: int) -> float:
 
 
 def pole_tail_bound(N: int) -> float:
-    # After integration by parts the pole kernel is 2 cosh((x-y)/2).
-    # In the even-v sector only 2 cosh(x/2)cosh(y/2) remains, so rank one.
-    # For normalized odd Dirichlet mode psi_n,
-    # |<psi_n,cosh(x/2)>| <= 4 cosh(1/2)/(pi n).
     return (
         32.0*math.cosh(0.5)**2/math.pi**2 * odd_sum2_tail_bound(N)
     )
@@ -90,12 +82,11 @@ def pole_tail_bound(N: int) -> float:
 
 def arch_remainder_analytic_bound() -> float:
     q = 2.0/math.pi
-    l1_half = 0.5 + math.lgamma(1.0-q) - math.euler_gamma*q
+    l1_half = 0.5 + math.lgamma(1.0-q) - EULER_GAMMA*q
     return 2.0*l1_half
 
 
 def prime_operator_bound() -> float:
-    # q=2,3,4,5,7.  Lambda(4)=log 2.
     weights = (
         math.log(2.0)/math.sqrt(2.0) +
         math.log(3.0)/math.sqrt(3.0) +
