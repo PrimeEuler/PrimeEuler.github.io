@@ -8,15 +8,15 @@ level ~4.3e-8, where
 
 Recommended analytic scalar targets:
 
-  arch finite block operator radius: <=5e-11
+  arch finite block operator radius: <=2e-11
   cusp Si/Ci scalar radius:          <=5e-13
-  cusp whole-matrix operator radius: <=5e-11 (conservative design target)
+  cusp whole-matrix operator radius: <=4e-11
   prime whole-matrix operator radius:<=1e-12
   pole whole-matrix operator radius: <=1e-12
 
-Thus use a conservative full finite-matrix operator enclosure
+Thus use the conservative full finite-matrix operator enclosure
 
-    delta_full <= 1.1e-10.
+    delta_full <= 7e-11.
 
 For block perturbation with gamma>=0.15 and ||C||<=0.8,
 
@@ -25,8 +25,8 @@ For block perturbation with gamma>=0.15 and ||C||<=0.8,
    + (2||C||delta_C+delta_C^2)/(gamma-delta_B)
    + ||C||^2 delta_B/(gamma(gamma-delta_B)).
 
-Taking delta_A=delta_B=delta_C=1.1e-10 gives a block-assembly contribution
-of only a few 1e-9.
+Taking delta_A=delta_B=delta_C=7e-11 gives a block-assembly contribution
+below 2.81e-9.
 
 For the verified solve, if X approximates B^{-1} C^T and
 R=C^T-BX, then
@@ -37,15 +37,15 @@ R=C^T-BX, then
 With ||R||<=8e-10, gamma>=0.15, ||C||<=0.8, the residual contribution is
 <=4.27e-9.
 
-Combining the two leaves a practical total target below about 7e-9, comfortably
-inside the basis-free Weyl threshold needed to certify lambda_5(F)>0 from a
-nominal lambda_5 near 4.3e-8.
+Combining the two gives a design enclosure about 7.08e-9, comfortably inside
+the basis-free Weyl threshold needed to certify lambda_5(F)>0 from a nominal
+lambda_5 near 4.3e-8.
 
 This script records the algebraic budget only; the actual interval arithmetic
 still has to instantiate each inequality.
 """
 
-DELTA_FULL=1.1e-10
+DELTA_FULL=7e-11
 GAMMA=0.15
 C_NORM=0.8
 RESIDUAL=8e-10
