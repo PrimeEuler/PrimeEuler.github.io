@@ -3,13 +3,13 @@
 
 Purpose
 -------
-This file was added in direct response to External Audit Rounds 20-21.  It
+This file was added in direct response to External Audit Rounds 20-21. It
 assembles one actual matrix from the component definitions, rather than
 validating isolated formulas or replaying a stored certificate transcript.
 
 Basis: psi_n(x)=sin(n*pi*(x+1)/2), n odd.
 
-The important correction is the off-diagonal archimedean term.  If
+The important correction is the off-diagonal archimedean term. If
 
     h(t)=r''(t)=exp(-t/2)/(1-exp(-2t)) - 1/(2t),
     H_n=int_0^2 h(t) sin(n*pi*t/2) dt,
@@ -18,7 +18,6 @@ The important correction is the off-diagonal archimedean term.  If
 then direct product-to-sum reduction of the verified overlap kernel gives
 
     Karch_mn = [2ab/(a^2-b^2)] [b H_n - a H_m]
-
               = pi*m*n*(n H_n-m H_m)/(m^2-n^2).
 
 This is NOT the older cross-paired expression
@@ -37,7 +36,7 @@ The cusp+prime off-diagonal part is separately displacement-rank two, so the
 corrected full A0 is displacement-rank at most four rather than two.
 
 This script is a numerical end-to-end reconstruction/cross-check, not itself
-an interval certificate.  It deliberately contains both the corrected and
+an interval certificate. It deliberately contains both the corrected and
 legacy arch formulas so the historical v13.348 number can be reproduced and
 the effect of the correction isolated.
 """
@@ -58,11 +57,10 @@ WEIGHTS = tuple(L/sqrt(q) for L, q in zip(LAMBDAS, QS))
 def h(t: float) -> float:
     if t == 0.0:
         return 0.25
-    # Stable enough away from the removable singularity for the quadrature
-    # nodes used below.  The t=0 value is the analytic limit.
+    # Analytic expansion at the removable singularity:
+    # h(t)=1/4-t/48-t^2/32+7t^3/11520+O(t^4).
     if abs(t) < 1e-7:
-        # h(t)=1/4 - 11 t/48 + O(t^2)
-        return 0.25 - 11.0*t/48.0
+        return 0.25 - t/48.0 - t*t/32.0 + 7.0*t**3/11520.0
     return exp(-t/2.0)/(1.0-exp(-2.0*t)) - 1.0/(2.0*t)
 
 
@@ -142,7 +140,6 @@ def assemble(start: int = 21, stop: int = 399,
 
 
 def audit_pairs():
-    # Round-20 direct-quadrature targets for the corrected arch term.
     targets = {
         (21, 29): 6.772385648528e-5,
         (21, 101): 1.9437951e-5,
@@ -160,15 +157,14 @@ def report():
     print('arch pair cross-checks: pair, corrected, audit target, difference, legacy')
     for row in audit_pairs():
         print(row)
-
     _, Aold = assemble(corrected_arch=False)
     _, Anew = assemble(corrected_arch=True)
     lold = float(np.linalg.eigvalsh(Aold)[0])
     lnew = float(np.linalg.eigvalsh(Anew)[0])
-    print('legacy lambda_min A0_[21,399]   =', repr(lold))
-    print('corrected lambda_min A0_[21,399]=', repr(lnew))
-    print('historical ledger target         = 0.231953166244')
-    print('round-20 independent report      ~= 0.2767 (not reproduced here)')
+    print('legacy lambda_min A0_[21,399]    =', repr(lold))
+    print('corrected lambda_min A0_[21,399] =', repr(lnew))
+    print('historical ledger target          = 0.231953166244')
+    print('round-20 independent report       ~= 0.2767 (not reproduced here)')
     print('status: corrected matrix positive on this finite test only;')
     print('        infinite high-complement certification must be rebuilt.')
 
