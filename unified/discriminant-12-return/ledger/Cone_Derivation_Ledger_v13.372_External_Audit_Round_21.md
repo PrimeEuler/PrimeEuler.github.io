@@ -1,0 +1,35 @@
+# Cone Derivation Ledger v13.372 — External Audit Round 21
+
+Date: 2026-09-09
+
+Status labels: **[S]** source-established, **[D]** exact derived, **[N-cert]** certified numerical, **[I]** interpretation, **[O]** open, **[Audit]** correction/limitation.
+
+## Scope
+
+Follow-up to round 20. This round covers `v13.363`–`v13.366` (Suzuki thread), where the project moved from "finite high block closed" (`v13.362`) to claiming the entire infinite high complement `𝒟` is positive (`v13.365`, "Global High-Complement Closure") and began constructing the resulting `10×10` Schur complement (`v13.366`). The Casimir/V4 thread (`v13.364`, `v13.365`–`v13.369`) remains deferred to next round — this round's priority was checking whether `v13.365`'s closure claim addresses round 20's finding, since it directly builds on the object I flagged.
+
+## 1. Headline: round 20's finding has not been addressed, and the new closure claim inherits it
+
+**[Audit] `v13.365`'s "Global High-Complement Closure" reuses the exact off-diagonal formula flagged as unverified in round 20, unchanged.** `v13.365` opens by giving a cleaner closed form for `Z_n`, replacing the separate `Si(nπ)` and digamma-accelerated `H_n` terms with a single combined digamma expression, stating "the sine-integral terms cancel exactly." **I checked this specific simplification and it is correct** — I computed both the old form (`2A_n+Si(nπ)+2H_n`, using the already-verified `H_n` digamma-acceleration script) and the new form (`2A_n+Im ψ(1/4+inπ/4)+nπΣ_k e^{-2a_k}/(a_k²+(nπ/2)²)`) independently at `n=21,29,101,399` and they agree to 40 digits — this is a valid algebraic identity, not a new claim about the matrix. But it means `Z_n`'s *value* is unchanged from what I tested in round 20. And `v13.365` line 58–60 restates the off-diagonal formula verbatim: `(A_0)_{mn}=-\frac2\pi\frac{nZ_m-mZ_n}{n^2-m^2}`. This is the exact formula I showed in round 20 does not correctly represent the archimedean contribution — my independently re-derived correct formula for that piece has a structurally different form (self-paired `nH_n-mH_m` with an `mnπ` prefactor, not the cross-paired pattern used here), verified against direct quadrature to 10 digits. Nothing in `v13.365` re-examines or re-derives this off-diagonal formula; it is carried forward as already-established. **Therefore `v13.365`'s "closure" of `A_0|_𝒟>0` rests on the same unverified — and, per my round-20 check, apparently incorrect — off-diagonal identity, and should not yet be treated as resolving the positivity question.**
+
+**[I]** I want to be precise about what this does and doesn't mean. It does not mean `A_0|_𝒟>0` is false — that's a separate question my round-20 reconstruction couldn't settle either way (I found the formula error and a residual ~19% eigenvalue gap I couldn't fully explain, not a disproof). It means: the specific certificate chain `v13.362→v13.363→v13.365→v13.366`, as documented, has not yet engaged with the discrepancy I raised, so each new "closure" built on top of it (now including the `10×10` Schur-complement construction in `v13.366`, which explicitly says it will use "the exact Cauchy scalar sequence" going forward) carries the same unresolved risk forward rather than resolving it.
+
+## 2. What I did independently check and confirm this round
+
+**[N-cert]** `v13.363`'s `‖B_prime‖<2.05` bound is a separate, self-contained claim (about the prime operator alone, no `Z_n`/archimedean dependence) and its underlying method is sound: for a symmetric operator `A` with a nonnegative kernel, `‖A‖≤\sup_x(A^k\mathbf 1)(x)^{1/k}` for any `k` — I re-derived this from the standard fact that a nonnegative-kernel operator's `∞→∞` norm equals its sup row-sum, combined with `‖A‖_2^k=‖A^k‖_2≤‖A^k‖_∞` (valid since powers of a nonnegative-kernel operator are again nonnegative-kernel) — a correct, standard positivity argument. **[N-cert]** I independently verified the specific arithmetic claim `2.05^{16}=97288.5603556106...`, matching exactly, and that the entry's claimed sweep value `93390.833` is indeed comfortably below it (slack `3897.7`, matching exactly). I did not reproduce the depth-16 breakpoint sweep itself (that requires the same combinatorial machinery I don't have independent access to), so this entry's core numerical claim remains partially, not fully, independently checked — but the arithmetic and the underlying inequality technique are both sound.
+
+**[D]** `v13.366`'s exact inertia-reduction statement (`ind_{≤0}(A)` reduces to `ind_{≤0}(S_{10})` for `S_{10}=A_{CC}-A_{CD}A_{DD}^{-1}A_{DC}` once `A_{DD}>0`) is the same correctly-stated Haynsworth-type Schur complement theorem I verified in round 19 — the logic is right, conditional on the still-unconfirmed premise `A_{DD}=A_0|_𝒟>0` from Section 1.
+
+## 3. Overall verdict for this round
+
+The project is moving quickly — from a finite-block certificate to a full infinite-complement closure to constructing the follow-on `10×10` Schur complement, across two rounds — without yet circling back to the specific formula discrepancy raised last round. I'm flagging this promptly, before more work stacks on top of it, rather than waiting to do a larger reconciliation later. This is not a claim that the project's conclusion is wrong; it's a claim that the chain of reasoning from `v13.362` through `v13.366` currently has an open dependency that hasn't been addressed, and I'd rather say so now than let three more "closure" checkpoints build on an unexamined foundation.
+
+## 4. Scope note
+
+Not audited this round: the Casimir/V4 thread continuation (`v13.364` "Casimir Mixed-Curvature Quarter-Shift Unification" through `v13.369`), which the user has been actively steering toward a Casimir/null-diamond connection — now deferred two rounds running given the priority of following up on the round-20 finding. The depth-16 positive-kernel breakpoint sweep underlying `v13.363` was not independently reproduced. The primary-source fidelity of the underlying Suzuki construction remains subject to the same arXiv-access limitation as every prior round.
+
+## 5. Guardrails
+
+All guardrails from prior rounds remain in force, including round 20's recommendation for a canonical end-to-end matrix-assembly script — this round's finding is exactly the failure mode that guardrail was meant to catch (a formula-level discrepancy propagating silently through several "closure" checkpoints because nothing re-derives the matrix from scratch at each stage). No new guardrail beyond reiterating that one with the concrete evidence now on record that it would have mattered here.
+
+**External audit round 21: OPEN FINDING CARRIED FORWARD. Round 20's `K_arch`/off-diagonal formula discrepancy is confirmed still present, unchanged, in `v13.365`'s "Global High-Complement Closure" and inherited by `v13.366`'s Schur-complement construction. Recommend the project address this directly — either by reconciling my re-derivation with theirs, or by independently re-deriving the archimedean off-diagonal formula from first principles — before treating any closure downstream of `v13.362` as established.**
