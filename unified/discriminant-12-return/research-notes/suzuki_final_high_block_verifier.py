@@ -24,7 +24,7 @@ The structured factorization uses the exact displacement recurrence
 The local replay checker is the v13.359 formula and the global composition is
     ||E_arith|| <= |||L|||_1 |||L|||_inf sum_k delta_k.
 
-This file is deliberately dependency-light and fail-closed.  It is the program
+This file is deliberately dependency-light and fail-closed. It is the program
 that the certified scalar-data and MPFR/ball backends should plug into; it is
 not itself a completed validated run.
 """
@@ -40,7 +40,9 @@ FACTOR_BITS = 512
 CHECK_BITS = 1024
 PIVOT_TARGET = 0.25
 ARITHMETIC_TARGET = 1e-8
-MATRIX_UNCERTAINTY_TARGET = 2e-13
+MATRIX_UNCERTAINTY_LIMIT = 2e-13
+# v13.357 kernel-level arch bound; prime/cusp are to be over-resolved.
+DEFAULT_MATRIX_UNCERTAINTY = 1.22e-13
 TOTAL_ALLOWANCE = 3.15e-6
 
 @dataclass
@@ -58,13 +60,13 @@ class Transcript:
 
 def certify_transcript(min_pivot, min_pivot_mode, absL_one, absL_inf,
                        local_defect_sum,
-                       matrix_uncertainty=MATRIX_UNCERTAINTY_TARGET):
+                       matrix_uncertainty=DEFAULT_MATRIX_UNCERTAINTY):
     arithmetic = absL_one * absL_inf * local_defect_sum
     total = arithmetic + matrix_uncertainty
     passed = (
         min_pivot > PIVOT_TARGET
         and arithmetic < ARITHMETIC_TARGET
-        and matrix_uncertainty < MATRIX_UNCERTAINTY_TARGET
+        and matrix_uncertainty < MATRIX_UNCERTAINTY_LIMIT
         and total < TOTAL_ALLOWANCE
     )
     return Transcript(min_pivot, min_pivot_mode, absL_one, absL_inf,
@@ -85,5 +87,6 @@ if __name__ == '__main__':
     print('factor/check bits =', FACTOR_BITS, CHECK_BITS)
     print('targets: pivot >', PIVOT_TARGET,
           ', arithmetic residual <', ARITHMETIC_TARGET,
+          ', matrix uncertainty <', MATRIX_UNCERTAINTY_LIMIT,
           ', total residual <', TOTAL_ALLOWANCE)
     require_certified_backends()
