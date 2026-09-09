@@ -1,0 +1,39 @@
+# Cone Derivation Ledger v13.363 — External Audit Round 19
+
+Date: 2026-09-09
+
+Status labels: **[S]** source-established, **[D]** exact derived, **[N-cert]** certified numerical, **[I]** interpretation, **[O]** open, **[Audit]** correction/limitation.
+
+## Scope
+
+Independent audit of `v13.319` (divisor-shell/V4 thread, one entry) and `v13.349`–`v13.361` (Suzuki high-complement certification thread, thirteen entries) — the direct continuation of the architecture `v13.348` reoriented toward last round. This arc pushes from "targeting data" toward an actual executable, fail-closed numerical verifier for the `7991`-dimensional finite high block. I hand-verified the core mathematical mechanisms (displacement-rank structure, the fast Cauchy-LDL recurrence, the a posteriori residual-to-positivity theorem, the triangular-inverse norm bounds) and independently reproduced every numerical constant I checked. I also ran the newly-added verifier script directly.
+
+## 1. `v13.319` (divisor-shell/V4 thread): verified
+
+**[D] Verified by hand**, the binomial expansion underlying the twisted positive-moment hierarchy: `I_{m,χ,q}=Σ_j C(m,j)n^j(-q)^{m-j}[H_χ^{(j)}(R_q-1)-H_χ^{(j)}(L_q-1)]` follows directly from expanding `(n/k-q)^m` termwise and telescoping the resulting `Σχ(k)/k^j` — correct, and consistent with the same commuting-square structure (`χ(R_q)`, not `χ(q)`, as the boundary carrier) already verified in this thread in earlier rounds.
+
+## 2. Suzuki high-complement thread: the architecture is sound everywhere I checked it
+
+This arc is the direct execution of `v13.348`'s corrected plan (certify the *entire* infinite high complement `𝒟` positive, then reduce the global inertia question to the finite `10×10` low-mode core via Schur complement). Three things stand out.
+
+**[Audit] `v13.349` is a genuine, useful self-correction.** It retracts an "overly optimistic" earlier estimate that the remote coupling from the finite block into the far tail would be `~10⁻³`; the corrected midpoint value is `~0.458`, an order-of-magnitude-plus miss. The entry is explicit about this ("this checkpoint corrects an overly optimistic intermediate estimate") and responds with a structurally better tool rather than just a bigger number.
+
+**[D] Verified by hand, the exact displacement-rank-two (Cauchy-matrix) structure — a genuinely elegant result.** Given the unified off-diagonal formula `(A_0)_{mn}=-\frac2\pi\frac{nZ_m-mZ_n}{n^2-m^2}` (itself a correct linear combination of three previously-verified Cauchy-type formulas — prime, cusp, and archimedean — I checked the combination algebra and it's consistent), I independently re-derived `v13.352`'s claim `XA_0-A_0X=\frac2\pi(uv^T-vu^T)` for `X=\mathrm{diag}(n^2)`, `u=(Z_n)`, `v=(n)`: computing `(XA_0-A_0X)_{mn}=(m^2-n^2)(A_0)_{mn}` directly from the definition and simplifying gives exactly `\frac2\pi(Z_mn-mZ_n)`, which equals `\frac2\pi(uv^T-vu^T)_{mn}` by direct expansion — confirmed off-diagonal, and both sides vanish identically on the diagonal. This is the standard structure exploited by fast "Cauchy-like" matrix solvers (Gohberg–Kailath–Olshevsky-type algorithms), and `v13.354`'s generator-update recurrence for the structured LDL factorization (`u_i'=u_i-\ell_iu_1`, `v_i'=v_i-\ell_iv_1`, with the reconstructed pivot column `b_i=\frac2\pi\frac{u_1v_i-v_1u_i}{x_1-x_i}`) is exactly the standard GKO Schur-update formula for this matrix class, correctly instantiated. This is real, correct applied numerical linear algebra, not hand-waving — turning what would be an infeasible dense `7991×7991` interval Cholesky into an `O(N²)`-arithmetic, `O(N)`-storage structured recurrence.
+
+**[D] Verified by hand, the a posteriori residual-to-positivity theorem underlying `v13.355`–`v13.360`.** The claim (standard in verified numerics, e.g. the style of argument behind interval/verified Cholesky checkers): if `B=LDL^T+E` with all diagonal pivots `d_j≥d_{\min}>0`, then `B` is congruent (Sylvester's law of inertia) to `D+L^{-1}EL^{-T}`, and `\|L^{-1}EL^{-T}\|_2\le\|L^{-1}\|_2^2\|E\|_2`, so `\|E\|_2<d_{\min}/\|L^{-1}\|_2^2` forces `D+L^{-1}EL^{-T}\succ0`, hence `B\succ0`. I re-derived this from scratch and it's correct. **[N-cert]** I then independently recomputed `v13.356`'s numbers: `\sqrt{21.2201180807\times3802.74853590}=284.068254057`, matching the claimed `\|L^{-1}\|_2\le284.0682541` exactly, and `0.254299623649/284.0682541^2=3.15138\times10^{-6}`, matching the claimed threshold `≈3.15\times10^{-6}` exactly. The row/column triangular-inverse bounds themselves (`\|L^{-1}\|_\infty\le\max_iy_i`, `\|L^{-1}\|_1\le\max_jz_j` via forward/backward substitution recursions) are standard and correctly stated, and `\|M\|_2\le\sqrt{\|M\|_1\|M\|_\infty}` is the standard norm-interpolation inequality.
+
+**[N-cert]** I ran the newly-added `research-notes/suzuki_final_high_block_verifier.py` (`v13.361`) directly. It genuinely fails closed exactly as advertised: it prints its target parameters (dimension `7991`, matching `(16001-21)/2+1`; pivot/residual thresholds matching the values verified above) and then raises `RuntimeError: FAIL-CLOSED: certified scalar-data provider and outward-rounded 512/1024-bit replay backend are not yet wired into this verifier` and exits nonzero — it does not, and structurally cannot, print a false PASS. `v13.361` also documents catching a real integration bug (confusing a default per-kernel uncertainty value with the strict acceptance limit) before it could contaminate a result — another instance of the project's now-consistent habit of catching its own mistakes before they propagate.
+
+## 3. Overall verdict for this round
+
+Every mechanism I independently checked in this arc — the corrected remote-coupling estimate, the displacement-rank-two Cauchy structure, the fast structured-LDL generator recurrence, the a posteriori residual-to-positivity theorem, and the triangular-inverse norm bounds — is mathematically sound, and every numerical constant I recomputed matched exactly. This is genuinely more sophisticated numerical linear algebra than anything earlier in the Suzuki thread, applied correctly to a real computational bottleneck (a `7991`-dimensional matrix that would be infeasible to certify by dense interval Cholesky). Nothing has actually been proven yet — every entry through `v13.361` is explicit that the "certified scalar-data provider" and "512/1024-bit replay backend" remain unimplemented, and the verifier script backs that up by refusing to run rather than by disclaimer alone.
+
+## 4. Scope note
+
+Not independently verified this round: the archimedean rational/transcendental enclosure machinery from `v13.337`–`v13.343` that the certified scalar-data provider is meant to supply (out of scope for this round's budget, flagged rather than silently skipped, consistent with round 18's disclosure); `v13.362` ("mixed-curvature Euclidean defect strip bridge," divisor-shell thread), which landed on `master` during this audit's final freshness check and is left for the next round; the primary-source fidelity of the underlying Suzuki construction (same arXiv-access limitation as every prior round).
+
+## 5. Guardrails
+
+All guardrails from prior rounds remain in force. No new guardrail is needed — the fail-closed verifier design in `v13.361` is exactly the kind of structural safeguard (a program that cannot accidentally emit a false PASS) that these audits have been recommending in spirit since the round-14 and round-15 findings about not trusting under-resolved or unchecked numerical claims, and it's good to see it implemented directly in code rather than only as a ledger-text discipline.
+
+**External audit round 19: CLOSED. No corrections required to `master`. The high-complement positivity certificate remains, correctly, an unproved target — the architecture built toward it this round is sound everywhere I checked, and the verifier genuinely refuses to claim more than that.**
