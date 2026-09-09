@@ -1,0 +1,47 @@
+# Cone Derivation Ledger v13.370 — External Audit Round 20
+
+Date: 2026-09-09
+
+Status labels: **[S]** source-established, **[D]** exact derived, **[N-cert]** certified numerical, **[I]** interpretation, **[O]** open, **[Audit]** correction/limitation.
+
+## Scope
+
+This round I attempted something I haven't done before in this audit: an independent, from-scratch numerical reconstruction of the Suzuki `a=1` pole-free even-`v` matrix `A_0` for odd modes `21≤n≤399`, built entirely from sub-formulas this audit has already independently verified in earlier rounds (cusp diagonal/off-diagonal, prime diagonal/off-diagonal, and the archimedean remainder `r''(t)`), in order to cross-check `v13.362`'s central claim (`A_{0,[21,16001]}⪰0.22I`, reported via a smaller-range checkpoint in `v13.348` as `λ_min(A_{0,[21,399]})≈0.231953166244`). I did **not** get to the `v13.363`–`v13.368` entries that landed during this investigation (Suzuki `v13.363`–`v13.364`: "validated 2.05 prime operator bound," "cross-block certificate reduction"; V4/Casimir thread `v13.364`(collision)–`v13.368`) — this round's entire budget went to the reconstruction below, which I judged higher priority given the stakes of `v13.362`'s claim. Both are left for next round.
+
+## 1. What I found: a real, reproducible formula error — and a real, unexplained residual gap
+
+**[Audit] The archimedean off-diagonal formula stated in `research-notes/suzuki_combined_cauchy_far_tail_factorization.py` does not match direct computation.** That file states, as one of three "exact off-diagonal formulas" combined into the unified `Z_n` Cauchy identity used throughout `v13.349`–`v13.362`:
+```
+K_arch(m,n) = -(4/π)(n H_m − m H_n)/(n²−m²),    H_j = ∫₀² h(t) sin(jπt/2) dt,  h=r''
+```
+I computed `∫₀² r''(t) S_{mn}(t) dt` directly (`S_{mn}` being the exact overlap kernel this project verified in round 17) via converged Gauss–Legendre quadrature (stable across three independent refinement levels) for `(m,n)=(21,29),(21,101),(29,101)`, and independently *re-derived* the correct closed form from the product-to-sum expansion of `S_{mn}(t)` and the definition of `H_j`:
+```
+∫₀² g(t) S_{mn}(t) dt = (2ab/(a²−b²))(b·G(b) − a·G(a)),   a=mπ/2, b=nπ/2, G(k):=∫₀² g(t)sin(kt)dt
+```
+This derived formula matches the direct quadrature to 10 significant figures at all three test pairs (e.g. `6.772385648528×10⁻⁵` vs `6.772385648561×10⁻⁵` at `(21,29)`). The ledger's stated `K_arch(m,n)` formula does **not** — it gives `−4.989×10⁻⁴` at `(21,29)` against the true `6.77×10⁻⁵`, off by a factor of ~7 and the wrong sign convention relative to the correct term's actual behavior. I checked every simple sign/coefficient variant of the ledger's formula (both signs, both orderings, `2/π` vs `4/π`) and none matched — the discrepancy is structural (the correct formula pairs each mode with *its own* transform value, `nH_n − mH_m`, not cross-paired as `nH_m − mH_n`, and carries a different prefactor), not a typo.
+
+**[N-cert] However, this specific error turns out to have only a modest effect on the block's minimum eigenvalue, and a substantial, unresolved gap remains regardless.** I assembled the full `190×190` pole-free matrix for modes `21..399` twice — once using my independently-derived correct archimedean off-diagonal formula, once using the ledger's stated (and, per above, incorrect) formula — using otherwise-identical, independently-verified diagonal and cusp/prime off-diagonal pieces. Both gave essentially the same minimum eigenvalue (`0.2767` and `0.2742` respectively), and **neither matches `v13.348`'s reported `λ_min(A_{0,[21,399]})≈0.231953166244`** — both are about 18–19% higher. I could not close this gap within this round's budget.
+
+**[Audit] Self-correction, disclosed for transparency.** Midway through this reconstruction I found and fixed a real bug in my *own* script: I had conflated, for the one prime power in the `a=1` horizon that isn't itself prime (`q=4`), the von Mangoldt coefficient `Λ(4)=log2` with the ramp's breakpoint position, which must be `log(4)` not `log(2)`. Before fixing this, my reconstruction gave a minimum eigenvalue of `0.012`–`0.014` — wildly wrong. After fixing it, the result jumped to the `0.27`-ish range reported above, which is at least in the right regime. I mention this to be transparent about how fragile this kind of reconstruction is even when every sub-piece has been individually verified in isolation, and to flag that I cannot fully rule out a remaining error of the same character on my side accounting for the residual ~19% gap — but I looked for one (re-verified every diagonal value two independent ways, re-verified `H_n` against direct integration, re-verified the prime and cusp off-diagonal formulas against this project's own already-audited closed forms) and did not find one.
+
+## 2. Why this matters and what I recommend
+
+Two things can both be true: the specific `K_arch` formula error I isolated is real and should be fixed regardless of its downstream weight, and it is very likely *not* the (or not the only) explanation for why my reconstruction doesn't match `v13.348`'s reported number. That means there is very likely at least one more discrepancy — either in my reconstruction (despite the checks above) or in the project's own matrix assembly — between what's being certified in `v13.362`'s "validated long-double high-block certificate" and the operator this project intends to certify. Given the entire fast-LDL / displacement-rank-two certification architecture built since `v13.349` uses this same unified `Z_n` sequence as its fundamental generator vector, an error in one of its three components is not cosmetic — it means the structured factorization is provably factoring a *different* matrix than intended, whatever the size of the resulting eigenvalue shift turns out to be.
+
+I want to be precise about confidence levels here: I am **highly confident** in Section 1's first finding (the `K_arch` formula mismatch — verified two independent ways, reproduced at three mode pairs, with the correct alternative formula matching to 10 digits). I am **not** highly confident that I've found the full explanation for the ~19% eigenvalue gap — that could be my error, theirs, or both, and settling it needs either the project's own from-scratch reconstruction script (I could not find one anywhere in `research-notes/` — every script I found either checks a hardcoded transcript or validates one isolated sub-formula, never assembles and diagonalizes the actual matrix end-to-end) or another independent one.
+
+## 3. Overall verdict for this round
+
+`v13.362`'s "validated finite high-block certificate" should be treated as **unconfirmed** pending resolution of the discrepancy documented above, not because I've proven it wrong, but because an independent from-scratch reconstruction — built from this project's own already-individually-verified sub-formulas — does not reproduce its headline number, and I found a genuine, separate formula error along the way that the project has apparently been carrying since `v13.349`. This is a stronger finding than previous rounds' style of confirmation, and I'd rather report it precisely and let the project's own from-scratch check resolve it than either overstate a "proof is broken" conclusion or understate a real, reproducible mismatch.
+
+## 4. Scope note
+
+Not audited this round: `v13.363`–`v13.364` (Suzuki thread: "validated 2.05 prime operator bound," "cross-block certificate reduction") and `v13.364`–`v13.368` (V4/Casimir thread continuation, including the user-directed push toward Casimir/null-diamond geometry) — all landed during this round's investigation and are deferred to the next round. The archimedean `H_n` digamma-acceleration formula itself, and the cusp/prime off-diagonal formulas, were *not* re-derived from scratch this round — they were reused from prior rounds' verifications (rounds 15–19), which remain the basis for trusting them here.
+
+## 5. Guardrails
+
+All guardrails from prior rounds remain in force. **New guardrail, prompted by this round's investigation:**
+
+- **Maintain one canonical, executable, end-to-end matrix-assembly script that builds the actual `A_0` matrix from its formula definitions and diagonalizes it — not just per-formula validators and hardcoded-transcript checkers.** I could not find such a script anywhere in `research-notes/`, across more than 100 files. Every "certificate" script either records numbers computed elsewhere as constants, or validates one isolated closed-form identity against another isolated closed-form identity. Without a single script that goes formula → matrix → eigenvalues, in one auditable place, it is very easy for a genuine formula error (like the one found in Section 1) to persist for many checkpoints without being caught, because nothing in the existing test suite actually re-assembles the object being certified.
+
+**External audit round 20: OPEN FINDING. A genuine formula error is confirmed in the archimedean off-diagonal `K_arch` term used since `v13.349`. Independent reconstruction does not reproduce `v13.348`/`v13.362`'s reported minimum eigenvalue for the `n=21..399` pole-free block (mine: `≈0.277`; theirs: `≈0.232`), and the source of that remaining gap is not yet resolved on either side. Recommend the project run its own from-scratch matrix assembly against these formulas before treating `v13.362`'s closure as final.**
