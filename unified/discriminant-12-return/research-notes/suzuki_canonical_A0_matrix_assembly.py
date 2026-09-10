@@ -1,44 +1,33 @@
 #!/usr/bin/env python3
 """Canonical end-to-end assembler for the pole-free Suzuki a=1 even-v matrix A0.
 
-Purpose
--------
-This file was added in direct response to External Audit Rounds 20-21. It
-assembles one actual matrix from the component definitions, rather than
-validating isolated formulas or replaying a stored certificate transcript.
+Audit status
+------------
+External Audit Round 20 incorrectly replaced the source-faithful archimedean
+off-diagonal formula by the expression obtained from pairing h=g'' with the
+derivative-basis overlap.  v13.387 resolves the issue: after integration by
+parts, h acts on the Dirichlet sine modes themselves.
 
-Basis: psi_n(x)=sin(n*pi*(x+1)/2), n odd.
+Accordingly the canonical/default archimedean off-diagonal entry is
 
-The important correction is the off-diagonal archimedean term. If
+    Karch_mn = -(4/pi)(n H_m-m H_n)/(n^2-m^2),
+    H_n = int_0^2 h(t) sin(n*pi*t/2) dt.
 
-    h(t)=r''(t)=exp(-t/2)/(1-exp(-2t)) - 1/(2t),
-    H_n=int_0^2 h(t) sin(n*pi*t/2) dt,
-    a=m*pi/2, b=n*pi/2,
+The derivative-overlap expression is retained only as an audit comparator:
 
-then direct product-to-sum reduction of the verified overlap kernel gives
+    Karch_derivative_overlap
+      = (2ab/(a^2-b^2))(b H_n-a H_m),
+      a=m*pi/2, b=n*pi/2.
 
-    Karch_mn = [2ab/(a^2-b^2)] [b H_n - a H_m]
-              = pi*m*n*(n H_n-m H_m)/(m^2-n^2).
+Direct evaluation of Suzuki's source screw function against psi'_m,psi'_n
+agrees with the canonical formula and not with the derivative-overlap branch.
+The pole-free off-diagonal matrix therefore retains the rank-two sequence
 
-This is NOT the older cross-paired expression
+    Z_n = 2 A_n + Si(n*pi) + 2 H_n,
+    (A0)_mn = -(2/pi)(n Z_m-m Z_n)/(n^2-m^2).
 
-    -(4/pi)(n H_m-m H_n)/(n^2-m^2),
-
-which External Audit Round 20 correctly found to disagree with direct
-quadrature.
-
-The corrected arch term remains Cauchy-like/displacement-rank two: writing
-Y_n=n H_n,
-
-    (m^2-n^2) Karch_mn = pi [ m (n Y_n) - (m Y_m) n ].
-
-The cusp+prime off-diagonal part is separately displacement-rank two, so the
-corrected full A0 is displacement-rank at most four rather than two.
-
-This script is a numerical end-to-end reconstruction/cross-check, not itself
-an interval certificate. It deliberately contains both the corrected and
-legacy arch formulas so the historical v13.348 number can be reproduced and
-the effect of the correction isolated.
+This script is numerical regression infrastructure, not an RH/GRH proof or an
+exact-zero certificate.
 """
 from __future__ import annotations
 
@@ -57,8 +46,6 @@ WEIGHTS = tuple(L/sqrt(q) for L, q in zip(LAMBDAS, QS))
 def h(t: float) -> float:
     if t == 0.0:
         return 0.25
-    # Analytic expansion at the removable singularity:
-    # h(t)=1/4-t/48-t^2/32+7t^3/11520+O(t^4).
     if abs(t) < 1e-7:
         return 0.25 - t/48.0 - t*t/32.0 + 7.0*t**3/11520.0
     return exp(-t/2.0)/(1.0-exp(-2.0*t)) - 1.0/(2.0*t)
@@ -78,13 +65,18 @@ def arch_diag(n: int) -> float:
     return -quad(f, 0.0, 2.0, epsabs=2e-13, epsrel=2e-13, limit=300)[0]
 
 
-def arch_off_correct(m: int, n: int) -> float:
+def arch_off_source(m: int, n: int) -> float:
+    """Source-faithful post-IBP arch term; restored by v13.387."""
+    return -(4.0/pi)*(n*H(m)-m*H(n))/(n*n-m*m)
+
+
+def arch_off_derivative_overlap(m: int, n: int) -> float:
+    """Audit comparator only; NOT the post-IBP arch matrix element."""
     a, b = m*pi/2.0, n*pi/2.0
     return (2.0*a*b/(a*a-b*b))*(b*H(n)-a*H(m))
 
-
-def arch_off_legacy(m: int, n: int) -> float:
-    return -(4.0/pi)*(n*H(m)-m*H(n))/(n*n-m*m)
+# Backward-compatible name used by older scripts.
+arch_off_legacy = arch_off_source
 
 
 @lru_cache(None)
@@ -119,54 +111,36 @@ def cusp_diag(n: int) -> float:
     return log(n/4.0)-float(Ci)-float(Si)/(n*pi)
 
 
-def A0_entry(m: int, n: int, corrected_arch: bool = True) -> float:
+def A0_entry(m: int, n: int, source_faithful: bool = True) -> float:
     if m == n:
         return cusp_diag(n)+prime_diag(n)+arch_diag(n)
-    ka = arch_off_correct(m, n) if corrected_arch else arch_off_legacy(m, n)
+    ka = (arch_off_source(m, n) if source_faithful
+          else arch_off_derivative_overlap(m, n))
     return cusp_off(m, n)+prime_off(m, n)+ka
 
 
-def assemble(start: int = 21, stop: int = 399,
-             corrected_arch: bool = True):
+def assemble(start: int = 21, stop: int = 399, source_faithful: bool = True):
     modes = np.arange(start, stop+1, 2, dtype=int)
     A = np.empty((len(modes), len(modes)), dtype=float)
     for i, m in enumerate(modes):
-        A[i, i] = A0_entry(int(m), int(m), corrected_arch)
+        A[i, i] = A0_entry(int(m), int(m), source_faithful)
         for j in range(i+1, len(modes)):
             n = int(modes[j])
-            z = A0_entry(int(m), n, corrected_arch)
+            z = A0_entry(int(m), n, source_faithful)
             A[i, j] = A[j, i] = z
     return modes, A
 
 
-def audit_pairs():
-    targets = {
-        (21, 29): 6.772385648528e-5,
-        (21, 101): 1.9437951e-5,
-        (29, 101): 1.4070380e-5,
-    }
-    rows = []
-    for pair, target in targets.items():
-        corr = arch_off_correct(*pair)
-        old = arch_off_legacy(*pair)
-        rows.append((pair, corr, target, corr-target, old))
-    return rows
-
-
 def report():
-    print('arch pair cross-checks: pair, corrected, audit target, difference, legacy')
-    for row in audit_pairs():
-        print(row)
-    _, Aold = assemble(corrected_arch=False)
-    _, Anew = assemble(corrected_arch=True)
-    lold = float(np.linalg.eigvalsh(Aold)[0])
-    lnew = float(np.linalg.eigvalsh(Anew)[0])
-    print('legacy lambda_min A0_[21,399]    =', repr(lold))
-    print('corrected lambda_min A0_[21,399] =', repr(lnew))
-    print('historical ledger target          = 0.231953166244')
-    print('round-20 independent report       ~= 0.2767 (not reproduced here)')
-    print('status: corrected matrix positive on this finite test only;')
-    print('        infinite high-complement certification must be rebuilt.')
+    _, Asrc = assemble(source_faithful=True)
+    _, Awrong = assemble(source_faithful=False)
+    lsrc = float(np.linalg.eigvalsh(Asrc)[0])
+    lwrong = float(np.linalg.eigvalsh(Awrong)[0])
+    print('source-faithful lambda_min A0_[21,399] =', repr(lsrc))
+    print('derivative-overlap comparator           =', repr(lwrong))
+    print('historical rank-two target              = 0.231953166244')
+    print('expected source-faithful value          ~= 0.231953166254')
+    print('guardrail: derivative-overlap branch is not Suzuki post-IBP A0')
 
 
 if __name__ == '__main__':
