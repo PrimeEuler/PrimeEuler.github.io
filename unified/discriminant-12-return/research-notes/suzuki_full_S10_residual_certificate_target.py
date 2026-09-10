@@ -1,53 +1,89 @@
 #!/usr/bin/env python3
-"""Certification target for the full ten-dimensional Suzuki Schur complement.
+"""Certification target for the corrected full ten-dimensional Suzuki Schur complement.
 
-After v13.365 the even-sector high complement
+Post-audit status
+-----------------
+Audit Rounds 20-21 invalidated the legacy archimedean off-diagonal formula and
+therefore made the old v13.365/v13.366 constants provisional.  The corrected
+high complement has now been restored by v13.382-v13.385.
 
-    D = closure span{psi_n : n>=21, n odd}
+Let
 
-is positive.  A rounded rigorous lower bound from the finite/high-tail Schur
-estimate is
+    D = closure span{psi_n : n>=21, n odd},
+    C = span{psi_1,psi_3,...,psi_19}.
 
-    gamma_D = 0.22 - 0.994^2/4.6732 > 8.57e-3.
+Validated/certified inputs from the repaired chain are
 
-Hence
+    A0_[21,16001] >= 0.22 I,
+    A0_[16003,infinity) >= 4.6733 I,
+    ||G_corrected|| < 1.00303.
 
-    ||A_DD^{-1}|| < 1/gamma_D < 116.7.
+Hence the block-Schur lower bound is
 
-The infinite inertia is therefore exactly the inertia of
+    gamma_D = 0.22 - 1.00303^2/4.6733
+            > 0.0047197.
 
-    S10 = A_CC - A_CD A_DD^{-1} A_DC,
+Therefore
 
-where C is the ten low odd modes 1,3,...,19.
+    ||A_DD^{-1}|| < 1/gamma_D < 211.9.
 
-For a point solve X approximating A_DD^{-1} A_DC with residual
+Since A_DD>0, exact congruence gives
+
+    inertia(A0) = inertia(S10) + inertia(A_DD),
+
+where
+
+    S10 = A_CC - A_CD A_DD^{-1} A_DC.
+
+Thus all possible nonpositive directions of the pole-free even-sector operator
+are contained in the ten-dimensional S10 problem.
+
+Residual certification
+----------------------
+For a point solve X approximating
+
+    X_* = A_DD^{-1} A_DC
+
+with residual
 
     R = A_DC - A_DD X,
 
-one has
+we have
 
-    ||X_* - X|| <= ||R||/gamma_D
+    ||X_*-X|| <= ||R||/gamma_D,
 
-and therefore
+and consequently
 
     ||A_CD A_DD^{-1} A_DC - A_CD X||
-        <= ||A_CD|| ||R|| / gamma_D.
+      <= ||A_CD|| ||R||/gamma_D.
 
-If Cnorm denotes a certified bound for ||A_CD||, the final ten-dimensional
-Schur error budget may be taken as
+If Cnorm is a certified bound for ||A_CD||, then
 
     eta_solve = Cnorm * residual / gamma_D.
 
-Earlier finite-buffer diagnostics placed the fifth ordered Schur eigenvalue
-near 4.3e-8.  Thus a practical final target is eta_total < 1e-8, preferably
-3e-9, which requires solve residuals in the 1e-11--1e-10 range for Cnorm of
-order one.  This is entirely compatible with high-precision structured solves.
+A practical total ten-dimensional Schur enclosure target remains
 
-Guardrail: the earlier 4.3e-8 value is numerical finite-section targeting data.
-The full S10 has not yet been certified and no RH/GRH conclusion follows.
+    eta_total < 3e-9.
+
+For Cnorm=1 this requires
+
+    residual < 1.42e-11.
+
+This is a stricter solve target than the pre-audit v13.366 value, but remains
+well within a high-precision structured solve.
+
+Guardrails
+----------
+The old numerical fifth-Schur-eigenvalue diagnostic (~4.3e-8) is not promoted
+here; it came from the pre-audit finite model and must be recomputed for the
+corrected operator.  This file establishes only the corrected inverse and
+residual targets.  No exact-zero, RH, or GRH conclusion follows.
 """
 
-GAMMA_D = 0.22 - 0.994**2/4.6732
+FINITE_LOWER = 0.22
+TAIL_LOWER = 4.6733
+CROSS_UPPER = 1.00303
+GAMMA_D = FINITE_LOWER - CROSS_UPPER**2/TAIL_LOWER
 INVERSE_BOUND = 1.0/GAMMA_D
 TARGET_SCHUR_ERROR = 3e-9
 
@@ -57,7 +93,7 @@ def residual_target(Cnorm=1.0, eta=TARGET_SCHUR_ERROR):
 
 
 if __name__ == '__main__':
-    print('gamma_D >', GAMMA_D)
+    print('corrected gamma_D >', GAMMA_D)
     print('||A_DD^{-1}|| <', INVERSE_BOUND)
     print('solve residual target for Cnorm=1:', residual_target())
-    print('guardrail: full S10 solve/certificate still pending')
+    print('guardrail: corrected full S10 solve/certificate still pending')
