@@ -3,42 +3,38 @@
 
 Context
 -------
-After External Audit Round 20, the source-faithful rank-two off-diagonal
-matrix is restored.  For the low core
+After v13.387 restored the source-faithful rank-two Suzuki matrix and v13.392
+reinstated the high-complement positivity chain, let
 
     C = {1,3,...,19}
 
 and a finite high block
 
-    F_M = {21,23,...,M},
+    F_M = {21,23,...,M}.
 
-define the finite Schur complement
+Define
 
     S_F = A_CC - A_C,F A_F,F^{-1} A_F,C.
 
 Let W be the span of the six finite-Schur eigenvectors corresponding to
-indices 5,...,10 after ordering the ten eigenvalues increasingly.  If the
-remaining tail operator after eliminating F satisfies
+indices 5,...,10.  If the remaining tail operator after eliminating F obeys
 
-    T_eff >= delta I,
+    T_eff >= delta I
 
-and R is the residual coupling from W into the remaining tail, then
+and R_W is the residual coupling from W into that remaining tail, then
 
-    S_infty|_W >= S_F|_W - delta^{-1} R^* R.
+    S_infty|_W >= S_F|_W - delta^{-1} R_W^* R_W.
 
-Hence positivity of the six-dimensional candidate-positive sector follows
-whenever
+Thus positivity of the six-dimensional candidate-positive sector follows if
 
     delta > lambda_max(S_W^{-1/2} R_W^* R_W S_W^{-1/2}).
 
-This is strictly sharper than demanding a uniform 10-column solve residual at
-the 1e-11 scale, because the residual is strongly anisotropic and the dominant
-remote-tail channel couples mostly into directions whose finite Schur values
-are O(1), not into the tiny fifth direction.
+This anisotropic quadratic test is sharper than demanding a uniform ten-column
+solve residual at the 1e-11 scale.
 
 Finite diagnostic sequence
 --------------------------
-Using an equal-width next tail band as a midpoint diagnostic gives
+Using an equal-width next tail band as an ordinary floating-point diagnostic:
 
     M      delta_crit(next equal-width band)
     199    0.4702
@@ -59,40 +55,52 @@ and at M=1199,
     sigma_4 ~ 8.5e-10,
     sigma_5 ~ 1.7e-11.
 
-These are ordinary floating-point diagnostics only.
+These values are diagnostics only, not interval enclosures.
 
-Tail-coercivity comparison target
----------------------------------
-If one provisionally combines the previously targeted finite-high lower bound
+Certified tail comparison after v13.392
+---------------------------------------
+The source-faithful constituent certificates are again mutually consistent:
 
-    A0_[21,16001] >= 0.22 I
+    A_[21,16001] >= 0.22 I,
+    ||G_[21,16001],[16003,infinity)|| < 0.994,
+    alpha_16003 > 4.673332491014484.
 
-with the previously targeted source-faithful cross estimate
+Therefore the Schur tail remaining after elimination of the finite-high block
+has the certified lower floor
 
-    ||G|| < 0.994
+    delta_tail
+      > 4.673332491014484 - 0.994^2/0.22
+      = 0.18225976374175623.
 
-and the analytic raw tail lower bound
+The remaining proof task is now exact and fail-closed:
 
-    alpha_16003 > 4.6732,
+    certify delta_crit(full n>=16003 residual Gram) < 0.18225976374175623.
 
-then the standard two-block Schur lower bound gives
+Empirical scaling diagnostic
+----------------------------
+A log-log least-squares fit of the four finite midpoint diagnostics to
 
-    delta_tail > 4.6732 - 0.994^2/0.22
-               = 0.182127272727...
+    delta_crit(M) ~= C M^{-p}
 
-This value is included only as a comparison target.  Because the earlier
-v13.365 full-cross certificate was subsequently placed under audit, this file
-DOES NOT promote delta_tail > 0.1821 as certified.  The next rigorous task is
-to certify the six-dimensional residual Gram directly against a separately
-revalidated tail-coercivity lower bound.
+gives approximately
+
+    p ~= 0.45184,
+    C ~= 5.45089.
+
+This fit predicts crossing of the certified 0.182259... floor near M~1846 and
+predicts delta_crit(16001)~0.0687.  This is useful only for implementation
+planning; no extrapolated value is used as proof.
 
 Guardrails
 ----------
-* finite diagnostics are not infinite-operator proofs;
+* finite diagnostics and fitted scaling are not infinite-operator proofs;
 * the first four tiny Schur eigenvalues are not called exact kernels;
-* no exact-zero, inertia, RH, or GRH conclusion follows;
-* no v13.365/v13.366 claim is silently reinstated.
+* the fifth finite-section eigenvalue is not yet a certified infinite positive
+  eigenvalue;
+* no exact-zero, final inertia, RH, or GRH conclusion follows.
 """
+
+import math
 
 DIAGNOSTIC_DELTA_CRIT = {
     199: 0.4702,
@@ -111,22 +119,38 @@ SIGMA2_OVER_SIGMA1 = {
 SIGMA4_M1199 = 8.5e-10
 SIGMA5_M1199 = 1.7e-11
 
-ALPHA_TARGET = 4.6732
-FINITE_HIGH_GAP_TARGET = 0.22
-CROSS_NORM_TARGET = 0.994
-PROVISIONAL_DELTA_COMPARISON = (
-    ALPHA_TARGET - CROSS_NORM_TARGET**2 / FINITE_HIGH_GAP_TARGET
-)
+ALPHA_T = 4.673332491014484
+FINITE_HIGH_GAP = 0.22
+CROSS_NORM = 0.994
+CERTIFIED_DELTA_TAIL = ALPHA_T - CROSS_NORM**2 / FINITE_HIGH_GAP
+
+
+def loglog_fit(data):
+    xs = [math.log(float(M)) for M in data]
+    ys = [math.log(float(v)) for v in data.values()]
+    xm = sum(xs)/len(xs)
+    ym = sum(ys)/len(ys)
+    slope = sum((x-xm)*(y-ym) for x, y in zip(xs, ys)) / sum((x-xm)**2 for x in xs)
+    intercept = ym - slope*xm
+    p = -slope
+    C = math.exp(intercept)
+    return p, C
+
+
+FIT_P, FIT_C = loglog_fit(DIAGNOSTIC_DELTA_CRIT)
+FIT_CROSSING_M = (FIT_C/CERTIFIED_DELTA_TAIL)**(1.0/FIT_P)
+FIT_AT_16001 = FIT_C * 16001.0**(-FIT_P)
+
 
 if __name__ == "__main__":
     print("equal-width diagnostic delta_crit:")
     for M, value in DIAGNOSTIC_DELTA_CRIT.items():
         print(f"  M={M:4d}: {value:.4f}")
-    print("residual low-rank ratios sigma2/sigma1:")
-    for M, value in SIGMA2_OVER_SIGMA1.items():
-        print(f"  M={M:4d}: {value:.4e}")
-    print("M=1199 sigma4 ~", SIGMA4_M1199)
-    print("M=1199 sigma5 ~", SIGMA5_M1199)
-    print("provisional comparison delta =", PROVISIONAL_DELTA_COMPARISON)
-    assert 0.1821 < PROVISIONAL_DELTA_COMPARISON < 0.1822
-    print("guardrail: comparison target only; audited cross closure not reinstated")
+    print("certified Schur-tail floor >", CERTIFIED_DELTA_TAIL)
+    print("fit p =", FIT_P)
+    print("fit C =", FIT_C)
+    print("diagnostic fitted crossing M ~=", FIT_CROSSING_M)
+    print("diagnostic fitted delta_crit(16001) ~=", FIT_AT_16001)
+    assert CERTIFIED_DELTA_TAIL > 0.18225
+    assert FIT_CROSSING_M < 2000.0
+    print("guardrail: fitted crossing is diagnostic only; full residual Gram still open")
