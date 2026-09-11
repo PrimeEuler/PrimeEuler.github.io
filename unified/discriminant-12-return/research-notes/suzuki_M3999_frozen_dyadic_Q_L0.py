@@ -2,11 +2,12 @@
 """Frozen exact-dyadic Q and L0 inputs for the M=3999 Suzuki verifier.
 
 Every hexadecimal literal below is an exact representation of one IEEE-754
-binary64 value.  The verifier is to treat these dyadics as fixed mathematical
-inputs; it must NOT regenerate eigenvectors or a Cholesky factor.
+binary64 value. The verifier treats these dyadics as fixed mathematical inputs;
+it must NOT regenerate eigenvectors or a Cholesky factor.
 
-Q is 10x6.  Its first six rows form a 6x6 dyadic minor whose exact rational
-determinant is nonzero, so rank(Q)=6 exactly.
+Q is 10x6. Its first six rows form a 6x6 dyadic minor whose determinant is
+computed below with exact Fraction arithmetic and Bareiss elimination. The
+result is nonzero, so rank(Q)=6 exactly.
 
 L0 is 6x6 lower triangular with six nonzero dyadic diagonal entries, hence it is
 invertible exactly.
@@ -18,6 +19,8 @@ fixed coordinates.
 Guardrail: frozen verifier data only; the outward operator replay remains open.
 No exact-zero, final inertia, RH, or GRH conclusion follows.
 """
+
+from fractions import Fraction
 
 Q_HEX = [
 ['0x1.a9b0106ac01e8p-4','0x1.50e85227b79f2p-5','0x1.110e340c239ffp-7','-0x1.26a56146f4c61p-9','-0x1.c3bc320065106p-12','-0x1.3ddf24d66961ap-9'],
@@ -41,21 +44,55 @@ L0_HEX = [
 ['0x1.e1711cbdb3146p-42','0x1.d0b5ccbc83ab6p-50','-0x1.452798c7f5298p-50','0x1.6dad86e75f51ap-53','0x1.a00d12034cd1fp-54','0x1.883bd6fde0ad5p+0'],
 ]
 
-# Exact-dyadic first-six-row minor determinant is nonzero.  The decimal below
-# is only a readability diagnostic; exact-rational Gaussian/Bareiss elimination
-# on the hex inputs is the intended verifier check.
-FIRST6_MINOR_DET_DIAGNOSTIC = 1.2524505480946447e-14
 Q_GRAM_ERROR_MIDPOINT_2NORM = 1.290470233512659e-15
-
 L0_DIAG_HEX = [L0_HEX[i][i] for i in range(6)]
 
+
+def dyadic(hex_literal: str) -> Fraction:
+    """Convert an exact binary64 hex literal to its exact rational value."""
+    x = float.fromhex(hex_literal)
+    p, q = x.as_integer_ratio()
+    return Fraction(p, q)
+
+
+def bareiss_det(matrix):
+    """Exact determinant via fraction-free Bareiss-style elimination."""
+    A = [[Fraction(v) for v in row] for row in matrix]
+    n = len(A)
+    if n == 0:
+        return Fraction(1)
+    sign = 1
+    prev = Fraction(1)
+    for k in range(n - 1):
+        if A[k][k] == 0:
+            swap = next((r for r in range(k + 1, n) if A[r][k] != 0), None)
+            if swap is None:
+                return Fraction(0)
+            A[k], A[swap] = A[swap], A[k]
+            sign *= -1
+        pivot = A[k][k]
+        for i in range(k + 1, n):
+            for j in range(k + 1, n):
+                A[i][j] = (A[i][j] * pivot - A[i][k] * A[k][j]) / prev
+        for i in range(k + 1, n):
+            A[i][k] = Fraction(0)
+        prev = pivot
+    return sign * A[-1][-1]
+
+
+def exact_first6_minor_det():
+    minor = [[dyadic(Q_HEX[i][j]) for j in range(6)] for i in range(6)]
+    return bareiss_det(minor)
+
+
 if __name__ == '__main__':
-    Q = [[float.fromhex(x) for x in row] for row in Q_HEX]
-    L0 = [[float.fromhex(x) for x in row] for row in L0_HEX]
-    print('Q shape =', len(Q), 'x', len(Q[0]))
-    print('first-six minor determinant diagnostic =', FIRST6_MINOR_DET_DIAGNOSTIC)
+    det = exact_first6_minor_det()
+    print('Q shape =', len(Q_HEX), 'x', len(Q_HEX[0]))
+    print('exact first-six minor determinant numerator =', det.numerator)
+    print('exact first-six minor determinant denominator =', det.denominator)
+    print('decimal determinant diagnostic =', float(det))
     print('Q midpoint Gram error 2-norm =', Q_GRAM_ERROR_MIDPOINT_2NORM)
     print('L0 diagonal exact hex =', L0_DIAG_HEX)
-    assert FIRST6_MINOR_DET_DIAGNOSTIC != 0.0
-    assert all(float.fromhex(x) != 0.0 for x in L0_DIAG_HEX)
-    print('PASS diagnostics; verifier should prove Q rank by exact dyadic elimination')
+    assert det != 0
+    assert all(dyadic(x) != 0 for x in L0_DIAG_HEX)
+    print('PASS: rank(Q)=6 and invertibility(L0) verified exactly from frozen dyadics')
