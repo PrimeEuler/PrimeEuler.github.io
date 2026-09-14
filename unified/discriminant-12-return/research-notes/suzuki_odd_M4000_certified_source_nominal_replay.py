@@ -31,24 +31,36 @@ from suzuki_even_arch_symbolic_rational_certificate import HD_polynomials
 SENSITIVITY_Z = 4.76188937
 ARCH_ANALYTIC_OPERATOR = 1.22e-13
 # Exact-rational prime helper gives <1e-9 sequence and <4e-10 diagonal.
-# Add 1e-11 to each for binary64 rotation/weight recurrence arithmetic.
+# Add 1e-11 to each for binary64 rotation/weight recurrence arithmetic;
+# 2000 length-2 rotation steps have a standard accumulated rounding scale
+# below 2e-12, so this has ample slack.
 PRIME_SEQUENCE_ERROR = 1.01e-9
 PRIME_DIAGONAL_ERROR = 4.1e-10
 # Exact-rational cusp widths are <4.3e-14 (Si) and <7.4e-15 (diag).
 # The nominal is the interval center; these rounded radii include conversion.
 CUSP_SI_ERROR = 3.0e-14
 CUSP_DIAGONAL_ERROR = 1.0e-14
-# Polynomial pi-interval widths are ~1e-22.  1e-12 is an intentionally loose
-# allowance for binary64 polynomial evaluation, far above gamma-style estimates.
+# Explicit Horner evaluation uses at most about 128 multiply/add operations.
+# At the worst mode the absolute polynomial term sums are only ~3.63e-3
+# (H) and ~2.45e-4 (D), so 1e-12 at operator level is intentionally loose.
 ARCH_NUMERICAL_OPERATOR = 1.0e-12
-# Final matrix-entry assembly uses a bounded number of binary64 operations.
-# With |Z_n|<8, n<=4000 and |n^2-m^2|>=92, a direct gamma accounting is well
-# below this deliberately coarse operator allowance.
-ASSEMBLY_OPERATOR = 1.0e-8
+# Final off-diagonal assembly: |Z|<8, n,m<=4000 and |n^2-m^2|>=92.
+# A direct binary64 gamma bound gives <4e-13 per entry including the final
+# symmetrization; 1990 times that is <8e-10 in row-sum/operator norm.
+ASSEMBLY_OPERATOR = 8.0e-10
 
 
 def center(I):
     return float((I[0]+I[1])/2)
+
+
+def horner(poly,y):
+    """Dense Horner evaluation of a rational-coefficient polynomial on vector y."""
+    degree=max(poly) if poly else 0
+    out=np.zeros_like(y,dtype=float)
+    for k in range(degree,-1,-1):
+        out=out*y+float(poly.get(k,0))
+    return out
 
 
 def build_nominal():
@@ -57,13 +69,11 @@ def build_nominal():
     N=len(modes)
     pi0=center(PI)
 
-    # Arch polynomial H,D in y=1/(r*pi).
+    # Arch polynomial H,D in y=1/(r*pi), evaluated by explicit Horner loops.
     Hp,Dp=HD_polynomials()
     y=1.0/(r*pi0)
-    Harch=np.zeros(N)
-    Darch=np.zeros(N)
-    for k,c in Hp.items(): Harch += float(c)*y**k
-    for k,c in Dp.items(): Darch += float(c)*y**k
+    Harch=horner(Hp,y)
+    Darch=horner(Dp,y)
 
     # Prime source by certified base rotations, propagated recursively.
     p=prime_pi_interval()
@@ -164,7 +174,7 @@ def report():
     assert xnorm < 28.0
     assert lx_out < 1e-8
     assert recon_out < 6e-11
-    assert source_total < 2.1e-8
+    assert source_total < 1.1e-8
     assert certified_margin > 0.00125
 
 
