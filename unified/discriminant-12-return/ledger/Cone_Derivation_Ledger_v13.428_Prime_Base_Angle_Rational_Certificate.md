@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.426 — Rational Prime Base-Angle Certificate
+# Cone Derivation Ledger v13.428 — Rational Prime Base-Angle Certificate
+
+**Renumbering note:** originally filed as `v13.426`, which collided with `Cone_Derivation_Ledger_v13.426_External_Audit_Round_29.md`. Renumbered to `v13.428` during External Audit Round 30 (the next number, `v13.427`, was independently taken by `Chi12_Exponential_Moment_Generating_Transform` in the interim); content unchanged.
 
 Date: 2026-09-14
 
