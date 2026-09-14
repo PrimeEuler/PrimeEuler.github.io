@@ -14,6 +14,7 @@ No exact-zero, RH, or GRH conclusion follows.
 """
 from __future__ import annotations
 
+from fractions import Fraction
 import numpy as np
 from scipy.sparse.linalg import eigsh
 
@@ -90,7 +91,7 @@ def build_nominal():
     cusp=np.empty(N)
     for j,n in enumerate(modes):
         F,G,x=FG_interval(int(n))
-        si=iadd(iscale(PI,1/2),ineg(F))
+        si=iadd(iscale(PI,Fraction(1,2)),ineg(F))
         L=log_n_over_4_interval(int(n))
         cd=iadd(iadd(L,G),ineg(idiv(si,x)))
         Si[j]=center(si)
