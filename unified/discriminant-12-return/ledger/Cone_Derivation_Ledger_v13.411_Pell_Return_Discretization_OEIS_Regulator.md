@@ -1,4 +1,6 @@
-# v13.406 — Pell Return, Discretization, OEIS, and the Regulator Bridge
+# Cone Derivation Ledger v13.411 — Pell Return, Discretization, OEIS, and the Regulator Bridge
+
+**Renumbering note:** originally filed as `v13.406`, which collided with an already-existing `Cone_Derivation_Ledger_v13.406_Odd_Certificate_Provenance_Reconciliation.md`. Renumbered to `v13.411` during External Audit Round 27; content unchanged.
 
 **Status:** exploratory result recorded for cross-thread use; exact algebraic identities are marked `[D]`; interpretive connections are marked `[E]` and are **not** promoted to a new main theorem here.
 

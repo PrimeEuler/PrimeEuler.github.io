@@ -1,6 +1,8 @@
-# v13.407 — CRT Half-Return and Ramified-Basis Invariance
+# Cone Derivation Ledger v13.412 — CRT Half-Return and Ramified-Basis Invariance
 
-**Status:** exact arithmetic continuation of v13.406. Results marked `[D]` are direct derivations from the canonical return matrix already used in the principal paper. Interpretive remarks are marked `[E]`.
+**Renumbering note:** originally filed as `v13.407`, which collided with an already-existing `Cone_Derivation_Ledger_v13.407_Odd_Finite_High_Midpoint_Replay.md`. Renumbered to `v13.412` during External Audit Round 27; content unchanged.
+
+**Status:** exact arithmetic continuation of `v13.411` (originally labeled v13.406 before renumbering). Results marked `[D]` are direct derivations from the canonical return matrix already used in the principal paper. Interpretive remarks are marked `[E]`.
 
 ## 1. Canonical return in the two audited ramified-ideal bases [D]
 
@@ -42,7 +44,7 @@ Thus the familiar Pell matrix and the paper's canonical positive-integral return
 
 ## 2. The scalar half-return is basis-independent [D]
 
-From v13.406,
+From v13.411 (originally v13.406),
 
 \[
 g_{12}^6\equiv7I\pmod{12},
