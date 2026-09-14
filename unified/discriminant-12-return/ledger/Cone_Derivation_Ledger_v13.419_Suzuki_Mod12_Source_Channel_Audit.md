@@ -1,6 +1,6 @@
-# Cone Derivation Ledger v13.417 — Suzuki Mod-12 Source-Channel Audit
+# Cone Derivation Ledger v13.419 — Suzuki Mod-12 Source-Channel Audit
 
-**Renumbering note:** originally filed as `v13.415`, which collided with `Cone_Derivation_Ledger_v13.415_Chi12_Tail_Residue_Profile_and_Time_Orientation.md` (also filed concurrently as `v13.415`, and already flagged as a live collision by `v13.416`). Renumbered to `v13.417` during External Audit Round 28; content unchanged.
+**Renumbering note:** originally filed as `v13.415`, which collided with `Cone_Derivation_Ledger_v13.415_Chi12_Tail_Residue_Profile_and_Time_Orientation.md` (also filed concurrently as `v13.415`, and already flagged as a live collision by `v13.416`). First renumbered to `v13.417` during External Audit Round 28, then to `v13.419` after a second, independent `v13.417` (`Odd_Pole_Free_Finite_High_Reduction_and_Source_Enclosure_Provenance`) landed concurrently. Content unchanged throughout.
 
 Date: 2026-09-14
 
