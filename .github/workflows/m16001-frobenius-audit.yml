@@ -20,9 +20,13 @@ jobs:
       - name: Run known primitive propagation
         working-directory: unified/discriminant-12-return/research-notes
         run: python run_m16001_primitive_propagation_ci.py | tee /tmp/m16001-primitive.txt
+      - name: Run entrywise weighted displacement propagation
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M16001_displacement_weighted_residual_radius.py | tee /tmp/m16001-weighted.txt
       - uses: actions/upload-artifact@v4
         with:
           name: m16001-frobenius-output
           path: |
             /tmp/m16001.txt
             /tmp/m16001-primitive.txt
+            /tmp/m16001-weighted.txt
