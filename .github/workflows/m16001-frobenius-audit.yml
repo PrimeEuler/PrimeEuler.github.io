@@ -1,0 +1,23 @@
+name: M16001 Frobenius audit
+on:
+  pull_request:
+    paths:
+      - 'unified/discriminant-12-return/research-notes/**'
+      - '.github/workflows/m16001-frobenius-audit.yml'
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install numpy scipy
+      - name: Run integrated outward replay
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M16001_integrated_frobenius_replay.py | tee /tmp/m16001.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m16001-frobenius-output
+          path: /tmp/m16001.txt
