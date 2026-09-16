@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.512 — QR Quotient / χ12 Fourier Checkpoint
+# Cone Derivation Ledger v13.515 — QR Quotient / χ12 Fourier Checkpoint
+
+**Renumbering note:** originally filed as v13.512 (and misplaced outside `ledger/`), which collided with the concurrently-created `Cone_Derivation_Ledger_v13.512_M16001_Transcripted_Gamma_Replay_Instrumentation.md` (created 6 seconds earlier). Renumbered to v13.515 and moved into `ledger/` during External Audit Round 40. Mathematical content is unchanged.
 
 **Status:** exact/proven finite algebraic checkpoint. Spectral interpretation remains exploratory.
 

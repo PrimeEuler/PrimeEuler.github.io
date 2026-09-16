@@ -1,6 +1,6 @@
 # Cone Derivation Ledger v13.513 — A3 Tetrahedral Edges, S4 Transpositions, and the QR χ12 Axis
 
-**Status:** exact finite algebra / A3 geometry. The QR comparison uses the exact v13.512 checkpoint. No Suzuki spectral consequence is asserted.
+**Status:** exact finite algebra / A3 geometry. The QR comparison uses the exact v13.515 checkpoint. No Suzuki spectral consequence is asserted.
 
 ## 1. Tetrahedral minuscule vertices
 
@@ -171,9 +171,9 @@ The edge decomposition above gives the dual geometric statement: each character 
 
 So the three S3 reflection axes and the three tetrahedral perfect matchings form an exact axis/matching correspondence.
 
-## 8. Import from v13.512: QR quotient singles out chi12
+## 8. Import from v13.515: QR quotient singles out chi12
 
-The concurrent v13.512 QR/Fourier checkpoint starts from the signed carrier
+The concurrent v13.515 QR/Fourier checkpoint starts from the signed carrier
 \[
 G=\mathbf F_2^3\cong U(24)
 \]
@@ -191,7 +191,7 @@ The original mod-12 character plane is
 \[
 P_0=\{1,\chi_{-3},\chi_{-4},\chi_{12}\},
 \]
-and v13.512 proves
+and v13.515 proves
 \[
 \boxed{P_0\cap K^\perp=\{1,\chi_{12}\}.}
 \]
@@ -262,6 +262,6 @@ This coincidence is exact at the character/finite-algebra level. It does not pro
 ## 11. Guardrails
 
 1. The tetrahedral/A3/S4 dictionary is exact and independent of the prime-2 tangent affine-frame ambiguity audited in v13.497.
-2. The v13.512 QR quotient is exact finite algebra, but no claim is made that it is induced by Pell dynamics or occurs inside the Suzuki operator.
+2. The v13.515 QR quotient is exact finite algebra, but no claim is made that it is induced by Pell dynamics or occurs inside the Suzuki operator.
 3. The fact that Pell orientation and QR Fourier survival both single out \(\chi_{12}\) is an exact coincidence of two independently defined character selections; any deeper dynamical or spectral bridge requires a separate proof.
 4. No moonshine/Monster connection follows from the A3/S4/minuscule structure.
