@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'unified/discriminant-12-return/research-notes/**'
+      - '.github/workflows/m16001-frobenius-audit.yml'
 jobs:
   replay:
     runs-on: ubuntu-latest
@@ -16,7 +17,12 @@ jobs:
       - name: Run integrated outward replay
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_integrated_frobenius_replay.py | tee /tmp/m16001.txt
+      - name: Run known primitive propagation
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python run_m16001_primitive_propagation_ci.py | tee /tmp/m16001-primitive.txt
       - uses: actions/upload-artifact@v4
         with:
           name: m16001-frobenius-output
-          path: /tmp/m16001.txt
+          path: |
+            /tmp/m16001.txt
+            /tmp/m16001-primitive.txt
