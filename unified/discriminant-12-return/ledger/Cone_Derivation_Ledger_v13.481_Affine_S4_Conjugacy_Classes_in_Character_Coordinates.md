@@ -1,7 +1,7 @@
 # Cone Derivation Ledger v13.481 — Affine S4 Conjugacy Classes in Character Coordinates
 
 ## Scope
-This entry matches the 24 explicit affine maps from v13.476-v13.477 to the five conjugacy classes of S4, and hence to the trace/eigenvalue data of v13.479.
+This entry matches the 24 explicit affine maps from v13.476 and v13.488 (originally filed as v13.477, renumbered in External Audit Round 37 due to a version collision) to the five conjugacy classes of S4, and hence to the trace/eigenvalue data of v13.479.
 
 No new Pell or Suzuki theorem is asserted.
 

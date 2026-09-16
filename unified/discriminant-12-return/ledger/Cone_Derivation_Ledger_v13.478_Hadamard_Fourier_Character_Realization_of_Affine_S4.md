@@ -16,7 +16,7 @@ from the four-point affine carrier into the Fourier/Hadamard character basis
 
 The purpose is to make the normal translation Klein four diagonal and the linear \(S_3\) factor permutation-valued on the three nontrivial character axes.
 
-This is representation-theoretic bookkeeping for the affine symmetry already established in v13.460, v13.476, and v13.477. It does not identify the Hadamard transform itself with an element of the permutation group \(S_4\).
+This is representation-theoretic bookkeeping for the affine symmetry already established in v13.460, v13.476, and v13.488 (originally filed as v13.477, renumbered in External Audit Round 37 due to a version collision). It does not identify the Hadamard transform itself with an element of the permutation group \(S_4\).
 
 ---
 

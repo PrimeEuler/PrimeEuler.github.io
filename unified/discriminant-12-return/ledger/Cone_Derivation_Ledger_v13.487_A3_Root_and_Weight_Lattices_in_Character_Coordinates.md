@@ -2,7 +2,7 @@
 
 ## Scope
 
-Continue v13.485 by determining the root lattice Q(A3) and weight lattice P(A3) inside the character-coordinate space
+Continue v13.489 (originally filed as v13.485, renumbered in External Audit Round 37 due to a version collision) by determining the root lattice Q(A3) and weight lattice P(A3) inside the character-coordinate space
 \[
 W=\mathbb R^3=\operatorname{span}\{\chi_{-4},\chi_{-3},\chi_{12}\},
 \]
@@ -14,7 +14,7 @@ The main refinement is that the primitive A3 roots are half the differences of t
 
 ## 1. Simple roots
 
-Use the v13.485 simple roots
+Use the v13.489 simple roots
 \[
 \alpha_1=(0,1,1),\qquad
 \alpha_2=(1,-1,0),\qquad
@@ -120,7 +120,7 @@ As expected for A3,
 
 ## 5. The four original character vertices
 
-The v13.485 vertices are
+The v13.489 vertices are
 \[
 \boxed{
 \begin{aligned}
@@ -142,7 +142,7 @@ Their pairwise differences lie in 2Q:
 \[
 v_r-v_s=2\alpha_{r,s}.
 \]
-This is exactly why v13.485 divided edge differences by 2 to obtain primitive roots.
+This is exactly why v13.489 divided edge differences by 2 to obtain primitive roots.
 
 ---
 

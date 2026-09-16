@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.477 — Explicit 24 Affine Maps and S4 Cycle Verification
+# Cone Derivation Ledger v13.488 — Explicit 24 Affine Maps and S4 Cycle Verification
+
+**Renumbering note:** originally filed as `v13.477`, which collided with the concurrently-created `Cone_Derivation_Ledger_v13.477_Shifted_Nominal_M16001_Index3_Target.md` (created 34 seconds earlier by commit timestamp). Renumbered to `v13.488`, the next free slot at the time of the External Audit Round 37 collision sweep; content unchanged.
 
 ## Status
 

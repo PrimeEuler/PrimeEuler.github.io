@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.485 — Tetrahedral Character Vertices and the A3 Root System
+# Cone Derivation Ledger v13.489 — Tetrahedral Character Vertices and the A3 Root System
+
+**Renumbering note:** originally filed as `v13.485`, which collided with the concurrently-created `Cone_Derivation_Ledger_v13.485_Chi12_Prime_Phase_Bridge_Level0_Gate.md` (created 26 seconds earlier by commit timestamp; `v13.486` already flagged this collision without renaming either file). Renumbered to `v13.489`, the next free slot at the time of the External Audit Round 37 collision sweep; content unchanged.
 
 ## Scope
 
