@@ -29,9 +29,12 @@ jobs:
       - name: Run diag and X payload conversion transcript
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_diag_X_payload_conversion_transcript.py | tee /tmp/m16001-diag-x-payload.txt
-      - name: Extract fixed seventh direction
+      - name: Extract fixed seven-plane payload
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_extract_fixed_seventh_vector.py | tee /tmp/m16001-seventh.txt
+      - name: Run fixed seven-plane midpoint replay
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M16001_fixed_sevenplane_midpoint.py | tee /tmp/m16001-fixed-seven.txt
       - uses: actions/upload-artifact@v4
         with:
           name: m16001-frobenius-output
@@ -42,3 +45,4 @@ jobs:
             /tmp/m16001-source-payload.txt
             /tmp/m16001-diag-x-payload.txt
             /tmp/m16001-seventh.txt
+            /tmp/m16001-fixed-seven.txt
