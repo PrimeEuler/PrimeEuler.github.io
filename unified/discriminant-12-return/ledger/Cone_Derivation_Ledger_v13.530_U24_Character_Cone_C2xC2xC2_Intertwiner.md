@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.528 — U(24), Character Dual, and Cone C2^3 Intertwiner
+# Cone Derivation Ledger v13.530 — U(24), Character Dual, and Cone C2^3 Intertwiner
+
+**Renumbering note:** originally filed as v13.528, then briefly v13.529 — both collided with concurrently-created entries (`Cone_Derivation_Ledger_v13.528_External_Audit_Round_43.md` and `Cone_Derivation_Ledger_v13.529_Ambiguity_Stabilizer_after_Chi4_and_Chi12.md` respectively). Renumbered to v13.530 during External Audit Round 44. Mathematical content is unchanged.
 
 ## Status
 
