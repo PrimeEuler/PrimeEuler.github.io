@@ -29,6 +29,9 @@ jobs:
       - name: Run diag and X payload conversion transcript
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_diag_X_payload_conversion_transcript.py | tee /tmp/m16001-diag-x-payload.txt
+      - name: Extract fixed seventh direction
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M16001_extract_fixed_seventh_vector.py | tee /tmp/m16001-seventh.txt
       - uses: actions/upload-artifact@v4
         with:
           name: m16001-frobenius-output
@@ -38,3 +41,4 @@ jobs:
             /tmp/m16001-weighted.txt
             /tmp/m16001-source-payload.txt
             /tmp/m16001-diag-x-payload.txt
+            /tmp/m16001-seventh.txt
