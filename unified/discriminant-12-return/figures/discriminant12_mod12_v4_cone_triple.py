@@ -74,13 +74,30 @@ for cmesh in range(1, 2 * Rmax + 1):
         axA.plot(Xp, Yc, color="#2f6fb0", lw=0.7, alpha=0.22, zorder=1)
         axA.plot(Xp, -Yc, color="#2f6fb0", lw=0.7, alpha=0.22, zorder=1)
 
-Tp = np.linspace(0.5, Rmax, 300)
+# Distinguished totient/factor-1 pair.  These are the two reflected
+# arithmetic curves that carry the mod-12 V4 points.  At
+#     r in {1,5,7,11}
+# they meet
+#     X=+(r-1)/2 = {0,2,3,5}
+# and, by factor exchange,
+#     X=-(r-1)/2 = -{0,2,3,5}.
+# Hence the signed root ordering visible across the transverse carrier is
+#     -{11,7,5,1} {1,5,7,11}.
+Tp = np.linspace(0.5, Rmax, 500)
 Ycol = np.sqrt(2 * Tp - 1)
 Xcol = Tp - 1
 Xrow = 1 - Tp
 for Xp in (Xcol, Xrow):
-    axA.plot(Xp, Ycol, color="#2f6fb0", lw=1.6, alpha=0.75, zorder=2)
-    axA.plot(Xp, -Ycol, color="#2f6fb0", lw=1.6, alpha=0.75, zorder=2)
+    axA.plot(Xp, Ycol, color="#2f6fb0", lw=2.8, alpha=0.95, zorder=5)
+    axA.plot(Xp, -Ycol, color="#2f6fb0", lw=2.8, alpha=0.95, zorder=5)
+
+axA.text(
+    0, -Rmax - 0.34,
+    r"$-\{11,7,5,1\}\quad\{1,5,7,11\}$"
+    "\n"
+    r"$X=-\{5,3,2,0\}+\{0,2,3,5\}$",
+    ha="center", va="top", fontsize=8.5, color="#2f6fb0",
+)
 
 axA.axhline(0, color="0.5", lw=0.8, zorder=0)
 axA.axvline(0, color="0.5", lw=0.8, zorder=0)
