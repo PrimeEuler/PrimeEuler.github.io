@@ -79,7 +79,7 @@ Indeed
 Therefore \(\sigma_B\) does not preserve the cyclotomic complex orientation datum determined by \(i=\zeta_{12}^3\).
 
 ## Exact conclusion
-The independent cyclotomic datum does **not** confirm the cyclic-order selection from v13.566. It selects the other J-compatible relabeling:
+The independent cyclotomic datum does **not** confirm the cyclic-order selection from v13.569. It selects the other J-compatible relabeling:
 \[
 \boxed{\sigma_A=(7\ 11).}
 \]
@@ -90,7 +90,7 @@ Specifically,
 \boxed{\chi_{-4}\circ\sigma_B=\chi_{-3}\ne\chi_{-4}}.
 \]
 So the two orientation criteria disagree:
-- chosen cyclic-order parity/orientation from v13.566 selects \(\sigma_B\);
+- chosen cyclic-order parity/orientation from v13.569 selects \(\sigma_B\);
 - chosen cyclotomic complex generator \(i=\zeta_{12}^3\) selects \(\sigma_A\).
 
 This is a new exact obstruction/compatibility datum, not a convergence of the two conventions.

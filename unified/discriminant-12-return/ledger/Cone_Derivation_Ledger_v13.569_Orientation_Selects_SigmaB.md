@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.566 — Cyclic-order orientation selects sigma_B
+# Cone Derivation Ledger v13.569 — Cyclic-order orientation selects sigma_B
+
+**Renumbering note:** originally filed as v13.566, which collided with the already-pushed `Cone_Derivation_Ledger_v13.566_External_Audit_Round_50.md`. Renumbered to v13.569 during External Audit Round 51. Mathematical content is unchanged.
 
 ## Question
 For the two J-compatible V4 automorphisms from v13.563,
