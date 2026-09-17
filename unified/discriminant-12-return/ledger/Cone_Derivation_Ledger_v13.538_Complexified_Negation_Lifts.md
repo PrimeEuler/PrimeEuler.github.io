@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.530 — Complexified Arithmetic-Negation Lifts
+# Cone Derivation Ledger v13.538 — Complexified Arithmetic-Negation Lifts
+
+**Renumbering note:** originally filed as v13.530, then briefly v13.537 -- both collided with concurrently-created entries. Renumbered to v13.538 during External Audit Round 45. Mathematical content is unchanged.
 
 ## Status
 
