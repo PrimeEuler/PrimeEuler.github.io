@@ -23,6 +23,9 @@ jobs:
       - name: Run entrywise weighted displacement propagation
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_displacement_weighted_residual_radius.py | tee /tmp/m16001-weighted.txt
+      - name: Run source payload conversion transcript
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M16001_source_payload_conversion_transcript.py | tee /tmp/m16001-source-payload.txt
       - uses: actions/upload-artifact@v4
         with:
           name: m16001-frobenius-output
@@ -30,3 +33,4 @@ jobs:
             /tmp/m16001.txt
             /tmp/m16001-primitive.txt
             /tmp/m16001-weighted.txt
+            /tmp/m16001-source-payload.txt
