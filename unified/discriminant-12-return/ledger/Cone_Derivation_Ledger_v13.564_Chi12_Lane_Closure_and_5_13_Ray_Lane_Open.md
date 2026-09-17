@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.555 — χ12/Suzuki Lane Closure and 5/13 Ray-Alignment Lane Open
+# Cone Derivation Ledger v13.564 — χ12/Suzuki Lane Closure and 5/13 Ray-Alignment Lane Open
+
+**Renumbering note:** originally filed as v13.555, which collided with the already-pushed `Cone_Derivation_Ledger_v13.555_M16001_Remaining_Outward_Certification_DAG.md`. Renumbered to v13.564 during External Audit Round 50. Mathematical content is unchanged.
 
 **Status:** χ12/Suzuki phase lane closed after the predeclared χ12-blind Level-1 failure. The unexpected q=5,13 directional alignment is retained as a separate exploratory lane. Finite binary64 observations only; no theorem promotion.
 
