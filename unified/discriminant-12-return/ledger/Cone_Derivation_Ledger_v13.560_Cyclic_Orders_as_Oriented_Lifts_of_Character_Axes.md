@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.555 — Cyclic Orders as Oriented Lifts of Character Axes
+# Cone Derivation Ledger v13.560 — Cyclic Orders as Oriented Lifts of Character Axes
+
+**Renumbering note:** originally filed as v13.555, which collided with the already-pushed `Cone_Derivation_Ledger_v13.555_M16001_Remaining_Outward_Certification_DAG.md`. Renumbered to v13.560 during External Audit Round 49. Mathematical content is unchanged.
 
 ## Status
 Exact combinatorial/representation-theoretic continuation of v13.545 and v13.554. No new arithmetic dynamical claim is promoted.

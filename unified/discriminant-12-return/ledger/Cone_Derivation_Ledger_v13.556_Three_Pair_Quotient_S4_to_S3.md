@@ -10,7 +10,7 @@ On the six rays `{a,b,c,d,e,f}`, the verified generators are
 
 `s=(a f d)(b e c)`.
 
-The reversal fibers from v13.555 are
+The reversal fibers from v13.560 are
 
 `P_12={a,b}` corresponding to chi_12,
 
