@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.537 — Suzuki Unit-Core Star Source-Interaction Diagnostic
+# Cone Derivation Ledger v13.541 — Suzuki Unit-Core Star Source-Interaction Diagnostic
+
+**Renumbering note:** originally filed as v13.537, which collided with the already-pushed `Cone_Derivation_Ledger_v13.537_Split_Matrix_Congruences_and_Combined_C4xS4.md`. Renumbered to v13.541 during External Audit Round 46. Mathematical content is unchanged.
 
 **Status:** `[N-diagnostic]` finite binary64 midpoint computation. No theorem/index promotion.
 
