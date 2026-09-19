@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.586 — Zeeman Transverse-Drive Phase Action and Hamiltonian D8
+# Cone Derivation Ledger v13.587 — Zeeman Transverse-Drive Phase Action and Hamiltonian D8
+
+**Renumbering note:** originally filed as v13.586, which collided with the already-pushed `Cone_Derivation_Ledger_v13.586_External_Audit_Round_57.md`. Renumbered to v13.587 during External Audit Round 58. Mathematical content is unchanged.
 
 ## Status
 
