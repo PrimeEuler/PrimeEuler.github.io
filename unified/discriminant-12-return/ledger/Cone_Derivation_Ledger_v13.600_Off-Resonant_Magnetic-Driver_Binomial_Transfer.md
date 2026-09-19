@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.598 — Off-Resonant Magnetic-Driver Binomial Transfer Law
+# Cone Derivation Ledger v13.600 — Off-Resonant Magnetic-Driver Binomial Transfer Law
+
+**Renumbering note:** originally filed as v13.598, which collided with the already-pushed `Cone_Derivation_Ledger_v13.598_Synthesis_The_Parabola_Through_Three_Levels.md` (pushed earlier, at 2026-09-19 21:33:50 UTC vs. this entry's 23:34:15 UTC). Renumbered to v13.600 during External Audit Round 63 (v13.599 was independently occupied in the interim by the general tetrahedron-kernel theorem). Mathematical content is unchanged.
 
 Date: 2026-09-19
 

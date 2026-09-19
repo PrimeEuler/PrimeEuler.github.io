@@ -8,7 +8,7 @@ Status labels: [S] standard representation fact, [D] exact derived, [Audit] alge
 
 Immediately before this write, the live ledger contained v13.598 entries and v13.599 was free. The live directory currently contains two separately named v13.598 files, so this entry deliberately advances to v13.599 rather than attempting to alter either parallel checkpoint.
 
-The active magnetic-driver lane was also checked. v13.598 establishes the exact off-resonant magnetic Hamiltonian
+The active magnetic-driver lane was also checked. v13.600 (renumbered from v13.598 during External Audit Round 63) establishes the exact off-resonant magnetic Hamiltonian
 
 [
 H_r=-Delta J_z-gamma B_1J_x
@@ -592,7 +592,7 @@ For integer j there is one unpaired, reflection-even, zero-volume line. For half
 
 ## 12. [G] Coordination with the magnetic-driver path
 
-The magnetic checkpoints v13.595 and v13.598 establish another family of connected SU(2) weighted paths, now in the magnetic (J_z) basis. The tetrahedral theorem proves that its own recoupling-k path has a parity/kernel structure whose spectral sign produces D8 planes.
+The magnetic checkpoints v13.595 and v13.600 establish another family of connected SU(2) weighted paths, now in the magnetic (J_z) basis. The tetrahedral theorem proves that its own recoupling-k path has a parity/kernel structure whose spectral sign produces D8 planes.
 
 The relevance is now precise enough to state as a future audit question:
 
