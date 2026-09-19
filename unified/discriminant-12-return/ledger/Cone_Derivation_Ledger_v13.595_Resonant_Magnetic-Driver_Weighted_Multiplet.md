@@ -509,15 +509,7 @@ Their sum is exactly
 (c^2+s^2)^3=1.
 \]
 
-At \(\theta=\pi\),
-
-\[
-\boxed{
-|-3/2\rangle\longrightarrow i\,|-i|? 
-}
-\]
-
-The phase-only endpoint statement is more safely written as
+At \(\theta=\pi\), the endpoint probability is
 
 \[
 \boxed{
