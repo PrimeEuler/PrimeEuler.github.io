@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.584 — Zeeman-Basis Ladder Ordering and Ordered-Edge Factor Dictionary
+# Cone Derivation Ledger v13.585 — Zeeman-Basis Ladder Ordering and Ordered-Edge Factor Dictionary
+
+**Renumbering note:** originally filed as v13.584, which collided with the already-pushed `Cone_Derivation_Ledger_v13.584_External_Audit_Round_56.md`. Renumbered to v13.585 during External Audit Round 57. Mathematical content is unchanged.
 
 ## Status
 
