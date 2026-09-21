@@ -60,7 +60,7 @@ class I:
         with localcontext() as c:
             c.prec=PREC; c.rounding=ROUND_CEILING; hi=a.hi+b.hi
         return I(lo,hi)
-    def __neg__(a): return I(-a.hi,-a.lo)
+    def __neg__(a): return I(a.hi.copy_negate(),a.lo.copy_negate())
     def __sub__(a,b): return a+(-b)
     def __mul__(a,b):
         with localcontext() as c:
@@ -81,10 +81,13 @@ class I:
         return I(lo,hi)
     def sqrt(a):
         assert a.lo>0
+        # Decimal.sqrt() as a bound must use the explicit local Context.
+        # Step one representable value outward so containment is independent
+        # of the square-root implementation's correctly-rounded midpoint.
         with localcontext() as c:
-            c.prec=PREC; c.rounding=ROUND_FLOOR; lo=a.lo.sqrt()
-        with localcontext() as c:
-            c.prec=PREC; c.rounding=ROUND_CEILING; hi=a.hi.sqrt()
+            c.prec=PREC
+            lo=c.next_minus(c.sqrt(a.lo))
+            hi=c.next_plus(c.sqrt(a.hi))
         return I(lo,hi)
     def contains0(a): return a.lo<=0<=a.hi
     def width(a): return a.hi-a.lo
