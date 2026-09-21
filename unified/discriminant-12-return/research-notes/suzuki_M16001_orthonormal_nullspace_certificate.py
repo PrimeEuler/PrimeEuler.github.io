@@ -109,7 +109,7 @@ def chol_upper(G):
     return [[L[j][i] if j>=i else Z for j in range(n)] for i in range(n)]
 
 def inv_upper(R):
-    n=4; U=[[Z for _ in range(n)] for _ in range(n)]
+    n=len(R); U=[[Z for _ in range(n)] for _ in range(n)]
     for col in range(n):
         for i in range(n-1,-1,-1):
             rhs=(O if i==col else Z)-isum(R[i][k]*U[k][col] for k in range(i+1,n))
