@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.607 — chi_-4 Suzuki Screw Kernel on the Zeeman SU(2) Carrier
+# Cone Derivation Ledger v13.608 — chi_-4 Suzuki Screw Kernel on the Zeeman SU(2) Carrier
+
+**Renumbering note:** originally filed as v13.607, which collided with the already-pushed `Cone_Derivation_Ledger_v13.607_Magnetic-Driver_Floquet-Magnus_Re-Audit.md` (earlier by 9 minutes, same-day commit timestamps). Renumbered to v13.608 during External Audit Round 64. Mathematical content is unchanged.
 
 Date: 2026-09-21
 
