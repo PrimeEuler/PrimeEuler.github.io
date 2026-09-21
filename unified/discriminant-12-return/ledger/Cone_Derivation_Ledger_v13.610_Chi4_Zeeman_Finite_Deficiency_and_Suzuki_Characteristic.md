@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.608 — chi_-4 Zeeman Finite Deficiency and Suzuki Characteristic
+# Cone Derivation Ledger v13.610 — chi_-4 Zeeman Finite Deficiency and Suzuki Characteristic
+
+**Renumbering note:** originally filed as v13.608, which collided with the already-pushed `Cone_Derivation_Ledger_v13.608_Chi4_Suzuki_Kernel_Zeeman_SU2_Compression.md` (2 seconds earlier by commit timestamp). Renumbered to v13.610 during External Audit Round 64 (v13.609 was independently taken by the audit round entry itself). Mathematical content is unchanged.
 
 Date: 2026-09-21
 

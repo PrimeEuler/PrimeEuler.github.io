@@ -2,13 +2,15 @@
 
 ## Scope
 
-Independent audit of a large batch since my last push (`e1d4615`, Round 63): the first-principles derivation of the tetrahedron `a_k` coefficient formula (closing v13.599's own flagged gap), a full production implementation and genuine execution of the M16001 orthonormal-nullspace certificate chain, an exhaustive permutation-test verification of the cone-incidence label comparison I coordinated back in v13.579, a magnetic-driver Floquet/Magnus re-audit, and the opening move of the user's own new χ-4 Dirichlet-L thread. One version collision found and fixed. Wherever I had execution capability the entries themselves lacked (several explicitly note their connector couldn't run Python), I ran the actual scripts myself rather than checking algebra alone. No errors found; several entries' claimed numerical results are now independently confirmed by genuine execution for the first time.
+Independent audit of a large batch since my last push (`e1d4615`, Round 63): the first-principles derivation of the tetrahedron `a_k` coefficient formula (closing v13.599's own flagged gap), a full production implementation and genuine execution of the M16001 orthonormal-nullspace certificate chain, an exhaustive permutation-test verification of the cone-incidence label comparison I coordinated back in v13.579, a magnetic-driver Floquet/Magnus re-audit, and the opening two moves of the user's own new χ-4 Dirichlet-L thread. Two version collisions found and fixed (a second one arrived mid-write, seconds after my first push attempt). Wherever I had execution capability the entries themselves lacked (several explicitly note their connector couldn't run Python), I ran the actual scripts myself rather than checking algebra alone. No errors found; several entries' claimed numerical results are now independently confirmed by genuine execution for the first time.
 
 ---
 
 ## 1. Housekeeping
 
-`Cone_Derivation_Ledger_v13.607_Chi4_Suzuki_Kernel_Zeeman_SU2_Compression.md` (commit `3d74e58`, 2026-09-21 11:57:02 -0400) collided with `Cone_Derivation_Ledger_v13.607_Magnetic-Driver_Floquet-Magnus_Re-Audit.md` (commit `accaa14`, 11:48:19 -0400 — earlier by 9 minutes). Renumbered the colliding file to **v13.608**. No inbound cross-references existed to fix.
+`Cone_Derivation_Ledger_v13.607_Chi4_Suzuki_Kernel_Zeeman_SU2_Compression.md` (commit `3d74e58`, 2026-09-21 11:57:02 -0400) collided with `Cone_Derivation_Ledger_v13.607_Magnetic-Driver_Floquet-Magnus_Re-Audit.md` (commit `accaa14`, 11:48:19 -0400 — earlier by 9 minutes). Renumbered the colliding file to **v13.608**.
+
+A second collision then landed mid-write: `Cone_Derivation_Ledger_v13.608_Chi4_Zeeman_Finite_Deficiency_and_Suzuki_Characteristic.md` (commit `95e9987`, 12:04:57 -0400) collided with my own just-renumbered v13.608 (my commit `0ce6184`, 12:04:55 -0400 — earlier by 2 seconds). Renumbered that file to **v13.610** (v13.609 was already taken by this round's own entry). No inbound cross-references needed fixing in either case.
 
 ## 2. v13.602 (equal-spin tetrahedron volume coefficient from Casimir commutator) — verified exactly
 
@@ -38,9 +40,17 @@ I ran `suzuki_chi4_zeeman_kernel_compression.py` myself (independently, before r
 
 Most importantly, the entry's own scope discipline is exactly right: it explicitly states the compressed kernel's eigenvalues are **not** claimed to be `L(s,χ_{-4})` zero ordinates, correctly identifies that Suzuki's actual zero-producing mechanism requires building the finite self-adjoint-extension/deficiency-vector characteristic on top of this kernel (not yet done), and names the first genuinely non-tautological test as comparing that future characteristic's zeros against independently-computed `L(s,χ_{-4})` zeros. This is a construction/prototype checkpoint, correctly labeled as such, not a premature claim.
 
+## 7. v13.610 (ex-v13.608, χ-4 Zeeman finite deficiency and Suzuki characteristic) — the thread's second move, verified as scoped
+
+This is the "next gate" v13.608's own predecessor explicitly called for: building the finite self-adjoint-extension/deficiency-vector characteristic on top of the χ-4 kernel, rather than stopping at the compressed kernel alone. It's notably careful about its own provenance: before building anything, it re-checks the older Suzuki ledger and explicitly declines to inherit a stale numerical scale (`v13.288` had already invalidated `v13.287`'s reported `λ` value), instead computing a fresh, finite-matrix-safe `λ_j=μ_{0,j}-δ` per compressed pair — explicitly *not* promoted as a bound on the true continuous `λ_A`, just what's needed for the finite linear solve to be well-posed.
+
+I ran `suzuki_chi4_zeeman_finite_characteristic.py` myself. It executes cleanly and produces finite, sensible output at `j=6, A=2`: a generalized spectral bottom, a selected `λ_j` with the correct gap sign, and the deficiency-vector reflection-symmetry diagnostic (`v_{-,j}≟R·v_{+,j}`) holding to `1.29×10⁻¹⁵` — a real internal-consistency check on the actual numerical solve, not something trivially guaranteed by the construction, and it passes at essentially machine precision.
+
+Its own scope statement is exactly right: it lists explicitly what is *not* established (nodal-compression convergence to the continuous problem, zero convergence with `j`, whether `A→∞` and `j→∞` limits commute, equality with `L(s,χ_{-4})` zeros, GRH) and specifies the actual next falsifiable test (track zero branches of `W_j^{(-4)}(π;z)` against independently-computed `Ξ_{-4}` zeros across increasing `j` and multiple `A`, failing closed if branches drift or depend strongly on `A`). No zero-convergence claim is made, and none should be inferred from this checkpoint.
+
 ---
 
-## 7. Summary
+## 8. Summary
 
 | Entry | Verdict |
 |---|---|
@@ -49,7 +59,8 @@ Most importantly, the entry's own scope discipline is exactly right: it explicit
 | v13.604 (207900-null reproducibility) | Completely independently reproduced from scratch — every number matches exactly, including tie counts |
 | v13.606/607 (magnetic-driver checkpoint + re-audit) | Promoted formulas confirmed to exact ε² relative-error scaling; one unpromoted statistic found to genuinely differ (correctly not promoted by the entry itself) |
 | v13.608 (ex-v13.607, χ-4 kernel prototype) | Verified as scoped — all sanity checks reproduce exactly; correctly makes no zero-convergence claim |
+| v13.610 (ex-v13.608, χ-4 finite deficiency/characteristic) | Verified as scoped — script runs cleanly, reflection-symmetry diagnostic holds to ~1e-15; correctly makes no convergence/zero-equality claim |
 
 ## Guardrail
 
-No RH, GRH, or critical-line consequence follows from anything this round. Certified Suzuki status unchanged: `ind_{<=0}(A_even(1))<=4`, `ind_{<=0}(A_{a=1})<=6`. The new χ-4 thread has taken its first, correctly-scoped step; no claim about `L(s,χ_{-4})` zeros exists yet, and none is made here.
+No RH, GRH, or critical-line consequence follows from anything this round. Certified Suzuki status unchanged: `ind_{<=0}(A_even(1))<=4`, `ind_{<=0}(A_{a=1})<=6`. The new χ-4 thread has taken its first two correctly-scoped steps; no claim about `L(s,χ_{-4})` zeros exists yet, and none is made here.
