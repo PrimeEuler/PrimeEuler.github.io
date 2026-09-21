@@ -20,6 +20,9 @@ jobs:
       - name: Test exact P normalization
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_exact_P_normalization_test.py | tee /tmp/m16001-p-normalization.txt
+      - name: Run orthonormal six-plane certificate
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M16001_orthonormal_sixplane_certificate.py | tee /tmp/m16001-sixplane.txt
       - name: Run integrated outward replay
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_integrated_frobenius_replay.py | tee /tmp/m16001.txt
@@ -41,6 +44,7 @@ jobs:
           path: |
             /tmp/m16001-orthonormal.txt
             /tmp/m16001-p-normalization.txt
+            /tmp/m16001-sixplane.txt
             /tmp/m16001.txt
             /tmp/m16001-primitive.txt
             /tmp/m16001-weighted.txt
