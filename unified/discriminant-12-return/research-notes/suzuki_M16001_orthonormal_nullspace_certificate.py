@@ -100,7 +100,7 @@ def isum(xs):
 
 def chol_upper(G):
     # lower Cholesky first: G=L L^T; R=L^T.
-    n=4; L=[[Z for _ in range(n)] for _ in range(n)]
+    n=len(G); L=[[Z for _ in range(n)] for _ in range(n)]
     for i in range(n):
         for j in range(i+1):
             s=isum(L[i][k]*L[j][k] for k in range(j))
