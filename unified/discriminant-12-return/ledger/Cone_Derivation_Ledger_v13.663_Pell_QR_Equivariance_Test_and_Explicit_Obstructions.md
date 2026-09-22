@@ -1,4 +1,4 @@
-# Cone Derivation Ledger v13.662 — Pell/QR Equivariance Test on the Six-Point S4/C4 Carrier
+# Cone Derivation Ledger v13.663 — Pell/QR Equivariance Test on the Six-Point S4/C4 Carrier
 
 Date: 2026-09-22
 
@@ -6,7 +6,7 @@ Status: exact finite-algebra obstruction audit. This tests v13.656 priority 3 af
 
 ## 0. Live synchronization and scope
 
-Before writing, the live ledger was rechecked. Since v13.659, two Suzuki-thread entries have landed as v13.660 and v13.661. Therefore this thread does **not** claim v13.660; it advances to v13.662. No v13.662 entry is present at the final pre-write check.
+Before writing, the live ledger was rechecked. Since v13.659, two Suzuki-thread entries have landed as v13.660 and v13.661. Therefore this thread does **not** claim v13.660; it advances to v13.662. No v13.662 entry was present at the final pre-write check, but it collided with an independently created Suzuki-thread entry (`Correction_Dirichlet_Laplacian_Bulk_Determinant_Not_Yet_Suzuki_Same_Domain`, committed 2026-09-22T14:22:49-04:00), committed 33 seconds earlier than this entry (2026-09-22T14:23:22-04:00). Per the standing renumbering convention, this entry moves to v13.663; see the renumbering note at the end of this file. That correction entry retains v13.662 unchanged.
 
 External Audit Round 72 (v13.659) independently confirmed v13.657 and v13.658 and corrected the handoff provenance: v13.560/562/563/567/569 already contain the sharper marked-intertwiner and sigma_A/sigma_B obstruction. Those results are treated as established here.
 
@@ -363,3 +363,7 @@ qquad
 (chi=chi_{12},chi_{-4},chi_{-3})
 ]
 assemble naturally into a single incidence object (for example the three nonzero dual characters / three perfect matchings), and whether adding the semilinear reversal supplies a canonical marking. Any such construction must be tested against the existing sigma_A/sigma_B no-go before being promoted.
+
+## Renumbering note (external audit)
+
+This entry was originally committed as `Cone_Derivation_Ledger_v13.662_Pell_QR_Equivariance_Test_and_Explicit_Obstructions.md`. It collided with `Cone_Derivation_Ledger_v13.662_Correction_Dirichlet_Laplacian_Bulk_Determinant_Not_Yet_Suzuki_Same_Domain.md`, an independently-created Suzuki-thread entry also targeting v13.662. Commit timestamps: the Dirichlet-correction entry committed at 2026-09-22T14:22:49-04:00; this entry committed at 2026-09-22T14:23:22-04:00, 33 seconds later. Per the standing convention, the later-committed file is renumbered. This file was renamed from `v13.662` to `v13.663` and all internal self-references updated accordingly by the external audit thread. The Dirichlet-correction entry retains v13.662 unchanged. No mathematical content in either entry was altered.
