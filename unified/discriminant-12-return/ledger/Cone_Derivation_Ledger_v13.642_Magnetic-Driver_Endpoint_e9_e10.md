@@ -1,10 +1,10 @@
-# Cone Derivation Ledger v13.641 — Magnetic-Driver Endpoint epsilon^9 / epsilon^10 Coefficients
+# Cone Derivation Ledger v13.642 — Magnetic-Driver Endpoint epsilon^9 / epsilon^10 Coefficients
 
 Date: 2026-09-21
 
 ## 0. Collision/relevance check
 
-The live ledger was checked before work and again after the reproducer commit. A parallel chi_-4 thread occupied v13.640 while the endpoint script was being committed, so this authoritative ledger entry moves to v13.641. The input coefficients are the exact v13.639 Dyson-log values; no v13.634 residual constant is used as a fit.
+The live ledger was checked before work and again after the reproducer commit. A parallel chi_-4 thread occupied v13.640 while the endpoint script was being committed, so this entry was first committed as v13.641. It collided with an independently created chi_-4 entry (`Free_Friedrichs_Continuum_Obstruction_and_Box_Endpoint_Factor`, committed 2026-09-21T19:25:15-04:00) also claiming v13.641, committed 33 seconds earlier (this entry's commit is 2026-09-21T19:25:48-04:00). Per the standing renumbering convention (later commit timestamp is renumbered), this entry moves to v13.642; see Section 8 for the renumbering note. The input coefficients are the exact v13.639 Dyson-log values; no v13.634 residual constant is used as a fit.
 
 ## 1. Inputs
 
@@ -91,10 +91,14 @@ v13.634 established before this derivation that subtraction through epsilon^7/ep
 
 `research-notes/magnetic_driver_endpoint_e9_e10_v13_640.py`
 
-The script filename reflects the version available when it was created; a parallel chi_-4 commit occupied v13.640 before the ledger write. This entry v13.641 is authoritative.
+The script filename reflects the version available when it was created; a parallel chi_-4 commit occupied v13.640 before the ledger write. This entry v13.642 is authoritative (see Section 8).
 
 ## 7. Promotion and guardrails
 
 Promoted: c_phi,9(j) and c_P,10(j) above for fixed j in the same bare-resonance stroboscopic protocol.
 
 Guardrails retained: no uniform large-j remainder bound; no all-orders closed form; generic nonstroboscopic endpoints require micromotion kicks. No epsilon^11 phase or epsilon^12 inversion coefficient is claimed here.
+
+## 8. Renumbering note (external audit)
+
+This entry was originally committed as `Cone_Derivation_Ledger_v13.641_Magnetic-Driver_Endpoint_e9_e10.md`. It collided with `Cone_Derivation_Ledger_v13.641_Free_Friedrichs_Continuum_Obstruction_and_Box_Endpoint_Factor.md`, an independently-created chi_-4 entry also targeting v13.641. Commit timestamps: the Free-Friedrichs entry committed at 2026-09-21T19:25:15-04:00; this entry committed at 2026-09-21T19:25:48-04:00, 33 seconds later. Per the standing convention, the later-committed file is renumbered. This file was renamed from `v13.641` to `v13.642` and all internal self-references updated accordingly by the external audit thread. The Free-Friedrichs entry retains v13.641 unchanged. No mathematical content in either entry was altered.
