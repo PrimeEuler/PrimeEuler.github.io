@@ -1,0 +1,60 @@
+# Cone Derivation Ledger v13.656 — External Audit Checkpoint: Cone-Complexification Thread Handoff
+
+Date: 2026-09-22
+
+Status: advisory checkpoint from the external audit thread, at the project owner's explicit request. Summarizes and consolidates the dormant complexified-cone/D8-lift thread (v13.534–v13.549) into a single reference point, with concrete next steps, so a new thread can be pointed here rather than having to reconstruct the state from fifteen scattered entries.
+
+## 0. Collision/relevance check
+
+The live ledger was fetched immediately before this write. Tip is v13.655 (magnetic-driver `c_phi,11`, renumbered from a collision by this audit thread). Nothing in the intervening range (v13.649–v13.655: magnetic-driver Floquet extensions and the chi_-4 Krein-bridge correction) touches the cone-complexification lane. v13.656 is free.
+
+## 1. Why this checkpoint exists
+
+The project owner asked, independent of the three currently active threads (chi_-4/L-function, LQG/tetrahedron, magnetic-driver), whether there was earlier "noise" in the ledger about complexifying the cone and whether it ever reached Paper A. There was: a self-contained, sixteen-entry run (v13.530, v13.534–v13.549) from mid-September that carefully classified several D8-type group actions arising from complexifying the discriminant-12 cone construction. It reached a stable, internally consistent state and then went dormant — nothing has touched it since v13.549, and the project's attention shifted to the three threads this audit has been tracking since. This entry is a handoff pointer for whoever picks it back up, not a new derivation.
+
+## 2. What is established (exact, already internally audited)
+
+All of the following were verified by the project's own External Audit Rounds 45–47 (v13.539, v13.542, v13.544) at the time; this external audit thread has not independently re-verified them this round, but flags no reason for suspicion — the internal audits were rigorous and self-critical (see Section 4).
+
+1. **The complexified affine-normalized arithmetic-negation lift `A` has order 4, with `A^2=R_Y`** (the native Y-reflection), not order 2. The group `G_lift=⟨A,R_X⟩` has order 16, with presentation `⟨A,H,B | A^4=H^2=B^2=1, [A,H]=[B,H]=1, BAB=AH⟩` where `H=R_XS_T`. Its center is `{I,R_Y,H,-I_3}≅C_2^2`, and `G_lift/⟨-I_3⟩≅D_8` (v13.534).
+
+2. **Three abstractly-isomorphic but not simultaneously-intertwinable D8 actions.** The intrinsic fixed-shell complex-plane D8 (`⟨J,C⟩` on `z=X+iY`), the projective arithmetic-lift D8 (`G_lift/⟨-I_3⟩`), and the A3 `chi_12`-axis tetrahedral stabilizer are all abstractly `D8`, and the first and third have an explicit real intertwiner (`P=[[1,-1],[1,1]]`, v13.535 §4). But **no single intertwiner can simultaneously send `A↦J` and `R_Y↦C`**: since `A^2=R_Y` in the lift group but `J^2=-I≠C`, the two natural generator-labelings are provably incompatible (v13.535 §6, an exact obstruction, not a basis artifact).
+
+3. **A combined linear group of order 96.** Adjoining the intrinsic quarter-turn `J` to `⟨A,R_X,R_Y⟩` gives exact closure `G_lin≅C_4×S_4`, order 96, with scalar center `μ_4={I,iI,-I,-iI}` and determinant-one kernel exactly `S_4` (v13.537, independently confirmed in External Audit Round 45/46).
+
+4. **The natural null-ray orbit has six elements, not four — and is emphatically NOT the tetrahedral edge action.** The determinant-one `S_4⊂G_lin` acting on projective null rays produces a transitive orbit of size six, `N_6={a,b,c,d,e,f}` (v13.540). A later entry (v13.543) proved by an exact cycle-type argument (order-four elements have cycle type `4+1+1` on `N_6`, but the standard tetrahedral-edge action `S_4/V_4` forces cycle type `4+2` on any order-four element) that **no labeling of `N_6` by the six unordered pairs of `{1,5,7,11}` can match the standard A3 edge action.** This is a clean, decisive negative result, not a placeholder.
+
+5. **`N_6` is instead exactly the coset space `S_4/C_4`, realized as oriented cyclic orderings of `{1,5,7,11}` modulo rotation.** v13.545 gives an explicit, fully verified `S_4`-equivariant bijection between the six null rays and the six cyclic orderings of `{1,5,7,11}` (not identifying reversal), with the order-four generator's stabilizer being exactly `⟨R⟩≅C_4` for `R=(1\,5\,7\,11)`.
+
+6. **Orientation reversal of the cyclic order is realized by a genuine semilinear (antilinear) cone operator, not any complex-linear one.** v13.546 proves no invertible complex-linear 3×3 matrix can realize the reversal permutation `ρ=(a\,b)(c\,d)(e\,f)` on `N_6`, and exhibits the exact semilinear involution `𝓡(X,Y,T)=(X̄,Ȳ,-T̄)` that does.
+
+7. **The full semilinear closure is exactly `S_4×D_8`, order 192.** Lifting the 48-element permutation group `⟨r,s,ρ⟩≅S_4×C_2` (v13.547) to explicit semilinear operators gives `G̃` of order 192 with scalar/projective kernel exactly `μ_4≅C_4`, and — the sharpest structural fact in the whole run — **`G̃≅S_4×D_8` exactly**, where the `D_8` factor is generated by the central scalar `iI` and the semilinear reversal `𝓡` (which anti-commutes with `iI`: `𝓡(iI)𝓡^{-1}=-iI`), while the `S_4` factor commutes with all of it (v13.548).
+
+## 3. What remains explicitly, deliberately open
+
+Every entry in this run is scrupulous about not overclaiming. The following questions are stated as open at multiple points and were never closed:
+
+- **The central `C_4=⟨iI⟩` (equivalently `⟨A⟩` before quotienting) has never been identified with the project's existing cyclotomic operator `Z^3=×i`.** This is flagged explicitly in v13.534 §10, v13.537 §7 guardrail 2, and v13.545 §9 guardrail 4. It is the single most-repeated open question in the entire run.
+- **No Pell, quadratic-residue (QR), Suzuki-spectral, or Moonshine consequence has been established anywhere in this run.** Every entry's guardrail section says this explicitly; several use the identical sentence. This is the recurring disclaimer, not an incidental one.
+- **The bridge from the six-null-ray `S_4/C_4` structure back to the A3/U(12) tetrahedral construction used elsewhere in the project is unresolved**, now correctly reframed after v13.543's negative result: it is NOT the edge action, but no alternative concrete identification with an existing A3/U(12) object has been proposed or tested.
+- **The split-quaternion/Clifford-algebra framing (v13.536) is explicitly flagged as interpretive scaffolding, not a proof**, and contains one known, already-superseded error (see Section 4).
+
+## 4. Known error, already resolved — no action needed
+
+The project's own External Audit Round 45 (v13.539) found a genuine sign error in v13.536 §1: the claimed determinant identity `det Q = X²-Y²-T²` for the split-quaternion embedding is wrong (direct computation gives `X²-(X+Y)(X-Y)-T² ⟹` — concretely, plugging `X,Y,T=2,3,5` gives `det Q=-20`, not matching the claimed form). This error is self-contained to v13.536's illustrative framing and does not propagate: v13.534/v13.535's matrix computations work directly in `(X,Y,T)` coordinates and are unaffected, and v13.537 (created independently afterward) uses a different, correctly-computed `Q` matrix that effectively supersedes v13.536's construction. A new thread does not need to re-derive or fix this; just be aware v13.536 §1's determinant claim is wrong and already known to be so.
+
+## 5. Relation to Paper A / the foundations
+
+Checked directly: `foundations/PaperA_ConicTheorem_v2.4.tex` was last edited roughly two weeks before this complexification run began, and its own text is already careful in exactly the same spirit — it uses the complex coordinate `z=X+iY` on the cutting circle as ordinary geometry and explicitly states "no identification with a later arithmetic or cyclotomic conjugation is made in this paper." Paper A has not absorbed any of v13.534–549, and given the run's own consistent self-discipline about not overclaiming, that looks like the correct state of affairs — there is not yet a result here that belongs in the foundations. Nothing in this checkpoint changes that; promotion to Paper A should wait for one of the open questions in Section 3 to actually close.
+
+## 6. Recommended next steps, in priority order
+
+1. **Attempt the cyclotomic identification directly.** Determine explicitly whether the order-four generator `A` (equivalently the scalar `iI` in the `S_4×D_8` semilinear picture) acts as the same operator as the project's existing `Z^3=×i` cyclotomic quarter-turn, in a shared representation. This is the most repeated open question and the most likely to have a clean yes/no answer with the tools already built (the explicit matrices in v13.534/v13.537/v13.548 are ready to use).
+2. **Search for the correct A3/U(12) counterpart of `S_4/C_4`.** Since v13.543 proved the edge action (`S_4/V_4`) is definitively wrong, the productive question is not "is it the edges" (closed, no) but "what four-element-set-adjacent `S_4`-set of order six does exist naturally in the A3/U(12) construction with a `C_4` (not `V_4`) point-stabilizer" — e.g., stabilizers of an oriented Hamiltonian cycle on the tetrahedron's vertices, rather than of a vertex-pair. This is a concrete, checkable representation-theory question, not a fishing expedition.
+3. **Only after (1) or (2) produce a genuine identification, revisit the Pell/QR/Suzuki-spectral question.** Every entry in the run correctly treats this as premature until the representation-theoretic scaffolding actually connects to something. Don't start here.
+4. **Do not re-relitigate the tetrahedral-edge identification (v13.540's original hope).** It is exactly and provably false (v13.543); revisiting it without new input would repeat closed work.
+5. **If resuming split-quaternion/Clifford framing (v13.536),** first fix the determinant sign noted in Section 4, or better, adopt v13.537's already-correct `Q(X,Y,T)=[[T+X,Y],[Y,T-X]]` model instead of re-deriving.
+
+## 7. Provenance
+
+All source material for this checkpoint is v13.530 and v13.534–v13.549, cross-checked against the project's own External Audit Rounds 44–47 (v13.531, v13.539, v13.542, v13.544). This external audit thread performed no new independent verification of the v13.534–549 mathematics in this checkpoint; it is a consolidation and handoff, not a re-audit. A new thread picking this up should feel free to request an external audit pass on any specific claim it plans to build on.
