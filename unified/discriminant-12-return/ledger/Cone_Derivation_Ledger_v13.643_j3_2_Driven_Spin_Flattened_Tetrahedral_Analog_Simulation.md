@@ -220,9 +220,9 @@ K_a^{(0)}
 rac14
 egin{pmatrix}
 0&sqrt3q-3p&0&-sqrt3p-3q\
-sqrt3q-3p&0&7q-sqrt3p&0\
-0&7q-sqrt3p&0&-7p-sqrt3q\
--sqrt3p-3q&0&-7p-sqrt3q&0
+sqrt3q-3p&0&5q-sqrt3p&0\
+0&5q-sqrt3p&0&-5p-sqrt3q\
+-sqrt3p-3q&0&-5p-sqrt3q&0
 end{pmatrix}.
 }
 ]
@@ -355,3 +355,8 @@ This supplies an exact analog-simulation protocol for the **flattened tetrahedra
 7. No chi_-4/L-function consequence is asserted.
 8. v13.639/v13.642 remain the separate higher-order magnetic Floquet lane; their higher-order coefficients do not evade the Zeeman-only su(2) closure.
 9. No E8/golden-ratio spin-chain conclusion is asserted.
+
+
+## 9. Post-publication audit correction
+
+External Audit Round 68 (v13.646) independently reconstructed this entry and found that the displayed static matrix in Section 5 contained a transcription error: the coefficients 7 in the (1,2)/(2,1) and (2,3)/(3,2) entries must be 5. The matrix above has been corrected accordingly. The audit independently verified that the transported exponential identity, the full O(2) gauge family, and the promoted endpoint lower bound are unaffected. See v13.646 for the independent reconstruction. A later exact local-control refinement is promoted separately in v13.650.
