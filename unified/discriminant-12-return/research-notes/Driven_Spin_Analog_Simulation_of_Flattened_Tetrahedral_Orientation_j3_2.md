@@ -351,9 +351,9 @@ K_a^{(0)}
 rac14
 egin{pmatrix}
 0&sqrt3q-3p&0&-sqrt3p-3q\
-sqrt3q-3p&0&7q-sqrt3p&0\
-0&7q-sqrt3p&0&-7p-sqrt3q\
--sqrt3p-3q&0&-7p-sqrt3q&0
+sqrt3q-3p&0&5q-sqrt3p&0\
+0&5q-sqrt3p&0&-5p-sqrt3q\
+-sqrt3p-3q&0&-5p-sqrt3q&0
 end{pmatrix}.
 }
 ]
@@ -557,3 +557,297 @@ The analog-simulation target is therefore exact at the flattened orientation lev
 ## 10. Provenance
 
 The closed representation-theoretic input is v13.624/v13.631/v13.636 and the standalone companion `Three_Weighted_Paths_and_the_Flattened_D8_Skeleton.md`. The external audit addendum v13.638 proposed the present analog-simulation question. The calculations in this note constitute the first explicit control-theoretic answer to that new gate.
+
+
+## 11. Exact local-control refinement: endpoint-free eight-pulse synthesis
+
+The O(2) result above proves that a direct endpoint term is unavoidable inside the one-generator transported construction (K_a=U J_xU^T). It does **not** prove that such a term is unavoidable for time-ordered local quadratic control. The latter question admits an exact constructive answer.
+
+Define
+
+[
+X(a)=e^{-iaJ_x},qquad
+Y(a)=e^{-iaJ_y},qquad
+Q(a)=e^{-iaJ_z^2}.
+]
+
+For (j=3/2),
+
+[
+J_z^2=operatorname{diag}(9/4,1/4,1/4,9/4),
+]
+
+so, up to the scalar phase (e^{-ia/4}),
+
+[
+Q(a)sim overline Q(z)=operatorname{diag}(z,1,1,z),
+qquad z=e^{-2ia}.
+]
+
+Start from the structured nine-factor ansatz
+
+[
+U=
+Q(alpha_9)Y(-pi/2)X(-pi/2)
+Q(alpha_6)Y(alpha_5)X(-pi/2)
+Q(alpha_3)Y(pi/2)X(alpha_1).
+]
+
+### 11.1 Exact elimination of the apparent fifth angle
+
+Impose
+
+[
+oxed{alpha_5=alpha_1-pi.}
+]
+
+Exact multiplication shows that the complete projective (4	imes4) product is then independent of (alpha_1). Write
+
+[
+z_3=e^{-2ialpha_3},qquad
+z_6=e^{-2ialpha_6},qquad
+z_9=e^{-2ialpha_9}.
+]
+
+After removing the scalar phases of the three (Q) factors,
+
+[
+overline U=
+rac18
+egin{pmatrix}
+0&
+sqrt3z_9(z_3z_6-3z_3+z_6+1)&
+0&
+z_9(z_3z_6-3z_3-3z_6-3)
+\
+sqrt3(z_3z_6+z_3-3z_6+1)&
+0&
+3z_3z_6+3z_3+3z_6-1&
+0
+\
+0&
+-3z_3z_6-3z_3-3z_6+1&
+0&
+sqrt3(-z_3z_6-z_3+3z_6-1)
+\
+z_9(-z_3z_6+3z_3+3z_6+3)&
+0&
+sqrt3z_9(-z_3z_6+3z_3-z_6-1)&
+0
+end{pmatrix}.
+]
+
+Thus the checkerboard support of (R_a) is already exact.
+
+### 11.2 Algebraic phase solution
+
+Set
+
+[
+oxed{z_9=-z_3.}
+]
+
+The required sign relations reduce to the single equation
+
+[
+z_3^2z_6-3z_3^2+3z_6-1=0,
+]
+
+hence
+
+[
+oxed{
+z_6=rac{3z_3^2+1}{z_3^2+3}.
+}
+]
+
+Now set
+
+[
+r=rac qp=
+sqrt{rac{19-sqrt{105}}{11+sqrt{105}}}.
+]
+
+The amplitude ratio (U_{03}/U_{01}=q/p) reduces exactly to
+
+[
+oxed{
+-sqrt3(3z^2+2z+3)=3r(z-1)^2,
+qquad z=z_3.
+}
+]
+
+Choose the unit-modulus root
+
+[
+oxed{
+z=
+rac{
+r-rac1{sqrt3}
+-rac{2i}{3}sqrt{6(sqrt3r+1)}
+}
+{r+sqrt3}.
+}
+]
+
+Then
+
+[
+|z|=1.
+]
+
+Define
+
+[
+oxed{
+w=rac{3z^2+1}{z^2+3}.
+}
+]
+
+The same unit-circle relation gives
+
+[
+|w|=1.
+]
+
+Thus one may choose real (A,B,C) satisfying
+
+[
+e^{-2iA}=z,qquad
+e^{-2iB}=w,qquad
+e^{-2iC}=-z.
+]
+
+### 11.3 Exact matrix certificate
+
+After substituting (z_3=z), (z_6=w), (z_9=-z), the product reduces identically to
+
+[
+oxed{overline U=sR_a,}
+]
+
+where
+
+[
+oxed{
+s=
+rac{sqrt3,z(z-1)^2}{2p(z^2+3)}.
+}
+]
+
+The defining quadratic equation for (z), together with (|z|=1), gives
+
+[
+|s|=1.
+]
+
+Equivalently,
+
+[
+oxed{R_a^daggeroverline U=sI_4,}
+]
+
+or componentwise,
+
+[
+egin{aligned}
+U_{00}=U_{02}=U_{11}=U_{13}
+=U_{20}=U_{22}=U_{31}=U_{33}&=0,\
+U_{01}=U_{23}&=-sp,\
+U_{10}=U_{32}&=sp,\
+U_{03}=U_{12}&=-sq,\
+U_{21}=U_{30}&=sq.
+end{aligned}
+]
+
+These are exact algebraic identities, not numerical fit residuals.
+
+Restoring the scalar phases of the physical (Q) pulses gives
+
+[
+U_{m phys}=e^{iPhi}R_a
+]
+
+with
+
+[
+e^{iPhi}
+=
+e^{-i(A+B+C)/4}s.
+]
+
+### 11.4 Eight-pulse gauge
+
+Because (alpha_1) is redundant once (alpha_5=alpha_1-pi), choose (alpha_1=0). The first (X) pulse disappears and (alpha_5=-pi).
+
+An exact eight-pulse local sequence is therefore
+
+[
+oxed{
+U_{m loc}
+=
+Q(C),
+Y(-pi/2),
+X(-pi/2),
+Q(B),
+Y(-pi),
+X(-pi/2),
+Q(A),
+Y(pi/2)
+=
+e^{iPhi}R_a.
+}
+]
+
+Every instantaneous generator is one of
+
+[
+J_x,qquad J_y,qquad J_z^2.
+]
+
+Each is diagonal or nearest-neighbor in the tetrahedral (k)-basis, so the Hamiltonian has no direct (0leftrightarrow3) matrix element at any stage.
+
+Therefore
+
+[
+oxed{
+	ext{direct endpoint coupling is not fundamentally required to implement }R_a.
+}
+]
+
+The nonzero lower bound
+
+[
+min_{O(2)}|(U J_xU^T)_{03}|=q-rac12
+]
+
+is an obstruction only to the single transported-(J_x) realization. Time ordering of strictly local quadratic controls generates the endpoint amplitude dynamically.
+
+### 11.5 Audit correction incorporated
+
+External Audit Round 68 (v13.646) independently reconstructed the earlier transported protocol and found a transcription error in Section 6. The correct entries are
+
+[
+(K_a^{(0)})_{12}=rac{5q-sqrt3p}{4},
+qquad
+(K_a^{(0)})_{23}=-rac{5p+sqrt3q}{4},
+]
+
+not the previously printed coefficients 7. The corrected matrix is now used above. The transported exponential identity and the O(2)-optimized endpoint bound were independently verified by the audit and are unaffected by this correction.
+
+## 12. Refined control conclusion
+
+The (j=3/2) control picture is now:
+
+[
+oxed{
+egin{array}{c|c}
+	ext{control class}&	ext{status}\
+hline
+	ext{Zeeman-only, arbitrary time dependence}&R_Y	ext{ impossible}\
+	ext{single transported }K_a=UJ_xU^T&R_a	ext{ exact, endpoint term unavoidable}\
+	ext{local time-ordered }J_x,J_y,J_z^2&R_a	ext{ exact, no direct endpoint term}
+end{array}}
+]
+
+Thus the endpoint coupling found in the transported-generator construction is genuine but not fundamental: it characterizes that realization, not the target flattened tetrahedral orientation carrier itself.
