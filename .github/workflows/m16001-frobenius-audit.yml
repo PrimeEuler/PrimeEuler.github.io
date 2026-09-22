@@ -24,6 +24,10 @@ jobs:
         working-directory: unified/discriminant-12-return/research-notes
         shell: bash
         run: set -o pipefail; python suzuki_M16001_orthonormal_sixplane_certificate.py 2>&1 | tee /tmp/m16001-sixplane.txt
+      - name: Run frozen B-XB-W outward replay
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: set -o pipefail; python suzuki_M16001_B_XB_W_outward_replay.py 2>&1 | tee /tmp/m16001-b-xb-w.txt
       - name: Run integrated outward replay
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_M16001_integrated_frobenius_replay.py | tee /tmp/m16001.txt
@@ -45,7 +49,7 @@ jobs:
           path: |
             /tmp/m16001-orthonormal.txt
             /tmp/m16001-p-normalization.txt
-            /tmp/m16001-sixplane.txt
+            /tmp/m16001-sixplane.txt\n            /tmp/m16001-b-xb-w.txt
             /tmp/m16001.txt
             /tmp/m16001-primitive.txt
             /tmp/m16001-weighted.txt
