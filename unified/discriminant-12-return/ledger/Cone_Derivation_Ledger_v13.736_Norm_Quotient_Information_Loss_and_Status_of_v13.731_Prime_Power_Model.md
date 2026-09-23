@@ -1,9 +1,11 @@
-# Cone Derivation Ledger v13.734 — Norm-Quotient Information Loss and Status of the v13.731 Prime-Power Model
+# Cone Derivation Ledger v13.736 — Norm-Quotient Information Loss and Status of the v13.731 Prime-Power Model
 
 **Date:** 2026-09-23  
 **Status:** exact group/test-function quotient identified; v13.731 Hilbert-space model is not yet a quotient representation  
-**Parents:** v13.731, v13.733 (Weil-normalization lane)  
+**Parents:** v13.731, v13.734 (Weil-normalization lane)  
 **Coordination note:** another thread independently used the label v13.733 after our Weil-normalization v13.733. No content collision is present; this lane advances to v13.734.
+
+**Renumbering note (External Audit Round 87):** this entry was originally committed as v13.734 (commit `ccf4c20`, 2026-09-23T20:27:33Z). Because two other entries collided at v13.733 upstream of it (see those entries' renumbering notes) and were resolved to v13.733/v13.734/v13.735, this entry is pushed one further to v13.736 to keep the sequence collision-free. Its "Weil-normalization lane" parent reference above (originally "v13.733") now correctly points to v13.734, that entry's final renumbered label. No mathematical content was changed.
 
 ## 1. Exact norm quotient of the idele-class group
 
@@ -143,7 +145,7 @@ Functions of norm only,
 \[
 h(u)=H(|u|),
 \]
-and quasicharacters \(|u|^s\) form the trivial-\(C_{\mathbb Q}^{1}\) sector. The Riemann-zeta scalar local factors and the v13.733 centered Weil arithmetic distribution descend exactly to this sector.
+and quasicharacters \(|u|^s\) form the trivial-\(C_{\mathbb Q}^{1}\) sector. The Riemann-zeta scalar local factors and the v13.734 centered Weil arithmetic distribution descend exactly to this sector.
 
 ### v13.731 Hilbert-space level — auxiliary realization, not proven quotient
 
@@ -228,7 +230,7 @@ C_{\mathbb Q}
 \\
 \mathbb R_{>0}^{\times}
 &\longrightarrow&
-\text{v13.715/v13.733 arithmetic distribution}
+\text{v13.715/v13.734 arithmetic distribution}
 \\
 \downarrow\log
 &&\downarrow

@@ -1,10 +1,12 @@
-# Cone Derivation Ledger v13.733 — Exact Screw-Symbol Extraction and Xi/Theta Transfer Obstruction
+# Cone Derivation Ledger v13.735 — Exact Screw-Symbol Extraction and Xi/Theta Transfer Obstruction
 
 Date: 2026-09-23
 
-Status: source-faithful extraction of the object \(k^2\widehat g(k)\) entering v13.732. The extraction exposes a decisive correction: the natural full-line symbol is a tempered **distribution**, not an ordinary scalar Wiener--Hopf symbol. Consequently the factorization proposed schematically in v13.732 cannot be performed as an ordinary scalar Wiener--Hopf factorization without an additional regularization/analytic transform.
+Status: source-faithful extraction of the object \(k^2\widehat g(k)\) entering v13.733 (the Wiener–Hopf entry, renumbered from v13.732; see that entry's renumbering note). The extraction exposes a decisive correction: the natural full-line symbol is a tempered **distribution**, not an ordinary scalar Wiener--Hopf symbol. Consequently the factorization proposed schematically there cannot be performed as an ordinary scalar Wiener--Hopf factorization without an additional regularization/analytic transform.
 
 Synchronization: live head checked before this write. No collision with the Suzuki edge lane.
+
+**Renumbering note (External Audit Round 87):** this entry was originally committed as v13.733 (commit `59b4762`, 2026-09-23T20:22:30Z), colliding with another entry independently committed as v13.733 earlier the same day (the Weil Explicit-Formula Normalization Match, commit `3a61481`, 2026-09-23T19:54:54Z). Per the standing UTC-commit-timestamp protocol this entry — being the later of the two — is renumbered v13.733 → v13.735 (the intervening number v13.734 is occupied by the earlier-committed Weil-normalization entry). No mathematical content was changed.
 
 ## 1. Suzuki's exact screw kernel
 
@@ -28,7 +30,7 @@ The source-faithful object entering the differentiated Weil operator is instead 
 \boxed{\mathcal K:=-g''}.
 \]
 
-## 2. Exact relation to the v13.732 edge symbol
+## 2. Exact relation to the v13.733 edge symbol
 
 With Fourier convention
 \[
@@ -39,7 +41,7 @@ distributional differentiation gives
 \widehat{-g''}(k)=k^2\widehat g(k).
 \]
 
-Therefore the v13.732 formal symbol
+Therefore the v13.733 formal symbol
 \[
 \mathcal D(k)=k^2\widehat g(k)-\lambda
 \]
@@ -119,7 +121,7 @@ with the precise pairing understood through Weil's explicit formula and with the
 
 ## 5. Correction to ordinary Wiener--Hopf factorization
 
-v13.732 wrote formally
+v13.733 wrote formally
 \[
 \mathcal D(k)=\mathcal D_+(k)\mathcal D_-(k).
 \]

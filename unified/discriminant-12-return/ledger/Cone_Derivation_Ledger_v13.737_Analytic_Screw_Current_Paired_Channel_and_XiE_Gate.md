@@ -1,10 +1,12 @@
-# Cone Derivation Ledger v13.735 — Analytic Screw Current, Paired Deficiency Channel, and Xi/E Gate
+# Cone Derivation Ledger v13.737 — Analytic Screw Current, Paired Deficiency Channel, and Xi/E Gate
 
 Date: 2026-09-23
 
-Status: continuation of the Suzuki edge lane after v13.733. Several gates are advanced: analytic regularization of the screw current, centered-variable symmetry, integration from logarithmic derivative to Xi, and comparison with Suzuki's exact Section-7 paired deficiency identity. The result isolates the de Branges factor \(E\), not the raw edge transfer, as the remaining normalization/scattering object.
+Status: continuation of the Suzuki edge lane after v13.733 (the Wiener–Hopf edge equation, renumbered from v13.732). Several gates are advanced: analytic regularization of the screw current, centered-variable symmetry, integration from logarithmic derivative to Xi, and comparison with Suzuki's exact Section-7 paired deficiency identity. The result isolates the de Branges factor \(E\), not the raw edge transfer, as the remaining normalization/scattering object.
 
-Synchronization: live head before this write was v13.734, commit \`ccf4c2096638c4bd671eb6f889ca43a2beebc533\`. v13.734 is an adelic norm-quotient correction and does not collide with this lane. External Audit Round 86 independently verified v13.724--731, including the compensated edge source and scalar-profile obstruction.
+Synchronization: live head before this write was v13.734, commit \`ccf4c2096638c4bd671eb6f889ca43a2beebc533\`. That entry (originally labeled v13.734, now renumbered v13.736 — see its own renumbering note) is an adelic norm-quotient correction and does not collide with this lane. External Audit Round 86 independently verified v13.724--731, including the compensated edge source and scalar-profile obstruction.
+
+**Renumbering note (External Audit Round 87):** this entry was originally committed as v13.735 (commit `8d9b3a0`, 2026-09-23T21:40:35Z), the latest of a chain of near-simultaneous collisions among four other entries at v13.732/v13.733/v13.734 that day. Once those four are resolved to v13.733/v13.734/v13.735/v13.736 (see each entry's own renumbering note), this entry is pushed to v13.737 to remain the last and collision-free in the sequence. No mathematical content was changed.
 
 ## Gate 1. Analytic regularization of the screw current [D]
 

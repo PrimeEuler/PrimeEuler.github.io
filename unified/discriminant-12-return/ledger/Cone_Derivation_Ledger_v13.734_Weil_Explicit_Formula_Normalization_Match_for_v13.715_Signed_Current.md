@@ -1,9 +1,11 @@
-# Cone Derivation Ledger v13.733 — Weil Explicit-Formula Normalization Match for the v13.715 Signed Current
+# Cone Derivation Ledger v13.734 — Weil Explicit-Formula Normalization Match for the v13.715 Signed Current
 
 **Date:** 2026-09-23  
 **Status:** exact finite-place/centering match; exact archimedean match as principal-value distributions; canonical-operator identification still open  
 **Parent:** v13.731  
 **Audit context:** External Audit Round 86 (commit 1c080f3f8c2b8524a1a3da93c84dd1b54a7aff0b) independently passed v13.724–731 with no errors. A concurrent Suzuki entry uses v13.732; this lane therefore advances to v13.733.
+
+**Renumbering note (External Audit Round 87):** this entry was originally committed as v13.733 (commit `3a61481`, 2026-09-23T19:54:54Z). A second, independent entry ("Screw-Symbol Extraction") was also committed as v13.733 later the same day (commit `59b4762`, 2026-09-23T20:22:30Z), producing a genuine collision. Per the standing UTC-commit-timestamp protocol, the earlier of the two colliding commits keeps the lower number; since this entry's commit precedes the Wiener–Hopf entry above's *original* timestamp is irrelevant here — ordering is by absolute commit time across all colliding files. The full chronological order is: v13.732 (External Audit Round 86, 19:45:37Z) < this file's original v13.732 collision partner (Wiener–Hopf, 19:45:49Z, now v13.733) < this entry (19:54:54Z, now v13.734) < Screw-Symbol Extraction (20:22:30Z, now v13.735) < Norm-Quotient Information Loss (20:27:33Z, now v13.736) < Analytic Screw Current/Paired Channel (21:40:35Z, now v13.737). This entry is accordingly renumbered v13.733 → v13.734. No mathematical content was changed.
 
 ## 1. Canonical Weil test-function normalization
 

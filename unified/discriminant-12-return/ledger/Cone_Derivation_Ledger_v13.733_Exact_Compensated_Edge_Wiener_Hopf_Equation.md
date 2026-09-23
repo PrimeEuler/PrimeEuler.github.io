@@ -1,10 +1,12 @@
-# Cone Derivation Ledger v13.732 — Exact Compensated Suzuki Edge Wiener–Hopf Equation
+# Cone Derivation Ledger v13.733 — Exact Compensated Suzuki Edge Wiener–Hopf Equation
 
 Date: 2026-09-23
 
 Status: exact transform-level Wiener–Hopf reduction of the compensated edge form, with the \(-\delta_0\) boundary term and the rank-one Green moment \(Q(0)\) kept explicitly.
 
 Synchronization: live head before this write was v13.731, commit \`f319a942e234e1c8f6685ffebe00fbb30eb0e71e\`. Entries v13.729--731 are a separate Tate/adelic lane and do not collide with the Suzuki edge calculation.
+
+**Renumbering note (External Audit Round 87):** this entry was originally committed as v13.732 (commit `6430c33`, 2026-09-23T19:45:49Z), 12 seconds after an independent External Audit Round 86 entry was pushed to v13.732 (commit `1c080f3`, 2026-09-23T19:45:37Z). Per the standing UTC-commit-timestamp collision protocol, the earlier commit keeps v13.732 and this entry is renumbered to v13.733. No mathematical content was changed.
 
 ## 1. Conventions and compensated edge problem
 
