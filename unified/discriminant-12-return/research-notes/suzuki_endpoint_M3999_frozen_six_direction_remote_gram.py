@@ -30,7 +30,8 @@ from suzuki_endpoint_M3999_midpoint_effective_core import (
     endpoint_data,
     offdiag,
     pole_vector,
-    structured_ldl_solve,
+    structured_ldl,
+    ldl_solve,
     z_source_faithful,
 )
 from suzuki_endpoint_M3999_frozen_six_direction_inputs import (
@@ -74,13 +75,8 @@ def finite_payload(sector):
     RFC=R0+alpha*np.outer(pf,pc)
 
     rhs=np.column_stack([RFC,pf])
-    X0,piv=structured_ldl_solve(
-        df,
-        zf,
-        buffer_.astype(float),
-        buffer_.astype(float)**2,
-        rhs,
-    )
+    L,piv=structured_ldl(buffer_,zf,df)
+    X0=ldl_solve(L,piv,rhs)
     X0B,U=X0[:,:10],X0[:,10]
     den=1.0+alpha*(pf@U)
     X=X0B-alpha*np.outer(U,pf@X0B)/den
