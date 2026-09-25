@@ -29,6 +29,7 @@ between the cone U(24) double cover and the Suzuki even strata.
 from __future__ import annotations
 
 import argparse
+import mpmath as mp
 import numpy as np
 from scipy.linalg import eigh
 
@@ -85,24 +86,25 @@ def class_average_basis(labels):
 
 
 def sector_report(sector: str, cutoff: int, dps: int, core_dim: int = 2):
-    data = parity_components(cutoff, sector)
-    ns_full, _, _, _, _, A_mp = data
+    with mp.workdps(dps):
+        data = parity_components(cutoff, sector)
+        ns_full, _, _, _, _, A_mp = data
 
-    size = sum(n <= cutoff for n in ns_full)
-    ns = ns_full[:size]
-    tail_ns = ns[core_dim:]
+        size = sum(n <= cutoff for n in ns_full)
+        ns = ns_full[:size]
+        tail_ns = ns[core_dim:]
 
-    A = np_matrix(A_mp[:size, :size])[core_dim:, core_dim:]
-    B = np_matrix(smooth_bulk(ns))[core_dim:, core_dim:]
+        A = np_matrix(A_mp[:size, :size])[core_dim:, core_dim:]
+        B = np_matrix(smooth_bulk(ns))[core_dim:, core_dim:]
 
-    # resonance_basis returns a Euclidean-orthonormal basis for the coefficient-
-    # space span of the four closest relative resonances.
-    Q4 = resonance_basis(
-        data,
-        cutoff,
-        howmany=4,
-        core_dim=core_dim,
-    )
+        # resonance_basis returns a Euclidean-orthonormal basis for the
+        # coefficient-space span of the four closest relative resonances.
+        Q4 = resonance_basis(
+            data,
+            cutoff,
+            howmany=4,
+            core_dim=core_dim,
+        )
 
     labels = np.array([unit_core_mod12(n) for n in tail_ns], dtype=int)
     U = class_average_basis(labels)
