@@ -70,7 +70,7 @@ def h_arch(t: float) -> float:
     if t == 0.0:
         return 0.25
     if abs(t) < 1.0e-7:
-        return 0.25 - 11.0*t/48.0
+        return 0.25 - t/48.0 - t*t/32.0 + 7.0*t**3/11520.0
     return math.exp(-t/2.0)/(-math.expm1(-2.0*t)) - 1.0/(2.0*t)
 
 
