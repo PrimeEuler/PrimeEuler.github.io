@@ -75,7 +75,7 @@ def one_case(
     core_dim=2,
 ):
     with mp.workdps(dps):
-        ns, A_mp = parity_components(max_mode, sector)
+        ns, _cusp, _prime, _arch, _pole, A_mp = parity_components(max_mode, sector)
         B_mp = smooth_bulk(ns)
 
     A = np_matrix(A_mp)
