@@ -310,15 +310,7 @@ The raw ill-conditioning has therefore been moved into I+T_N, rather than residi
 
 Order the eigenvalues of T_N by distance to -1.
 
-At N=32 the first five distances are approximately
-
-even-v:
-
-\[
-2.823\text{?}
-\]
-
-The controlling values are more cleanly summarized at N=64 and N=96.
+The controlling finite-section values are summarized at N=64 and N=96, after the four-versus-fifth separation has become visually and numerically clear.
 
 At N=64:
 
