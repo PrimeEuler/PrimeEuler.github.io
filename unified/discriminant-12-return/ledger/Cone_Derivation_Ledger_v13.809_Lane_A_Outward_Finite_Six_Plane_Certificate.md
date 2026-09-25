@@ -22,6 +22,16 @@ Related hygiene repairs:
 
 No GitHub workflow/status run is attached to these research commits.
 
+Audit-response note: External Audit Round 103 (v13.808) identified four reproducibility issues in the preceding batch. Before this entry was finalized, the source thread repaired all four committed scripts and corrected the one minor numerical discrepancy:
+
+- `ecbf52ce9a576128608005c24533e20b8ec38d43` — endpoint V4 parity-component unpacking;
+- `b6bb36d501a7fe3d0699cb8499dad87677b1eb51` — anisotropic endpoint parity-component unpacking;
+- `89ef34a16c1b597e9edd9d527a364c72d6391069` — M3999 midpoint report sector argument;
+- `80085103f412cd035c44f3e94e050554d6ce9692` — frozen remote-Gram structured solve import;
+- `03a305440d326bf781547d8a82a8a84f52cf79ac` — v13.805 N_R=401 figure corrected to approximately 0.632306, leaving approximately 0.04652 room.
+
+The mathematical conclusions of v13.803–807 are unchanged by these code-hygiene repairs.
+
 ## 1. Certification target
 
 For the fresh worst endpoint
