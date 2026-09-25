@@ -8,6 +8,9 @@ Status: [N] anisotropic finite-to-band interface diagnostics; [D] endpoint large
 
 Parents: v13.390–400, v13.472, v13.801–804.
 
+
+Audit correction (External Audit Round 103, v13.808): the N_R=401 even-v V4-reduced band figure is corrected from approximately 0.632637 to the script-reproduced value approximately 0.632306, with remaining room approximately 0.04652 rather than 0.04619. The qualitative M=3999 decision is unchanged.
+
 Research artifact:
 
 - research-notes/suzuki_endpoint_anisotropic_interface_diagnostic.py
@@ -150,15 +153,15 @@ However, extending the explicitly assembled band through mode \(1023\) raises th
 \[
 \boxed{
 \delta_{\rm crit,V4}^{401:1023}
-\approx0.632637.
+\approx0.632306.
 }
 \]
 
 Hence the remaining analytic room is only
 \[
 \boxed{
-0.678827-0.632637
-\approx0.04619.
+0.678827-0.632306
+\approx0.04652.
 }
 \]
 
