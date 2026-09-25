@@ -26,7 +26,6 @@ import math
 import numpy as np
 
 from suzuki_endpoint_M3999_midpoint_effective_core import (
-    PI,
     RHO,
     endpoint_data,
     offdiag,
@@ -43,6 +42,7 @@ from suzuki_endpoint_M3999_frozen_six_direction_inputs import (
 )
 
 
+PI = math.pi
 KEXP = 8
 EXPLICIT_STOP = 2_000_000
 Z_FAR_BOUND = 8.0
