@@ -240,7 +240,7 @@ def report(max_mode=256, finite_cross_cutoff=192, dps=45):
 
     with mp.workdps(dps):
         for sector in ("even-v", "odd-v"):
-            ns, A_mp = parity_components(max_mode, sector)
+            ns, _cusp, _prime, _arch, _pole, A_mp = parity_components(max_mode, sector)
             B_mp = smooth_bulk(ns)
             A = np_matrix(A_mp)
             B = np_matrix(B_mp)
