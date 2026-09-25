@@ -312,7 +312,7 @@ def report():
     print("endpoint = A - rho B_sm")
 
     for sector, core, buffer_ in cases:
-        out = effective_core(core, buffer_)
+        out = effective_core(core, buffer_, sector)
         vals = out["eigenvalues"]
         pivots = out["polefree_pivots"]
 
