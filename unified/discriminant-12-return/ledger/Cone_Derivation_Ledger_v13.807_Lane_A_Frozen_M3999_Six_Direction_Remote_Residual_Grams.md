@@ -26,6 +26,8 @@ Implementation hygiene:
 
 No GitHub workflow/status run is attached to these research commits.
 
+Reproducibility correction: the first committed remote-Gram reproducer imported a helper name that the midpoint module did not export. Commit `80085103f412cd035c44f3e94e050554d6ce9692` repairs that import by using the actual `structured_ldl` + `ldl_solve` interface. The numerical ledger values were produced by the in-session replay and are unchanged; the correction makes the committed reproducer executable on the intended code path.
+
 ## 1. Frozen positive six-planes [D]
 
 For each \(10\times10\) effective core from v13.806, take the six positive midpoint eigenvectors.
