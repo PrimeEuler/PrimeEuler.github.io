@@ -99,6 +99,10 @@ SIN_THETA_CAP = {
     "even-v": 0.414,
     "odd-v": 0.404,
 }
+RITZ_ABS_CAP = {
+    "even-v": 0.00030,
+    "odd-v": 0.01050,
+}
 
 U64 = 2.0**-53
 ULD = float(np.finfo(np.longdouble).eps / 2)
@@ -669,6 +673,8 @@ def certify_sector(sector):
 
     if not np.all(np.abs(theta) < 0.02):
         raise RuntimeError(("second-stage Ritz values left inner window", sector, theta))
+    if float(np.max(np.abs(theta))) >= RITZ_ABS_CAP[sector]:
+        raise RuntimeError(("second-stage Ritz cap failed", sector, theta))
 
     Gremote = explicit_remote_gram(sector, m2, Z, theta)
     Gpoint = Gfinite + Gremote
@@ -709,9 +715,9 @@ def certify_sector(sector):
 
     angle_deg = math.degrees(math.asin(sin_theta))
 
-    # A sharper, still certified separation uses the actual Ritz location
+    # A sharper certified separation uses only the public Ritz cap,
     # together with the exact complementary spectrum outside [-0.10,0.10].
-    sep_sharp = 0.10 - float(np.max(np.abs(theta)))
+    sep_sharp = 0.10 - RITZ_ABS_CAP[sector]
     sharp_sin = transformed / sep_sharp
     sharp_angle = math.degrees(math.asin(sharp_sin))
 
