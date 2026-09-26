@@ -73,12 +73,12 @@ GAMMA_LOWER = {
     "odd-v": Decimal("3.82066116500621"),
 }
 H_EXPLICIT_CAP = {
-    "even-v": Decimal("0.036395"),
-    "odd-v": Decimal("0.019089"),
+    "even-v": Decimal("0.0365"),
+    "odd-v": Decimal("0.0192"),
 }
 H_FAR_CAP = {
-    "even-v": Decimal("0.00009"),
-    "odd-v": Decimal("0.00005"),
+    "even-v": Decimal("0.0001"),
+    "odd-v": Decimal("0.00006"),
 }
 Y_POINT_NORM_CAP = {
     "even-v": Decimal("0.192"),
@@ -760,8 +760,8 @@ def main():
 
     even, odd = rows
 
-    assert even["margin"] > Decimal("3.7840")
-    assert odd["margin"] > Decimal("3.8015")
+    assert even["margin"] > Decimal("3.7838")
+    assert odd["margin"] > Decimal("3.8013")
 
     print("\nPASS: rho=0.10 plus tail endpoint is strictly positive")
     print("even normalized lower >", even["normalized_lower"])
