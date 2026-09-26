@@ -10,7 +10,7 @@ Certified conclusions, sector by sector:
     ind_-(F^-_{0.02,tail}) = 4,  ker F^-_{0.02,tail} = {0},
     ind_-(F^+_{0.02,tail}) = 0,  ker F^+_{0.02,tail} = {0},
 
-hence, by the generalized-pencill inertia-difference identity,
+hence, by the generalized-pencil inertia-difference identity,
 
     N_tail(0.02)
       = ind_-(F^-_{0.02,tail}) - ind_-(F^+_{0.02,tail})
