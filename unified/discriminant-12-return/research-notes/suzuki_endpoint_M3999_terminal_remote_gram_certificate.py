@@ -211,17 +211,29 @@ def eps_y_derived(sector: str):
 
 def point_replay(sector: str):
     payload = finite_payload(sector)
+
+    # Fail closed on the frozen-coordinate conditioning caps used below.
+    l0_inv = float(np.linalg.norm(np.linalg.inv(payload["L0"]), 2))
+    w_norm = float(
+        np.linalg.norm(
+            payload["W"] @ np.linalg.inv(payload["L0"].T),
+            2,
+        )
+    )
+    assert Decimal(str(l0_inv)) < L0_INV_CAP[sector]
+    assert Decimal(str(w_norm)) < WNORM_CAP[sector]
+
     _G, H = normalized_gram(payload)
     lam = float(np.linalg.eigvalsh(H)[-1])
     far = float(far_envelope(payload)["bound"])
 
     assert Decimal(str(lam)) < H_EXPLICIT_CAP[sector]
     assert Decimal(str(far)) < H_FAR_CAP[sector]
-    return lam, far
+    return lam, far, l0_inv, w_norm
 
 
 def terminal_certificate(sector: str):
-    lam, far = point_replay(sector)
+    lam, far, l0_inv, w_norm = point_replay(sector)
 
     dx, eps_derived = eps_y_derived(sector)
     assert eps_derived < EPS_Y
@@ -249,6 +261,8 @@ def terminal_certificate(sector: str):
     return {
         "point_lambda": lam,
         "point_far": far,
+        "actual_L0_inverse_norm": l0_inv,
+        "actual_normalized_W_norm": w_norm,
         "dressed_plane_error": dx,
         "derived_eps_y": eps_derived,
         "eps_y_cap": EPS_Y,
