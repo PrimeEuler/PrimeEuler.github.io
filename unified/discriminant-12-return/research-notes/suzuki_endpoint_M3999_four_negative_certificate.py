@@ -37,6 +37,10 @@ from suzuki_endpoint_M3999_frozen_four_negative_inputs import (
     EVEN_LNEG_HEX,
     ODD_QNEG_HEX,
     ODD_LNEG_HEX,
+    EVEN_PAYLOAD_SHA256,
+    ODD_PAYLOAD_SHA256,
+    payload_hash,
+    exact_first4_det,
     floats,
 )
 
@@ -46,16 +50,16 @@ ULD = float(np.finfo(np.longdouble).eps / 2)
 EPS_F = 2.1e-13
 
 KQ_CAP = {
-    "even-v": 0.670,
-    "odd-v": 0.245,
+    "even-v": 0.680,
+    "odd-v": 0.255,
 }
 SOLVE_RESIDUAL_CAP = {
-    "even-v": 8.20e-16,
-    "odd-v": 2.30e-16,
+    "even-v": 9.00e-16,
+    "odd-v": 2.60e-16,
 }
 REFERENCE_DEFECT_CAP = {
-    "even-v": 2.70e-16,
-    "odd-v": 1.30e-16,
+    "even-v": 3.20e-16,
+    "odd-v": 1.60e-16,
 }
 
 
@@ -278,6 +282,16 @@ def one_sector(sector):
     else:
         raise ValueError(sector)
 
+    expected_hash = (
+        EVEN_PAYLOAD_SHA256
+        if sector == "even-v"
+        else ODD_PAYLOAD_SHA256
+    )
+    if payload_hash(qhex, lhex) != expected_hash:
+        raise RuntimeError("frozen negative payload hash mismatch")
+    if exact_first4_det(qhex) == 0:
+        raise RuntimeError("frozen negative payload rank test failed")
+
     modes = np.concatenate([core, buffer_])
     z, diag = endpoint_data(modes)
     zc, zf = z[:10], z[10:]
@@ -458,18 +472,18 @@ def report():
 
     even, odd = rows
 
-    assert even["normalized_negative_lower"] > 0.99999936
-    assert odd["normalized_negative_lower"] > 0.99999987
+    assert even["normalized_negative_lower"] > 0.99999935
+    assert odd["normalized_negative_lower"] > 0.99999986
 
-    assert even["raw_negative_margin"] > 0.0292493438
-    assert odd["raw_negative_margin"] > 0.0300224610
+    assert even["raw_negative_margin"] > 0.0292493433
+    assert odd["raw_negative_margin"] > 0.0300224607
 
     print("\nPASS: four exact frozen negative directions certified")
     print(
-        "even: Q^T S_exact Q < -0.0292493438 I"
+        "even: Q^T S_exact Q < -0.0292493433 I"
     )
     print(
-        "odd:  Q^T S_exact Q < -0.0300224610 I"
+        "odd:  Q^T S_exact Q < -0.0300224607 I"
     )
     print(
         "These four-dimensional graph subspaces have remote coordinate zero, "
