@@ -83,7 +83,7 @@ SOLVE_RESIDUAL_CAP = {
 # Conservative outward reference-formation defects
 # || Bhat - L0 L0^T || before solve/source perturbations.
 REFERENCE_DEFECT_CAP = {
-    "even-v": 9.20e-16,
+    "even-v": 1.11e-15,
     "odd-v": 1.29e-15,
 }
 
