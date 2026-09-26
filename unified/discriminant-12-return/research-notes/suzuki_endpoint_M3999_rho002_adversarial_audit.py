@@ -53,10 +53,10 @@ FINITE_CAPS = {
     ("plus", "odd-v"):       dict(K=.85, resid=1.45e-15, ref=.80e-15),
 }
 REMOTE_CAPS = {
-    ("minus-pos", "even-v"): dict(invL=2.05, W=2.80, Hexp=.0480, Hfar=1.20e-4, Y=.220, epsY=5.0e-7),
-    ("minus-pos", "odd-v"):  dict(invL=1.13, W=1.23, Hexp=.0088, Hfar=2.20e-5, Y=.095, epsY=4.0e-7),
-    ("plus", "even-v"):      dict(invL=20.8, W=20.8, Hexp=.0435, Hfar=1.10e-4, Y=.209, epsY=2.0e-6),
-    ("plus", "odd-v"):       dict(invL=12.4, W=12.4, Hexp=.0345, Hfar=8.50e-5, Y=.186, epsY=1.5e-6),
+    ("minus-pos", "even-v"): dict(invL=2.05, W=2.80, Hexp=.0480, Hfar=1.20e-4, Y=.225, epsY=5.0e-7),
+    ("minus-pos", "odd-v"):  dict(invL=1.13, W=1.23, Hexp=.0088, Hfar=2.20e-5, Y=.100, epsY=4.0e-7),
+    ("plus", "even-v"):      dict(invL=20.8, W=20.8, Hexp=.0435, Hfar=1.10e-4, Y=.215, epsY=2.0e-6),
+    ("plus", "odd-v"):       dict(invL=12.4, W=12.4, Hexp=.0345, Hfar=8.50e-5, Y=.195, epsY=1.5e-6),
 }
 GAMMA_LOWER = {
     ("minus-pos", "even-v"): 3.18003114023348,
@@ -327,6 +327,31 @@ def far_envelope(p):
     root=np.linalg.norm(lead)*math.sqrt(S(2))+np.linalg.norm(B)*math.sqrt(S(4))+np.linalg.norm(C)*math.sqrt(S(6))
     return root*root,float(np.linalg.norm(np.linalg.inv(p["L0"]),2)),float(np.linalg.norm(W,2))
 
+
+def common_cross_cap_check():
+    """Re-derive the crude common remote cross cap 20."""
+    pi=math.pi
+    s2=1.5
+    c=2/pi**3+6/pi**4
+    alpha=2*c/pi
+    cdiag=2/pi**2+2/pi**3+2/pi**4+6/pi**5
+    cusp=(2/pi**2*s2
+          +2*alpha*math.sqrt(pi**2/12*(1+1/10))
+          +cdiag*math.sqrt(1+1/6))
+    q=2/pi
+    m4=float(mp.zeta(3))*q**3/(4*(1-q)**3)
+    cr=19/12+4*m4
+    arch=4*cr/pi**2*s2
+    hilbert=1.02*pi/2
+    prime=2.05
+    pole_even=(16/3)*math.cosh(.5)**2
+    pole_odd=(16/3)*math.sinh(.5)**2
+    even=hilbert+prime+cusp+arch+pole_even
+    odd=hilbert+prime+cusp+arch+pole_odd
+    if even >= REMOTE_CROSS_CAP or odd >= REMOTE_CROSS_CAP:
+        raise RuntimeError(("remote cross cap failed",even,odd))
+    return even,odd
+
 def audit_remote(a):
     key=(a["kind"],a["sector"]); cap=REMOTE_CAPS[key]; fcap=FINITE_CAPS[key]
     p=dressed(a); H=normalized_gram(p); lam=float(np.linalg.eigvalsh(H)[-1])
@@ -341,6 +366,8 @@ def audit_remote(a):
     epsY=REMOTE_CROSS_CAP*dx+EPS_F*cap["W"]+REPLAY_ARITH_CAP
     if epsY>=cap["epsY"]:
         raise RuntimeError(("epsY cap failed",key,epsY))
+    if math.sqrt(cap["Hexp"]+cap["Hfar"]) >= cap["Y"]:
+        raise RuntimeError(("Y point-norm cap failed",key))
     hupper=cap["Hexp"]+cap["Hfar"]+2*cap["Y"]*cap["epsY"]+cap["epsY"]**2
     terminal=glow*a["normalized_lower"]; margin=terminal-hupper
     return dict(lam=lam,Hexp_cap=cap["Hexp"],far=far,Hfar_cap=cap["Hfar"],invL=invL,invL_cap=cap["invL"],
@@ -371,7 +398,9 @@ def main():
         rows[("plus",sec)]=audit_subspace("plus",blocks[(+1,sec)],np.eye(10),fp[sec],False)
 
     zupper=prove_far_generator()
+    cross=common_cross_cap_check()
     print("far generator upper interval =",zupper)
+    print("remote cross component totals =",cross)
 
     remote={}
     for key in (("minus-pos","even-v"),("minus-pos","odd-v"),("plus","even-v"),("plus","odd-v")):
