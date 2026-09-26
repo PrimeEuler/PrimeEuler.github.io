@@ -68,6 +68,7 @@ Z_FAR_CAP = 8.0
 # reserve is used below, so this never controls the final result.
 EPS_SOURCE = 2.1e-13
 ARITH_RESERVE = 1.0e-8
+B_ENTRY_RESERVE = 1.0e-10
 
 # Deliberately widened public residual caps.
 POINT_RESIDUAL_CAP = {
@@ -617,7 +618,9 @@ def smooth_bulk_global_floor(sector):
     if shifted_floor <= 0:
         raise RuntimeError(("shifted B floor failed", sector, shifted_floor))
 
-    # Therefore B_FF > shift I.
+    # Absorb explicit-entry/log rounding before using the finite floor.
+    finite_floor = shift - B_ENTRY_RESERVE
+
     c = cross_hilbert_hs_upper(modes, remote_start)
     if c >= 0.42:
         raise RuntimeError(("B cross HS cap failed", sector, c))
@@ -629,13 +632,15 @@ def smooth_bulk_global_floor(sector):
     if gamma_remote <= 5.33:
         raise RuntimeError(("B remote floor failed", sector, gamma_remote))
 
-    # Scalar 2x2 lower comparison:
-    # [shift, -c; -c, gamma_remote].
+    # The public beta is derived only from conservative constants:
+    # finite_floor >= shift-reserve, cross <= 0.42, remote >= 5.33.
+    c_public = 0.42
+    gamma_public = 5.33
     beta = 0.5 * (
-        shift + gamma_remote
+        finite_floor + gamma_public
         - math.sqrt(
-            (gamma_remote - shift)**2
-            + 4.0 * c*c
+            (gamma_public - finite_floor)**2
+            + 4.0 * c_public*c_public
         )
     )
     if beta <= beta_public:
@@ -643,6 +648,7 @@ def smooth_bulk_global_floor(sector):
 
     return {
         "finite_shift": shift,
+        "finite_floor_after_entry_reserve": finite_floor,
         "shifted_floor": shifted_floor,
         "cross_hs": c,
         "remote_floor": gamma_remote,
