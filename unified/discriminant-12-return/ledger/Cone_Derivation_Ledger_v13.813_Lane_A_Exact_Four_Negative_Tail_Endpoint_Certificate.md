@@ -315,7 +315,7 @@ Therefore
 \boxed{
 -Q_{4,e}^TS_{e,\rm exact}Q_{4,e}
 >
-0.0292493438\,I,
+0.0292493433\,I,
 }
 \]
 
@@ -323,7 +323,7 @@ Therefore
 \boxed{
 -Q_{4,o}^TS_{o,\rm exact}Q_{4,o}
 >
-0.0300224610\,I.
+0.0300224607\,I.
 }
 \]
 
@@ -335,7 +335,7 @@ L_{{\rm neg},e}^{-1}
 (-Q_{4,e}^TS_{e,\rm exact}Q_{4,e})
 L_{{\rm neg},e}^{-T}
 >
-0.99999936\,I,
+0.99999935\,I,
 }
 \]
 
@@ -345,7 +345,7 @@ L_{{\rm neg},o}^{-1}
 (-Q_{4,o}^TS_{o,\rm exact}Q_{4,o})
 L_{{\rm neg},o}^{-T}
 >
-0.99999987\,I.
+0.99999986\,I.
 }
 \]
 
@@ -438,6 +438,28 @@ N(0.02)=4
 also requires the corresponding plus/minus endpoint pair at \(\rho=0.02\).
 
 The separate two-mode low-core Feshbach problem remains outside this tail theorem.
+
+
+## Round-105-style source-thread independent audit hardening
+
+Before using this entry in a final inertia claim, the source thread independently rebuilt the frozen payloads and the full finite graph forms without invoking the four-negative certificate routine itself.
+
+All original v13.813 caps pass, but several were unnecessarily tight. The verifier was therefore hardened in commit 022a68cc9338b0cb19a7018c8cda4a1d5813395f by:
+
+1. checking the frozen SHA-256 payloads and exact first-\(4\times4\) rank minors at runtime;
+2. widening the coupling caps from \(0.670/0.245\) to \(0.680/0.255\);
+3. widening the four-RHS residual caps from \(8.20\times10^{-16}/2.30\times10^{-16}\) to \(9.00\times10^{-16}/2.60\times10^{-16}\);
+4. widening the reference-defect caps from \(2.70\times10^{-16}/1.30\times10^{-16}\) to \(3.20\times10^{-16}/1.60\times10^{-16}\);
+5. replacing the final printed safe margins by the slightly weaker but less brittle values
+   \[
+   0.0292493433,\qquad 0.0300224607,
+   \]
+   and normalized values
+   \[
+   0.99999935,\qquad 0.99999986.
+   \]
+
+The original sharper v13.813 numbers remain supported by the independently reproduced original caps, but the hardened values above are the recommended fail-closed margins for subsequent theorem use.
 
 ## Result
 
