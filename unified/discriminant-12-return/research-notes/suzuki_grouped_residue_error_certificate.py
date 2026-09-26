@@ -50,6 +50,7 @@ DIRECT_STOP = {"even-v": 16001, "odd-v": 16000}
 K_B = 16
 
 EPS_SOURCE = 2.1e-13
+EPS_BULK_MODEL = 1.0e-10
 U64 = 2.0**-53
 ULD = float(np.finfo(np.longdouble).eps / 2)
 
@@ -315,10 +316,15 @@ def certify_endpoint(sector,delta):
     if far >= FAR_REMOTE_CAP[sector]:
         raise RuntimeError(("far remote cap",sector,delta,far))
 
+    model_reserve=(
+        EPS_SOURCE
+        +EPS_BULK_MODEL*(DELTA0+X_NORM_CAP[sector])
+    )
+
     remote_total=(
         POINT_REMOTE_CAP[sector]
         +FAR_REMOTE_CAP[sector]
-        +EPS_SOURCE
+        +model_reserve
     )
     if remote_total >= REMOTE_TOTAL_CAP[sector]:
         raise RuntimeError(("remote total cap",sector,delta,remote_total))
@@ -333,13 +339,13 @@ def certify_endpoint(sector,delta):
     total_residual=(
         REMOTE_TOTAL_CAP[sector]
         +SOLVE_RESIDUAL_CAP[sector]
-        +EPS_SOURCE
+        +model_reserve
     )
 
     c2=(
         TRIAL_ENERGY_NORM_CAP[sector]**2
         +2.0*X_NORM_CAP[sector]*(
-            SOLVE_RESIDUAL_CAP[sector]+EPS_SOURCE
+            SOLVE_RESIDUAL_CAP[sector]+model_reserve
         )
         +(total_residual**2)/BETA_CAP[sector]
     )
@@ -360,6 +366,7 @@ def certify_endpoint(sector,delta):
         "far_F":farF,
         "far_BX":farBX,
         "far_total":far,
+        "model_reserve":model_reserve,
         "c2_bound":c2,
         "c_bound":math.sqrt(c2),
     }
