@@ -408,7 +408,7 @@ The outward mismatch between the directly formed nominal restricted Schur matrix
 \boxed{
 \epsilon_{{\rm ref},+}
 <
-9.20\times10^{-16},
+1.11\times10^{-15},
 }
 \]
 
@@ -419,6 +419,9 @@ The outward mismatch between the directly formed nominal restricted Schur matrix
 1.29\times10^{-15}.
 }
 \]
+
+
+Round-104 reconciliation: External Audit Round 104 (v13.811) found that the committed even-v reference-formation defect is (1.0971393514152275\times10^{-15}), exceeding the original (9.20\times10^{-16}) cap. Commit `f16f86670c298bf17a2544a647a7395d894f6e01` replaces that stale cap by the outward rounded value (1.11\times10^{-15}). Recomputing the scalar budget gives (C_+>0.9999992082623,I), so the published safe bound (C_+>0.9999992082,I) remains valid unchanged.
 
 ## 8. Exact-vs-nominal restricted Schur perturbation [C]
 
