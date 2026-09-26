@@ -161,14 +161,14 @@ def pole_vector(ns, sector):
     raise ValueError(sector)
 
 
-def endpoint_data(ns):
+def endpoint_data(ns, sign=-1):
     ns = np.asarray(ns, dtype=int)
-    z = z_source_faithful(ns) - RHO*math.pi/2.0
+    z = z_source_faithful(ns) + sign*RHO*math.pi/2.0
     diag = (
         cusp_diag(ns)
         + prime_diag(ns)
         + np.array([arch_diag(int(n)) for n in ns])
-        - RHO*(np.log(ns/4.0)-1.0/(2.0*ns))
+        + sign*RHO*(np.log(ns/4.0)-1.0/(2.0*ns))
     )
     return z, diag
 
@@ -240,9 +240,9 @@ def ldl_solve(L, D, rhs):
     return x[:, 0] if one_column else x
 
 
-def effective_core(core, buffer_, sector):
+def effective_core(core, buffer_, sector, sign=-1):
     modes = np.concatenate([core, buffer_])
-    z, diag = endpoint_data(modes)
+    z, diag = endpoint_data(modes, sign=sign)
 
     nc = len(core)
     zc = z[:nc]
