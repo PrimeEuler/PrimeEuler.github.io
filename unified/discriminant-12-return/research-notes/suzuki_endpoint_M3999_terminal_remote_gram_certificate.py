@@ -135,7 +135,14 @@ def prove_z_far_bound():
         / (1 - iv.exp(-4))
     )
 
-    z_upper = 2 * wsum + psi_upper + corr_upper
+    # The actual endpoint generator is shifted by -rho*pi/2, so bound
+    # its absolute value by adding the shift magnitude explicitly.
+    z_upper = (
+        2 * wsum
+        + psi_upper
+        + corr_upper
+        + iv.mpf("0.10") * iv.pi / 2
+    )
     assert z_upper < iv.mpf(8)
     return z_upper
 
