@@ -62,8 +62,8 @@ REMOTE_START={
 
 # Public floors are deliberately below the interval/raw values.
 REMOTE_GAMMA_CAP={
-    "even-v":0.20,
-    "odd-v":0.20,
+    "even-v":0.18,
+    "odd-v":0.18,
 }
 
 # Filled conservatively after the direct replay below.  These are intended
