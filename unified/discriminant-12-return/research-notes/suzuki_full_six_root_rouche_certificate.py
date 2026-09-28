@@ -440,7 +440,7 @@ def fourier_matrix_dense(coeff):
     angular_halfstep=math.pi/DENSE_GRID
     return mins-deriv*angular_halfstep,deriv
 
-def winding_from_coeff(coeff):
+def winding_from_coeff(coeff,poly_floor,deriv):
     n=8192
     th=2.0*math.pi*np.arange(n)/n
     E=np.exp(1j*np.outer(th,np.arange(coeff.shape[0])))
@@ -448,13 +448,23 @@ def winding_from_coeff(coeff):
     det=np.linalg.det(vals)
     phase=np.unwrap(np.angle(np.r_[det,det[0]]))
     increments=np.diff(phase)
-    if np.max(np.abs(increments))>=0.25:
-        raise RuntimeError(("phase mesh too coarse",np.max(np.abs(increments))))
+
+    # Continuous phase-speed bound:
+    # |d arg det S/dtheta|
+    # <= |tr(S^-1 S')|
+    # <= dim(S) ||S^-1|| ||S'||.
+    phase_speed=coeff.shape[1]*deriv/poly_floor
+    interval_bound=phase_speed*(2.0*math.pi/n)
+    if interval_bound>=math.pi/2:
+        raise RuntimeError(("phase derivative mesh bound too large",interval_bound))
+    if np.max(np.abs(increments))>=math.pi/2:
+        raise RuntimeError(("sample phase jump too large",np.max(np.abs(increments))))
+
     w=(phase[-1]-phase[0])/(2.0*math.pi)
     wi=int(round(w))
     if abs(w-wi)>=1.0e-8:
         raise RuntimeError(("noninteger winding replay",w))
-    return wi,float(np.max(np.abs(increments)))
+    return wi,float(np.max(np.abs(increments))),phase_speed,interval_bound
 
 def far_sums(N,power):
     return N**(-power)+1.0/(2.0*(power-1)*N**(power-1))
@@ -470,8 +480,9 @@ def uniform_far_bound(sector,modes,Wcoeff,graph_outer):
     if qmax>=1:
         raise RuntimeError("far expansion invalid")
 
-    # Uniform entrywise majorant of the Fourier interpolant.
-    Wabs=np.sum(np.abs(Wcoeff),axis=0)
+    # Uniform entrywise majorant including the unsampled Fourier alias.
+    aliasW=analytic_alias_cap(graph_outer)
+    Wabs=np.sum(np.abs(Wcoeff),axis=0)+aliasW
 
     Bvec=(
         (2.0/math.pi)
@@ -511,7 +522,6 @@ def uniform_far_bound(sector,modes,Wcoeff,graph_outer):
     )
 
     # The only unsampled lead error is induced by the W Fourier alias.
-    aliasW=analytic_alias_cap(graph_outer)
     lead_map=(
         float(np.linalg.norm(base))
         +RADIUS*math.sqrt(float(len(modes)))
@@ -597,7 +607,9 @@ def one_sector(sector):
             sector,finite_floor,FINITE_CONTOUR_FLOOR[sector]
         ))
 
-    winding,phase_step=winding_from_coeff(Scoef)
+    winding,phase_step,phase_speed,phase_interval=winding_from_coeff(
+        Scoef,minpoly,deriv
+    )
     if winding!=6:
         raise RuntimeError(("finite winding",sector,winding))
 
@@ -643,6 +655,8 @@ def one_sector(sector):
         finite_public_floor=FINITE_CONTOUR_FLOOR[sector],
         finite_winding=winding,
         max_phase_step=phase_step,
+        phase_speed_bound=phase_speed,
+        phase_interval_bound=phase_interval,
         explicit_remote_norm=yexplicit,
         far_remote_norm=far,
         remote_gamma_interval=giv,
