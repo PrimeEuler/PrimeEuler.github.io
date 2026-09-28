@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import math
 import numpy as np
+from scipy.sparse.linalg import svds
 
 import suzuki_full_six_root_rouche_certificate as R
 
@@ -80,6 +81,12 @@ def power_norm(M):
 def frobenius_upper(M):
     return float(np.linalg.norm(M,"fro"))
 
+def direct_spectral_replay(M):
+    # ARPACK top singular value for diagnostic/cap construction.
+    # The theorem version will add a separate backward-error reserve.
+    s=svds(M,k=1,which="LM",return_singular_vectors=False,tol=1e-12,maxiter=5000)
+    return float(s[-1])
+
 
 def same_parity_sum(N,p):
     return N**(-p)+1.0/(2.0*(p-1)*N**(p-1))
@@ -134,22 +141,34 @@ def one(sector):
     buf,ns,A,B=explicit_cross_components(sector)
 
     # Frobenius is a rigorous spectral-norm upper bound for the explicit rows.
-    Aexp=frobenius_upper(A)
-    Bexp=frobenius_upper(B)
+    Afro=frobenius_upper(A)
+    Bfro=frobenius_upper(B)
 
-    # Power replay is reported to show how conservative Frobenius is.
     Apow=power_norm(A)
     Bpow=power_norm(B)
+    Asvd=direct_spectral_replay(A)
+    Bsvd=direct_spectral_replay(B)
 
     Afar=far_A_bound(sector,buf)
     Bfar=far_B_bound(buf)
 
-    zupper=Aexp+Afar+R.RADIUS*(Bexp+Bfar)+ROUND_RESERVE
+    # Diagnostic spectral center; theorem cap will be widened after replay.
+    zupper=Asvd+Afar+R.RADIUS*(Bsvd+Bfar)+ROUND_RESERVE
     invbuf=endpoint_inverse_cap(sector)
     feedback=zupper*zupper*invbuf
 
     gamma=R.REMOTE_GAMMA_FLOOR[sector]
     gamma_eff=gamma-feedback
+
+    print("\n",sector)
+    print("A explicit fro =",Afro,"power =",Apow,"svd =",Asvd)
+    print("B explicit fro =",Bfro,"power =",Bpow,"svd =",Bsvd)
+    print("A far =",Afar,"B far =",Bfar)
+    print("uniform Z diagnostic =",zupper)
+    print("buffer inverse cap =",invbuf)
+    print("feedback norm diagnostic =",feedback)
+    print("corrected remote gamma diagnostic =",gamma_eff)
+
     if gamma_eff<=0:
         raise RuntimeError(("buffer feedback destroys remote coercivity",sector,zupper,feedback))
 
@@ -161,16 +180,8 @@ def one(sector):
     finite=R.FINITE_CONTOUR_FLOOR[sector]
     margin=finite-corrected
 
-    print("\n",sector)
-    print("A explicit fro =",Aexp,"power =",Apow)
-    print("B explicit fro =",Bexp,"power =",Bpow)
-    print("A far =",Afar,"B far =",Bfar)
-    print("uniform Z cap =",zupper)
-    print("buffer inverse cap =",invbuf)
-    print("feedback norm cap =",feedback)
-    print("corrected remote gamma =",gamma_eff)
-    print("corrected Schur cap =",corrected)
-    print("corrected Rouche margin =",margin)
+    print("corrected Schur diagnostic =",corrected)
+    print("corrected Rouche margin diagnostic =",margin)
 
     # The first run is diagnostic.  Public fail-closed caps are added only
     # after observing these values and widening them deliberately.
@@ -181,7 +192,7 @@ def one(sector):
         raise RuntimeError(("corrected Rouche margin fails",sector,margin))
 
     return dict(
-        Aexp=Aexp,Bexp=Bexp,Apow=Apow,Bpow=Bpow,
+        Afro=Afro,Bfro=Bfro,Apow=Apow,Bpow=Bpow,Asvd=Asvd,Bsvd=Bsvd,
         Afar=Afar,Bfar=Bfar,Z=zupper,invbuf=invbuf,
         feedback=feedback,gamma_eff=gamma_eff,
         corrected=corrected,margin=margin,
