@@ -58,13 +58,13 @@ Full-text search of §§6–8 confirms: **no** endpoint conditions on \(v_\pm\),
 
 **1.8 No ledger-vs-v2 mismatch.** [D]
 
-Equation (8.5) is present **verbatim** at v2 p.30, with the identical \(A_\pm/B_\pm\) kernel-integral formulas and the identical disclaimer ("(8.5) is different from \(S_a u_\pm = C_\pm \bar{e}_{\pm i}\)"). The ledger (v13.742 §2, v13.282 §6, v13.773 §1) records it faithfully. The reference PDF the project owner uploaded is this same v2 document. There is no competing source.
+Equation (8.5) is present **verbatim** at v2 p.30, with the identical \(A_\pm/B_\pm\) kernel-integral formulas and the identical disclaimer ("(8.5) is different from \(S_a u_\pm = C_\pm \bar{D}e_{\pm i}\)" — the bar sits over the operator \(\bar{D}\) applied to \(e_{\pm i}\)). The ledger (v13.742 §2, v13.282 §6, v13.773 §1) records it faithfully. The reference PDF the project owner uploaded is this same v2 document. There is no competing source.
 
 ## 2. [N] Numerical confirmation of the nullspace (sandbox, exploratory)
 
 Finite-A Nyström discretization of the source-faithful (8.5) with the v13.772 kernel (two independent discretizations agreeing to all digits; relative residuals ~1e-12 on the compatibility subspace):
 
-- **Affine functions lie in \(\operatorname{Ran}(K_A)\) to machine precision:** \(K_A v = 1\) solved to \(7\times 10^{-16}\), \(K_A v = x\) to \(2\times 10^{-13}\), at \(A = 1, 2, 3\). Hence \(M_A\) has a genuine 2D near-nullspace and \((I_0, I_1)\) are **undetermined by (8.5) alone** — structural, not a solver artifact. This numerically confirms v13.773 §5 verbatim and explains *why* Bucket 2 is the gate.
+- **Affine functions lie in \(\operatorname{Ran}(K_A)\) to machine precision:** \(K_A v = 1\) solved to \(7\times 10^{-16}\), \(K_A v = x\) to \(2\times 10^{-13}\), at \(A = 1, 2, 3\). Hence \(M_A\) has a genuine 2D near-nullspace and \((I_0, I_1)\) are **undetermined by (8.5) alone** — structural, not a solver artifact. This numerically confirms the diagnosis of v13.773 §5 (a structural claim, here supported by an independent numerical route) and explains *why* Bucket 2 is the gate.
 - The nullspace persists across \(\lambda \in \{-2, -1, -0.5, 0, +0.5, +1\}\) (affine-in-range residuals 1e-15–1e-13 throughout): not a \(\lambda = 0\) artifact.
 - Ledger-faithful self-consistent re-run (\(M_A v = C(e^x-1-x)\), \(A = 2\), \(n = 48 \to 192\)): **\(r_1 \approx +0.47\)–\(0.69\)** (drifting upward with A: \(0.12 \to 10.3\) for \(A = 1 \to 5\)); **\(r_0\) sign-flipping and undetermined** (\(10^4\)–\(10^5\) across refinement); \(\alpha_A \approx -0.2\); \(\beta_A \sim 10^3\).
 - Arbitrary collocation fixers (the "two extra conditions" as two rows of (8.4) at \(x_j = \pm A/2\)): 2×2 invertible (det \(1.76\times 10^4\), cond 445, clean even/odd structure) — but the global (8.4) residual is **\(3.0\times 10^3\)**; perturbing the arbitrary collocation points swings \(r_1 \in [-202, +6]\), \(r_0 \in [-450, +1780]\). Algebraically solvable, mathematically meaningless: arbitrary knobs, not a determination.
@@ -124,3 +124,12 @@ Either route must also control the selector-sensitivity demonstrated in §2 (col
 \]
 
 This entry supersedes no proof and blocks no work; it exists so the Bucket 2 gate can be attacked with its actual missing piece — the kink-faithful \(T_a\) — named.
+
+## Post-audit corrections (v13.839, External Audit Round 114)
+
+Two minor findings from the audit of this entry, corrected in place:
+
+1. §1.8's transcription of the p.30 disclaimer originally placed the bar over \(e\) (\(\bar{e}_{\pm i}\)). The PDF's actual text is \(S_a u_\pm = C_\pm \bar{D}e_{\pm i}\) — the bar sits over the operator \(\bar{D}\) applied to \(e_{\pm i}\) (the pattern \(S_a u_z = \bar{D}e_z\) is spelled out one line earlier on the same page). Corrected above; the entry's point about the disclaimer stands unchanged.
+2. §2's "confirms v13.773 §5 verbatim" reworded: v13.773 §5 is a structural/algebraic claim with no numerics, so the sandbox numerics support its diagnosis by an independent numerical route rather than verifying it "verbatim."
+
+Neither correction affects the entry's conclusions.
