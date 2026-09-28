@@ -52,25 +52,25 @@ EXPLICIT_STOP=2_000_000
 Z_FAR_CAP=8.0
 
 FRONT={
-    "even-v":np.arange(25,190,2,dtype=int),
-    "odd-v":np.arange(26,191,2,dtype=int),
+    "even-v":np.arange(25,1000,2,dtype=int),
+    "odd-v":np.arange(26,1001,2,dtype=int),
 }
 REMOTE_START={
-    "even-v":191,
-    "odd-v":192,
+    "even-v":1001,
+    "odd-v":1002,
 }
 
 # Public floors are deliberately below the interval/raw values.
 REMOTE_GAMMA_CAP={
-    "even-v":0.18,
-    "odd-v":0.18,
+    "even-v":1.70,
+    "odd-v":1.70,
 }
 
 # Filled conservatively after the direct replay below.  These are intended
 # to leave visible room around the actual values.
 CROSS_GRAM_CAP={
-    "even-v":1.0,
-    "odd-v":1.0,
+    "even-v":1.5,
+    "odd-v":1.5,
 }
 
 HIGH_TAIL_FLOOR_CAP={
