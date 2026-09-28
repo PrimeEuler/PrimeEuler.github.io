@@ -12,8 +12,8 @@ import math
 import numpy as np
 import suzuki_full_six_root_rouche_certificate as R
 
-R.CUT={"even-v":999,"odd-v":1000}
-R.REMOTE_START={"even-v":1001,"odd-v":1002}
+R.CUT={"even-v":12001,"odd-v":12002}
+R.REMOTE_START={"even-v":12003,"odd-v":12004}
 R.EXPLICIT_STOP=20000
 
 HIGH_TAIL_FLOOR={"even-v":0.28,"odd-v":0.32}
