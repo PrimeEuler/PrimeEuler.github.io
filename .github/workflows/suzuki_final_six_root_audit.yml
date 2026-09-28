@@ -7,6 +7,7 @@ on:
       - 'unified/discriminant-12-return/research-notes/suzuki_full_six_root_buffer_feedback_audit.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_full_six_root_rouche_certificate.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_high_tail_direct_coercivity.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_final_six_root_whole_tail_rouche.py'
       - '.github/workflows/suzuki_final_six_root_audit.yml'
   workflow_dispatch:
 
@@ -24,3 +25,6 @@ jobs:
       - name: Run direct high-tail coercivity audit
         working-directory: unified/discriminant-12-return/research-notes
         run: python suzuki_high_tail_direct_coercivity.py
+      - name: Run repaired whole-tail Rouche diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_final_six_root_whole_tail_rouche.py
