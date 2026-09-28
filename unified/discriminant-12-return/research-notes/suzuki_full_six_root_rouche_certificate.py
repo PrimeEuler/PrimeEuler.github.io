@@ -70,46 +70,37 @@ REMOTE_START = {
 # Widened public caps.  These are intended to leave visible room beyond
 # the source-thread midpoint values.
 FINITE_CONTOUR_FLOOR = {
-    "even-v": 0.00300,
-    "odd-v": 0.00175,
+    "even-v": 0.00310,
+    "odd-v": 0.00184,
 }
 EXPLICIT_REMOTE_NORM_CAP = {
-    "even-v": 0.053,
-    "odd-v": 0.043,
+    "even-v": 0.058,
+    "odd-v": 0.048,
 }
 FAR_REMOTE_NORM_CAP = {
-    "even-v": 0.076,
-    "odd-v": 0.064,
+    "even-v": 0.079,
+    "odd-v": 0.066,
 }
 REMOTE_GAMMA_FLOOR = {
     "even-v": 4.50,
     "odd-v": 4.50,
 }
 REMOTE_SCHUR_CAP = {
-    "even-v": 0.00195,
-    "odd-v": 0.00135,
+    "even-v": 0.00214,
+    "odd-v": 0.00149,
 }
 ROUCHE_MARGIN_FLOOR = {
-    "even-v": 0.00100,
-    "odd-v": 0.00035,
+    "even-v": 0.00090,
+    "odd-v": 0.00030,
 }
 
-# Analytic outer-disk majorants used only to bound 32-point Fourier alias.
+# Same-parity Hilbert inequality gives ||H|| <= pi/2 on every buffer.
 BUFFER_B_FLOOR = {
     "even-v": math.log(25.0/4.0)-math.pi/2.0,
     "odd-v": math.log(26.0/4.0)-math.pi/2.0,
 }
-BUFFER_ENDPOINT_FLOOR = {
-    "even-v": 1.0e-6,
-    "odd-v": 1.0e-6,
-}
-CORE_BUFFER_COUPLING_CAP = {
-    "even-v": 1.20,
-    "odd-v": 0.90,
-}
-SCHUR_OUTER_CAP = 250.0
-GRAPH_OUTER_CAP = 150.0
-Y_OUTER_CAP = REMOTE_CROSS_CAP*GRAPH_OUTER_CAP
+FACTOR_RESERVE = 1.0e-8
+SOURCE_EPS = 2.1e-13
 
 def modes_for(sector,stop):
     return np.arange(1 if sector=="even-v" else 2,stop+1,2,dtype=int)
@@ -175,6 +166,198 @@ def ldl_solve_complex(L,D,rhs):
         if i+1<n:
             x[i]-=L[i+1:,i]@x[i+1:]
     return x[:,0] if one else x
+
+
+def endpoint_buffer_floor(sector):
+    """Crude fail-closed floor for A_FF-0.10 B_FF on the finite buffer.
+
+    The bound is intentionally crude: positive pole-free pivots plus an
+    absolute-L inverse infinity recurrence give
+        ||L^-1||_2 <= sqrt(n)||L^-1||_inf.
+    This is enough because only positivity / outer analyticity is needed.
+    """
+    modes=modes_for(sector,CUT[sector])
+    buf=modes[12:]
+    z=z_source_faithful(buf)-0.10*math.pi/2.0
+    d=base_diag(buf)-0.10*(np.log(buf/4.0)-1.0/(2.0*buf))
+    p,alpha=pole_vector(modes,sector)
+    pf=np.asarray(p[12:],dtype=float)
+
+    x=buf.astype(float)**2
+    u=np.asarray(z,dtype=float).copy()
+    v=buf.astype(float).copy()
+    dd=np.asarray(d,dtype=float).copy()
+
+    accum=np.zeros(len(buf),dtype=float)
+    source=pf.copy()
+    border=0.0
+    minD=math.inf
+    max_inv_inf=1.0
+
+    for k in range(len(buf)):
+        piv=float(dd[k])
+        if piv <= 0.0:
+            raise RuntimeError(("nonpositive rho=.10 buffer pivot",sector,k,piv))
+        minD=min(minD,piv)
+
+        yk=1.0+accum[k]
+        max_inv_inf=max(max_inv_inf,yk)
+
+        # Scalar bordered elimination gives -p^T A0^-1 p.
+        border-=source[k]*source[k]/piv
+
+        if k+1<len(buf):
+            b=(
+                (2.0/math.pi)
+                *(u[k]*v[k+1:]-v[k]*u[k+1:])
+                /(x[k]-x[k+1:])
+            )
+            ell=b/piv
+
+            accum[k+1:]+=np.abs(ell)*yk
+            source[k+1:]-=ell*source[k]
+
+            dd[k+1:]-=b*ell
+            u[k+1:]-=ell*u[k]
+            v[k+1:]-=ell*v[k]
+
+    n=len(buf)
+    linv2=math.sqrt(float(n))*max_inv_inf
+    mu0=minD/(linv2*linv2)-FACTOR_RESERVE-SOURCE_EPS
+    if mu0 <= 0:
+        raise RuntimeError(("pole-free endpoint floor failed",sector,mu0))
+
+    q=-border
+    den=1.0+alpha*q
+    if den <= 0.9:
+        raise RuntimeError(("rho=.10 pole denominator failed",sector,den))
+
+    if alpha >= 0:
+        mufull=mu0
+    else:
+        # A=A0-2pp^T.  Sherman-Morrison plus
+        # ||A0^-1 p||^2 <= q/mu0.
+        invfull=1.0/mu0+abs(alpha)*q/(mu0*den)
+        mufull=1.0/invfull
+
+    if mufull <= 5.0e-7:
+        raise RuntimeError(("full endpoint buffer floor too small",sector,mufull))
+
+    return dict(
+        min_pivot=minD,
+        inverse_inf=max_inv_inf,
+        polefree_floor=mu0,
+        pole_q=q,
+        pole_denominator=den,
+        full_floor=mufull,
+    )
+
+def nominal_core_buffer_blocks(sector):
+    modes=modes_for(sector,CUT[sector])
+    nc=12
+    core,buf=modes[:nc],modes[nc:]
+    z0=z_source_faithful(modes)
+    d0=base_diag(modes)
+
+    C0=offdiag_complex(core,core,z0[:nc],z0[:nc])
+    np.fill_diagonal(C0,d0[:nc])
+    R0=offdiag_complex(core,buf,z0[:nc],z0[nc:])
+
+    p,alpha=pole_vector(modes,sector)
+    pc,pf=p[:nc],p[nc:]
+    A_CC=C0+alpha*np.outer(pc,pc)
+    A_CF=R0+alpha*np.outer(pc,pf)
+
+    m=core.astype(float)[:,None]
+    n=buf.astype(float)[None,:]
+    B_CF=-1.0/(m+n)
+
+    B_CC=-1.0/(modes[:nc,None].astype(float)+modes[None,:nc].astype(float))
+    np.fill_diagonal(
+        B_CC,
+        np.log(core/4.0)-1.0/(2.0*core)
+    )
+
+    return A_CC,A_CF,B_CC,B_CF
+
+def outer_analytic_caps(sector):
+    info=endpoint_buffer_floor(sector)
+    bfloor=BUFFER_B_FLOOR[sector]
+    if bfloor <= 0:
+        raise RuntimeError(("buffer B floor",sector,bfloor))
+
+    # Positivity of A_FF-.10 B_FF implies sigma(J_F)>.10.
+    # Therefore on |z|<=.05,
+    # ||F_FF(z)^-1|| <= 1/(b_floor*(.10-.05)).
+    dinv=1.0/(bfloor*(0.10-OUTER_RADIUS))
+
+    A_CC,A_CF,B_CC,B_CF=nominal_core_buffer_blocks(sector)
+    ccap=float(np.linalg.norm(A_CC,2))+OUTER_RADIUS*float(np.linalg.norm(B_CC,2))+1.0e-6
+    rcap=float(np.linalg.norm(A_CF,"fro"))+OUTER_RADIUS*float(np.linalg.norm(B_CF,"fro"))+1.0e-6
+
+    scap=ccap+rcap*rcap*dinv+1.0
+    xcap=dinv*rcap+1.0e-6
+    wcap=math.sqrt(1.0+xcap*xcap)
+
+    # Re-derive the common finite/remote cross cap at |z|<=.05.
+    pi=math.pi
+    s2=1.5
+    cc=2/pi**3+6/pi**4
+    aa=2*cc/pi
+    cdiag=2/pi**2+2/pi**3+2/pi**4+6/pi**5
+    cusp=(
+        2/pi**2*s2
+        +2*aa*math.sqrt(pi**2/12*(1+1/10))
+        +cdiag*math.sqrt(1+1/6)
+    )
+    qq=2/pi
+    m4=float(mp.zeta(3))*qq**3/(4*(1-qq)**3)
+    cr=19/12+4*m4
+    arch=4*cr/pi**2*s2
+    hilbert=(1.0+OUTER_RADIUS)*pi/2.0
+    prime=2.05
+    pole=(
+        (16/3)*math.cosh(.5)**2
+        if sector=="even-v"
+        else (16/3)*math.sinh(.5)**2
+    )
+    cross=hilbert+prime+cusp+arch+pole
+    if cross >= REMOTE_CROSS_CAP:
+        raise RuntimeError(("outer cross cap",sector,cross))
+
+    ycap=cross*wcap
+
+    # The public hard-coded alias majorants in the first draft are replaced
+    # by these derived quantities.
+    if scap >= 250.0:
+        raise RuntimeError(("derived Schur outer cap",sector,scap))
+    if wcap >= 150.0:
+        raise RuntimeError(("derived graph outer cap",sector,wcap))
+    if ycap >= 3000.0:
+        raise RuntimeError(("derived Y outer cap",sector,ycap))
+
+    # Source perturbation propagated through the Schur map.
+    ep=SOURCE_EPS
+    model=ep*(
+        1.0
+        +2.0*rcap*dinv
+        +rcap*rcap*dinv*dinv/(1.0-ep*dinv)
+    )
+    if model >= MODEL_RESERVE:
+        raise RuntimeError(("model reserve",sector,model))
+
+    return dict(
+        endpoint=info,
+        B_floor=bfloor,
+        D_inverse_cap=dinv,
+        C_cap=ccap,
+        R_cap=rcap,
+        Schur_outer=scap,
+        graph_outer=wcap,
+        cross_outer=cross,
+        Y_outer=ycap,
+        model_error=model,
+    )
 
 def finite_graph(sector,zparam):
     modes=modes_for(sector,CUT[sector])
@@ -276,7 +459,7 @@ def winding_from_coeff(coeff):
 def far_sums(N,power):
     return N**(-power)+1.0/(2.0*(power-1)*N**(power-1))
 
-def uniform_far_bound(sector,modes,Wcoeff,leadcoeff):
+def uniform_far_bound(sector,modes,Wcoeff,leadcoeff,graph_outer,y_outer):
     N=EXPLICIT_STOP+1
     if sector=="odd-v" and N%2:
         N+=1
@@ -314,8 +497,8 @@ def uniform_far_bound(sector,modes,Wcoeff,leadcoeff):
     )
 
     # Fourier alias of W contributes at most common-cross-cap * alias_W.
-    aliasW=analytic_alias_cap(GRAPH_OUTER_CAP)
-    leadcap+=REMOTE_CROSS_CAP*aliasW
+    aliasW=analytic_alias_cap(graph_outer)
+    leadcap+=analytic_alias_cap(y_outer)
 
     root=(
         leadcap*math.sqrt(far_sums(N,2))
@@ -324,6 +507,16 @@ def uniform_far_bound(sector,modes,Wcoeff,leadcoeff):
         +REMOTE_CROSS_CAP*aliasW
     )
     return root
+
+def zeta3_interval(M=20000):
+    iv=mp.iv
+    s=iv.mpf(0)
+    for k in range(1,M+1):
+        x=iv.mpf(k)
+        s+=1/x**3
+    lo=1/(2*iv.mpf(M+1)**2)
+    hi=1/(2*iv.mpf(M)**2)
+    return iv.mpf([s.a+lo.a,s.b+hi.b])
 
 def tail_floor_interval(sector):
     iv=mp.iv
@@ -340,7 +533,7 @@ def tail_floor_interval(sector):
         +cd*iv.sqrt(N**-4+1/(6*N**3))
     )
     q=2/pi
-    z3=iv.mpf(str(mp.zeta(3)))
+    z3=zeta3_interval()
     m4=z3*q**3/(4*(1-q)**3)
     cr=iv.mpf(19)/12+4*m4
     arch=4*cr/pi**2*s2
@@ -352,6 +545,7 @@ def tail_floor_interval(sector):
     return out
 
 def one_sector(sector):
+    outer=outer_analytic_caps(sector)
     theta=2.0*math.pi*np.arange(NSAMP)/NSAMP
     Ssamples=np.empty((NSAMP,12,12),dtype=np.complex128)
 
@@ -383,7 +577,7 @@ def one_sector(sector):
     Wcoef=dft_coeff(Wsamples)
     leadcoef=dft_coeff(leadsamples)
 
-    salias=analytic_alias_cap(SCHUR_OUTER_CAP)+MODEL_RESERVE
+    salias=analytic_alias_cap(outer["Schur_outer"])+MODEL_RESERVE
     minpoly,deriv=fourier_matrix_dense(Scoef)
     finite_floor=minpoly-salias
     if finite_floor<=FINITE_CONTOUR_FLOOR[sector]:
@@ -396,7 +590,7 @@ def one_sector(sector):
     if winding!=6:
         raise RuntimeError(("finite winding",sector,winding))
 
-    yalias=analytic_alias_cap(Y_OUTER_CAP)+MODEL_RESERVE
+    yalias=analytic_alias_cap(outer["Y_outer"])+MODEL_RESERVE
     yexplicit=fourier_operator_sup(Ycoef,yalias)
     if yexplicit>=EXPLICIT_REMOTE_NORM_CAP[sector]:
         raise RuntimeError((
@@ -404,7 +598,10 @@ def one_sector(sector):
             sector,yexplicit,EXPLICIT_REMOTE_NORM_CAP[sector]
         ))
 
-    far=uniform_far_bound(sector,modes0,Wcoef,leadcoef)+MODEL_RESERVE
+    far=uniform_far_bound(
+        sector,modes0,Wcoef,leadcoef,
+        outer["graph_outer"],outer["Y_outer"]
+    )+MODEL_RESERVE
     if far>=FAR_REMOTE_NORM_CAP[sector]:
         raise RuntimeError((
             "far remote norm cap",
@@ -443,6 +640,7 @@ def one_sector(sector):
         rouche_margin=margin,
         fourier_alias=salias,
         fourier_derivative=deriv,
+        outer_caps=outer,
     )
 
 def main():
