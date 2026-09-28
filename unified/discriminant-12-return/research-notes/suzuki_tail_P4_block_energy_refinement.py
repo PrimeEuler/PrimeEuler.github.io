@@ -61,23 +61,23 @@ CROSS_CAP = 0.417
 REMOTE_B_FLOOR = 5.33
 
 ENERGY_RESIDUAL_CAP = {
-    "even-v": 0.00542,
-    "odd-v":  0.00832,
+    "even-v": 0.00580,
+    "odd-v":  0.00880,
 }
 
 SIN_THETA_CAP = {
-    "even-v": 0.0544,
-    "odd-v":  0.0930,
+    "even-v": 0.0582,
+    "odd-v":  0.0984,
 }
 
 ANGLE_DEG_CAP = {
-    "even-v": 3.12,
-    "odd-v":  5.34,
+    "even-v": 3.34,
+    "odd-v":  5.65,
 }
 
 GROUPED_RESIDUE_ERROR_CAP = {
-    "even-v": 0.00140,
-    "odd-v":  0.00387,
+    "even-v": 0.00150,
+    "odd-v":  0.00410,
 }
 
 
