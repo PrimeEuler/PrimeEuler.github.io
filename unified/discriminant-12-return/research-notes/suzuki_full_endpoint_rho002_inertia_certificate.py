@@ -106,6 +106,45 @@ def build_full12_minus(sector):
     )
 
 
+
+def reference_defect_generic(C,R,Q,Y,Lref,negative=False):
+    C=np.asarray(C,dtype=np.longdouble)
+    R=np.asarray(R,dtype=np.longdouble)
+    Q=np.asarray(Q,dtype=np.longdouble)
+    Y=np.asarray(Y,dtype=np.longdouble)
+    Lref=np.asarray(Lref,dtype=np.longdouble)
+
+    nc=C.shape[0]
+    BQ=R.T@Q
+    CQ=C@Q
+    core=Q.T@CQ
+    tail=BQ.T@Y
+    Bhat=core-tail
+    if negative:
+        Bhat=-Bhat
+
+    Bref=Lref@Lref.T
+    D=Bhat-Bref
+    dp=np.sqrt(np.sum(D*D,dtype=np.longdouble))
+
+    EBQ=np.longdouble(A.gamma_n(nc,A.ULD))*(np.abs(R).T@np.abs(Q))
+    ECQ=np.longdouble(A.gamma_n(nc,A.ULD))*(np.abs(C)@np.abs(Q))
+    Ecore=(
+        np.longdouble(A.gamma_n(nc,A.ULD))*(np.abs(Q).T@np.abs(CQ))
+        +np.abs(Q).T@ECQ
+    )
+    Etail=(
+        np.longdouble(A.gamma_n(Y.shape[0],A.ULD))*(np.abs(BQ).T@np.abs(Y))
+        +EBQ.T@np.abs(Y)
+    )
+    Eref=np.longdouble(A.gamma_n(Lref.shape[0],A.ULD))*(np.abs(Lref)@np.abs(Lref).T)
+    Esub=(
+        np.longdouble(A.ULD)/(1-np.longdouble(A.ULD))
+        *(np.abs(core)+np.abs(tail)+np.abs(Bref))
+    )
+    ee=np.sqrt(np.sum((Ecore+Etail+Eref+Esub)**2,dtype=np.longdouble))
+    return float(np.nextafter(dp+ee,np.longdouble(np.inf)))
+
 def audit_minus_positive(sector,Q,Lref):
     block=build_full12_minus(sector)
     cap=MINUS_FINITE_CAPS[sector]
@@ -117,7 +156,7 @@ def audit_minus_positive(sector,Q,Lref):
 
     Kactual=float(np.linalg.norm(BQ,"fro"))
     residual=A.rhs_residual_outward(block["Afull"],BQ,Y)
-    ref=A.reference_defect(block["C"],block["R"],Q,Y,Lref,False)
+    ref=reference_defect_generic(block["C"],block["R"],Q,Y,Lref,False)
 
     if Kactual>=cap["K"] or residual>=cap["resid"] or ref>=cap["ref"]:
         raise RuntimeError(("minus finite cap failed",sector,Kactual,residual,ref))
