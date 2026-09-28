@@ -459,7 +459,7 @@ def winding_from_coeff(coeff):
 def far_sums(N,power):
     return N**(-power)+1.0/(2.0*(power-1)*N**(power-1))
 
-def uniform_far_bound(sector,modes,Wcoeff,leadcoeff,graph_outer,y_outer):
+def uniform_far_bound(sector,modes,Wcoeff,graph_outer):
     N=EXPLICIT_STOP+1
     if sector=="odd-v" and N%2:
         N+=1
@@ -491,14 +491,32 @@ def uniform_far_bound(sector,modes,Wcoeff,leadcoeff,graph_outer,y_outer):
         +abs(alpha)*(4.0*g/math.pi**3)*pWabs
     )
 
+    # Build the 1/n lead polynomial algebraically from Wcoeff.
+    # For z=RADIUS*w,
+    #   lead = [-(2/pi) z0^T + alpha*(4g/pi) p^T] W(w)
+    #          + RADIUS*w * 1^T W(w).
+    z0=z_source_faithful(modes)
+    base=(
+        -(2.0/math.pi)*z0
+        +alpha*(4.0*g/math.pi)*p
+    )
+    leadcoef=np.zeros((Wcoeff.shape[0]+1,Wcoeff.shape[2]),dtype=np.complex128)
+    for k in range(Wcoeff.shape[0]):
+        leadcoef[k]+=base@Wcoeff[k]
+        leadcoef[k+1]+=RADIUS*(np.ones(len(modes))@Wcoeff[k])
+
     leadcap=sum(
-        float(np.linalg.norm(leadcoeff[k]))
-        for k in range(leadcoeff.shape[0])
+        float(np.linalg.norm(leadcoef[k]))
+        for k in range(leadcoef.shape[0])
     )
 
-    # Fourier alias of W contributes at most common-cross-cap * alias_W.
+    # The only unsampled lead error is induced by the W Fourier alias.
     aliasW=analytic_alias_cap(graph_outer)
-    leadcap+=analytic_alias_cap(y_outer)
+    lead_map=(
+        float(np.linalg.norm(base))
+        +RADIUS*math.sqrt(float(len(modes)))
+    )
+    leadcap+=lead_map*aliasW
 
     root=(
         leadcap*math.sqrt(far_sums(N,2))
@@ -553,7 +571,6 @@ def one_sector(sector):
     nremote=len(np.arange(REMOTE_START[sector],EXPLICIT_STOP+1,2))
     Ysamples=np.empty((NSAMP,nremote,12),dtype=np.complex128)
     Wsamples=np.empty((NSAMP,len(modes0),12),dtype=np.complex128)
-    leadsamples=np.empty((NSAMP,12),dtype=np.complex128)
 
     for j,th in enumerate(theta):
         zparam=RADIUS*np.exp(1j*th)
@@ -566,16 +583,10 @@ def one_sector(sector):
         )
         Ysamples[j]=Y
 
-        g=math.cosh(0.5) if sector=="even-v" else math.sinh(0.5)
-        leadsamples[j]=(
-            -(2.0/math.pi)*(zfinite@W)
-            +alpha*(4.0*g/math.pi)*(pfinite@W)
-        )
 
     Scoef=dft_coeff(Ssamples)
     Ycoef=dft_coeff(Ysamples)
     Wcoef=dft_coeff(Wsamples)
-    leadcoef=dft_coeff(leadsamples)
 
     salias=analytic_alias_cap(outer["Schur_outer"])+MODEL_RESERVE
     minpoly,deriv=fourier_matrix_dense(Scoef)
@@ -599,8 +610,7 @@ def one_sector(sector):
         ))
 
     far=uniform_far_bound(
-        sector,modes0,Wcoef,leadcoef,
-        outer["graph_outer"],outer["Y_outer"]
+        sector,modes0,Wcoef,outer["graph_outer"]
     )+MODEL_RESERVE
     if far>=FAR_REMOTE_NORM_CAP[sector]:
         raise RuntimeError((
