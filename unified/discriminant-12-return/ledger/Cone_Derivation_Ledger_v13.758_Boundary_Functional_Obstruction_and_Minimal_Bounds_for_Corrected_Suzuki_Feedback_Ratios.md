@@ -303,7 +303,9 @@ m_A\to m_\infty,
 \]
 and v13.756 then gives
 \[
+{% raw %}
 \Delta_{{\rm HB},A/\pi}\to\Delta_{{\rm HB},\infty/\pi}.
+{% endraw %}
 \]
 
 ## 9. Result
