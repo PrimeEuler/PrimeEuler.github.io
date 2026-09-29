@@ -85,7 +85,9 @@ G^2=k(2A-k),
 and along this quotient parabola,
 \[
 \boxed{
+{% raw %}
 H_{{\rm harm},k}(A)=\frac{G^2}{A}
+{% endraw %}
 =2k-\frac{k^2}{A}.
 }
 \]
