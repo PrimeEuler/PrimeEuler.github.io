@@ -159,7 +159,9 @@ If the resulting certified values satisfy
 
 \[
 \delta_{\rm certified}>
+{% raw %}
 \delta_{{\rm crit},\,\rm certified},
+{% endraw %}
 \]
 
 then the six candidate-positive Schur directions are globally positive.  The
