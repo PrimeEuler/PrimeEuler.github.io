@@ -115,7 +115,9 @@ in the exponential sine integral. This is the corrected odd-v extension of the s
 
 The diagonal is assembled independently from
 \[
+{% raw %}
 C_{nn}+P_{nn}+K_{{\rm arch},nn}
+{% endraw %}
 -
 0.10
 \left(
