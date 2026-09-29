@@ -457,9 +457,13 @@ m_A\to m_\infty.
 Then v13.756 applies automatically:
 \[
 \boxed{
+{% raw %}
 \Delta_{{\rm HB},A/\pi}
+{% endraw %}
 \to
+{% raw %}
 \Delta_{{\rm HB},\infty/\pi}
+{% endraw %}
 =
 \frac{E/\Xi}{(E/\Xi)(z_*)}.
 }
@@ -468,7 +472,9 @@ Then v13.756 applies automatically:
 Hence
 \[
 \boxed{
+{% raw %}
 \Delta_{{\rm HB},A/\pi}^{-1}
+{% endraw %}
 \to
 \text{constant}\times\frac{\Xi}{E}
 =
