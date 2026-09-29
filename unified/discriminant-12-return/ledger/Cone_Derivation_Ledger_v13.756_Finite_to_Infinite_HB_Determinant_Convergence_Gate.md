@@ -20,7 +20,9 @@ E(z)=i c_\infty\,\Xi(z)\,[m_\infty(z)-\tau_{\rm HB}],
 \[
 \Delta_{\infty}(z;z_*)
 :=
+{% raw %}
 \Delta_{{\rm HB}/\pi}(z;z_*)
+{% endraw %}
 =
 \frac{\tau_{\rm HB}-m_\infty(z)}
 {\tau_{\rm HB}-m_\infty(z_*)}
@@ -135,7 +137,9 @@ The scalar determinant convergence needs only \(m_A\to m_\infty\). Operator reso
 
 After identifying the finite and infinite spaces through the derivative/helix transport, the rank-one Krein formula has schematic exact form
 \[
+{% raw %}
 R_{{\rm HB},A}(z)-R_{\pi,A}(z)
+{% endraw %}
 =
 \gamma_A(z)
 [\tau_{\rm HB}-m_A(z)]^{-1}
@@ -170,7 +174,9 @@ on compact subsets away from the limiting HB spectrum.
 Under these hypotheses the rank-one correction converges strongly, hence
 \[
 \boxed{
+{% raw %}
 R_{{\rm HB},A}(z)\to R_{{\rm HB},\infty}(z)
+{% endraw %}
 \quad\text{strongly}.
 }
 \]
@@ -181,16 +187,22 @@ If the reference resolvents and gamma fields converge in operator norm (with the
 
 Because the boundary correction is rank one,
 \[
+{% raw %}
 \operatorname{Tr}\,[R_{{\rm HB},A}(z)-R_{\pi,A}(z)]
+{% endraw %}
 =
 -\partial_z\log\Delta_A(z;z_*).
 \]
 Therefore the scalar local-uniform Weyl convergence already implies convergence of these **relative rank-one traces**:
 \[
 \boxed{
+{% raw %}
 \operatorname{Tr}[R_{{\rm HB},A}-R_{\pi,A}]
+{% endraw %}
 \to
+{% raw %}
 \operatorname{Tr}[R_{{\rm HB},\infty}-R_{\pi,\infty}]
+{% endraw %}
 =
 \frac{T_{\rm pair}'}{T_{\rm pair}}.
 }
@@ -203,7 +215,9 @@ The corrected v13.742–745 finite deficiency lane now has a precise target:
 
 it does **not** need first to prove a finite identity of the form
 \[
+{% raw %}
 T_{{\rm pair},A}=C_A\,\Xi/E_A.
+{% endraw %}
 \]
 It is enough to extract the finite Weyl data from Suzuki's correct equation (8.5) and prove
 \[
