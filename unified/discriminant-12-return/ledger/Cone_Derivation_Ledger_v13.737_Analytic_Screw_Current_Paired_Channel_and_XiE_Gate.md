@@ -304,7 +304,9 @@ The finite/edge convergence test should therefore be:
 \boxed{
 \mathcal R_A(z)
 :=
+{% raw %}
 \frac{E(z)\mathcal T_{{\rm pair},A}(z)}
+{% endraw %}
 {\Xi(-iz)}
 \stackrel{A\to\infty}{\longrightarrow}
 C_\xi.
@@ -354,11 +356,15 @@ The missing finite-to-edge theorem is now sharply isolated:
 3. prove the two edge deficiency transforms converge to Suzuki's Section-7 \(f_{\pm i}\);
 4. show
    \[
+{% raw %}
    \mathcal T_{{\rm pair},A}\to\mathcal T_{\rm pair};
+{% endraw %}
    \]
 5. consequently verify
    \[
+{% raw %}
    \frac{E(z)\mathcal T_{{\rm pair},A}(z)}{\Xi(-iz)}
+{% endraw %}
    \to C_\xi.
    \]
 
