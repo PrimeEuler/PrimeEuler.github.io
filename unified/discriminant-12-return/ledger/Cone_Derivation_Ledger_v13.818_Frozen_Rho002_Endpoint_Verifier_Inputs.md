@@ -101,7 +101,9 @@ The negative four-planes are checked by exact rational evaluation of the first \
 Even-v:
 
 \[
+{% raw %}
 \det Q_{{\rm neg},e}[1:4]
+{% endraw %}
 \approx
 4.229675411445356\times10^{-4}\ne0.
 \]
@@ -109,7 +111,9 @@ Even-v:
 Odd-v:
 
 \[
+{% raw %}
 \det Q_{{\rm neg},o}[1:4]
+{% endraw %}
 \approx
 9.18745847606495\times10^{-2}\ne0.
 \]
@@ -121,7 +125,9 @@ The positive six-planes are checked by exact rational evaluation of their first 
 Even-v:
 
 \[
+{% raw %}
 \det Q_{{\rm pos},e}[1:6]
+{% endraw %}
 \approx
 8.54925792559225\times10^{-10}\ne0.
 \]
@@ -129,7 +135,9 @@ Even-v:
 Odd-v:
 
 \[
+{% raw %}
 \det Q_{{\rm pos},o}[1:6]
+{% endraw %}
 \approx
 -3.807883816357752\times10^{-8}\ne0.
 \]
@@ -143,22 +151,30 @@ These exact rank tests are executed at runtime; no floating numerical-rank thres
 Binary64 diagnostics give
 
 \[
+{% raw %}
 \|Q_{{\rm neg},e}^TQ_{{\rm neg},e}-I\|_2
+{% endraw %}
 \approx1.3680\times10^{-15},
 \]
 
 \[
+{% raw %}
 \|Q_{{\rm pos},e}^TQ_{{\rm pos},e}-I\|_2
+{% endraw %}
 \approx1.2517\times10^{-15},
 \]
 
 \[
+{% raw %}
 \|Q_{{\rm neg},o}^TQ_{{\rm neg},o}-I\|_2
+{% endraw %}
 \approx8.3473\times10^{-16},
 \]
 
 \[
+{% raw %}
 \|Q_{{\rm pos},o}^TQ_{{\rm pos},o}-I\|_2
+{% endraw %}
 \approx1.6497\times10^{-15}.
 \]
 
@@ -169,13 +185,17 @@ These are diagnostics only; exact rank is established by the rational minors abo
 The frozen negative reference minima are
 
 \[
+{% raw %}
 \lambda_{\min}(L_{{\rm neg},e}L_{{\rm neg},e}^T)
+{% endraw %}
 =
 0.00266179970840637\ldots,
 \]
 
 \[
+{% raw %}
 \lambda_{\min}(L_{{\rm neg},o}L_{{\rm neg},o}^T)
+{% endraw %}
 =
 0.00398570653965055\ldots.
 \]
@@ -183,13 +203,17 @@ The frozen negative reference minima are
 Their midpoint inverse norms are approximately
 
 \[
+{% raw %}
 \|L_{{\rm neg},e}^{-1}\|_2
+{% endraw %}
 =
 19.3826,
 \]
 
 \[
+{% raw %}
 \|L_{{\rm neg},o}^{-1}\|_2
+{% endraw %}
 =
 15.8397.
 \]
@@ -209,12 +233,16 @@ The frozen positive six-plane reference minima are
 with
 
 \[
+{% raw %}
 \|L_{{\rm pos},e}^{-1}\|_2
+{% endraw %}
 \approx2.01629,
 \]
 
 \[
+{% raw %}
 \|L_{{\rm pos},o}^{-1}\|_2
+{% endraw %}
 \approx1.10676.
 \]
 
