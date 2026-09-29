@@ -93,14 +93,18 @@ Euclidean transport gives
 \]
 Therefore
 \[
+{% raw %}
 \boxed{\delta_{{\rm gm},k,q}^2=\Delta_k-\Delta_{R_q}}
+{% endraw %}
 \]
 and
 \[
 \boxed{
 \widehat F_{11}^{\rm strip}
 =\frac{\Delta_k-\Delta_{R_q}}4
+{% raw %}
 =\frac{\delta_{{\rm gm},k,q}^2}{4}.
+{% endraw %}
 }
 \]
 The strip anisotropy is
