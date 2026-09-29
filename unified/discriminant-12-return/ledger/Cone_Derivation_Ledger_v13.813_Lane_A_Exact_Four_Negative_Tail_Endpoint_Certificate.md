@@ -196,14 +196,18 @@ The exact dyadic Gram/Gershgorin lower bounds for the negative midpoint referenc
 
 \[
 \lambda_{\min}
+{% raw %}
 (L_{{\rm neg},e}L_{{\rm neg},e}^T)
+{% endraw %}
 >
 0.02924936228736769,
 \]
 
 \[
 \lambda_{\min}
+{% raw %}
 (L_{{\rm neg},o}L_{{\rm neg},o}^T)
+{% endraw %}
 >
 0.03002246493884458.
 \]
@@ -211,13 +215,17 @@ The exact dyadic Gram/Gershgorin lower bounds for the negative midpoint referenc
 The outward reference-formation defects satisfy
 
 \[
+{% raw %}
 \epsilon_{{\rm ref},e}
+{% endraw %}
 <
 2.70\times10^{-16},
 \]
 
 \[
+{% raw %}
 \epsilon_{{\rm ref},o}
+{% endraw %}
 <
 1.30\times10^{-16}.
 \]
@@ -225,13 +233,17 @@ The outward reference-formation defects satisfy
 The source/operator Schur perturbation bounds are
 
 \[
+{% raw %}
 \epsilon_{{\rm source},e}
+{% endraw %}
 <
 1.843\times10^{-8},
 \]
 
 \[
+{% raw %}
 \epsilon_{{\rm source},o}
+{% endraw %}
 <
 3.857\times10^{-9}.
 \]
@@ -298,13 +310,17 @@ This independently checks the signs, transposes, and graph convention used by th
 Combining all finite-side charges gives
 
 \[
+{% raw %}
 \epsilon_{{\rm neg},e}
+{% endraw %}
 <
 1.843\times10^{-8},
 \]
 
 \[
+{% raw %}
 \epsilon_{{\rm neg},o}
+{% endraw %}
 <
 3.857\times10^{-9}.
 \]
@@ -331,9 +347,13 @@ In normalized frozen coordinates,
 
 \[
 \boxed{
+{% raw %}
 L_{{\rm neg},e}^{-1}
+{% endraw %}
 (-Q_{4,e}^TS_{e,\rm exact}Q_{4,e})
+{% raw %}
 L_{{\rm neg},e}^{-T}
+{% endraw %}
 >
 0.99999935\,I,
 }
@@ -341,9 +361,13 @@ L_{{\rm neg},e}^{-T}
 
 \[
 \boxed{
+{% raw %}
 L_{{\rm neg},o}^{-1}
+{% endraw %}
 (-Q_{4,o}^TS_{o,\rm exact}Q_{4,o})
+{% raw %}
 L_{{\rm neg},o}^{-T}
+{% endraw %}
 >
 0.99999986\,I.
 }
