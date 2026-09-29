@@ -304,14 +304,18 @@ Recomputing the full scalar perturbation budget with these wider caps gives
 
 even-v:
 \[
+{% raw %}
 \epsilon_{{\rm neg},e}
+{% endraw %}
 <
 1.89812\times10^{-8},
 \]
 
 odd-v:
 \[
+{% raw %}
 \epsilon_{{\rm neg},o}
+{% endraw %}
 <
 4.17514\times10^{-9}.
 \]
