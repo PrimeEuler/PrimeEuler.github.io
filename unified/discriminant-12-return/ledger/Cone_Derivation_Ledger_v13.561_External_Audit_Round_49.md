@@ -29,7 +29,9 @@ Confirmed by direct matrix computation: `J_{A3}=PJP^{-1}=J` (the v13.549 intertw
 
 ## 4. v13.560 (cyclic orders as oriented lifts of character axes, ex-v13.555) — verified exactly
 
+{% raw %}
 Directly computed the opposite-pair matching for all six cyclic orderings in the v13.545 table: `{a,b}→{{1,11},{5,7}}`, `{c,d}→{{1,5},{7,11}}`, `{e,f}→{{1,7},{5,11}}` — confirming the claimed `χ12/χ-4/χ-3` axis assignments exactly, and consistent with the independently-established v13.513 character-axis/matching table from much earlier in the ledger.
+{% endraw %}
 
 ## 5. v13.555 (M16001 remaining outward-certification DAG) — sound planning content
 
