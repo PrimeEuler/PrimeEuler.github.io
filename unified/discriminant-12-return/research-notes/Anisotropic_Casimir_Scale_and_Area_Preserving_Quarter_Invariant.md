@@ -159,20 +159,26 @@ For a divisor endpoint strip,
 \]
 Therefore
 \[
+{% raw %}
 \boxed{\delta_{{\rm gm},k,q}^2=q(R_q-k)=\Delta_k-\Delta_{R_q}}.
+{% endraw %}
 \]
 The coarse mixed coefficient is
 \[
 \boxed{
 \widehat F_{11}^{\rm strip}
+{% raw %}
 =\frac{\delta_{{\rm gm},k,q}^2}{4}
+{% endraw %}
 =\frac{\Delta_k-\Delta_{R_q}}{4}.
 }
 \]
 So Euclidean shell-defect reduction itself is the square of the strip's area-equivalent spacing:
 \[
 \boxed{
+{% raw %}
 \Delta_k-\Delta_{R_q}=\delta_{{\rm gm},k,q}^2.
+{% endraw %}
 }
 \]
 The associated strip anisotropy is
