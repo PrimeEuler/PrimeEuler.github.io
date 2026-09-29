@@ -280,9 +280,13 @@ For a finite cutoff N define
 \[
 T_N
 =
+{% raw %}
 (B_{{\rm sm},tt}^{(N)})^{-1/2}
+{% endraw %}
 V_{tt}^{(N)}
+{% raw %}
 (B_{{\rm sm},tt}^{(N)})^{-1/2}.
+{% endraw %}
 \]
 
 The first two basis modes are:
@@ -293,13 +297,17 @@ The first two basis modes are:
 At N=96 the smooth tail remains comfortably positive:
 
 \[
+{% raw %}
 \lambda_{\min}(B_{{\rm sm},tt}^{\rm even})
+{% endraw %}
 \approx
 0.049776122268,
 \]
 
 \[
+{% raw %}
 \lambda_{\min}(B_{{\rm sm},tt}^{\rm odd})
+{% endraw %}
 \approx
 0.252848899663.
 \]
