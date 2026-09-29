@@ -89,7 +89,9 @@ Hence every nonidentity unit fixes exactly two of the six cycles. The restricted
 
 The U(12) action decomposes the six-cycle set into three two-point orbits:
 [
+{% raw %}
 oxed{{a,b}sqcup{c,d}sqcup{e,f}.}
+{% endraw %}
 ]
 
 Their stabilizers are
@@ -133,7 +135,8 @@ eleftrightarrow f.
 ]
 Thus
 [
-oxed{ho=(a,b)(c,d)(e,f).}
+oxed{
+ho=(a,b)(c,d)(e,f).}
 ]
 
 This is exactly the cyclic-orientation reversal permutation carried by the semilinear cone operator
