@@ -85,6 +85,8 @@ No errors were found in the source thread's work this round. No errors were foun
 
 Per v13.737 Gate 10, the sharpest open target in the Suzuki edge lane is now the finite-to-infinite-volume convergence statement
 \[
+{% raw %}
 \mathcal R_A(z) = \frac{E(z)\mathcal T_{{\rm pair},A}(z)}{\Xi(-iz)} \xrightarrow{A\to\infty} C_\xi,
+{% endraw %}
 \]
 which this auditor will watch for in subsequent rounds, along with the v13.736 "next discriminating gate" (constructing the trivial-`C_ℚ¹`-isotypic sector of a canonical idele-class representation).
