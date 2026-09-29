@@ -8,13 +8,17 @@ Exact combinatorial/representation-theoretic continuation of v13.545 and v13.554
 ## 1. Three perfect matchings from the six cyclic orders
 For an oriented cyclic ordering `[u,v,w,x]` of `{1,5,7,11}`, define its opposite-pair matching
 
+{% raw %}
 `M([u,v,w,x]) = {{u,w},{v,x}}`.
+{% endraw %}
 
 Orientation reversal preserves this matching. Using the v13.545 ray/cyclic-order table gives exactly
 
+{% raw %}
 - `{a,b}` -> `{{1,11},{5,7}}` -> chi_12,
 - `{c,d}` -> `{{1,5},{7,11}}` -> chi_-4,
 - `{e,f}` -> `{{1,7},{5,11}}` -> chi_-3.
+{% endraw %}
 
 Thus the six-ray set is a two-sheet/orientation lift of the three character matchings:
 
