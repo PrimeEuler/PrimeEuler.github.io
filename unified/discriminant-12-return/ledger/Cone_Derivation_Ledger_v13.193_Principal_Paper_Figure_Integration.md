@@ -9,7 +9,9 @@ Updated:
 
 `unified/discriminant-12-return/papers/Discriminant_12_Return_v0.3.2.tex`
 
+{% raw %}
 The existing `\graphicspath{{../figures/}}` preamble remains in place.
+{% endraw %}
 
 ## 2. Tangent/null-eigenray figure integrated
 
