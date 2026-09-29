@@ -614,6 +614,7 @@
       let ttyCleanup = null;
       const LLM_MODEL = 'SmolLM2-360M-Instruct-q4f16_1-MLC';
       const LLM_CPU_MODEL = { repo: 'bartowski/SmolLM2-360M-Instruct-GGUF', file: 'SmolLM2-360M-Instruct-Q4_K_S.gguf' };
+      const LLM_SYSTEM_PROMPT = 'You are Smol, a concise general-purpose text assistant. Answer the user directly in plain text. Sheldon is only the command-line interface around you: you are not Sheldon, not an OID shell, and not a command runner. Never recommend that the user switch to Sheldon because they are already using it. You can explain concepts, answer general questions, and help write JavaScript, ASN.1, OIDs, and shell commands, but do not claim that you executed commands or accessed external applications.';
       let llmEngine = null;
       let llmBackend = null;
       let llmCacheMode = 'auto';
@@ -624,7 +625,7 @@
       let llmInputLocked = false;
       let llmRuntimeLoading = null;
       let gpuAdapterState;
-      let llmMessages = [{ role: 'system', content: 'You are a concise terminal assistant inside the Sheldon typed OID shell. Return plain text and help with JavaScript, ASN.1, OIDs, and shell tasks.' }];
+      let llmMessages = [{ role: 'system', content: LLM_SYSTEM_PROMPT }];
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
       let recognition = null;
       let dictating = false;
@@ -1921,7 +1922,7 @@
           else if (action === 'attach') attachLocalLLM();
           else if (action === 'detach') detachLocalLLM(true);
           else if (action === 'reset') {
-            llmMessages = [{ role: 'system', content: 'You are a concise terminal assistant inside the Sheldon typed OID shell. Return plain text and help with JavaScript, ASN.1, OIDs, and shell tasks.' }];
+            llmMessages = [{ role: 'system', content: LLM_SYSTEM_PROMPT }];
             if (llmEngine && typeof llmEngine.resetChat === 'function') llmEngine.resetChat();
             addText('SmolLM2 conversation reset.', 'success');
           } else throw new Error('Use: llm load|attach|detach|status|reset');
@@ -2188,7 +2189,11 @@
           const command = input.value;
           input.value = '';
           cursorIndex = 0;
-          if (llmAttached) sendLLMPrompt(command);
+          if (llmAttached && command.trim().toLowerCase() === 'llm reset') {
+            llmMessages = [{ role: 'system', content: LLM_SYSTEM_PROMPT }];
+            if (llmEngine && typeof llmEngine.resetChat === 'function') llmEngine.resetChat();
+            addText('SmolLM2 conversation reset.', 'success');
+          } else if (llmAttached) sendLLMPrompt(command);
           else run(command);
           if (editor.hidden && !llmInputLocked) writePrompt();
           return;
