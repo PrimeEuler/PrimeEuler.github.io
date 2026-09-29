@@ -72,22 +72,30 @@ plus odd-v:
 The exact rational first minors remain nonzero:
 
 \[
+{% raw %}
 \det Q_{{\rm neg},e}[1:4]
+{% endraw %}
 \approx4.229675411445356\times10^{-4},
 \]
 
 \[
+{% raw %}
 \det Q_{{\rm pos},e}[1:6]
+{% endraw %}
 \approx8.54925792559225\times10^{-10},
 \]
 
 \[
+{% raw %}
 \det Q_{{\rm neg},o}[1:4]
+{% endraw %}
 \approx9.18745847606495\times10^{-2},
 \]
 
 \[
+{% raw %}
 \det Q_{{\rm pos},o}[1:6]
+{% endraw %}
 \approx-3.807883816357752\times10^{-8}.
 \]
 
@@ -208,7 +216,9 @@ Using the widened audit caps in the fixed-\(Q\) resolvent perturbation formulas 
 Even-v:
 \[
 \boxed{
+{% raw %}
 -Q_{{\rm neg},e}^{T}S^-_{\rm exact}Q_{{\rm neg},e}
+{% endraw %}
 >
 0.00266179948027\,I.
 }
@@ -222,7 +232,9 @@ Normalized:
 Odd-v:
 \[
 \boxed{
+{% raw %}
 -Q_{{\rm neg},o}^{T}S^-_{\rm exact}Q_{{\rm neg},o}
+{% endraw %}
 >
 0.00398570593918\,I,
 }
