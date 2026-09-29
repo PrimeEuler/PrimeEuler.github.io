@@ -242,9 +242,13 @@ Therefore v13.756 immediately implies
 \[
 \eta_A\to\eta_\infty
 \Longrightarrow
+{% raw %}
 \Delta_{{\rm HB},A/\pi}
+{% endraw %}
 \to
+{% raw %}
 \Delta_{{\rm HB},\infty/\pi}
+{% endraw %}
 \]
 locally uniformly away from the limiting divisor.
 
