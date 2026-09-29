@@ -30,7 +30,9 @@ Fix one parity sector and write
 \[
 J_T=B_T^{-1/2}A_TB_T^{-1/2},
 \qquad
+{% raw %}
 B_T=B_{{\rm sm},T}>0.
+{% endraw %}
 \]
 
 From v13.816 and v13.821,
