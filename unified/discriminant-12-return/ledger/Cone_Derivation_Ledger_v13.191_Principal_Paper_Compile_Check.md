@@ -38,7 +38,9 @@ Use either
 or, preferably, declare once in the preamble
 
 ```tex
+{% raw %}
 \graphicspath{{../figures/}}
+{% endraw %}
 ```
 
 and retain the current figure call.
@@ -55,7 +57,9 @@ No bibliography is currently invoked, so there is no BibTeX/Biber dependency at 
 
 **[Audit] Build status: blocked by a repository-relative figure path, not by the mathematics or the newly audited LaTeX algebra.**
 
+{% raw %}
 After adding `\graphicspath{{../figures/}}`, run `pdflatex` twice from `unified/discriminant-12-return/papers/` and inspect the log for overfull boxes, unresolved references, and figure placement warnings. That repaired build should be the basis for the first stable compiled PDF of the v0.3.1 line.
+{% endraw %}
 
 ## 5. Publication continuation
 
