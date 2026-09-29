@@ -83,9 +83,13 @@ The hardened v13.820 finite graph-form certificates give
 
 \[
 \boxed{
+{% raw %}
 -Q_{{\rm neg},e}^{T}
+{% endraw %}
 S^-_{e,\rm exact}
+{% raw %}
 Q_{{\rm neg},e}
+{% endraw %}
 >
 0.00266179948027\,I.
 }
@@ -104,9 +108,13 @@ In frozen normalized coordinates,
 
 \[
 \boxed{
+{% raw %}
 -Q_{{\rm neg},o}^{T}
+{% endraw %}
 S^-_{o,\rm exact}
+{% raw %}
 Q_{{\rm neg},o}
+{% endraw %}
 >
 0.00398570593918\,I.
 }
@@ -439,7 +447,9 @@ The fail-closed lower bounds used for theorem promotion are exactly the followin
 
 \[
 \boxed{
+{% raw %}
 m^-_{{\rm neg},e}
+{% endraw %}
 =
 0.00266179948027,
 }
@@ -447,7 +457,9 @@ m^-_{{\rm neg},e}
 
 \[
 \boxed{
+{% raw %}
 m^-_{{\rm neg},o}
+{% endraw %}
 =
 0.00398570593918,
 }
@@ -455,7 +467,9 @@ m^-_{{\rm neg},o}
 
 \[
 \boxed{
+{% raw %}
 m^-_{{\rm pos},e}
+{% endraw %}
 =
 3.13191084098,
 }
@@ -463,7 +477,9 @@ m^-_{{\rm pos},e}
 
 \[
 \boxed{
+{% raw %}
 m^-_{{\rm pos},o}
+{% endraw %}
 =
 3.17134400520,
 }
