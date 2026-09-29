@@ -22,7 +22,9 @@
 | **ESTABLISHED [S]** | Compensated half-line edge transform keeps the boundary contact term: \((h_+)''=-q_++Q_+(0)\delta_0\), hence \(\widehat h_+(k)=(Q_+(k)-Q_+(0))/k^2\). | v13.733; audited v13.738 |
 | **ESTABLISHED [S]** | Section-7 paired deficiency identity: \(T_{\rm pair}(z)=C_\xi\,\Xi(-iz)/E(z)\), with \(E(z)=\xi(\frac12-iz)+\xi'(\frac12-iz)\) and \(C_\xi=2\xi'(3/2)/(\pi^2 i)\) for the audited normalization. | v13.737; Suzuki p.27 source-checked v13.738 |
 | **ESTABLISHED [S]** | Consequently \(T'_{\rm pair}/T_{\rm pair}=-iL(\frac12-iz)-E'/E\). | v13.737; audited v13.738 |
+{% raw %}
 | **OPEN [S]** | Finite-edge convergence \(E(z)T_{{\rm pair},A}(z)/\Xi(-iz)\to C_\xi\) as \(A\to\infty\). | v13.737 Gate 10; v13.738 §5 |
+{% endraw %}
 
 ## B. Cone/adelic-derived identities — do not rederive
 
