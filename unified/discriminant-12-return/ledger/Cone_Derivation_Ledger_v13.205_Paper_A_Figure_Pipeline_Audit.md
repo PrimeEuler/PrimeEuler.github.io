@@ -25,9 +25,11 @@ Paper A previously had `fig_cutting_plane_3panel.py` and generated
 
 That was structurally unsafe because Paper A uses
 
+{% raw %}
 ```tex
 \graphicspath{{./}{../figures/}}
 ```
+{% endraw %}
 
 so a stale local figure in `foundations/` shadows the canonical asset in
 `figures/`.
