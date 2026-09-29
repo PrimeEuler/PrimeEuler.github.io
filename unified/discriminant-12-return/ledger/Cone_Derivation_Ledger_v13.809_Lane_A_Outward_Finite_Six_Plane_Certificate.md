@@ -358,7 +358,9 @@ Therefore the raw restricted-Schur errors caused by the finite solves satisfy
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm solve},+}
+{% endraw %}
 <
 4.48\times10^{-13},
 }
@@ -366,7 +368,9 @@ Therefore the raw restricted-Schur errors caused by the finite solves satisfy
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm solve},-}
+{% endraw %}
 <
 8.19\times10^{-13}.
 }
@@ -406,7 +410,9 @@ The outward mismatch between the directly formed nominal restricted Schur matrix
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm ref},+}
+{% endraw %}
 <
 1.11\times10^{-15},
 }
@@ -414,7 +420,9 @@ The outward mismatch between the directly formed nominal restricted Schur matrix
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm ref},-}
+{% endraw %}
 <
 1.29\times10^{-15}.
 }
@@ -452,7 +460,9 @@ Using the certified finite-buffer floors and frozen coupling caps gives
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm source},+}
+{% endraw %}
 <
 2.547\times10^{-8},
 }
@@ -460,7 +470,9 @@ Using the certified finite-buffer floors and frozen coupling caps gives
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm source},-}
+{% endraw %}
 <
 3.791\times10^{-8}.
 }
@@ -484,7 +496,9 @@ gives raw restricted-Schur perturbation bounds
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm finite},+}
+{% endraw %}
 <
 2.547\times10^{-8},
 }
@@ -492,7 +506,9 @@ gives raw restricted-Schur perturbation bounds
 
 \[
 \boxed{
+{% raw %}
 \epsilon_{{\rm finite},-}
+{% endraw %}
 <
 3.791\times10^{-8}.
 }
