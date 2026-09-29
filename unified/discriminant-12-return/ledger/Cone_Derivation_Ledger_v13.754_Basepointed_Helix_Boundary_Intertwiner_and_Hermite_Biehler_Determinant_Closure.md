@@ -385,13 +385,17 @@ The next nonredundant gate is finite-to-infinite: define
 \]
 already at finite A, construct
 \[
+{% raw %}
 \Delta_{{\rm HB},A/\pi}(z;z_*)
+{% endraw %}
 =
 \frac{\tau_{\rm HB}-m_A(z)}
 {\tau_{\rm HB}-m_A(z_*)},
 \]
 and determine exactly which convergence of the transported gamma fields/reference resolvents suffices to imply
 \[
+{% raw %}
 \Delta_{{\rm HB},A/\pi}\to\Delta_{\rm HB/\pi}
+{% endraw %}
 \]
 and hence convergence of the paired transfer to \(C_\xi\Xi/E\).
