@@ -141,52 +141,6 @@
       pointer-events: auto !important;
     }
 
-    .editor {
-      min-height: 0;
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr) auto;
-      background: var(--terminal);
-    }
-    .editor[hidden] { display: none; }
-    .editor-head, .editor-foot {
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--line);
-      background: var(--shell-2);
-      color: var(--muted);
-      font: 12px/1.4 "IBM Plex Mono", monospace;
-    }
-    .editor-foot { border-top: 1px solid var(--line); border-bottom: 0; justify-content: space-between; }
-    .editor-file { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-weight: 600; }
-    .editor-sync { margin-left: auto; white-space: nowrap; color: var(--accent-ink); }
-    .editor-sync::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: var(--accent); }
-    .editor-close {
-      border: 1px solid var(--line-strong);
-      padding: 4px 8px;
-      background: var(--shell);
-      color: var(--muted);
-      cursor: pointer;
-      font: 11px "IBM Plex Mono", monospace;
-    }
-    .editor-close:hover, .editor-close:focus-visible { background: var(--accent-soft); color: var(--accent-ink); outline: 0; }
-    #editorText {
-      width: 100%;
-      min-height: 0;
-      resize: none;
-      border: 0;
-      outline: 0;
-      padding: 18px;
-      background: var(--terminal);
-      color: var(--ink);
-      caret-color: var(--accent);
-      tab-size: 2;
-      font: 14px/1.62 "IBM Plex Mono", monospace;
-    }
-    #editorText::selection { background: var(--selection); }
-
     .line { min-height: 1.62em; overflow-wrap: anywhere; white-space: pre-wrap; }
     .line + .line { margin-top: 2px; }
     .line.command { color: var(--ink); margin-top: 9px; }
@@ -356,16 +310,6 @@
 
       <div id="output" role="application" aria-label="TTY terminal"></div>
 
-      <section class="editor" id="editor" aria-label="Session code editor" hidden>
-        <div class="editor-head">
-          <span class="editor-file" id="editorFile">scratch.js</span>
-          <span class="editor-sync" id="editorSync">local pub/sub</span>
-          <button class="editor-close" id="editorClose" type="button">close</button>
-        </div>
-        <textarea id="editorText" aria-label="Code editor" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
-        <div class="editor-foot"><span id="editorPosition">Ln 1, Col 1</span><span>local stream · auto-published</span></div>
-      </section>
-
       <div class="input-zone">
         <div class="input-row">
           <span id="prompt">root&gt;</span>
@@ -523,7 +467,7 @@
         ['set', 'set OID DATA', 'Write a value through its OID-derived setter and publish the local stream.'],
         ['publish', 'publish OID DATA', 'Publish data to the local OID stream; an attached transport may mirror it globally.'],
         ['infer', 'infer VALUE', 'Infer object, string, integer, function, or another JavaScript primitive for terminal data or an unknown OID.'],
-        ['edit', 'edit [FILE]', 'Open the built-in text editor; edits publish as local.files OID streams and converge across local browser views.'],
+        ['edit', 'edit [FILE]', 'Open the xterm.js TTY editor in the alternate screen; keyboard and mouse input travel as terminal bytes, while edits publish as local.files OID streams.'],
         ['files', 'files', 'List text files currently present on the local session bus.'],
         ['cat', 'cat FILE', 'Write a local session file to the TTY stdout stream.'],
         ['rm', 'rm FILE', 'Publish a deletion for a local session file.'],
@@ -550,11 +494,6 @@
 
       const output = document.getElementById('output');
       const input = document.getElementById('command');
-      const editor = document.getElementById('editor');
-      const editorText = document.getElementById('editorText');
-      const editorFile = document.getElementById('editorFile');
-      const editorSync = document.getElementById('editorSync');
-      const editorPosition = document.getElementById('editorPosition');
       const prompt = document.getElementById('prompt');
       const statusPath = document.getElementById('statusPath');
       const statusMode = document.getElementById('statusMode');
@@ -605,8 +544,7 @@
       let history = [];
       let historyIndex = 0;
       let completionState = { input: '', index: 0 };
-      let activeFile = '';
-      let editTimer = 0;
+      const ttyEditor = { active: false, path: '', lines: [''], row: 0, col: 0, scroll: 0, hscroll: 0, dirty: false, publishTimer: 0 };
       const files = Object.create(null);
       const peers = new Map();
       const unknownValues = new Map();
@@ -614,7 +552,8 @@
       let ttyCleanup = null;
       const LLM_MODEL = 'SmolLM2-360M-Instruct-q4f16_1-MLC';
       const LLM_CPU_MODEL = { repo: 'bartowski/SmolLM2-360M-Instruct-GGUF', file: 'SmolLM2-360M-Instruct-Q4_K_S.gguf' };
-      const LLM_SYSTEM_PROMPT = 'You are Smol, a concise general-purpose text assistant. Answer the user directly in plain text. Sheldon is only the command-line interface around you: you are not Sheldon, not an OID shell, and not a command runner. Never recommend that the user switch to Sheldon because they are already using it. You can explain concepts, answer general questions, and help write JavaScript, ASN.1, OIDs, and shell commands, but do not claim that you executed commands or accessed external applications.';
+      const LLM_DEFAULT_SYSTEM_PROMPT = 'You are Smol, a concise general-purpose text assistant. Answer the user directly in plain text without repeating points or limitations. Sheldon is only the command-line interface around you: you are not Sheldon, not an OID shell, and not a command runner. Never recommend that the user switch to Sheldon because they are already using it. You can explain concepts, answer general questions, and help write JavaScript, ASN.1, OIDs, and shell commands, but do not claim that you executed commands or accessed external applications.';
+      let llmSystemPrompt = LLM_DEFAULT_SYSTEM_PROMPT;
       let llmEngine = null;
       let llmBackend = null;
       let llmCacheMode = 'auto';
@@ -625,7 +564,7 @@
       let llmInputLocked = false;
       let llmRuntimeLoading = null;
       let gpuAdapterState;
-      let llmMessages = [{ role: 'system', content: LLM_SYSTEM_PROMPT }];
+      let llmMessages = [{ role: 'system', content: llmSystemPrompt }];
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
       let recognition = null;
       let dictating = false;
@@ -1245,12 +1184,36 @@
         }).finally(() => { llmLoading = null; });
         return llmLoading;
       }
+      function resetLLMConversation() {
+        llmMessages = [{ role: 'system', content: llmSystemPrompt }];
+        if (llmEngine && typeof llmEngine.resetChat === 'function') llmEngine.resetChat();
+      }
+      function showLLMPersona() {
+        addText('SmolLM2 system prompt:', 'dim');
+        addText(llmSystemPrompt, 'note');
+      }
+      function setLLMPersona(text) {
+        const persona = String(text || '').trim();
+        if (!persona) { showLLMPersona(); return; }
+        llmSystemPrompt = persona;
+        resetLLMConversation();
+        addText('SmolLM2 persona updated; conversation history cleared.', 'success');
+      }
       function finishLLMTurn() {
         llmBusy = false;
         llmInputLocked = false;
         statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'local pub/sub · typed';
         writeTTYChunk('\r\n');
         writePrompt();
+      }
+      function hasRepeatedLLMTail(text) {
+        const words = String(text || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim().split(/\s+/).filter(Boolean);
+        for (let width = 5; width <= Math.min(24, Math.floor(words.length / 3)); width++) {
+          const a = words.slice(-width).join(' '), b = words.slice(-width * 2, -width).join(' '), c = words.slice(-width * 3, -width * 2).join(' ');
+          if (a === b && b === c) return true;
+        }
+        const lines = String(text || '').split(/\r?\n/).map(line => line.replace(/^\s*[*-]\s*/, '').trim().toLowerCase()).filter(line => line.length >= 20);
+        return lines.length >= 3 && lines[lines.length - 1] === lines[lines.length - 2] && lines[lines.length - 2] === lines[lines.length - 3];
       }
       async function generateLLM(promptValue) {
         const question = String(promptValue || '').trim();
@@ -1259,6 +1222,19 @@
         llmBusy = true;
         llmInputLocked = true;
         let response = '';
+        let stoppedForRepetition = false;
+        function acceptToken(token) {
+          if (!token) return;
+          const candidate = response + token;
+          if (hasRepeatedLLMTail(candidate)) {
+            stoppedForRepetition = true;
+            if (llmAbortController) llmAbortController.abort();
+            if (llmEngine && typeof llmEngine.interruptGenerate === 'function') llmEngine.interruptGenerate();
+            return;
+          }
+          response = candidate;
+          llmTokenStream.publish(token);
+        }
         try {
           const engine = await ensureLLM();
           llmMessages.push({ role: 'user', content: question });
@@ -1268,30 +1244,36 @@
             await engine.createChatCompletion({
               messages: llmMessages,
               temperature: 0.2,
-              max_tokens: 384,
+              top_p: 0.9,
+              repeat_penalty: 1.15,
+              repeat_last_n: 128,
+              max_tokens: 256,
               stream: true,
               abortSignal: llmAbortController.signal,
               onData(chunk) {
                 const token = chunk && chunk.choices && chunk.choices[0] && chunk.choices[0].delta ? chunk.choices[0].delta.content || '' : '';
-                if (!token) return;
-                response += token;
-                llmTokenStream.publish(token);
+                acceptToken(token);
               }
             });
           } else {
-            const chunks = await engine.chat.completions.create({ messages: llmMessages, temperature: 0.2, max_tokens: 384, stream: true });
+            const chunks = await engine.chat.completions.create({ messages: llmMessages, temperature: 0.2, top_p: 0.9, repetition_penalty: 1.12, frequency_penalty: 0.2, presence_penalty: 0.1, max_tokens: 256, stream: true });
             for await (const chunk of chunks) {
               const token = chunk && chunk.choices && chunk.choices[0] && chunk.choices[0].delta ? chunk.choices[0].delta.content || '' : '';
-              if (!token) continue;
-              response += token;
-              llmTokenStream.publish(token);
+              acceptToken(token);
+              if (stoppedForRepetition) break;
             }
           }
           llmMessages.push({ role: 'assistant', content: response });
           llmResponseStream.publish(response);
           setLLMStatus('ready · ' + llmBackendLabel());
         } catch (error) {
-          addText('% ' + String(error && error.message ? error.message : error), 'error');
+          if (stoppedForRepetition) {
+            if (response) {
+              llmMessages.push({ role: 'assistant', content: response });
+              llmResponseStream.publish(response);
+            }
+            setLLMStatus('ready · repetition stopped');
+          } else addText('% ' + String(error && error.message ? error.message : error), 'error');
         } finally {
           llmAbortController = null;
           finishLLMTurn();
@@ -1394,7 +1376,7 @@
         updateMicrophoneState(false);
       }
       mediaTranscriptStream.subscribe((text, options) => {
-        if (!options.final || ttyTransport || !editor.hidden) return;
+        if (!options.final || ttyTransport || ttyEditor.active) return;
         const clean = String(text || '').trim();
         if (clean) insertInput(clean + ' ');
       });
@@ -1629,41 +1611,135 @@
       function updatePeerLabel() {
         const now = Date.now();
         peers.forEach((seen, id) => { if (now - seen > 120000) peers.delete(id); });
-        const count = peers.size;
-        editorSync.textContent = count ? 'synced · ' + count + ' peer' + (count === 1 ? '' : 's') : 'local pub/sub';
+        if (ttyEditor.active) renderTTYEditor();
       }
-      function updateEditorPosition() {
-        const before = editorText.value.slice(0, editorText.selectionStart);
-        const lines = before.split('\n');
-        editorPosition.textContent = 'Ln ' + lines.length + ', Col ' + (lines[lines.length - 1].length + 1);
+      function editorTextValue() { return ttyEditor.lines.join('\n'); }
+      function editorSafeText(text) { return String(text || '').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '�').replace(/\t/g, '  '); }
+      function editorFit(text, width) {
+        const chars = Array.from(editorSafeText(text));
+        if (chars.length > width) return chars.slice(0, Math.max(0, width - 1)).join('') + '›';
+        return chars.join('') + ' '.repeat(Math.max(0, width - chars.length));
+      }
+      function keepEditorCursorVisible() {
+        const bodyRows = Math.max(1, term.rows - 2);
+        ttyEditor.row = Math.max(0, Math.min(ttyEditor.row, ttyEditor.lines.length - 1));
+        ttyEditor.col = Math.max(0, Math.min(ttyEditor.col, ttyEditor.lines[ttyEditor.row].length));
+        if (ttyEditor.row < ttyEditor.scroll) ttyEditor.scroll = ttyEditor.row;
+        if (ttyEditor.row >= ttyEditor.scroll + bodyRows) ttyEditor.scroll = ttyEditor.row - bodyRows + 1;
+        if (ttyEditor.col < ttyEditor.hscroll) ttyEditor.hscroll = ttyEditor.col;
+        if (ttyEditor.col >= ttyEditor.hscroll + term.cols) ttyEditor.hscroll = ttyEditor.col - term.cols + 1;
+      }
+      function renderTTYEditor() {
+        if (!ttyEditor.active) return;
+        keepEditorCursorVisible();
+        const cols = Math.max(1, term.cols), bodyRows = Math.max(1, term.rows - 2);
+        const count = peers.size;
+        const peerLabel = count ? ' · ' + count + ' peer' + (count === 1 ? '' : 's') : '';
+        const title = ' ' + ttyEditor.path + (ttyEditor.dirty ? ' [+]' : '') + ' · local.files stream' + peerLabel;
+        let frame = '\x1b[?25l\x1b[H\x1b[2J\x1b[7m' + editorFit(title, cols) + '\x1b[0m';
+        for (let screenRow = 0; screenRow < bodyRows; screenRow++) {
+          const lineIndex = ttyEditor.scroll + screenRow;
+          const text = lineIndex < ttyEditor.lines.length ? Array.from(editorSafeText(ttyEditor.lines[lineIndex])).slice(ttyEditor.hscroll, ttyEditor.hscroll + cols).join('') : '';
+          frame += '\x1b[' + (screenRow + 2) + ';1H' + editorFit(text, cols);
+        }
+        const help = ' ^S save  ^Q save & quit  mouse click/scroll  Ln ' + (ttyEditor.row + 1) + ', Col ' + (ttyEditor.col + 1);
+        frame += '\x1b[' + term.rows + ';1H\x1b[7m' + editorFit(help, cols) + '\x1b[0m';
+        frame += '\x1b[' + (ttyEditor.row - ttyEditor.scroll + 2) + ';' + (ttyEditor.col - ttyEditor.hscroll + 1) + 'H\x1b[?25h';
+        writeTTYChunk(frame);
       }
       function openEditor(path) {
-        activeFile = normalizeFilePath(path);
-        if (!files[activeFile] || files[activeFile].deleted) {
-          files[activeFile] = { text: '', deleted: false, version: null };
+        const filePath = normalizeFilePath(path);
+        if (!files[filePath] || files[filePath].deleted) {
+          files[filePath] = { text: '', deleted: false, version: null };
           syncFileNamespace();
-          const message = sessionBus.publish({ oid: fileOid(activeFile), deleted: false }, '');
-          files[activeFile].version = { clock: message.options.clock, client: message.options.client };
+          const message = sessionBus.publish({ oid: fileOid(filePath), deleted: false }, '');
+          files[filePath].version = { clock: message.options.clock, client: message.options.client };
         }
-        editorFile.textContent = activeFile;
-        editorText.value = files[activeFile].text;
-        output.hidden = true;
-        editor.hidden = false;
-        updateEditorPosition();
-        editorText.focus();
+        Object.assign(ttyEditor, { active: true, path: filePath, lines: String(files[filePath].text || '').split('\n'), row: 0, col: 0, scroll: 0, hscroll: 0, dirty: false });
+        statusPath.textContent = 'edit / ' + filePath;
+        statusMode.textContent = 'TTY editor · mouse on';
+        writeTTYChunk('\x1b[?1049h\x1b[?1000h\x1b[?1006h');
+        renderTTYEditor();
+        term.focus();
       }
       function closeEditor() {
-        clearTimeout(editTimer);
-        if (activeFile) publishEditor();
-        editor.hidden = true;
-        output.hidden = false;
-        requestAnimationFrame(() => { fitTerminal(); term.focus(); writePrompt(); });
+        if (!ttyEditor.active) return;
+        clearTimeout(ttyEditor.publishTimer);
+        publishEditor();
+        const path = ttyEditor.path;
+        ttyEditor.active = false;
+        writeTTYChunk('\x1b[?1000l\x1b[?1006l\x1b[?1049l');
+        statusMode.textContent = 'local pub/sub · typed';
+        updatePrompt();
+        addText('Saved ' + path + ' to ' + fileOid(path) + '.', 'success');
+        writePrompt();
+        term.focus();
       }
       function publishEditor() {
-        if (!activeFile) return;
-        const message = sessionBus.publish({ oid: fileOid(activeFile), deleted: false }, editorText.value);
-        files[activeFile] = { text: editorText.value, deleted: false, version: { clock: message.options.clock, client: message.options.client } };
+        if (!ttyEditor.active || !ttyEditor.path) return;
+        const text = editorTextValue();
+        const message = sessionBus.publish({ oid: fileOid(ttyEditor.path), deleted: false }, text);
+        files[ttyEditor.path] = { text, deleted: false, version: { clock: message.options.clock, client: message.options.client } };
+        ttyEditor.dirty = false;
         syncFileNamespace();
+        renderTTYEditor();
+      }
+      function scheduleEditorPublish() {
+        clearTimeout(ttyEditor.publishTimer);
+        ttyEditor.publishTimer = setTimeout(() => { if (ttyEditor.active && ttyEditor.dirty) publishEditor(); }, 80);
+      }
+      function editTTYInput(data) {
+        if (!ttyEditor.active) return false;
+        const mouse = String(data).match(/^\x1b\[<(\d+);(\d+);(\d+)([Mm])$/);
+        if (mouse) {
+          const button = Number(mouse[1]), x = Number(mouse[2]), y = Number(mouse[3]);
+          if (button === 64) ttyEditor.scroll = Math.max(0, ttyEditor.scroll - 3);
+          else if (button === 65) ttyEditor.scroll = Math.min(Math.max(0, ttyEditor.lines.length - 1), ttyEditor.scroll + 3);
+          else if ((button & 3) === 0 && mouse[4] === 'M' && y >= 2 && y < term.rows) {
+            ttyEditor.row = Math.min(ttyEditor.lines.length - 1, ttyEditor.scroll + y - 2);
+            ttyEditor.col = Math.min(ttyEditor.lines[ttyEditor.row].length, ttyEditor.hscroll + x - 1);
+          }
+          renderTTYEditor(); return true;
+        }
+        if (data === '\x11') { closeEditor(); return true; }
+        if (data === '\x13') { publishEditor(); return true; }
+        if (data === '\x1b[A') ttyEditor.row--;
+        else if (data === '\x1b[B') ttyEditor.row++;
+        else if (data === '\x1b[D') ttyEditor.col--;
+        else if (data === '\x1b[C') ttyEditor.col++;
+        else if (data === '\x1b[H' || data === '\x01') ttyEditor.col = 0;
+        else if (data === '\x1b[F' || data === '\x05') ttyEditor.col = ttyEditor.lines[ttyEditor.row].length;
+        else if (data === '\x1b[5~') ttyEditor.row -= Math.max(1, term.rows - 3);
+        else if (data === '\x1b[6~') ttyEditor.row += Math.max(1, term.rows - 3);
+        else if (data === '\x7f') {
+          if (ttyEditor.col > 0) {
+            const line = ttyEditor.lines[ttyEditor.row];
+            ttyEditor.lines[ttyEditor.row] = line.slice(0, ttyEditor.col - 1) + line.slice(ttyEditor.col); ttyEditor.col--;
+          } else if (ttyEditor.row > 0) {
+            const tail = ttyEditor.lines.splice(ttyEditor.row, 1)[0]; ttyEditor.row--; ttyEditor.col = ttyEditor.lines[ttyEditor.row].length; ttyEditor.lines[ttyEditor.row] += tail;
+          }
+          ttyEditor.dirty = true;
+        } else if (data === '\x1b[3~') {
+          const line = ttyEditor.lines[ttyEditor.row];
+          if (ttyEditor.col < line.length) ttyEditor.lines[ttyEditor.row] = line.slice(0, ttyEditor.col) + line.slice(ttyEditor.col + 1);
+          else if (ttyEditor.row < ttyEditor.lines.length - 1) ttyEditor.lines[ttyEditor.row] += ttyEditor.lines.splice(ttyEditor.row + 1, 1)[0];
+          ttyEditor.dirty = true;
+        } else if (data === '\r' || data === '\n') {
+          const line = ttyEditor.lines[ttyEditor.row];
+          ttyEditor.lines.splice(ttyEditor.row, 1, line.slice(0, ttyEditor.col), line.slice(ttyEditor.col)); ttyEditor.row++; ttyEditor.col = 0; ttyEditor.dirty = true;
+        } else if (data === '\t') {
+          const line = ttyEditor.lines[ttyEditor.row]; ttyEditor.lines[ttyEditor.row] = line.slice(0, ttyEditor.col) + '  ' + line.slice(ttyEditor.col); ttyEditor.col += 2; ttyEditor.dirty = true;
+        } else if (!String(data).startsWith('\x1b') && !/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(String(data))) {
+          const parts = String(data).replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+          const line = ttyEditor.lines[ttyEditor.row];
+          if (parts.length === 1) { ttyEditor.lines[ttyEditor.row] = line.slice(0, ttyEditor.col) + parts[0] + line.slice(ttyEditor.col); ttyEditor.col += parts[0].length; }
+          else { const inserted = [line.slice(0, ttyEditor.col) + parts[0]].concat(parts.slice(1, -1), [parts[parts.length - 1] + line.slice(ttyEditor.col)]); ttyEditor.lines.splice.apply(ttyEditor.lines, [ttyEditor.row, 1].concat(inserted)); ttyEditor.row += parts.length - 1; ttyEditor.col = parts[parts.length - 1].length; }
+          ttyEditor.dirty = true;
+        }
+        keepEditorCursorVisible();
+        renderTTYEditor();
+        if (ttyEditor.dirty) scheduleEditorPublish();
+        return true;
       }
       function applyFile(data, options) {
         if (!options || !options.oid || !options.oid.startsWith('local.files.')) return;
@@ -1671,13 +1747,14 @@
         const incoming = { clock: options.clock, client: options.client };
         if (compareVersion(incoming, files[path] && files[path].version) < 0) return;
         files[path] = { text: String(data || ''), deleted: !!options.deleted, version: incoming };
-        if (activeFile === path && !editor.hidden && editorText.value !== files[path].text) {
-          const start = editorText.selectionStart;
-          editorText.value = files[path].text;
-          editorText.setSelectionRange(Math.min(start, editorText.value.length), Math.min(start, editorText.value.length));
-          updateEditorPosition();
+        if (ttyEditor.active && ttyEditor.path === path && editorTextValue() !== files[path].text) {
+          ttyEditor.lines = String(files[path].text || '').split('\n');
+          ttyEditor.row = Math.min(ttyEditor.row, ttyEditor.lines.length - 1);
+          ttyEditor.col = Math.min(ttyEditor.col, ttyEditor.lines[ttyEditor.row].length);
+          ttyEditor.dirty = false;
         }
         syncFileNamespace();
+        if (ttyEditor.active && ttyEditor.path === path) renderTTYEditor();
       }
       function snapshotFiles() {
         const copy = {};
@@ -1700,7 +1777,11 @@
           if (compareVersion(item.version, files[path] && files[path].version) > 0) files[path] = item;
         });
         syncFileNamespace();
-        if (activeFile && files[activeFile] && !editor.hidden) editorText.value = files[activeFile].text;
+        if (ttyEditor.active && files[ttyEditor.path]) {
+          ttyEditor.lines = String(files[ttyEditor.path].text || '').split('\n');
+          ttyEditor.dirty = false;
+          renderTTYEditor();
+        }
       });
 
       function renderList(node) {
@@ -1829,10 +1910,12 @@
           addText('publish OID DATA         send (options.oid, data)');
           addText('infer VALUE              inspect the JS fallback type');
           addText('llm load|attach|status   run SmolLM2 360M with WebGPU or WASM CPU');
+          addText('llm persona [TEXT]       show or set the local model system prompt');
+          addText('llm reset                clear chat history and keep the current persona');
           addText('gpu diag                 inspect GPU visibility, context, and frame policy');
           addText('ask PROMPT               stream one local-model response');
           addText('dictate start|stop       speech-to-text into the current line');
-          addText('edit [FILE]              open the built-in shared editor');
+          addText('edit [FILE]              open the mouse-capable TTY editor (^S save, ^Q quit)');
           addText('files · cat FILE · rm FILE');
           addText('tty · connect WSS_URL · disconnect');
           addText('cd PATH · ls [PATH] · tree [PATH] · show PATH · type PATH');
@@ -1912,7 +1995,9 @@
           return;
         }
         if (verb === 'llm') {
-          const action = (rest || 'status').toLowerCase();
+          const actionSpace = rest.indexOf(' ');
+          const action = (actionSpace < 0 ? rest || 'status' : rest.slice(0, actionSpace)).toLowerCase();
+          const actionValue = actionSpace < 0 ? '' : rest.slice(actionSpace + 1).trim();
           if (action === 'status') {
             addLine('<span class="type-token">' + esc(LLM_MODEL) + '</span> <span class="value-token">' + (llmEngine ? 'ready' : llmLoading ? 'loading' : 'unloaded') + '</span>');
             addText('streams local.streams.llm.prompt · token · response · status', 'dim');
@@ -1921,11 +2006,11 @@
           } else if (action === 'load') loadLLMForCommand();
           else if (action === 'attach') attachLocalLLM();
           else if (action === 'detach') detachLocalLLM(true);
+          else if (action === 'persona') setLLMPersona(actionValue);
           else if (action === 'reset') {
-            llmMessages = [{ role: 'system', content: LLM_SYSTEM_PROMPT }];
-            if (llmEngine && typeof llmEngine.resetChat === 'function') llmEngine.resetChat();
-            addText('SmolLM2 conversation reset.', 'success');
-          } else throw new Error('Use: llm load|attach|detach|status|reset');
+            resetLLMConversation();
+            addText('SmolLM2 conversation reset; persona kept.', 'success');
+          } else throw new Error('Use: llm load|attach|detach|status|persona [TEXT]|reset');
           return;
         }
         if (verb === 'dictate') {
@@ -2054,7 +2139,10 @@
         const verb = tokens[0];
         if (verb === 'help' || verb === 'pwd' || verb === 'clear' || verb === 'files' || verb === 'tty' || verb === 'disconnect') return [];
         if (verb === 'gpu') return ['diag'].filter(name => endsSpace || name.startsWith(tokens[1] || '')).map(name => ({ name, desc: 'runtime WebGPU diagnostic', insert: name }));
-        if (verb === 'llm') return ['load', 'attach', 'detach', 'status', 'reset'].filter(name => endsSpace || name.startsWith(tokens[1] || '')).map(name => ({ name, desc: 'SmolLM2 local model', insert: name }));
+        if (verb === 'llm') {
+          if (tokens[1] === 'persona' && (tokens.length > 2 || endsSpace)) return [{ name: 'TEXT', desc: 'new system prompt; omit to show current', insert: text }];
+          return ['load', 'attach', 'detach', 'status', 'persona', 'reset'].filter(name => endsSpace || name.startsWith(tokens[1] || '')).map(name => ({ name, desc: name === 'persona' ? 'show or set the system prompt' : 'SmolLM2 local model', insert: name }));
+        }
         if (verb === 'dictate') return ['start', 'stop', 'status'].filter(name => endsSpace || name.startsWith(tokens[1] || '')).map(name => ({ name, desc: 'microphone dictation', insert: name }));
         if (verb === 'ask') return [{ name: 'PROMPT', desc: 'local model prompt', insert: text }];
         if (verb === 'connect') return [{ name: 'wss://host/pty', desc: 'WebSocket PTY gateway', insert: text }];
@@ -2147,7 +2235,7 @@
               if (hasChildren) { children.hidden = !children.hidden; row.querySelector('.branch').textContent = children.hidden ? '›' : '⌄'; }
               else { input.value = childParts.join('.'); redrawInput(); term.focus(); }
             });
-            row.addEventListener('dblclick', () => { input.value = childParts.join('.'); writeTTYChunk('\r\n'); run(input.value); if (editor.hidden) writePrompt(); if (window.innerWidth <= 850) setInspectorOpen(false); });
+            row.addEventListener('dblclick', () => { input.value = childParts.join('.'); writeTTYChunk('\r\n'); run(input.value); if (!ttyEditor.active) writePrompt(); if (window.innerWidth <= 850) setInspectorOpen(false); });
             wrap.appendChild(row);
             if (hasChildren) { branch(child, childParts, children); wrap.appendChild(children); if (!children.hidden) row.querySelector('.branch').textContent = '⌄'; }
             host.appendChild(wrap);
@@ -2189,13 +2277,11 @@
           const command = input.value;
           input.value = '';
           cursorIndex = 0;
-          if (llmAttached && command.trim().toLowerCase() === 'llm reset') {
-            llmMessages = [{ role: 'system', content: LLM_SYSTEM_PROMPT }];
-            if (llmEngine && typeof llmEngine.resetChat === 'function') llmEngine.resetChat();
-            addText('SmolLM2 conversation reset.', 'success');
-          } else if (llmAttached) sendLLMPrompt(command);
+          const localLLMCommand = /^llm\s+(reset|persona)(?:\s|$)/i.test(command.trim());
+          if (llmAttached && localLLMCommand) run(command);
+          else if (llmAttached) sendLLMPrompt(command);
           else run(command);
-          if (editor.hidden && !llmInputLocked) writePrompt();
+          if (!ttyEditor.active && !llmInputLocked) writePrompt();
           return;
         }
         if (data === '\x7f') {
@@ -2224,40 +2310,21 @@
         });
       }
       ttyStdinStream.subscribe(data => {
-        if (data === '\x1d' && llmAttached) { detachLocalLLM(false); return; }
         if (ttyTransport) {
           if (data === '\x1d') { detachTTY(false); return; }
           try { ttyTransport.send(data); } catch (err) { writeTTYChunk('\r\n\x1b[31m% ' + String(err.message || err) + '\x1b[0m\r\n'); detachTTY(false); }
           return;
         }
+        if (ttyEditor.active) { editTTYInput(data); return; }
+        if (data === '\x1d' && llmAttached) { detachLocalLLM(false); return; }
         handleLocalTTY(data);
       });
       term.onData(data => ttyStdinStream.publish(data));
       term.onResize(size => {
         if (ttyTransport && typeof ttyTransport.resize === 'function') {
           try { ttyTransport.resize(size.cols, size.rows); } catch (_) {}
-        }
+        } else if (ttyEditor.active) renderTTYEditor();
       });
-      editorText.addEventListener('input', () => {
-        updateEditorPosition();
-        clearTimeout(editTimer);
-        editTimer = setTimeout(publishEditor, 70);
-      });
-      editorText.addEventListener('click', updateEditorPosition);
-      editorText.addEventListener('keyup', updateEditorPosition);
-      editorText.addEventListener('keydown', e => {
-        if (e.key === 'Tab') {
-          e.preventDefault();
-          const start = editorText.selectionStart, end = editorText.selectionEnd;
-          editorText.setRangeText('  ', start, end, 'end');
-          editorText.dispatchEvent(new Event('input'));
-        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
-          e.preventDefault(); clearTimeout(editTimer); publishEditor();
-        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'q') {
-          e.preventDefault(); closeEditor();
-        }
-      });
-      document.getElementById('editorClose').addEventListener('click', closeEditor);
       micToggle.addEventListener('click', () => {
         try {
           if (dictating) stopDictation();
