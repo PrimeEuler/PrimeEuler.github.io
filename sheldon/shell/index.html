@@ -260,22 +260,16 @@
       .workspace { height: 100dvh; min-height: 520px; width: 100%; border: 0; box-shadow: none; grid-template-columns: 1fr; }
       .console { border-right: 0; }
       .inspector {
+        display: none;
         position: fixed;
         z-index: 10;
         inset: 0 0 0 auto;
         width: min(88vw, 360px);
-        transform: translateX(102%);
-        visibility: hidden;
-        pointer-events: none;
-        transition: transform 180ms ease, visibility 0s linear 180ms;
         border-left: 1px solid var(--line-strong);
         box-shadow: var(--shadow);
       }
       .inspector.open {
-        transform: translateX(0);
-        visibility: visible;
-        pointer-events: auto;
-        transition: transform 180ms ease;
+        display: grid;
       }
       .mobile-panel-toggle { display: inline-flex; border: 0; background: transparent; color: var(--muted); padding: 4px; cursor: pointer; font-family: "IBM Plex Mono", monospace; }
       #output .xterm { padding: 11px 10px 14px; }
@@ -305,7 +299,7 @@
         <button class="mobile-panel-toggle" id="openTree" type="button" aria-label="Open namespace explorer">tree</button>
         <span class="status-path" id="statusPath">root /</span>
         <button class="mic-toggle" id="micToggle" type="button" aria-label="Start microphone dictation" title="Dictate into the terminal">mic</button>
-        <span class="mode"><span id="statusMode">local pub/sub · typed</span></span>
+        <span class="mode"><span id="statusMode">direct context · local stream</span></span>
       </header>
 
       <div id="output" role="application" aria-label="TTY terminal"></div>
@@ -326,10 +320,10 @@
     <aside class="inspector" id="inspector" aria-label="Namespace explorer">
       <div class="panel-head">
         <p class="panel-title">namespace</p>
-        <p class="panel-sub">Every OID is local pub/sub by default. Attach a transport only to go global.</p>
+        <p class="panel-sub">The live JavaScript context. Type a dot, then Tab, to walk it; stream leaves are the actual endpoints.</p>
       </div>
       <div class="tree-view" id="treeView"></div>
-      <div class="scratch"><strong>Direct, not compiled.</strong><br><code>llm attach</code><br><code>dictate start</code><br><code>edit scratch.js</code><br><code>show local.tools.smolLM2</code></div>
+      <div class="scratch"><strong>Direct context REPL.</strong><br><code>.</code> then <code>Tab</code><br><code>local.math.add 2 3</code><br><code>io.stdin.</code> then <code>Tab</code><br><code>llm attach</code></div>
     </aside>
   </main>
 
@@ -884,7 +878,7 @@
         if (ttyCleanup) { try { ttyCleanup(); } catch (_) {} }
         ttyTransport = null;
         ttyCleanup = null;
-        statusMode.textContent = 'local pub/sub · typed';
+        statusMode.textContent = 'direct context · local stream';
         updatePrompt();
         if (!silent) {
           writeTTYChunk('\r\n\x1b[2m[local pub/sub interpreter resumed]\x1b[0m\r\n');
@@ -948,6 +942,78 @@
       const llmStatusStream = sessionBus.stream('local.streams.llm.status', { scope: 'instance' });
       const mediaMicrophoneStream = sessionBus.stream('local.streams.media.microphone', { scope: 'instance' });
       const mediaTranscriptStream = sessionBus.stream('local.streams.media.transcript', { scope: 'instance' });
+
+      // The default shell is the original Sheldon idea: a thin REPL over one
+      // ordinary JavaScript context. Schema nodes still supply OID metadata,
+      // while stream leaves are the live stream objects themselves.
+      function contextFromNamespace(node) {
+        const object = {};
+        Object.keys(node.children || {}).forEach(name => {
+          const child = node.children[name];
+          if (child.kind === 'namespace' || child.kind === 'table' || child.kind === 'row' || child.kind === 'type' || child.kind === 'tool') {
+            object[name] = contextFromNamespace(child);
+            if (child.kind === 'type' || child.kind === 'tool') {
+              Object.defineProperty(object[name], '$definition', { value: child, enumerable: false });
+            }
+          } else if (child.kind === 'function') {
+            object[name] = child.invoke;
+          } else {
+            Object.defineProperty(object, name, {
+              enumerable: true,
+              configurable: true,
+              get() { return child.value; },
+              set(value) {
+                if (child.access === 'read-only') throw new Error(name + ' is read-only');
+                window.SheldonOID.set(child.oid, value);
+              }
+            });
+          }
+        });
+        return object;
+      }
+      nodeByOid('local.streams.tty.stdin').value = ttyStdinStream;
+      nodeByOid('local.streams.tty.stdout').value = ttyStdoutStream;
+      nodeByOid('local.streams.llm.prompt').value = llmPromptStream;
+      nodeByOid('local.streams.llm.token').value = llmTokenStream;
+      nodeByOid('local.streams.llm.response').value = llmResponseStream;
+      nodeByOid('local.streams.llm.status').value = llmStatusStream;
+      nodeByOid('local.streams.media.microphone').value = mediaMicrophoneStream;
+      nodeByOid('local.streams.media.transcript').value = mediaTranscriptStream;
+      root.children.io = ns('io', { description: 'The actual streams carrying this REPL' });
+      root.children.io.children.stdin = val('io.stdin', 'Stream', ttyStdinStream, 'read-only', 'Live terminal input stream');
+      root.children.io.children.stdout = val('io.stdout', 'Stream', ttyStdoutStream, 'read-only', 'Live terminal output stream');
+
+      const shellContext = contextFromNamespace(root);
+      function exposeLiveStream(parent, name, stream) {
+        Object.defineProperty(parent, name, { enumerable: true, configurable: true, get() { return stream; } });
+      }
+      exposeLiveStream(shellContext.local.streams.tty, 'stdin', ttyStdinStream);
+      exposeLiveStream(shellContext.local.streams.tty, 'stdout', ttyStdoutStream);
+      exposeLiveStream(shellContext.local.streams.llm, 'prompt', llmPromptStream);
+      exposeLiveStream(shellContext.local.streams.llm, 'token', llmTokenStream);
+      exposeLiveStream(shellContext.local.streams.llm, 'response', llmResponseStream);
+      exposeLiveStream(shellContext.local.streams.llm, 'status', llmStatusStream);
+      exposeLiveStream(shellContext.local.streams.media, 'microphone', mediaMicrophoneStream);
+      exposeLiveStream(shellContext.local.streams.media, 'transcript', mediaTranscriptStream);
+      shellContext.local.bus.runtime = sessionBus;
+
+      function wrapContext(path, value) {
+        const parts = String(path || '').split('.').filter(Boolean);
+        if (!parts.length) throw new Error('wrap(path, value) needs a context path');
+        let parent = shellContext;
+        parts.slice(0, -1).forEach(part => {
+          if (!parent[part] || (typeof parent[part] !== 'object' && typeof parent[part] !== 'function')) parent[part] = {};
+          parent = parent[part];
+        });
+        parent[parts[parts.length - 1]] = value;
+        return value;
+      }
+      window.Sheldon = {
+        context: shellContext,
+        io: shellContext.io,
+        wrap: wrapContext
+      };
+      window.SheldonContext = shellContext;
 
       function setLLMStatus(text) {
         const status = String(text || '');
@@ -1202,7 +1268,7 @@
       function finishLLMTurn() {
         llmBusy = false;
         llmInputLocked = false;
-        statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'local pub/sub · typed';
+        statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'direct context · local stream';
         writeTTYChunk('\r\n');
         writePrompt();
       }
@@ -1290,7 +1356,7 @@
         addText('Loading SmolLM2 360M. Sheldon prefers WebGPU and automatically falls back to single-thread WASM CPU; download progress appears in the status bar.', 'note');
         ensureLLM().then(() => addText('SmolLM2 360M ready at local.tools.smolLM2.', 'success')).catch(error => addText('% ' + String(error.message || error), 'error')).finally(() => {
           llmInputLocked = false;
-          statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'local pub/sub · typed';
+          statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'direct context · local stream';
           writePrompt();
         });
       }
@@ -1306,7 +1372,7 @@
         llmAttached = false;
         if (llmBusy && llmAbortController) llmAbortController.abort();
         if (llmBusy && llmEngine && typeof llmEngine.interruptGenerate === 'function') llmEngine.interruptGenerate();
-        statusMode.textContent = 'local pub/sub · typed';
+        statusMode.textContent = 'direct context · local stream';
         updatePrompt();
         if (!silent) {
           writeTTYChunk('\r\n\x1b[2m[SmolLM2 detached; local interpreter resumed]\x1b[0m\r\n');
@@ -1348,7 +1414,7 @@
         recognition.onerror = event => {
           dictateManualStop = true;
           updateMicrophoneState(false);
-          statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'local pub/sub · typed';
+          statusMode.textContent = llmAttached ? 'local llm · ' + (llmEngine ? 'ready · ' + llmBackendLabel() : 'unloaded') : 'direct context · local stream';
           writeTTYChunk('\r\n');
           addText('% microphone: ' + (event.error || 'speech recognition failed'), 'error');
           redrawEditableLine();
@@ -1359,7 +1425,7 @@
             return;
           }
           updateMicrophoneState(false);
-          if (!llmAttached && !ttyTransport) { statusMode.textContent = 'local pub/sub · typed'; updatePrompt(); }
+          if (!llmAttached && !ttyTransport) { statusMode.textContent = 'direct context · local stream'; updatePrompt(); }
         };
         return recognition;
       }
@@ -1545,6 +1611,48 @@
       }
       function resolve(raw, base) { return resolveParts(normalizePath(raw, base)); }
 
+      function contextLookup(raw, base) {
+        const parts = normalizePath(raw, base);
+        let value = shellContext;
+        let parent = null;
+        for (const part of parts) {
+          if (value == null || (typeof value !== 'object' && typeof value !== 'function') || !(part in value)) {
+            return { error: 'No context value ' + parts.join('.') };
+          }
+          parent = value;
+          value = value[part];
+        }
+        return { value, parent, parts };
+      }
+      function runtimeKind(value) {
+        if (typeof value === 'function') return 'fn';
+        if (value && typeof value === 'object' && typeof value.publish === 'function' && typeof value.subscribe === 'function') return 'stream';
+        if (Array.isArray(value)) return 'array';
+        if (value === null) return 'null';
+        return typeof value;
+      }
+      function renderRuntimeValue(hit) {
+        const value = hit.value;
+        const label = hit.parts.length ? hit.parts.join('.') : 'context';
+        if (typeof value === 'function') {
+          addLine('<span class="type-token">function</span> <span class="fn-token">' + esc(label) + '</span>(' + esc(functionParameterNames(value).join(', ')) + ')');
+          return;
+        }
+        if (value && (typeof value === 'object' || typeof value === 'function')) {
+          addLine('<span class="fn-token">' + esc(label) + '</span> <span class="comment">' + esc(runtimeKind(value)) + '</span>');
+          const keys = Object.keys(value);
+          if (!keys.length) { addText('{}', 'dim'); return; }
+          keys.forEach(name => {
+            let child;
+            try { child = value[name]; } catch (_) { child = undefined; }
+            const suffix = typeof child === 'function' ? '(' + functionParameterNames(child).join(', ') + ')' : '';
+            addLine('<span class="oid-token">' + (child && typeof child === 'object' ? '›' : typeof child === 'function' ? 'ƒ' : '=') + '</span> <span class="fn-token">' + esc(name) + '</span><span class="comment">  ' + esc(runtimeKind(child) + suffix) + '</span>');
+          });
+          return;
+        }
+        addLine('<span class="type-token">' + esc(runtimeKind(value)) + '</span> <span class="value-token">' + esc(displayValue(value)) + '</span>');
+      }
+
       function kindMark(node) {
         return ({ namespace: '›', function: 'ƒ', value: '=', type: 'T', table: '#', row: 'r', file: '⌁', tool: '⌘' })[node.kind] || '·';
       }
@@ -1669,7 +1777,7 @@
         const path = ttyEditor.path;
         ttyEditor.active = false;
         writeTTYChunk('\x1b[?1000l\x1b[?1006l\x1b[?1049l');
-        statusMode.textContent = 'local pub/sub · typed';
+        statusMode.textContent = 'direct context · local stream';
         updatePrompt();
         addText('Saved ' + path + ' to ' + fileOid(path) + '.', 'success');
         writePrompt();
@@ -1852,6 +1960,48 @@
         if (current.trim() || s.trim() === '') args.push(current.trim());
         return s.trim() === '' ? [] : args;
       }
+      function splitShellArgs(s) {
+        const args = [];
+        let current = '', quote = null, bracket = 0;
+        for (let i = 0; i < s.length; i++) {
+          const c = s[i];
+          if (quote) {
+            current += c;
+            if (c === quote && s[i - 1] !== '\\') quote = null;
+          } else if (c === '"' || c === "'") { quote = c; current += c; }
+          else if (c === '[' || c === '{' || c === '(') { bracket++; current += c; }
+          else if (c === ']' || c === '}' || c === ')') { bracket--; current += c; }
+          else if (/\s/.test(c) && bracket === 0) {
+            if (current) { args.push(current); current = ''; }
+          } else current += c;
+        }
+        if (current) args.push(current);
+        return args;
+      }
+      function functionParameterNames(callable) {
+        const source = Function.prototype.toString.call(callable).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+        const match = source.match(/^[^(]*\(([^)]*)\)/) || source.match(/^\s*([^=()\s,]+)\s*=>/);
+        if (!match) return [];
+        return match[1].split(',').map(name => name.trim().replace(/=.*$/, '').replace(/^\.\.\./, '')).filter(Boolean);
+      }
+      function directInvocationArgs(callable, raw) {
+        const words = splitShellArgs(raw);
+        const names = functionParameterNames(callable);
+        const named = {};
+        const positional = [];
+        for (let i = 0; i < words.length; i++) {
+          const option = words[i].match(/^--([A-Za-z_$][\w$]*)(?:=(.*))?$/);
+          if (!option) { positional.push(parseValue(words[i])); continue; }
+          const value = option[2] !== undefined ? option[2] : words[++i];
+          if (value === undefined) throw new Error('--' + option[1] + ' needs a value');
+          named[option[1]] = parseValue(value);
+        }
+        const args = names.map(name => Object.prototype.hasOwnProperty.call(named, name) ? named[name] : positional.shift());
+        while (positional.length) args.push(positional.shift());
+        const missing = names.filter((name, index) => typeof args[index] === 'undefined');
+        if (missing.length) throw new Error('Missing ' + missing.join(', ') + '. Supply values by position or --name.');
+        return args;
+      }
 
       function parseValue(raw) {
         raw = raw.trim();
@@ -1864,6 +2014,8 @@
         if (raw.startsWith('{') && raw.endsWith('}')) {
           try { return JSON.parse(raw); } catch (_) { return raw; }
         }
+        const contextHit = contextLookup(raw);
+        if (!contextHit.error) return contextHit.value;
         const found = resolve(raw);
         if (!found.error && (found.node.kind === 'value' || found.node.kind === 'file')) return found.node.value;
         if (!found.error && found.node.kind === 'function') return found.node.invoke;
@@ -1902,9 +2054,12 @@
 
         if (line === 'clear') { clearTerminal(); return; }
         if (line === 'help') {
-          addLine('<span class="type-token">grammar</span>  <span class="comment">typed paths, interpreted immediately</span>');
-          addText('path                     inspect an object, type, or function');
-          addText('path(arg, …)             call a function directly');
+          addLine('<span class="type-token">grammar</span>  <span class="comment">direct JavaScript context, interpreted immediately</span>');
+          addText('. then Tab               traverse the live context one property at a time');
+          addText('path                     inspect the underlying object, value, stream, or function');
+          addText('path arg …               call a function by position (original Sheldon mode)');
+          addText('path --name value        call a function with named arguments');
+          addText('path(arg, …)             JavaScript-style direct call');
           addText('let name: TYPE = value   declare a typed session value');
           addText('get OID · set OID DATA   use OID-derived getters and setters');
           addText('publish OID DATA         send (options.oid, data)');
@@ -1925,13 +2080,23 @@
           addText('Everything is a local OID pub/sub stream first: values, files, commands, model tokens, transcripts, stdin, and stdout.', 'dim');
           addText('Attach WS/TCP only to go global; the transport mirrors the same streams without replacing them.', 'dim');
           addText('Use SheldonStreams.local(oid) for a local endpoint or SheldonPubSub.attachTransport(link) to bridge outward.', 'dim');
-          addText('Use ? for the next legal tokens; Tab completes one path segment.', 'dim');
+          addText('The REPL reads window.Sheldon.context directly; Sheldon.wrap(path, value) exposes new code without adding a command.', 'dim');
+          addText('The context owns the live TTY at io.stdin/io.stdout and the same endpoints under local.streams. Type . then Tab to begin.', 'dim');
+          addText('Use ? for the next legal tokens; Tab completes one property hop.', 'dim');
           return;
         }
         if (line === 'pwd') { addText(pathLabel(cwd)); return; }
 
-        const directCall = line.match(/^([A-Za-z_][\w.-]*)\s*\((.*)\)$/);
+        const directCall = line.match(/^([A-Za-z_$][\w$.-]*)\s*\((.*)\)$/);
         if (directCall) {
+          const contextHit = contextLookup(directCall[1]);
+          if (!contextHit.error && typeof contextHit.value === 'function') {
+            const args = splitArgs(directCall[2]).map(parseValue);
+            const result = contextHit.value.apply(contextHit.parent, args);
+            if (result && typeof result.then === 'function') result.then(value => { addLine('<span class="type-token">result</span> <span class="value-token">' + esc(displayValue(value)) + '</span>', 'success'); redrawEditableLine(); }).catch(error => { addText('% ' + String(error.message || error), 'error'); redrawEditableLine(); });
+            else addLine('<span class="type-token">' + esc(runtimeKind(result)) + '</span> <span class="value-token">' + esc(displayValue(result)) + '</span>', 'success');
+            return;
+          }
           const hit = resolve(directCall[1]);
           if (hit.error) throw new Error(hit.error);
           if (hit.node.kind !== 'function') throw new Error(directCall[1] + ' is ' + hit.node.kind + ', not callable');
@@ -2115,8 +2280,20 @@
         if (verb === 'let') throw new Error('Use: let name: TYPE = value');
         if (Object.prototype.hasOwnProperty.call(commands, verb)) throw new Error('Incomplete command. Press ? for context.');
 
+        const contextHit = contextLookup(verb);
+        if (!contextHit.error) {
+          if (rest) {
+            if (typeof contextHit.value !== 'function') throw new Error(verb + ' is ' + runtimeKind(contextHit.value) + ', not callable');
+            const args = directInvocationArgs(contextHit.value, rest);
+            const result = contextHit.value.apply(contextHit.parent, args);
+            if (result && typeof result.then === 'function') result.then(value => { addLine('<span class="type-token">result</span> <span class="value-token">' + esc(displayValue(value)) + '</span>', 'success'); redrawEditableLine(); }).catch(error => { addText('% ' + String(error.message || error), 'error'); redrawEditableLine(); });
+            else addLine('<span class="type-token">' + esc(runtimeKind(result)) + '</span> <span class="value-token">' + esc(displayValue(result)) + '</span>', 'success');
+          } else renderRuntimeValue(contextHit);
+          return;
+        }
+
         const hit = resolve(line);
-        if (hit.error) throw new Error(hit.error + '. Press ? to see this level.');
+        if (hit.error) throw new Error(contextHit.error + '. Type . then Tab to traverse the live context.');
         inspectNode(hit.node, hit.parts);
       }
 
@@ -2170,12 +2347,20 @@
         const bits = clean.split('.');
         const partial = bits.pop() || '';
         const parentParts = (absolute ? [] : cwd.slice()).concat(bits.filter(Boolean));
-        const parentHit = resolveParts(parentParts);
-        if (parentHit.error || !parentHit.node.children) return [];
-        return Object.keys(parentHit.node.children).filter(n => n.startsWith(partial)).map(name => {
-          const node = parentHit.node.children[name];
+        let parent = shellContext;
+        for (const part of parentParts) {
+          if (parent == null || (typeof parent !== 'object' && typeof parent !== 'function') || !(part in parent)) return [];
+          parent = parent[part];
+        }
+        if (parent == null || (typeof parent !== 'object' && typeof parent !== 'function')) return [];
+        return Object.keys(parent).filter(name => name.startsWith(partial)).map(name => {
+          let value;
+          try { value = parent[name]; } catch (_) { value = undefined; }
+          const meta = resolveParts(parentParts.concat(name));
+          const node = meta.error ? { kind: typeof value === 'function' ? 'function' : 'value', children: value && (typeof value === 'object' || typeof value === 'function') ? value : {} } : meta.node;
           const prefix = (absolute ? '/' : '') + (bits.length ? bits.join('.') + '.' : '');
-          return { name, desc: node.kind === 'function' ? node.signature : shortKind(node), insert: prefix + name, node };
+          const desc = typeof value === 'function' ? '(' + functionParameterNames(value).join(', ') + ')' : runtimeKind(value);
+          return { name, desc, insert: prefix + name, node, value };
         });
       }
 
@@ -2197,11 +2382,15 @@
         if (candidates.length === 1) {
           const tokens = text.trim().split(/\s+/).filter(Boolean);
           const endsSpace = /\s$/.test(text);
+          const candidate = candidates[0];
+          const hasChildren = candidate.value && (typeof candidate.value === 'object' || typeof candidate.value === 'function')
+            ? Object.keys(candidate.value).length > 0
+            : !!(candidate.node && candidate.node.children && Object.keys(candidate.node.children).length);
           if (tokens.length && Object.prototype.hasOwnProperty.call(commands, tokens[0])) {
             const verb = tokens[0];
             if (verb === 'let') return showContext();
-            input.value = verb + ' ' + candidates[0].insert + ((candidates[0].node && candidates[0].node.children && Object.keys(candidates[0].node.children).length) ? '.' : ' ');
-          } else input.value = candidates[0].insert + ((candidates[0].node && candidates[0].node.children && Object.keys(candidates[0].node.children).length) ? '.' : '');
+            input.value = verb + ' ' + candidate.insert + (hasChildren ? '.' : ' ');
+          } else input.value = candidate.insert + (hasChildren ? '.' : '');
           input.setSelectionRange(input.value.length, input.value.length);
           return;
         }
@@ -2350,13 +2539,13 @@
       document.addEventListener('click', e => { if (window.innerWidth <= 850 && inspector.classList.contains('open') && !inspector.contains(e.target) && e.target.id !== 'openTree') setInspectorOpen(false); });
       window.addEventListener('resize', () => { syncInspectorMode(); fitTerminal(); });
 
-      addLine('<span class="fn-token">Sheldon 0.8</span> <span class="oid-token">// local pub/sub · (options.oid, data)</span>');
-      addLine('Everything starts as a <span class="type-token">local OID stream</span>: values, files, model tokens, transcripts, stdin, and stdout.');
-      addLine('Attach a transport only to go global: <span class="fn-token">SheldonTTY.pipe(stream)</span> or <span class="fn-token">SheldonPubSub.attachTransport(link)</span>.', 'dim');
-      addLine('Run <span class="fn-token">llm attach</span> for SmolLM2 (WebGPU → WASM CPU), or <span class="fn-token">gpu diag</span> to inspect this frame.', 'dim');
-      addLine('Use <span class="fn-token">dictate start</span> (or the mic control) to publish speech into the current terminal line.', 'dim');
-      addLine('Every tool is an SMI node under <span class="oid-token">local.tools</span>; inspect <span class="fn-token">show local.tools.smolLM2</span>.', 'dim');
-      addLine('Run <span class="fn-token">edit scratch.js</span>; files at <span class="oid-token">local.files.*</span> converge across open views.', 'dim');
+      addLine('<span class="fn-token">Sheldon 0.9</span> <span class="oid-token">// direct context REPL over a local stream</span>');
+      addLine('Type <span class="fn-token">.</span> then <span class="fn-token">Tab</span> to traverse <span class="type-token">Sheldon.context</span> one property at a time.');
+      addLine('Paths execute directly: <span class="fn-token">local.math.add 2 3</span> or <span class="fn-token">local.text.upper "hello"</span>.');
+      addLine('The context holds the actual TTY streams at <span class="oid-token">io.stdin</span> and <span class="oid-token">io.stdout</span>; dot-Tab into either endpoint.', 'dim');
+      addLine('Wrap any object or function with <span class="fn-token">Sheldon.wrap(path, value)</span>; the REPL sees it immediately.', 'dim');
+      addLine('OID typing, pub/sub, the TTY editor, microphone, and SmolLM2 remain available through the same context.', 'dim');
+      addLine('Run <span class="fn-token">llm attach</span>, <span class="fn-token">edit scratch.js</span>, or <span class="fn-token">help</span> for the extended tools.', 'dim');
       addText('');
       renderTree(); updatePrompt(); syncInspectorMode(); updatePeerLabel(); fitTerminal(); writePrompt(); term.focus();
       sessionBus.publish({ oid: 'local.session.hello' }, {});
