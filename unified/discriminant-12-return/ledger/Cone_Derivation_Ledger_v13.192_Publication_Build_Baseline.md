@@ -16,7 +16,9 @@ A publication-working copy has been created as:
 The only intentional source-level change from v0.3.1 is the addition
 
 ```tex
+{% raw %}
 \graphicspath{{../figures/}}
+{% endraw %}
 ```
 
 so that the paper can resolve figure assets stored in the sibling `figures/` directory when compiled from `papers/`.
