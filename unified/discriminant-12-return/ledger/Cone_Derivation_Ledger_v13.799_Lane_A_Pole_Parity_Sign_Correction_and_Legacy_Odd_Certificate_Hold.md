@@ -79,14 +79,18 @@ The older odd-sector \(+2dd^T\) convention is incorrect.
 
 Representative checks from the source-faithful direct form are
 \[
+{% raw %}
 A_{{\rm pole},11}
+{% endraw %}
 =
 +3.3990095309706886781456965\ldots
 =
 2c_1^2,
 \]
 \[
+{% raw %}
 A_{{\rm pole},22}
+{% endraw %}
 =
 -0.2093615780898617975648995\ldots
 =
@@ -94,7 +98,9 @@ A_{{\rm pole},22}
 \]
 and
 \[
+{% raw %}
 A_{{\rm pole},24}
+{% endraw %}
 =
 -0.1066569712469395458530105\ldots
 =
