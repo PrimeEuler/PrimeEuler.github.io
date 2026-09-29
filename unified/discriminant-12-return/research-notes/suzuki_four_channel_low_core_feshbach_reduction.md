@@ -9,7 +9,9 @@ Status: analytic consequence of the certified tail spectrum; no claim about the 
 Fix one parity sector and write the positive smooth tail metric as
 
 \[
+{% raw %}
 B_T=B_{{\rm sm},T}>0,
+{% endraw %}
 \]
 
 and the tail generalized operator as
