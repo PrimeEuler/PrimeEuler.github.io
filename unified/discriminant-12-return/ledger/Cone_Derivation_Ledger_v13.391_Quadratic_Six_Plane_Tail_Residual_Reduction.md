@@ -67,7 +67,9 @@ A_{0,TT}\succeq4.6732I,
 Therefore **[N-cert, conditional on the v13.362/v13.365 validation model]**
 
 \[
+{% raw %}
 T_{{\rm eff},0}
+{% endraw %}
 \succeq
 \left(4.6732-\frac{0.994^2}{0.22}\right)I
 \]
