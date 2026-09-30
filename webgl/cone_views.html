@@ -34,7 +34,9 @@
     cube   - cube inscribed in the unit sphere, vertices (+-1,+-1,+-1)/sqrt(3)
     stella - stella octangula: tetrahedron T (even-parity vertices, blue)
              + dual Td (odd-parity vertices, orange)
-    ladder - spin ladder for integer J: m-rings on the cone at z = m/J
+    ladder - spin ladder for integer J: rung m is the circle of the unit sphere
+           in the plane x = m/J (ladder axis = X, AM), perpendicular to the
+           SU(2) circle; degenerates to (+/-1,0,0) at m = +/-J
              with radius 1-|z|; m = 0 coincides with the SU(2) circle;
              m = +-J are dots at the apices.
 
@@ -243,11 +245,23 @@ function buildStella() {
     return grp;
 }
 function buildLadder(J) {
+// Spin ladder: rungs stack along the ladder axis X (AM, quantization axis),
+// NOT along the cone axis. Rung m is the circle of the unit SPHERE in the
+// plane x = m/J, radius sqrt(1-(m/J)^2) — perpendicular to the SU(2) circle
+// (crosses it at right angles), degenerating to the antipodal points
+// (+/-1,0,0) on the SU(2) circle itself at m = +/-J.
     const grp = new THREE.Group();
     for (let m = -J; m <= J; m++) {
-        const z = m / J, r = 1 - Math.abs(z);
-        if (r < 1e-9) grp.add(dots([[0,0,z]], 0xc1121f, 7));
-        else grp.add(lineLoop(circlePts(r, z, 96), 0xc1121f, 0.95));
+        const x = m / J, r = Math.sqrt(Math.max(0, 1 - x*x));
+        if (r < 1e-9) grp.add(dots([[x,0,0]], 0xc1121f, 7));
+        else {
+            const pts = [];
+            for (let i = 0; i < 96; i++) {
+                const a = (i/96)*Math.PI*2;
+                pts.push([x, r*Math.cos(a), r*Math.sin(a)]);
+            }
+            grp.add(lineLoop(pts, 0xc1121f, 0.95));
+        }
     }
     return grp;
 }
