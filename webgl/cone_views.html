@@ -37,7 +37,13 @@
     ladder - spin ladder for integer J: rung m is the circle of the unit sphere
            in the plane x = m/J (ladder axis = X, AM), perpendicular to the
            SU(2) circle; degenerates to (+/-1,0,0) at m = +/-J
-             with radius 1-|z|; m = 0 coincides with the SU(2) circle;
+    parabolas - D12 divisor-pair parabolas on the cone, from
+             discriminant12_mod12_v4_cone_triple.py ("3D Cone" panel):
+             Y^2 = k(2T-k), i.e. T = (k^2+Y^2)/2k, X = +/-(k-T), k = 1..12.
+             D12 (X,Y,T) -> viewer (X,Y,1-T): D12 apex -> north pole,
+             D12 unit circle (T=1) -> SU(2) circle. k=1 (u=1) emphasized;
+             drawn for T in [k/2, 2]: on the cone inside the sphere for
+             T<=1, flaring beyond it for T>1 (as in the original).
              m = +-J are dots at the apices.
 
   Four view presets (orthographic camera, so these are true projections):
@@ -89,7 +95,7 @@
         <button id="v3d"   onclick="setView('v3d')">3D</button><button id="veq" onclick="setView('veq')">EQUATOR</button><button id="vbd" onclick="setView('vbd')">BODY-DIAG</button><button id="vcone" onclick="setView('vcone')">CONE</button>
     </div>
     <div class="row" id="layers">
-        <label><input type="checkbox" id="l_shell" checked onchange="applyLayers()">shell</label><label><input type="checkbox" id="l_cone" checked onchange="applyLayers()">cone</label><label><input type="checkbox" id="l_su2" checked onchange="applyLayers()">su2</label><label><input type="checkbox" id="l_cube" checked onchange="applyLayers()">cube</label><label><input type="checkbox" id="l_stella" checked onchange="applyLayers()">stella</label><label><input type="checkbox" id="l_ladder" checked onchange="applyLayers()">ladder</label>
+        <label><input type="checkbox" id="l_shell" checked onchange="applyLayers()">shell</label><label><input type="checkbox" id="l_cone" checked onchange="applyLayers()">cone</label><label><input type="checkbox" id="l_su2" checked onchange="applyLayers()">su2</label><label><input type="checkbox" id="l_cube" checked onchange="applyLayers()">cube</label><label><input type="checkbox" id="l_stella" checked onchange="applyLayers()">stella</label><label><input type="checkbox" id="l_ladder" checked onchange="applyLayers()">ladder</label><label><input type="checkbox" id="l_parabolas" checked onchange="applyLayers()">parabolas</label>
     </div>
 </div>
 
@@ -99,6 +105,7 @@
     <div><span class="chip" style="background:#d97706;"></span>dual tetrahedron T&prime;</div>
     <div><span class="chip" style="background:#8a8a8a;"></span>cube</div>
     <div><span class="chip" style="background:#c1121f;"></span>spin ladder (m-rings)</div>
+    <div><span class="chip" style="background:#2f6fb0;"></span>divisor parabolas (D12)</div>
     <div style="margin-top:4px;color:#888;">drag = rotate &middot; wheel = zoom</div>
 </div>
 
@@ -266,12 +273,51 @@ function buildLadder(J) {
     return grp;
 }
 
+/* D12 divisor-pair parabolas on the cone.
+   From discriminant12_mod12_v4_cone_triple.py ("3D Cone" panel): on the D12
+   cone T^2 = X^2 + Y^2, the factor-pair curves Y^2 = k(2T-k), i.e.
+   T = (k^2+Y^2)/2k, drawn with X = +/-(k-T) (4 branches per k).
+   k=1 (u=1) is the emphasized T=(1+Y^2)/2 parabola; k=2..12 faint.
+   Mapped to viewer coords via (X,Y,T) -> (X,Y,1-T): the D12 apex (T=0)
+   goes to the north pole and the D12 unit circle (T=1) to the SU(2)
+   circle, so the curves lie on the viewer's cone. T in [k/2, 2]: inside
+   the sphere for T<=1, flaring beyond it for T>1 (as in the original,
+   whose frame runs to T=6). k>=4 start at T>=2, outside this frame. */
+function buildParabolas() {
+    const grp = new THREE.Group();
+    const T_MAX = 2, SEG = 120, BLUE = 0x2f6fb0;
+    function branch(k, sx, sy, opacity) {
+        const T0 = k / 2;
+        if (T0 >= T_MAX) return null;
+        const pts = [];
+        for (let i = 0; i <= SEG; i++) {
+            const T = T0 + (T_MAX - T0) * (i / SEG);
+            const Y = sy * Math.sqrt(k * (2 * T - k));
+            const X = sx * (k - T);
+            pts.push([X, Y, 1 - T]);
+        }
+        const g = new THREE.BufferGeometry().setFromPoints(
+            pts.map(p => new THREE.Vector3(p[0], p[1], p[2])));
+        return new THREE.Line(g, new THREE.LineBasicMaterial(
+            { color: BLUE, transparent: true, opacity }));
+    }
+    for (let k = 2; k <= 12; k++)
+        for (const sx of [1, -1]) for (const sy of [1, -1]) {
+            const b = branch(k, sx, sy, 0.22);
+            if (b) grp.add(b);
+        }
+    for (const sx of [1, -1]) for (const sy of [1, -1])
+        grp.add(branch(1, sx, sy, 0.85));
+    return grp;
+}
+
 layers.shell  = buildShell();
 layers.cone   = buildCone();
 layers.su2    = buildSU2();
 layers.cube   = buildCube();
 layers.stella = buildStella();
 layers.ladder = buildLadder(2);
+layers.parabolas = buildParabolas();
 for (const k in layers) world.add(layers[k]);
 
 /* ---------------- views, layers, interaction (early-model idioms) -------- */
@@ -283,10 +329,10 @@ const DIRS = {
 };
 // suggested layer masks per view (checkboxes stay user-overridable)
 const MASKS = {
-    v3d:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false },
-    veq:   { shell:false, cone:false, su2:true,  cube:true,  stella:true,  ladder:false },
-    vbd:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false },
-    vcone: { shell:true,  cone:true,  su2:true,  cube:true,  stella:true,  ladder:true  },
+    v3d:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
+    veq:   { shell:false, cone:false, su2:true,  cube:true,  stella:true,  ladder:false, parabolas:false },
+    vbd:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
+    vcone: { shell:true,  cone:true,  su2:true,  cube:true,  stella:true,  ladder:true,  parabolas:true  },
 };
 function setView(v) {
     const d = DIRS[v];
