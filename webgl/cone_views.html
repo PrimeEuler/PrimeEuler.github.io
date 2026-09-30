@@ -337,13 +337,13 @@ const MASKS = {
     v3d:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
     veq:   { shell:false, cone:false, su2:true,  cube:true,  stella:true,  ladder:false, parabolas:false },
     vbd:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
-    vcone: { shell:true,  cone:true,  su2:true,  cube:true,  stella:true,  ladder:true,  parabolas:true  },
+    vcone: { shell:false, cone:true,  su2:true,  cube:false, stella:false, ladder:false, parabolas:false },
 };
 function setView(v) {
     const d = DIRS[v];
     camera.position.set(d[0]*10, d[1]*10, d[2]*10);
     camera.lookAt(0, 0, 0);
-    camera.zoom = (v === 'veq' || v === 'vbd') ? 1.15 : (v === 'vcone' ? 0.6 : 1.0);
+    camera.zoom = (v === 'veq' || v === 'vbd') ? 1.15 : 1.0;
     camera.updateProjectionMatrix();
     const mask = MASKS[v];
     for (const k in mask) document.getElementById('l_'+k).checked = mask[k];
