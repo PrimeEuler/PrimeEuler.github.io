@@ -284,8 +284,14 @@ function buildLadder(J) {
    the sphere for T<=1, flaring beyond it for T>1 (as in the original,
    whose frame runs to T=6). k>=4 start at T>=2, outside this frame. */
 function buildParabolas() {
+    // Divisor-pair parabolas from the "3D Cone" panel of
+    // discriminant12_mod12_v4_cone_triple.py:
+    //   Y^2 = k(2T-k), T = (k^2+Y^2)/2k, X = +/-(k-T), k = 1..12, T in [k/2,6].
+    // k = 1 (u = 1) emphasized blue (alpha .85); k = 2..12 faint blue mesh
+    // (alpha .22).  Mapped D12 (X,Y,T) -> viewer (X,Y,1-T): D12 apex T=0 ->
+    // north pole, D12 unit circle T=1 -> SU(2) circle.  X^2+Y^2 = T^2 on cone.
     const grp = new THREE.Group();
-    const T_MAX = 2, SEG = 120, BLUE = 0x2f6fb0;
+    const T_MAX = 6, SEG = 150, BLUE = 0x2f6fb0;
     function branch(k, sx, sy, opacity) {
         const T0 = k / 2;
         if (T0 >= T_MAX) return null;
@@ -294,10 +300,9 @@ function buildParabolas() {
             const T = T0 + (T_MAX - T0) * (i / SEG);
             const Y = sy * Math.sqrt(k * (2 * T - k));
             const X = sx * (k - T);
-            pts.push([X, Y, 1 - T]);
+            pts.push(new THREE.Vector3(X, Y, 1 - T));
         }
-        const g = new THREE.BufferGeometry().setFromPoints(
-            pts.map(p => new THREE.Vector3(p[0], p[1], p[2])));
+        const g = new THREE.BufferGeometry().setFromPoints(pts);
         return new THREE.Line(g, new THREE.LineBasicMaterial(
             { color: BLUE, transparent: true, opacity }));
     }
@@ -338,7 +343,7 @@ function setView(v) {
     const d = DIRS[v];
     camera.position.set(d[0]*10, d[1]*10, d[2]*10);
     camera.lookAt(0, 0, 0);
-    camera.zoom = (v === 'veq' || v === 'vbd') ? 1.15 : 1.0;
+    camera.zoom = (v === 'veq' || v === 'vbd') ? 1.15 : (v === 'vcone' ? 0.6 : 1.0);
     camera.updateProjectionMatrix();
     const mask = MASKS[v];
     for (const k in mask) document.getElementById('l_'+k).checked = mask[k];
