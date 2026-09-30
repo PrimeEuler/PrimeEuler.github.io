@@ -291,11 +291,12 @@ function buildParabolas() {
     // viewer (X/6, Y/6, 1-T/6).  D12 apex T=0 -> north pole; D12 T=6 ->
     // SU(2) circle (z=0).  The mesh ends at the shared base.  X^2+Y^2=T^2
     // is scale-invariant, so curves stay on the cone.
-    // k = 1 (u = 1) emphasized blue (alpha .85); k = 2..12 faint blue mesh
-    // (alpha .22).
+    // Rendered as tubes (real thickness; WebGL lines are 1px) in bright blue.
+    // k = 1 emphasized (radius .007, opacity 1); k = 2..12 faint mesh
+    // (radius .0035, opacity .55).
     const grp = new THREE.Group();
-    const T_MAX = 6, SEG = 120, BLUE = 0x2f6fb0, S = 1/6;
-    function branch(k, sx, sy, opacity) {
+    const T_MAX = 6, SEG = 120, S = 1/6, BLUE = 0x4da6ff;
+    function branch(k, sx, sy, radius, opacity) {
         const T0 = k / 2;
         if (T0 >= T_MAX) return null;
         const pts = [];
@@ -305,17 +306,19 @@ function buildParabolas() {
             const X = sx * (k - T);
             pts.push(new THREE.Vector3(S*X, S*Y, 1 - S*T));
         }
-        const g = new THREE.BufferGeometry().setFromPoints(pts);
-        return new THREE.Line(g, new THREE.LineBasicMaterial(
-            { color: BLUE, transparent: true, opacity }));
+        const curve = new THREE.CatmullRomCurve3(pts);
+        const geo = new THREE.TubeGeometry(curve, SEG, radius, 6, false);
+        const mat = new THREE.MeshBasicMaterial(
+            { color: BLUE, transparent: true, opacity });
+        return new THREE.Mesh(geo, mat);
     }
     for (let k = 2; k <= 12; k++)
         for (const sx of [1, -1]) for (const sy of [1, -1]) {
-            const b = branch(k, sx, sy, 0.22);
+            const b = branch(k, sx, sy, 0.0035, 0.55);
             if (b) grp.add(b);
         }
     for (const sx of [1, -1]) for (const sy of [1, -1])
-        grp.add(branch(1, sx, sy, 0.85));
+        grp.add(branch(1, sx, sy, 0.007, 1.0));
     return grp;
 }
 
@@ -340,7 +343,7 @@ const MASKS = {
     v3d:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
     veq:   { shell:false, cone:false, su2:true,  cube:true,  stella:true,  ladder:false, parabolas:false },
     vbd:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
-    vcone: { shell:false, cone:true,  su2:true,  cube:false, stella:false, ladder:false, parabolas:true  },
+    vcone: { shell:false, cone:false, su2:true,  cube:false, stella:false, ladder:false, parabolas:true  },
 };
 function setView(v) {
     const d = DIRS[v];
