@@ -287,11 +287,14 @@ function buildParabolas() {
     // Divisor-pair parabolas from the "3D Cone" panel of
     // discriminant12_mod12_v4_cone_triple.py:
     //   Y^2 = k(2T-k), T = (k^2+Y^2)/2k, X = +/-(k-T), k = 1..12, T in [k/2,6].
+    // Scaled down by 1/6 to fit the unit double cone: D12 (X,Y,T) ->
+    // viewer (X/6, Y/6, 1-T/6).  D12 apex T=0 -> north pole; D12 T=6 ->
+    // SU(2) circle (z=0).  The mesh ends at the shared base.  X^2+Y^2=T^2
+    // is scale-invariant, so curves stay on the cone.
     // k = 1 (u = 1) emphasized blue (alpha .85); k = 2..12 faint blue mesh
-    // (alpha .22).  Mapped D12 (X,Y,T) -> viewer (X,Y,1-T): D12 apex T=0 ->
-    // north pole, D12 unit circle T=1 -> SU(2) circle.  X^2+Y^2 = T^2 on cone.
+    // (alpha .22).
     const grp = new THREE.Group();
-    const T_MAX = 6, SEG = 150, BLUE = 0x2f6fb0;
+    const T_MAX = 6, SEG = 120, BLUE = 0x2f6fb0, S = 1/6;
     function branch(k, sx, sy, opacity) {
         const T0 = k / 2;
         if (T0 >= T_MAX) return null;
@@ -300,7 +303,7 @@ function buildParabolas() {
             const T = T0 + (T_MAX - T0) * (i / SEG);
             const Y = sy * Math.sqrt(k * (2 * T - k));
             const X = sx * (k - T);
-            pts.push(new THREE.Vector3(X, Y, 1 - T));
+            pts.push(new THREE.Vector3(S*X, S*Y, 1 - S*T));
         }
         const g = new THREE.BufferGeometry().setFromPoints(pts);
         return new THREE.Line(g, new THREE.LineBasicMaterial(
@@ -337,7 +340,7 @@ const MASKS = {
     v3d:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
     veq:   { shell:false, cone:false, su2:true,  cube:true,  stella:true,  ladder:false, parabolas:false },
     vbd:   { shell:false, cone:false, su2:false, cube:true,  stella:true,  ladder:false, parabolas:false },
-    vcone: { shell:false, cone:true,  su2:true,  cube:false, stella:false, ladder:false, parabolas:false },
+    vcone: { shell:false, cone:true,  su2:true,  cube:false, stella:false, ladder:false, parabolas:true  },
 };
 function setView(v) {
     const d = DIRS[v];
