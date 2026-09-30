@@ -294,8 +294,8 @@ function buildParabolas() {
     // Mirrored across the SU(2) plane (z=0): every upper-cone curve gets a
     // lower-cone twin (x,y,-z), so both cones carry the mesh.
     // Rendered as tubes (real thickness; WebGL lines are 1px) in bright blue.
-    // k = 1 emphasized (radius .007, opacity 1); k = 2..12 faint mesh
-    // (radius .0035, opacity .55).
+    // k = 1 emphasized (radius .015, opacity 1); k = 2..12 faint mesh
+    // (radius .008, opacity .55).
     const grp = new THREE.Group();
     const T_MAX = 6, SEG = 120, S = 1/6, BLUE = 0x4da6ff;
     function branch(k, sx, sy, radius, opacity) {
@@ -322,11 +322,11 @@ function buildParabolas() {
     }
     for (let k = 2; k <= 12; k++)
         for (const sx of [1, -1]) for (const sy of [1, -1]) {
-            const b = branch(k, sx, sy, 0.0035, 0.55);
+            const b = branch(k, sx, sy, 0.008, 0.55);
             if (b) grp.add(b);
         }
     for (const sx of [1, -1]) for (const sy of [1, -1])
-        grp.add(branch(1, sx, sy, 0.007, 1.0));
+        grp.add(branch(1, sx, sy, 0.015, 1.0));
     return grp;
 }
 
