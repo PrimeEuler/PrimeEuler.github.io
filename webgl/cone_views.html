@@ -291,6 +291,8 @@ function buildParabolas() {
     // viewer (X/6, Y/6, 1-T/6).  D12 apex T=0 -> north pole; D12 T=6 ->
     // SU(2) circle (z=0).  The mesh ends at the shared base.  X^2+Y^2=T^2
     // is scale-invariant, so curves stay on the cone.
+    // Mirrored across the SU(2) plane (z=0): every upper-cone curve gets a
+    // lower-cone twin (x,y,-z), so both cones carry the mesh.
     // Rendered as tubes (real thickness; WebGL lines are 1px) in bright blue.
     // k = 1 emphasized (radius .007, opacity 1); k = 2..12 faint mesh
     // (radius .0035, opacity .55).
@@ -299,18 +301,24 @@ function buildParabolas() {
     function branch(k, sx, sy, radius, opacity) {
         const T0 = k / 2;
         if (T0 >= T_MAX) return null;
-        const pts = [];
+        const ptsU = [], ptsL = [];
         for (let i = 0; i <= SEG; i++) {
             const T = T0 + (T_MAX - T0) * (i / SEG);
             const Y = sy * Math.sqrt(k * (2 * T - k));
             const X = sx * (k - T);
-            pts.push(new THREE.Vector3(S*X, S*Y, 1 - S*T));
+            const x = S*X, y = S*Y, z = 1 - S*T;
+            ptsU.push(new THREE.Vector3(x, y, z));
+            ptsL.push(new THREE.Vector3(x, y, -z));
         }
-        const curve = new THREE.CatmullRomCurve3(pts);
-        const geo = new THREE.TubeGeometry(curve, SEG, radius, 6, false);
-        const mat = new THREE.MeshBasicMaterial(
-            { color: BLUE, transparent: true, opacity });
-        return new THREE.Mesh(geo, mat);
+        const bg = new THREE.Group();
+        for (const pts of [ptsU, ptsL]) {
+            const curve = new THREE.CatmullRomCurve3(pts);
+            const geo = new THREE.TubeGeometry(curve, SEG, radius, 6, false);
+            const mat = new THREE.MeshBasicMaterial(
+                { color: BLUE, transparent: true, opacity });
+            bg.add(new THREE.Mesh(geo, mat));
+        }
+        return bg;
     }
     for (let k = 2; k <= 12; k++)
         for (const sx of [1, -1]) for (const sy of [1, -1]) {
