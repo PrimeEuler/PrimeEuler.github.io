@@ -1,4 +1,4 @@
-# Cone Derivation Ledger v13.918 — Sandbox: Common Shell Measure, Möbius Deconvolution, and the Prime–Theta Measure Bridge
+# Cone Derivation Ledger v13.919 — Sandbox: Common Shell Measure, Möbius Deconvolution, and the Prime–Theta Measure Bridge
 
 **Date:** 2026-10-01
 **Track:** Sandbox / compression-cone zero-ordinate lane
@@ -6,6 +6,15 @@
 **Authorization:** Jeremy, 2026-10-01 ("lets continue")
 **Parents:** v13.715–717 (prime-archimedean and theta currents), v13.722 (pure Xi kernel), v13.767 (norm-line group-algebra action), v13.895 (Lambda as log-lcm jump), v13.917 (fixed-locus heat-trace resonance bridge)
 **Current live predecessor:** v13.917. Collision check performed immediately before write.
+
+**Renumbering note (External Audit Round 136):** this entry was originally
+pushed as `v13.918` (commit `8deebdc`, 2026-10-01 17:13:54 -0400), colliding
+with the erratum to v13.906 (commit `caca0f3`, 2026-10-01 17:13:01 -0400,
+the earlier of the two pushes), which also claimed `v13.918`. Per the
+standing collision rule (earlier commit by timestamp keeps the contested
+number), the erratum keeps `v13.918` and this entry is renumbered to
+`v13.919`. No content below was changed other than the version number in
+this header and the self-references in the text.
 
 ---
 
