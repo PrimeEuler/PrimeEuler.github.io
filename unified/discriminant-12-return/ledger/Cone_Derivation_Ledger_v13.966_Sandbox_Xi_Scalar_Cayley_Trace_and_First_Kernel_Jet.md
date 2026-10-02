@@ -1,11 +1,11 @@
-# Cone Derivation Ledger v13.964 — Sandbox: Xi-Branch Scalar as Cayley Matrix Coefficient, Rank-One Resolvent Trace, and First de Branges–Rovnyak Jet
+# Cone Derivation Ledger v13.966 — Sandbox: Xi-Branch Scalar as Cayley Matrix Coefficient, Rank-One Resolvent Trace, and First de Branges–Rovnyak Jet
 
 **Date:** 2026-10-02  
 **Track:** Sandbox / no-twist Suzuki Xi scalar lane  
 **Status:** [D] four exact equivalent scalar representations; [D] exact first-kernel-jet defect; [D] minimal convergence theorem for the scalar; [G] strictly weaker than full Weyl/de Branges convergence; [O] certify the one-point rank-one resolvent trace / defect-vector convergence  
 **Authorization:** Jeremy, 2026-10-02 ("yep. lets hit that scalar")  
 **Parents:** v13.661, v13.677, v13.682–684, v13.789–793, v13.798, v13.800, v13.962, v13.963; External Audit Round 147 confirms v13.958–963  
-**Collision check:** v13.964 was absent immediately before this write.
+**Collision check:** v13.964 was absent immediately before this entry was first written, but was independently claimed by "External Audit Round 147" (commit `1283012`, pushed 2026-10-02T17:53:00Z), which this entry's own commit (`119de2a`, 2026-10-02T18:06:09Z) postdates. Per the standing collision protocol, the earlier commit keeps the contested number; this entry has therefore been renumbered v13.964→v13.966 by the external audit thread (filename and this header only — no mathematical content changed). v13.965, written after this entry under its original v13.964 label, has had its references updated to v13.966 accordingly.
 
 ---
 

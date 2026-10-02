@@ -4,15 +4,15 @@
 **Track:** Sandbox / no-twist Suzuki Xi scalar lane  
 **Status:** [D] exact centered spectral-shift formula for the scalar; [D] exact real-axis sign-phase formula; [D] uniform \(O(T^{-2})\) truncation bound from odd symmetry; [D] finite interlacing sum formula under the observed simple/interlacing regime; [N] independent 19-interval Xi-target check with rigorous phase-tail enclosure; [O] prove local convergence of the finite fixed-pair sign/interlacing pattern  
 **Authorization:** Jeremy, 2026-10-02 ("yep. lets hit that scalar")  
-**Parents:** v13.661, v13.684, v13.791–793, v13.964  
+**Parents:** v13.661, v13.684, v13.791–793, v13.966  
 **Research artifact:** \`research-notes/xi_scalar_spectral_shift_check.py\`, commit \`3c57914e77057f17900c445b6412e0d50669adb6\`  
-**Collision check:** v13.965 was absent immediately before this write.
+**Collision check:** v13.965 was absent immediately before this write. Note: this entry's parent was originally written and labeled v13.964; that entry was renumbered to v13.966 by the external audit thread to resolve a collision with "External Audit Round 147" (see that entry's header). References below have been updated accordingly.
 
 ---
 
 ## 0. Goal
 
-v13.964 reduced the no-twist Xi scalar to the one-point rank-one resolvent trace
+v13.966 reduced the no-twist Xi scalar to the one-point rank-one resolvent trace
 
 \[
 \boxed{
@@ -61,7 +61,7 @@ m_a(i)=i,
 \Delta_a(i)=1.
 \]
 
-From v13.964,
+From v13.966,
 
 \[
 \boxed{
