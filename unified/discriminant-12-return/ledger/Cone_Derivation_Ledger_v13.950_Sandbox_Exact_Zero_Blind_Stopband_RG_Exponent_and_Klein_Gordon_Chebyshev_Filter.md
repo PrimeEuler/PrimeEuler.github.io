@@ -597,11 +597,11 @@ This proves (3).
 From (17),
 
 \[
-A\Omega
+\log\cosh(A\Omega)
 \le
 -\log\bar q_\Omega(A)
 \le
-\log\cosh(A\Omega).
+A\Omega.
 \]
 
 Since
