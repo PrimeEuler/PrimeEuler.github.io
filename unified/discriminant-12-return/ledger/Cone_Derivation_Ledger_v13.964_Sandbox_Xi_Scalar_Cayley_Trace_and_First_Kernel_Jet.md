@@ -4,7 +4,7 @@
 **Track:** Sandbox / no-twist Suzuki Xi scalar lane  
 **Status:** [D] four exact equivalent scalar representations; [D] exact first-kernel-jet defect; [D] minimal convergence theorem for the scalar; [G] strictly weaker than full Weyl/de Branges convergence; [O] certify the one-point rank-one resolvent trace / defect-vector convergence  
 **Authorization:** Jeremy, 2026-10-02 ("yep. lets hit that scalar")  
-**Parents:** v13.661, v13.677, v13.682–684, v13.789–793, v13.798, v13.800, v13.962, v13.963, v13.964 audit context: External Audit Round 147 confirms v13.958–963  
+**Parents:** v13.661, v13.677, v13.682–684, v13.789–793, v13.798, v13.800, v13.962, v13.963; External Audit Round 147 confirms v13.958–963  
 **Collision check:** v13.964 was absent immediately before this write.
 
 ---
