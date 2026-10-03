@@ -1,0 +1,124 @@
+{
+  "sector": "even-v",
+  "parent": "v13.982 KKT payload (same G_B-normalized Zc)",
+  "Theta_diag": [
+    1.4498519403470964e-15,
+    1.6392145418719747e-12,
+    7.19202237865838e-08,
+    0.0002867632372280809
+  ],
+  "S_Frobenius": 0.0002322901928643592,
+  "K_eff": [
+    [
+      4.056482802701905e-16,
+      1.2979132540390057e-16
+    ],
+    [
+      1.3122375125956592e-13,
+      2.898113050319633e-13
+    ],
+    [
+      3.305173303435688e-09,
+      9.23865674529175e-09
+    ],
+    [
+      7.839455039867271e-06,
+      2.3190230234041396e-05
+    ]
+  ],
+  "J_eff_diag": [
+    1.4498515172257452e-15,
+    1.6391415562102397e-12,
+    7.191760148479563e-08,
+    0.0002867532627508014
+  ],
+  "s_eff": [
+    -0.13499941100538118,
+    0.26836379109619507,
+    0.6610298219524945,
+    0.972457766952802
+  ],
+  "finite_saddle_residuals": [
+    [
+      3.4076904563850646e-25,
+      5.18777728458239e-26
+    ],
+    [
+      1.4080383408325498e-22,
+      1.4963736878897636e-23
+    ],
+    [
+      2.6528183538022625e-20,
+      4.802638248359388e-21
+    ],
+    [
+      1.6811388819019281e-18,
+      2.9211790431282146e-19
+    ]
+  ],
+  "payloads": {
+    "X_R": {
+      "path": "p4_payload_kkt_residual_cross/even-v/X_R.npy",
+      "dtype": "float64",
+      "shape": [
+        7999,
+        4
+      ],
+      "sha256": "132c82042908555e87d5b127ce4b360da5eef321e09f6f2fbf34ac4361668f08"
+    },
+    "saddle_lamR": {
+      "path": "p4_payload_kkt_residual_cross/even-v/saddle_lamR.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        4
+      ],
+      "sha256": "6ac93d99bfc3ca0a4a42196b2f074a970b4526928b0d2ade1f4defac0919661b"
+    },
+    "S": {
+      "path": "p4_payload_kkt_residual_cross/even-v/S.npy",
+      "dtype": "float64",
+      "shape": [
+        7999,
+        4
+      ],
+      "sha256": "9a23ce0065d3e0c1f3450113982364e4909432a6514e6c401b676c6e2ab6b8bb"
+    },
+    "Theta": {
+      "path": "p4_payload_kkt_residual_cross/even-v/Theta.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        4
+      ],
+      "sha256": "a96aa2cdc83b943993228ae9e0972d795d110561c38dbd936bf0c6f480de4da4"
+    },
+    "K_eff": {
+      "path": "p4_payload_kkt_residual_cross/even-v/K_eff.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        2
+      ],
+      "sha256": "1dd9e7125cbafe461c1718ef87890cc6eec7a654729f4f983cece7053ac6d01e"
+    },
+    "J_eff": {
+      "path": "p4_payload_kkt_residual_cross/even-v/J_eff.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        4
+      ],
+      "sha256": "16cab7bdcb32565bdb7f66a04fdcb51b8f98a7cbba4d39eecb67400c3908135e"
+    },
+    "s_eff": {
+      "path": "p4_payload_kkt_residual_cross/even-v/s_eff.npy",
+      "dtype": "float64",
+      "shape": [
+        4
+      ],
+      "sha256": "1cce33cc94aece75d35b159d85136b75e877f0fa9deba22ed08049f116041273"
+    }
+  },
+  "note": "Finite saddle residual, remote-tail, arithmetic, transformed-total kept separate."
+}
