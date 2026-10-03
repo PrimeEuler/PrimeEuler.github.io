@@ -58,8 +58,8 @@ KKTROOT = HERE / "p4_payload_kkt"
 
 # Certified arbitrary-carrier complement inverse caps, v13.979.
 DINV_CAP = {
-    "even-v": 10.153,
-    "odd-v": 10.303,
+    "even-v": 10.152566,
+    "odd-v": 10.302509,
 }
 
 # Certified transformed core/tail coupling caps inherited by v13.971/v13.981.
@@ -68,13 +68,11 @@ C_CAP = {
     "odd-v": 0.204,
 }
 
-# Safe certified Ritz-residual operator caps.  These deliberately use the
-# older public transformed-residual caps from the P4 certificate rather than
-# the smaller later diagnostics, so the theorem does not depend on an
-# unstated sharpened constant.
+# Certified arbitrary-carrier Ritz-residual cross-block caps from v13.979.
+# These are the public constants used in its numerical-complement theorem.
 RHO_CAP = {
-    "even-v": 0.0331,
-    "odd-v": 0.0323,
+    "even-v": 0.00580,
+    "odd-v": 0.00880,
 }
 
 # Crude analytic transformed-source norm caps from v13.981.
