@@ -248,12 +248,27 @@ def assemble_nominal(sector, d):
     S = AZ - d["BZ"] @ theta
 
     HChat = ACC - R.T @ XC
-    Keff = Z.T @ R - XR.T @ R
+
+    # Self-adjoint reciprocity:
+    #   X_R^T R = S^T X_C = K^* D^{-1} C_Q.
+    # Use S^T X_C as the primary assembly path; X_R^T R is retained as
+    # an independent payload replay check.
+    cross_core_a = S.T @ XC
+    cross_core_b = XR.T @ R
+    reciprocity_core = float(np.linalg.norm(cross_core_a - cross_core_b, 2))
+    Keff = Z.T @ R - cross_core_a
+
+    # The carrier self-energy is the one genuinely new X_R-dependent block.
     Jeff = theta - S.T @ XR
 
+    # Likewise the lower source correction is available already from x_f:
+    #   S^T x_f = X_R^T f_T.
+    source_corr_a = S.T @ xf
+    source_corr_b = XR.T @ fT
+    reciprocity_source = float(np.linalg.norm(source_corr_a - source_corr_b))
     f6 = np.concatenate([
         fC - R.T @ xf,
-        Z.T @ fT - S.T @ xf,
+        Z.T @ fT - source_corr_a,
     ])
     hreg = float(fT @ xf)
 
@@ -273,6 +288,8 @@ def assemble_nominal(sector, d):
         XC=XC,
         xf=xf,
         theta=theta,
+        reciprocity_core=reciprocity_core,
+        reciprocity_source=reciprocity_source,
     )
 
 
@@ -340,6 +357,8 @@ def interval_one_sector(sector):
         nominal_energy=Ehat,
         nominal_reduced=qhat,
         nominal_background=hreg,
+        reciprocity_core=nom["reciprocity_core"],
+        reciprocity_source=nom["reciprocity_source"],
         Delta_C=Delta_C,
         Delta_R=Delta_R,
         delta_f=df,
