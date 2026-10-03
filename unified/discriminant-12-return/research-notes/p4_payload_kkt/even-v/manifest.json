@@ -1,0 +1,141 @@
+{
+  "sector": "even-v",
+  "parent": "v13.974 frozen Z (not rotated; G_B correction applied)",
+  "G_B_eig": [
+    0.9999999999999856,
+    0.9999999999999895,
+    1.0000000000000078,
+    1.0000000000000648
+  ],
+  "G_B_defect": 6.434241751694905e-14,
+  "K0": [
+    [
+      2.40263957663216e-14,
+      7.229908701711863e-14
+    ],
+    [
+      -9.721036063378118e-12,
+      -2.9814010996962554e-11
+    ],
+    [
+      1.4373617648568494e-09,
+      3.5315172113114705e-09
+    ],
+    [
+      7.724256651487708e-06,
+      2.283823914128661e-05
+    ]
+  ],
+  "HChat": [
+    [
+      2.1447265387882636e-07,
+      6.344160226493889e-07
+    ],
+    [
+      6.344160226510152e-07,
+      1.8766241151586902e-06
+    ]
+  ],
+  "f6_hat": [
+    1.3856462536055472,
+    0.588713670259823,
+    -0.13499941098313084,
+    0.2683637818569228,
+    0.6610280706366379,
+    0.972349780128465
+  ],
+  "h_reg_hat": 8.863939023569591,
+  "residuals": {
+    "solve1": [
+      8.815491337754643e-17,
+      3.010083896505614e-17
+    ],
+    "solve2": [
+      2.900060663467549e-16,
+      8.794555257446883e-17
+    ],
+    "solvef": [
+      5.0032596913738794e-14,
+      1.3077247784940806e-14
+    ]
+  },
+  "payloads": {
+    "G_B": {
+      "path": "payload_kkt/even-v/G_B.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        4
+      ],
+      "sha256": "ccc59320fd0ff408e92dd8e30ee2eb4f095498d2a2e19a00a50de2f97fa0cc8e"
+    },
+    "K0": {
+      "path": "payload_kkt/even-v/K0.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        2
+      ],
+      "sha256": "fb70c98ab50e07186bdb2d3c402093bf31e60100611461f3ec6cf5fbbee386b6"
+    },
+    "X_C": {
+      "path": "payload_kkt/even-v/X_C.npy",
+      "dtype": "float64",
+      "shape": [
+        7999,
+        2
+      ],
+      "sha256": "c7ea5c6129dc80ebd86e57aa555bf14f992a70c4f9d39b657fcce6ef55e017f5"
+    },
+    "x_f": {
+      "path": "payload_kkt/even-v/x_f.npy",
+      "dtype": "float64",
+      "shape": [
+        7999
+      ],
+      "sha256": "2510e2be6840f1eb2a45c09d7f7ee4fd1fe5d8622eed74df6218df03dc2c553d"
+    },
+    "HChat": {
+      "path": "payload_kkt/even-v/HChat.npy",
+      "dtype": "float64",
+      "shape": [
+        2,
+        2
+      ],
+      "sha256": "3fecf1ba63fab91a9449caf9f39003e8fe1237ec8fff9c011a7e3c163adc5538"
+    },
+    "f6_hat": {
+      "path": "payload_kkt/even-v/f6_hat.npy",
+      "dtype": "float64",
+      "shape": [
+        6
+      ],
+      "sha256": "ef9740ca964f42a5200da449f6471048eb2dfefb1428f55f3cca79401697f1ce"
+    },
+    "saddle_lam1": {
+      "path": "payload_kkt/even-v/saddle_lam1.npy",
+      "dtype": "float64",
+      "shape": [
+        4
+      ],
+      "sha256": "ea61443c3e9b6ee3c3a6d39e035480fbecec4fbb7e9a5aee4c5dbab6dc7dbcf5"
+    },
+    "saddle_lam2": {
+      "path": "payload_kkt/even-v/saddle_lam2.npy",
+      "dtype": "float64",
+      "shape": [
+        4
+      ],
+      "sha256": "7907ab3e8253b602ee2dac6a69d9e10db4868681d225a66e5288c8f590b45994"
+    },
+    "saddle_lamf": {
+      "path": "payload_kkt/even-v/saddle_lamf.npy",
+      "dtype": "float64",
+      "shape": [
+        4
+      ],
+      "sha256": "56b543e68f5a76c2569995a916d40fc129962c536f22ff62d125abdffb7e6296"
+    }
+  },
+  "note": "Midpoint arithmetic error, solve residual, exact-P4 subspace error kept separate."
+}
