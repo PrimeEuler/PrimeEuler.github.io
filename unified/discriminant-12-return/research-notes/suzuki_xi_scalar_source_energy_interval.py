@@ -304,8 +304,20 @@ def interval_one_sector(sector):
     c = C_CAP[sector]
     rho = RHO_CAP[sector]
 
-    # v13.981 eqs. (10), (14), (16).
-    epsM = c * Delta_C + (c + rho) * Delta_R + ASSEMBLY_ARITH
+    # Structured 2x2 radial block-norm refinement of v13.981 eq. (10).
+    # If ||Delta H||<=h, ||Delta K||<=k, ||Delta J||<=j, then
+    #
+    #   ||[[Delta H,Delta K*],[Delta K,Delta J]]||
+    #     <= lambda_max([[h,k],[k,j]]).
+    #
+    # This is strictly sharper than the scalar triangle h+k+j.
+    h = c * Delta_C
+    k = c * Delta_R
+    j = rho * Delta_R
+    epsM = 0.5 * (h + j + math.sqrt((h-j)*(h-j) + 4.0*k*k))
+    epsM += ASSEMBLY_ARITH
+
+    # v13.981 source/background bounds.
     epsf = math.sqrt(c*c + rho*rho) * df + ASSEMBLY_ARITH
     epsh = GSTAR_CAP[sector] * df + ASSEMBLY_ARITH
 
