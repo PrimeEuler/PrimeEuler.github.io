@@ -1,0 +1,88 @@
+{
+  "sector": "even-v",
+  "generator": "suzuki_tail_P4_residual_basis_certificate.py",
+  "payloads": {
+    "modes": {
+      "path": "payload/even-v/modes.npy",
+      "dtype": "int64",
+      "shape": [
+        7999
+      ],
+      "sha256": "70bf35511c045dffefa75183dc34e76c4653de8a716f18cb6a1238b19ebb8801"
+    },
+    "theta": {
+      "path": "payload/even-v/theta.npy",
+      "dtype": "float64",
+      "shape": [
+        4
+      ],
+      "sha256": "11931fa64e4348f4dcb5742fd2aac1e4178e8fe4b1f9f67bd8a6e81caf983900"
+    },
+    "Z": {
+      "path": "payload/even-v/Z.npy",
+      "dtype": "float64",
+      "shape": [
+        7999,
+        4
+      ],
+      "sha256": "2823ba1c29582efe3b73b8b959e97494db493bde9b89d62955fd05bea61eb248"
+    },
+    "AZ": {
+      "path": "payload/even-v/AZ.npy",
+      "dtype": "float64",
+      "shape": [
+        7999,
+        4
+      ],
+      "sha256": "30bf97fb6caeab127e09942c5f912d4240eb26728722fea3abaf4dbdaab1c601"
+    },
+    "BZ": {
+      "path": "payload/even-v/BZ.npy",
+      "dtype": "float64",
+      "shape": [
+        7999,
+        4
+      ],
+      "sha256": "6775492fa0e4b42e0664f75cff69a6db81f8393499cf84a66db70ece682926c0"
+    },
+    "finite_gram": {
+      "path": "payload/even-v/finite_gram.npy",
+      "dtype": "float64",
+      "shape": [
+        4,
+        4
+      ],
+      "sha256": "5dc19be7bb0ebce04759c9ea89419354415f16dd6da5b44284e056603bd19cd5"
+    },
+    "source_coords": {
+      "path": "payload/even-v/source_coords.npy",
+      "dtype": "float64",
+      "shape": [
+        4
+      ],
+      "sha256": "248305c765c3b0e988bb0c66ed807a851f30ae1daf4ca828d39da50740a4f3d4"
+    }
+  },
+  "ritz_values": [
+    1.4485910231203345e-15,
+    1.6392070558417526e-12,
+    7.192022379281469e-08,
+    0.0002867632372281284
+  ],
+  "b_orthogonality_defect": 8.345128349953003e-14,
+  "transformed_residual_cap": 0.0331,
+  "sin_theta_cap": 0.414,
+  "source_coords_nominal_hp30": [
+    "-0.134999410983140314087211096461",
+    "0.268363781856925300387262844579",
+    "0.661028070636638351787097218483",
+    "0.972349780128461189323804793419"
+  ],
+  "source_coords_arithmetic_radii_conservative": [
+    6.282622411628163e-81,
+    1.9499656335949932e-81,
+    2.304230187048836e-81,
+    3.663265463014912e-81
+  ],
+  "note": "P4 subspace-angle error is SEPARATE (see sin_theta_cap). Arithmetic radii cover source evaluation only."
+}
