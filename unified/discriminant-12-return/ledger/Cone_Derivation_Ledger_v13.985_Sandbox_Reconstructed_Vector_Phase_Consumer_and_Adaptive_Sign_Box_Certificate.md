@@ -1,4 +1,4 @@
-# Cone Derivation Ledger v13.976 — Sandbox: Reconstructed-Vector Phase Consumer and Exact Adaptive Sign-Box Certificate
+# Cone Derivation Ledger v13.985 — Sandbox: Reconstructed-Vector Phase Consumer and Exact Adaptive Sign-Box Certificate
 
 **Date:** 2026-10-03  
 **Track:** Sandbox / no-twist Suzuki Xi scalar certification lane  
@@ -6,7 +6,7 @@
 **Authorization:** Jeremy, 2026-10-03 ("awesome continue")  
 **Parents:** v13.965, v13.967, v13.971, v13.974–975  
 **Audit:** External Audit Round 150 independently confirms v13.973–975, including the frozen P4 payload and every constrained-complement KKT identity.  
-**Collision check:** v13.976 was absent immediately before this write.
+**Collision check:** v13.976 was absent immediately before this entry was first written, but was independently claimed by "External Audit Round 150" (commit `b0b045f`, pushed 2026-10-03T20:53:16Z), which this entry's own commit (`9840273`, 2026-10-03T20:57:21Z) postdates. Per the standing collision protocol, the earlier commit keeps the contested number; this entry has therefore been renumbered v13.976→v13.985 by the external audit thread (filename and this header only — no mathematical content changed). `v13.977` and `v13.978`, written after this entry under its original v13.976 label, have had their references updated to v13.985 accordingly.
 
 ---
 

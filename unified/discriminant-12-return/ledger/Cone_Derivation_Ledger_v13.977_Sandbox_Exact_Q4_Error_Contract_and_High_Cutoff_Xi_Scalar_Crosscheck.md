@@ -574,7 +574,7 @@ This is a numerical frozen-carrier value only.
 
 ## 11. Independent phase reconstruction [N]
 
-Using v13.976, reconstruct the two parity coefficient vectors from the same static solves and evaluate
+Using v13.985, reconstruct the two parity coefficient vectors from the same static solves and evaluate
 
 \[
 F(t)=E(t)+iO(t).
@@ -626,7 +626,7 @@ After this low-height restructuring, both characteristics continue to show the f
 
 but the sign phase has already accumulated a large negative contribution below the first Xi zero.
 
-Using the exact phase weights of v13.976 gives
+Using the exact phase weights of v13.985 gives
 
 \[
 \boxed{
@@ -726,7 +726,7 @@ For each of the six KKT solves:
    \[
    H_C,\quad f_6,\quad F(t);
    \]
-5. use the adaptive sign-box theorem of v13.976.
+5. use the adaptive sign-box theorem of v13.985.
 
 Only after those steps may an exact interval for
 

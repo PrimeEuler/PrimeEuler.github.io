@@ -572,7 +572,7 @@ p_T(t)^Tv_T.
 \tag{22}
 \]
 
-The adaptive sign-box consumer of v13.976 remains unchanged after replacing the incomplete reconstructed vector by (20)–(21).
+The adaptive sign-box consumer of v13.985 remains unchanged after replacing the incomplete reconstructed vector by (20)–(21).
 
 ---
 
