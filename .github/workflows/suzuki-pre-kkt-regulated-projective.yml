@@ -1,0 +1,31 @@
+name: Suzuki pre-KKT regulated projective quotient
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_pre_kkt_regulated_projective_quotient.py'
+      - '.github/workflows/suzuki-pre-kkt-regulated-projective.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run regulated pre-KKT quotient sweep
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_pre_kkt_regulated_projective_quotient.py | tee /tmp/pre-kkt-regulated-projective.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pre-kkt-regulated-projective
+          path: |
+            /tmp/pre-kkt-regulated-projective.txt
+            unified/discriminant-12-return/research-notes/pre_kkt_regulated_projective_quotient_result.json
