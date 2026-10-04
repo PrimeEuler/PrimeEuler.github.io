@@ -55,7 +55,10 @@ def reduced_gate(A, P, Gi, shell_start, mu, eig_tol=1e-10):
     shell_mask[shell_start:] = 1.0
 
     def ashift_mv(x):
-        return A @ x - mu * shell_mask * x
+        x = np.asarray(x, dtype=float)
+        if x.ndim == 1:
+            return A @ x - mu * shell_mask * x
+        return A @ x - mu * shell_mask[:, None] * x
 
     def comp_mv(x):
         qx = proj(x)
