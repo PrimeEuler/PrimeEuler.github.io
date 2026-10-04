@@ -286,7 +286,7 @@ def main():
         "guardrail": (
             "Finite-section midpoint diagnostic at target cutoff " + str(TARGET_MAX) + ". The N=4000 protected "
             "six-plane is embedded unchanged. LDDD residuals and quadratic "
-            "Loewner corrections are evaluated, but the M8000 complement "
+            "Loewner corrections are evaluated, but the target complement "
             "floor and all-mode arithmetic are not yet outward interval-certified."
         ),
     }
