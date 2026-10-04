@@ -1,0 +1,31 @@
+name: Suzuki projective border diagnostic
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_projective_border_diagnostic.py'
+      - '.github/workflows/suzuki-projective-border-diagnostic.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy mpmath
+      - name: Run projective border diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_projective_border_diagnostic.py | tee /tmp/projective-border.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: projective-border-diagnostic
+          path: |
+            /tmp/projective-border.txt
+            unified/discriminant-12-return/research-notes/projective_border_diagnostic_result.json
