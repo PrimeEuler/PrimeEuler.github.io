@@ -50,7 +50,7 @@ HERE = Path(__file__).resolve().parent
 OUT = HERE / "M3072_4000_two_term_remote_model_result.json"
 
 
-def one_sector(sector: str, dps: int = 120):
+def one_sector(sector: str, dps: int = 180):
     state = refined_solution(sector, dps=dps)
     modes = state["modes"]
     shell = parity_shell(sector)
