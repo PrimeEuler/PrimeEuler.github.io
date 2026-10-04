@@ -1,0 +1,33 @@
+name: Suzuki N4000 far geometric unit-energy bound
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_far_geometric_unit_energy_bound.py'
+      - '.github/workflows/suzuki-N4000-far-geometric-unit-energy-bound.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run unit-energy far geometric bound
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_far_geometric_unit_energy_bound.py | tee /tmp/N4000-far-geometric-unit-energy-bound.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-far-geometric-unit-energy-bound
+          path: |
+            /tmp/N4000-far-geometric-unit-energy-bound.txt
+            unified/discriminant-12-return/research-notes/N4000_far_geometric_unit_energy_bound_result.json
