@@ -1,0 +1,33 @@
+name: Suzuki shifted remote inverse-action octave
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_shifted_remote_inverse_action_octave.py'
+      - '.github/workflows/suzuki-shifted-remote-inverse-action-octave.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run shifted remote inverse-action octave diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_shifted_remote_inverse_action_octave.py | tee /tmp/shifted-remote-inverse-action-octave.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shifted-remote-inverse-action-octave
+          path: |
+            /tmp/shifted-remote-inverse-action-octave.txt
+            unified/discriminant-12-return/research-notes/shifted_remote_inverse_action_octave_result.json
