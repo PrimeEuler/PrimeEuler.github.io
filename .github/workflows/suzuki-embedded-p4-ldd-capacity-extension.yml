@@ -1,0 +1,37 @@
+name: Suzuki embedded P4 LDDD cutoff extension
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_embedded_p4_ldd_capacity_extension.py'
+      - '.github/workflows/suzuki-embedded-p4-ldd-capacity-extension.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [12000, 16000]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run frozen-P4 LDDD extension
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_embedded_p4_ldd_capacity_extension.py --target-max ${{ matrix.target }} | tee /tmp/embedded-p4-M${{ matrix.target }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: embedded-p4-M${{ matrix.target }}
+          path: |
+            /tmp/embedded-p4-M${{ matrix.target }}.txt
+            unified/discriminant-12-return/research-notes/embedded_p4_ldd_capacity_M${{ matrix.target }}_result.json
