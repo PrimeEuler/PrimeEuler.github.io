@@ -1,0 +1,24 @@
+name: Suzuki source variational residual gate
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_source_variational_residual_gate.py'
+      - '.github/workflows/suzuki-source-variational-residual-gate.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy
+      - name: Run residual-weighted variational gate
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_source_variational_residual_gate.py
