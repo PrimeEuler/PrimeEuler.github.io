@@ -94,7 +94,7 @@ CAP = {
 }
 
 
-def refined_solution(sector: str, dps: int = 120):
+def refined_solution(sector: str, dps: int = 180):
     modes = np.arange(
         1 if sector == "even-v" else 2,
         N + 1,
@@ -153,6 +153,16 @@ def refined_solution(sector: str, dps: int = 120):
         w = mp.lu_solve(S, g)
         G = h + (g.T * w)[0]
         C = 1 / G
+        C_target = CAP[sector][N]
+        rel_capacity_replay_error = abs(C-C_target)/C_target
+        if rel_capacity_replay_error > mp.mpf("1e-8"):
+            raise RuntimeError((
+                sector,
+                "refined source capacity replay failed",
+                mp.nstr(C, 50),
+                mp.nstr(C_target, 50),
+                mp.nstr(rel_capacity_replay_error, 20),
+            ))
 
         coeffs = [w[j] for j in range(6)] + [mp.mpf(1)]
         xh, xl = dd_linear_combination(Uh, Ul, coeffs)
@@ -186,6 +196,7 @@ def refined_solution(sector: str, dps: int = 120):
         "zmp": zmp,
         "pmp": pmp,
         "C_refined": C,
+        "capacity_replay_relative_error": rel_capacity_replay_error,
         "L": L,
         "gamma_midpoint": gamma,
         "initial_max_joint_residual": max(norms0),
@@ -211,7 +222,7 @@ def tail_solve(modes, sector, rhs):
     return y, den
 
 
-def one_sector(sector: str, dps: int = 120):
+def one_sector(sector: str, dps: int = 180):
     state = refined_solution(sector, dps=dps)
     shell = parity_shell(sector)
 
