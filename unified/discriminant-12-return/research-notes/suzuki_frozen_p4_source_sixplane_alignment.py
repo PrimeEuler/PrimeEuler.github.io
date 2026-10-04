@@ -16,7 +16,8 @@ At the source-faithful N=192 checkpoint:
   * build the six-plane from the two low coordinates plus frozen-P4 tail;
   * eliminate its Euclidean orthogonal complement at high precision;
   * compare the resulting capacities with the ideal high-precision six-plane
-    capacity from the v13.1000 producer.
+    capacity from the v14.003 producer (renumbered from v13.1000; see External
+    Audit Round 154).
 
 Diagnostic only: finite N=192.  This tests a basis-freezing choice; it does not
 certify the M3999/4000 complement or infinite tail.

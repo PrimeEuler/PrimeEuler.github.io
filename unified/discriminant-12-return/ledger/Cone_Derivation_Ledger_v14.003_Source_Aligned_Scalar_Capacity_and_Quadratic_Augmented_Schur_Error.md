@@ -1,4 +1,4 @@
-# Cone Derivation Ledger v13.1000 — Source-Aligned Scalar Capacity Crossing and Quadratic Augmented-Schur Error
+# Cone Derivation Ledger v14.003 — Source-Aligned Scalar Capacity Crossing and Quadratic Augmented-Schur Error
 
 **Date:** 2026-10-04  
 **Track:** Lane A / no-twist Suzuki Xi scalar certification  
@@ -6,7 +6,8 @@
 **Parents:** v13.980, v13.987, v13.994, v13.997–999.  
 **Research commits:** 0d630c151b5ac107bff4412ce68040eefe3398a8; a936c223d8fd9bfad31bd8b24e91f2a8396c8053; d29d51b2f7e428abfb11e3ca5edd8d2436abdd78.  
 **Workflow commits:** 583e0d2ac912482c2b023ca02598d710acab8927; 8e7dc269460e3eb4c40338bffdf5d45384908f9b; 21cb7cf9a5daedc0adc45a9dec022a831c0206ce.  
-**Collision note:** sandbox v13.999 landed at 17:51:24 UTC while this theorem was being prepared. The sandbox entry keeps v13.999; this result takes v13.1000. Immediately before this write, live HEAD was 24bf3082be7e4c2fe127cea37c31ece28d6b47fc and no current v13.1000 ledger file was present.
+**Collision note (original):** sandbox v13.999 landed at 17:51:24 UTC while this theorem was being prepared. The sandbox entry keeps v13.999; this result originally took v13.1000, written against live HEAD 24bf3082be7e4c2fe127cea37c31ece28d6b47fc, before which no v13.1000 ledger file was present.  
+**Renumbering note (External Audit):** this is a numbering-*scheme* split, not an ordinary same-number collision. Immediately after v13.999, Lane A continued the flat decimal counter to v13.1000 (commit `70451b7`, 2026-10-04 13:54:43 -0400), while Sandbox independently rolled the scheme over to v14.000/v14.001/v14.002 (commits `f9cc8c5`/`76e623d`/`c6ac1bb`, 13:53:41/13:53:43/13:53:44 -0400) — all three strictly earlier than Lane A's commit. By the standing commit-timestamp precedence rule, the v14.x rollover scheme was established first and is confirmed (by the project owner) as the go-forward numbering protocol. This entry is therefore renumbered from v13.1000 to **v14.003** (the next free slot after v14.002), with no change to its mathematical content. See External Audit Round 154 for the full writeup.
 
 ---
 
@@ -830,7 +831,7 @@ The next proof-grade task is therefore:
 HANDOFF
 target: sandbox
 type: audit
-parent: v13.1000
+parent: v14.003
 status: open
 action: Audit the source-aligned scalar crossing theorem and the augmented-Schur identity, including whether the PSD quadratic error formulation survives the exact form-domain implementation used by the outward M3999/4000 split.
 deliverable: theorem-or-obstruction
