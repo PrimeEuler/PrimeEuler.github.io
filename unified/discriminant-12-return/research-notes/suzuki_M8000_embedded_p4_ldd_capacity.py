@@ -264,14 +264,14 @@ def main():
         eta_o = mp.mpf(rows[1]["eta_4000_to_8000_midpoint"])
 
         summary = {
-            "Ce_8000": mp.nstr(Ce, 70),
-            "Co_8000": mp.nstr(Co, 70),
-            "q_8000": mp.nstr(q, 60),
-            "kappa_8000": mp.nstr(kappa, 60),
-            "eta_even_4000_to_8000": mp.nstr(eta_e, 60),
-            "eta_odd_4000_to_8000": mp.nstr(eta_o, 60),
+            "Ce_target": mp.nstr(Ce, 70),
+            "Co_target": mp.nstr(Co, 70),
+            "q_target": mp.nstr(q, 60),
+            "kappa_target": mp.nstr(kappa, 60),
+            "eta_even_base_to_target": mp.nstr(eta_e, 60),
+            "eta_odd_base_to_target": mp.nstr(eta_o, 60),
             "eta_odd_minus_even": mp.nstr(eta_o - eta_e, 60),
-            "q_ratio_8000_over_4000_from_eta": mp.nstr(
+            "q_ratio_target_over_base_from_eta": mp.nstr(
                 (1 + eta_o) / (1 + eta_e),
                 60,
             ),
@@ -284,7 +284,7 @@ def main():
         "rows": rows,
         "summary": summary,
         "guardrail": (
-            "M8000 finite-section midpoint diagnostic. The N=4000 protected "
+            "Finite-section midpoint diagnostic at target cutoff " + str(TARGET_MAX) + ". The N=4000 protected "
             "six-plane is embedded unchanged. LDDD residuals and quadratic "
             "Loewner corrections are evaluated, but the M8000 complement "
             "floor and all-mode arithmetic are not yet outward interval-certified."
