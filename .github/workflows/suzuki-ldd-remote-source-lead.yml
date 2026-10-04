@@ -1,0 +1,33 @@
+name: Suzuki LDDD remote source lead
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_ldd_remote_source_lead_diagnostic.py'
+      - '.github/workflows/suzuki-ldd-remote-source-lead.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run remote source leading-moment diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_ldd_remote_source_lead_diagnostic.py --cuts 768,1536,3072,4000 --dps 180 | tee /tmp/ldd-remote-source-lead.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ldd-remote-source-lead
+          path: |
+            /tmp/ldd-remote-source-lead.txt
+            unified/discriminant-12-return/research-notes/ldd_remote_source_lead_diagnostic_result.json
