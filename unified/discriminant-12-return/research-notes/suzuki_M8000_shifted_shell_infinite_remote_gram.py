@@ -3,7 +3,7 @@
 
 Goal
 ----
-For N=4000, test positivity of
+For the frozen N=4000 carrier and a configurable finite front M, test positivity of
 
     F_mu = A - mu * Pi_{n>N}
 
@@ -11,7 +11,7 @@ on the full infinite parity space, with
     mu_e = 0.10,
     mu_o = 0.40.
 
-The finite front through M=8000 is reduced by the unchanged frozen N=4000
+The finite front through M is reduced by the unchanged frozen N=4000
 six-plane exactly as in suzuki_M8000_shifted_shell_feshbach_ldd.py.
 
 Let W be the six dressed protected directions after eliminating the stiff
@@ -253,8 +253,9 @@ def expanded_rows(payload,sector,ns,aa,bb):
 
 
 def remote_gram(payload,sector):
-    start=8001 if sector=="even-v" else 8002
-    direct_stop=16001 if sector=="even-v" else 16000
+    last=int(payload["modes"][-1])
+    start=last+2
+    direct_stop=2*last + (1 if sector=="even-v" else 0)
     G=np.zeros((6,6),dtype=float)
 
     for st in range(start,direct_stop+1,2000):
@@ -329,7 +330,7 @@ def one_sector(sector):
     G=remote_gram(payload,sector)
     far=far_envelope(payload,sector)
 
-    start=8001 if sector=="even-v" else 8002
+    start=int(payload["modes"][-1])+2
     giv=raw_remote_floor_interval(sector,start,mu)
     # Conservative scalar floor taken from interval lower endpoint.
     glow=float(giv.a)
