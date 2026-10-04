@@ -1,0 +1,33 @@
+name: Suzuki LDDD direct M11 parity difference
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_ldd_M11_direct_difference.py'
+      - '.github/workflows/suzuki-ldd-M11-direct-difference.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run direct M11 parity-difference diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_ldd_M11_direct_difference.py --cuts 768,1536,3072,4000 --dps 180 --refinements 1 | tee /tmp/ldd-M11-direct-difference.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ldd-M11-direct-difference
+          path: |
+            /tmp/ldd-M11-direct-difference.txt
+            unified/discriminant-12-return/research-notes/ldd_M11_direct_difference_result.json
