@@ -111,7 +111,12 @@ def capacity_with_fixed_sixplane(max_mode: int, sector: str, Qtail: np.ndarray):
             "complement_min": mp.nstr(valsD[0], 40),
         }
 
-    Y = mp.lu_solve(D, Ep)
+    # mpmath lu_solve accepts one RHS vector at a time.
+    Y = mp.matrix(D.rows, Ep.cols)
+    for j in range(Ep.cols):
+        yj = mp.lu_solve(D, Ep[:, j])
+        for i in range(D.rows):
+            Y[i, j] = yj[i]
     yf = mp.lu_solve(D, fq)
 
     S = (App - Ep.T * Y)
