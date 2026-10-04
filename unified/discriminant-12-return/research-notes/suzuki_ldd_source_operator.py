@@ -119,8 +119,8 @@ class LDDParityData:
 def hp_parity_data_ld(
     modes,
     sector: str,
-    dps: int=140,
-    arch_terms: int=180,
+    dps: int=180,
+    arch_terms: int=160,
     correction_terms: int=50,
 ):
     modes=np.asarray(modes,dtype=int)
