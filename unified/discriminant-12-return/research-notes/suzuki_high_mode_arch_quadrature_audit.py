@@ -43,10 +43,19 @@ def weights():
     )
 
 
-def h_arch(t):
+def h_arch(t,coeffs=None):
     t=mp.mpf(t)
     if t==0:
         return mp.mpf(1)/4
+    # Tanh-sinh quadrature evaluates exponentially close to t=0.  The closed
+    # form subtracts two ~1/(2t) quantities there and can lose all working
+    # digits even in arbitrary precision.  Use the convergent Taylor series
+    # near the removable singularity.
+    if coeffs is not None and abs(t)<mp.mpf("0.25"):
+        out=mp.mpf(0)
+        for a in reversed(coeffs):
+            out=out*t+a
+        return out
     return mp.e**(-t/2)/(1-mp.e**(-2*t))-1/(2*t)
 
 
@@ -77,17 +86,17 @@ def segmented_quad(fun,n):
     return mp.fsum(mp.quad(fun,[pts[j],pts[j+1]]) for j in range(n))
 
 
-def arch_diag_segmented(n):
+def arch_diag_segmented(n,coeffs):
     k=mp.mpf(n)*mp.pi/2
     return segmented_quad(
-        lambda t: -h_arch(t)*((2-t)*mp.cos(k*t)+mp.sin(k*t)/k),
+        lambda t: -h_arch(t,coeffs)*((2-t)*mp.cos(k*t)+mp.sin(k*t)/k),
         n,
     )
 
 
-def arch_sine_segmented(n):
+def arch_sine_segmented(n,coeffs):
     k=mp.mpf(n)*mp.pi/2
-    return segmented_quad(lambda t:h_arch(t)*mp.sin(k*t),n)
+    return segmented_quad(lambda t:h_arch(t,coeffs)*mp.sin(k*t),n)
 
 
 def z_digamma(n, correction_terms=80):
@@ -109,11 +118,11 @@ def z_digamma(n, correction_terms=80):
 def one(n,coeffs):
     k=mp.mpf(n)*mp.pi/2
     asi_series=arch_sine_series(n,coeffs)
-    asi_seg=arch_sine_segmented(n)
+    asi_seg=arch_sine_segmented(n,coeffs)
     asi_legacy=mp.quad(lambda t:h_arch(t)*mp.sin(k*t),[0,2])
 
     ad_series=arch_diag_series(n,coeffs)
-    ad_seg=arch_diag_segmented(n)
+    ad_seg=arch_diag_segmented(n,coeffs)
     ad_legacy=mp.quad(
         lambda t:-h_arch(t)*((2-t)*mp.cos(k*t)+mp.sin(k*t)/k),
         [0,2],
