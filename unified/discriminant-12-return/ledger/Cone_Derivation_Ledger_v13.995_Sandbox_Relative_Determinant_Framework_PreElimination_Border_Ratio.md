@@ -139,7 +139,7 @@ a *scalar* separation, strictly weaker than any bordered
 
 The ratio needs \(D^{-1}\) only on the *fixed* vectors (columns of
 \(E\), \(b_Q\)) and functionals (rows \(p_Q^*\)), not a uniform
-carrier-residual bound as in v13.989–992. The difference
+carrier-residual bound as in v13.990–992 and v13.996. The difference
 \(p_{Q,+}^*-p_{Q,-}^*\) may enjoy faster remote decay than either term
 alone (the leading \(1/n\) moment is \(\theta\)-dependent and partially
 cancels). Verifying this from the explicit \(p^{(\pm i)}\) asymptotics

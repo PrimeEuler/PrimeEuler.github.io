@@ -1,4 +1,6 @@
-# Cone Derivation Ledger v13.989 — Sandbox: Graph-Correction Remote-Tail Obstruction and Leading-Moment Gate
+# Cone Derivation Ledger v13.996 — Sandbox: Graph-Correction Remote-Tail Obstruction and Leading-Moment Gate
+
+**Collision note (external audit):** v13.989 was absent immediately before this entry was first written, but was independently claimed by "External Audit Round 152" (commit `ad5262e`, pushed 2026-10-04T00:08:05Z), which this entry's own commit (`d32f098`, 2026-10-04T00:34:56Z) postdates. Per the standing collision protocol, the earlier commit keeps the contested number; this entry has therefore been renumbered v13.989→v13.996 by the external audit thread (filename and this header only — no mathematical content changed). `v13.990`, `v13.992`, and `v13.995`, written after this entry under its original v13.989 label, have had their references updated to v13.996 accordingly.
 
 **Date:** 2026-10-03  
 **Track:** Sandbox / no-twist Suzuki Xi scalar certification lane  

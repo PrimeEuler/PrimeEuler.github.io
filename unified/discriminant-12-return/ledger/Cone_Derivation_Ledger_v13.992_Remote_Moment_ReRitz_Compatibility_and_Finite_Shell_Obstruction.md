@@ -18,7 +18,7 @@ v13.990 constructs a finite remote-shell correction that cancels the exact signe
 \mathcal L_\theta(q+y)=0.
 \]
 
-v13.989 showed that this moment dominates more than \(99.7\%\) of the certified far-tail bound for the M3 carrier.
+v13.996 showed that this moment dominates more than \(99.7\%\) of the certified far-tail bound for the M3 carrier.
 
 The unresolved question was whether that cancellation is compatible with the operations required to produce a proof-grade four-dimensional carrier:
 
@@ -39,7 +39,7 @@ The answer is mixed:
 
 ## 1. Naive fixed-\(\theta\) cancellation does not survive re-Ritz [N]
 
-The first replay reconstructed the v13.989 M3 carrier and appended the v13.990 constant finite shell through
+The first replay reconstructed the v13.996 M3 carrier and appended the v13.990 constant finite shell through
 
 \[
 M_4=
@@ -183,7 +183,7 @@ Let \(\ell^T\) be the row functional supplying the \(A\)-side leading remote coe
 \tag{2}
 \]
 
-For a Ritz basis, \(T=\Theta\), and (2) reduces columnwise to the v13.989/v13.990 \(\mathcal L_{\theta_j}\).
+For a Ritz basis, \(T=\Theta\), and (2) reduces columnwise to the v13.996/v13.990 \(\mathcal L_{\theta_j}\).
 
 Under an invertible basis change \(X\mapsto XV\),
 

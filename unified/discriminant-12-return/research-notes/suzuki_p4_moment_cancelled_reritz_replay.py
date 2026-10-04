@@ -2,7 +2,7 @@
 """Full replay of the v13.990 remote-tail moment cancellation on the M3 carrier.
 
 This gate starts from the landed v13.988 graph-correction payload, reconstructs
-the v13.989 M3 shell-extended/re-Ritzed carrier, appends the v13.990 finite
+the v13.996 M3 shell-extended/re-Ritzed carrier, appends the v13.990 finite
 constant tail chosen to cancel the exact signed 1/n residual moment at the
 current Ritz values, and then performs the operation that matters:
 
@@ -91,7 +91,7 @@ def one_sector(sector: str):
     if "XR" not in d:
         raise FileNotFoundError(f"{sector}: v13.988 X_R payload is missing")
 
-    # ----- Reconstruct the v13.989 M3 carrier -----
+    # ----- Reconstruct the v13.996 M3 carrier -----
     modes2 = np.asarray(d["modes"], dtype=int)
     Z0 = np.asarray(d["Z"], dtype=float)
     XR = np.asarray(d["XR"], dtype=float)

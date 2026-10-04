@@ -23,7 +23,7 @@ This quantity is basis-covariant: for X -> X V,
 Therefore L(X)=0 is a *subspace-invariant* constraint and survives subsequent
 B-orthonormalization and Rayleigh-Ritz rotation exactly.
 
-We restrict X to the v13.989 M3 carrier plus one constant finite shell with
+We restrict X to the v13.996 M3 carrier plus one constant finite shell with
 four amplitudes c=(c1,...,c4), and solve the resulting four nonlinear equations
 L(X(c))=0.  The expensive A/B action is performed once on a five-column basis;
 the nonlinear root iterations then use only 5x5 contractions.

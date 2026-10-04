@@ -3,15 +3,15 @@
 **Date:** 2026-10-03
 **Track:** Sandbox (our Lane B), independent divide-and-conquer task
 **Status:** [D] exact finite-extension tail construction canceling the leading 1/n moment at fixed Ritz value; [N] numerical verification on M2 proxy (all 8 channels); [I] no obstruction encountered.
-**Parents:** v13.989 (Sandbox remote-tail gate)
+**Parents:** v13.996 (Sandbox remote-tail gate)
 **Authorization:** Jeremy, 2026-10-03 ("take the remote-tail gate... as an independent divide-and-conquer task"; "yep do it")
-**Collision check:** Live HEAD is v13.989 (two files at v13.989: Sandbox gate 2026-10-03 keeps the number per earlier-commit-wins; Audit Round 152 dated 2026-10-04). v13.990 was absent immediately before this write.
+**Collision check:** v13.990 was absent immediately before this write. Note: the parent "Sandbox remote-tail gate" entry was originally written and labeled v13.989; this session's own collision note comparing it against "External Audit Round 152" by document-internal Date label (2026-10-03 vs 2026-10-04) picked the wrong winner — the actual commit timestamps (the protocol's real criterion) show the audit entry was pushed first (2026-10-04T00:08:05Z vs this entry's parent at 2026-10-04T00:34:56Z). The external audit thread has corrected this: the parent entry is renumbered to v13.996, and references below updated accordingly.
 
 ---
 
 ## 0. Purpose
 
-v13.989 identified the next nonredundant gate: >99.7% of the far-tail
+v13.996 identified the next nonredundant gate: >99.7% of the far-tail
 certificate is the explicit signed 1/n residual moment
 
 \[
@@ -59,7 +59,7 @@ A_{n,m}
 
 using z_n bounded (→π/2) and p_n∼(4g/π)/n. The B off-diagonal
 B_{n,m}=-1/(n+m)≈-1/n gives (-θBq)_n≈θ⟨1,q⟩/n. Summing yields the
-v13.989 §3 formula. The derivation uses only n≫m; no assumption on
+v13.996 §3 formula. The derivation uses only n≫m; no assumption on
 any tail ansatz is made.
 
 Rather than positing y_n∝1/n (whose L_θ moment diverges absolutely),
@@ -179,11 +179,11 @@ cancellation above is the mathematical core.
 }
 \]
 
-The v13.989 gate is closed constructively. The next step is the full
+The v13.996 gate is closed constructively. The next step is the full
 certificate replay (finite + explicit-remote + far before/after) on the
 M3 carrier, then a source/phase consumer pass.
 
 ---
 
 *Commit d32f0989daa324ea7b56a15b785eb947fcbf5019 (tasked) contains the
-v13.989 M3 context; this entry is the independent sandbox construction.*
+v13.996 M3 context; this entry is the independent sandbox construction.*

@@ -22,7 +22,7 @@ audited graph extension, this is a one-constraint rank-one correction of the
 unconstrained graph solve.
 
 After all four constrained shell solves we re-Rayleigh-Ritz the span and run
-the same finite + explicit-remote + far residual metric as v13.989.
+the same finite + explicit-remote + far residual metric as v13.996.
 
 Numerical gate only; no Xi, RH/GRH, source-energy, or convergence claim.
 """
