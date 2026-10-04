@@ -1,0 +1,23 @@
+name: Suzuki N4000 raw tail floor certificate
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_raw_tail_floor_certificate.py'
+      - '.github/workflows/suzuki-N4000-raw-tail-floor-certificate.yml'
+  workflow_dispatch:
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install mpmath
+        run: python -m pip install --upgrade pip mpmath
+      - name: Run N4000 raw tail floor certificate
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_N4000_raw_tail_floor_certificate.py
