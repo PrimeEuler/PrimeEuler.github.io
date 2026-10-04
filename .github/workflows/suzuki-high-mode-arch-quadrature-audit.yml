@@ -1,0 +1,31 @@
+name: Suzuki high-mode arch quadrature audit
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_high_mode_arch_quadrature_audit.py'
+      - '.github/workflows/suzuki-high-mode-arch-quadrature-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run high-mode archimedean scalar audit
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_high_mode_arch_quadrature_audit.py --dps 100 | tee /tmp/high-mode-arch-audit.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: high-mode-arch-audit
+          path: /tmp/high-mode-arch-audit.txt
