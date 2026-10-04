@@ -1,0 +1,33 @@
+name: Suzuki M8000 shell Schur-floor scan
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M8000_shell_schur_floor_scan.py'
+      - '.github/workflows/suzuki-M8000-shell-schur-floor-scan.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run M8000 shell Schur-floor scan
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M8000_shell_schur_floor_scan.py --steps 16 | tee /tmp/M8000-shell-schur-floor-scan.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M8000-shell-schur-floor-scan
+          path: |
+            /tmp/M8000-shell-schur-floor-scan.txt
+            unified/discriminant-12-return/research-notes/M8000_shell_schur_floor_scan_result.json
