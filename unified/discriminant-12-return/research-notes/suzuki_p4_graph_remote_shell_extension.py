@@ -25,6 +25,10 @@ import numpy as np
 from scipy.linalg import eigh
 
 from suzuki_kkt_remote_residual_certificate import sector_data
+from suzuki_endpoint_M3999_midpoint_effective_core import (
+    z_source_faithful,
+    pole_vector,
+)
 from suzuki_tail_P4_residual_basis_certificate import (
     apply_A_B,
     solve_graph_shell,
@@ -51,6 +55,37 @@ def canonical_signs(Q: np.ndarray) -> np.ndarray:
     return signs
 
 
+def far_leading_data(sector, modes, theta, Z):
+    """Exact signed 1/n coefficient of (A Z - B Z Theta) in remote rows."""
+    z = z_source_faithful(modes)
+    p, alpha = pole_vector(modes, sector)
+    g = math.cosh(0.5) if sector == "even-v" else math.sinh(0.5)
+
+    s0 = np.sum(Z, axis=0)
+    aconst = (
+        -(2.0 / math.pi) * (z @ Z)
+        + alpha * (4.0 * g / math.pi) * (p @ Z)
+    )
+    lead = aconst + s0 * theta
+
+    theta_cancel = np.full(4, np.nan)
+    mask = np.abs(s0) > 1.0e-14
+    theta_cancel[mask] = -aconst[mask] / s0[mask]
+
+    N = 2_000_001.0 if sector == "even-v" else 2_000_002.0
+    S2 = N**(-2) + 1.0 / (2.0 * N)
+    lead_only_far = float(np.linalg.norm(lead) * math.sqrt(S2))
+
+    return {
+        "sum_coefficients": [float(x) for x in s0],
+        "lead_vector": [float(x) for x in lead],
+        "lead_2norm": float(np.linalg.norm(lead)),
+        "theta_canceling_lead": [float(x) for x in theta_cancel],
+        "theta_cancel_shift": [float(x) for x in (theta_cancel - theta)],
+        "lead_only_far_bound_at_2m": lead_only_far,
+    }
+
+
 def metrics(sector, modes, theta, Z, AZ, BZ):
     finite_R = AZ - BZ * theta[None, :]
     finite_G = finite_R.T @ finite_R
@@ -75,6 +110,8 @@ def metrics(sector, modes, theta, Z, AZ, BZ):
     transformed = euclidean / math.sqrt(BETA_CAP[sector])
     sin_cap = transformed / MOAT
 
+    leading = far_leading_data(sector, modes, theta, Z)
+
     return {
         "modes": int(len(modes)),
         "last_mode": int(modes[-1]),
@@ -86,6 +123,10 @@ def metrics(sector, modes, theta, Z, AZ, BZ):
         "explicit_remote_residual_operator": float(remote),
         "point_total_residual_operator": float(point),
         "far_residual_bound": float(far),
+        "far_leading_asymptotic": leading,
+        "lead_fraction_of_far_bound": float(
+            leading["lead_only_far_bound_at_2m"] / far
+        ),
         "total_euclidean_residual_cap": float(euclidean),
         "transformed_residual_cap": float(transformed),
         "moat_only_sin_theta_cap": float(sin_cap),
