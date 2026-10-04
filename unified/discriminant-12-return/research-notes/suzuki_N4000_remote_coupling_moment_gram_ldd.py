@@ -200,7 +200,11 @@ def one_sector(sector):
         g=dd_matrix_to_mp(gh,gl)
         h=dd_matrix_to_mp(hh,hl)
         h=(h+h.T)/2
-        Sinv_g=mp.lu_solve(S,g)
+        Sinv_g=mp.matrix(6,4)
+        for j in range(4):
+            sol=mp.lu_solve(S,g[:,j])
+            for i in range(6):
+                Sinv_g[i,j]=sol[i]
         M=h+g.T*Sinv_g
         M=(M+M.T)/2
         vals,_=mp.eigsy(M)
