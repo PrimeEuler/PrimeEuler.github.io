@@ -1,0 +1,33 @@
+name: Suzuki M3999 frozen P4 source capacity midpoint
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M3999_frozen_p4_source_capacity_midpoint.py'
+      - '.github/workflows/suzuki-M3999-frozen-p4-source-capacity.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run M3999 frozen P4 midpoint gate
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M3999_frozen_p4_source_capacity_midpoint.py --rtol 2e-14 --dps 80 | tee /tmp/M3999-frozen-p4-source-capacity.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M3999-frozen-p4-source-capacity
+          path: |
+            /tmp/M3999-frozen-p4-source-capacity.txt
+            unified/discriminant-12-return/research-notes/M3999_frozen_p4_source_capacity_midpoint_result.json
