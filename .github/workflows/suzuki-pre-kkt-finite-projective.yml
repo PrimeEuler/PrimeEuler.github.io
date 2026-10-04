@@ -1,0 +1,31 @@
+name: Suzuki pre-KKT finite projective quotient
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_pre_kkt_finite_section_projective_quotient.py'
+      - '.github/workflows/suzuki-pre-kkt-finite-projective.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run direct pre-KKT finite-section quotient
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_pre_kkt_finite_section_projective_quotient.py | tee /tmp/pre-kkt-finite-projective.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pre-kkt-finite-projective
+          path: |
+            /tmp/pre-kkt-finite-projective.txt
+            unified/discriminant-12-return/research-notes/pre_kkt_finite_section_projective_quotient_result.json
