@@ -56,6 +56,8 @@ from suzuki_M8000_embedded_p4_ldd_capacity import (
 )
 from suzuki_M3999_frozen_p4_source_capacity_midpoint import (
     full_source_matrix,
+)
+from suzuki_endpoint_M3999_midpoint_effective_core import (
     pole_vector,
     z_source_faithful,
 )
