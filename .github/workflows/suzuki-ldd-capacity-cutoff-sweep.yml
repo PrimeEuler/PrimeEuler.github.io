@@ -1,0 +1,33 @@
+name: Suzuki LDDD capacity cutoff sweep
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_ldd_capacity_cutoff_sweep.py'
+      - '.github/workflows/suzuki-ldd-capacity-cutoff-sweep.yml'
+  workflow_dispatch:
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run nested-cutoff LDDD capacity sweep
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_ldd_capacity_cutoff_sweep.py --cuts 192,384,768,1536,3072,4000 --dps 180 --refinements 1 | tee /tmp/ldd-capacity-cutoff-sweep.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ldd-capacity-cutoff-sweep
+          path: |
+            /tmp/ldd-capacity-cutoff-sweep.txt
+            unified/discriminant-12-return/research-notes/ldd_capacity_cutoff_sweep_result.json
