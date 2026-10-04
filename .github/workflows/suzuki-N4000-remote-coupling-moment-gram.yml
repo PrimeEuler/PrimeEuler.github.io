@@ -1,0 +1,33 @@
+name: Suzuki N4000 remote coupling moment Gram
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_remote_coupling_moment_gram_ldd.py'
+      - '.github/workflows/suzuki-N4000-remote-coupling-moment-gram.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run N4000 remote coupling moment Gram
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_remote_coupling_moment_gram_ldd.py | tee /tmp/N4000-remote-coupling-moment-gram.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-remote-coupling-moment-gram
+          path: |
+            /tmp/N4000-remote-coupling-moment-gram.txt
+            unified/discriminant-12-return/research-notes/N4000_remote_coupling_moment_gram_ldd_result.json
