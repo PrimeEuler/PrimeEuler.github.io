@@ -1,0 +1,33 @@
+name: Suzuki N4000 far geometric remainder
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_far_geometric_remainder_diagnostic.py'
+      - '.github/workflows/suzuki-N4000-far-geometric-remainder.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run separated far geometric remainder diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_far_geometric_remainder_diagnostic.py | tee /tmp/N4000-far-geometric-remainder.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-far-geometric-remainder
+          path: |
+            /tmp/N4000-far-geometric-remainder.txt
+            unified/discriminant-12-return/research-notes/N4000_far_geometric_remainder_diagnostic_result.json
