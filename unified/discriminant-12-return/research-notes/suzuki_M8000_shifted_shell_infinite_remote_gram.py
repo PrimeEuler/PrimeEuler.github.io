@@ -34,7 +34,7 @@ This script:
   * rebuilds the shifted finite front and one LDDD refinement;
   * forms the 6x6 finite Loewner lower matrix;
   * accumulates the remote Gram directly to ~16000;
-  * uses an 8-level inverse-power expansion through 2,000,000;
+  * uses an 8-level inverse-power expansion through a configurable explicit stop;
   * adds a coarse analytic far envelope with |z_n|<=8;
   * uses the source-faithful rho=0 raw-tail coercivity formula, minus mu.
 
@@ -87,7 +87,7 @@ OUT=HERE/"M8000_shifted_shell_infinite_remote_gram_result.json"
 
 PI=math.pi
 KEXP=8
-EXPLICIT_STOP=2_000_000
+EXPLICIT_STOP=200_000
 Z_FAR_BOUND=8.0
 
 
@@ -284,10 +284,14 @@ def far_envelope(payload,sector):
     pW=pfin@W
 
     if sector=="even-v":
-        N=2_000_001.0
+        N=float(EXPLICIT_STOP + (1 if EXPLICIT_STOP % 2 == 0 else 2))
+        if int(N) % 2 == 0:
+            N += 1.0
         g=math.cosh(.5)
     else:
-        N=2_000_002.0
+        N=float(EXPLICIT_STOP + (1 if EXPLICIT_STOP % 2 == 1 else 2))
+        if int(N) % 2 == 1:
+            N += 1.0
         g=math.sinh(.5)
 
     ratio=np.max(modes)/N
