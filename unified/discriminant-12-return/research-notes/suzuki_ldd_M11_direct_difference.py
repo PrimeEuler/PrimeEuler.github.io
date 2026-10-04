@@ -41,14 +41,13 @@ from suzuki_M3999_frozen_p4_source_capacity_midpoint import (
 )
 from suzuki_ldd_source_operator import (
     LD,
-    dd_matvec,
-    ldd_to_mpf,
-    split_mpf_ld,
-)
-from suzuki_doubledouble_source_operator import (
     add as dd_add,
-    sub as dd_sub,
     dot_columns as dd_dot_columns,
+    ldd_to_mpf,
+    matvec as dd_matvec,
+    norm2 as dd_norm2,
+    split_mpf_ld,
+    sub as dd_sub,
 )
 from suzuki_ldd_refined_capacity_bracket import (
     build_double_complement,
@@ -90,13 +89,7 @@ def generic_residuals(data, P, Gih, Gil, Uh, Ul, bh, bl):
         Rh[:, 6], Rl[:, 6], bh, bl
     )
     Rh, Rl = dd_project(P, Gih, Gil, Rh, Rl)
-    norms = []
-    for j in range(7):
-        H, L = dd_dot_columns(
-            Rh[:, j:j+1], Rl[:, j:j+1],
-            Rh[:, j:j+1], Rl[:, j:j+1],
-        )
-        norms.append(float(mp.sqrt(dd_matrix_to_mp(H, L)[0, 0])))
+    norms = [dd_norm2(Rh[:, j], Rl[:, j]) for j in range(7)]
     return AUh, AUl, Rh, Rl, norms
 
 
