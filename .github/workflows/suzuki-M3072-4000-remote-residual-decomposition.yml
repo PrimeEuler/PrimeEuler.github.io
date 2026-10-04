@@ -1,0 +1,33 @@
+name: Suzuki M3072-4000 remote residual decomposition
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M3072_4000_remote_residual_decomposition.py'
+      - '.github/workflows/suzuki-M3072-4000-remote-residual-decomposition.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run M3072-4000 remote residual decomposition
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M3072_4000_remote_residual_decomposition.py | tee /tmp/M3072-4000-remote-residual-decomposition.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M3072-4000-remote-residual-decomposition
+          path: |
+            /tmp/M3072-4000-remote-residual-decomposition.txt
+            unified/discriminant-12-return/research-notes/M3072_4000_remote_residual_decomposition_result.json
