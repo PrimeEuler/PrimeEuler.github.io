@@ -297,6 +297,13 @@ def one_sector(max_mode, sector, dps, refinements):
     yfh = yf0.copy()
     yfl = np.zeros_like(yfh)
 
+    # The binary64 correction solver only enforces complement membership to
+    # machine precision.  At a 1e-30 protected scalar that leakage is far too
+    # large.  Re-project the hi/lo expansions with the DD Gram projector before
+    # every residual/variational evaluation.
+    Yh, Yl = dd_project(P, Gih, Gil, Yh, Yl)
+    yfh, yfl = dd_project(P, Gih, Gil, yfh, yfl)
+
     history = []
     for step in range(refinements + 1):
         Uh, Ul = form_trial(P, Yh, Yl, yfh, yfl)
@@ -309,6 +316,8 @@ def one_sector(max_mode, sector, dps, refinements):
             Yh, Yl, yfh, yfl = refine_once(
                 op, proj, Yh, Yl, yfh, yfl, Rh, Rl
             )
+            Yh, Yl = dd_project(P, Gih, Gil, Yh, Yl)
+            yfh, yfl = dd_project(P, Gih, Gil, yfh, yfl)
 
     Kt = form_Ktilde(data, Uh, Ul, AUh, AUl, dps)
     RR = residual_gram_mp(Rh, Rl, dps)
