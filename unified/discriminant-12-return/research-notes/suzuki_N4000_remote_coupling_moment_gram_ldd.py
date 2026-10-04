@@ -214,10 +214,34 @@ def one_sector(sector):
             for i in range(4)
         ]
 
+        # Conservative operator bound for the four retained far scalar
+        # channels on n>=8001/8002.  For a same-parity lattice,
+        # sum n^-p <= n0^-p + n0^(-(p-1))/(2(p-1)).
+        n0=mp.mpf(8001 if sector=="even-v" else 8002)
+        def psum(p):
+            return n0**(-p)+n0**(-(p-1))/(2*(p-1))
+        fnorm=[
+            mp.sqrt(psum(2)),
+            8*mp.sqrt(psum(4)),
+            mp.sqrt(psum(6)),
+            8*mp.sqrt(psum(8)),
+        ]
+        far_abs=mp.fsum(
+            abs(M[i,j])*fnorm[i]*fnorm[j]
+            for i in range(4) for j in range(4)
+        )
+        scaled=mp.matrix(4)
+        for i in range(4):
+            for j in range(4):
+                scaled[i,j]=fnorm[i]*M[i,j]*fnorm[j]
+        seigs,_=mp.eigsy((scaled+scaled.T)/2)
+
     print(sector,"M =")
     for row in Mstr:
         print(row)
     print(sector,"M eigs =",[mp.nstr(vals[j],40) for j in range(4)])
+    print(sector,"far scalar norms =",[mp.nstr(v,30) for v in fnorm])
+    print(sector,"far 4-channel absolute operator bound =",mp.nstr(far_abs,40))
 
     return {
         "sector":sector,
@@ -236,6 +260,10 @@ def one_sector(sector):
         ],
         "M_midpoint":Mstr,
         "M_eigenvalues":[mp.nstr(vals[j],60) for j in range(4)],
+        "far_start":int(n0),
+        "far_scalar_norm_upper":[mp.nstr(v,50) for v in fnorm],
+        "far_four_channel_abs_operator_bound":mp.nstr(far_abs,60),
+        "far_scaled_M_eigenvalues":[mp.nstr(seigs[j],50) for j in range(4)],
     }
 
 
