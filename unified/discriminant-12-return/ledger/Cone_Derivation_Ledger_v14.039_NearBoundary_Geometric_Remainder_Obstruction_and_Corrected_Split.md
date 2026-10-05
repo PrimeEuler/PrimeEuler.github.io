@@ -1,11 +1,12 @@
-# Cone Derivation Ledger v14.038 — Near-Boundary Geometric-Remainder Obstruction and Corrected Split
+# Cone Derivation Ledger v14.039 — Near-Boundary Geometric-Remainder Obstruction and Corrected Split
 
 **Date:** 2026-10-05
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
 **Status:** [D] v14.034 finite shifted-front theorem remains valid; [D] v14.033 four-channel far-Gram theorem remains valid for the retained four-channel piece; [N/G] the v14.020 K=10 source-remainder bound cannot be transplanted uniformly to the full M=8000 front-to-far coupling immediately above n=8000; [O] v14.027 section 6(c) requires an exact correlated near-far block plus a separated geometric far tail.
 **Parents:** v14.020, v14.027, v14.033–037; External Audit Rounds 161–162.
 **Research/workflow commits:** 5c51121ed4a4058b9e23209b34da131c8eeb7582; 05f544421b8b74a41ad381edc9e3f7668350355b; cb51ef23531b8f75c4f19c8386cd0bd3ee53bd1e.
-**Collision check:** immediately before this write, live HEAD was cb51ef23531b8f75c4f19c8386cd0bd3ee53bd1e; no v14.038 ledger entry was present.
+**Collision check (original):** immediately before this write, live HEAD was cb51ef23531b8f75c4f19c8386cd0bd3ee53bd1e; no v14.038 ledger entry was present.
+**Renumbering note (External Audit):** this entry's commit (`c0e7ca0`, 2026-10-05 11:33:05 -0400 = 15:33:05 UTC) collided with the External Audit Round 162 entry (`9cf50cb`, 15:23:02 UTC), which landed first by about 10 minutes. Per the standing commit-timestamp precedence rule, Round 162 keeps v14.038 and this entry is renumbered to **v14.039**, with no change to its mathematical content. See External Audit Round 163 for the full writeup.
 
 ---
 
@@ -249,7 +250,7 @@ The near-shell consumer must preserve F^{-1} correlation; a scalar bound using |
 HANDOFF
 target: sandbox
 type: task
-parent: v14.038
+parent: v14.039
 status: open
 action: Repair v14.027 section 6(c) using an exact correlated near/far split. Treat 8000<n<16000 without a geometric smallness assumption, then attach a K=10 signed-moment/geometric bound only for n>=16000 where m/n<=1/2 for the entire M=8000 front. Determine the minimal finite correlated quantity Lane A must certify to close S_{p,4000}>=I.
 deliverable: theorem-or-obstruction
