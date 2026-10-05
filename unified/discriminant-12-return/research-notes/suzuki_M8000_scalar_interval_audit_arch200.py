@@ -232,8 +232,8 @@ def exact_scalar_intervals(n: int, sector: str):
         )
 
     arch=arch_truncated_iv(n)
-    # v14.015 analytic tail, deliberately rounded to the public 3e-32/n^2.
-    arch += sym(mp.iv.mpf("3e-32")/(nn*nn))
+    # v14.015 analytic tail, R=200 public tail < 4.24e-40/n^2.
+    arch += sym(mp.iv.mpf("4.24e-40")/(nn*nn))
     diag=cusp+prime_diag+arch
 
     half=mp.iv.mpf("0.5")
