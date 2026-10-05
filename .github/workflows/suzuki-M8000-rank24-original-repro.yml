@@ -30,7 +30,48 @@ jobs:
         run: |
           set -o pipefail
           python suzuki_M8000_near_rank24_feshbach.py --sector ${{ matrix.sector }} | tee /tmp/rank24-original-${{ matrix.sector }}-${{ matrix.repeat }}.txt
+          cp M8000_near_rank24_feshbach_result.json /tmp/rank24-original-${{ matrix.sector }}-${{ matrix.repeat }}.json
       - uses: actions/upload-artifact@v4
         with:
           name: rank24-original-${{ matrix.sector }}-${{ matrix.repeat }}
-          path: /tmp/rank24-original-${{ matrix.sector }}-${{ matrix.repeat }}.txt
+          path: |
+            /tmp/rank24-original-${{ matrix.sector }}-${{ matrix.repeat }}.txt
+            /tmp/rank24-original-${{ matrix.sector }}-${{ matrix.repeat }}.json
+
+  exact-repeat-gate:
+    needs: replay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: rank24-original-*
+          path: /tmp/rank24-repeats
+          merge-multiple: true
+      - name: Require exact repeat agreement
+        shell: bash
+        run: |
+          python - <<'PY'
+          import glob, hashlib, json, os
+
+          root="/tmp/rank24-repeats"
+          for sector in ("even-v","odd-v"):
+              paths=sorted(glob.glob(os.path.join(root,f"rank24-original-{sector}-*.json")))
+              if len(paths)!=2:
+                  raise SystemExit(f"{sector}: expected 2 JSON payloads, got {paths}")
+              payloads=[json.load(open(p)) for p in paths]
+              rows=[p["rows"][0] for p in payloads]
+              a=json.dumps(rows[0],sort_keys=True,separators=(",",":"))
+              b=json.dumps(rows[1],sort_keys=True,separators=(",",":"))
+              if a!=b:
+                  raise SystemExit(
+                      f"{sector}: repeat mismatch\n{paths[0]}={rows[0].get('combined_psd_cs_bound')}\n"
+                      f"{paths[1]}={rows[1].get('combined_psd_cs_bound')}"
+                  )
+              digest=hashlib.sha256(a.encode()).hexdigest()
+              print(
+                  sector,
+                  "PASS exact repeat agreement",
+                  "combined_psd_cs_bound="+str(rows[0]["combined_psd_cs_bound"]),
+                  "sha256="+digest,
+              )
+          PY
