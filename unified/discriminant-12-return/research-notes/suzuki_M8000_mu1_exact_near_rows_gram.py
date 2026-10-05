@@ -39,7 +39,7 @@ from suzuki_ldd_remote_source_lead_diagnostic import z_remote_mp, pole_mp
 HERE=Path(__file__).resolve().parent
 OUT=HERE/"M8000_mu1_exact_near_rows_gram_result.json"
 DPS=180
-RCOUNT=16
+RCOUNT=16  # replay trigger after workflow installation
 
 def shifted_data_matvec(data,xh,xl,shell_start):
     yh,yl=dd_matvec(data,xh,xl)
