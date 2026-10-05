@@ -43,6 +43,7 @@ MU=1.0
 SEP_SAMPLES_END=24000
 CHUNK=200
 SEP_BOUND=0.941
+# workflow trigger: full near-triple viability replay
 DELTA_SS=1.3457
 
 def lattice(sector,a,b):
