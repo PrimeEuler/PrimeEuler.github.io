@@ -1,0 +1,37 @@
+name: Suzuki M8000 near coupling SVD
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M8000_near_coupling_svd.py'
+      - '.github/workflows/suzuki-M8000-near-coupling-svd.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run near coupling SVD
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M8000_near_coupling_svd.py --sector ${{ matrix.sector }} | tee /tmp/M8000-near-coupling-svd-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M8000-near-coupling-svd-${{ matrix.sector }}
+          path: |
+            /tmp/M8000-near-coupling-svd-${{ matrix.sector }}.txt
+            unified/discriminant-12-return/research-notes/M8000_near_coupling_svd_result.json
