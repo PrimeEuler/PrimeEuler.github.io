@@ -6,7 +6,8 @@ The v14.027/v14.033 far coupling uses the four channels
 for the finite shifted front m<=8000.
 
 A geometric expansion in m/n is not uniformly small immediately above the
-front because m/n -> 1.  This diagnostic compares the exact source-faithful
+front because m/n -> 1.  This replay is intentionally triggered after the
+workflow exists on the branch.  This diagnostic compares the exact source-faithful
 coupling row with the four-channel approximation at selected same-parity far
 modes.  It is intentionally a theorem-assumption audit, not a certificate.
 """
