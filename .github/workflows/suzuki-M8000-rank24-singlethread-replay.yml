@@ -4,6 +4,7 @@ on:
   push:
     branches: [ master ]
     paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M8000_near_rank24_feshbach_deterministic.py'
       - '.github/workflows/suzuki-M8000-rank24-singlethread-replay.yml'
   workflow_dispatch:
 
