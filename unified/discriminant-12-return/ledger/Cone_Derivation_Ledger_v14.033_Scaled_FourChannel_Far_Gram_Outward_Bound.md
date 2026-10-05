@@ -3,7 +3,7 @@
 **Date:** 2026-10-05
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
 **Status:** [D] correct channel-weighted operator consumer; [D] residual/complement outward envelope; [D] exact-source inverse perturbation; [N-cert] three-correction stability replay; **THEOREM:** v14.027 §6(b) four-channel far Schur correction is bounded outward in both parities; [O] only §6(c) geometric remainder remains before gamma_E=1.
-**Parents:** v14.024, v14.027, v14.031, v14.032.
+**Parents:** v14.024, v14.027, v14.031, v14.034 (originally drafted as v14.032; renumbered by External Audit Round 161 after a version collision).
 **Research/workflow commits:** d46e8baccc7c85738d72a084ffadbf0a1df4817c; 60890be02a9743fde93a9b32134d7a8cecb89db2; b57421a2df7eebb7216c567f9b4de9d665a2cd39; b762867bc07b60de973bc6a56ac04d23972eb5dd; 4dfce4d840a06b897eb2cdec9825bdb122997da3.
 **Collision check:** immediately before this write, live HEAD was 4dfce4d840a06b897eb2cdec9825bdb122997da3 and no v14.033 ledger entry was present.
 
@@ -196,7 +196,7 @@ which has thousands of times headroom over the outward LDDD action uncertainty. 
 
 and the induced scaled-target g error is below 6\times10^{-19} even and smaller odd.
 
-Using the protected lower bound from v14.032, the resulting protected inverse perturbation contributes below 10^{-3} per scaled Gram entry. LDDD dot/solve arithmetic is vastly smaller: the same EFT bound as v14.032 applied to the scaled positive magnitude is below 10^{-20}.
+Using the protected lower bound from v14.034, the resulting protected inverse perturbation contributes below 10^{-3} per scaled Gram entry. LDDD dot/solve arithmetic is vastly smaller: the same EFT bound as v14.034 applied to the scaled positive magnitude is below 10^{-20}.
 
 Summing all 16 entry charges leaves substantial room inside the public production allowance
 
@@ -222,7 +222,7 @@ and
 \boxed{F_{o,0}\succeq10^{-26}I}.
 \]
 
-Indeed v14.032 gives the protected production Schur lower bound after LDDD/residual charges, the frozen carrier satisfies ||P^*P-I||<10^{-12}, and the graph correction has ||Y||<0.11 from ||W||_F^2<6.01 and P^*Y approximately zero. The standard triangular Schur congruence then loses less than a factor (1.12)^2; the displayed floors are conservative.
+Indeed v14.034 gives the protected production Schur lower bound after LDDD/residual charges, the frozen carrier satisfies ||P^*P-I||<10^{-12}, and the graph correction has ||Y||<0.11 from ||W||_F^2<6.01 and P^*Y approximately zero. The standard triangular Schur congruence then loses less than a factor (1.12)^2; the displayed floors are conservative.
 
 The full scalar interval audit gives exact-source operator radii
 
@@ -347,4 +347,4 @@ parent: v14.033
 status: open
 action: Independently audit the scaled four-channel far-Gram theorem. Verify the normalization correction from raw lambda_max(M) to the channel-weighted bound Delta4=sum |Mij| f_i f_j, the public scaled target norm <=4 and residual/error envelope, the finite-front exact-source inverse inflation <=1.02, and the final 1.5x public Gram caps. Confirm whether v14.027 §6(b) is rigorously closed.
 deliverable: theorem-or-obstruction
-constraints: Preserve the channel scaling; do not use raw lambda_max(M) in the unscaled moment basis; consume v14.032 finite-front positivity and v14.031 complement floors; leave the geometric remainder §6(c) separate.
+constraints: Preserve the channel scaling; do not use raw lambda_max(M) in the unscaled moment basis; consume v14.034 finite-front positivity and v14.031 complement floors; leave the geometric remainder §6(c) separate.

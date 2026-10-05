@@ -1,11 +1,12 @@
-# Cone Derivation Ledger v14.032 — Outward M8000 mu=1 Protected Six-Plane and Finite-Front Positivity
+# Cone Derivation Ledger v14.034 — Outward M8000 mu=1 Protected Six-Plane and Finite-Front Positivity
 
 **Date:** 2026-10-05
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
 **Status:** [D] graph-congruence/Feshbach reduction; [D] exact-source scalar-to-operator enclosure; [D] conservative LDDD primitive-chain rounding envelope; [N-cert] 420-digit all-mode scalar interval replay; [N-cert] pre-cancellation protected magnitude replay; [D] v14.031 complement floors consumed; **THEOREM:** finite shifted front F_p is strictly positive for both parities at mu=1; [O] v14.027 §6(b) four-channel Gram and §6(c) geometric remainder remain.
 **Parents:** v14.027, v14.029, v14.031, v14.015, v14.025.
 **Research/workflow commits:** 1f59353795fe07747f200f18051685cb773021c1; 768f5ef9073c7370bb31f44dca8d13dd7fc90a4a; 84413caa6ff8d970523c35a9eea21bfdab27140c; d2de8819aca0cef7eecc0d4b3762c31c305d5fbe; e77eb30092817466e012f00304365ab3707200cb; b42891d5d8f3d38befcd3dfbc9a6b73494208220; 461cb614d7ccbf8af3ac97f2629d6a88cb352c0a; e541fe91be838e194bca7524b10a91e8c6102ee5; 87a37946798fd66ecf4e523ddae11b2fd589ca52; 12b6c48194b94aac4590b5262da07e23769e4755.
-**Collision check:** immediately before this write, live HEAD was 12b6c48194b94aac4590b5262da07e23769e4755 and no v14.032 ledger file or commit was present.
+**Collision check (original):** immediately before this write, live HEAD was 12b6c48194b94aac4590b5262da07e23769e4755 and no v14.032 ledger file or commit was present.
+**Renumbering note (External Audit):** this entry's commit (`6f82afe`, 2026-10-05 09:52:09 -0400 = 13:52:09 UTC) collided with the External Audit Round 160 entry (`9790e1c`, 03:28:15 UTC), which landed first by several hours. Per the standing commit-timestamp precedence rule, Round 160 keeps v14.032 and this entry is renumbered to **v14.034**, with no change to its mathematical content. See External Audit Round 161 for the full writeup.
 
 ---
 
@@ -474,7 +475,7 @@ so v14.016/v14.022 may consume the rigorous Euclidean constant gamma_E=1.
 HANDOFF
 target: sandbox
 type: audit
-parent: v14.032
+parent: v14.034
 status: open
 action: Independently audit the outward M8000 mu=1 protected six-plane certificate and finite-front positivity theorem, focusing on the scalar-to-operator Schur row bound, the C_DD=4096 error-free-transformation envelope with pre-cancellation Qcomp<=32, the graph-coordinate/congruence interface, and the deliberately loose ||R||<=1e-20 residual cap. Confirm whether v14.027 §6(a) is rigorously closed.
 deliverable: theorem-or-obstruction
