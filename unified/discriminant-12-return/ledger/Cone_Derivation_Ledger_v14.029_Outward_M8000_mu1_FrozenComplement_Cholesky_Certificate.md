@@ -1,4 +1,4 @@
-# Cone Derivation Ledger v14.028 — Outward M8000 mu=1 Frozen-Complement Cholesky Certificate
+# Cone Derivation Ledger v14.029 — Outward M8000 mu=1 Frozen-Complement Cholesky Certificate
 
 **Date:** 2026-10-04
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
@@ -7,7 +7,8 @@
 **Research commits:** cadb42e4712bc10c9729705f361b1290557c5175; 11bf90b4d4aed05a7184892a7c919639843a654c.
 **Workflow commits:** 7a8ff73946df5f9e5281f97f1132a267eb7746af; 61e21853ea62c231d7c09e488a46c8534408f386.
 **Audit context:** External Audit Round 158 independently verifies v14.027 and confirms that only its three finite outward computations remain.
-**Collision check:** immediately before this write, live HEAD was 61e21853ea62c231d7c09e488a46c8534408f386 and v14.028 was absent.
+**Collision check (original):** immediately before this write, live HEAD was 61e21853ea62c231d7c09e488a46c8534408f386 and v14.028 was absent.
+**Renumbering note (External Audit):** this entry's commit (`cb73959`, 2026-10-04 21:01:37 -0400 = 2026-10-05 01:01:37 UTC) collided with the External Audit Round 158 entry (`380639e`, 2026-10-05 00:42:28 UTC), which landed first by about 19 minutes. Per the standing commit-timestamp precedence rule, Round 158 keeps v14.028 and this entry is renumbered to **v14.029**, with no change to its mathematical content. See External Audit Round 159 for the full writeup.
 
 ---
 
@@ -300,7 +301,7 @@ Thus the remaining finite-front certification is purely six-dimensional.
 HANDOFF
 target: sandbox
 type: audit
-parent: v14.028
+parent: v14.029
 status: open
 action: Independently audit the outward penalized-Cholesky complement certificate, especially the directed inverse-factor recursion, the Cholesky backward-error norm conversion, and the separate shell-shift/PP^T/addition rounding charges; confirm whether the stated delta_e and delta_o may be consumed as rigorous Euclidean complement floors in the v14.027 finite-front Feshbach step.
 deliverable: theorem-or-obstruction
