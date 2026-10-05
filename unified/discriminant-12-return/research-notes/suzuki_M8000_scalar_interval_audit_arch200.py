@@ -236,10 +236,14 @@ def exact_scalar_intervals(n: int, sector: str):
     arch += sym(mp.iv.mpf("3e-32")/(nn*nn))
     diag=cusp+prime_diag+arch
 
+    half=mp.iv.mpf("0.5")
+    eh=mp.iv.exp(half)
+    emh=mp.iv.exp(-half)
     if sector=="even-v":
-        pole=2*k*mp.iv.cosh(mp.iv.mpf("0.5"))/(k*k+mp.iv.mpf("0.25"))
+        g=(eh+emh)/2
     else:
-        pole=2*k*mp.iv.sinh(mp.iv.mpf("0.5"))/(k*k+mp.iv.mpf("0.25"))
+        g=(eh-emh)/2
+    pole=2*k*g/(k*k+mp.iv.mpf("0.25"))
 
     return z,diag,pole
 
