@@ -8,7 +8,7 @@ mode only in each parity.
 from pathlib import Path
 import suzuki_M8000_mu1_exact_near_rows_gram as gate
 
-gate.RCOUNT=1
+gate.RCOUNT=1  # trigger replay after workflow installation
 gate.OUT=Path(__file__).resolve().parent/"M8000_mu1_first_near_row_energy_result.json"
 
 if __name__=="__main__":
