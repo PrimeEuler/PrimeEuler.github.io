@@ -1,0 +1,28 @@
+name: Suzuki v14041 near triple outward budget
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_v14041_near_triple_outward_budget.py'
+      - '.github/workflows/suzuki-v14041-near-triple-outward-budget.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run v14.041 outward closure budget
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_v14041_near_triple_outward_budget.py | tee /tmp/v14041-near-triple-outward-budget.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v14041-near-triple-outward-budget
+          path: /tmp/v14041-near-triple-outward-budget.txt
