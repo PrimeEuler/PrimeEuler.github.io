@@ -1,0 +1,32 @@
+name: Suzuki N4000 LDDD capacity bracket
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/suzuki-N4000-ldd-capacity-bracket.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run theorem-scale capacity bracket
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_ldd_refined_capacity_bracket.py --max-mode 4000 --dps 180 --refinements 1 | tee /tmp/N4000-ldd-capacity-bracket.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-ldd-capacity-bracket
+          path: |
+            /tmp/N4000-ldd-capacity-bracket.txt
+            unified/discriminant-12-return/research-notes/ldd_refined_capacity_bracket_result.json
