@@ -1,4 +1,4 @@
-# Cone Derivation Ledger v14.024 — Euclidean Remote-Schur Floor Diagnostic, Analytic \(Z_{\max}=8\), and the Scalar-Majorant Obstruction
+# Cone Derivation Ledger v14.025 — Euclidean Remote-Schur Floor Diagnostic, Analytic \(Z_{\max}=8\), and the Scalar-Majorant Obstruction
 
 **Date:** 2026-10-04  
 **Track:** Lane A / no-twist Suzuki Xi scalar certification  
@@ -6,7 +6,7 @@
 **Parents:** v14.016–v14.022; External Audit Round 156.  
 **Research/workflow commits:** c06f2ed03c2f76284bcbcb6980632e2e8b33c5a6; f7aaae4818e4d798cff2e6a80f7fb2b52d6e6dc6; 65bb7536b176e0303a340e09756c540ddff71388; 79d353a0e37ae545243b5653e221e4f3cfb54503; 3fcf1cfaadef62dc60f6deb54a92bbdbbfc094f4; 83e424bcac4f99fc81c7189b0a7e1916a3412aa8; 0006c257c141af8f11c24d5d1066179ff42e5602; 4abadd9a4551688972bb682503b343aaa0b5d1a5; c4d9706905f2ef3a905a928db99d6fb60b5ce1a0; 6308e91c8d5abb7a1d762f09217209a1286dfafa; 227f504e3da6599a498fe15cd3792b261a51d4f7.  
 **Collision note (original):** this entry was originally written as v14.023; its own collision check, immediately before writing, found live HEAD at c4d9706905f2ef3a905a928db99d6fb60b5ce1a0 with no live v14.023 or v14.024 ledger entry present.  
-**Renumbering note (External Audit):** this entry's commit (`b6ab58a`, 2026-10-04 19:35:53 -0400 = 23:35:53 UTC) collided with the External Audit Round 156 entry (`02e27db`, 23:28:48 UTC), which landed first by about 7 minutes — the race was a genuine timing coincidence, not a stale check, since External Audit Round 156 itself only pushed minutes before this entry's own author-side collision check ran. Per the standing commit-timestamp precedence rule, the earlier commit keeps v14.023 and this entry is renumbered to **v14.024**, with no change to its mathematical content. See External Audit Round 157 for the full writeup.
+**Renumbering note (External Audit):** this entry's commit (`b6ab58a`, 2026-10-04 19:35:53 -0400 = 23:35:53 UTC) collided with the External Audit Round 156 entry (`02e27db`, 23:28:48 UTC), which landed first by about 7 minutes — the race was a genuine timing coincidence, not a stale check, since External Audit Round 156 itself only pushed minutes before this entry's own author-side collision check ran. Per the standing commit-timestamp precedence rule, the earlier commit keeps v14.023. This entry was first renumbered to v14.024, but a second, independent entry (`41778fb`, "M8000 mu=1 Shifted-Front Far-Margin Diagnostic") then legitimately claimed v14.024 on the shared remote before the first renumbering could be pushed, so this entry is renumbered a second time to **v14.025**, with no change to its mathematical content. See External Audit Round 157 for the full writeup.
 
 ---
 
@@ -397,7 +397,7 @@ No Xi/RH theorem is promoted here.
 HANDOFF
 target: sandbox
 type: task
-parent: v14.024
+parent: v14.025
 status: open
 action: Derive a rigorous Euclidean coercivity criterion directly for \(S_{p,4000}=D_p-B_pA_{p,4000}^{-1}B_p^*\) by expanding \(B_pA_{p,4000}^{-1}B_p^*\) into its finite signed inverse-power/low-rank moment channels plus a geometric operator remainder, so the retained near-null block is eliminated before any absolute norm bound.
 deliverable: theorem-or-obstruction

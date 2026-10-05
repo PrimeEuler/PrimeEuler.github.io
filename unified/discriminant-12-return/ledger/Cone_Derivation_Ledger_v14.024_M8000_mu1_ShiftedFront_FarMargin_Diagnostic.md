@@ -3,16 +3,16 @@
 **Date:** 2026-10-04
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
 **Status:** [D] exact shifted-front Schur strategy; [D] rigorous raw remote floor reused on the smaller far subspace; [N] finite M=8000 mu=1 front passes in both parities; [N] shifted-front four-channel far Schur budgets leave >1 Euclidean margin in both parities; [O] outward-certify the finite shifted front and the correlated four-channel Gram/remainder.
-**Parents:** v14.020–023, v14.016.
+**Parents:** v14.020–022, v14.025, v14.016.
 **Research commits:** 50ce264f2eae5c1ea9ea41db091e8a094d5883e5.
 **Workflow commit:** d46e8baccc7c85738d72a084ffadbf0a1df4817c.
-**Collision check:** immediately before this write, live HEAD was d46e8baccc7c85738d72a084ffadbf0a1df4817c and no v14.024 ledger file was present.
+**Collision check:** immediately before this write, live HEAD was d46e8baccc7c85738d72a084ffadbf0a1df4817c and no v14.024 ledger file was present. This entry's own number was never contested and is unchanged; External Audit Round 157 fixed its internal cross-reference to the (separately renumbered) Euclidean Schur-floor entry, from v14.023 to v14.025.
 
 ---
 
 ## 1. Purpose
 
-v14.023 isolates the remaining quantitative obstruction in the v14.016 eta-tail theorem: a rigorous Euclidean coercivity floor
+v14.025 (originally drafted as v14.023; renumbered by External Audit Round 157 after a version collision) isolates the remaining quantitative obstruction in the v14.016 eta-tail theorem: a rigorous Euclidean coercivity floor
 
 \[
 S_{p,4000}\succeq\gamma I.
