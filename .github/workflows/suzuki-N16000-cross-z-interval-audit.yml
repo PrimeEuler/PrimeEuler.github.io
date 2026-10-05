@@ -1,0 +1,37 @@
+name: Suzuki N16000 cross z interval audit
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N16000_cross_z_interval_audit.py'
+      - '.github/workflows/suzuki-N16000-cross-z-interval-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run cross-band z interval audit
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N16000_cross_z_interval_audit.py --sector ${{ matrix.sector }} | tee /tmp/N16000-cross-z-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N16000-cross-z-${{ matrix.sector }}
+          path: |
+            /tmp/N16000-cross-z-${{ matrix.sector }}.txt
+            unified/discriminant-12-return/research-notes/N16000_cross_z_interval_audit_result.json
