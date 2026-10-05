@@ -1,0 +1,33 @@
+name: Suzuki N4000 K10 actual moments
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_K10_actual_absolute_moments.py'
+      - '.github/workflows/suzuki-N4000-K10-actual-moments.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run actual K10 moments
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_K10_actual_absolute_moments.py | tee /tmp/N4000-K10-actual-moments.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-K10-actual-moments
+          path: |
+            /tmp/N4000-K10-actual-moments.txt
+            unified/discriminant-12-return/research-notes/N4000_K10_actual_absolute_moments_result.json
