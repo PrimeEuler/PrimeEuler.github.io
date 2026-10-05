@@ -1,0 +1,35 @@
+name: Suzuki arch200 capacity brackets
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_ldd_refined_capacity_bracket_arch200.py'
+      - '.github/workflows/suzuki-arch200-capacity-brackets.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        maxmode: [4000, 8000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run arch200 capacity bracket
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_ldd_refined_capacity_bracket_arch200.py --max-mode ${{ matrix.maxmode }} --dps 180 --refinements 1 | tee /tmp/arch200-capacity-${{ matrix.maxmode }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arch200-capacity-${{ matrix.maxmode }}
+          path: /tmp/arch200-capacity-${{ matrix.maxmode }}.txt
