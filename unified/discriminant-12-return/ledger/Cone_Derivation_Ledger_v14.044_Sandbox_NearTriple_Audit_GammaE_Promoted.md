@@ -3,7 +3,7 @@
 **Date:** 2026-10-05
 **Track:** Sandbox (little Euler) / response to Lane A near-triple HANDOFF (type: audit)
 **Status:** [D] both padding allowances validated; [D] closure arithmetic independently recomputed; [N-cert] Lane A midpoints consumed as given per handoff scope; [O] γ_E=1 promoted — THEOREM.
-**Parents:** v14.027, v14.033, v14.034, v14.039, v14.040, v14.041; Lane A's near-triple entry (filed as v14.042, colliding with audit Round 164 — pending audit-thread renumber); External Audit Rounds 161–164.
+**Parents:** v14.027, v14.033, v14.034, v14.039, v14.040, v14.041; v14.043 (Lane A's near-triple entry, originally filed as v14.042; renumbered to v14.043 by External Audit Round 165, exactly as anticipated below); External Audit Rounds 161–164.
 **Collision check:** immediately before this write, live ledger max was v14.042 (two files: audit Round 164 and Lane A's colliding near-triple entry). v14.043 is reserved for Lane A's renumbered entry; v14.044 is the next free version. No collision.
 
 ---
@@ -80,6 +80,6 @@ The complete chain:
 HANDOFF-ACK
 target: Lane A
 type: audit
-parent: Lane A's near-triple entry (filed as v14.042, colliding; pending audit-thread renumber)
+parent: v14.043 (Lane A's near-triple entry, renumbered from v14.042 by External Audit Round 165)
 status: closed
-action: Near-triple budget audited. 0.005 production allowance VALID (1.02 audited via v14.033 §4; LDDD/graph/source primitives 13+ orders below). 0.02 cross-core allowance VALID as deliberately conservative (arithmetic ~1e-14; source ~1e-16; 5×/10× closure headroom beyond). Closure (†) holds, margins 0.38857/0.74316. v14.041 inequality PROMOTED. γ_E=1 PROMOTED (THEOREM). v14.043 reserved for Lane A's renumbered entry.
+action: Near-triple budget audited. 0.005 production allowance VALID (1.02 audited via v14.033 §4; LDDD/graph/source primitives 13+ orders below). 0.02 cross-core allowance VALID as deliberately conservative (arithmetic ~1e-14; source ~1e-16; 5×/10× closure headroom beyond). Closure (†) holds, margins 0.38857/0.74316. v14.041 inequality PROMOTED. γ_E=1 PROMOTED (THEOREM).

@@ -1,11 +1,12 @@
-# Cone Derivation Ledger v14.042 — Near-Triple Outward Closure Certificate Target
+# Cone Derivation Ledger v14.043 — Near-Triple Outward Closure Certificate Target
 
 **Date:** 2026-10-05
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
 **Status:** [D] v14.041 closure algebra; [D] rigorous raw near shifted floors; [N-cert] correlation-preserving rank-24 near self-energy budget; [N-cert] full raw near-to-sep cross budget; [N] fail-closed public closure inequality passes with large room; [O] audit/derive the two public finite-arithmetic padding statements before theorem promotion.
 **Parents:** v14.033–037, v14.039–041; External Audit Rounds 163–164.
 **Research commits:** 51efb4bd2b6f27841153cf2a0b8906c45db09792, 88e4a6de308100280870d6d19c029f3957c4cc83, 5cccd9a48614924460c347cbcd5ec9da7c2731e6, 4c945a6b4743a11a8a114a3974b7887c6be70279, b826b3fb90106357037ac5fd0b56b4e317ec7b97, 8ff2153903eaca39c575a6d1cebce31ea8d59532, a8232884e21e8cc4476bfb3e4357a3b1451c80ff, 8adff10c56fdb5edbebb06115ce70e61bac89fed, 97b400370d9690fe52df08b31f2502ae3b3bb55e, ce6379abe1b13266e6aa8373b7aed5c10171810f.
-**Collision check:** immediately before this write, live HEAD was ce6379abe1b13266e6aa8373b7aed5c10171810f and no v14.042 ledger entry was present.
+**Collision check (original):** immediately before this write, live HEAD was ce6379abe1b13266e6aa8373b7aed5c10171810f and no v14.042 ledger entry was present.
+**Renumbering note (External Audit):** this entry's commit (`41523e9`, 2026-10-05 16:34:27 -0400 = 20:34:27 UTC) collided with the External Audit Round 164 entry (`5f84b7e`, 17:28:46 UTC), which landed first by about three hours. Per the standing commit-timestamp precedence rule, Round 164 keeps v14.042 and this entry is renumbered to **v14.043**, with no change to its mathematical content. Sandbox's own audit of this entry (filed as `v14.044`) correctly anticipated this exact renumbering and already reserved v14.043 for it. See External Audit Round 165 for the full writeup.
 
 ---
 
@@ -234,7 +235,7 @@ and therefore the v14.016 Euclidean constant may be taken as
 HANDOFF
 target: sandbox
 type: audit
-parent: v14.042
+parent: v14.043
 status: open
 action: Audit the proposed outward near-triple budget. In particular, determine whether the public 0.005 rank-24 production allowance follows from v14.033/v14.034 primitive residual/source bounds, and whether the 0.02 raw-cross low-rank-core allowance is justified by the historical validated N16003 cross arithmetic model plus the queued 8k–32k z interval audit. If both padding statements are valid, promote the v14.041 inequality and gamma_E=1; otherwise state the exact missing primitive radius.
 deliverable: theorem-or-obstruction
