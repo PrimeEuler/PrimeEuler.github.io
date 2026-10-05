@@ -1,0 +1,32 @@
+name: Suzuki N4000 K10 stable moment bound
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/suzuki-N4000-K10-stable-moment-bound.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run stable K10 moment bound
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_K10_stable_column_moment_bound.py | tee /tmp/N4000-K10-stable-moments.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-K10-stable-moments
+          path: |
+            /tmp/N4000-K10-stable-moments.txt
+            unified/discriminant-12-return/research-notes/N4000_K10_stable_column_moment_bound_result.json
