@@ -25,9 +25,25 @@ Finally, block PSD Cauchy-Schwarz gives
       <= (sqrt(||H_r||)+sqrt(||H_E||))^2.
 
 Diagnostic only: SVD/source formation and the rank-24 target Gram still need
-outward arithmetic padding before promotion.
+outward arithmetic padding before promotion. The ARPACK start vector is fixed
+and BLAS/OpenMP threading is forced to one before NumPy/SciPy import so this
+midpoint producer is reproducible across repeated audited-runner invocations.
 """
 from __future__ import annotations
+import os
+
+# Reproducibility guardrail: set linear-algebra thread counts before importing
+# NumPy/SciPy so the same script invocation is deterministic on the audited
+# runner rather than relying on workflow-level environment variables.
+for _key in (
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "MKL_NUM_THREADS",
+    "NUMEXPR_NUM_THREADS",
+    "VECLIB_MAXIMUM_THREADS",
+):
+    os.environ[_key] = "1"
+
 import argparse,json,math
 from pathlib import Path
 import mpmath as mp
@@ -78,8 +94,12 @@ def one_sector(sector):
     # Exact nominal near coupling and rank-24 decomposition.
     near=lattice(sector,8001,16000)
     B=exact_cross(near,modes,sector)
-    U,s,Vt=svds(B,k=RANK,which="LM",return_singular_vectors=True,
-                tol=1e-11,maxiter=5000)
+    v0=np.linspace(1.0,2.0,min(B.shape),dtype=float)
+    v0/=np.linalg.norm(v0)
+    U,s,Vt=svds(
+        B,k=RANK,which="LM",return_singular_vectors=True,
+        tol=1e-11,maxiter=5000,v0=v0,solver="arpack"
+    )
     order=np.argsort(s)[::-1]
     U=U[:,order];s=s[order];Vt=Vt[order,:]
     Br=(U*s[None,:])@Vt
