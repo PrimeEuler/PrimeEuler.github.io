@@ -34,7 +34,7 @@ from suzuki_endpoint_M3999_midpoint_effective_core import (
 HERE=Path(__file__).resolve().parent
 OUT=HERE/"M8000_mu1_structured_near_window_result.json"
 MU=1.0
-WINDOW_MAX=10000
+WINDOW_MAX=10000  # trigger
 CHUNK=100
 
 REF={"even-v":0.06294224450849424,"odd-v":0.1036646666652521}
