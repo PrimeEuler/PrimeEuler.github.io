@@ -12,6 +12,8 @@ using the same frozen-P4 protected/complement Feshbach architecture as
 v14.033.  This preserves the near-null correlation and never uses ||F^-1||.
 
 The largest eigenvalue of this finite principal Gram is a lower diagnostic on
+this exact near-boundary contribution and is replayed only after the workflow
+exists on the branch.  It is a lower diagnostic on
 the exact near-shell Schur correction norm.  It is not an upper certificate
 for the full shell.
 """
