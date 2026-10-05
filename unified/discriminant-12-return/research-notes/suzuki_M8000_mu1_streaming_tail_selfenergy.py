@@ -46,7 +46,7 @@ from suzuki_endpoint_M3999_midpoint_effective_core import (
 HERE=Path(__file__).resolve().parent
 OUT=HERE/"M8000_mu1_streaming_tail_selfenergy_result.json"
 
-MU=1.0
+MU=1.0  # trigger replay after workflow installation
 MAX_MODE=24000
 CHECKPOINTS=(10000,12000,16000,20000,24000)
 CHUNK=400
