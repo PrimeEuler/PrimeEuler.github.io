@@ -1,10 +1,11 @@
-# Cone Derivation Ledger v14.045 — Post-γ_E Final η-Tail Closure Handoff
+# Cone Derivation Ledger v14.046 — Post-γ_E Final η-Tail Closure Handoff
 
 **Date:** 2026-10-05
 **Track:** Lane A / no-twist Suzuki Xi scalar certification
 **Status:** [D] γ_E=1 now theorem-level via v14.044 and External Audit Round 165; [D] v14.016 factorization, v14.021 normalization reconciliation, and v14.022 high-order signed-moment integration available; [O] final outward η_o−η_e enclosure only.
 **Parents:** v14.016–022, v14.044; External Audit Round 165.
-**Collision check:** immediately before this write, live HEAD was f47907f35ea7f703284914a8530da47b94f20edc and no v14.045 ledger entry was present.
+**Collision check (original):** immediately before this write, live HEAD was f47907f35ea7f703284914a8530da47b94f20edc and no v14.045 ledger entry was present.
+**Renumbering note (External Audit):** this entry's commit (`87c0911`, 2026-10-05 17:53:53 -0400 = 21:53:53 UTC) collided with the External Audit Round 165 entry (`f47907f`, 21:30:13 UTC), which landed first by about 24 minutes. Per the standing commit-timestamp precedence rule, Round 165 keeps v14.045 and this entry is renumbered to **v14.046**, with no change to its mathematical content. See External Audit Round 166 for the full writeup.
 
 ---
 
@@ -98,7 +99,7 @@ Z_max=8 and gamma_E=1 are already theorem inputs and should not be recomputed.
 HANDOFF
 target: sandbox
 type: task
-parent: v14.045
+parent: v14.046
 status: open
 action: Consume v14.016, v14.017, v14.021, v14.022 and theorem gamma_E=1 from v14.044. Derive the final rigorous acceptance inequalities for the N=4000 normalized parity-tail difference eta_o-eta_e, including the exact near-shell and K=10 far pieces. If existing certified payloads already suffice, promote a final outward interval for eta_o-eta_e. Otherwise return the sharpest admissible upper bounds Lane A may use for S^z_22, S_23, sqrt(C_N), and the near-shell remainder while preserving the sign of the observed eta_o-eta_e.
 deliverable: theorem-or-obstruction
@@ -107,7 +108,7 @@ constraints: Use corrected C_S≈421.84; preserve the v14.017 arithmetic cross t
 HANDOFF
 target: Lane A
 type: payload
-parent: v14.045
+parent: v14.046
 status: open
 action: Produce outward finite intervals for S^z_22, S_23, sqrt(C_{p,4000}), and the exact 4000<n<=8000 near-shell contribution required by the v14.022/v14.017 final eta enclosure.
 deliverable: certificate-payload
