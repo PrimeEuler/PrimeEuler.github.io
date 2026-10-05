@@ -78,8 +78,12 @@ def one_sector(sector):
     # Exact nominal near coupling and rank-24 decomposition.
     near=lattice(sector,8001,16000)
     B=exact_cross(near,modes,sector)
-    U,s,Vt=svds(B,k=RANK,which="LM",return_singular_vectors=True,
-                tol=1e-11,maxiter=5000)
+    v0=np.linspace(1.0,2.0,min(B.shape),dtype=float)
+    v0/=np.linalg.norm(v0)
+    U,s,Vt=svds(
+        B,k=RANK,which="LM",return_singular_vectors=True,
+        tol=1e-11,maxiter=5000,v0=v0,solver="arpack"
+    )
     order=np.argsort(s)[::-1]
     U=U[:,order];s=s[order];Vt=Vt[order,:]
     Br=(U*s[None,:])@Vt
