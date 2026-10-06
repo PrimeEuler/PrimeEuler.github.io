@@ -1,0 +1,22 @@
+name: Suzuki M32000 bare Smax outward budget
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M32000_bare_Smax_outward_budget.py'
+      - '.github/workflows/suzuki-M32000-bare-Smax-outward-budget.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run bare Smax acceptance budget
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M32000_bare_Smax_outward_budget.py
