@@ -148,7 +148,7 @@ def remote_phi(st,sector,rmax):
         cols.append(zz/n**(2*j+2)/ss[2*j])
         cols.append(1.0/n**(2*j+1)/ss[2*j+1])
     cols.append(alpha*p[mask]/ss[-1])
-    Phi[np.ix_(mask,np.arange(RANK,q))]=np.column_stack(cols)
+    Phi[np.ix_(np.where(mask)[0],np.arange(RANK,q))]=np.column_stack(cols)
     return rm,z,p,Phi
 
 def one(sector,rmax):
