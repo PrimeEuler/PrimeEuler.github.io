@@ -1,0 +1,38 @@
+name: Suzuki FFT Feshbach capacity extension
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_fft_feshbach_capacity_extension.py'
+      - '.github/workflows/suzuki-fft-feshbach-capacity-extension.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+        maxmode: [16000, 32000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run FFT Feshbach capacity extension
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_fft_feshbach_capacity_extension.py --sector ${{ matrix.sector }} --maxmode ${{ matrix.maxmode }} | tee /tmp/fft-cap-${{ matrix.sector }}-${{ matrix.maxmode }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fft-cap-${{ matrix.sector }}-${{ matrix.maxmode }}
+          path: |
+            /tmp/fft-cap-${{ matrix.sector }}-${{ matrix.maxmode }}.txt
+            unified/discriminant-12-return/research-notes/fft_feshbach_capacity_extension_result.json
