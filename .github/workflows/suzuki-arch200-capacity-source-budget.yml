@@ -1,0 +1,21 @@
+name: Suzuki arch200 capacity source budget
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_arch200_capacity_source_perturbation_budget.py'
+      - '.github/workflows/suzuki-arch200-capacity-source-budget.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run exact-source capacity perturbation budget
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_arch200_capacity_source_perturbation_budget.py
