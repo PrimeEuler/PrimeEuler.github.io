@@ -1,0 +1,37 @@
+name: Suzuki M16000 capacity residual energy arch200
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M16000_capacity_variational_residual_energy_arch200.py'
+      - '.github/workflows/suzuki-M16000-capacity-residual-energy-arch200.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run M16000 correlated residual energy
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M16000_capacity_variational_residual_energy_arch200.py --sector ${{ matrix.sector }} | tee /tmp/M16000-cap-resid-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M16000-capacity-residual-arch200-${{ matrix.sector }}
+          path: |
+            /tmp/M16000-cap-resid-${{ matrix.sector }}.txt
+            unified/discriminant-12-return/research-notes/M16000_capacity_variational_residual_energy_arch200_result.json
