@@ -49,7 +49,7 @@ def one_sector(sector):
     Axh,Axl=dd_matvec(data,xh,xl)
     rh,rl=dd_sub(Axh,Axl,data.source_hi,data.source_lo)
     qh,ql=dd_project(P,Gih,Gil,rh,rl)
-    ch,cl=dd_dot_columns(P,None,rh,rl)
+    ch,cl=dd_dot_columns(P,None,rh[:,None],rl[:,None])
 
     with mp.workdps(DPS):
         coords=[ldd_to_mpf(ch[i],cl[i]) for i in range(6)]
