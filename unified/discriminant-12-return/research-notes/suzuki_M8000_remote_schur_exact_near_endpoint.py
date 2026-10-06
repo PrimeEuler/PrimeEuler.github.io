@@ -172,7 +172,7 @@ def build_coupling(st,sector,rmax):
         out[:nr]=Bnear@v
         q=nr
         if Bbd is not None:
-            out[q]=float(Bbd@v)
+            out[q]=float((Bbd@v)[0])
             q+=1
         if q<len(rm):
             out[q:]=Phi@(st["Ts"].T@v)
