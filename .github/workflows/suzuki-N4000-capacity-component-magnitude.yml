@@ -1,0 +1,33 @@
+name: Suzuki N4000 capacity component magnitude
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_capacity_component_magnitude.py'
+      - '.github/workflows/suzuki-N4000-capacity-component-magnitude.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run capacity component magnitude diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_capacity_component_magnitude.py | tee /tmp/N4000-capacity-component-magnitude.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: N4000-capacity-component-magnitude
+          path: |
+            /tmp/N4000-capacity-component-magnitude.txt
+            unified/discriminant-12-return/research-notes/N4000_capacity_component_magnitude_result.json
