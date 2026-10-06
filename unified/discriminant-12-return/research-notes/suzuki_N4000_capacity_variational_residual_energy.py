@@ -96,6 +96,16 @@ def one_sector(sector):
     rh,rl=dd_sub(Axh,Axl,data.source_hi,data.source_lo)
     qh,ql=dd_project(P,Gih,Gil,rh,rl)
 
+    # Direct LDDD variational functional for the same reconstructed trial.
+    xfh,xfl=dd_dot_columns(
+        xh[:,None],xl[:,None],
+        data.source_hi[:,None],data.source_lo[:,None]
+    )
+    xAxh,xAxl=dd_dot_columns(
+        xh[:,None],xl[:,None],
+        Axh[:,None],Axl[:,None]
+    )
+
     # Midpoint Q inverse action; refine once against the LDDD operator.
     qfloat=np.asarray(qh+ql,dtype=float)
     y0=solve_correction(op,proj,qfloat,rtol=2e-14)
@@ -126,6 +136,9 @@ def one_sector(sector):
 
     with mp.workdps(DPS):
         eQ=ldd_to_mpf(eh[0,0],el[0,0])
+        xf=ldd_to_mpf(xfh[0,0],xfl[0,0])
+        xAx=ldd_to_mpf(xAxh[0,0],xAxl[0,0])
+        Jdirect=2*xf-xAx
         gr=mp.matrix([ldd_to_mpf(gh[i,0],gl[i,0]) for i in range(6)])
         eP=(gr.T*mp.lu_solve(S,gr))[0]
         etot=eQ+eP
@@ -136,6 +149,9 @@ def one_sector(sector):
           "sector":sector,
           "capacity_midpoint":mp.nstr(C,70),
           "source_energy_G":mp.nstr(G,70),
+          "direct_variational_J":mp.nstr(Jdirect,70),
+          "G_minus_J_direct":mp.nstr(G-Jdirect,70),
+          "G_minus_J_over_G":mp.nstr((G-Jdirect)/G,50),
           "full_source_residual_l2":dd_norm2(rh,rl),
           "q_source_residual_l2":dd_norm2(qh,ql),
           "q_solve_residual_l2_after":qsolve_res,
@@ -144,6 +160,8 @@ def one_sector(sector):
           "protected_energy_midpoint":mp.nstr(eP,70),
           "total_residual_energy_midpoint":mp.nstr(etot,70),
           "residual_energy_over_G":mp.nstr(rel,50),
+          "variational_identity_mismatch":mp.nstr((G-Jdirect)-etot,70),
+          "variational_identity_mismatch_over_G":mp.nstr(((G-Jdirect)-etot)/G,50),
           "S_min_midpoint":mp.nstr(vals[0],60),
           "complement_floor_midpoint":gamma,
           "joint_trial_residual_max":max(n1),
