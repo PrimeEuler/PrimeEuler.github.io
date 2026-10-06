@@ -1,0 +1,37 @@
+name: Suzuki fixed FFT 64k source lead
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_full_fft_extended_source_lead.py'
+      - '.github/workflows/suzuki-full-fft-64k-source-lead.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run source-only 64k finite data
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_full_fft_extended_source_lead.py --sector ${{ matrix.sector }} --cutoff 64000 | tee /tmp/source64-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source64-${{ matrix.sector }}
+          path: |
+            /tmp/source64-${{ matrix.sector }}.txt
+            unified/discriminant-12-return/research-notes/full_fft_extended_source_lead_result.json
