@@ -51,7 +51,7 @@ DPS=180
 def modes_for(sector):
     return np.arange(1 if sector=="even-v" else 2,N+1,2,dtype=int)
 
-def one_sector(sector):
+def one_sector(sector,arch_terms):
     modes=modes_for(sector)
     P,_=frozen_protected_basis(sector,modes)
     Gh,Gl=dd_dot_columns(P,None,P,None)
@@ -63,7 +63,7 @@ def one_sector(sector):
         A,P,Gi,f,rtol=2e-14
     )
     data=hp_parity_data(
-        modes,sector,dps=DPS,arch_terms=160,correction_terms=50
+        modes,sector,dps=DPS,arch_terms=arch_terms,correction_terms=50
     )
 
     Yh=Y0.astype(LD); Yl=np.zeros_like(Yh,dtype=LD)
@@ -147,6 +147,7 @@ def one_sector(sector):
         vals,_=mp.eigsy((S+S.T)/2)
         row={
           "sector":sector,
+          "arch_terms":arch_terms,
           "capacity_midpoint":mp.nstr(C,70),
           "source_energy_G":mp.nstr(G,70),
           "direct_variational_J":mp.nstr(Jdirect,70),
@@ -173,9 +174,10 @@ def one_sector(sector):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--sector",choices=["even-v","odd-v","both"],default="both")
+    ap.add_argument("--arch-terms",type=int,default=160)
     a=ap.parse_args()
     sectors=["even-v","odd-v"] if a.sector=="both" else [a.sector]
-    rows=[one_sector(s) for s in sectors]
+    rows=[one_sector(s,a.arch_terms) for s in sectors]
     OUT.write_text(json.dumps({"rows":rows},indent=2,sort_keys=True)+"\n")
     print("\nwrote",OUT)
 
