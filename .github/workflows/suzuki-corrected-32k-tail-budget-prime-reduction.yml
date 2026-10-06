@@ -1,0 +1,29 @@
+name: Suzuki corrected 32k tail budget and prime reduction
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/onesided_32k_budget_correction_and_prime_reduction.py'
+      - '.github/workflows/suzuki-corrected-32k-tail-budget-prime-reduction.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run corrected budget and prime reduction
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python onesided_32k_budget_correction_and_prime_reduction.py | tee /tmp/corrected-32k-tail-prime.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corrected-32k-tail-prime
+          path: /tmp/corrected-32k-tail-prime.txt
