@@ -1,0 +1,37 @@
+name: Suzuki M32000 fixed FFT graph shear
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M32000_fixed_fft_graph_shear.py'
+      - '.github/workflows/suzuki-M32000-fixed-fft-graph-shear.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run M32000 graph-shear diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M32000_fixed_fft_graph_shear.py --sector ${{ matrix.sector }} | tee /tmp/m32000-graph-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m32000-graph-shear-${{ matrix.sector }}
+          path: |
+            /tmp/m32000-graph-${{ matrix.sector }}.txt
+            unified/discriminant-12-return/research-notes/M32000_fixed_fft_graph_shear_result.json
