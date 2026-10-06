@@ -1,0 +1,28 @@
+name: Suzuki N4000 M8000 near shell outward budget
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_N4000_M8000_near_shell_outward_budget.py'
+      - '.github/workflows/suzuki-N4000-M8000-near-shell-outward-budget.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run near-shell outward acceptance budget
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_N4000_M8000_near_shell_outward_budget.py | tee /tmp/near-shell-outward-budget.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: near-shell-outward-budget
+          path: /tmp/near-shell-outward-budget.txt
