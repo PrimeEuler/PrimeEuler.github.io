@@ -1,0 +1,33 @@
+name: Suzuki M32000 bare full-near outward certificate
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M32000_bare_fullnear_outward_certificate.py'
+      - '.github/workflows/suzuki-M32000-bare-fullnear-outward-certificate.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run unified bare full-near certificate
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M32000_bare_fullnear_outward_certificate.py | tee /tmp/bare-fullnear-cert.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bare-fullnear-cert
+          path: |
+            /tmp/bare-fullnear-cert.txt
+            unified/discriminant-12-return/research-notes/M32000_bare_fullnear_outward_certificate_result.json
