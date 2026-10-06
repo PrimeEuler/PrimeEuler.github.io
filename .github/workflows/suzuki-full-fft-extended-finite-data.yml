@@ -1,0 +1,38 @@
+name: Suzuki fixed FFT extended finite data
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_full_fft_extended_finite_data.py'
+      - '.github/workflows/suzuki-full-fft-extended-finite-data.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+        cutoff: [32000, 64000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run extended fixed FFT finite-data point
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_full_fft_extended_finite_data.py --sector ${{ matrix.sector }} --cutoff ${{ matrix.cutoff }} | tee /tmp/ext-${{ matrix.sector }}-${{ matrix.cutoff }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: full-fft-ext-${{ matrix.sector }}-${{ matrix.cutoff }}
+          path: |
+            /tmp/ext-${{ matrix.sector }}-${{ matrix.cutoff }}.txt
+            unified/discriminant-12-return/research-notes/full_fft_extended_finite_data_result.json
