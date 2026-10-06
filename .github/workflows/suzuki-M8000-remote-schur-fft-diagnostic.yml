@@ -1,0 +1,38 @@
+name: Suzuki M8000 remote Schur FFT diagnostic
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M8000_remote_schur_fft_diagnostic.py'
+      - '.github/workflows/suzuki-M8000-remote-schur-fft-diagnostic.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+        rmax: [32000, 64000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run correlated remote Schur diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M8000_remote_schur_fft_diagnostic.py --sector ${{ matrix.sector }} --rmax ${{ matrix.rmax }} | tee /tmp/remote-schur-${{ matrix.sector }}-${{ matrix.rmax }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: remote-schur-${{ matrix.sector }}-${{ matrix.rmax }}
+          path: |
+            /tmp/remote-schur-${{ matrix.sector }}-${{ matrix.rmax }}.txt
+            unified/discriminant-12-return/research-notes/M8000_remote_schur_fft_diagnostic_result.json
