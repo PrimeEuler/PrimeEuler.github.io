@@ -31,7 +31,7 @@ from suzuki_ldd_refined_capacity_bracket import (
 from suzuki_ldd_source_operator import LD,dot_columns as dd_dot_columns,hp_parity_data_ld as hp_parity_data
 from suzuki_remote_fft_matvec_validation import fft_offdiag,arch_diag_vector
 from suzuki_endpoint_M3999_midpoint_effective_core import (
-    cusp_diag,prime_diag,z_source_faithful,pole_vector,
+    endpoint_data,pole_vector,
 )
 
 HERE=Path(__file__).resolve().parent
@@ -51,8 +51,10 @@ ETA_TARGET={
 
 def fixed_operator(modes,sector,P,Gi):
     modes=np.asarray(modes,dtype=int)
-    z=z_source_faithful(modes)
-    diag=cusp_diag(modes)+prime_diag(modes)+arch_diag_vector(modes,terms=ARCH)
+    # Full-lattice acceptance gate: use the exact source-faithful diagonal
+    # producer.  The vectorized arch recurrence is only stable in the high
+    # remote regime and overflows at low n when pushed to ARCH=200.
+    z,diag=endpoint_data(modes,sign=-1,rho=0.0)
     p,alpha=pole_vector(modes,sector)
     f=source_rows(modes,sector)
 
