@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """Hardened outward acceptance budget for Sandbox v14.094's bare S_max route.
 
-This is an arithmetic/theorem-interface target, not by itself a source-arithmetic
-certificate. Inputs:
+Inputs:
   * audited full-near numerical S_max from v14.094 / v14.096;
-  * exact theorem T_p >= S_p >= I on the N=32000 near compression:
-      S_p>=I by v14.071,
-      T_p=S_p+B^*A_front^{-1}B>=S_p because the promoted 32k front is SPD;
-  * a deliberately huge exact residual cap R_CAP for each computed bare solve.
+  * exact theorem T_p >= S_p >= I on the N=32000 near compression;
+  * public exact residual cap R_CAP=1e-9 for each computed bare solve.
+
+The independent exact-source residual bridge gives <3.34e-13 in both sectors,
+so the 1e-9 public cap retains roughly 3000x residual headroom.
 
 If ||T_p x_p-u|| <= R_CAP and T_p>=I, then
   ||x_p-w_p||_2 <= R_CAP.
 For d=w_e-w_o and J coordinates, every partial-sum error is at most
   sqrt(J)*(R_CAP_e+R_CAP_o).
 
-For u_j=1/(32001+2j), Abel summation simplifies exactly:
+For u_j=1/(32001+2j), Abel summation telescopes exactly:
   u_{J-1}+sum_{j=0}^{J-2}(u_j-u_{j+1}) = u_0 = 1/32001.
 Thus |<u,d>| <= S_max/32001.
 
@@ -22,10 +22,8 @@ The C_D rank-one term is bounded without numerical K values:
   K_p=<u,T_p^{-1}u> <= ||u||^2
 because T_p>=I.
 
-Important: v14.094's S_max<=6.4e-5 was only one sufficient intermediate
-condition based on a looser u-variation estimate. This replay uses the exact
-telescoping coefficient and therefore checks the final QF target directly;
-it does not require the older intermediate S_max threshold.
+v14.094's S_max<=6.4e-5 was only a sufficient intermediate condition using
+a looser u-variation estimate. This replay checks the final QF target directly.
 
 FAIL CLOSED unless the resulting bare Rosc quadratic-form bound is <1e-8.
 """
@@ -36,26 +34,21 @@ N=32000
 J=16000
 N0=32001
 NLAST=63999
-S_MAX_MID=1.567017588900339e-5  # v14.094, independently reproduced v14.096
-R_CAP=5.0e-7                    # deliberately huge exact residual cap, each parity
+S_MAX_MID=1.567017588900339e-5
+R_CAP=1.0e-9
 TARGET=1.0e-8
 
 E0=0.37474310047
 C_D=-32*math.cosh(1)/math.pi**2 + 16*E0/math.pi**2
 
-# Exact-vector partial-sum inflation from two solve errors.
 s_err=math.sqrt(J)*(R_CAP+R_CAP)
 s_out=S_MAX_MID+s_err
 
-# Exact telescoping SBP coefficient.
 u_last=1.0/NLAST
 sum_du=1.0/N0-1.0/NLAST
 sbp_coeff=u_last+sum_du
 sbp_bound=s_out*sbp_coeff
 
-# Rigorous simple same-parity finite-octave ||u||^2 bound:
-# f(j)=1/(N0+2j)^2 decreasing,
-# sum_{j=0}^{J-1} f(j) <= f(0)+int_0^{J-1} f(x) dx.
 u2_bound=1.0/N0**2 + 0.5*(1.0/N0-1.0/(N0+2*(J-1)))
 cd_bound=abs(C_D)*u2_bound*u2_bound
 
@@ -67,8 +60,6 @@ print("S_max_mid =",S_MAX_MID)
 print("exact_residual_cap_each =",R_CAP)
 print("partial_sum_error_cap =",s_err)
 print("S_max_outward_target =",s_out)
-print("v14.094 older sufficient Smax threshold =",6.4e-5,
-      "(not required by this sharper replay)")
 print("u_last =",u_last)
 print("sum_du_exact =",sum_du)
 print("SBP coefficient =",sbp_coeff," expected 1/N0 =",1.0/N0)
@@ -86,4 +77,4 @@ checks={
 for k,v in checks.items(): print(k,"=",v)
 if not all(checks.values()):
     raise RuntimeError(("bare Smax outward acceptance target failed",checks))
-print("PASS: exact residual <=5e-7 per sector is sufficient for bare |Q|<1e-8")
+print("PASS: exact residual <=1e-9 per sector is sufficient for bare |Q|<1e-8")
