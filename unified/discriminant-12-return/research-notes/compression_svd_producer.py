@@ -15,12 +15,17 @@ comparing SHA-256 of the singular-value arrays.
 from __future__ import annotations
 import hashlib
 import json
+import os
 import sys
 
 import numpy as np
 
-sys.path.insert(0, "/tmp")
-from eff_core import z_source_faithful, pole_vector  # noqa: E402
+# Import from the committed repository module (lives alongside this script in
+# research-notes/). v14.070 audit finding: the previous version imported from
+# an uncommitted /tmp/eff_core.py, which is byte-identical to this module.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from suzuki_endpoint_M3999_midpoint_effective_core import (  # noqa: E402
+    z_source_faithful, pole_vector)
 
 
 def lattice(sector, a, b):
