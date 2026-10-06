@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""Correlated Feshbach residual-energy diagnostic for M=8000 arch-200 capacity.
+
+M=8000 analogue of suzuki_N4000_capacity_variational_residual_energy.py,
+using the N=4000 frozen protected six-plane embedded by zeros on the shell.
+
+For the reconstructed LDDD source trial x:
+    G-J(x)=r^T A^{-1}r.
+Eliminate the frozen complement and evaluate the correlated complement +
+protected residual energy, preserving the near-null geometry.
+
+Diagnostic only: outward arithmetic/source charges are separate.
+"""
+from __future__ import annotations
+import argparse,json
+from pathlib import Path
+import mpmath as mp
+import numpy as np
+
+from suzuki_M3999_frozen_p4_source_capacity_midpoint import full_source_matrix
+from suzuki_M8000_embedded_p4_ldd_capacity import embedded_protected_basis
+from suzuki_ldd_refined_capacity_bracket import (
+    build_double_complement,dd_project,form_Ktilde,form_trial,
+    mp_inverse_split,refine_once,residuals_dd,solve_correction,
+)
+from suzuki_ldd_remote_source_lead_diagnostic import dd_linear_combination
+from suzuki_ldd_source_operator import (
+    LD,add as dd_add,dot_columns as dd_dot_columns,
+    hp_parity_data_ld as hp_parity_data,ldd_to_mpf,
+    matvec as dd_matvec,norm2 as dd_norm2,sub as dd_sub,
+)
+
+HERE=Path(__file__).resolve().parent
+OUT=HERE/"M8000_capacity_variational_residual_energy_arch200_result.json"
+DPS=180
+
+def one_sector(sector):
+    _,modes,P,_,_=embedded_protected_basis(sector)
+    Gh,Gl=dd_dot_columns(P,None,P,None)
+    Gih,Gil,Gi_mp=mp_inverse_split(Gh,Gl,DPS)
+    Gi=np.array([[float(Gi_mp[i,j]) for j in range(6)] for i in range(6)])
+    A,f=full_source_matrix(modes,sector)
+    op,proj,gamma,evals,Y0,yf0,initial=build_double_complement(
+        A,P,Gi,f,rtol=2e-14
+    )
+    data=hp_parity_data(
+        modes,sector,dps=DPS,arch_terms=200,correction_terms=50
+    )
+    Yh=Y0.astype(LD);Yl=np.zeros_like(Yh,dtype=LD)
+    yfh=yf0.astype(LD);yfl=np.zeros_like(yfh,dtype=LD)
+    Yh,Yl=dd_project(P,Gih,Gil,Yh,Yl)
+    yfh,yfl=dd_project(P,Gih,Gil,yfh,yfl)
+    Uh,Ul=form_trial(P,Yh,Yl,yfh,yfl)
+    AUh,AUl,Rh,Rl,n0=residuals_dd(data,P,Gih,Gil,Uh,Ul)
+    Yh,Yl,yfh,yfl=refine_once(op,proj,Yh,Yl,yfh,yfl,Rh,Rl)
+    Yh,Yl=dd_project(P,Gih,Gil,Yh,Yl)
+    yfh,yfl=dd_project(P,Gih,Gil,yfh,yfl)
+    Uh,Ul=form_trial(P,Yh,Yl,yfh,yfl)
+    AUh,AUl,Rh,Rl,n1=residuals_dd(data,P,Gih,Gil,Uh,Ul)
+    Kt=form_Ktilde(data,Uh,Ul,AUh,AUl,DPS)
+    with mp.workdps(DPS):
+        S=Kt[:6,:6];g=-Kt[:6,6];h=-Kt[6,6]
+        w=mp.lu_solve(S,g)
+        G=h+(g.T*w)[0]
+        C=1/G
+        coeffs=[w[j] for j in range(6)]+[mp.mpf(1)]
+    xh,xl=dd_linear_combination(Uh,Ul,coeffs)
+    Axh,Axl=dd_matvec(data,xh,xl)
+    rh,rl=dd_sub(Axh,Axl,data.source_hi,data.source_lo)
+    qh,ql=dd_project(P,Gih,Gil,rh,rl)
+
+    xfh,xfl=dd_dot_columns(
+        xh[:,None],xl[:,None],data.source_hi[:,None],data.source_lo[:,None]
+    )
+    xAxh,xAxl=dd_dot_columns(
+        xh[:,None],xl[:,None],Axh[:,None],Axl[:,None]
+    )
+
+    qfloat=np.asarray(qh+ql,dtype=float)
+    y0=solve_correction(op,proj,qfloat,rtol=2e-14)
+    yh=np.asarray(y0,dtype=LD);yl=np.zeros_like(yh,dtype=LD)
+    yh,yl=dd_project(P,Gih,Gil,yh,yl)
+    Ayh,Ayl=dd_matvec(data,yh,yl)
+    qAyh,qAyl=dd_project(P,Gih,Gil,Ayh,Ayl)
+    eyh,eyl=dd_sub(qAyh,qAyl,qh,ql)
+    dy=solve_correction(op,proj,-np.asarray(eyh+eyl,dtype=float),rtol=2e-14)
+    yh,yl=dd_add(yh,yl,np.asarray(dy,dtype=LD),np.zeros_like(yh,dtype=LD))
+    yh,yl=dd_project(P,Gih,Gil,yh,yl)
+
+    Ayh,Ayl=dd_matvec(data,yh,yl)
+    qAyh,qAyl=dd_project(P,Gih,Gil,Ayh,Ayl)
+    eyh,eyl=dd_sub(qAyh,qAyl,qh,ql)
+    qsolve_res=dd_norm2(eyh,eyl)
+    eh,el=dd_dot_columns(qh[:,None],ql[:,None],yh[:,None],yl[:,None])
+    remh,reml=dd_sub(rh,rl,Ayh,Ayl)
+    gh,gl=dd_dot_columns(Uh[:,:6],Ul[:,:6],remh[:,None],reml[:,None])
+
+    with mp.workdps(DPS):
+        eQ=ldd_to_mpf(eh[0,0],el[0,0])
+        xf=ldd_to_mpf(xfh[0,0],xfl[0,0])
+        xAx=ldd_to_mpf(xAxh[0,0],xAxl[0,0])
+        J=2*xf-xAx
+        gr=mp.matrix([ldd_to_mpf(gh[i,0],gl[i,0]) for i in range(6)])
+        eP=(gr.T*mp.lu_solve(S,gr))[0]
+        etot=eQ+eP
+        vals,_=mp.eigsy((S+S.T)/2)
+        row={
+          "sector":sector,
+          "arch_terms":200,
+          "capacity_midpoint":mp.nstr(C,70),
+          "source_energy_G":mp.nstr(G,70),
+          "direct_variational_J":mp.nstr(J,70),
+          "G_minus_J_over_G":mp.nstr((G-J)/G,50),
+          "full_source_residual_l2":dd_norm2(rh,rl),
+          "q_source_residual_l2":dd_norm2(qh,ql),
+          "q_solve_residual_l2_after":qsolve_res,
+          "complement_energy_midpoint":mp.nstr(eQ,70),
+          "protected_energy_midpoint":mp.nstr(eP,70),
+          "total_residual_energy_midpoint":mp.nstr(etot,70),
+          "residual_energy_over_G":mp.nstr(etot/G,50),
+          "variational_identity_mismatch_over_G":mp.nstr(((G-J)-etot)/G,50),
+          "S_min_midpoint":mp.nstr(vals[0],60),
+          "complement_floor_midpoint":gamma,
+          "joint_trial_residual_max":max(n1),
+          "guardrail":"Correlated midpoint residual energy; outward arithmetic/source charges pending."
+        }
+    print(json.dumps(row,indent=2))
+    return row
+
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--sector",choices=["even-v","odd-v"],required=True)
+    a=ap.parse_args()
+    row=one_sector(a.sector)
+    OUT.write_text(json.dumps({"rows":[row]},indent=2,sort_keys=True)+"\n")
+
+if __name__=="__main__":
+    main()
