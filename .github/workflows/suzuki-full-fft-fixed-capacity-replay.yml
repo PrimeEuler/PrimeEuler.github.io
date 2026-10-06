@@ -1,0 +1,37 @@
+name: Suzuki fixed full-lattice FFT capacity replay
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_full_fft_fixed_capacity_replay.py'
+      - '.github/workflows/suzuki-full-fft-fixed-capacity-replay.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run fixed full-lattice FFT replay
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_full_fft_fixed_capacity_replay.py --sector ${{ matrix.sector }} | tee /tmp/full-fft-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: full-fft-fixed-${{ matrix.sector }}
+          path: |
+            /tmp/full-fft-${{ matrix.sector }}.txt
+            unified/discriminant-12-return/research-notes/M_full_fft_fixed_capacity_replay_result.json
