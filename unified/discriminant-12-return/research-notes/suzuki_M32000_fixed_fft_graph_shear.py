@@ -3,59 +3,61 @@
 
 This is the first Lane-A gate requested by v14.080/v14.083.
 
-For the frozen six-plane P and the exact fixed-FFT finite operator A_N,
+For the frozen six-plane P and the calibrated fixed-FFT finite operator A_N,
 solve on Q=P^perp
 
     (Q A_N Q) Y = Q A_N P.
 
-Then the exact block graph/Feshbach factorization is
+For the exact Feshbach graph factorization, if
+  * S is the protected Schur matrix,
+  * C=Q A_N Q is the complement block,
+  * tau=||Y||_2 with Y=C^{-1}Q A_N P,
+then the unit-triangular congruence has
 
-    A_N = T^* diag(S, C) T,
+    sigma_min(T) >= (sqrt(tau^2+4)-tau)/2,
 
-with C=Q A_N Q, S=P^*A_NP-(Q A_NP)^*C^{-1}(Q A_NP), and a unit
-triangular shear whose off-diagonal block is Y (up to the harmless frozen
-P Gram normalization already used throughout the project).
+and therefore
 
-For tau=||Y||_2, the exact 2x2 shear singular-value formula gives
+    lambda_min(A_N)
+      >= min(lambda_min(S), lambda_min(C)) * sigma_min(T)^2.
 
-    sigma_min(T)^2 >= ((sqrt(tau^2+4)-tau)/2)^2,
+This diagnostic computes tau and combines it with the already-completed
+arch-200/LDDD 32k protected pivot and fixed-FFT complement midpoint.  It is
+NOT an outward certificate: the purpose is only to decide whether the graph
+route has enough headroom before outwardizing the scalar/operator, complement,
+and shear errors.
 
-hence a midpoint diagnostic floor
-
-    mu_mid >= min(lambda_min(S), gamma_Q) * sigma_min(T)^2.
-
-This script is diagnostic only: it does NOT outward-certify gamma_Q,
-lambda_min(S), or tau.  Its purpose is to decide whether the graph route
-has enough numerical headroom to pursue the outward certificate.
-
-The protected Schur matrix uses the same stationary-Feshbach contraction
-as suzuki_fixed_fft_stationary_feshbach.py, including DD replacement of
-the base P^T A P / A P payload.
+Important: do not recompute the ~1e-30 protected pivot by the fast stationary
+long-double contraction here.  At 32k that subtraction is below the accuracy
+of the accelerated contraction.  The load-bearing midpoint values below come
+from the completed full arch-200/LDDD fixed-FFT replay.
 """
 from __future__ import annotations
 
 import argparse, json, math
 from pathlib import Path
 
-import mpmath as mp
 import numpy as np
 from scipy.sparse.linalg import cg
 
-from suzuki_fixed_fft_stationary_feshbach import (
-    base_payload, ld_dot_cols, mp_from_ld,
-)
-from suzuki_full_fft_fixed_capacity_replay import fixed_operator, DPS
+from suzuki_fixed_fft_stationary_feshbach import base_payload
+from suzuki_full_fft_fixed_capacity_replay import fixed_operator
 from suzuki_M8000_M16000_capacity_ratio_source_sensitivity import (
     embedded_P, modes_for,
 )
-from suzuki_ldd_source_operator import LD
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "M32000_fixed_fft_graph_shear_result.json"
 
 CUTOFF = 32000
 TARGET_MU = 1.2e-31
-GAMMA_MID = {
+
+# Completed arch-200/LDDD 32k capacity replay values.
+PROTECTED_S_MID = {
+    "even-v": 5.67126816594919256613793717097e-30,
+    "odd-v": 1.42959091963877922082616902732e-26,
+}
+COMPLEMENT_GAMMA_MID = {
     "even-v": 0.15515504171681802,
     "odd-v": 0.5320538996387548,
 }
@@ -87,36 +89,22 @@ def one(sector: str):
         iters.append(cnt[0])
         residuals.append(float(np.linalg.norm(E[:, j] - op @ y)))
 
-    # Stationary protected Schur contraction.
-    nb = len(base["modes"])
-    APld = np.asarray(AP, dtype=LD)
-    APld[:nb, :] = base["AP_ld"]
-    APY = ld_dot_cols(APld, np.asarray(Y, dtype=LD))
-
-    with mp.workdps(DPS):
-        S = mp.matrix(base["K0"])
-        for i in range(6):
-            for j in range(6):
-                S[i, j] -= mp_from_ld(APY[i, j])
-        S = (S + S.T) / 2
-        seigs, _ = mp.eigsy(S)
-        smin = seigs[0]
-
     svals = np.linalg.svd(Y, compute_uv=False)
     tau = float(svals[0])
 
-    # Frozen P is extremely close to orthonormal; report the actual Gram spectrum.
+    # Report actual frozen-P Gram spectrum as a coordinate sanity check.
     G = P.T @ P
     gevals = np.linalg.eigvalsh((G + G.T) / 2)
 
     sigma_shear = (math.sqrt(tau * tau + 4.0) - tau) / 2.0
     sigma2 = sigma_shear * sigma_shear
-    gamma = GAMMA_MID[sector]
-    smin_f = float(smin)
-    mu_mid = min(smin_f, gamma) * sigma2
 
-    ratio = TARGET_MU / smin_f
-    if ratio < 1.0:
+    smin = PROTECTED_S_MID[sector]
+    gamma = COMPLEMENT_GAMMA_MID[sector]
+    mu_mid = min(smin, gamma) * sigma2
+
+    ratio = TARGET_MU / smin
+    if 0.0 < ratio < 1.0:
         sig_req = math.sqrt(ratio)
         tau_max = 1.0 / sig_req - sig_req
     else:
@@ -130,8 +118,8 @@ def one(sector: str):
         "graph_shear_singular_values": [float(x) for x in svals],
         "cg_iters": iters,
         "recomputed_graph_residual_max": max(residuals),
-        "protected_S_min_midpoint": mp.nstr(smin, 50),
-        "complement_gamma_midpoint_external": gamma,
+        "protected_S_min_arch200_ldd_midpoint": smin,
+        "complement_gamma_fixed_fft_midpoint": gamma,
         "P_gram_min": float(gevals[0]),
         "P_gram_max": float(gevals[-1]),
         "shear_sigma_min_lower_formula": sigma_shear,
@@ -142,9 +130,8 @@ def one(sector: str):
         "tau_max_allowed_if_S_midpoint_exact": tau_max,
         "tau_headroom_factor": tau_max / tau if tau > 0 else None,
         "guardrail": (
-            "Diagnostic only. No outward certification of the 32k finite-section "
-            "floor. Uses the calibrated fixed-FFT operator and stationary-Feshbach "
-            "protected contraction to test graph-shear headroom."
+            "Diagnostic only. Protected pivot comes from the completed arch-200/LDDD "
+            "32k replay; no outward certification of the 32k finite-section floor."
         ),
     }
     print(json.dumps(row, indent=2), flush=True)
