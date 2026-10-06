@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Hardened outward acceptance budget for Sandbox v14.094's bare S_max lemma.
+"""Hardened outward acceptance budget for Sandbox v14.094's bare S_max route.
 
 This is an arithmetic/theorem-interface target, not by itself a source-arithmetic
-certificate.  Inputs:
+certificate. Inputs:
   * audited full-near numerical S_max from v14.094 / v14.096;
   * exact theorem T_p >= S_p >= I on the N=32000 near compression:
       S_p>=I by v14.071,
@@ -21,6 +21,11 @@ Thus |<u,d>| <= S_max/32001.
 The C_D rank-one term is bounded without numerical K values:
   K_p=<u,T_p^{-1}u> <= ||u||^2
 because T_p>=I.
+
+Important: v14.094's S_max<=6.4e-5 was only one sufficient intermediate
+condition based on a looser u-variation estimate. This replay uses the exact
+telescoping coefficient and therefore checks the final QF target directly;
+it does not require the older intermediate S_max threshold.
 
 FAIL CLOSED unless the resulting bare Rosc quadratic-form bound is <1e-8.
 """
@@ -62,6 +67,8 @@ print("S_max_mid =",S_MAX_MID)
 print("exact_residual_cap_each =",R_CAP)
 print("partial_sum_error_cap =",s_err)
 print("S_max_outward_target =",s_out)
+print("v14.094 older sufficient Smax threshold =",6.4e-5,
+      "(not required by this sharper replay)")
 print("u_last =",u_last)
 print("sum_du_exact =",sum_du)
 print("SBP coefficient =",sbp_coeff," expected 1/N0 =",1.0/N0)
@@ -74,7 +81,6 @@ print("headroom factor =",TARGET/q_bound)
 
 checks={
  "telescoping_exact":abs(sbp_coeff-1.0/N0)<1e-20,
- "Smax_below_v14094_sufficient":s_out<6.4e-5,
  "qf_below_target":q_bound<TARGET,
 }
 for k,v in checks.items(): print(k,"=",v)
