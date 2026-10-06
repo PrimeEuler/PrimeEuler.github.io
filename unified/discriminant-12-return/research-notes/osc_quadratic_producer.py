@@ -336,7 +336,7 @@ def main():
     k10 = k10_qsep_bound()
     print(f"  v14.020 baseline ||R~_10||_2 < {k10['baseline']:.2e} (N=4000, n0=8000) [N]")
     print(f"  n0 scaling suppression (8000/128000)^22.5 = {k10['suppression']:.3e} [D]")
-    print(f"  pessimistic ||R~_10||_2 (n>=128k) <= {k10['l2_bound']:.3e} [D+N]")
+    print(f"  pessimistic ||R~_10||_2 (n>=128k) <= {k10['l2_bound']:.3e} [D+N] (incl. 1e20 pessimistic moment growth)")
     print(f"  via gamma=1: subleading <= {k10['subleading']:.3e}, "
           f"cross <= {k10['cross']:.3e}")
     print(f"  Q_sep total <= {k10['total']:.3e}  ({k10['total']/MARGIN:.2e} x margin) [D]")
