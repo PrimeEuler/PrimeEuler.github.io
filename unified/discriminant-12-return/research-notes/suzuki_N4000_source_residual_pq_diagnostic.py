@@ -52,7 +52,7 @@ def one_sector(sector):
     ch,cl=dd_dot_columns(P,None,rh[:,None],rl[:,None])
 
     with mp.workdps(DPS):
-        coords=[ldd_to_mpf(ch[i],cl[i]) for i in range(6)]
+        coords=[ldd_to_mpf(ch[i,0],cl[i,0]) for i in range(6)]
         pnorm=mp.sqrt(mp.fsum(abs(c)**2 for c in coords))
         row={
           "sector":sector,
