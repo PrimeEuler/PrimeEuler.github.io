@@ -1,0 +1,19 @@
+name: Suzuki 32k 64k coarse shell budget
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M32000_M64000_coarse_shell_budget.py'
+      - '.github/workflows/suzuki-M32000-M64000-coarse-shell-budget.yml'
+  workflow_dispatch:
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run coarse shell target
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_M32000_M64000_coarse_shell_budget.py
