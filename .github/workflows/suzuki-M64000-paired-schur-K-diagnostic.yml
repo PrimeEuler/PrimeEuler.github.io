@@ -34,32 +34,23 @@ jobs:
           import mpmath as mp
           import suzuki_M64000_paired_schur_K_diagnostic as base
           sector=sys.argv[1]
-          captured=[]
-          orig=base.dd_matrix_to_mp
-          def cap(hi,lo):
-              M=orig(hi,lo)
-              captured.append(M.copy())
-              return M
-          base.dd_matrix_to_mp=cap
-          row=base.one(sector)
-          S0=next(M for M in captured if M.rows==6 and M.cols==6)
-          b=next(M for M in captured if M.rows==6 and M.cols==1)
-          hM=next(M for M in captured if M.rows==1 and M.cols==1)
-          S=(S0+S0.T)/2
+          row=base.one(sector,export_anchor=True)
+          out=row.pop("anchor_export")
+          out.update({
+            "sector":sector,
+            "K_total":row["K_total"],
+            "protected_S_min":row["protected_S_min"],
+            "target_ldd_residual_after":row["target_ldd_residual_after"],
+            "graph_ldd_residual_after":row["graph_ldd_residual_after"],
+            "guardrail":"exact final S,b,h exported directly by the audited M64000 producer"
+          })
           with mp.workdps(base.DPS):
-              x=mp.lu_solve(S,b)
-              out={
-                "sector":sector,
-                "S":[[mp.nstr(S[i,j],90) for j in range(6)] for i in range(6)],
-                "b":[mp.nstr(b[i,0],90) for i in range(6)],
-                "h":mp.nstr(hM[0,0],90),
-                "Sinv_b":[mp.nstr(x[i,0],90) for i in range(6)],
-                "K_total":row["K_total"],
-                "protected_S_min":row["protected_S_min"],
-                "target_ldd_residual_after":row["target_ldd_residual_after"],
-                "graph_ldd_residual_after":row["graph_ldd_residual_after"],
-                "guardrail":"same audited M64000 producer; workflow only exports captured reduced matrices"
-              }
+              kerr=abs(mp.mpf(out["K_reconstructed"])-mp.mpf(row["K_total"]))
+              merr=abs(mp.mpf(out["protected_S_min_reconstructed"])-mp.mpf(row["protected_S_min"]))
+              out["K_consistency_abs"]=mp.nstr(kerr,40)
+              out["Smin_consistency_abs"]=mp.nstr(merr,40)
+              if kerr > mp.mpf("1e-60") or merr > mp.mpf("1e-45"):
+                  raise RuntimeError(("anchor self-check failed",sector,kerr,merr))
           Path(f"M64000_paired_schur_anchor_{sector}.json").write_text(
               json.dumps(out,indent=2,sort_keys=True)+"\n"
           )
