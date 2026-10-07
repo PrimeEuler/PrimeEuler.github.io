@@ -56,9 +56,21 @@ def spectral_norm_sym(A):
     return max(abs(vals[0]), abs(vals[-1]))
 
 
+def solve_matrix(A, B):
+    """Solve A X = B column-by-column; mpmath.lu_solve accepts vector RHS only."""
+    if B.cols == 1:
+        return mp.lu_solve(A, B)
+    X = mp.matrix(A.cols, B.cols)
+    for j in range(B.cols):
+        xj = mp.lu_solve(A, B[:, j])
+        for i in range(A.cols):
+            X[i, j] = xj[i]
+    return X
+
+
 def right_solve_transpose(L, X):
-    """Return X L^{-T} using only left solves."""
-    return mp.lu_solve(L, X.T).T
+    """Return X L^{-T} using column-wise left solves."""
+    return solve_matrix(L, X.T).T
 
 
 def reduced_payload(sector, R):
@@ -154,7 +166,7 @@ def normalized_step(state, sector, R):
     Dv_res = norm2(D * v - c)
 
     # G = L^{-1} D L^{-T}, formed by triangular/linear solves only.
-    X = mp.lu_solve(L, D)
+    X = solve_matrix(L, D)
     G = right_solve_transpose(L, X)
     G = (G + G.T) / 2
     gvals, _ = mp.eigsy(G)
