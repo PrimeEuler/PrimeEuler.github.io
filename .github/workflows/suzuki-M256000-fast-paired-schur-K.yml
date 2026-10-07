@@ -1,0 +1,35 @@
+name: Suzuki M256000 fast paired Schur K
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M256000_fast_paired_schur_K.py'
+      - '.github/workflows/suzuki-M256000-fast-paired-schur-K.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run fast finite-256k K payload
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M256000_fast_paired_schur_K.py --sector ${{ matrix.sector }} | tee /tmp/m256000-fast-K-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m256000-fast-K-${{ matrix.sector }}
+          path: /tmp/m256000-fast-K-${{ matrix.sector }}.txt
