@@ -1,0 +1,35 @@
+name: Suzuki M128000 fast frozen residual payload
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M128000_fast_frozen_residual_payload.py'
+      - '.github/workflows/suzuki-M128000-fast-frozen-residual-payload.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run fast frozen residual payload
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M128000_fast_frozen_residual_payload.py --sector ${{ matrix.sector }} | tee /tmp/m128000-fast-frozen-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m128000-fast-frozen-${{ matrix.sector }}
+          path: /tmp/m128000-fast-frozen-${{ matrix.sector }}.txt
