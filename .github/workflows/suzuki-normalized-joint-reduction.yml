@@ -1,0 +1,108 @@
+name: Suzuki direct normalized joint reduction
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_normalized_joint_reduction_producer.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_normalized_joint_pair_diagnostic.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_ldd_native_matvec.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_ldd_native_matvec.cpp'
+      - '.github/workflows/suzuki-normalized-joint-reduction.yml'
+  workflow_dispatch:
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install numpy scipy mpmath==1.3.0
+      - name: Independent exact-reference implementation test
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_normalized_joint_reduction_producer.py --self-test
+      - name: Small source smoke, explicitly different source frontier
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_normalized_joint_reduction_producer.py
+          --sector ${{ matrix.sector }} --cutoffs 4000 8000
+          --remote-start 1000 --refinements 1
+          --output /tmp/smoke-${{ matrix.sector }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: normalized-joint-smoke-${{ matrix.sector }}
+          path: /tmp/smoke-${{ matrix.sector }}.json
+          if-no-files-found: error
+
+  full:
+    needs: smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+        cutoff: [64000, 128000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install numpy scipy mpmath==1.3.0
+      - name: Direct normalized source solve and LDDD residual refinement
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_normalized_joint_reduction_producer.py
+          --sector ${{ matrix.sector }} --cutoffs ${{ matrix.cutoff }}
+          --remote-start 32000 --refinements 1
+          --output /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: normalized-joint-full-${{ matrix.cutoff }}-${{ matrix.sector }}
+          path: /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
+          if-no-files-found: error
+
+  paired:
+    needs: full
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install small consumer dependency
+        run: python -m pip install mpmath==1.3.0
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: normalized-joint-full-*
+          merge-multiple: true
+          path: /tmp/joint
+      - name: Pair both anchor-aware increments, midpoint only
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_normalized_joint_pair_diagnostic.py
+          --even-old /tmp/joint/joint-64000-even-v.json
+          --even-new /tmp/joint/joint-128000-even-v.json
+          --odd-old /tmp/joint/joint-64000-odd-v.json
+          --odd-new /tmp/joint/joint-128000-odd-v.json
+          --output /tmp/normalized-joint-pair-64000-128000.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: normalized-joint-pair-64000-128000
+          path: /tmp/normalized-joint-pair-64000-128000.json
+          if-no-files-found: error

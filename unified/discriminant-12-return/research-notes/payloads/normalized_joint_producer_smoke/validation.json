@@ -1,0 +1,29 @@
+{
+  "certification_ready": false,
+  "checks": {
+    "exact_fraction_reference_affine_error": "1.238873942213e-38",
+    "exact_fraction_reference_affine_tolerance": "1e-25",
+    "native_numpy_affine_and_residual_gram_string_identical_rows": 4,
+    "native_reference_hi_lo_component_identical_cases": 4,
+    "offset_invariance_odd_4k_abs_delta": "0.00000000000000000000009164413077658737458600484660940492936293196684270804215069761634428026313278491144",
+    "offset_invariance_tolerance": "1e-18",
+    "require_certificate_rejected": true,
+    "syntax_and_workflow_dependencies": true,
+    "tampered_normalizer_rejected": true
+  },
+  "payload_hashes": {
+    "native_even.json": "a217bfbe9d332bc8fd74e5c00e353f56b779ec2d0f467642afc175bc9f64503c",
+    "native_odd.json": "41eff2027097ad22703b69c76acb41939babe4528a76e56f7eb3ccc39ebfc8a9",
+    "native_pair.json": "509ed0da88affeb44622c058eaecc55140a026f6bf472c68a7f8e9a36bcac0eb",
+    "offset_zero_odd.json": "9d2e80f0b566ebf27317585709cb7b6da533b9c5d10de4be918fae74c4313a27"
+  },
+  "schema": "cone.normalized-joint-producer-validation.v1",
+  "scope": "Local 4k/8k source smoke with remote_start=1000; not actual 64k/128k evidence",
+  "source_hashes": {
+    "suzuki-normalized-joint-reduction.yml": "3ecf94dc2da8431d5f26b3ab6161063d0bf3d7c439024a5fb1bd19f4a1595b1a",
+    "suzuki_ldd_native_matvec.cpp": "41690de03542f8ada4fd9947b087db2f08251ce7b0a0ed01d1e4bebff9cc9e63",
+    "suzuki_ldd_native_matvec.py": "13249c3c47cef97af8ed5ddd50f65436faf9024ebdd57c3d79f031795bb07884",
+    "suzuki_normalized_joint_pair_diagnostic.py": "bb7e26af8b377246f208903b3a2ea5c1aaa696924d8c023ebf0fc5472e2a7d3f",
+    "suzuki_normalized_joint_reduction_producer.py": "9eca3b7d703b253773ae0b4a63be3e68d9ce46e17876574b3fd2a22a6ee7f724"
+  }
+}
