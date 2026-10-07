@@ -1,0 +1,42 @@
+{
+  "arithmetic": "exact rational identities; Decimal norm displays only",
+  "guardrail": "Synthetic replay, not a source-operator outward certificate",
+  "normalizer_diagonal_span": "1 to 1e15",
+  "tau_mixed_term_counterexample": {
+    "actual_error": "0.21",
+    "v14145_bound_without_rounding_or_solve_error": "0.2",
+    "corrected_bound": "0.21"
+  },
+  "cases": [
+    {
+      "seed": 19,
+      "exact_joint_residual_identity": true,
+      "exact_fixed_normalizer_transport": true,
+      "exact_difference_loewner_bracket": true,
+      "paired_bound_holds": true,
+      "common_mode_bound": "0",
+      "paired_abs_difference": "0.000083920647348384829385865374947057817012558301268922309528909758809269378835405291550572022453150346836979396966",
+      "paired_upper_bound": "0.0014835970504641293023243028216181801868410098172743327057441279357539871918090040669753026871815269509847880895"
+    },
+    {
+      "seed": 71,
+      "exact_joint_residual_identity": true,
+      "exact_fixed_normalizer_transport": true,
+      "exact_difference_loewner_bracket": true,
+      "paired_bound_holds": true,
+      "common_mode_bound": "0",
+      "paired_abs_difference": "0.000096010826101841861943531260534721216120281007191345842213773456639991902569775616078044689214948380438828474049",
+      "paired_upper_bound": "0.00091011819378627166867232157991062062176024631429521485336075969640182447312213425866620219338094783851576188876"
+    },
+    {
+      "seed": 193,
+      "exact_joint_residual_identity": true,
+      "exact_fixed_normalizer_transport": true,
+      "exact_difference_loewner_bracket": true,
+      "paired_bound_holds": true,
+      "common_mode_bound": "0",
+      "paired_abs_difference": "0.000072109877188682988686584256742310654235939199862344922367060018388817822883361830108166656187212896736621147949",
+      "paired_upper_bound": "0.00084033458570931839871661550091048162454700892854006218570665053275663960330677676358893863916419310311679727763"
+    }
+  ]
+}
