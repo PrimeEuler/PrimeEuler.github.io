@@ -1,0 +1,35 @@
+{
+  "schema": "cone.corrected-m64000-anchor-provenance.v1",
+  "repository": "PrimeEuler/PrimeEuler.github.io",
+  "run_id": 37659896312,
+  "producer_commit": "4e0ea5cf9f8892026c692f56359178f192e7f72f",
+  "run_status": "completed",
+  "run_conclusion": "success",
+  "guardrail": "Unchanged corrected producer JSON; reconstruction checks are midpoint self-consistency, not an outward certificate of the source operator.",
+  "files": [
+    {
+      "sector": "even-v",
+      "path": "unified/discriminant-12-return/research-notes/payloads/M64000_corrected_run_37659896312/M64000_paired_schur_anchor_even-v.json",
+      "artifact_id": 11507250474,
+      "artifact_name": "M64000-schur-K-even-v",
+      "artifact_zip_sha256": "79786b9afb82d7b46729867ff38c6b7595f9520a162f34145fb7d4c7b48d63e5",
+      "json_sha256": "b46e9862d804ad3ddc75edc8ec844ed7cc24b3b4e5d73989fdb7698e5a4e6032",
+      "original_archive_member": "home/runner/work/PrimeEuler.github.io/PrimeEuler.github.io/unified/discriminant-12-return/research-notes/M64000_paired_schur_anchor_even-v.json"
+    },
+    {
+      "sector": "odd-v",
+      "path": "unified/discriminant-12-return/research-notes/payloads/M64000_corrected_run_37659896312/M64000_paired_schur_anchor_odd-v.json",
+      "artifact_id": 11504624344,
+      "artifact_name": "M64000-schur-K-odd-v",
+      "artifact_zip_sha256": "e022e1150c4e5a0ddc77523b76a3d3db34f177f12c98f37eafc3a159ec02fdbe",
+      "json_sha256": "682a69f6668211b5f8a03686c7a6b6e56ee0609fefed29db12fd02b69145ec41",
+      "original_archive_member": "home/runner/work/PrimeEuler.github.io/PrimeEuler.github.io/unified/discriminant-12-return/research-notes/M64000_paired_schur_anchor_odd-v.json"
+    }
+  ],
+  "verification": {
+    "method": "Python decimal, 160-digit context, Cholesky solve and 450-step shifted-Cholesky floor bisection; numerical reconstruction only; bisection width is a diagnostic, not a directed-rounding theorem enclosure.",
+    "K_consistency_tolerance": "1e-60",
+    "floor_consistency_tolerance": "1e-45",
+    "results": "unified/discriminant-12-return/research-notes/payloads/M64000_corrected_run_37659896312/verification.json"
+  }
+}
