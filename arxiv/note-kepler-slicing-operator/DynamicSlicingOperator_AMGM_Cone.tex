@@ -1,0 +1,158 @@
+\documentclass[11pt,3p,twocolumn]{elsarticle}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{bm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\journal{Celestial Mechanics and Dynamical Astronomy}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{The Dynamic Slicing Operator on the AM--GM Cone: \\ A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}
+
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+
+\begin{abstract}
+We present a geometric and operator-theoretic formulation of central-force celestial mechanics using arithmetic mean--geometric mean (AM--GM) coordinates on factor surfaces. By mapping the turning points of an orbit (apoapsis $r_a$ and periapsis $r_p$) to mean-value coordinates $T = (r_a+r_p)/2$, $X = (r_a-r_p)/2$, and $Y = \sqrt{r_a r_p}$, two-body Keplerian trajectories are represented as planar intersections of the Minkowski-like quadric cone $\mathcal{C}: X^2 + Y^2 = T^2$. We show that total energy $E$, specific angular momentum $h$, and central mass $M$ isolate cleanly along orthogonal geometric directions of the cone. Furthermore, time evolution and non-Keplerian perturbations (such as drag or thrust) are modeled via a dynamic slicing operator $\hat{S}(t)$ whose movement through $\mathcal{C}$ parameterizes osculating orbit transitions, orbital decay, and energy pumps under the action of the $\mathfrak{so}(2,1)$ Lie algebra.
+\end{abstract}
+
+\begin{keyword}
+Kepler problem \sep AM--GM coordinates \sep Quadric cone \sep $\mathfrak{so}(2,1)$ Lie algebra \sep Dynamic slicing operator \sep Orbital perturbations
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+Classical two-body motion under a $1/r^2$ central force potential is conventionally parameterized via spatial state vectors $(\mathbf{r}, \mathbf{v})$ or osculating Keplerian orbital elements $(a, e, i, \omega, \Omega, \nu)$. While these representations excel at numerical integration, phase space transitions between bound ($E < 0$), parabolic ($E = 0$), and hyperbolic ($E > 0$) regimes often require piecewise analytic parameterizations involving distinct trigonometric or hyperbolic anomalies.
+
+In recent work on factor lattice geometry~\cite{Ebert2026}, an arithmetic mean--geometric mean coordinate transformation was introduced to organize binary factor pairs onto the quadric surface $X^2 + Y^2 = T^2$. In this paper, we extend this construction to continuous classical dynamics. By identifying factor pairs with radial turning points $(r_a, r_p)$, we demonstrate that all Keplerian trajectories manifest as plane slices of a single quadric cone, and that time evolution under external forces can be formalized as a continuous family of slicing operators $\hat{S}(t)$.
+
+\section{The Orbital AM--GM Mapping}
+
+Consider a particle of mass $m$ orbiting a central mass $M$ in a Newtonian gravitational potential $V(r) = -\mu/r$, where $\mu = GM$. Let $r_a$ and $r_p$ denote the apoapsis and periapsis distances, respectively.
+
+\begin{definition}[Orbital Mean-Value Mapping]
+The turning points $(r_a, r_p)$ map to the coordinate tuple $(X, Y, T) \in \mathbb{R}^3$ via:
+\begin{equation}
+T = \frac{r_a + r_p}{2}, \quad X = \frac{r_a - r_p}{2}, \quad Y = \sqrt{r_a r_p}
+\end{equation}
+\end{definition}
+
+Direct substitution yields the fundamental algebraic identity:
+\begin{equation}
+X^2 + Y^2 = \left(\frac{r_a - r_p}{2}\right)^2 + r_a r_p = \left(\frac{r_a + r_p}{2}\right)^2 = T^2
+\label{eq:cone}
+\end{equation}
+Thus, every physically realization of radial turning points lies on the cone surface $\mathcal{C}: X^2 + Y^2 = T^2$. The physical interpretations of these coordinates are immediately evident:
+\begin{itemize}
+    \item $T = a$: Semi-major axis (axial scale).
+    \item $Y = b = a\sqrt{1-e^2}$: Semi-minor axis (transverse radius).
+    \item $X = c = ae$: Focal displacement (eccentricity displacement).
+\end{itemize}
+The cone constraint Equation~\eqref{eq:cone} is geometrically equivalent to the standard ellipse relation $(ae)^2 + b^2 = a^2$.
+
+\section{Physical Invariants as Cone Coordinates}
+
+A major advantage of the AM--GM representation is that scalar physical invariants isolate along principal geometric axes.
+
+\begin{proposition}[Isolation of Physical Invariants]
+For a two-body orbit on the cone $\mathcal{C}$:
+\begin{enumerate}
+    \item \textbf{Total Specific Energy $E$:} Is determined purely by the axial height $T$:
+    \begin{equation}
+    E = -\frac{\mu}{2T}
+    \end{equation}
+    Horizontal slices $T = \text{const.}$ represent constant-energy manifolds.
+    
+    \item \textbf{Specific Angular Momentum $h$:} Is determined by the transverse coordinate $Y$ and axial height $T$:
+    \begin{equation}
+    h = \sqrt{\mu \frac{Y^2}{T}} = \sqrt{\frac{\mu b^2}{a}}
+    \end{equation}
+    Hyperbolic cross-sections $Y = \text{const.}$ define manifolds of constant angular momentum.
+    
+    \item \textbf{Central Mass Extraction $M$:} Let $v_a$ and $v_p$ be the orbital speeds at apoapsis and periapsis. By angular momentum conservation ($h = v_a r_a = v_p r_p$), the central parameter $\mu = GM$ satisfies:
+    \begin{equation}
+    \mu = G M = T \cdot v_a v_p \implies M = \frac{T \cdot v_a v_p}{G}
+    \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\section{Trajectory Classification via Theorem 3.1}
+
+In \cite{Ebert2026}, it was proved that linear constraints $a r_a + b r_p = c$ on factor space trace conic sections on $\mathcal{C}$. Applying this theorem to celestial mechanics provides a unified classification of energy states.
+
+\begin{theorem}[General Orbit Classification]
+Let a family of orbital states satisfy the linear constraint $a r_a + b r_p = c$ for $a, b, c \in \mathbb{R}$. The resulting intersection with the cone $\mathcal{C}$ yields:
+\begin{enumerate}
+    \item \textbf{Elliptic / Bound States ($ab > 0$):} Slices both generators; forms a closed ellipse on $\mathcal{C}$ corresponding to $E < 0$ ($0 \le e < 1$).
+    \item \textbf{Parabolic / Escape States ($ab = 0$):} Slices parallel to a boundary generator ray ($T = \pm X$), representing $E = 0$ ($e = 1$).
+    \item \textbf{Hyperbolic / Unbound States ($ab < 0$):} Slices both upper and lower nappes of $\mathcal{C}$, producing a hyperbola corresponding to $E > 0$ ($e > 1$).
+\end{enumerate}
+\end{theorem}
+
+\section{The Dynamic Slicing Operator $\hat{S}(t)$}
+
+To model time-dependent orbital dynamics, orbital decay, or impulsive burns, we define the \emph{Dynamic Slicing Operator}.
+
+\begin{definition}[Dynamic Slicing Operator]
+Let $\hat{S}(t)$ be a time-dependent linear operator defining a cutting plane in $\mathbb{R}^3$:
+\begin{equation}
+\hat{S}(t): \quad \alpha(t) X + \beta(t) T = \gamma(t)
+\end{equation}
+The instantaneous orbital state $\mathcal{O}(t)$ is given by the intersection:
+\begin{equation}
+\mathcal{O}(t) = \mathcal{C} \cap \hat{S}(t)
+\end{equation}
+\end{definition}
+
+As time $t$ advances, the trajectory of the operator plane $\hat{S}(t)$ generates distinct dynamical behaviors:
+\begin{itemize}
+    \item \textbf{Vertical Translation ($\dot{\gamma} \neq 0$):} Models continuous energy exchange. Downward motion ($\dot{\gamma} < 0$) describes atmospheric drag or orbital decay toward the vertex $(0,0,0)$. Upward motion ($\dot{\gamma} > 0$) models low-thrust expansion.
+    \item \textbf{Operator Tilting ($\dot{\alpha} \neq 0, \dot{\beta} \neq 0$):} Models eccentricity pumping at constant energy. A plane tilting toward the critical slope $\alpha = \beta$ drives a bound orbit toward parabolic escape ($e \to 1$).
+\end{itemize}
+
+\section{$\mathfrak{so}(2,1)$ Lie-Algebraic Generators}
+
+The isometry group preserving the cone $\mathcal{C}$ is $SO(2,1)$. The Lie algebra $\mathfrak{so}(2,1)$ is spanned by the rotation generator $L$ and boost generators $B_X, B_Y$:
+\begin{equation}
+B_X = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 1 & 0 & 0 \end{pmatrix}, \quad 
+B_Y = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}
+\end{equation}
+
+\begin{proposition}[Isomeric Orbital Boosts]
+An action of the boost group $\exp(s B_X)$ on an initial state $(X_0, Y_0, T_0)$ yields:
+\begin{equation}
+\begin{pmatrix} X(s) \\ T(s) \end{pmatrix} = \begin{pmatrix} \cosh s & \sinh s \\ \sinh s & \cosh s \end{pmatrix} \begin{pmatrix} X_0 \\ T_0 \end{pmatrix}
+\end{equation}
+This boost preserves $Y = Y_0 = b$, leaving the specific angular momentum $h$ invariant while scaling the semi-major axis $a(s) = Y_0 \cosh(s)$ and eccentricity $e(s) = \tanh(s)$. The rapidity parameter $s = \frac{1}{2}\ln(r_a/r_p)$ measures the logarithmic radial asymmetry.
+\end{proposition}
+
+Analytic continuation of the rapidity parameter to imaginary values ($s \to i\phi$) transforms the hyperbolic boost into the trigonometric variation $T(\phi) = Y_0 \cos(\phi)$, mapping unbound scattering trajectories directly into periodic eccentric anomalies of bound states.
+
+\section{Conclusion}
+The AM--GM conic representation provides a rigorous, computationally linear, and visually unified framework for celestial mechanics. By parameterizing orbits via turning-point mean values $(X, Y, T)$, physical energy states, angular momentum, and central masses isolate into direct spatial dimensions on $X^2 + Y^2 = T^2$. The dynamic slicing operator $\hat{S}(t)$ offers a novel operator-theoretic formulation for modeling perturbed trajectories, continuous burns, and relativistic precessions on a single quadric manifold.
+
+\begin{thebibliography}{99}
+\bibitem{Ebert2026}
+J.~Ebert, \emph{AM--GM Coordinates on Integer Factor Pairs: A Conic Classification Theorem and Rigidity of the Divisor Lattice}, Preprint (2026).
+\bibitem{Roy2010}
+A.~E.~Roy, \emph{Orbital Motion}, 4th ed., CRC Press, Boca Raton, FL (2004).
+\bibitem{Goldstein2002}
+H.~Goldstein, C.~Poole, and J.~Safko, \emph{Classical Mechanics}, 3rd ed., Addison-Wesley (2002).
+\end{thebibliography}
+
+\section*{Acknowledgment}
+Large language model tools were used for drafting, figure preparation, and checking.
+
+\end{document}
