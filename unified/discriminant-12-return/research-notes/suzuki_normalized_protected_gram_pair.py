@@ -53,7 +53,7 @@ def fro_norm(A):
 
 def spectral_norm_sym(A):
     vals, _ = mp.eigsy((A + A.T) / 2)
-    return max(abs(vals[0]), abs(vals[-1]))
+    return max(abs(vals[0]), abs(vals[vals.rows - 1]))
 
 
 def solve_matrix(A, B):
@@ -164,10 +164,10 @@ def normalized_step(state, sector, R):
     gvals, _ = mp.eigsy(G)
 
     I = mp.eye(G.rows)
-    if gvals[0] < 0 or gvals[-1] >= 1:
+    if gvals[0] < 0 or gvals[gvals.rows - 1] >= 1:
         raise RuntimeError((
             "normalized contraction unresolved by midpoint payload",
-            sector, R, gvals[0], gvals[-1]
+            sector, R, gvals[0], gvals[gvals.rows - 1]
         ))
 
     # Pseudoinverse-free normalized increment identity:
@@ -226,10 +226,10 @@ def normalized_step(state, sector, R):
         "R": R,
         "R2": 2 * R,
         "D_min": dvals[0],
-        "D_max": dvals[-1],
+        "D_max": dvals[dvals.rows - 1],
         "G": G,
         "G_min": gvals[0],
-        "G_max": gvals[-1],
+        "G_max": gvals[gvals.rows - 1],
         "tau": tau,
         "resolv_tau": resolv_tau,
         "sigma": sigma,
