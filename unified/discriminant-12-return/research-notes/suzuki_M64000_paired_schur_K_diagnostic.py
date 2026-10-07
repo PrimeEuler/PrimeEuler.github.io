@@ -53,7 +53,7 @@ def target_residual(data,P,Gih,Gil,xh,xl,gh,gl):
     rh,rl=dd_project(P,Gih,Gil,rh,rl)
     return Axh,Axl,rh,rl,dd_norm2(rh,rl)
 
-def one(sector):
+def one(sector, export_anchor=False):
     modes=modes_for(sector,MAXMODE)
     P=embedded_P(sector,modes)
 
@@ -124,6 +124,16 @@ def one(sector):
         protected=(b.T*a)[0]
         K=h+protected
         vals,_=mp.eigsy(S)
+        anchor=None
+        if export_anchor:
+            anchor={
+              "S":[[mp.nstr(S[i,j],100) for j in range(6)] for i in range(6)],
+              "b":[mp.nstr(b[i,0],100) for i in range(6)],
+              "h":mp.nstr(h,100),
+              "Sinv_b":[mp.nstr(a[i,0],100) for i in range(6)],
+              "K_reconstructed":mp.nstr(h+(b.T*a)[0],100),
+              "protected_S_min_reconstructed":mp.nstr(vals[0],100),
+            }
 
     row={
       "sector":sector,
@@ -142,6 +152,8 @@ def one(sector):
       "K_total":mp.nstr(K,70),
       "guardrail":"finite-64k midpoint diagnostic; not outward/infinite-tail theorem"
     }
+    if export_anchor:
+        row["anchor_export"]=anchor
     print(json.dumps(row,indent=2),flush=True)
     return row
 
