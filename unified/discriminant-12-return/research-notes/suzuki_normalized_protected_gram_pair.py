@@ -147,7 +147,7 @@ def load_anchor(path, expected_sector):
 
 
 def normalized_step(state, sector, R):
-    """One R->2R step, never forming S-D."""
+    """One R->2R step in normalized coordinates, never forming S-D."""
     L = state["L"]
     b = state["b"]
     h = state["h"]
@@ -155,17 +155,9 @@ def normalized_step(state, sector, R):
 
     D, c, d = reduced_payload(sector, R)
     D = (D + D.T) / 2
-
-    # v=D^+c.  For the current midpoint payload D is expected full rank; if it
-    # is singular/indefinite at this precision, fail closed rather than invent
-    # a rank cutoff.  The outward-radii theorem must decide that case.
     dvals, _ = mp.eigsy(D)
-    if dvals[0] <= 0:
-        raise RuntimeError(("midpoint D not SPD; outward rank treatment required", sector, R, dvals[0]))
-    v = mp.lu_solve(D, c)
-    Dv_res = norm2(D * v - c)
 
-    # G = L^{-1} D L^{-T}, formed by triangular/linear solves only.
+    # G = L^{-1} D L^{-T}, formed by column-wise solves only.
     X = solve_matrix(L, D)
     G = right_solve_transpose(L, X)
     G = (G + G.T) / 2
@@ -173,14 +165,19 @@ def normalized_step(state, sector, R):
 
     I = mp.eye(G.rows)
     if gvals[0] < 0 or gvals[-1] >= 1:
-        raise RuntimeError(("normalized contraction failed", sector, R, gvals[0], gvals[-1]))
+        raise RuntimeError((
+            "normalized contraction unresolved by midpoint payload",
+            sector, R, gvals[0], gvals[-1]
+        ))
 
-    u = L.T * (v - a)
-    resolv_u = mp.lu_solve(I - G, u)
-    lam = (u.T * G * resolv_u)[0]
-
-    # Equivalent orthogonal midpoint split for cross-check only.
-    sigma_perp = d - (c.T * v)[0]
+    # Pseudoinverse-free normalized increment identity:
+    # delta K = sigma + tau^T (I-G)^{-1} tau,
+    # tau=L^{-1}(c-Da).  This is exact and does not require D^+.
+    t = c - D * a
+    tau = mp.lu_solve(L, t)
+    sigma = d - 2 * (a.T * c)[0] + (a.T * D * a)[0]
+    resolv_tau = mp.lu_solve(I - G, tau)
+    delta_normalized = sigma + (tau.T * resolv_tau)[0]
 
     # Factor-preserving anchor transport:
     # S2 = L(I-G)L^T = (L C)(L C)^T.
@@ -193,7 +190,29 @@ def normalized_step(state, sector, R):
     K2 = h2 + (b2.T * a2)[0]
 
     delta = K2 - state["K"]
-    split_res = abs(delta - (sigma_perp + lam))
+    increment_identity_abs = abs(delta - delta_normalized)
+
+    # v14.130/v14.132 protected split is optional at midpoint.  The exact D
+    # is PSD, but binary64 Gram assembly can show tiny negative eigenvalues in
+    # nearly-null channels.  Do not invent a pseudoinverse cutoff: only expose
+    # Lambda_parallel/u when this midpoint D is strictly SPD.
+    protected = None
+    if dvals[0] > 0:
+        v = mp.lu_solve(D, c)
+        Dv_res = norm2(D * v - c)
+        u = L.T * (v - a)
+        resolv_u = mp.lu_solve(I - G, u)
+        lam = (u.T * G * resolv_u)[0]
+        sigma_perp = d - (c.T * v)[0]
+        split_res = abs(delta - (sigma_perp + lam))
+        protected = {
+            "u": u,
+            "resolv_u": resolv_u,
+            "Lambda_parallel": lam,
+            "sigma_perp_mid": sigma_perp,
+            "Dv_residual": Dv_res,
+            "split_identity_abs": split_res,
+        }
 
     return {
         "state": {
@@ -208,25 +227,70 @@ def normalized_step(state, sector, R):
         "R2": 2 * R,
         "D_min": dvals[0],
         "D_max": dvals[-1],
-        "Dv_residual": Dv_res,
         "G": G,
-        "u": u,
         "G_min": gvals[0],
         "G_max": gvals[-1],
-        "resolv_u": resolv_u,
-        "Lambda_parallel": lam,
-        "sigma_perp_mid": sigma_perp,
+        "tau": tau,
+        "resolv_tau": resolv_tau,
+        "sigma": sigma,
+        "delta_K_normalized": delta_normalized,
         "delta_K_mid": delta,
-        "split_identity_abs": split_res,
+        "increment_identity_abs": increment_identity_abs,
+        "protected": protected,
         "L2_factor_residual_fro": fro_norm(
             L2 * L2.T - L * (I - G) * L.T
         ),
     }
 
 
-def paired_metrics(even, odd):
+def paired_increment_metrics(even, odd):
+    """Common-mode-preserving bound for the entire octave increment."""
     Ge, Go = even["G"], odd["G"]
-    ue, uo = even["u"], odd["u"]
+    te, to = even["tau"], odd["tau"]
+    se, so = even["sigma"], odd["sigma"]
+    Ie = mp.eye(Ge.rows)
+    Io = mp.eye(Go.rows)
+
+    deltaG = Go - Ge
+    deltat = to - te
+    deltas = so - se
+
+    Re_to = mp.lu_solve(Ie - Ge, to)
+    Re_te = mp.lu_solve(Ie - Ge, te)
+    Ro_to = mp.lu_solve(Io - Go, to)
+    Ro_te = mp.lu_solve(Io - Go, te)
+    dg = spectral_norm_sym(deltaG)
+    dt = norm2(deltat)
+
+    # Two exact resolvent decompositions, differing only in reference parity.
+    # Taking their minimum is valid and often sharper.
+    bound_e_ref = (
+        abs(deltas)
+        + dg * norm2(Ro_to) * norm2(Re_to)
+        + dt * (norm2(Re_to) + norm2(Re_te))
+    )
+    bound_o_ref = (
+        abs(deltas)
+        + dg * norm2(Ro_te) * norm2(Re_te)
+        + dt * (norm2(Ro_to) + norm2(Ro_te))
+    )
+    actual = odd["delta_K_normalized"] - even["delta_K_normalized"]
+
+    return {
+        "Delta_octave_increment": actual,
+        "delta_sigma_abs": abs(deltas),
+        "deltaG_spectral": dg,
+        "deltatau_l2": dt,
+        "paired_bound_even_reference": bound_e_ref,
+        "paired_bound_odd_reference": bound_o_ref,
+        "paired_bound_min": min(bound_e_ref, bound_o_ref),
+    }
+
+def paired_metrics(even, odd):
+    if even["protected"] is None or odd["protected"] is None:
+        return None
+    Ge, Go = even["G"], odd["G"]
+    ue, uo = even["protected"]["u"], odd["protected"]["u"]
     Ie = mp.eye(Ge.rows)
     Io = mp.eye(Go.rows)
 
@@ -242,7 +306,7 @@ def paired_metrics(even, odd):
         norm2(Roe_uo) + norm2(Roe_ue) + norm2(uo) + norm2(ue)
     )
     paired_bound = bound_G + bound_u
-    actual = odd["Lambda_parallel"] - even["Lambda_parallel"]
+    actual = odd["protected"]["Lambda_parallel"] - even["protected"]["Lambda_parallel"]
 
     return {
         "Delta_Lambda_parallel": actual,
@@ -260,26 +324,38 @@ def nstr(x, n=70):
 
 
 def step_json(r):
-    return {
+    out = {
         "R": r["R"],
         "R2": r["R2"],
         "D_min": nstr(r["D_min"]),
         "D_max": nstr(r["D_max"]),
-        "Dv_residual": nstr(r["Dv_residual"], 30),
         "G_min": nstr(r["G_min"]),
         "G_max": nstr(r["G_max"]),
-        "u_l2": nstr(norm2(r["u"])),
-        "resolv_u_l2": nstr(norm2(r["resolv_u"])),
-        "Lambda_parallel": nstr(r["Lambda_parallel"]),
-        "sigma_perp_mid": nstr(r["sigma_perp_mid"]),
+        "tau_l2": nstr(norm2(r["tau"])),
+        "resolv_tau_l2": nstr(norm2(r["resolv_tau"])),
+        "sigma": nstr(r["sigma"]),
+        "delta_K_normalized": nstr(r["delta_K_normalized"]),
         "delta_K_mid": nstr(r["delta_K_mid"]),
-        "split_identity_abs": nstr(r["split_identity_abs"], 30),
+        "increment_identity_abs": nstr(r["increment_identity_abs"], 30),
         "L2_factor_residual_fro": nstr(r["L2_factor_residual_fro"], 30),
+        "protected_split_available": r["protected"] is not None,
     }
-
+    if r["protected"] is not None:
+        p = r["protected"]
+        out.update({
+            "Dv_residual": nstr(p["Dv_residual"], 30),
+            "u_l2": nstr(norm2(p["u"])),
+            "resolv_u_l2": nstr(norm2(p["resolv_u"])),
+            "Lambda_parallel": nstr(p["Lambda_parallel"]),
+            "sigma_perp_mid": nstr(p["sigma_perp_mid"]),
+            "protected_split_identity_abs": nstr(p["split_identity_abs"], 30),
+        })
+    return out
 
 def pair_json(p):
-    return {k: nstr(v) for k, v in p.items()}
+    if p is None:
+        return {"available": False}
+    return {"available": True, **{k: nstr(v) for k, v in p.items()}}
 
 
 def main():
@@ -294,10 +370,12 @@ def main():
 
         e1 = normalized_step(se, "even-v", 64000)
         o1 = normalized_step(so, "odd-v", 64000)
+        i1 = paired_increment_metrics(e1, o1)
         p1 = paired_metrics(e1, o1)
 
         e2 = normalized_step(e1["state"], "even-v", 128000)
         o2 = normalized_step(o1["state"], "odd-v", 128000)
+        i2 = paired_increment_metrics(e2, o2)
         p2 = paired_metrics(e2, o2)
 
         out = {
@@ -312,17 +390,20 @@ def main():
             "64k_128k": {
                 "even": step_json(e1),
                 "odd": step_json(o1),
-                "paired": pair_json(p1),
+                "paired_increment": pair_json(i1),
+                "paired_protected_v14132": pair_json(p1),
             },
             "128k_256k": {
                 "even": step_json(e2),
                 "odd": step_json(o2),
-                "paired": pair_json(p2),
+                "paired_increment": pair_json(i2),
+                "paired_protected_v14132": pair_json(p2),
             },
             "guardrail": (
-                "v14.130/v14.132 midpoint diagnostic; corrected explicit M64000 "
-                "anchors required; no S-D formed; binary64 reduced Gram payload "
-                "still requires v14.128/v14.129 outward-radius propagation before theorem use"
+                "normalized midpoint diagnostic; corrected explicit M64000 anchors required; "
+                "no S-D formed. Pseudoinverse-free whole-increment pairing is always attempted "
+                "when 0<=G<I; v14.132 protected split is emitted only if midpoint D is SPD. "
+                "Binary64 reduced Gram payload still requires outward-radius propagation before theorem use"
             ),
         }
         print(json.dumps(out, indent=2))
