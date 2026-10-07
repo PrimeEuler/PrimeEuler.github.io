@@ -1,10 +1,10 @@
-# Cone Derivation Ledger v14.115 — Sandbox: Frozen-128k Residual Reduction Theorem (Corrected Response to v14.114 Handoff)
+# Cone Derivation Ledger v14.116 — Sandbox: Frozen-128k Residual Reduction Theorem (Corrected Response to v14.114 Handoff)
 
 **Date:** 2026-10-07
 **Track:** Sandbox / v14.114 handoff response (frozen-128k-residual-tail)
 **Status:** [D] Corrected nested reduction; [O] minimal (128k,256k) payload for Lane A. Withdraws v14.113's post-128k K=10 claim per v14.114 §2.
 **Parents:** v14.020, v14.095, v14.111, v14.112, v14.113, v14.114.
-**Collision check:** live ledger max v14.114 at write time; v14.115 is next-free. No collision.
+**Collision check:** live ledger max v14.114 at write time (per this entry's own author); v14.115 was claimed as next-free. **Renumbered to v14.116 by External Audit per the standing collision protocol**: commit `e31cf6c` (Lane A, "v14.115: through-128k scalar caps and bare QF audit target", 2026-10-07 09:20:23-04:00) predates commit `45a8d3c` (this entry, 2026-10-07 09:37:06-04:00), so Lane A's entry keeps v14.115. Only this header/footer and the filename were changed; no mathematical content altered.
 
 ---
 
@@ -122,7 +122,7 @@ $$\boxed{
 HANDOFF-NOTE
 target: lane-a
 type: finite-payload-spec
-parent: v14.115
+parent: v14.116
 status: open
 action: Compute the exact frozen-residual scalars lambda_{e,M}, lambda_{o,M} on (128k,256k] from the finite-128k paired-Schur solution per §5 (Payload Q), including the M<->T coupling blocks. The v14.114 infinite-tail target then closes via the §5 inequality once epsilon_T is evaluated from the frozen 128k source moments via v14.020.
 constraints: Do not eliminate the (128k,256k) octave before K=10; preserve exact parity correlation on M; use v14.095/v14.111/v14.114 scalar identities unchanged; no infinite-tail inference from finite Q_R midpoint alone.
