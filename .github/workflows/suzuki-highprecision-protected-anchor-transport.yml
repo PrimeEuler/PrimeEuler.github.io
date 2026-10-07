@@ -1,0 +1,47 @@
+name: Suzuki high-precision protected anchor transport
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/suzuki-highprecision-protected-anchor-transport.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_highprecision_protected_anchor_transport.py'
+
+jobs:
+  transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Download audited 64k anchor artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: M64000-schur-K-${{ matrix.sector }}
+          path: /tmp/anchor
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: 37643045658
+      - name: Locate anchor and run high-precision transport
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          ANCHOR=$(find /tmp/anchor -name "M64000_paired_schur_anchor_${{ matrix.sector }}.json" -print -quit)
+          test -n "$ANCHOR"
+          python suzuki_highprecision_protected_anchor_transport.py \
+            --sector ${{ matrix.sector }} --anchor "$ANCHOR" \
+            | tee /tmp/highprecision-transport-${{ matrix.sector }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: highprecision-transport-${{ matrix.sector }}
+          path: /tmp/highprecision-transport-${{ matrix.sector }}.txt
