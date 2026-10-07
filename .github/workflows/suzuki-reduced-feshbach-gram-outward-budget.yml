@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'unified/discriminant-12-return/research-notes/suzuki_reduced_feshbach_gram_outward_budget.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_pregram_normalized_pair_diagnostic.py'
       - '.github/workflows/suzuki-reduced-feshbach-gram-outward-budget.yml'
   workflow_dispatch:
 
@@ -49,3 +50,35 @@ jobs:
         with:
           name: reduced-gram-${{ matrix.sector }}-${{ matrix.R }}
           path: /tmp/reduced-gram-${{ matrix.sector }}-${{ matrix.R }}.txt
+
+  pair:
+    needs: replay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip mpmath
+      - uses: actions/download-artifact@v4
+        with:
+          name: reduced-gram-even-v-64000
+          path: /tmp/even
+      - uses: actions/download-artifact@v4
+        with:
+          name: reduced-gram-odd-v-64000
+          path: /tmp/odd
+      - name: Run pre-Gram paired diagnostic
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_pregram_normalized_pair_diagnostic.py \
+            --even /tmp/even/reduced-gram-even-v-64000.txt \
+            --odd /tmp/odd/reduced-gram-odd-v-64000.txt \
+            | tee /tmp/pregram-normalized-pair-64000-128000.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pregram-normalized-pair-64000-128000
+          path: /tmp/pregram-normalized-pair-64000-128000.txt
