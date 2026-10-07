@@ -1,0 +1,31 @@
+name: Suzuki M128000 paired frozen residual difference
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_M128000_paired_frozen_residual_difference.py'
+      - '.github/workflows/suzuki-M128000-paired-frozen-residual-difference.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run paired frozen residual difference
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_M128000_paired_frozen_residual_difference.py | tee /tmp/m128000-paired-rho-diff.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m128000-paired-rho-diff
+          path: /tmp/m128000-paired-rho-diff.txt
