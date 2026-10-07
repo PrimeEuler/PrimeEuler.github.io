@@ -8,7 +8,7 @@ exact-vs-LDDD scalar inflation, 1000x stress, residual->solution control
 through T_p^F >= I, exact Abel telescope, and |C_D|<=4.4.
 
 The public scalar caps are the v14.058/v14.059 caps.  Their transport through
-128k is checked independently by suzuki_M128000_scalar_interval_incremental_arch200.py.
+256k is checked independently by suzuki_M256000_scalar_interval_incremental_arch200.py.
 No infinite-tail inference is made here.
 """
 from __future__ import annotations
