@@ -1,0 +1,36 @@
+name: Suzuki reduced Feshbach Gram outward budget
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'unified/discriminant-12-return/research-notes/suzuki_reduced_feshbach_gram_outward_budget.py'
+      - '.github/workflows/suzuki-reduced-feshbach-gram-outward-budget.yml'
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+        R: [64000, 128000]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scipy mpmath
+      - name: Run reduced Gram outward budget
+        working-directory: unified/discriminant-12-return/research-notes
+        shell: bash
+        run: |
+          set -o pipefail
+          python suzuki_reduced_feshbach_gram_outward_budget.py --sector ${{ matrix.sector }} --R ${{ matrix.R }} | tee /tmp/reduced-gram-${{ matrix.sector }}-${{ matrix.R }}.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reduced-gram-${{ matrix.sector }}-${{ matrix.R }}
+          path: /tmp/reduced-gram-${{ matrix.sector }}-${{ matrix.R }}.txt
