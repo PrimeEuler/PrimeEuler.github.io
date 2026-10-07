@@ -27,9 +27,24 @@ jobs:
       - name: Run reduced Gram outward budget
         working-directory: unified/discriminant-12-return/research-notes
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -o pipefail
-          python suzuki_reduced_feshbach_gram_outward_budget.py --sector ${{ matrix.sector }} --R ${{ matrix.R }} | tee /tmp/reduced-gram-${{ matrix.sector }}-${{ matrix.R }}.txt
+          EXTRA=()
+          if [ "${{ matrix.R }}" = "64000" ]; then
+            rm -rf /tmp/corrected-anchor
+            mkdir -p /tmp/corrected-anchor
+            gh run download 37659896312 \
+              -n M64000-schur-K-${{ matrix.sector }} \
+              -D /tmp/corrected-anchor
+            ANCHOR_LOG="$(find /tmp/corrected-anchor -type f -name 'M64000-schur-K-${{ matrix.sector }}.txt' -print -quit)"
+            test -n "$ANCHOR_LOG"
+            EXTRA=(--anchor-log "$ANCHOR_LOG")
+          fi
+          python suzuki_reduced_feshbach_gram_outward_budget.py \
+            --sector ${{ matrix.sector }} --R ${{ matrix.R }} "${EXTRA[@]}" \
+            | tee /tmp/reduced-gram-${{ matrix.sector }}-${{ matrix.R }}.txt
       - uses: actions/upload-artifact@v4
         with:
           name: reduced-gram-${{ matrix.sector }}-${{ matrix.R }}
