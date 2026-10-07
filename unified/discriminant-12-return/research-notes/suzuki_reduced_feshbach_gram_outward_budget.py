@@ -105,13 +105,21 @@ def normalized_pregram_diagnostic(F,r,X,y,D,anchor_log,sector):
             abs(diff[i,j])**2 for i in range(6) for j in range(6)
         ))
 
-        resolvable=(gmin>=0 and gmax<1)
+        # The exact Gram G is PSD.  For midpoint diagnostics we do not clip a
+        # tiny negative eigenvalue caused by finite arithmetic; the increment
+        # only requires I-G to be positive definite, i.e. gmax<1.
+        ipsd=(gmax<1)
         delta=None
-        if resolvable:
+        rt=None
+        if ipsd:
             rt=mp.lu_solve(mp.eye(6)-G,tau)
             delta=sigma+(tau.T*rt)[0]
 
         return {
+          "G_pregram_matrix":[
+              [mp.nstr(G[i,j],50) for j in range(6)] for i in range(6)
+          ],
+          "tau_vector":[mp.nstr(tau[i],50) for i in range(6)],
           "G_pregram_eigs":[mp.nstr(gvals[i],50) for i in range(gvals.rows)],
           "G_pregram_min":mp.nstr(gmin,50),
           "G_pregram_max":mp.nstr(gmax,50),
@@ -120,10 +128,12 @@ def normalized_pregram_diagnostic(F,r,X,y,D,anchor_log,sector):
           "G_pre_minus_post_fro":mp.nstr(diff_fro,50),
           "tau_l2":mp.nstr(mp.sqrt(mp.fsum(abs(tau[i])**2 for i in range(6))),50),
           "sigma":mp.nstr(sigma,50),
-          "normalized_increment_if_resolvable":(
+          "I_minus_G_min":mp.nstr(1-gmax,50),
+          "normalized_increment_if_I_minus_G_pos":(
               mp.nstr(delta,50) if delta is not None else None
           ),
-          "resolvable_0_le_G_lt_1":bool(resolvable),
+          "I_minus_G_positive_midpoint":bool(ipsd),
+          "exact_PSD_midpoint_defect":mp.nstr(max(mp.mpf("0"),-gmin),50),
           "q_l2_longdouble":_ldstr(np.sqrt(q@q)),
           "yq_l2_longdouble":_ldstr(np.sqrt(yq@yq)),
           "guardrail":(
