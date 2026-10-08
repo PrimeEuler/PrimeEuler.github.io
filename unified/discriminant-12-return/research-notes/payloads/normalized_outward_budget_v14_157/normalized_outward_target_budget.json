@@ -1,0 +1,89 @@
+{
+  "arithmetic": "Fraction for all decisions; Decimal display only",
+  "certificate_ready": false,
+  "conditional_budget_feasible": true,
+  "conditional_pair_error_upper": "1.6515587958914701815890176894963861274807435146654E-11",
+  "conditional_pair_interval": [
+    "-7.2518830372762851450896873475125085576562306085338E-10",
+    "-6.9215712780979911087718838096132313321600819056007E-10"
+  ],
+  "conditional_paired_bound_plus_error": "8.8401558795891470181589017689496386127480743514665E-10",
+  "conditional_target_upper": "9E-10",
+  "fullQ_floors_assumed_pending_independent_audit": {
+    "even": "2.95e-19",
+    "odd": "2.16e-17",
+    "parent": "v14.155"
+  },
+  "guardrail": "Finite 64k-to-128k octave only; every proposed trace/assembly/residual cap still needs source-faithful outward certification, and the full-Q/trace bridges need independent audit. No infinite-tail conclusion.",
+  "required_caps_not_yet_certified": {
+    "original_assembly_J_operator": "1/10000",
+    "original_assembly_beta_l2": "1/1000000000",
+    "original_assembly_eta_abs": "1/100000000000000",
+    "original_graph_residual_fro": "1/100000000000",
+    "original_source_residual_l2": "1/1000000000000000",
+    "relative_trace_defect_fro": "1/100000000000000000000"
+  },
+  "rounded_original_midpoint_bound_checked_exactly": "8.675E-10",
+  "rows": [
+    {
+      "J_serialized_diagonal_dominance_floor": "0.99999999999986366949149019880222500691442261375044",
+      "beta_serialized_l1_upper": "6.39574813251037193482708095003838293614096853597E-18",
+      "conditional_J_positive": true,
+      "conditional_capacity_error_upper": "3.4010489550434244933765603152505602949984889179313E-12",
+      "corrected_total_J_error_target": "0.00043898305084745764712742376881375974556299650714911",
+      "corrected_total_beta_error_target": "3.4898305084765768102073898505508274827019013519124E-8",
+      "corrected_total_eta_error_target": "3.3998305284765769891527427964103863444372479377771E-12",
+      "file": "joint-64000-even-v.json",
+      "sha256": "56cd3b4433a2cf2c068558605b181a85a8c6de0915d7687e01cb62700cf392c0"
+    },
+    {
+      "J_serialized_diagonal_dominance_floor": "0.99999999999999930719791413951202859843485338063959",
+      "beta_serialized_l1_upper": "6.8364435866367339286767398645786162180510269249E-20",
+      "conditional_J_positive": true,
+      "conditional_capacity_error_upper": "5.6298456782885715296447798222914930850522535961868E-14",
+      "corrected_total_J_error_target": "0.00010462962962962964963172226222242226939345398864457",
+      "corrected_total_beta_error_target": "1.4629629629829650093038890889360601201923945747643E-9",
+      "corrected_total_eta_error_target": "5.6296316298296345555755602726786396144574764331830E-14",
+      "file": "joint-64000-odd-v.json",
+      "sha256": "240fba317a05c327fd2aff78f0be4b8f73df4c51dc4b92fcac38ea501d556e29"
+    },
+    {
+      "J_serialized_diagonal_dominance_floor": "0.99713573414287289202885566317754301435796148332520",
+      "beta_serialized_l1_upper": "0.000081926053035087554002932964380452395452178253049566",
+      "conditional_J_positive": true,
+      "conditional_capacity_error_upper": "1.2102821623490380470141989097177517758625013208789E-11",
+      "corrected_total_J_error_target": "0.00043898305084745764716378242670798505254786254985497",
+      "corrected_total_beta_error_target": "3.4898305084765804460731792730815259693061719372065E-8",
+      "corrected_total_eta_error_target": "3.3998305285129356470469681033952523871431008787710E-12",
+      "file": "joint-128000-even-v.json",
+      "sha256": "d3e79d5997870dc9ae832879b83df00be8d3a2dbfb3868afcbcccbbde4cdb91b"
+    },
+    {
+      "J_serialized_diagonal_dominance_floor": "0.99733409685648284418671042263001675295087075153112",
+      "beta_serialized_l1_upper": "0.000079549218419019370811352109948851609718300843235838",
+      "conditional_J_positive": true,
+      "conditional_capacity_error_upper": "9.5541892359801113707517968431286829033341048397168E-13",
+      "corrected_total_J_error_target": "0.00010462962962962964966585264961396997338475356174112",
+      "corrected_total_beta_error_target": "1.4629629629829991396912806366400514197654911179043E-9",
+      "corrected_total_eta_error_target": "5.6296316332426732947303306718085969241117904309999E-14",
+      "file": "joint-128000-odd-v.json",
+      "sha256": "1a154dc6269536848ebfcfcb17b40f3bd7bd3e34e045647dc0c85610db44fbd5"
+    }
+  ],
+  "schema": "cone.normalized-outward-target-budget.v1",
+  "serialized_midpoint_pair_exact_display": "-7.0867271576871381269307855785628699449081562570672E-10",
+  "synthetic_cases": [
+    {
+      "both_perturbation_signs_pass_exactly": true,
+      "seed": 23
+    },
+    {
+      "both_perturbation_signs_pass_exactly": true,
+      "seed": 73
+    },
+    {
+      "both_perturbation_signs_pass_exactly": true,
+      "seed": 197
+    }
+  ]
+}
