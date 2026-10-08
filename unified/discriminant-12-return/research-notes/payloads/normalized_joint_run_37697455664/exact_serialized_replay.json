@@ -1,0 +1,11 @@
+{
+  "CI_pair_scalar_tolerance": "1e-98",
+  "even_increment_exact_serialized_decimal": "4.357115459028733163015017607647852894149039367225856302779275471969065466067560548219247324842331167E-7",
+  "odd_increment_exact_serialized_decimal": "4.350028731871046024888086822069290024204131210968789087735102535000050574146843990808143503154284606E-7",
+  "odd_minus_even_exact_serialized_decimal": "-7.086727157687138126930785578562869944908156257067215044172936969014891920716557411103821688046560753E-10",
+  "passed": true,
+  "positive_serialized_J_matrices": 4,
+  "schema": "cone.frozen-joint-payload-replay.v1",
+  "scope": "Exact Fraction check of serialized midpoint matrices; not an exact-source certificate",
+  "source_certification_ready": false
+}

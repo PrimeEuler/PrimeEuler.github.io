@@ -1,0 +1,42 @@
+[
+  {
+    "artifact_id": 11518997285,
+    "filename": "joint-128000-odd-v.json",
+    "json_sha256": "1a154dc6269536848ebfcfcb17b40f3bd7bd3e34e045647dc0c85610db44fbd5",
+    "name": "normalized-joint-full-128000-odd-v",
+    "producer_commit": "14face275435522599ed73a74a5758e9f9b5699f",
+    "zip_sha256": "482ddfd497a7d1da95bc7e485f6fc072d5884e1571247afbdea2046a977e561d"
+  },
+  {
+    "artifact_id": 11518234807,
+    "filename": "normalized-joint-pair-64000-128000.json",
+    "json_sha256": "e203e7c12cd913da0abf426f56b8a4990cd5fdabdf93a71276a32bcec284d5dc",
+    "name": "normalized-joint-pair-64000-128000",
+    "producer_commit": "14face275435522599ed73a74a5758e9f9b5699f",
+    "zip_sha256": "a6d6a7c98af8bd2124e9709d204e3ebfc86b1cb8402dce1d1c7ff17e200b8b0a"
+  },
+  {
+    "artifact_id": 11517503217,
+    "filename": "joint-128000-even-v.json",
+    "json_sha256": "d3e79d5997870dc9ae832879b83df00be8d3a2dbfb3868afcbcccbbde4cdb91b",
+    "name": "normalized-joint-full-128000-even-v",
+    "producer_commit": "14face275435522599ed73a74a5758e9f9b5699f",
+    "zip_sha256": "af58875aad2fb2adad07d31e056f5dfffbb778cd1f5c2276990658baac2ac86f"
+  },
+  {
+    "artifact_id": 11517426828,
+    "filename": "joint-64000-even-v.json",
+    "json_sha256": "56cd3b4433a2cf2c068558605b181a85a8c6de0915d7687e01cb62700cf392c0",
+    "name": "normalized-joint-full-64000-even-v",
+    "producer_commit": "14face275435522599ed73a74a5758e9f9b5699f",
+    "zip_sha256": "edc84441686cd98cd9fbdda54d00fef25c4194ca0adcd3e60ec131d024ac822a"
+  },
+  {
+    "artifact_id": 11516722825,
+    "filename": "joint-64000-odd-v.json",
+    "json_sha256": "240fba317a05c327fd2aff78f0be4b8f73df4c51dc4b92fcac38ea501d556e29",
+    "name": "normalized-joint-full-64000-odd-v",
+    "producer_commit": "14face275435522599ed73a74a5758e9f9b5699f",
+    "zip_sha256": "762310aa8ef30e8c0757266e9cbb72c57c2d8e8670bb631405bc6bdcb353d700"
+  }
+]
