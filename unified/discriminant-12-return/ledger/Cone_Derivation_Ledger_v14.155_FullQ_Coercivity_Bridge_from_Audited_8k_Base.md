@@ -40,7 +40,7 @@ The fresh replay uses the audited algorithm and its exact-source operator charge
 
 The older base helper and the normalized producer helper give component-identical P arrays, and the first 2000 rows hash to the v14.153 actual-cutoff hashes in both parities. Their remaining rows are exactly zero. Dependency and P4 payload hashes are recorded in `geometry_match.json`; local source/blob identities were checked against the live repository. Thus this is the complement of the same represented plane, not a new Ritz plane or an assumed exact orthonormalization.
 
-Reproducers: `suzuki_M8000_mu1_penalized_cholesky_outward.py` (existing) and `suzuki_fullq_geometry_replay.py` (new). The base output is frozen in `payloads/fullq_coercivity_bridge_v14_154/base_8k_replay.json`.
+Reproducers: `suzuki_M8000_mu1_penalized_cholesky_outward.py` (existing) and `suzuki_fullq_geometry_replay.py` (new). The base output is frozen in `payloads/fullq_coercivity_bridge_v14_155/base_8k_replay.json`.
 
 ## 3. Why the partial shell Schur inherits the remote unit floor
 
@@ -142,7 +142,7 @@ The rational consumer checks that this exact bound exceeds the following rounded
 
 These deliberately coarse constants are for the **actual full frozen-six-plane complement**. They are not remote-Schur unit constants. The proof uses the three specific inputs which v14.151 listed as missing: the audited base floor, the protected-positive partial-Schur comparison, and a derived cross-block norm cap.
 
-New rational reproducer: `research-notes/suzuki_fullq_coercivity_bridge.py`. Result: `payloads/fullq_coercivity_bridge_v14_154/fullq_bridge.json`. It uses only integer/Fraction arithmetic for the harmonic caps, comparisons, and final rounding.
+New rational reproducer: `research-notes/suzuki_fullq_coercivity_bridge.py`. Result: `payloads/fullq_coercivity_bridge_v14_155/fullq_bridge.json`. It uses only integer/Fraction arithmetic for the harmonic caps, comparisons, and final rounding.
 
 ## 6. Scope and next gate
 

@@ -1,0 +1,80 @@
+{
+  "arithmetic": "Fraction for all identities and decisions; Decimal display only",
+  "frozen_midpoint_rows": [
+    {
+      "M_congruence_change_fro_midpoint": "2.6534819256627122664942759550662998180264855968390E-26",
+      "congruence_displacement_cap_midpoint": "1.9123523238225629752170822305414444720418599044374E-26",
+      "corrected_serialized_M_fraction_sha256": "5d23fb574626c9dbdbd4dc36d1a2908a41658bd99b36b585982ce81ebd1f7aea",
+      "cutoff": 64000,
+      "file": "joint-64000-even-v.json",
+      "relative_defect_l1_cap_midpoint": "1.9123523238225629752170821939705303677462922782678E-26",
+      "residual_gram_congruence_change_fro_midpoint": "7.4563356740745087146837660041603146940540327745062E-65",
+      "sector": "even-v",
+      "serialized_capacity_unchanged_exact": true,
+      "serialized_trace_repair_exact": true,
+      "sha256": "56cd3b4433a2cf2c068558605b181a85a8c6de0915d7687e01cb62700cf392c0"
+    },
+    {
+      "M_congruence_change_fro_midpoint": "1.4395898269479729987234983109376120390146525195915E-26",
+      "congruence_displacement_cap_midpoint": "1.0595831470611499010168514926655660068773366839567E-26",
+      "corrected_serialized_M_fraction_sha256": "8d93c1c01ad20f3fb6fb2842e5b9580d98077e0c650875593bb8bc3b595319b9",
+      "cutoff": 64000,
+      "file": "joint-64000-odd-v.json",
+      "relative_defect_l1_cap_midpoint": "1.0595831470611499010168514814384015515172325027558E-26",
+      "residual_gram_congruence_change_fro_midpoint": "3.6734185862697190782433751557057229260935744150561E-65",
+      "sector": "odd-v",
+      "serialized_capacity_unchanged_exact": true,
+      "serialized_trace_repair_exact": true,
+      "sha256": "240fba317a05c327fd2aff78f0be4b8f73df4c51dc4b92fcac38ea501d556e29"
+    },
+    {
+      "M_congruence_change_fro_midpoint": "9.1262356141493518889202676703522561126937815872842E-27",
+      "congruence_displacement_cap_midpoint": "6.7135684022424408908360892778340164449712767250411E-27",
+      "corrected_serialized_M_fraction_sha256": "11683bb8426405bbf3120a6ff578566bd29d8c5083c3882ce952c6260840c924",
+      "cutoff": 128000,
+      "file": "joint-128000-even-v.json",
+      "relative_defect_l1_cap_midpoint": "6.7135684022424408908360892327620157533831561128426E-27",
+      "residual_gram_congruence_change_fro_midpoint": "9.1534147759277503952446929725208708492561970007283E-65",
+      "sector": "even-v",
+      "serialized_capacity_unchanged_exact": true,
+      "serialized_trace_repair_exact": true,
+      "sha256": "d3e79d5997870dc9ae832879b83df00be8d3a2dbfb3868afcbcccbbde4cdb91b"
+    },
+    {
+      "M_congruence_change_fro_midpoint": "1.3679628249657250215839816716352738909878606721840E-26",
+      "congruence_displacement_cap_midpoint": "1.0006636070934411204235793610712934611555198212710E-26",
+      "corrected_serialized_M_fraction_sha256": "2eda16eb70c9ac51f9abfd14fa3bff3a39d19874e55bf664d0a34b132aa72b10",
+      "cutoff": 128000,
+      "file": "joint-128000-odd-v.json",
+      "relative_defect_l1_cap_midpoint": "1.0006636070934411204235793510580169155429527590801E-26",
+      "residual_gram_congruence_change_fro_midpoint": "1.2487594332352188258022408172365230907019294089735E-64",
+      "sector": "odd-v",
+      "serialized_capacity_unchanged_exact": true,
+      "serialized_trace_repair_exact": true,
+      "sha256": "1a154dc6269536848ebfcfcb17b40f3bd7bd3e34e045647dc0c85610db44fbd5"
+    }
+  ],
+  "guardrail": "No outward trace/source/assembly/residual cap inferred from midpoint decimals; original frozen files unchanged.",
+  "passed": true,
+  "schema": "cone.trace-affine-congruence-replay.v1",
+  "synthetic_cases": [
+    {
+      "all_exact_identities_and_bounds_pass": true,
+      "nonpreserving_bottom_row_counterexample": true,
+      "relative_defect_l1_cap": "0.007",
+      "seed": 19
+    },
+    {
+      "all_exact_identities_and_bounds_pass": true,
+      "nonpreserving_bottom_row_counterexample": true,
+      "relative_defect_l1_cap": "0.0059",
+      "seed": 71
+    },
+    {
+      "all_exact_identities_and_bounds_pass": true,
+      "nonpreserving_bottom_row_counterexample": true,
+      "relative_defect_l1_cap": "0.007",
+      "seed": 193
+    }
+  ]
+}
