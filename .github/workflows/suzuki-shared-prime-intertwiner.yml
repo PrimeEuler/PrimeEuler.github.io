@@ -1,0 +1,26 @@
+name: Suzuki shared prime intertwiner phase checks
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-shared-prime-intertwiner.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_shared_prime_intertwiner_phase_replay.py'
+      - 'unified/discriminant-12-return/research-notes/payloads/shared_prime_intertwiner_v14_180/phase-tests.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  phase:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independently replay integer phase and wrap checks
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_shared_prime_intertwiner_phase_replay.py
+          --reference payloads/shared_prime_intertwiner_v14_180/phase-tests.json
+          --output /tmp/shared-prime-phase-tests.json
