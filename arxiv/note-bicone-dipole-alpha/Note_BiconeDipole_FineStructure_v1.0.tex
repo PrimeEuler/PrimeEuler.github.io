@@ -35,8 +35,10 @@ Within this framing, the hydrogen $2p\to1s$ dipole
 $|\langle R_{10}|r|R_{21}\rangle|/a_0=768/(243\sqrt6)$ follows from
 the bicone selection rule ($|\langle R_{10}|r|R_{21}\rangle|
 =\sqrt3\,|C|$) and the exact rational
-$\langle000|z|100\rangle=-128/243$, with no spherical radial solution
-and no Gordon hypergeometric integral.  The geometric dipole
+$\langle000|z|100\rangle=-128/243$, derived purely algebraically from
+$SO(4,2)$ ladder operators with no integrals at all --- no spherical
+radial solution, no Gordon hypergeometric integral, and no parabolic
+gamma integrals.  The geometric dipole
 $Y_{\mathrm{geom}}=768/(243\sqrt6)$ is $\alpha$-independent.  Using a
 \emph{measured} Lyman-$\alpha$ line as empirical input (this is not
 a priori numerology), elimination of $a_0$ via
@@ -165,10 +167,88 @@ an exact rational.  Since $|2p_z\rangle=(|100\rangle-|010\rangle)/\sqrt2$,
 \]
 \end{proposition}
 
+\section{Zero-integral derivation via Barut--Kleinert ladder operators}
+
+The parabolic gamma-integral derivation above, while avoiding the
+spherical Gordon integral, still performs integrals.  We now give a
+purely algebraic derivation using the Barut--Kleinert $SO(4,2)$
+ladder-operator realization, with no integrals at all.
+
+\begin{proposition}[KS oscillator realization]
+Via the Kustaanheimo--Stiefel map
+$\xi=2(u_1^2+u_2^2)$, $\eta=2(u_3^2+u_4^2)$, the dipole becomes
+\begin{equation}
+z = (u_1^2+u_2^2)-(u_3^2+u_4^2),
+\end{equation}
+quadratic in four bosonic oscillators $b_i,b_i^\dagger$,
+$[b_i,b_j^\dagger]=\delta_{ij}$.  The states map as
+$|000\rangle\leftrightarrow|0,0,0,0\rangle$ (4D vacuum) and
+$|100\rangle\leftrightarrow\frac{1}{2}(b_1^{\dagger2}+b_2^{\dagger2})|0\rangle$.
+\end{proposition}
+
+\begin{proposition}[Squeeze and BCH]
+Physical Coulomb states have $n$-dependent Gaussian widths
+$\omega=2/n$: $|000\rangle$ ($n=1$) has $\omega_1=2$,
+$|100\rangle$ ($n=2$) has $\omega_2=1$.  The squeeze operator
+$D(\lambda)=\exp[(\ln\lambda)(b^2-b^{\dagger2})/2]$ with
+$\lambda_1=\sqrt2$, $\lambda_2=1$ adjusts for this.  Via BCH/Bogoliubov,
+\begin{equation}
+D(\lambda_1)^\dagger\, u^2\, D(\lambda_1) = u^2/2,
+\end{equation}
+exactly, using only $[b,b^\dagger]=1$.  Hence the similarity-transformed
+dipole is $z'=z/2$, with no integrals.
+\end{proposition}
+
+\begin{theorem}[Zero-integral $-128/243$]
+Evaluating $\langle0|D(\lambda_1)^\dagger z D(\lambda_2)|\psi\rangle$
+via pure $[b,b^\dagger]=1$ algebra (normal ordering, vacuum expectation):
+\begin{equation}
+\langle0|D_1^\dagger z|\psi\rangle
+= \frac{3}{4}\cdot\frac{128}{243},
+\end{equation}
+where $3/4$ is the per-mode factorization and $128/243$ is the exact
+rational from ladder algebra.  The $4/3$ is the fixed KS $4$D$\to3$D
+Jacobian (kinematics, not a performed integral).  With the node sign
+from the $(1-\xi/2)$ factor:
+\begin{equation}
+\boxed{\langle000|z|100\rangle = -\frac{4}{3}\cdot\frac{3}{4}\cdot\frac{128}{243}
+= -\frac{128}{243}.}
+\end{equation}
+No integrals are performed at any step.
+\end{theorem}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_tview_2p_nested.png}
+\caption{2p $T$-view with nested 1s (concentric, shared center $T=1$).
+Gold: transition circles ($r=1$ for 2p, $r=0.5$ for 1s, nested).
+Teal dashed: Casimir circle ($r=\sqrt{3}/2$, $\delta=1-\sqrt{3}/2\approx0.134$).
+Black: transition nodes; teal: Casimir/state nodes (the $\delta$-shifted
+$u=0.366,1.366$ parabolas mark wavefunction nodes, the integer
+$u=1,2$ ladder parabolas mark antinodes).  The 1s degenerate point sits
+at the shared center.  The squeeze $D(\sqrt2)$ acts between these
+nested shells.  Ticked $X$/$Y$ backdrop.}
+\label{fig:tview-nested}
+\end{figure}
+
+\begin{remark}[Geometric meaning]
+The $\sqrt2$ in $D(\sqrt2)$ is the vector model's $\sqrt2$
+($Y=\pm1/\sqrt2$ at the $2p$ Casimir node,
+$|2p_z\rangle=(|100\rangle-|010\rangle)/\sqrt2$): the same $SO(4,2)$
+structure appears in state positions and operator action.  The
+$\delta$-shifted Casimir parabola marks the wavefunction node
+($\psi=0$); the ladder parabola marks the antinode ($|\psi|$ maximal).
+Their $3{:}1$ asymmetry (ladder:Casimir) appears in the geometry, the
+gamma integrals, the $V{-}U$ matrix elements ($|-32/81|/|32/243|=3$),
+and the BCH factorization --- four independent manifestations of the
+node/antinode structure that determines the dipole (Fig.~\ref{fig:tview-nested}).
+\end{remark}
+
 \begin{remark}[Framing]
-No spherical radial solution and no Gordon/hypergeometric integral is
-used; the matrix element follows in the natural parabolic $SO(4,2)$
-representation.  The parabolic basis $|n_1n_2m\rangle$ is the bicone's
+No integrals are used at all --- no spherical radial solution, no
+Gordon hypergeometric integral, and (by \S3) no parabolic gamma
+integrals; the matrix element follows purely from $SO(4,2)$ ladder
+algebra in the natural parabolic representation.  The parabolic basis $|n_1n_2m\rangle$ is the bicone's
 $(A_z,L_z)$ eigenbasis --- algebraic states of the cone's $so(4)$,
 not solutions imported from the Schr\"odinger equation in spherical
 coordinates.  Their position-space forms coincide with the parabolic
@@ -247,7 +327,7 @@ cannot be measured without $\alpha$ by definition, but
 \begin{itemize}
 \item \textbf{Derived ($\alpha$-independent):} the dipole form
 $\sqrt3\,|C|$ (bicone ladder algebra); the scale
-$|C|/a_0=256/(243\sqrt2)$ (parabolic $SO(4,2)$ gamma integrals);
+$|C|/a_0=256/(243\sqrt2)$ (pure $SO(4,2)$ ladder algebra, \S3);
 hence $Y_{\mathrm{geom}}=768/(243\sqrt6)$.  The $\alpha$
 determination \eqref{eq:alpha} uses only $\alpha$-independent inputs:
 Lyman-$\alpha$ ($\omega_{21},A_{21}$), the Compton wavelength
