@@ -1,0 +1,61 @@
+{
+  "cases": [
+    {
+      "base_Q8_floor_rational": "779/100000000",
+      "derived_fullQ_floor_display": "1.8465964010950667030512053525711526617669082486714E-18",
+      "derived_fullQ_floor_rational": "472729139/256000249280060684100000000",
+      "public_fullQ_floor_rational": "23/12500000000000000000",
+      "rounding_down_verified_exact": true,
+      "scope": "all nominal cutoffs R>=8000 and the infinite closed quadratic form",
+      "sector": "even-v",
+      "uniform_cross_bound_rational": "16"
+    },
+    {
+      "base_Q8_floor_rational": "163/5000000",
+      "derived_fullQ_floor_display": "1.3533529225812221637384233141018128212014456252268E-16",
+      "derived_fullQ_floor_rational": "4330747/32000130400132845000000",
+      "public_fullQ_floor_rational": "27/200000000000000000",
+      "rounding_down_verified_exact": true,
+      "scope": "all nominal cutoffs R>=8000 and the infinite closed quadratic form",
+      "sector": "odd-v",
+      "uniform_cross_bound_rational": "16"
+    }
+  ],
+  "displacement_cross_cap_rational": "10",
+  "guardrail": "Uniform full-Q coercivity only. No remote unit-floor transfer, sampled infinite norm, geometric extrapolation, or tail-capacity conclusion.",
+  "hilbert_norm_bound": "pi; analytic midpoint-convexity/weighted-Schur proof",
+  "hilbert_weight": "w_j=(j+1/2)^(-1/2)",
+  "infinite_capacity_tail_closed": false,
+  "parent_inputs": [
+    "v14.025 global z",
+    "v14.044/v14.071 remote Schur >=I",
+    "v14.155/v14.158/v14.161 frozen-P Q8 base and protected positivity"
+  ],
+  "pole_cross_cap_strict_rational": "256/49",
+  "positive_second_derivative_numerator_coefficients": [
+    3,
+    10,
+    15
+  ],
+  "public_total_cross_cap_rational": "16",
+  "schema": "cone.uniform-infinite-fullQ-bridge.v1",
+  "source_scalar_caps_beyond_256k_claimed": false,
+  "synthetic": [
+    {
+      "exact_schur_ge_I": true,
+      "full_block_floor_verified_exact": true,
+      "seed": 31
+    },
+    {
+      "exact_schur_ge_I": true,
+      "full_block_floor_verified_exact": true,
+      "seed": 107
+    },
+    {
+      "exact_schur_ge_I": true,
+      "full_block_floor_verified_exact": true,
+      "seed": 211
+    }
+  ],
+  "total_cross_cap_strict_rational": "746/49"
+}

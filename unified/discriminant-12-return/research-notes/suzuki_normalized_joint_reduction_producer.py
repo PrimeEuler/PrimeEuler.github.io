@@ -459,8 +459,8 @@ def main():
         raise RuntimeError(("outward certificate unavailable", MISSING))
     if not a.sector or not a.output:
         ap.error("--sector and --output required for source replay")
-    if a.cutoffs != sorted(set(a.cutoffs)) or min(a.cutoffs) < 4000 or max(a.cutoffs) > 128000:
-        ap.error("unique increasing cutoffs between 4000 and 128000 required")
+    if a.cutoffs != sorted(set(a.cutoffs)) or min(a.cutoffs) < 4000 or max(a.cutoffs) > 256000:
+        ap.error("unique increasing cutoffs between 4000 and 256000 required")
     if a.remote_start < 0 or a.refinements < 0:
         ap.error("nonnegative source frontier and refinement count required")
     normalizer = frozen_normalizer(a.sector, a.anchor_root, a.offset_scale)
