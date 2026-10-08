@@ -1,0 +1,281 @@
+{
+  "CI_complete_encoded_witness_replay_byte_identical": true,
+  "CI_full_caps_and_trace_pass": true,
+  "artifacts": [
+    {
+      "digest": "sha256:461830c6bca8cf41f0d8cce8ea384a81ba8ec8c82457503a0d1c4994bd8cdd29",
+      "id": 11577225364,
+      "name": "leading-source-full-32000-odd-v",
+      "size_in_bytes": 3710083
+    },
+    {
+      "digest": "sha256:6091107893a280b7823adc18a0471198f4c3e3523dee5e4fa3ead18cf7d42840",
+      "id": 11576113455,
+      "name": "leading-source-full-32000-even-v",
+      "size_in_bytes": 3705519
+    },
+    {
+      "digest": "sha256:dd02c92c51b5ec48d517f788475cb3c1c9a308b72764f8fb45b7c6712d410ff6",
+      "id": 11575959353,
+      "name": "leading-source-frozen-32000",
+      "size_in_bytes": 14368286
+    }
+  ],
+  "coefficient_interval_display_approximate": [
+    "639.81731110860703852978282605946953086961130584496",
+    "639.83885343518658143813977035361097128206795183047"
+  ],
+  "conclusion": "success",
+  "conditional_total_abs_upper_display": "5.3582055475748866167641144814558211366376068028872e-9",
+  "finite_Q_interval_display_approximate": [
+    "-3.5820554757488661676411448145582113663760680288717e-10",
+    "-3.5812295286567527733320611831602657534346526807580e-10"
+  ],
+  "independent_source_contract_audit_pending": true,
+  "infinite_capacity_tail_closed": false,
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 113520131751,
+      "logs_url": null,
+      "name": "full (odd-v)",
+      "run_id": 37838070444,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install dependencies",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Direct leading source solve on full finite 32k operator",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Independent complete integer source and certificate replay",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "id": 113520132103,
+      "logs_url": null,
+      "name": "full (even-v)",
+      "run_id": 37838070444,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install dependencies",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Direct leading source solve on full finite 32k operator",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Independent complete integer source and certificate replay",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "id": 113522356028,
+      "logs_url": null,
+      "name": "paired",
+      "run_id": 37838070444,
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install integer replay dependency",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/download-artifact@v4",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Exact outward leading coefficient and public cap",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Sharp finite 256k scalar with outward coefficient interval",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Freeze complete vectors and exact output hashes",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Independent end to end replay from encoded full snapshots",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 19,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "observed_from": "GitHub completed job logs and REST run/artifact metadata; artifact bytes not downloaded by Lane A while environment offline",
+  "phase_checks": {
+    "allowed_frequency_tests": 159002,
+    "byte_identical_to_independent_JS": true,
+    "conclusion": "success",
+    "job_id": 113521709744,
+    "run_id": 37838532673,
+    "source_commit": "f9f369a43652e62a4053c33ea71c1b60e8f3436e"
+  },
+  "repository_full_artifact_freeze_pending": true,
+  "run_id": 37838070444,
+  "schema": "cone.leading-source-ci-observed-provenance.v1",
+  "source_commit": "aed54a0014e67d1326cb41de9086059948aa0cdc",
+  "status": "completed",
+  "workflow": ".github/workflows/suzuki-leading-source-32k.yml"
+}
