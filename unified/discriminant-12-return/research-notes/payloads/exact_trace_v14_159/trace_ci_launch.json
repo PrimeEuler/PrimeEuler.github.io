@@ -1,0 +1,21 @@
+{
+  "schema": "cone.exact-trace-ci-launch.v1",
+  "run_id": 37720158340,
+  "run_url": "https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37720158340",
+  "workflow": "Suzuki direct normalized joint reduction",
+  "source_head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+  "created_at": "2026-10-08T02:54:28Z",
+  "observed_status": "in_progress",
+  "conclusion": null,
+  "cutoffs": [
+    64000,
+    128000
+  ],
+  "sectors": [
+    "even-v",
+    "odd-v"
+  ],
+  "remote_start": 32000,
+  "all_actual_cutoff_trace_results_complete": false,
+  "guardrail": "Observed launch only. Completed artifacts require freezing and independent exact witness replay; overall source/assembly/residual certificate incomplete."
+}

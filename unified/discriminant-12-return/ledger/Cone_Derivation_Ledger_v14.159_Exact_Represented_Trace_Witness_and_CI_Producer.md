@@ -98,3 +98,15 @@ deliverable: theorem-or-obstruction
 constraints: Verify the real actual-cutoff witnesses only once CI produces them; the existing 4k/8k source has frontier 1000 and does not certify the frontier-32000 rows; preserve the frozen v14.153 payload; check live HEAD, latest audit and numbering before writes.
 
 External Audit is invited to review the exact trace implementation under its standing update-watch scope.
+
+## 6. Observed CI launch
+
+The push-triggered source workflow was observed, not merely requested:
+
+- Run: [37720158340](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37720158340).
+- Source commit: `21d275630d348e15f868a98018fcc34942b39e53`.
+- Created: 2026-10-08T02:54:28Z.
+- Observed status: `in_progress`; both parity smoke jobs were in progress. The full actual-cutoff matrix follows successful smoke jobs.
+- Completed actual-cutoff trace certificates are **not** claimed at this observation.
+
+The launch manifest is frozen alongside the local validation reports as `trace_ci_launch.json`. This owned-entry follow-up re-read live HEAD `21d275630d348e15f868a98018fcc34942b39e53`, ledger max v14.159, and latest Sandbox v14.158 / External Audit v14.154 before its write; the new manifest path was free. No other lane's entry is changed.
