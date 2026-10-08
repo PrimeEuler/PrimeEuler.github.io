@@ -42,9 +42,10 @@ $Y_{\mathrm{geom}}=768/(243\sqrt6)$ is $\alpha$-independent.  Using a
 a priori numerology), elimination of $a_0$ via
 $a_0=\bar\lambda_c/\alpha$ gives the $\alpha$-independent
 $\alpha=4\omega_{21}^3\bar\lambda_c^2Y_{\mathrm{geom}}^2/(9c^2A_{21})
-\approx1/137.14$.  The point is conceptual non-circularity, not
-competitive precision: $0.07\%$ ($\sim$3 figures) against the
-$\sim$10-figure metrology standard.  What is shown is that the
+\approx1/(137.4\pm2.2)$ using the measured $2p$ lifetime.  The point
+is conceptual non-circularity, not competitive precision: $\pm1.6\%$
+($\sim$2 figures) against the $\sim$10-figure metrology standard,
+limited by the lifetime measurement.  What is shown is that the
 $SO(4,2)$ dipole geometry determines $\alpha$ from one spectral line
 with no circular input --- a clean classroom demonstration of
 dynamical symmetry doing real work.
@@ -212,15 +213,21 @@ spectroscopy; $\bar\lambda_c$: Penning trap $+$ XRCD), exact ($c$),
 or pure $SO(4,2)$/bicone geometry ($Y_{\mathrm{geom}}$).
 
 With $\omega_{21}=1.55\times10^{16}\,\mathrm{s}^{-1}$,
-$A_{21}=6.2648\times10^8\,\mathrm{s}^{-1}$ (NIST ASD),
-$\bar\lambda_c=3.861593\times10^{-13}\,\mathrm{m}$:
+$\bar\lambda_c=3.861593\times10^{-13}\,\mathrm{m}$, and the
+\emph{measured} $2p$ lifetime
+$\tau=(1.592\pm0.025)\,\mathrm{ns}$ (beam-foil \cite{Tielert}), i.e.\
+$A_{21}=1/\tau=(6.281\pm0.099)\times10^8\,\mathrm{s}^{-1}$:
 \[
-\alpha\approx\frac1{137.14}\quad\text{vs.\ known }1/137.036,
+\alpha\approx\frac1{137.4\pm2.2}\quad\text{vs.\ known }1/137.036,
 \]
-$0.07\%$ (limited by $A_{21}$ rounding).  This is a genuine
-$\alpha$-independent determination: $a_0\equiv\hbar/(m_ec\alpha)$ cannot
-be measured without $\alpha$ by definition, but \eqref{eq:alpha}
-eliminates it entirely.
+consistent within the $\pm1.6\%$ lifetime uncertainty.  We deliberately
+use the measured lifetime rather than the NIST tabulated $A_{21}$:
+the NIST value is computed from the standard theoretical matrix
+element, which would smuggle the answer in through the back door and
+vitiate the non-circularity claim \cite{Trabert}.  This is a genuine
+$\alpha$-independent determination: $a_0\equiv\hbar/(m_ec\alpha)$
+cannot be measured without $\alpha$ by definition, but
+\eqref{eq:alpha} eliminates it entirely.
 
 \section{Calibration: what is derived, what is measured}
 
@@ -269,6 +276,15 @@ Z.\ Phys.\ 40 (1926) (dipole matrix elements).
 J.~Ebert, \textit{The Cone Program: A Roadmap}, in preparation (2026).
 \bibitem{cone-abc}
 J.~Ebert, \textit{Cone Foundations}, Papers A, B, C, in preparation (2026).
+\bibitem{Tielert}
+G.~Tielert et al., \textit{Lifetimes and initial populations of
+foil-excited hydrogen and lithium states},
+Nucl.\ Instrum.\ Methods 110, 89 (1973)
+(measured H($2p$) lifetime $\tau=(1.592\pm0.025)\,$ns).
+\bibitem{Trabert}
+E.~Tr\"abert, \textit{Atomic lifetime data and databases},
+Atoms 10, 114 (2022) (on the theory--experiment circularity hazard
+in lifetime ``agreement'').
 \end{thebibliography}
 
 \end{document}
