@@ -1,0 +1,38 @@
+{
+  "audit_status": "derived certificate awaiting independent bridge/provenance audit",
+  "base_replay_sha256": "ba97e55bdcee65bb9dac420cd6268cce143463ebf09e77b11a82e4408d7de904",
+  "cutoff_scope": "8000 <= R <= 256000; frozen base six-plane embedded by zeros",
+  "displacement_squared_upper": "29250000/24649",
+  "harmonic_124000_upper": "3076314151103/250000000000",
+  "harmonic_4000_upper": "4435695150943/500000000000",
+  "normalized_joint_certification_ready": false,
+  "passed": true,
+  "pole_norm_upper": "256/49",
+  "rows": [
+    {
+      "base_floor_used": "779/100000000",
+      "base_replay_floor": "7.7953856186101911566e-06",
+      "cross_block_norm_cap": "40",
+      "full_Q_floor_exact_rational": "472729139/1600000623200060684100000000",
+      "full_Q_floor_public": "2.95e-19",
+      "partial_shell_Schur_floor": "1",
+      "sector": "even-v"
+    },
+    {
+      "base_floor_used": "163/5000000",
+      "base_replay_floor": "3.2625070250862587883e-05",
+      "cross_block_norm_cap": "40",
+      "full_Q_floor_exact_rational": "4330747/200000326000132845000000",
+      "full_Q_floor_public": "2.16e-17",
+      "partial_shell_Schur_floor": "1",
+      "sector": "odd-v"
+    }
+  ],
+  "schema": "cone.fullq-coercivity-bridge.v1",
+  "theorem_inputs": [
+    "v14.029/v14.031 exact shifted-8k complementary floor",
+    "v14.034/v14.036 exact full 8k front positivity",
+    "v14.044/v14.071 nested remote Schur unit floor",
+    "v14.025/v14.034 exact scalar majorants |z|<=10 and parity pole norm"
+  ]
+}

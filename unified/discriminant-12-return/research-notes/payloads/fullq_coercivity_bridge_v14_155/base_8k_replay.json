@@ -1,0 +1,47 @@
+{
+  "Lambda": 1.0,
+  "mu": 1.0,
+  "rows": [
+    {
+      "L_frob_sq_upper": "24409.442001350966503",
+      "Lambda": 1.0,
+      "PASS": true,
+      "addition_sym_rounding_upper": "1.7593411223697616815e-13",
+      "base_last_mode": 3999,
+      "certified_complement_lower": "7.7953856186101911566e-06",
+      "cholesky_backward_upper": "1.08426798037185133164e-08",
+      "cholesky_gamma": "4.4420023215272244573e-13",
+      "dimension": 4000,
+      "factor_gram_lower": "7.8062287296656304975e-06",
+      "formation_rounding_upper": "2.2125172082691993758e-13",
+      "linv_inf_upper": "5.659126059692360906",
+      "penalty_matmul_rounding_upper": "3.996802888650577054e-15",
+      "sector": "even-v",
+      "shell_shift_rounding_upper": "4.132080570129319235e-14",
+      "source_operator_uncertainty": "2.1e-13",
+      "target_last_mode": 7999,
+      "total_charge_upper": "1.0843111055439340237e-08"
+    },
+    {
+      "L_frob_sq_upper": "24413.113332516468864",
+      "Lambda": 1.0,
+      "PASS": true,
+      "addition_sym_rounding_upper": "1.7594842175870957888e-13",
+      "base_last_mode": 4000,
+      "certified_complement_lower": "3.2625070250862587883e-05",
+      "cholesky_backward_upper": "1.084431060987453899e-08",
+      "cholesky_gamma": "4.4420023215272244573e-13",
+      "dimension": 4000,
+      "factor_gram_lower": "3.263591499273782481e-05",
+      "formation_rounding_upper": "2.2126536238387476288e-13",
+      "linv_inf_upper": "2.7677197175106960458",
+      "penalty_matmul_rounding_upper": "3.9968028886505783914e-15",
+      "sector": "odd-v",
+      "shell_shift_rounding_upper": "4.1320137736514605588e-14",
+      "source_operator_uncertainty": "2.1e-13",
+      "target_last_mode": 8000,
+      "total_charge_upper": "1.08447418752369228656e-08"
+    }
+  ],
+  "theorem_scope": "PASS certifies a positive Euclidean lower bound for the shifted M8000 operator restricted to the Euclidean orthogonal complement of the frozen six-plane.  It does not by itself certify the six-dimensional protected Schur block."
+}

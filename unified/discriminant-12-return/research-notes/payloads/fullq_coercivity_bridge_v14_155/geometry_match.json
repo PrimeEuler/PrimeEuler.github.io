@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "base_helper_and_producer_arrays_component_identical": true,
+      "cutoff_matches": [
+        64000,
+        128000
+      ],
+      "frozen_base_P_sha256": "e1eef3afeacbe6d265237f8e643ec4340ee5fcc3b0877240015ad196172b3170",
+      "new_shell_protected_entries_exact_zero": true,
+      "protected_support_through_mode": 4000,
+      "sector": "even-v"
+    },
+    {
+      "base_helper_and_producer_arrays_component_identical": true,
+      "cutoff_matches": [
+        64000,
+        128000
+      ],
+      "frozen_base_P_sha256": "1642a3f2617935dd5f484e4cdbd8fd5e03b3289ed437c1571894e2b5e09e8f80",
+      "new_shell_protected_entries_exact_zero": true,
+      "protected_support_through_mode": 4000,
+      "sector": "odd-v"
+    }
+  ],
+  "schema": "cone.fullq-geometry-match.v1",
+  "scope": "Exact array identity and payload hashes; base spectral certificate is replayed separately",
+  "source_hashes": {
+    "p4_payload/even-v/Z.npy": "2823ba1c29582efe3b73b8b959e97494db493bde9b89d62955fd05bea61eb248",
+    "p4_payload/even-v/modes.npy": "70bf35511c045dffefa75183dc34e76c4653de8a716f18cb6a1238b19ebb8801",
+    "p4_payload/odd-v/Z.npy": "6d04e700621f3b8c8f8dbb2537dde4bcfdd9018896d1153083935c009739b518",
+    "p4_payload/odd-v/modes.npy": "9bf4df5e50d16960147fb8eeed73d99ac2138c426716dcf606db25af1941ddc9",
+    "suzuki_M3999_frozen_p4_source_capacity_midpoint.py": "cf2bd1efa84582920e38c3538fc82d9e6a9b4e01e04fb099a7c8e31614666ca1",
+    "suzuki_M8000_M16000_capacity_ratio_source_sensitivity.py": "b0057016e574571bd277972839975804961e4ed8ede8d8649a8352282c218c0d",
+    "suzuki_M8000_embedded_p4_ldd_capacity.py": "94e0942931e2e46e847f2eb90c034c96ed833defaa95daeed0db938ac20d210c",
+    "suzuki_M8000_mu1_penalized_cholesky_outward.py": "16cb7a0814b43700e1cd31cb36eb4ab452bda19d4f931d000014accc3f3ff38a"
+  }
+}
