@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Direct normalized seven-column source midpoint producer (v14.147).
+"""Direct normalized seven-column producer with optional exact-point caps.
 
 Freezes one corrected-anchor T,v, forms all seven normalized protected/source
 RHSs before solving, refines their joint residuals in LDDD, and emits small
-affine reductions. It never promotes measured diagnostics to outward caps.
+affine reductions. The optional exact kernel separately certifies all-source
+assembly and projected residual caps from full represented-vector snapshots.
 Represented-vector trace bounds have exact dyadic witnesses; their correction
 cap transport, full-Q coercivity and overall certification remain explicit.
 """
@@ -137,7 +138,8 @@ def evaluate(p, gih, gil, apply_source, protected, zh, zl, gh, gl):
 
 
 def solve_joint(p, op, proj, apply_source, gh, gl, t, v, refinements, progress,
-                exact_normalizer=None, trace_witness_path=None):
+                exact_normalizer=None, trace_witness_path=None,
+                exact_backend=None, outward_context=None):
     """All seven solves receive direct normalized affine RHSs."""
     th, tl = split_matrix(t)
     vhi, vlo = split_matrix(v)
@@ -219,6 +221,30 @@ def solve_joint(p, op, proj, apply_source, gh, gl, t, v, refinements, progress,
         from suzuki_exact_represented_trace_certificate import capture
         result["represented_trial_trace_certificate"] = capture(
             p, vh, vl, exact_normalizer, trace_witness_path)
+    if exact_backend is not None:
+        from suzuki_exact_integer_source_action import family_from_pairs
+        from suzuki_exact_outward_certificate import certificate, p_families, write_snapshot
+        columns = [family_from_pairs(vh[:, j], vl[:, j]) for j in range(7)]
+        if columns != exact_backend.last_inputs:
+            raise RuntimeError("exact action cache does not match final represented trial")
+        pf = p_families(p)
+        cert = certificate(exact_backend.source, columns, pf, exact_normalizer,
+                           outward_context["sector"], outward_context["remote_start"],
+                           exact_backend.engine.kernel_bits, exact_backend.last_outputs)
+        if cert["frozen_base_P_sha256"] != result["represented_trial_trace_certificate"]["frozen_base_P_sha256"]:
+            raise RuntimeError("full-vector exact certificate differs from trace plane")
+        if cert["relative_trace_fro_upper_rational"] != result["represented_trial_trace_certificate"]["relative_defect_fro_upper_rational"]:
+            raise RuntimeError("full-vector trace bound differs from standalone dyadic trace")
+        result["M_lddd_assembly_diagnostic"] = result["M_trial_midpoint"]
+        result["M_trial_midpoint"] = cert["M_point_decimal"]
+        result["outward_numerical_certificate"] = cert
+        snapshot = outward_context["snapshot_path"]
+        sha = write_snapshot(snapshot, exact_backend.source, columns, pf, exact_normalizer,
+                             outward_context["sector"], outward_context["remote_start"],
+                             exact_backend.engine.kernel_bits)
+        result["outward_snapshot"] = {"file": snapshot.name, "sha256": sha}
+        reference = snapshot.with_suffix(".certificate.json")
+        reference.write_text(json.dumps(cert, indent=2, sort_keys=True)+"\n")
     return result
 
 
@@ -260,13 +286,20 @@ def one(sector, cutoff, remote_start, normalizer, refinements, kernel,
                 gh[i], gl[i] = split_mpf_ld(1/mp.mpf(denom))
         t = mp.matrix(normalizer["T"]); v = mp.matrix(normalizer["v"])
         progress({"stage": "direct normalized RHS solves and refinement"})
-        if kernel == "native":
+        backend = None
+        if kernel == "exact":
+            from suzuki_exact_integer_source_action import ExactBackend
+            backend = ExactBackend(data)
+            action = backend.action_arrays
+        elif kernel == "native":
             from suzuki_ldd_native_matvec import native_matvec
             action = lambda h, l: native_matvec(data, h, l)
         else:
             action = lambda h, l: source_action(data, h, l)
         row = solve_joint(p, op, proj, action, gh, gl, t, v,
-                          refinements, progress, normalizer, trace_witness_path)
+                          refinements, progress, normalizer, trace_witness_path,
+                          backend, {"sector": sector, "remote_start": remote_start,
+                          "snapshot_path": trace_witness_path.with_name(trace_witness_path.name.replace(".json.gz", ".full.zip"))})
     if row["represented_trial_trace_certificate"]["frozen_base_P_sha256"] != digest(np.asarray(p[:2000], dtype="<f8").tobytes()):
         raise RuntimeError("exact trace witness differs from the frozen represented P bytes")
     row.update({
@@ -296,6 +329,25 @@ def one(sector, cutoff, remote_start, normalizer, refinements, kernel,
         "guardrail": "Direct normalized LDDD source/assembly/residual midpoint. Represented-vector trace bound is exact rational; overall certificate incomplete; no use of remote-Schur gamma=1 for full Q complement.",
     })
     row["summary_midpoint"] = numerical_reduction_summary(row)
+    if backend is not None:
+        cert = row["outward_numerical_certificate"]
+        bounds = cert["bounds_rational"]
+        row["certification"].update({
+            "assembly_J_alpha_outward": bounds["assembly_J"],
+            "assembly_beta_alpha_outward": bounds["assembly_beta"],
+            "assembly_eta_alpha_outward": bounds["assembly_eta"],
+            "graph_residual_fro_outward": bounds["graph_residual_fro"],
+            "combined_source_residual_l2_outward": bounds["source_residual_l2"],
+            "all_six_numerical_targets_met": cert["all_six_numerical_targets_met"],
+            "missing": [k for k, passed in cert["checks_exact"].items() if not passed]
+                       + ["independent_audit_of_new_exact_point_outward_arithmetic_bridge"],
+        })
+        if cert["fullQ_floor_rational"] is not None:
+            row["coercivity_contract"].update({
+                "operator_projector_cutoff_identification_certificate": "v14.155/v14.158/v14.161; audited frozen P byte hash matched",
+                "gamma_certified": cert["fullQ_floor_rational"],
+            })
+        row["guardrail"] = "All-source point action, assembly and projection checked with exact integers/Fractions; physical-source charges explicit. New outward bridge awaits independent audit; no infinite-tail conclusion."
     progress({"stage": "complete", **row["summary_midpoint"]})
     return row
 
@@ -394,7 +446,7 @@ def main():
     ap.add_argument("--cutoffs", type=int, nargs="+", default=[64000, 128000])
     ap.add_argument("--remote-start", type=int, default=32000)
     ap.add_argument("--refinements", type=int, default=1)
-    ap.add_argument("--kernel", choices=["native", "numpy"], default="native")
+    ap.add_argument("--kernel", choices=["native", "numpy", "exact"], default="native")
     ap.add_argument("--offset-scale", default="1")
     ap.add_argument("--anchor-root", type=Path, default=HERE/"payloads/M64000_corrected_run_37659896312")
     ap.add_argument("--output", type=Path)
@@ -416,7 +468,8 @@ def main():
                 a.output.with_name(a.output.stem + f".trace-{r}.json.gz"))
             for r in a.cutoffs]
     out = {"schema": SCHEMA, "normalizer": normalizer, "rows": rows, "transitions": transition(rows),
-           "certification_ready": False, "missing_certificates": MISSING}
+           "certification_ready": False,
+           "missing_certificates": sorted({k for row in rows for k in row["certification"]["missing"]})}
     a.output.parent.mkdir(parents=True, exist_ok=True)
     a.output.write_text(json.dumps(out, indent=2, sort_keys=True)+"\n")
     print("OUTPUT", a.output, flush=True)

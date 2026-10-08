@@ -1,0 +1,123 @@
+{
+  "files": [
+    {
+      "bytes": 796,
+      "file": "exact_outward_self_test.json",
+      "sha256": "58e5084e260f2c02e409bbefb8a6e7170a96cdc90ccd32799eb180dfedaa0ba5"
+    },
+    {
+      "bytes": 113363,
+      "file": "outward_smoke_even-v.json",
+      "sha256": "582ecca032fe4e1ea43d933c42210e6a3fe9bf772bb1bf6161df6db4bee6b836"
+    },
+    {
+      "bytes": 20661,
+      "file": "outward_smoke_even-v.trace-4000.full.certificate.json",
+      "sha256": "c60fb34b638d309f007ca6df7b2890edd61d5654424e6945c61bc9d5eb6af973"
+    },
+    {
+      "bytes": 695844,
+      "file": "outward_smoke_even-v.trace-4000.full.zip.b64.part000",
+      "sha256": "97a4f06d68c436808d93a0968ba99fc8a89d53a24fcb7a9cd8c4b29d46c249a0"
+    },
+    {
+      "bytes": 20726,
+      "file": "outward_smoke_even-v.trace-8000.full.certificate.json",
+      "sha256": "81a4b6e26d31447bff66f54e98a3ce3d8383737d381c57a66a746bb0e88fe8a1"
+    },
+    {
+      "bytes": 800000,
+      "file": "outward_smoke_even-v.trace-8000.full.zip.b64.part000",
+      "sha256": "84ee47916ef1751ee37bcb7ba2bc23e75b9dbd2a073bc247fd4268a586eea9ca"
+    },
+    {
+      "bytes": 416584,
+      "file": "outward_smoke_even-v.trace-8000.full.zip.b64.part001",
+      "sha256": "b53189e7bc4c0c67299c956852500346b1ec8e3a45358c6caffbd1818d93267d"
+    },
+    {
+      "bytes": 112931,
+      "file": "outward_smoke_odd-v.json",
+      "sha256": "6d7dc6670533a38644e24d653cf08b875314f14a8941df1a267dfb7ebdb0464d"
+    },
+    {
+      "bytes": 20508,
+      "file": "outward_smoke_odd-v.trace-4000.full.certificate.json",
+      "sha256": "86a68bd841f5edffc7964819aa103d35d7ab3f5f5152926ce0f9528b76c8caab"
+    },
+    {
+      "bytes": 697908,
+      "file": "outward_smoke_odd-v.trace-4000.full.zip.b64.part000",
+      "sha256": "b6fd8b5b96658e896d049078b2f2db720df7b2eb875ee7d94212a9a40ef791dc"
+    },
+    {
+      "bytes": 20585,
+      "file": "outward_smoke_odd-v.trace-8000.full.certificate.json",
+      "sha256": "8415904fc353ae70e73e996b63b80fd3bb6cfc2da53d5407345faed67e4783c0"
+    },
+    {
+      "bytes": 800000,
+      "file": "outward_smoke_odd-v.trace-8000.full.zip.b64.part000",
+      "sha256": "d16a71066a2eba7e952c5cdb002d15352e573948fb3111ee798d5d8e20ea64ec"
+    },
+    {
+      "bytes": 419396,
+      "file": "outward_smoke_odd-v.trace-8000.full.zip.b64.part001",
+      "sha256": "001349769fcf421a83a77396c4498d1ca397fb78958617ab29fafa6c8e083595"
+    }
+  ],
+  "schema": "cone.full-outward-artifact-manifest.v1",
+  "snapshots": [
+    {
+      "base64_parts": [
+        "outward_smoke_even-v.trace-4000.full.zip.b64.part000"
+      ],
+      "bytes": 521881,
+      "certificate_file": "outward_smoke_even-v.trace-4000.full.certificate.json",
+      "cutoff": 4000,
+      "payload_file": "outward_smoke_even-v.json",
+      "sector": "even-v",
+      "sha256": "363ae22732468e2d9f3ea95de8c738b2db7d3c637e5b08eeb279847a86807e04",
+      "snapshot_file": "outward_smoke_even-v.trace-4000.full.zip"
+    },
+    {
+      "base64_parts": [
+        "outward_smoke_even-v.trace-8000.full.zip.b64.part000",
+        "outward_smoke_even-v.trace-8000.full.zip.b64.part001"
+      ],
+      "bytes": 912436,
+      "certificate_file": "outward_smoke_even-v.trace-8000.full.certificate.json",
+      "cutoff": 8000,
+      "payload_file": "outward_smoke_even-v.json",
+      "sector": "even-v",
+      "sha256": "ffd201b4f4dbf3d4569353dbfdc7b708cc0e1181e2edfa2a78047544dd624437",
+      "snapshot_file": "outward_smoke_even-v.trace-8000.full.zip"
+    },
+    {
+      "base64_parts": [
+        "outward_smoke_odd-v.trace-4000.full.zip.b64.part000"
+      ],
+      "bytes": 523429,
+      "certificate_file": "outward_smoke_odd-v.trace-4000.full.certificate.json",
+      "cutoff": 4000,
+      "payload_file": "outward_smoke_odd-v.json",
+      "sector": "odd-v",
+      "sha256": "ca158400a92ef93910f0b4ce6f953d6aa6ffd9d96bfeb7e6eefcd75a043afd2a",
+      "snapshot_file": "outward_smoke_odd-v.trace-4000.full.zip"
+    },
+    {
+      "base64_parts": [
+        "outward_smoke_odd-v.trace-8000.full.zip.b64.part000",
+        "outward_smoke_odd-v.trace-8000.full.zip.b64.part001"
+      ],
+      "bytes": 914546,
+      "certificate_file": "outward_smoke_odd-v.trace-8000.full.certificate.json",
+      "cutoff": 8000,
+      "payload_file": "outward_smoke_odd-v.json",
+      "sector": "odd-v",
+      "sha256": "08fb7178ce045f4437fc8f3178c1249e5fb36f40413dcacffcade42d3ced9186",
+      "snapshot_file": "outward_smoke_odd-v.trace-8000.full.zip"
+    }
+  ],
+  "source": "local final-code 4k/8k smoke; remote_start=1000; actual targets still require 64k/128k run"
+}

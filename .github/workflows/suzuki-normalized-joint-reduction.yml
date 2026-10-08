@@ -6,6 +6,9 @@ on:
     paths:
       - 'unified/discriminant-12-return/research-notes/suzuki_normalized_joint_reduction_producer.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_exact_represented_trace_certificate.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_integer_source_action.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_outward_certificate.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_outward_pair_certificate.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_trace_congruence_replay.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_normalized_joint_pair_diagnostic.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_ldd_native_matvec.py'
@@ -32,16 +35,21 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: python -m pip install numpy scipy mpmath==1.3.0
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+          python -m pip install numpy scipy mpmath==1.3.0
       - name: Independent exact-reference implementation test
         working-directory: unified/discriminant-12-return/research-notes
-        run: python suzuki_normalized_joint_reduction_producer.py --self-test
+        run: |
+          python suzuki_exact_integer_source_action.py
+          python suzuki_normalized_joint_reduction_producer.py --self-test
       - name: Small source smoke, explicitly different source frontier
         working-directory: unified/discriminant-12-return/research-notes
         run: >-
           python suzuki_normalized_joint_reduction_producer.py
           --sector ${{ matrix.sector }} --cutoffs 4000 8000
-          --remote-start 1000 --refinements 1
+          --remote-start 1000 --refinements 1 --kernel exact
           --output /tmp/smoke-${{ matrix.sector }}.json
       - name: Replay every exact represented trace witness
         working-directory: unified/discriminant-12-return/research-notes
@@ -49,12 +57,20 @@ jobs:
           for witness in /tmp/smoke-${{ matrix.sector }}.trace-*.json.gz; do
             python suzuki_exact_represented_trace_certificate.py --witness "$witness" --payload /tmp/smoke-${{ matrix.sector }}.json
           done
+      - name: Independently replay full-vector source certificates
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for snapshot in /tmp/smoke-${{ matrix.sector }}.trace-*.full.zip; do
+            python suzuki_exact_outward_certificate.py --snapshot "$snapshot" --reference "${snapshot%.zip}.certificate.json" --output /tmp/replayed.json --require-targets
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: normalized-joint-smoke-${{ matrix.sector }}
           path: |
             /tmp/smoke-${{ matrix.sector }}.json
             /tmp/smoke-${{ matrix.sector }}.trace-*.json.gz
+            /tmp/smoke-${{ matrix.sector }}.trace-*.full.zip
+            /tmp/smoke-${{ matrix.sector }}.trace-*.full.certificate.json
           if-no-files-found: error
 
   full:
@@ -72,13 +88,16 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: python -m pip install numpy scipy mpmath==1.3.0
-      - name: Direct normalized source solve and LDDD residual refinement
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+          python -m pip install numpy scipy mpmath==1.3.0
+      - name: Direct source solve, exact point action and outward caps
         working-directory: unified/discriminant-12-return/research-notes
         run: >-
           python suzuki_normalized_joint_reduction_producer.py
           --sector ${{ matrix.sector }} --cutoffs ${{ matrix.cutoff }}
-          --remote-start 32000 --refinements 1
+          --remote-start 32000 --refinements 1 --kernel exact
           --output /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
       - name: Replay exact represented trace witness
         working-directory: unified/discriminant-12-return/research-notes
@@ -86,12 +105,21 @@ jobs:
           python suzuki_exact_represented_trace_certificate.py
           --witness /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-${{ matrix.cutoff }}.json.gz
           --payload /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
+      - name: Independently replay full-vector source certificate and all targets
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_outward_certificate.py
+          --snapshot /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-${{ matrix.cutoff }}.full.zip
+          --reference /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-${{ matrix.cutoff }}.full.certificate.json
+          --output /tmp/replayed.json --require-targets
       - uses: actions/upload-artifact@v4
         with:
           name: normalized-joint-full-${{ matrix.cutoff }}-${{ matrix.sector }}
           path: |
             /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
             /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-*.json.gz
+            /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-*.full.zip
+            /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-*.full.certificate.json
           if-no-files-found: error
 
   paired:
@@ -119,8 +147,19 @@ jobs:
           --odd-old /tmp/joint/joint-64000-odd-v.json
           --odd-new /tmp/joint/joint-128000-odd-v.json
           --output /tmp/normalized-joint-pair-64000-128000.json
+      - name: Exact rational outward finite-pair composition
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_outward_pair_certificate.py
+          --even-old /tmp/joint/joint-64000-even-v.json
+          --even-new /tmp/joint/joint-128000-even-v.json
+          --odd-old /tmp/joint/joint-64000-odd-v.json
+          --odd-new /tmp/joint/joint-128000-odd-v.json
+          --output /tmp/exact-outward-pair-64000-128000.json --require-budget
       - uses: actions/upload-artifact@v4
         with:
           name: normalized-joint-pair-64000-128000
-          path: /tmp/normalized-joint-pair-64000-128000.json
+          path: |
+            /tmp/normalized-joint-pair-64000-128000.json
+            /tmp/exact-outward-pair-64000-128000.json
           if-no-files-found: error
