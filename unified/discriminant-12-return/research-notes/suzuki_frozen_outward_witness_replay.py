@@ -41,7 +41,8 @@ def replay(root):
               'all_rows_meet_all_six_numerical_targets_exactly':True,
               'all_certificates_byte_identical':True,'overall_certificate_ready':False}
     if 'pair_inputs' in manifest:
-        pair = analyze([root/name for name in manifest['pair_inputs']])
+        pair = analyze([root/name for name in manifest['pair_inputs']],
+                       tuple(manifest.get('pair_cutoffs', (64000,128000))))
         pairraw = (json.dumps(pair,indent=2,sort_keys=True)+'\n').encode()
         assert pairraw == (root/manifest['pair_reference']).read_bytes()
         result['pair'] = pair

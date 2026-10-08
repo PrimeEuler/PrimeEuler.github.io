@@ -1,0 +1,608 @@
+{
+  "files": [
+    {
+      "bytes": 120747,
+      "file": "actual256-conditional-closure-budget.json",
+      "sha256": "5ac25093db6010c5442f7c5dfd689dd322e912366556ce6ffbd456e9a6b697b2"
+    },
+    {
+      "bytes": 9539,
+      "file": "ci_provenance.json",
+      "sha256": "99e3860487ac77a56589a90032dcadea8c39ca6d2f70633bcf79bc1c3ff53bfd"
+    },
+    {
+      "bytes": 184808,
+      "file": "exact-outward-pair-128000-256000.json",
+      "sha256": "fc3a10145f504f338b3eb06f0a363004e5e53d354b15db89fa64f6795c00d1e3"
+    },
+    {
+      "bytes": 190838,
+      "file": "frozen256-even-far.json",
+      "sha256": "e04a76221afe60f05c7bb2052df0826f3b1f4a673816a4a6245a212ba2c3cf23"
+    },
+    {
+      "bytes": 26096,
+      "file": "frozen256-even-moments.json",
+      "sha256": "ecc368f4e35a8631348525859469799dddd0e07d9f5f2053d34a6d65610c3d0b"
+    },
+    {
+      "bytes": 187252,
+      "file": "frozen256-odd-far.json",
+      "sha256": "71b6b9f42a1086db79539726c3f6d079ab78beab4a30f136bac56079b56f8424"
+    },
+    {
+      "bytes": 25815,
+      "file": "frozen256-odd-moments.json",
+      "sha256": "ca71ec699661a7d6a7c03780ce06dcd17a32160f081b8bfc3428d01576e49099"
+    },
+    {
+      "bytes": 56185,
+      "file": "joint-128000-even-v.json",
+      "sha256": "23fa03ddb25d12428d7ae84a4dbf59818acca86f56c0196bd68527c4bf4b659d"
+    },
+    {
+      "bytes": 55889,
+      "file": "joint-128000-odd-v.json",
+      "sha256": "b731a9f930bd444d00a27f060fd76db23ef695a11b6f1edb4d48a905281f9c14"
+    },
+    {
+      "bytes": 56198,
+      "file": "joint-256000-even-v.json",
+      "sha256": "8439f3c96881e53171126ae67063292906a4b1336cb13874ce00013404c28df2"
+    },
+    {
+      "bytes": 20748,
+      "file": "joint-256000-even-v.trace-256000.full.certificate.json",
+      "sha256": "87afab76d9b22e574b040e553623460456b0bcd819c2dde7985e6c783f92ba61"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part000",
+      "sha256": "15f554ac9e29e9a791a501f22ef40435f4bcc76113ee5a41dde6e30d99867382"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part001",
+      "sha256": "944a464bc5ba70ad6c173319c9ddfc7b87fcfdce2cdb4b18e4ba1a0f8013bd4c"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part002",
+      "sha256": "ebda66c4ae1abc24834adab9ee126fda313a279c68e7f9ec5bf2e36e8278033b"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part003",
+      "sha256": "157f90abe4c758bfc88e15875ea23789f2097b7ae089e78436b89d028ac63893"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part004",
+      "sha256": "6a9a2f0eef98d64dba50cab293f05ce8d441aaa247511b252d632643f0869708"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part005",
+      "sha256": "5caf068d822184384d105c91772252f10db7a272a053f9a50b7e234ef50c3ce3"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part006",
+      "sha256": "a39a5fd310d0ebcb5d86b9577393f8e1eaeb9a873e0f9c2bb3aa8e94181a4bbe"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part007",
+      "sha256": "85d49be607647b2f64f1bf81e8387d1ba840aa6250371988e8ca9d19746448a1"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part008",
+      "sha256": "f4b377112fff74c7f44a99bfeb9c88016dd15b3ed19644aa7a8c9cf6200a86ff"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part009",
+      "sha256": "405a6de2b583c7b12b8c88f0e3cf4b3874826dbbe4c0e9c98d58c19244f91271"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part010",
+      "sha256": "636b88b81172b0047016c7218fb995a2d8f4c894e57ab4a4d63cca34e65df2d6"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part011",
+      "sha256": "b902c98e540b94216926e2e3fad6acf953a140fd730036a14cead8d13dbab930"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part012",
+      "sha256": "140cda1851d0b7b199030c2453ddcc1317acb6846b862618c3884ff8d1ae6c99"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part013",
+      "sha256": "65670c3afe42af99af04f735898d683459faa21444d4cc5af640235c6a56f533"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part014",
+      "sha256": "42536883e2246e8f9f9fc16002cf0ad9171eca0065139f17972410810b3839f8"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part015",
+      "sha256": "a079f7deef29586de2d99b51b3755111828934d32aa0a02044112b5af0617acf"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part016",
+      "sha256": "7e52926514b9b3b501094ed34e17fd305c200785e28aae8109804c65f0c2d473"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part017",
+      "sha256": "3840096b1eebb5f65931b8c03b3addde328064917e52ab6ba61d1cb41a519f7d"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part018",
+      "sha256": "4bfc8973e2da918ecca586a9cda74466e47565bdd5512b3eabac22d1f8c83eb5"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part019",
+      "sha256": "86d593a735daea294513ba73de1d7ffd330749633f538632e0326831c5428367"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part020",
+      "sha256": "9f0c3121193eb1a742b3f8a2fc36f0adc9bd364d2b28ca0e6dd54c4ecaccfa43"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part021",
+      "sha256": "aabe078936cf8f91221323fd326266f6e1ec52eb2e88dcc197490bd1a1e18aa0"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part022",
+      "sha256": "5417e7faa0a2473544bec49f19da7b3ac704e689370611b1aa7548e147115539"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part023",
+      "sha256": "d0c47c3feeb340da7c62a040ac9d3ce385f4f246c560c536f88d1e304cf41b98"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part024",
+      "sha256": "0e9dc5ccf2cf6a876b78d2427662de003b7fac1c01c4814bc189daaa7d0e1d70"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part025",
+      "sha256": "800aa7324d8b856ab397cc40e8a3e1cbcc1402439ef9a03842bf556208c2d03b"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part026",
+      "sha256": "533fd2ee9f1d7613fa76c9fb47de5ad52988532a3a35d193379921c1069aa6ef"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part027",
+      "sha256": "57af85adbc8945cab9d7f3b19169f5529e987de5ca606392d770c66836a01cd6"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part028",
+      "sha256": "5c4326783b2a4527b1cb606e5e176b064ff833033865e2b6d4e903c202eb82b5"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part029",
+      "sha256": "e1ced3f5054e33a35fdd3a33c10478e80181b7fe412471179c43655cf48bed18"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part030",
+      "sha256": "89cace57f326cd0fbf67e8f1cf4213a315ce4772eb9fd3b63bca99cd17a45bec"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part031",
+      "sha256": "17d4e644365dd295e2994427e22c63ec522eecba88864883b99d71028601ad53"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part032",
+      "sha256": "682a04744b0d5ef79f26c937297afacc41697af9af60e0a70d2e4047c40c6243"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part033",
+      "sha256": "ddf91c5ec270c63c87038b6fe9f2f62184bd59f82b13f4386d62da2907803159"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part034",
+      "sha256": "1500e62c362a350f1bfef30882f8fcf2e6e2ff131d2ee36c367b98a57964b6e1"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part035",
+      "sha256": "d5f23eaaa397e537ed91292231ffaa47b78862fc59de5fe95f5d86f1804a67a8"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part036",
+      "sha256": "c31cc3d60c94c33b92646021266b52333aa5e19e1907f61153faacb2c2733f65"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part037",
+      "sha256": "996ded9f514877469c5d40ac96e7725d8446524b93d70f90ba9b9a183e0dda1b"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part038",
+      "sha256": "d826b4d5d4457e52eeb4c01d4261bf50975b217bff63ce91e5b4b3a761ce5f2c"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part039",
+      "sha256": "32e136cd23c960f6248ce3e210ea8111c5d89bfca78ed1495a2f2180278e6131"
+    },
+    {
+      "bytes": 665776,
+      "file": "joint-256000-even-v.trace-256000.full.zip.b64.part040",
+      "sha256": "703964e0457d58840cd1935c96a069d8222c05797f552ff8a2bb0b82e8b17e0c"
+    },
+    {
+      "bytes": 55952,
+      "file": "joint-256000-odd-v.json",
+      "sha256": "ca2def33a7c40620b752a2582da3815c915dbc66a4d46d1d32ed0ff601af23be"
+    },
+    {
+      "bytes": 20590,
+      "file": "joint-256000-odd-v.trace-256000.full.certificate.json",
+      "sha256": "4ead74028da43fbab4ae1f859c62e6d738113417d8cdc22cec9ac4903d022c3a"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part000",
+      "sha256": "cd4ad1c6e0faaa9cde1bf8e572c0f14634eab54f3934cbfea5bd99e1f8020a0c"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part001",
+      "sha256": "b83ac8473c83abd24ee10acbacd9872911b98d2784996de27ad68989bfa350aa"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part002",
+      "sha256": "d54755f8351ed47a7f845c977a64174aaabb910841fadc81e28d4e122ea62a76"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part003",
+      "sha256": "3bcb264660c9f8a256df8bcb6211bf579d89c218d1d6cf32879b121b645f0caf"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part004",
+      "sha256": "bb4e4e05f6180a56dbc1e808250782d20287bc1b3640c916fe7fa94cc5d257b7"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part005",
+      "sha256": "fe90b57547aaecb1d742b2756e01455d3b6dbff876ff7cd6a3ecddacf4df2e08"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part006",
+      "sha256": "48b1525d439db22d87746aa9ebed97a2469c84ed0001e1447957feadcc7f32df"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part007",
+      "sha256": "8ecaf7162ab05f3158367846f2206e0b3d03f631ee694368fcebc8d1cc62a669"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part008",
+      "sha256": "8960736868de500d20012b7f95189f1bee60e283ad1200814d25214988c54e5b"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part009",
+      "sha256": "69ff2204c0f01c2bd6db77d36b4fd0a6b6c181dfb6ada1a12fd58e1d7977c05d"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part010",
+      "sha256": "b379e661cd94de4723bd1bba9560b854b11bfae745b3b0c5428d7a674e4e4e92"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part011",
+      "sha256": "abe078a5e4d07d7a00a491c15304b4f4abbabe284b221a55be825919a8a6cf35"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part012",
+      "sha256": "d5353409b9734824b4e36a664396c5a064205a101c488b7b9438ab4bd3045753"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part013",
+      "sha256": "e5d003438a19144f1c25b3c9eab30788e17a19183991798a22e9754079794055"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part014",
+      "sha256": "ab2e779317de182e84d94668750a0b1fc7b63f12cce7e85c842dcab1087b43b7"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part015",
+      "sha256": "5946b6f2081090ba394fb73526abd96399f025f800430b1a183dd92df47f4b91"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part016",
+      "sha256": "69a07e76b91bf25ec17d9123744ec0377edfd4852b824393084fb4f4b766bb08"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part017",
+      "sha256": "73f62ad9b74a59d315f96c2618b259936ad85d013452dfc391c676c0eb6cd95c"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part018",
+      "sha256": "37c726d7111d556b20f55181e5f2612efa52383105b97a0d62d30e1265510896"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part019",
+      "sha256": "bb87a38ef8fc6dff92dbb52d3095e4eb01aa79dfc68db88213122a45d6cb9076"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part020",
+      "sha256": "b4cb68f7890f0581439880ad20e093e839182296ee4f3c6afd79681e2cb89fb4"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part021",
+      "sha256": "bf5261e5468a1ca92bdfabb0442f85c045db28259f44eb7b792d20062bc4b5e2"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part022",
+      "sha256": "a14ceaccd98f46056ae363335f561d39816bd9257c6375b7c8ad33a9bf6aae9a"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part023",
+      "sha256": "6f21731311a790fcbe2b114d8adc8a98e2b63a7ce2d88f068dcd9c15ed74ca32"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part024",
+      "sha256": "654cbf3580c2f7a97a25261d857996f56c526b67f8f8be39effdd3085805c891"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part025",
+      "sha256": "12c83b6111eb0209241c6ff4aa8aaae3fcb751b27140265baf2a8605aa2a6d75"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part026",
+      "sha256": "254c01ea00c2554969d00c131cde9ad12012aa637fc4a619128ee07ff0684cd6"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part027",
+      "sha256": "e8fac99f381b6f933f41b7a522529c19011a5a94c9bad0df6da620c152518bdc"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part028",
+      "sha256": "438cf87f2bc4cabab0d6d713518ba7417b92e3e6b4d0c8ea05010ccc8f951e0f"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part029",
+      "sha256": "b5b060d1a5825142465f772b246b0ab875d0627639e186b1174ec54eae45985c"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part030",
+      "sha256": "bd890a54180cf092921d742ce02b7ee46927623fe9fb99142caf6217f27289c6"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part031",
+      "sha256": "c06ac3343c691e2e7fa44b87c7cbab1a82d7209285b9b83651c65f50ae5c564a"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part032",
+      "sha256": "7f0260e0de64b93cac6e9d22db2e11844aefeebb9e7539d5f1abe8ca26151314"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part033",
+      "sha256": "17134d52881a07c40c39e1ee55edfa31c745a8d7600c7b98c2482e5ddaada7b4"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part034",
+      "sha256": "5bc52fdd6d0c6f7e4807ff9a97e8d9cfb696683bbacbe01f25336da598ef503f"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part035",
+      "sha256": "585e6b7595bdb41eb2d6bffc7207d5e525a21c1eb1316e05e31002ba7effb728"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part036",
+      "sha256": "c9a4482a5bb19c635dd737f8d763e1cb1e90ddfe07dbd7b526dd8153bca9515f"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part037",
+      "sha256": "d988bca24d0edec4511e2b20b07bda6c48ef7ea07fd4b72698ece8159b590f04"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part038",
+      "sha256": "4400d64d623ffd7621c79a4f602b55fcb054223aaf3b8247ab5a1e112473658a"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part039",
+      "sha256": "490fce7852f24d185849de2d030e20fe2b93b82f3c7a857affc48fccea0cf036"
+    },
+    {
+      "bytes": 800000,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part040",
+      "sha256": "438be9031178b76e260471d8bf2cd40aa225e5448aa1efab1e335d7156848a57"
+    },
+    {
+      "bytes": 72828,
+      "file": "joint-256000-odd-v.trace-256000.full.zip.b64.part041",
+      "sha256": "7d9591d904dd41bba8a3841216e5e2f8682961aaff7a69c880ec0d2a01c4614f"
+    }
+  ],
+  "guardrail": "Finite certificate only. Far-trial moment certificates concern represented trial, not exact inverse or inverse-weighted parity capacity.",
+  "old_endpoint_full_witness_namespace": "exact_outward_run_37791856005",
+  "pair_cutoffs": [
+    128000,
+    256000
+  ],
+  "pair_inputs": [
+    "joint-128000-even-v.json",
+    "joint-256000-even-v.json",
+    "joint-128000-odd-v.json",
+    "joint-256000-odd-v.json"
+  ],
+  "pair_reference": "exact-outward-pair-128000-256000.json",
+  "run_id": 37827949740,
+  "schema": "cone.full-outward-artifact-manifest.v1",
+  "snapshots": [
+    {
+      "base64_parts": [
+        "joint-256000-even-v.trace-256000.full.zip.b64.part000",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part001",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part002",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part003",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part004",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part005",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part006",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part007",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part008",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part009",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part010",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part011",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part012",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part013",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part014",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part015",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part016",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part017",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part018",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part019",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part020",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part021",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part022",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part023",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part024",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part025",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part026",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part027",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part028",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part029",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part030",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part031",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part032",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part033",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part034",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part035",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part036",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part037",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part038",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part039",
+        "joint-256000-even-v.trace-256000.full.zip.b64.part040"
+      ],
+      "bytes": 24499332,
+      "certificate_file": "joint-256000-even-v.trace-256000.full.certificate.json",
+      "cutoff": 256000,
+      "payload_file": "joint-256000-even-v.json",
+      "sector": "even-v",
+      "sha256": "da7189749abb6872e28e2af6c189c609248bc094428db21ee0cafa5e68c2deb5",
+      "snapshot_file": "joint-256000-even-v.trace-256000.full.zip"
+    },
+    {
+      "base64_parts": [
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part000",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part001",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part002",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part003",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part004",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part005",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part006",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part007",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part008",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part009",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part010",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part011",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part012",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part013",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part014",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part015",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part016",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part017",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part018",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part019",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part020",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part021",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part022",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part023",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part024",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part025",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part026",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part027",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part028",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part029",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part030",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part031",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part032",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part033",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part034",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part035",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part036",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part037",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part038",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part039",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part040",
+        "joint-256000-odd-v.trace-256000.full.zip.b64.part041"
+      ],
+      "bytes": 24654621,
+      "certificate_file": "joint-256000-odd-v.trace-256000.full.certificate.json",
+      "cutoff": 256000,
+      "payload_file": "joint-256000-odd-v.json",
+      "sector": "odd-v",
+      "sha256": "6ba7a15aafacebdf0eb4e8b035370f4a7588d63133031e99a8a882779f20a453",
+      "snapshot_file": "joint-256000-odd-v.trace-256000.full.zip"
+    }
+  ],
+  "source": "actual 256k both-parity exact-outward source run 37827949740, frozen 128k endpoints from audited run 37791856005",
+  "source_commit": "ee4a2c077f1cbbd0511885d64b32f6862041acf9"
+}
