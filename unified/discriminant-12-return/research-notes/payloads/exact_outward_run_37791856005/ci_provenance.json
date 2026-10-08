@@ -1,0 +1,86 @@
+{
+  "artifacts": [
+    {
+      "digest": "sha256:c60e847e2e966b441e371162d3976cd4c601d753f7d40114f40a462133d54980",
+      "id": 11558020494,
+      "name": "normalized-joint-full-64000-odd-v",
+      "size_in_bytes": 6666153
+    },
+    {
+      "digest": "sha256:e6d5742fa384b5b1437b17d2c8ec7a348854bef12c1e40aa7771cbe5933aebf3",
+      "id": 11557831838,
+      "name": "normalized-joint-full-128000-even-v",
+      "size_in_bytes": 12662259
+    },
+    {
+      "digest": "sha256:f106a79fbebe64dd79988af15c1c55c6012169a726db3050e2ead62874daf6a3",
+      "id": 11557471704,
+      "name": "normalized-joint-full-64000-even-v",
+      "size_in_bytes": 6623919
+    },
+    {
+      "digest": "sha256:38cdabc2f87b1bc05ada3da8c51244deab9b9a6fb4fa488f338e29d591f8de0f",
+      "id": 11557127990,
+      "name": "normalized-joint-full-128000-odd-v",
+      "size_in_bytes": 12718430
+    },
+    {
+      "digest": "sha256:8580347d889f363323863e8071caaf324b4f91de924ae8a8186d8596e911335f",
+      "id": 11556933926,
+      "name": "normalized-joint-pair-64000-128000",
+      "size_in_bytes": 76804
+    }
+  ],
+  "jobs": [
+    {
+      "conclusion": "success",
+      "id": 113361046260,
+      "name": "smoke (odd-v)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 113361046560,
+      "name": "smoke (even-v)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 113362252620,
+      "name": "full (even-v, 128000)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 113362252673,
+      "name": "full (odd-v, 64000)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 113362252706,
+      "name": "full (odd-v, 128000)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 113362252750,
+      "name": "full (even-v, 64000)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "id": 113368134536,
+      "name": "paired",
+      "status": "completed"
+    }
+  ],
+  "run": {
+    "conclusion": "success",
+    "id": 37791856005,
+    "source_commit": "04387bb29df9f5825b98e35eba97f69487f4fc22",
+    "started_at": "2026-10-08T14:22:00Z",
+    "status": "completed",
+    "updated_at": "2026-10-08T14:36:59Z"
+  }
+}
