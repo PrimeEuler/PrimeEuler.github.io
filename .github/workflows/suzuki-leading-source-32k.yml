@@ -1,0 +1,118 @@
+name: Suzuki finite leading source coefficient 32k
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-leading-source-32k.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_leading_source_certificate.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_normalized_leading_source_producer.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_leading_coefficient_pair.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_frozen_leading_witness_replay.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_scalar_with_leading_coefficient.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_freeze_leading_ci_artifact.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+
+jobs:
+  full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+          python -m pip install numpy scipy mpmath==1.3.0
+      - name: Direct leading source solve on full finite 32k operator
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_normalized_leading_source_producer.py
+          --sector ${{ matrix.sector }} --cutoff 32000
+          --anchor-root payloads/M64000_corrected_run_37659896312
+          --output /tmp/leading-32000-${{ matrix.sector }}.json
+      - name: Independent complete integer source and certificate replay
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_leading_source_certificate.py
+          --snapshot /tmp/leading-32000-${{ matrix.sector }}.full.zip
+          --reference /tmp/leading-32000-${{ matrix.sector }}.certificate.json
+          --output /tmp/leading-32000-${{ matrix.sector }}.replayed.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: leading-source-full-32000-${{ matrix.sector }}
+          path: |
+            /tmp/leading-32000-${{ matrix.sector }}.json
+            /tmp/leading-32000-${{ matrix.sector }}.full.zip
+            /tmp/leading-32000-${{ matrix.sector }}.certificate.json
+            /tmp/leading-32000-${{ matrix.sector }}.trace.json.gz
+          if-no-files-found: error
+
+  paired:
+    needs: full
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install integer replay dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: leading-source-full-32000-*
+          merge-multiple: true
+          path: /tmp/leading
+      - name: Exact outward leading coefficient and public cap
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_leading_coefficient_pair.py
+          --even /tmp/leading/leading-32000-even-v.certificate.json
+          --odd /tmp/leading/leading-32000-odd-v.certificate.json
+          --output /tmp/leading/leading-C_S-32000.json --require-640
+      - name: Sharp finite 256k scalar with outward coefficient interval
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_scalar_with_leading_coefficient.py
+          --even payloads/exact_outward_run_37827949740/joint-256000-even-v.json
+          --odd payloads/exact_outward_run_37827949740/joint-256000-odd-v.json
+          --cutoff 256000
+          --leading-even /tmp/leading/leading-32000-even-v.certificate.json
+          --leading-odd /tmp/leading/leading-32000-odd-v.certificate.json
+          --coefficient /tmp/leading/leading-C_S-32000.json
+          --output /tmp/leading/actual256-finite-Q-with-leading-certificate.json
+      - name: Freeze complete vectors and exact output hashes
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_freeze_leading_ci_artifact.py
+          --input-root /tmp/leading --output-root /tmp/leading/frozen
+      - name: Independent end to end replay from encoded full snapshots
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_frozen_leading_witness_replay.py
+          --payload-root /tmp/leading/frozen --output /tmp/leading/frozen/leading_replay.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: leading-source-frozen-32000
+          path: /tmp/leading
+          if-no-files-found: error
