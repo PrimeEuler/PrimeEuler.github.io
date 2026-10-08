@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "cross_cap_rational": "16",
+      "delta_rational": "779/100000000",
+      "derived_floor_display": "2.3704725841166981239671086647484330827764993155587E-13",
+      "derived_floor_rational": "606841/2560000077900606841",
+      "old_public_floor_rational": "23/12500000000000000000",
+      "public_floor_rational": "237/1000000000000000",
+      "public_rounding_down_verified_exact": true,
+      "sector": "even-v",
+      "shell_partial_Schur_floor_rational": "1"
+    },
+    {
+      "cross_cap_rational": "16",
+      "delta_rational": "163/5000000",
+      "derived_floor_display": "4.1514057213271935030823988724471129218688939583797E-12",
+      "derived_floor_rational": "26569/6400000815026569",
+      "old_public_floor_rational": "27/200000000000000000",
+      "public_floor_rational": "83/20000000000000",
+      "public_rounding_down_verified_exact": true,
+      "sector": "odd-v",
+      "shell_partial_Schur_floor_rational": "1"
+    }
+  ],
+  "guardrail": "Sharper coercivity only. Unit floor is retained for the partial shell Schur, not transferred to the full Q operator.",
+  "infinite_capacity_tail_closed": false,
+  "parent_uniform_cross_and_form_inputs": "v14.171 independently audited in v14.172",
+  "schema": "cone.weighted-uniform-infinite-fullQ-bridge.v1",
+  "scope": "all cutoffs R>=8000 and infinite closed form, identical frozen P",
+  "synthetic": [
+    {
+      "cross": "16",
+      "delta": "1/10",
+      "exact_PSD_floor_check": true
+    },
+    {
+      "cross": "16",
+      "delta": "779/100000000",
+      "exact_PSD_floor_check": true
+    },
+    {
+      "cross": "16",
+      "delta": "163/5000000",
+      "exact_PSD_floor_check": true
+    },
+    {
+      "cross_squared_fro_upper": "87",
+      "delta": "1/23",
+      "exact_PSD_floor_check": true
+    }
+  ]
+}
