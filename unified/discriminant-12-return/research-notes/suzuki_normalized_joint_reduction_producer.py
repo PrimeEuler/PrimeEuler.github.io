@@ -4,7 +4,8 @@
 Freezes one corrected-anchor T,v, forms all seven normalized protected/source
 RHSs before solving, refines their joint residuals in LDDD, and emits small
 affine reductions. It never promotes measured diagnostics to outward caps.
-Full-Q coercivity and protected-trace certification are explicit open fields.
+Represented-vector trace bounds have exact dyadic witnesses; their correction
+cap transport, full-Q coercivity and overall certification remain explicit.
 """
 from __future__ import annotations
 
@@ -135,7 +136,8 @@ def evaluate(p, gih, gil, apply_source, protected, zh, zl, gh, gl):
     return vh, vl, avh, avl, rh, rl
 
 
-def solve_joint(p, op, proj, apply_source, gh, gl, t, v, refinements, progress):
+def solve_joint(p, op, proj, apply_source, gh, gl, t, v, refinements, progress,
+                exact_normalizer=None, trace_witness_path=None):
     """All seven solves receive direct normalized affine RHSs."""
     th, tl = split_matrix(t)
     vhi, vlo = split_matrix(v)
@@ -200,7 +202,7 @@ def solve_joint(p, op, proj, apply_source, gh, gl, t, v, refinements, progress):
         trace_defect = trace - expected
         f = mp.sqrt(mp.fsum(rg[j, j] for j in range(6)))
         s = mp.sqrt(rg[6, 6])
-        return {
+        result = {
             "M_trial_midpoint": [[mp.nstr(matrix[i, j], 100) for j in range(7)] for i in range(7)],
             "residual_gram_midpoint": [[mp.nstr(rg[i, j], 100) for j in range(7)] for i in range(7)],
             "graph_residual_fro_midpoint": mp.nstr(f, 70),
@@ -211,6 +213,13 @@ def solve_joint(p, op, proj, apply_source, gh, gl, t, v, refinements, progress):
             "initial_cg_residuals_midpoint": initial_residuals,
             "lddd_residual_history_midpoint": history,
         }
+    if exact_normalizer is not None:
+        if trace_witness_path is None:
+            raise ValueError("exact trace capture requires a witness path")
+        from suzuki_exact_represented_trace_certificate import capture
+        result["represented_trial_trace_certificate"] = capture(
+            p, vh, vl, exact_normalizer, trace_witness_path)
+    return result
 
 
 def numerical_reduction_summary(row):
@@ -229,7 +238,8 @@ def numerical_reduction_summary(row):
         }
 
 
-def one(sector, cutoff, remote_start, normalizer, refinements, kernel):
+def one(sector, cutoff, remote_start, normalizer, refinements, kernel,
+        trace_witness_path):
     from suzuki_M8000_M16000_capacity_ratio_source_sensitivity import embedded_P, modes_for
     from suzuki_full_fft_fixed_capacity_replay import fixed_operator
     started = time.monotonic()
@@ -256,7 +266,9 @@ def one(sector, cutoff, remote_start, normalizer, refinements, kernel):
         else:
             action = lambda h, l: source_action(data, h, l)
         row = solve_joint(p, op, proj, action, gh, gl, t, v,
-                          refinements, progress)
+                          refinements, progress, normalizer, trace_witness_path)
+    if row["represented_trial_trace_certificate"]["frozen_base_P_sha256"] != digest(np.asarray(p[:2000], dtype="<f8").tobytes()):
+        raise RuntimeError("exact trace witness differs from the frozen represented P bytes")
     row.update({
         "schema": SCHEMA, "sector": sector, "cutoff": cutoff,
         "dimension": len(modes), "remote_start": remote_start,
@@ -268,8 +280,11 @@ def one(sector, cutoff, remote_start, normalizer, refinements, kernel):
                       "operator_arch_terms": 200, "operator_correction_terms": 50},
         "runtime": {"python": platform.python_version(), "numpy": np.__version__,
                     "scipy": scipy.__version__, "mpmath": mp.__version__, "kernel": kernel},
-        "trace_contract": {"exact_target": "(I-Q)V=[P T,P T v]", "certificate_status": "missing",
-                           "outward_defect_cap": None, "correction_assembly_cap": None},
+        "trace_contract": {"exact_target": "(I-Q)V=[P T,P T v]",
+                           "certificate_status": "exact represented-vector defect bound; correction cap transport still required",
+                           "outward_defect_cap": row["represented_trial_trace_certificate"]["coefficient_defect_fro_upper_rational"],
+                           "relative_defect_fro_cap": row["represented_trial_trace_certificate"]["relative_defect_fro_upper_rational"],
+                           "correction_assembly_cap": None},
         "coercivity_contract": {"required_operator": "C_R=(Q_R A_R Q_R)|Ran Q_R, full frozen-six-plane complement",
                                 "operator_projector_cutoff_identification_certificate": None,
                                 "gamma_certified": None,
@@ -278,7 +293,7 @@ def one(sector, cutoff, remote_start, normalizer, refinements, kernel):
                           "graph_residual_fro_outward": None, "combined_source_residual_l2_outward": None,
                           "normalized_matrix_outward": None},
         "elapsed_seconds": time.monotonic()-started,
-        "guardrail": "Direct normalized LDDD midpoint only. All outward fields remain null; no use of remote-Schur gamma=1 for full Q complement.",
+        "guardrail": "Direct normalized LDDD source/assembly/residual midpoint. Represented-vector trace bound is exact rational; overall certificate incomplete; no use of remote-Schur gamma=1 for full Q complement.",
     })
     row["summary_midpoint"] = numerical_reduction_summary(row)
     progress({"stage": "complete", **row["summary_midpoint"]})
@@ -363,9 +378,11 @@ def self_test():
                 if not (np.array_equal(ah, bh) and np.array_equal(al, bl)):
                     raise RuntimeError("native kernel differs from reference hi/lo components")
                 checked += 1
+    from suzuki_exact_represented_trace_certificate import self_test as trace_test
     return {"synthetic_passed": True, "affine_matrix_error": mp.nstr(error, 60),
             "normalizer_span": "1 to 1e15", "source_reference": "exact Fraction full-system elimination",
             "native_reference_component_identical_cases": checked,
+            "exact_trace_certificate_test": trace_test(),
             "certificate_promoted": False}
 
 
@@ -395,7 +412,9 @@ def main():
     if a.remote_start < 0 or a.refinements < 0:
         ap.error("nonnegative source frontier and refinement count required")
     normalizer = frozen_normalizer(a.sector, a.anchor_root, a.offset_scale)
-    rows = [one(a.sector, r, a.remote_start, normalizer, a.refinements, a.kernel) for r in a.cutoffs]
+    rows = [one(a.sector, r, a.remote_start, normalizer, a.refinements, a.kernel,
+                a.output.with_name(a.output.stem + f".trace-{r}.json.gz"))
+            for r in a.cutoffs]
     out = {"schema": SCHEMA, "normalizer": normalizer, "rows": rows, "transitions": transition(rows),
            "certification_ready": False, "missing_certificates": MISSING}
     a.output.parent.mkdir(parents=True, exist_ok=True)

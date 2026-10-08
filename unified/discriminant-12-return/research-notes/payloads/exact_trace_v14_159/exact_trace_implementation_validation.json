@@ -1,0 +1,15 @@
+{
+  "affine_matrix_error": "1.23887394221300178782061699074244183076046168472841282423471e-38",
+  "certificate_promoted": false,
+  "exact_trace_certificate_test": {
+    "binary64_narrowing_counterexample": true,
+    "exact_longdouble_ratio_cases": 21,
+    "hi_plus_low_dyadic_witness_replay_identical": true,
+    "known_relative_defect_exact": true
+  },
+  "native_reference_component_identical_cases": 4,
+  "normalizer_span": "1 to 1e15",
+  "require_certificate_fails_closed": true,
+  "source_reference": "exact Fraction full-system elimination",
+  "synthetic_passed": true
+}

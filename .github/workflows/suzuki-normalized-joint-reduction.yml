@@ -5,6 +5,8 @@ on:
     branches: [master]
     paths:
       - 'unified/discriminant-12-return/research-notes/suzuki_normalized_joint_reduction_producer.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_exact_represented_trace_certificate.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_trace_congruence_replay.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_normalized_joint_pair_diagnostic.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_ldd_native_matvec.py'
       - 'unified/discriminant-12-return/research-notes/suzuki_ldd_native_matvec.cpp'
@@ -41,10 +43,18 @@ jobs:
           --sector ${{ matrix.sector }} --cutoffs 4000 8000
           --remote-start 1000 --refinements 1
           --output /tmp/smoke-${{ matrix.sector }}.json
+      - name: Replay every exact represented trace witness
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for witness in /tmp/smoke-${{ matrix.sector }}.trace-*.json.gz; do
+            python suzuki_exact_represented_trace_certificate.py --witness "$witness" --payload /tmp/smoke-${{ matrix.sector }}.json
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: normalized-joint-smoke-${{ matrix.sector }}
-          path: /tmp/smoke-${{ matrix.sector }}.json
+          path: |
+            /tmp/smoke-${{ matrix.sector }}.json
+            /tmp/smoke-${{ matrix.sector }}.trace-*.json.gz
           if-no-files-found: error
 
   full:
@@ -70,10 +80,18 @@ jobs:
           --sector ${{ matrix.sector }} --cutoffs ${{ matrix.cutoff }}
           --remote-start 32000 --refinements 1
           --output /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
+      - name: Replay exact represented trace witness
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_represented_trace_certificate.py
+          --witness /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-${{ matrix.cutoff }}.json.gz
+          --payload /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
       - uses: actions/upload-artifact@v4
         with:
           name: normalized-joint-full-${{ matrix.cutoff }}-${{ matrix.sector }}
-          path: /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
+          path: |
+            /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.json
+            /tmp/joint-${{ matrix.cutoff }}-${{ matrix.sector }}.trace-*.json.gz
           if-no-files-found: error
 
   paired:
