@@ -1,0 +1,168 @@
+{
+  "artifact_zip_digests_verified_at_acquisition": true,
+  "artifacts": [
+    {
+      "archive_download_url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11528056766/zip",
+      "created_at": "2026-10-08T04:14:26Z",
+      "digest": "sha256:86821ddbe615252ba311d0b710c3e92a961f7b0c30fb23f294b87fe59d207a43",
+      "expired": false,
+      "expires_at": "2027-01-06T02:54:28Z",
+      "id": 11528056766,
+      "name": "normalized-joint-full-128000-even-v",
+      "size_in_bytes": 386378,
+      "updated_at": "2026-10-08T04:14:26Z",
+      "url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11528056766",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 33727969,
+        "head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+        "id": 37720158340,
+        "repository_id": 33727969
+      }
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11527084310/zip",
+      "created_at": "2026-10-08T04:14:42Z",
+      "digest": "sha256:97d6df2fd77456bd085e2687e62fd214fc34d3152b661bca2ceed9e8997d683f",
+      "expired": false,
+      "expires_at": "2027-01-06T02:54:28Z",
+      "id": 11527084310,
+      "name": "normalized-joint-pair-64000-128000",
+      "size_in_bytes": 906,
+      "updated_at": "2026-10-08T04:14:42Z",
+      "url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11527084310",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 33727969,
+        "head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+        "id": 37720158340,
+        "repository_id": 33727969
+      }
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11525983598/zip",
+      "created_at": "2026-10-08T03:18:07Z",
+      "digest": "sha256:3b2be22bf63e4389639a0d1d67f5ee197f010f4a9a5fc0e43a57ed047f0f1b44",
+      "expired": false,
+      "expires_at": "2027-01-06T02:54:28Z",
+      "id": 11525983598,
+      "name": "normalized-joint-full-64000-even-v",
+      "size_in_bytes": 386460,
+      "updated_at": "2026-10-08T03:18:07Z",
+      "url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11525983598",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 33727969,
+        "head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+        "id": 37720158340,
+        "repository_id": 33727969
+      }
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11525549464/zip",
+      "created_at": "2026-10-08T03:28:31Z",
+      "digest": "sha256:f921666e8ff657e80cec9a030111bbe2c0c18fd14d8c5a645534e288c660b279",
+      "expired": false,
+      "expires_at": "2027-01-06T02:54:28Z",
+      "id": 11525549464,
+      "name": "normalized-joint-full-128000-odd-v",
+      "size_in_bytes": 388059,
+      "updated_at": "2026-10-08T03:28:31Z",
+      "url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11525549464",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 33727969,
+        "head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+        "id": 37720158340,
+        "repository_id": 33727969
+      }
+    },
+    {
+      "archive_download_url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11525413013/zip",
+      "created_at": "2026-10-08T03:10:31Z",
+      "digest": "sha256:eca2fd900f0e4a351547d329f1ae2f9bebe3c9efed6a918b7fab90c68eacf97c",
+      "expired": false,
+      "expires_at": "2027-01-06T02:54:28Z",
+      "id": 11525413013,
+      "name": "normalized-joint-full-64000-odd-v",
+      "size_in_bytes": 387541,
+      "updated_at": "2026-10-08T03:10:31Z",
+      "url": "https://api.github.com/repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11525413013",
+      "workflow_run": {
+        "head_branch": "master",
+        "head_repository_id": 33727969,
+        "head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+        "id": 37720158340,
+        "repository_id": 33727969
+      }
+    }
+  ],
+  "files": [
+    {
+      "bytes": 26753,
+      "encoding": "utf8",
+      "file": "joint-128000-even-v.json",
+      "sha256": "195963a9fe5856abab5df2308a79473733be44f88d0594b23eabfb3395a46f46",
+      "stored_file": "joint-128000-even-v.json"
+    },
+    {
+      "bytes": 377398,
+      "encoding": "base64",
+      "file": "joint-128000-even-v.trace-128000.json.gz",
+      "sha256": "3063bf86853bb04a6befcb1210e31d8776cfcfccf48c7fa6c82d9015c07394d4",
+      "stored_file": "joint-128000-even-v.trace-128000.json.gz.b64"
+    },
+    {
+      "bytes": 26656,
+      "encoding": "utf8",
+      "file": "joint-128000-odd-v.json",
+      "sha256": "9fe1c74b4d07804a25e24b95a8e5dcf9b7764b91f116db80a64f40ef98e1d9f0",
+      "stored_file": "joint-128000-odd-v.json"
+    },
+    {
+      "bytes": 379066,
+      "encoding": "base64",
+      "file": "joint-128000-odd-v.trace-128000.json.gz",
+      "sha256": "7110d4afc3adc34f59ee5368df04b857d9d03a87906ebf1e5bfe646a290b4740",
+      "stored_file": "joint-128000-odd-v.trace-128000.json.gz.b64"
+    },
+    {
+      "bytes": 27352,
+      "encoding": "utf8",
+      "file": "joint-64000-even-v.json",
+      "sha256": "220a3b296f78d0cca56008c83736d7a8ec1887128442485df7356e9c78b62ee2",
+      "stored_file": "joint-64000-even-v.json"
+    },
+    {
+      "bytes": 377597,
+      "encoding": "base64",
+      "file": "joint-64000-even-v.trace-64000.json.gz",
+      "sha256": "ef57a3b0b862f595f4f60331e903adc747b846a07d8958cd277dfac643b83826",
+      "stored_file": "joint-64000-even-v.trace-64000.json.gz.b64"
+    },
+    {
+      "bytes": 27219,
+      "encoding": "utf8",
+      "file": "joint-64000-odd-v.json",
+      "sha256": "5b9642560a265b12230641a5cc2e96a1d04b38d19a92d84f75aa71d6537eeff4",
+      "stored_file": "joint-64000-odd-v.json"
+    },
+    {
+      "bytes": 378623,
+      "encoding": "base64",
+      "file": "joint-64000-odd-v.trace-64000.json.gz",
+      "sha256": "18347f536ee0f255b79e3673446f5c9eed84fe0ca8f77a62f7c976fe61591f7d",
+      "stored_file": "joint-64000-odd-v.trace-64000.json.gz.b64"
+    },
+    {
+      "bytes": 1291,
+      "encoding": "utf8",
+      "file": "normalized-joint-pair-64000-128000.json",
+      "sha256": "6422e8ac9187425c54ca62cad59e93a13c6cd968bd19845d7b3ee2550a79dab9",
+      "stored_file": "normalized-joint-pair-64000-128000.json"
+    }
+  ],
+  "run_head_sha": "21d275630d348e15f868a98018fcc34942b39e53",
+  "run_id": 37720158340,
+  "schema": "cone.frozen-normalized-joint-trace-run.v1"
+}
