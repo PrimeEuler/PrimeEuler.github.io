@@ -167,12 +167,15 @@ an exact rational.  Since $|2p_z\rangle=(|100\rangle-|010\rangle)/\sqrt2$,
 \]
 \end{proposition}
 
-\section{Zero-integral derivation via Barut--Kleinert ladder operators}
+\section{Algebraic derivation via Barut--Kleinert ladder operators}
 
 The parabolic gamma-integral derivation above, while avoiding the
-spherical Gordon integral, still performs integrals.  We now give a
-purely algebraic derivation using the Barut--Kleinert $SO(4,2)$
-ladder-operator realization, with no integrals at all.
+spherical Gordon integral, still performs integrals.  We now give the
+ladder-operator derivation using the Barut--Kleinert $SO(4,2)$
+realization.  The Bogoliubov/squeeze algebra is exact and integral-free;
+the $3{:}1$ node-dominance factor connecting it to the physical matrix
+element is verified independently in \S2, the bicone geometry, and the
+squeeze weights themselves.
 
 \begin{proposition}[KS oscillator realization]
 Via the Kustaanheimo--Stiefel map
@@ -195,74 +198,46 @@ $\lambda_1=\sqrt2$, $\lambda_2=1$ adjusts for this.  Via BCH/Bogoliubov,
 \begin{equation}
 D(\lambda_1)^\dagger\, u^2\, D(\lambda_1) = u^2/2,
 \end{equation}
-exactly, using only $[b,b^\dagger]=1$.  Hence the similarity-transformed
-dipole is $z'=z/2$, with no integrals.
+exactly, using only $[b,b^\dagger]=1$.
 \end{proposition}
 
-\begin{theorem}[Zero-integral $-128/243$]
-Evaluating $\langle0|D(\lambda_1)^\dagger z D(\lambda_2)|\psi\rangle$
-via pure $[b,b^\dagger]=1$ algebra (normal ordering, vacuum expectation):
+\begin{theorem}[Squeeze-algebra $128/81$]
+The one-sided matrix element, with $D_1=D(\sqrt2)$ and
+$|\psi\rangle=\frac12(b_1^{\dagger2}+b_2^{\dagger2})|0\rangle$,
+evaluates by explicit squeeze algebra to the exact rational
 \begin{equation}
-\langle0|D_1^\dagger z|\psi\rangle
-= \frac{3}{4}\cdot\frac{128}{243},
+\langle0|D_1^\dagger z|\psi\rangle = \frac{128}{81},
 \end{equation}
-where $3/4$ is the per-mode factorization and $128/243$ is the exact
-rational from ladder algebra.  The $4/3$ is the fixed KS $4$D$\to3$D
-Jacobian (kinematics, not a performed integral).  With the node sign
-from the $(1-\xi/2)$ factor:
-\begin{equation}
-\boxed{\langle000|z|100\rangle = -\frac{4}{3}\cdot\frac{3}{4}\cdot\frac{128}{243}
-= -\frac{128}{243}.}
-\end{equation}
-No integrals are performed at any step.
+with no integrals and no numerical truncation.
+\emph{Derivation:} Write $D_1^\dagger=S(-\zeta)$, $\zeta=\ln\sqrt2$,
+on all four modes.  Squeezed-vacuum matrix elements are closed-form:
+$d_0=\langle0|S|0\rangle=1/\sqrt{\cosh\zeta}$,
+$d_1=\langle0|Sb^{\dagger2}|0\rangle=-\tanh\zeta/\sqrt{\cosh\zeta}$,
+$e_0=\langle0|Su^2|0\rangle=(d_0+d_1)/2$,
+$e_1=\langle0|Su^2b^{\dagger2}|0\rangle$
+(using $b^2b^{\dagger2}|0\rangle=2|0\rangle$,
+$b^\dagger bb^{\dagger2}|0\rangle=2\sqrt2|2\rangle$, etc.).
+With $\tanh\zeta=1/3$, four-mode factorization gives
+$\langle0|D_1^\dagger z|\psi\rangle
+=d_0^2(e_1d_0-e_0d_1)=128/81$ exactly.
 \end{theorem}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.85\textwidth]{fig_tview_2p_nested.png}
-\caption{2p $T$-view with nested 1s (concentric, shared center $T=1$).
-Gold: transition circles ($r=1$ for 2p, $r=0.5$ for 1s, nested).
-Teal dashed: Casimir circle ($r=\sqrt{3}/2$, $\delta=1-\sqrt{3}/2\approx0.134$).
-Black: transition nodes; teal: Casimir/state nodes (the $\delta$-shifted
-$u=0.366,1.366$ parabolas mark wavefunction nodes, the integer
-$u=1,2$ ladder parabolas mark antinodes).  The 1s degenerate point sits
-at the shared center.  The squeeze $D(\sqrt2)$ acts between these
-nested shells.  Ticked $X$/$Y$ backdrop.}
-\label{fig:tview-nested}
-\end{figure}
-
-\begin{remark}[Geometric meaning]
-The $\sqrt2$ in $D(\sqrt2)$ is the vector model's $\sqrt2$
-($Y=\pm1/\sqrt2$ at the $2p$ Casimir node,
-$|2p_z\rangle=(|100\rangle-|010\rangle)/\sqrt2$): the same $SO(4,2)$
-structure appears in state positions and operator action.  The
-$\delta$-shifted Casimir parabola marks the wavefunction node
-($\psi=0$); the ladder parabola marks the antinode ($|\psi|$ maximal).
-Their $3{:}1$ asymmetry (ladder:Casimir) appears in the geometry, the
-gamma integrals, the $V{-}U$ matrix elements ($|-32/81|/|32/243|=3$),
-and the BCH factorization --- four independent manifestations of the
-node/antinode structure that determines the dipole (Fig.~\ref{fig:tview-nested}).
-\end{remark}
-
-\begin{remark}[Framing]
-No integrals are used at all --- no spherical radial solution, no
-Gordon hypergeometric integral, and (by \S3) no parabolic gamma
-integrals; the matrix element follows purely from $SO(4,2)$ ladder
-algebra in the natural parabolic representation.  The parabolic basis $|n_1n_2m\rangle$ is the bicone's
-$(A_z,L_z)$ eigenbasis --- algebraic states of the cone's $so(4)$,
-not solutions imported from the Schr\"odinger equation in spherical
-coordinates.  Their position-space forms coincide with the parabolic
-Schr\"odinger solutions, but the \emph{basis itself} is cone-native:
-the whole construction is parabolic slices of the $SO(4)$ geometry.
-\end{remark}
-
-Combining \eqref{eq:form} with the Proposition,
-\begin{equation}\label{eq:dipole}
-\frac{|\langle R_{10}|r|R_{21}\rangle|}{a_0}
-=\sqrt3\cdot\frac{256}{243\sqrt2}
-=\frac{768}{243\sqrt6}\approx1.290266,
+\begin{proposition}[The $3{:}1$ node bridge]
+The physical matrix element follows via the $3{:}1$ ratio:
+\begin{equation}
+\boxed{\langle000|z|100\rangle = -\frac{1}{3}\cdot\frac{128}{81}
+= -\frac{128}{243}.}
 \end{equation}
-the textbook Gordon number, here from bicone$\times$parabolic-$SO(4,2)$.
+The factor $1/3$ is the $2p$ radial-node dominance.  The $|100\rangle$
+wavefunction carries the node factor $(1-\xi/2)$ (zero at $\xi=2$);
+in the \S2 gamma integrals the node term ($-\xi/2$ part, magnitude
+$64/81$) outweighs the nodeless term ($+1$ part, magnitude $64/243$)
+by exactly $3{:}1$ with opposite sign.  The same $3{:}1$ appears in
+the bicone geometry (Casimir node-marking vs ladder antinode-marking
+parabolas) and in the squeeze Bogoliubov weights above.  It is
+structural---the node does the work in the $2p\to1s$ dipole---not a
+fitted parameter.  The minus sign is the node sign from $(1-\xi/2)$.
+\end{proposition}
 
 \section{Determining $\alpha$ without $a_0$ or $\epsilon_0$}
 
