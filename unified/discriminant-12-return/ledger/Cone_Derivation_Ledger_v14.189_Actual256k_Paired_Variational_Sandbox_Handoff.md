@@ -1,16 +1,16 @@
-> Placement correction (2026-10-09): The authoritative open HANDOFF is [ledger v14.189](../ledger/Cone_Derivation_Ledger_v14.189_Actual256k_Paired_Variational_Sandbox_Handoff.md). This supporting note does not create a second task.
-
-# Actual-256k paired variational tail comparison — Sandbox HANDOFF
+# Cone Derivation Ledger v14.189 — Actual-256k Paired Variational Sandbox HANDOFF
 
 Date: 2026-10-09 UTC / EDT
 Parent state: v14.188; latest Sandbox result v14.187.
-Status: concrete analytic task, not an infinite-tail theorem or a new numerical certificate.
+Status: open Sandbox task; no infinite-tail theorem or new numerical certificate is claimed.
+Track: Lane A / Sandbox HANDOFF
+Collision check: latest ledger v14.188 and Sandbox v14.187 read at HEAD e73716e3ab6182431fc723a477c96a1fe9c82ac1; v14.189 and this path are free. This entry corrects the earlier research-note-only placement; it is the same assignment, not a second task.
 
 ## Work split
 
 Lane A retains certification of the actual frozen-256k residual sources, including represented-trial to exact finite-inverse transport. Sandbox owns the narrowly specified variational comparison below. This is new work after the closed v14.185/v14.186 audit requests; it does not repeat coefficient/archive review or the already-settled unweighted J obstruction.
 
-Both lanes must read live HEAD and the latest External Audit/Sandbox entries before each gate, and collision-check all paths/ledger numbers immediately before writing. The authoritative task assignment is now ledger v14.189, published at the user's direction. This note is supporting detail for that same task, not a separate assignment.
+Both lanes must read live HEAD and the latest External Audit/Sandbox entries before each gate, and collision-check all paths/ledger numbers immediately before writing. This ledger entry is the authoritative open task assignment, published at the user's explicit direction. A claim alone does not establish a theorem; return a completed theorem or quantified obstruction with supporting reproducible checks.
 
 ## Authoritative inputs and target
 
@@ -69,7 +69,7 @@ The reference source u_a is not the actual residual rho. Euclidean energy differ
 HANDOFF
 target: sandbox
 type: task
-parent: v14.188
+parent: v14.189
 status: open
 action: Derive and exactly check the actual-256k two-parity variational enclosure specified above, including finite-source and operator uncertainty charges, and return a minimal computable input contract with explicit 5e-9 acceptance inequalities or a specific obstruction.
 deliverable: theorem-or-obstruction
