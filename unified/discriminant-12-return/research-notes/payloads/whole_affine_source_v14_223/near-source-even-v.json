@@ -1,0 +1,46 @@
+{
+  "A_buffer": {
+    "bits": 256,
+    "count": 128000,
+    "sha256": "9c3abb74c0d5954dd08dbf9ac347f0f3334bbf356647deed21a2d136771b28b4",
+    "width": 30
+  },
+  "W_buffer": {
+    "bits": 256,
+    "count": 128000,
+    "sha256": "afecf6befc2fa7f3fa90fd39336fc2cbac25a32bd790893ddc5b6e2c4906fe0d",
+    "width": 30
+  },
+  "coefficient_bits": 256,
+  "display_approximate": {
+    "A_norm_upper": 3.790265819210384e-05,
+    "W_norm_upper": 0.0011458002474982226,
+    "near_assembly_error_upper": 2.5024505984691012e-24,
+    "physical_near_source_norm_upper": 0.0014490215130350534
+  },
+  "evaluated_infinite_trial": false,
+  "exact_small_convolution_rows_checked": 24,
+  "first_near_mode": 256001,
+  "full_stationary_certificate_sha256": "40fcbd9ba5745598fa0e8d98a5da43b7c088411c8fdcb4c6d0dcae10a0b9dc80",
+  "infinite_capacity_tail_closed": false,
+  "kernel_bits": 256,
+  "last_near_mode": 511999,
+  "near_count": 128000,
+  "physical_remote_z_retained_exact": true,
+  "rational": {
+    "A_norm_upper": "7434963797294474951649708661153326253925044027928283/196159429230833773869868419475239575503198607639501078528",
+    "W_norm_upper": "7192304721977582321537135590301285426436573520420034833/6277101735386680763835789423207666416102355444464034512896",
+    "near_assembly_error_upper": "2.5024505984691012e-24",
+    "physical_near_source_norm_upper": "0.0014490215130350534"
+  },
+  "remote_scalar_numeric_evaluation_certified": false,
+  "representation": "rho_hat(n)=W[n]-z_physical(n)*A[n] on R<n<=2R",
+  "scalar_caps_rational": {
+    "c": "1/100000000000000000000000000000000000000",
+    "finite_pole": "1/100000000000000000000000000000000000000",
+    "finite_z": "1/100000000000000000000000000000000000000"
+  },
+  "schema": "cone.near-full-stationary-affine-source.v1",
+  "sector": "even-v",
+  "source_snapshot_sha256": "da7189749abb6872e28e2af6c189c609248bc094428db21ee0cafa5e68c2deb5"
+}

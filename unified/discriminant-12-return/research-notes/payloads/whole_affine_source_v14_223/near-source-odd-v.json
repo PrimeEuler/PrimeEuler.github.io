@@ -1,0 +1,46 @@
+{
+  "A_buffer": {
+    "bits": 256,
+    "count": 128000,
+    "sha256": "7390557a7a9b1b4d5aa745ef4085fd1acd986922bc72c8b7428f9d904afefdf0",
+    "width": 30
+  },
+  "W_buffer": {
+    "bits": 256,
+    "count": 128000,
+    "sha256": "314dcffd29928d24c6c79da0878d344762cf81cc2e38f0eb2988bb6e9f4b262d",
+    "width": 30
+  },
+  "coefficient_bits": 256,
+  "display_approximate": {
+    "A_norm_upper": 3.7848052606838096e-05,
+    "W_norm_upper": 0.0011447475643776024,
+    "near_assembly_error_upper": 5.259669783365555e-26,
+    "physical_near_source_norm_upper": 0.0014475319852323071
+  },
+  "evaluated_infinite_trial": false,
+  "exact_small_convolution_rows_checked": 24,
+  "first_near_mode": 256002,
+  "full_stationary_certificate_sha256": "41fdeb3af0ab1d00bc154cc7111b62d28d5e75365de795ce4a970f779e25138f",
+  "infinite_capacity_tail_closed": false,
+  "kernel_bits": 256,
+  "last_near_mode": 512000,
+  "near_count": 128000,
+  "physical_remote_z_retained_exact": true,
+  "rational": {
+    "A_norm_upper": "237576076699389794065404618545698680737084918944134999/6277101735386680763835789423207666416102355444464034512896",
+    "W_norm_upper": "7185696922934323987491642071233367163513790868634321747/6277101735386680763835789423207666416102355444464034512896",
+    "near_assembly_error_upper": "5.259669783365555e-26",
+    "physical_near_source_norm_upper": "0.0014475319852323071"
+  },
+  "remote_scalar_numeric_evaluation_certified": false,
+  "representation": "rho_hat(n)=W[n]-z_physical(n)*A[n] on R<n<=2R",
+  "scalar_caps_rational": {
+    "c": "1/100000000000000000000000000000000000000",
+    "finite_pole": "1/100000000000000000000000000000000000000",
+    "finite_z": "1/100000000000000000000000000000000000000"
+  },
+  "schema": "cone.near-full-stationary-affine-source.v1",
+  "sector": "odd-v",
+  "source_snapshot_sha256": "6ba7a15aafacebdf0eb4e8b035370f4a7588d63133031e99a8a882779f20a453"
+}
