@@ -172,10 +172,13 @@ an exact rational.  Since $|2p_z\rangle=(|100\rangle-|010\rangle)/\sqrt2$,
 The parabolic gamma-integral derivation above, while avoiding the
 spherical Gordon integral, still performs integrals.  We now give the
 ladder-operator derivation using the Barut--Kleinert $SO(4,2)$
-realization.  The Bogoliubov/squeeze algebra is exact and integral-free;
-the $3{:}1$ node-dominance factor connecting it to the physical matrix
-element is verified independently in \S2, the bicone geometry, and the
-squeeze weights themselves.
+realization, in two steps.  First, the Bogoliubov/squeeze algebra
+yields the exact rational $32/81$ with no integrals whatsoever, from
+$[b,b^\dagger]=1$ alone.  Second, the Kustaanheimo--Stiefel measure
+relating the 4D oscillator to physical 3D space contributes a factor
+$4/3$, computed below from the KS Jacobian via elementary Gaussian
+moments.  At no point are spherical radial functions or
+Gordon/hypergeometric integrals invoked.
 
 \begin{proposition}[KS oscillator realization]
 Via the Kustaanheimo--Stiefel map
@@ -201,12 +204,12 @@ D(\lambda_1)^\dagger\, u^2\, D(\lambda_1) = u^2/2,
 exactly, using only $[b,b^\dagger]=1$.
 \end{proposition}
 
-\begin{theorem}[Squeeze-algebra $128/81$]
+\begin{theorem}[Squeeze-algebra $32/81$]
 The one-sided matrix element, with $D_1=D(\sqrt2)$ and
 $|\psi\rangle=\frac12(b_1^{\dagger2}+b_2^{\dagger2})|0\rangle$,
 evaluates by explicit squeeze algebra to the exact rational
 \begin{equation}
-\langle0|D_1^\dagger z|\psi\rangle = \frac{128}{81},
+\langle0|D_1^\dagger z|\psi\rangle = \frac{32}{81},
 \end{equation}
 with no integrals and no numerical truncation.
 \emph{Derivation:} Write $D_1^\dagger=S(-\zeta)$, $\zeta=\ln\sqrt2$,
@@ -219,28 +222,46 @@ $e_1=\langle0|Su^2b^{\dagger2}|0\rangle$
 $b^\dagger bb^{\dagger2}|0\rangle=2\sqrt2|2\rangle$, etc.).
 With $\tanh\zeta=1/3$, four-mode factorization gives
 $\langle0|D_1^\dagger z|\psi\rangle
-=d_0^2(e_1d_0-e_0d_1)=128/81$ exactly.
+=d_0^2(e_1d_0-e_0d_1)=32/81$ exactly.
 \end{theorem}
 
-\begin{proposition}[The $3{:}1$ node bridge]
-The physical matrix element follows via the $3{:}1$ ratio:
+\begin{proposition}[KS bridge: measure and Gaussian moments]
+The 4D Fock inner product uses the flat measure $d^4u$; the physical
+3D inner product uses $d^3x$.  In parabolic-fiber coordinates the KS
+map gives $d^4u=d^3x\,d\lambda/(8r)$, and integrating out the $U(1)$
+fiber ($\lambda\in[0,2\pi)$) yields, for fiber-invariant integrands,
 \begin{equation}
-\boxed{\langle000|z|100\rangle = -\frac{1}{3}\cdot\frac{128}{81}
-= -\frac{128}{243}.}
+\int_{\mathbb{R}^3} G\,d^3x = \int_{\mathbb{R}^4} G\cdot\frac{4u^2}{\pi}\,d^4u.
 \end{equation}
-The factor $1/3$ is the $2p$ radial-node structure.  Expanding
-$(1-\xi/2)(\xi^2-\eta^2)=(\xi^2-\eta^2)-\xi^3/2+\xi\eta^2/2$:
-the nodeless $(\xi^2-\eta^2)$ piece vanishes by $\xi\leftrightarrow\eta$
-symmetry.  The two surviving pieces \emph{both} carry the $-\xi/2$
-node factor---the $-\xi^3/2$ piece (magnitude $64/81$) and the
-$+\xi\eta^2/2$ piece (magnitude $64/243$)---in exact $3{:}1$ ratio
-with opposite signs.  The same $3{:}1$ appears in the bicone geometry
-(Casimir node-marking vs ladder antinode-marking parabolas) and in
-the squeeze Bogoliubov weights above.  It is structural---the node's
-$\xi^3$ radial weight dominates its $\xi\eta^2$ angular weight
-$3{:}1$---not a fitted parameter.  The minus sign is the node sign
-from $(1-\xi/2)$.
+The $4u^2/\pi$ weight is pure KS kinematics, invisible to
+$[b,b^\dagger]=1$.  Accounting for it, together with the Fock-vs-physical
+state normalizations ($D_1|0\rangle=(2/\sqrt\pi)\psi_{000}$,
+$|\psi\rangle=(-4/\sqrt\pi)\psi_{100}$, the minus being the node sign
+from $(1-\xi/2)$), the bridge factor relating the Fock value to the
+physical matrix element is
+\begin{equation}
+\boxed{\langle000|z|100\rangle
+= -\frac{4}{3}\cdot\frac{32}{81} = -\frac{128}{243}.}
+\end{equation}
+The $4/3$ follows from elementary Gaussian moments: with
+$I_0=\int\psi_{000}^*z\psi_{100}\,d^4u=-4\pi/81$ and
+$I_2=\int\psi_{000}^*z\psi_{100}u^2\,d^4u=-32\pi/243$,
+the bridge is $(-1/2)(I_2/I_0)=-4/3$.  These are polynomial-times-Gaussian
+closed forms, not Gordon/hypergeometric integrals.
 \end{proposition}
+
+\begin{remark}[The $3{:}1$ node structure]
+The $3{:}1$ ratio is a genuine structural feature of the \S2 integral:
+expanding $(1-\xi/2)(\xi^2-\eta^2)=(\xi^2-\eta^2)-\xi^3/2+\xi\eta^2/2$,
+the nodeless $(\xi^2-\eta^2)$ piece vanishes by $\xi\leftrightarrow\eta$
+symmetry, while the two surviving node-carrying pieces---$-\xi^3/2$
+(magnitude $64/81$) and $+\xi\eta^2/2$ (magnitude $64/243$)---stand in
+exact $3{:}1$ ratio with opposite signs.  The same $3{:}1$ marks the
+bicone geometry (Casimir node-marking vs ladder antinode-marking
+parabolas).  It is a property of the physical integral, distinct from
+the $4/3$ KS bridge above, which connects the Fock computation to that
+integral.
+\end{remark}
 
 \section{Determining $\alpha$ without $a_0$ or $\epsilon_0$}
 
@@ -369,6 +390,12 @@ The hydrogen value uses beam-foil Lyman-$\alpha$ decay; the He$^+$
 value uses quenching/Stark-mixing emission asymmetry, a technique
 that extracts the natural width without assuming the theoretical
 dipole matrix element.  Both bracket the known $1/\alpha=137.036$.
+\textit{Caveat:} the He$^+$ transition frequency entering
+Eq.~\eqref{eq:alphaZ} is the $Z^2$-scaled hydrogen Lyman-$\alpha$
+frequency, not a dedicated He\,II spectroscopic value; at the
+$0.26\%$ lifetime-dominated precision of the He$^+$ point this
+approximation is immaterial, but a future precision extraction
+should use the measured He\,II line.
 
 Higher-$Z$ hydrogenic ions ($Z\geq3$) have no directly measured $2p$
 lifetimes in the literature: $\tau\propto1/Z^4$ puts Li$^{2+}$ at
