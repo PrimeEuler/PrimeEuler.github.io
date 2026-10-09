@@ -1,0 +1,43 @@
+name: Suzuki leading contract and J boundary charges
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-leading-contract-boundary.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_leading_kernel_contract_replay.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_halfline_J_source_obstruction.py'
+      - 'unified/discriminant-12-return/research-notes/payloads/halfline_J_source_v14_186/**'
+      - 'unified/discriminant-12-return/research-notes/payloads/exact_leading_source_run_37838070444/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install integer action dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+      - name: Exact isolated kernel contract checks
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_leading_kernel_contract_replay.py --output /tmp/kernel-contract-checks.json
+          cmp /tmp/kernel-contract-checks.json payloads/exact_leading_source_run_37838070444/kernel-contract-checks.json
+      - name: Exact J half-line and reference-source charges
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_halfline_J_source_obstruction.py
+          --reference payloads/halfline_J_source_v14_186/halfline-J-source-obstruction.json
+          --output /tmp/halfline-J-source-obstruction.json
+      - name: Independent complete committed leading witness replay
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_frozen_leading_witness_replay.py
+          --payload-root payloads/exact_leading_source_run_37838070444
+          --compare-reference --output /tmp/leading-replay.json

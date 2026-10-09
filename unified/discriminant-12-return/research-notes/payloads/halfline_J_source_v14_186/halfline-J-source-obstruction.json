@@ -1,0 +1,69 @@
+{
+  "actual_residual_rho_and_remote_inverse_not_replaced_by_simple_u": true,
+  "bilateral_to_halfline_leakage_operator_norm_analytic": 1,
+  "compressed_unitarity_defect_operator_norm_analytic": 1,
+  "infinite_capacity_tail_closed": false,
+  "norm_one_proof_is_analytic_not_finite_section_extrapolation": true,
+  "pi_upper_22_over_7_verified_by_rational_Machin_interval": true,
+  "positive_box_checks": [
+    {
+      "a": 1,
+      "comparison_exact": true,
+      "finite_positive_box_energy_lower_rational": "49/121",
+      "uniform_box_lower_rational": "49/17424"
+    },
+    {
+      "a": 2,
+      "comparison_exact": true,
+      "finite_positive_box_energy_lower_rational": "34153/217800",
+      "uniform_box_lower_rational": "49/34848"
+    },
+    {
+      "a": 3,
+      "comparison_exact": true,
+      "finite_positive_box_energy_lower_rational": "27402131/300155625",
+      "uniform_box_lower_rational": "49/52272"
+    },
+    {
+      "a": 7,
+      "comparison_exact": true,
+      "finite_positive_box_energy_lower_rational": "1803615862214391800077109644423/58538476662207632660276107025625",
+      "uniform_box_lower_rational": "7/17424"
+    },
+    {
+      "a": 16,
+      "comparison_exact": true,
+      "finite_positive_box_energy_lower_rational": "1232856247887943364595897354587843560544983644687959201892749/109429281752354712150575826006294412066624399636067851449000000",
+      "uniform_box_lower_rational": "49/278784"
+    }
+  ],
+  "schema": "cone.halfline-J-source-obstruction.v1",
+  "source_charges": [
+    {
+      "J_source_mismatch_energy_lower_display": "0.000031124027374144557982563044904846723539889378456923",
+      "J_source_mismatch_energy_lower_rational": "83/2666750",
+      "a": 32001,
+      "gradient_norm_ratio_upper_rational": "1/125",
+      "halfline_leakage_energy_lower_display": "8.7878911267953087668948821015091671406388844196185E-8",
+      "halfline_leakage_energy_lower_rational": "49/557585424",
+      "leakage_fraction_gt_1_over_180_exact": true,
+      "leakage_fraction_lower_rational": "522683/92936712",
+      "raw_leakage_energy_gt_5e_minus9_exact": true,
+      "source_norm2_lower_rational": "1/64002",
+      "source_norm2_upper_rational": "32003/2048128002"
+    },
+    {
+      "J_source_mismatch_energy_lower_display": "0.0000039007660126327631532689325432322529990117226104586",
+      "J_source_mismatch_energy_lower_rational": "4993/1280005000",
+      "a": 256001,
+      "gradient_norm_ratio_upper_rational": "7/2500",
+      "halfline_leakage_energy_lower_display": "1.0985164274693328379553326828035627113471624732412E-8",
+      "halfline_leakage_energy_lower_rational": "49/4460561424",
+      "leakage_fraction_gt_1_over_180_exact": true,
+      "leakage_fraction_lower_rational": "12544049/2230298136",
+      "raw_leakage_energy_gt_5e_minus9_exact": true,
+      "source_norm2_lower_rational": "1/512002",
+      "source_norm2_upper_rational": "256003/131073024002"
+    }
+  ]
+}
