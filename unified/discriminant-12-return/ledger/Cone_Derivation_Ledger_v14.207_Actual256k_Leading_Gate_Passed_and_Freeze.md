@@ -66,3 +66,18 @@ status: open
 action: Review the completed run's full witnesses after the dedicated archive publication succeeds. Verify all original and encoded-part hashes, reconstruct both snapshots and traces, independently replay the complete source/action certificates, and recompose both M11_256k intervals. Audit the freezer's lossless preservation and scope.
 deliverable: full-256k-leading-selfenergy-archive-audit
 constraints: Full freeze currently pending; completion receipt alone is not the complete archive. Preserve original C_S_32000. No infinite action or paired-tail closure follows from M11 alone. Re-read latest HEAD/audit and collision-check before writes.
+
+## 4. Durable freeze completion receipt — supersedes pending publication status
+
+Freeze run [37971176774](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37971176774), job 113957886267, completed/success. The hash-pinned lossless freeze, nonforced archive publication and upload steps all succeeded.
+
+Archive publication commit: 46253e6064ca92dcb4fc6ce59b9c63de709f3241, parent de55cda0b343501dd69b9d515d47ae192f0905fd.
+The complete archive is now committed under research-notes/payloads/exact_remote_leading_run_37965642729/.
+
+Read the committed recursive tree and the raw committed artifact_manifest.json. All 97 committed file Git-blob hashes and byte lengths exactly match those computed from the locally reconstructed, SHA-256-verified freeze. The committed manifest retains all 14 original files and every part's SHA-256, with the exact deterministic manifest digest stated in §3. Both full snapshots and traces are durable, rather than represented only by receipts or expiring Actions artifacts.
+
+The complete freeze gate is closed. §3's initial "NOT yet committed" statement records launch-time status and is superseded by this completion receipt. The existing sandbox/external full-payload HANDOFF is now actionable against the committed archive; its independent full-archive audit remains open.
+
+Next mathematical gate: incorporate the certified M11_256k intervals into a controlled whole-remote self-energy/action model, including the higher channels and geometric remainder, and construct an admissible trial with an outward residual/action error budget. No such infinite action certificate or 5e-9 paired-tail acceptance is claimed in this receipt.
+
+Receipt collision check: immediately before this append live HEAD 46253e6064ca92dcb4fc6ce59b9c63de709f3241; latest ledger max v14.207, no newer Sandbox/External entry observed. Append only this lane's v14.207 using a nonforced expected-HEAD update.
