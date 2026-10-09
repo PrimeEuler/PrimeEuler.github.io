@@ -1,0 +1,16 @@
+{
+  "action_delta_ceiling_rational": "1/10000000000",
+  "fixed_trace_full_inverse_counterexample_exact": true,
+  "gap_lt_1e_minus9": true,
+  "infinite_capacity_tail_closed": false,
+  "remaining_even_source_assembly_budget_rational": "3204368415730980541268801957952282324402417039337958033/12259964326927110866866776217202473468949912977468817408000000000",
+  "remaining_odd_source_assembly_budget_rational": "6067371076504586526092808845053328518182692195498080579/6129982163463555433433388108601236734474956488734408704000000000",
+  "remote_gap_upper_rational": "90006600121/100000000000000000000",
+  "represented_residual_norm_ceiling_rational": "3/100000",
+  "schema": "cone.full-stationary-source-budget-repair.v1",
+  "source_eta_ceiling_rational": "1/1000000000",
+  "stationary_charge_lt_5e_minus12": true,
+  "stationary_source_action_error_upper_rational": "21/10000000000000",
+  "sufficient_DeltaQ_abs_upper_rational": "7668251/1562500000000000",
+  "trial_norm_ceiling_rational": "1/1000"
+}

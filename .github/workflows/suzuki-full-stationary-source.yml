@@ -1,0 +1,74 @@
+name: Suzuki full stationary source transport repair
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-full-stationary-source.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_full_stationary_source_transport.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_full_stationary_source_pipeline.py'
+      - 'unified/discriminant-12-return/research-notes/payloads/full_stationary_source_v14_213/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-full-source-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact integer action dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+      - name: Reconstruct hash-bound actual256 witnesses
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,shutil
+          from pathlib import Path
+          root=Path('payloads/exact_outward_run_37827949740')
+          manifest=json.loads((root/'artifact_manifest.json').read_text())
+          for x in manifest['files']:
+              raw=(root/x['file']).read_bytes()
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+          target=Path('/tmp/full-stationary-input');target.mkdir()
+          for x in manifest['snapshots']:
+              if x['cutoff']!=256000:continue
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in x['base64_parts']),validate=True)
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+              (target/x['snapshot_file']).write_bytes(raw)
+              shutil.copyfile(root/x['certificate_file'],target/x['certificate_file'])
+          for short in ('even','odd'):
+              for kind in ('moments','far'):
+                  name=f'frozen256-{short}-{kind}.json'
+                  shutil.copyfile(root/name,target/name)
+          Path('/tmp/full-stationary-results').mkdir()
+          PY
+      - name: Exact full-vector residual and protected-gradient replay
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for sector in even-v odd-v; do
+            python suzuki_full_stationary_source_transport.py \
+              --root /tmp/full-stationary-input --sector "$sector" \
+              --output "/tmp/full-stationary-results/full-stationary-source-$sector.json"
+          done
+      - name: Recompose physical far bounds and paired trial contracts
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_full_stationary_source_pipeline.py \
+            --source-root /tmp/full-stationary-results \
+            --far-root /tmp/full-stationary-input \
+            --finite payloads/exact_leading_source_run_37838070444/actual256-finite-Q-with-leading-certificate.json \
+            --output-root /tmp/full-stationary-results
+          for file in payloads/full_stationary_source_v14_213/*.json; do
+            cmp "$file" "/tmp/full-stationary-results/$(basename "$file")"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-stationary-source-repaired-replay
+          path: /tmp/full-stationary-results
+          if-no-files-found: error
