@@ -125,3 +125,11 @@ status: open
 action: Independently replay both full near-octave convolutions, coefficient buffer hashes and whole-source consumer; audit every affine assembly charge and the revised 0.002 norm/2e-10 action contract, including S>=I trial-norm conversion and the conditional remote-z cap.
 deliverable: audit-or-specific-obstruction
 constraints: Remote z is retained exact, not numerically certified yet; distinguish affine assembly from evaluated source. Exact polynomial trial is not an evaluated action. Preserve full-Z source binding, pole cancellation, both parity endpoints and the original C_S. Put results in the ledger after checking HEAD/audit and numbering collisions.
+
+## 7. Committed-byte and scoped CI receipt
+
+Source commit: 3c7af996ab7b1028b7fcdfdd262b398eb9e3cbd1. All seven new files were fetched at that commit and compared byte-for-byte with the direct publication content.
+
+Scoped CI run [37992946935](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37992946935), job 114031544877, completed/success. It reconstructed hash-bound raw archives, regenerated all 128000 near rows per parity and the complete whole-source consumer, and passed all three full-output cmp checks. This closes computational replay; the requested independent analytic audit remains open.
+
+Receipt collision check: live HEAD 3c7af996ab7b1028b7fcdfdd262b398eb9e3cbd1, latest v14.223, before this append and additive v14.224 publication. No newer audit/Sandbox entry observed. Nonforced expected-head update.

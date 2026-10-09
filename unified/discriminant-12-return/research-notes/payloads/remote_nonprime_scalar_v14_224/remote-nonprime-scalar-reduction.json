@@ -1,0 +1,16 @@
+{
+  "arch_error_upper_rational": "1/28311552000000000",
+  "cutoff": 256000,
+  "digamma_error_upper_rational": "1/147456000000",
+  "elementary_error_upper_rational": "7/1358954496000000000",
+  "evaluated_infinite_trial": false,
+  "exponential_moment_upper_rational": "1234/3375",
+  "infinite_capacity_tail_closed": false,
+  "numerical_prime_evaluation_certified": false,
+  "parity_sign_retained": true,
+  "prime_sine_functions_retained_exact": true,
+  "schema": "cone.remote-nonprime-scalar-reduction.v1",
+  "uniform_z_error_lt_1e_minus11": true,
+  "uniform_z_surrogate_error_upper_rational": "1843211/271790899200000000",
+  "whole_affine_source_error_upper_rational": "1843211/6794772480000000000000"
+}
