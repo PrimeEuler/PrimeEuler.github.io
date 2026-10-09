@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "bytes": 2218,
+      "file": "numerical-near-source-even-v.json",
+      "sha256": "5b1aa36fe37e8b5b5c7d29f49946f50b81c09302cc11e7cea1cde3e9d009c3d4"
+    },
+    {
+      "bytes": 2176000,
+      "file": "even-v-rho-near.bin",
+      "sha256": "bf380a55fbc46fc1891847142174abd8c7d704eae7d11d8df49b969113741469"
+    },
+    {
+      "bytes": 2215,
+      "file": "numerical-near-source-odd-v.json",
+      "sha256": "28d3215e550093f1a56d6617a75545ef4c3ea519d6a1ac011c127f1e84ead37c"
+    },
+    {
+      "bytes": 2176000,
+      "file": "odd-v-rho-near.bin",
+      "sha256": "da71315e1eeb59023e918f1a8411a86fca22f2e2ccb6865572d8b6a1ddef3e3e"
+    }
+  ],
+  "schema": "cone.frozen-numerical-near-witness.v1",
+  "source_commit": "af86f7811d090acafc5aea5562d584d913de5823"
+}
