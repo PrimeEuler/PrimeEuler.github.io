@@ -1,0 +1,23 @@
+{
+  "chebyshev_denominator_reciprocal_strict_upper": "1e-29",
+  "degree": 6000,
+  "evaluated_infinite_trial": false,
+  "exact_integer_recurrence_comparison_passed": true,
+  "exact_residual_strict_upper": "1e-9",
+  "infinite_capacity_tail_closed": false,
+  "log_diagonal_lower_rational": "11",
+  "numerical_whole_source_assembly_certified": false,
+  "operator_remainder_upper": 575,
+  "physical_source_norm_bound_assembled": true,
+  "residual_target": "3e-5",
+  "schema": "cone.logarithmic-infinite-constructor-budget.v1",
+  "source_certificate_sha256": {
+    "even": "40fcbd9ba5745598fa0e8d98a5da43b7c088411c8fdcb4c6d0dcae10a0b9dc80",
+    "odd": "41fdeb3af0ab1d00bc154cc7111b62d28d5e75365de795ce4a970f779e25138f"
+  },
+  "source_norm_sufficient_upper": "500000000000",
+  "spectral_lower_rational": "1/576",
+  "spectral_upper_rational": "586/11",
+  "stationary_scalar_certified": false,
+  "trial_norm_certified": false
+}
