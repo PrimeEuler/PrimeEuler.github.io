@@ -327,6 +327,56 @@ supplies is the \emph{form} of every transition; the coupling is then
 overdetermined by the spectrum --- one $e^2$ must work for all
 $Y_{\mathrm{geom}}$ --- and fixed by a single line.
 
+\section{Multiple bicones, multiple dipoles}
+
+The bicone construction is not specific to hydrogen.  Any hydrogenic
+ion---one electron, nuclear charge $Z$---has exactly the same
+$su(2)\oplus su(2)\to so(4)$ bicone, scaled by $1/Z$ in physical size
+(Bohr radius $a_Z=a_0/Z$).  Same shape, same angles, different scale:
+multiple bicones, each supporting its own $2p\to1s$ dipole.  Because
+$SO(4,2)$ is exactly scale-invariant, the dimensionless geometric
+factor is identical on every one:
+\begin{equation}
+Y_{\rm geom}(Z) = \frac{128\sqrt6}{243}\quad\text{for }Z=1,2,3,\ldots
+\end{equation}
+verified by direct symbolic integration of the hydrogenic radial
+functions (the $Z$-dependence cancels exactly between the matrix
+element and the $1/Z$ Bohr radius).
+
+The $Z$-generalized $\alpha$ formula, re-deriving \S4 with $a_Z=a_0/Z$:
+\begin{equation}\label{eq:alphaZ}
+\boxed{\alpha = \frac{4\,\omega^3\,g\,Y_{\rm geom}^2\,\bar\lambda_c^2}
+{3\,c^2\,A\,Z^2}}
+\end{equation}
+where $g=l_>/(2l_i+1)$ is the Wigner--Eckart angular factor
+($g=1/3$ for any $p\to s$), $\omega$ and $A=1/\tau$ are the measured
+transition frequency and rate for that ion, and $Z$ is the exactly
+known nuclear charge.  At $Z=1$ this reduces to the \S4 formula.
+
+Two independent data points, two different atoms, two different
+experimental techniques, one geometric input:
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+Ion & $\tau_{2p}$ (measured) & $1/\alpha$ & Range & Ref. \\ \hline
+H ($Z=1$) & $(1.592\pm0.025)\,$ns & $137.4$ & $135.2$--$139.6$ & Tielert 1973 \\
+He$^+$ ($Z=2$) & $(0.9992\pm0.0026)\times10^{-10}\,$s & $136.8$ &
+$136.4$--$137.1$ & Drake 1983 \\
+\end{tabular}
+\end{center}
+
+The hydrogen value uses beam-foil Lyman-$\alpha$ decay; the He$^+$
+value uses quenching/Stark-mixing emission asymmetry, a technique
+that extracts the natural width without assuming the theoretical
+dipole matrix element.  Both bracket the known $1/\alpha=137.036$.
+
+Higher-$Z$ hydrogenic ions ($Z\geq3$) have no directly measured $2p$
+lifetimes in the literature: $\tau\propto1/Z^4$ puts Li$^{2+}$ at
+$\sim$20\,ps and Be$^{3+}$ at $\sim$6\,ps, beyond current direct
+techniques.  The $Z$-independence of $Y_{\rm geom}$ is therefore
+verified symbolically (above) rather than empirically for $Z\geq3$.
+Should measured lifetimes appear, Eq.~\eqref{eq:alphaZ} applies directly.
+
 \section*{Acknowledgment}
 Large language model tools were used for numerical verification, figure generation, drafting, and literature search.
 
@@ -356,6 +406,13 @@ Nucl.\ Instrum.\ Methods 110, 89 (1973)
 E.~Tr\"abert, \textit{Atomic lifetime data and databases},
 Atoms 10, 114 (2022) (on the theory--experiment circularity hazard
 in lifetime ``agreement'').
+\bibitem{Drake}
+G.~W.~F.~Drake, J.~Patel, and A.~van Wijngaarden,
+\textit{Lifetime of the $2p$ state in He II},
+Phys.\ Rev.\ A 28, 3340 (1983)
+(measured He$^+$($2p$) lifetime
+$\tau=(0.9992\pm0.0026)\times10^{-10}\,$s
+via Stark-quenching emission asymmetry).
 \end{thebibliography}
 
 \end{document}
