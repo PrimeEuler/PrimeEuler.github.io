@@ -1,0 +1,28 @@
+name: Suzuki whole remote Schur channel model budget
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-whole-remote-schur-model.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_whole_remote_schur_model_budget.py'
+      - 'unified/discriminant-12-return/research-notes/payloads/whole_remote_schur_model_v14_210/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-budget-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Replay exact model and finite-lift acceptance budgets
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_whole_remote_schur_model_budget.py \
+            --payload-root payloads/exact_remote_leading_run_37965642729 \
+            --output /tmp/whole-remote-schur-model-budget.json
+          cmp /tmp/whole-remote-schur-model-budget.json \
+            payloads/whole_remote_schur_model_v14_210/whole-remote-schur-model-budget.json
