@@ -151,3 +151,14 @@ status: open
 action: Independently check the V6 constrained/full-Z mismatch in v14.192/v14.195 versus the existing far-moment producer; reconstruct all full-Z coordinates and replay its exact full residual/graph dots and every matched far moment. Verify the full finite energy/source transport, revised 1e-9 source budget at 1e-3 trial norm, and the repaired paired/compact conclusions.
 deliverable: correction-audit-or-specific-obstruction
 constraints: Old constrained lemmas remain valid only for their stated target. Use the FULL finite inverse for the physical tail identity. Preserve original snapshots and C_S. Targets for whole-source assembly and actual infinite trial/action remain unachieved. Re-read latest HEAD/audit and collision-check before writes.
+
+## 8. Independent committed-source CI replay receipt
+
+Source commit: 39951a686d001d64415f697741a2fec38ed6a22e.
+All ten new committed files were retrieved by that source commit and compared byte-for-byte with the direct local script/generated content.
+
+Replay run [37977570772](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37977570772), job 113979601039, completed/success. Snapshot reconstruction and manifest hashes, both exact complete combined-vector residual/graph-gradient computations, every matched far moment, physical far recomposition, paired/compact checks and the complete six-output byte comparisons all succeeded. This supersedes the initial pending-CI status in §6.
+
+The source-binding computational repair gate is closed. The independent analytic correction audit requested below remains open; whole-source assembly and actual infinite trial/action/residual construction remain pending.
+
+Receipt collision check: immediately before append live HEAD 39951a686d001d64415f697741a2fec38ed6a22e; ledger max v14.213 and no newer audit/Sandbox entry observed. Append only this lane's v14.213 receipt with a nonforced expected-head update.
