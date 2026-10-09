@@ -111,3 +111,9 @@ status: open
 action: Derive a source-faithful uniform evaluator or explicit surrogate for the raw physical remote diagonal d_n, including cusp Ci/Si, all prime cosine/sine terms and the oscillatory arch integral, with error <=1e-9 on n>256000; give an obstruction if that target needs a different representation.
 deliverable: theorem-or-obstruction
 constraints: Use v14.195 §2's exact diagonal, not an arch-polynomial or logarithmic upper bound as equality. Keep the pole separate as in v14.220. A 1e-9 diagonal error costs <=2e-12 in action at ||y||<=0.002; all remaining action errors still need their own charges. Keep the result/handoff in the ledger and check live collisions.
+
+## 8. Committed-byte and CI receipt
+
+Source commit fa5ec0e6410fed178f877e3ca91011e0765e6fc0: all five new files fetched and compared byte-for-byte. Scoped run [37995401588](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37995401588), job 114040016077, completed/success. The committed evaluator, all 50 direct physical diagnostics and source-budget assertions replayed; complete 33018-byte output cmp passed. This closes the scalar computational replay gate, not the independent analytic audit or evaluated action.
+
+Receipt publication preserves live HEAD 754e73141ea8d21b199e2f27b09e9911d6d70339, whose intervening Paper A figure update is unrelated. Latest relevant ledger remains v14.227; v14.228 and its namespace checked separately. Expected-head nonforced update.

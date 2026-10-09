@@ -36,7 +36,7 @@ def selftest():
           assert u[k]==uh and v[k]==vh;cases+=1
     return cases
 
-def run(root,source_root,sector):
+def run(root,source_root,sector,buffer_root=None):
     short=sector.split('-')[0];stem=f'joint-256000-{sector}.trace-256000.full'
     raw=(root/(stem+'.zip')).read_bytes();assert hashlib.sha256(raw).hexdigest()==PINS[sector][0]
     sr=(source_root/f'full-stationary-source-{sector}.json').read_bytes();d=json.loads(sr)
@@ -63,6 +63,13 @@ def run(root,source_root,sector):
         aa.append(a.numerator*scale//a.denominator)
         ww.append(w.numerator*scale//w.denominator)
     print(sector,'near coefficients complete',flush=True)
+    if buffer_root is not None:
+        buffer_root.mkdir(parents=True,exist_ok=True)
+        for name,values in [('A',aa),('W',ww)]:
+            spec=packhash(values,BITS)
+            packed=b''.join(x.to_bytes(spec['width'],'little',signed=True) for x in values)
+            assert hashlib.sha256(packed).hexdigest()==spec['sha256']
+            (buffer_root/(sector+'-'+name+'.bin')).write_bytes(packed)
     l1=F(sum(abs(a) for a in x),1<<Z['bits'])
     # Exact physical remote z_n is retained; only finite scalars and kernels
     # are rounded. Point finite |z_m|<=11, |c|<1, |z_remote|<8.
@@ -98,4 +105,5 @@ def run(root,source_root,sector):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--source-root',type=Path,required=True);p.add_argument('--sector',choices=list(PINS),required=True);p.add_argument('--output',type=Path,required=True)
-    a=p.parse_args();o=run(a.root,a.source_root,a.sector);a.output.write_text(json.dumps(o,indent=2,sort_keys=True)+'\n');print(json.dumps(o['display_approximate'],indent=2))
+    p.add_argument('--buffer-root',type=Path)
+    a=p.parse_args();o=run(a.root,a.source_root,a.sector,a.buffer_root);a.output.write_text(json.dumps(o,indent=2,sort_keys=True)+'\n');print(json.dumps(o['display_approximate'],indent=2))
