@@ -1,0 +1,9 @@
+{
+  "arch_resolvent_kernel_identity_exact": true,
+  "checks_are_algebra_not_transcendental_enclosures": true,
+  "infinite_capacity_tail_closed": false,
+  "pole_hyperbolic_coefficient_identity_exact": true,
+  "rank_one_remainder_factor_inequality_exact": true,
+  "rational_displacement_cases": 144,
+  "schema": "cone.leading-coefficient-algebra-contract-check.v1"
+}

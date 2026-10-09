@@ -1,0 +1,14 @@
+{
+  "schema": "cone.leading-source-retrieval-replay-provenance.v1",
+  "artifact_id": 11575959353,
+  "run_id": 37838070444,
+  "source_commit": "aed54a0014e67d1326cb41de9086059948aa0cdc",
+  "zip_sha256": "dd02c92c51b5ec48d517f788475cb3c1c9a308b72764f8fb45b7c6712d410ff6",
+  "all_18_manifest_files_verified": true,
+  "all_full_vectors_redecoded": true,
+  "all_certificates_and_pair_reexecuted_byte_identical": true,
+  "sharp_finite_Q_reexecuted_byte_identical": true,
+  "analytic_contract_entry": "v14.185",
+  "independent_contract_audit_pending": true,
+  "infinite_capacity_tail_closed": false
+}
