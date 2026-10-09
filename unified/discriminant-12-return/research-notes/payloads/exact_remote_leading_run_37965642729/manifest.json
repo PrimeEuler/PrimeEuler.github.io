@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "bytes": 56092,
+      "path": "leading-256000-even-v.certificate.json",
+      "sha256": "e726b54aa728d598e0046b332af7e10dd6afcd5adcf370f2fdbb91e2ca7340e9"
+    },
+    {
+      "bytes": 24978063,
+      "path": "leading-256000-even-v.full.zip",
+      "sha256": "fb78ec8572485d040648038a102fe1a880926aaaa72c13469383ef562ff8b1d7"
+    },
+    {
+      "bytes": 59938,
+      "path": "leading-256000-even-v.json",
+      "sha256": "1284acd5766c94c8c99a61fe6067034ba2ac068e72825b3f136a98d899178817"
+    },
+    {
+      "bytes": 3593,
+      "path": "leading-256000-even-v.preflight.json",
+      "sha256": "b3e30fe2db2314d920528829bf1482f05a20d88844affecb772a8ad8320ebfc9"
+    },
+    {
+      "bytes": 56092,
+      "path": "leading-256000-even-v.replayed.json",
+      "sha256": "e726b54aa728d598e0046b332af7e10dd6afcd5adcf370f2fdbb91e2ca7340e9"
+    },
+    {
+      "bytes": 387207,
+      "path": "leading-256000-even-v.trace.json.gz",
+      "sha256": "7bc7ef22901cba988c2c7d811d22de9e0d8e7751e45523f1f2959ee27ba17f3d"
+    },
+    {
+      "bytes": 56235,
+      "path": "leading-256000-odd-v.certificate.json",
+      "sha256": "5692ac1b3bf7f4bfb627d158149dfd3c9432b49336251d05c467a04bc3f6cfec"
+    },
+    {
+      "bytes": 25099427,
+      "path": "leading-256000-odd-v.full.zip",
+      "sha256": "b975cd0769445492f6d185f84b7c4df9dbcdcfe302df0765d7fa725efb2ec4ac"
+    },
+    {
+      "bytes": 60076,
+      "path": "leading-256000-odd-v.json",
+      "sha256": "a84a9c069049526f7e4a7105c6b64db57606d7ac8956e372d0bda32c0a0d611b"
+    },
+    {
+      "bytes": 3588,
+      "path": "leading-256000-odd-v.preflight.json",
+      "sha256": "5902438ea6c0bdf0cbc7b2bb889d1d85871eca2ff9df8c48ef983a862a760a83"
+    },
+    {
+      "bytes": 56235,
+      "path": "leading-256000-odd-v.replayed.json",
+      "sha256": "5692ac1b3bf7f4bfb627d158149dfd3c9432b49336251d05c467a04bc3f6cfec"
+    },
+    {
+      "bytes": 388169,
+      "path": "leading-256000-odd-v.trace.json.gz",
+      "sha256": "e6a7cc4bdeaf7f1fd5a1d757651248f7d852d68ee79cfb6e2fa66538a23fbe24"
+    },
+    {
+      "bytes": 1905,
+      "path": "remote-leading-selfenergy-256000.json",
+      "sha256": "828bef00946e1059c9616a129cfc714ca983f8e32b1af336eb5d773898f97d09"
+    }
+  ],
+  "schema": "cone.remote-leading-ci-byte-manifest.v1"
+}
