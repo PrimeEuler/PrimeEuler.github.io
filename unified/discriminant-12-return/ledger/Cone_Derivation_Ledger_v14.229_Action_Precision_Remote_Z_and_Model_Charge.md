@@ -123,3 +123,11 @@ status: open
 action: Audit the order-eight Euler–Maclaurin remainder, four exponential moment formulas/S8 bound, adaptive high-precision scalar intervals and z-only whole-model action charge; verify default-mode byte preservation and replay the 50-case payload.
 deliverable: audit-or-specific-obstruction
 constraints: The remote-z component is isolated with finite inputs, pole and raw diagonal fixed. No full finite lift or complete D/action is claimed. Preserve both cross terms and the physical q=4/parity content. Continue the bare-diagonal task from v14.227 separately, and read live HEAD/audit before writes.
+
+## 8. Committed-byte and successful scoped CI receipt
+
+Source commit ff5073cb00d0da1022e1943d7baf0f8a512ad579: all six publication files fetched and compared byte-for-byte with direct generated content. Scoped action-precision run [37996855750](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37996855750), job 114045010221, completed/success. Both complete default-source regression and 44537-byte action-precision output cmp passed, including the 50 physical diagnostics and exact z-only operator/action charges. The separate default-scalar workflow run 37996855709, job 114045010123, also completed/success.
+
+This closes computational replay for the higher scalar precision. It does not substitute for the requested independent analytic audit, physical raw-diagonal evaluation, new finite-lift solves or the final paired stationary certificate.
+
+Receipt live HEAD ff5073cb00d0da1022e1943d7baf0f8a512ad579; no newer v14.230+ ledger observed. Append only this lane's v14.229 receipt with a nonforced expected-head update.
