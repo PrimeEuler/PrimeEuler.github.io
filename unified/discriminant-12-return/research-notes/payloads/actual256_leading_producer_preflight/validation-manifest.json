@@ -1,0 +1,99 @@
+{
+  "schema": "cone.actual256-leading-producer-repair-validation.v1",
+  "base_commit": "ad32b9c2d686ba4de45410ab5b3c456c4b95753e",
+  "source_modules": [
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_normalized_leading_source_producer.py",
+      "git_blob_sha": "c6aea1b468e49f8b0ed73e08e03733e7000f176c"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_M8000_M16000_capacity_ratio_source_sensitivity.py",
+      "git_blob_sha": "3db2cab941bb77c3c3c334c55cb4e766ed9320c8"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_full_fft_fixed_capacity_replay.py",
+      "git_blob_sha": "36ce2056c5a8cf7a3edd15f341c72df303046632"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_normalized_joint_reduction_producer.py",
+      "git_blob_sha": "2aaba46daa3dc4a90d34c63b5b2b1d9f4d9fc299"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_ldd_source_operator.py",
+      "git_blob_sha": "1c81644c34385b5e51d76fec3ad367b555a17896"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_ldd_refined_capacity_bracket.py",
+      "git_blob_sha": "817be776a2c88601cbcdf908b95b47289cbad300"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_exact_integer_source_action.py",
+      "git_blob_sha": "d524f779b79477bfb1ce19a9ddd57c2eb72ef6fd"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_exact_outward_certificate.py",
+      "git_blob_sha": "c919acd2336f6d355d41cb993f7a079664b0908c"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_exact_leading_source_certificate.py",
+      "git_blob_sha": "c633347e928da7dba4eaed66c79ed93b93854720"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_M3999_frozen_p4_source_capacity_midpoint.py",
+      "git_blob_sha": "005cff40b9a73d2f96e9373240da5d9492d7f318"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_ldd_remote_source_lead_diagnostic.py",
+      "git_blob_sha": "ed7870edd5171b20baaa133b4a723e0a093a3692"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_kkt_remote_residual_certificate.py",
+      "git_blob_sha": "3b810f3e87132ef6550c4b121222b541c7583375"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_remote_fft_matvec_validation.py",
+      "git_blob_sha": "14c611e8b58fa784d0d43a96f2d2f02c65ce6a9b"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_endpoint_M3999_midpoint_effective_core.py",
+      "git_blob_sha": "7082d2c6964508e8c97fb6e76d21857bc360d09f"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_exact_represented_trace_certificate.py",
+      "git_blob_sha": "05e27bcf28fe728c9519c40c727acc643d4fdb8b"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_ldd_native_matvec.py",
+      "git_blob_sha": "f5cadb7a6bdacb6ff2c15c98b833ce42186139cb"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_fixed_normalizer_joint_residual_replay.py",
+      "git_blob_sha": "4d2f2495287bc04cb26df660c26e1e190f9500c4"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_doubledouble_source_operator.py",
+      "git_blob_sha": "8fe56e047b1dbee274eee22c98d9d95c717ae3d3"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_trace_congruence_replay.py",
+      "git_blob_sha": "10f0853a25d99e26516310d4ee1012eac224631e"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_frozen_trial_far_outward.py",
+      "git_blob_sha": "6b7e337eb6bc6305ff9650b61583ba12dfddf08d"
+    },
+    {
+      "path": "unified/discriminant-12-return/research-notes/suzuki_tail_P4_residual_basis_certificate.py",
+      "git_blob_sha": "eea2f26b48d0f685e36614b61d4c151d6d3c56c4"
+    }
+  ],
+  "failed_run": 37960118305,
+  "failed_jobs": [
+    113920522870,
+    113920523308
+  ],
+  "preflight_mode_count": 128000,
+  "preflight_expected_cutoff": 256000,
+  "strict_invalid_32000_rejected": true,
+  "full_numerical_solve_executed_locally": false
+}

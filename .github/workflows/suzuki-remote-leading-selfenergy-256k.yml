@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/suzuki-remote-leading-selfenergy-256k.yml'
       - 'unified/discriminant-12-return/research-notes/suzuki_remote_leading_selfenergy_pair.py'
+      - 'unified/discriminant-12-return/research-notes/suzuki_normalized_remote_leading_source_256k.py'
+      - 'unified/discriminant-12-return/research-notes/payloads/frozen_base_P_actual256/**'
   workflow_dispatch:
 
 permissions:
@@ -33,13 +35,23 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgmp10
-          python -m pip install numpy scipy mpmath==1.3.0
+          python -m pip install numpy==2.4.6 scipy==1.17.1 mpmath==1.3.0
+      - name: Validate actual 256k producer configuration and frozen anchor
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_normalized_remote_leading_source_256k.py
+          --sector ${{ matrix.sector }} --cutoff 256000
+          --anchor-root payloads/M64000_corrected_run_37659896312
+          --frozen-P-root payloads/frozen_base_P_actual256
+          --output /tmp/leading-256000-${{ matrix.sector }}.preflight.json
+          --preflight-only
       - name: Full finite 256k leading source solve
         working-directory: unified/discriminant-12-return/research-notes
         run: >-
-          python suzuki_normalized_leading_source_producer.py
+          python suzuki_normalized_remote_leading_source_256k.py
           --sector ${{ matrix.sector }} --cutoff 256000
           --anchor-root payloads/M64000_corrected_run_37659896312
+          --frozen-P-root payloads/frozen_base_P_actual256
           --output /tmp/leading-256000-${{ matrix.sector }}.json
       - name: Independently replay complete integer source certificate
         working-directory: unified/discriminant-12-return/research-notes
@@ -53,6 +65,7 @@ jobs:
         with:
           name: remote-leading-selfenergy-full-256000-${{ matrix.sector }}
           path: |
+            /tmp/leading-256000-${{ matrix.sector }}.preflight.json
             /tmp/leading-256000-${{ matrix.sector }}.json
             /tmp/leading-256000-${{ matrix.sector }}.full.zip
             /tmp/leading-256000-${{ matrix.sector }}.certificate.json
@@ -73,7 +86,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgmp10
-          python -m pip install numpy scipy mpmath==1.3.0
+          python -m pip install numpy==2.4.6 scipy==1.17.1 mpmath==1.3.0
       - uses: actions/download-artifact@v4
         with:
           pattern: remote-leading-selfenergy-full-256000-*
