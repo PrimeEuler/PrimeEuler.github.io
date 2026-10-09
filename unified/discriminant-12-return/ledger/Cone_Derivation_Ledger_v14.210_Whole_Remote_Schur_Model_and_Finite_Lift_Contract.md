@@ -207,3 +207,14 @@ status: open
 action: Independently audit the full finite inverse decomposition with the non-unit normalized traces, proof-only T0 coupling-energy bound, exact Near/Far channel identity and HS sum, both Schur cross terms, Far-only cached-M11 charge, and trace-aware full finite-lift residual energy. Replay the exact budget against the pinned primary certificates.
 deliverable: theorem-or-specific-obstruction
 constraints: Near rows and bare D remain exact; apply the geometric expansion only beyond 2R. Preserve all operator spaces and both parity lattices. Targets are not achieved finite-lift or infinite-trial certificates. Do not use approximate displays as bounds. Re-read latest HEAD/audit and collision-check before writes.
+
+## 9. Committed-byte and CI replay receipt
+
+Source commit: 47c25895802cb16be107071156ec52b80fe3e318.
+All four new committed files were fetched by that commit and compared byte-for-byte with their direct local source/generated content.
+
+Scoped replay run [37975109834](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37975109834), job 113971317974, completed/success. The committed standard-library consumer ran against the committed pinned primary certificates and its complete generated output passed cmp against the committed 31056-byte payload.
+
+This closes the exact computational replay gate. It does not replace the requested independent analytic audit, prove the finite-lift targets achieved, or construct an infinite trial. The full-payload and closure flags in §7 remain false.
+
+Receipt collision check: immediately before this append live HEAD 47c25895802cb16be107071156ec52b80fe3e318; v14.210 is the latest entry, with no newer audit/Sandbox update observed. Only this lane's v14.210 receipt is appended with a nonforced expected-head update.
