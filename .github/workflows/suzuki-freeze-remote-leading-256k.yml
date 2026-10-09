@@ -1,0 +1,63 @@
+name: Freeze completed Suzuki 256k remote leading archive
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-freeze-remote-leading-256k.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/download-artifact@v4
+        with:
+          name: remote-leading-selfenergy-frozen-256000
+          run-id: 37965642729
+          github-token: ${{ github.token }}
+          path: /tmp/remote-leading256-input
+      - name: Lossless hash-pinned archive freeze
+        run: >-
+          python unified/discriminant-12-return/research-notes/suzuki_freeze_remote_leading_256k.py
+          --input-root /tmp/remote-leading256-input
+          --output-root /tmp/remote-leading256-frozen
+      - name: Publish new archive with nonforced collision-safe push
+        shell: bash
+        run: |
+          set -euo pipefail
+          target=unified/discriminant-12-return/research-notes/payloads/exact_remote_leading_run_37965642729
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin master
+            git checkout --detach origin/master
+            head=$(git rev-parse HEAD)
+            if git cat-file -e "HEAD:$target/artifact_manifest.json" 2>/dev/null; then
+              echo "Archive target already exists; refusing collision."
+              exit 1
+            fi
+            test ! -e "$target"
+            mkdir -p "$target"
+            cp /tmp/remote-leading256-frozen/* "$target/"
+            git add -- "$target"
+            git commit -m "Freeze complete hash-verified remote leading 256k archive from run 37965642729"
+            if git push origin HEAD:refs/heads/master; then
+              echo "Published full archive after HEAD $head" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            echo "Concurrent HEAD change; fetching and rebuilding archive-only commit."
+          done
+          echo "Nonforced publication failed after three fresh HEAD attempts."
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: remote-leading256-lossless-text-freeze
+          path: /tmp/remote-leading256-frozen
+          if-no-files-found: error
