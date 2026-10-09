@@ -47,3 +47,7 @@ status: open
 action: Review the new full-front-256k leading source/input contract and collector provenance while the CI producer runs. On publication of the complete actual output archive, independently verify/replay both sectors before the M11_R data enters remote trial/action bounds.
 deliverable: source-contract-audit; actual-payload-audit-after-freeze
 constraints: M11_256000 is a remote self-energy coefficient, not a replacement for the original C_S_32000. Retain both cross terms and all higher/remainder channels; a leading-only model is not an exact Schur action. Do not treat the 32k collector fixture as a new 256k result. Re-read latest ledger/audit and collision-check before writes.
+
+## Launch receipt
+
+GitHub Actions run [37960118305](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37960118305) was observed in progress for source commit `1d8efe252d2bc1f08653a999b7e2aabf6e33ff21`. Both parity jobs have started: odd-v job 113920522870 and even-v job 113920523308. Checkout and Python setup succeeded; dependency installation was in progress when inspected. The physical 256k source solves and full-vector replays are still pending at that inspection. This records actual launch, not a numerical result or successful gate completion.
