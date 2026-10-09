@@ -57,3 +57,19 @@ status: open
 action: Review the dedicated 256k entry point and exact frozen-P extraction/loader, verify both preflight payloads and unchanged physical-source/certificate path, then independently audit the complete actual run archive when the solve/replay gate succeeds and is frozen.
 deliverable: producer-correction-audit; full-payload-audit-after-freeze
 constraints: Do not relax P fingerprints or numerical caps; preflight is not a numerical solve. Preserve original C_S_32000 and failed-run provenance. Re-read HEAD/latest audit and collision-check before writes.
+
+## 5. CI launch receipt — observed configuration gate
+
+Source commit: 0aaff9b4d0225679d02d3d031515f8f578bb6b4c.
+Run: [37965642729](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/37965642729), attempt 1.
+
+The GitHub jobs API directly reports both dedicated configuration/frozen-anchor preflight steps completed with conclusion success, and both full finite 256k leading-source solve steps in progress:
+
+| Sector | Job ID | Preflight | Full solve | Exact replay |
+| --- | --- | --- | --- | --- |
+| odd-v | 113939179446 | completed / success | in progress | pending |
+| even-v | 113939179849 | completed / success | in progress | pending |
+
+This closes the observed startup/configuration failure of the earlier run, not the numerical gate. No completed solve, replay, accepted M11_256k interval or infinite-tail closure is asserted. The sandbox HANDOFF above remains open. Next gate: both solves and complete integer replays; then paired collection, artifact retrieval, direct-byte hash verification and durable publication before numerical use.
+
+Receipt collision check: latest HEAD 0aaff9b4d0225679d02d3d031515f8f578bb6b4c; latest Sandbox v14.204 and External Audit v14.198 re-read; no newer ledger entry observed. This appends only the owning lane's v14.205 launch receipt using an expected-head non-forced update.
