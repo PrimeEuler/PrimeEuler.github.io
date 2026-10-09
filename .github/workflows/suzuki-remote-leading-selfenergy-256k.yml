@@ -1,0 +1,104 @@
+name: Suzuki actual 256k remote leading self-energy
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/suzuki-remote-leading-selfenergy-256k.yml'
+      - 'unified/discriminant-12-return/research-notes/suzuki_remote_leading_selfenergy_pair.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+
+jobs:
+  full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+          python -m pip install numpy scipy mpmath==1.3.0
+      - name: Full finite 256k leading source solve
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_normalized_leading_source_producer.py
+          --sector ${{ matrix.sector }} --cutoff 256000
+          --anchor-root payloads/M64000_corrected_run_37659896312
+          --output /tmp/leading-256000-${{ matrix.sector }}.json
+      - name: Independently replay complete integer source certificate
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_exact_leading_source_certificate.py
+          --snapshot /tmp/leading-256000-${{ matrix.sector }}.full.zip
+          --reference /tmp/leading-256000-${{ matrix.sector }}.certificate.json
+          --output /tmp/leading-256000-${{ matrix.sector }}.replayed.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: remote-leading-selfenergy-full-256000-${{ matrix.sector }}
+          path: |
+            /tmp/leading-256000-${{ matrix.sector }}.json
+            /tmp/leading-256000-${{ matrix.sector }}.full.zip
+            /tmp/leading-256000-${{ matrix.sector }}.certificate.json
+            /tmp/leading-256000-${{ matrix.sector }}.replayed.json
+            /tmp/leading-256000-${{ matrix.sector }}.trace.json.gz
+          if-no-files-found: error
+
+  paired:
+    needs: full
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install replay dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp10
+          python -m pip install numpy scipy mpmath==1.3.0
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: remote-leading-selfenergy-full-256000-*
+          merge-multiple: true
+          path: /tmp/leading
+      - name: Recompose outward full-front M11 intervals
+        working-directory: unified/discriminant-12-return/research-notes
+        run: >-
+          python suzuki_remote_leading_selfenergy_pair.py
+          --even /tmp/leading/leading-256000-even-v.certificate.json
+          --odd /tmp/leading/leading-256000-odd-v.certificate.json
+          --cutoff 256000 --output /tmp/leading/remote-leading-selfenergy-256000.json
+      - name: Freeze complete artifact byte manifest
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('/tmp/leading')
+          entries=[{'path':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+                   for p in sorted(root.iterdir()) if p.is_file()]
+          (root/'manifest.json').write_text(json.dumps({'schema':'cone.remote-leading-ci-byte-manifest.v1','files':entries},indent=2,sort_keys=True)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: remote-leading-selfenergy-frozen-256000
+          path: /tmp/leading
+          if-no-files-found: error

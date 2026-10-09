@@ -1,0 +1,39 @@
+{
+  "cases": [
+    {
+      "M11_full_front_interval_display_approximate": [
+        "12707.201645634778463058626174172895551487997927036",
+        "12707.223179882362501322052769646215086157392577549"
+      ],
+      "M11_full_front_interval_rational": [
+        "79764397501722553505355392254037172723791563511235516747347255/6277101735386680763835789423207666416102355444464034512896",
+        "39882266337192716759188179074223290193215273670724992857141951/3138550867693340381917894711603833208051177722232017256448"
+      ],
+      "certificate_sha256": "2a8f27f9163522475d5fa88573d1e2882b90b248ff6520c2244b11eba923bf59",
+      "cutoff": 32000,
+      "exact_capacity_recomposition_matches_certificate": true,
+      "sector": "even-v"
+    },
+    {
+      "M11_full_front_interval_display_approximate": [
+        "12062.988740875206428978602934519551354398006847884",
+        "12062.988748954201933623533283340373260141068843355"
+      ],
+      "M11_full_front_interval_rational": [
+        "37860303779648874697144447634892690813544962122009938844388887/3138550867693340381917894711603833208051177722232017256448",
+        "75720607610010426096676780274084728720044112923080673706252059/6277101735386680763835789423207666416102355444464034512896"
+      ],
+      "certificate_sha256": "779292eddc359b1162bbb54f342a4d6f75ad48936b258809ea4521e67ee8f6a4",
+      "cutoff": 32000,
+      "exact_capacity_recomposition_matches_certificate": true,
+      "sector": "odd-v"
+    }
+  ],
+  "cutoff": 32000,
+  "infinite_capacity_tail_closed": false,
+  "infinite_operator_action_certified": false,
+  "original_C_S_32000_replaced": false,
+  "role": "Leading coefficient of B_>R,<=R A_R^-1 B_>R,<=R*; higher channels and geometric remainder still required.",
+  "schema": "cone.remote-leading-full-front-selfenergy.v1",
+  "source_definition": "w1_R(m)=-c z_m+alpha_p L_p p_p(m), every finite m<=R; full A_p,R inverse"
+}
