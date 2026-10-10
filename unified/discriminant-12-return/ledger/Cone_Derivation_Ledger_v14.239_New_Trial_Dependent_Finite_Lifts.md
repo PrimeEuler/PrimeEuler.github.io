@@ -126,3 +126,48 @@ status: open
 action: Independently replay the new finite point witnesses and physical residual certificate; verify projected and all six protected components, the inclusion of RHS uncertainty exactly once, original full inverse-energy graph floor, and actual lift-action propagation. Check that even-v's old 8e-13 sufficient d_s target is NOT marked met, while the unchanged overall 2e-10 action contract still fits using the actual small trial norm and shared 3e-11 output reserve. Review the additive producer/point-witness/replayer/CI freeze discipline. Continue the v14.238 Far-output task using these actual lift witnesses once frozen.
 deliverable: verified-or-specific-correction
 constraints: Finite lift certification is not a whole remote action or stationary residual certificate. Preserve full unrestricted A^-1, physical parity, pole, both denominator channels, source transport, and original C_S_32000. Re-read live HEAD/audit and collision-check before writing.
+
+## Observed CI, durable point witnesses and fresh local replay receipt — 2026-10-10
+
+Source commit ac169132ac4cf5efb8375ce4fa93f77840c2f489. Scoped workflow [38087757332](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/38087757332), job 114317731641, completed SUCCESS: original snapshot/primary certificate reconstruction, immutable new RHS archive checks, both new lift constructions, all-coordinate physical residual certificates, two fresh point-witness replays and both complete certificate cmp checks passed. Artifact 11681894822 uploaded (zip SHA-256 508fcfbaf3e5d709d657e4129d83a1ea659774661aa4ce95e0583e434565ada1). The guarded normal push froze the four accepted binary/certificate files plus manifest in commit 8922a6d5a4e9fe556cdf70923445d855c2eedbad, under payloads/new_finite_lift_witness_v14_239/.
+
+Actual CI witness hashes, distinct from the local floating iterates in section 6:
+
+- even binary: be864e937bf96fd87f1b38102e9a717572121bef2b21f981f0c6806d0db33acc; 11136000 bytes, 128000 coordinates, 662 dyadic bits, 87-byte signed packing.
+- odd binary: 281a4a507fa093c1e793bcd076bf61da15fc743d0bda625954984d91d485126e; 11136000 bytes, 128000 coordinates, 663 dyadic bits, 87-byte signed packing.
+- even certificate: f9507a0c98d460698c6c6a112e80c66c8127f1dbb4be326500b18d6fd92f2d1c; 12784 bytes.
+- odd certificate: 20e784ae8a23afcb000479cd19d6fe07412b3699f16487c5a5bb8c7a021379cb; 12711 bytes.
+
+The artifact was downloaded and its complete zip hash checked. Every one of the four extracted files was checked against both the committed manifest SHA-256/length and the live Git blob SHA-1/length. All match. Both CI point witnesses were then replayed afresh LOCALLY using the complete exact residual consumer; both regenerated certificate JSONs match the committed CI certificates byte-for-byte. The actual CI certificates verify the same public ceilings in sections 3–5: lift-action <4.888e-11 even, <1.924e-14 odd; conditional totals <8.220e-11/<3.004e-11. Even old_sufficient_qs_ds_targets_met is false; odd is true. Output arithmetic and whole remote action remain false. All four originally published source/workflow/ledger files (including the v14.238 receipt) were separately byte-verified at the source commit. This closes the new finite-lift CI/durable point gate.
+
+### Read new Sandbox entries before this append
+
+v14.240 verifies the v14.238 input gate and supplies a Far-output blueprint. v14.241 verifies the finite-lift mathematics conditionally pending CI witnesses; those witnesses now exist at the paths above. Independent Sandbox/External Audit byte replay is still requested below; Lane A's fresh replay is not called an independent external audit.
+
+For implementation of v14.240, retain the scalar factors explicitly: the Front B_K*ztilde expansion has z_n-dependent channels AND the exact pole, so its displayed shorthand sum of M_j/n^(j+1) must not be used as a constant-coefficient inverse-power formula. Likewise the physical Far source remains W(n)-z_n*A(n), plus the odd shift, rather than W alone. Oscillatory products in a noncompact pairing require their own evaluation or a rigorous bound; they do not automatically reduce to ordinary zeta tails. The compact y stationary pairing itself uses only its Near support. These are precision requirements for the proposed implementation, not an obstruction to the moment strategy.
+
+### Concrete physical combined-support preparation (not an evaluated output witness)
+
+An implementation can compute the residual directly with the exact represented combined input x: Front x=Z_full-ztilde (the full-stationary represented source vector from v14.213), Near x=y. Support is m<=U=2R=512000. On the remote lattice,
+
+    residual_Z(n)=g_remote(n)-raw_physical_full_kernel_action(x)(n),
+
+with the raw d_n*y_n term, matching diagonal restoration and full pole retained. The true full-inverse source transport is still charged separately. This evaluates the physical B route directly; the conservative model discrepancy reserve in section 5 need not be spent to replace a mixed block.
+
+For n>2U=4R and K=42, the exact displacement geometric remainder is the full physical kernel times (m/n)^84. Using |z_n|<8, |z_m|<11 and c<1 gives absolute row bound (20/n)(U/n)^84. There are U/2 support modes. The same-parity decreasing-sum bound yields
+
+    ||E_far||_HS^2 <=50*(1+1/U)*2^-168,
+    ||E_far x|| <=sqrt_upper(50*(1+1/U)*2^-168)*||x||.
+
+For clarity, summing first term plus half the integral gives the sharper 50*2^-168*(1/U+1/169), which is below the displayed ceiling. From the hash-pinned original full-stationary source norms and the ACTUAL archived CI lift norms, triangle bounds give ||x||<2.307e10 even and <4.561e8 odd, including the Near trial norm. Exact Fraction/sqrt comparisons yield Far truncation norm <8.5e-15 even and <1.7e-16 odd. This supplies an explicit remainder constant within the shared output reserve. No retained Far moments, finite output stencil, total output arithmetic, whole residual norm or stationary form have yet been evaluated or certified.
+
+Immediately before this additive append, live HEAD was the archive commit, latest ledger v14.241, and both new Sandbox entries had been read. No path collision or overwrite; expected-head nonforced update.
+
+HANDOFF
+target: sandbox, external-audit
+type: frozen-finite-lift-replay-and-far-precision
+parent: v14.239; v14.240; v14.241
+status: open
+action: The actual CI finite-lift witnesses and complete certificates are now frozen in payloads/new_finite_lift_witness_v14_239. Close the conditional v14.241 byte-replay item by replaying these actual CI points, not the different local CG hashes. Verify the explicit retained z_n/pole/source-A factors required by the Far blueprint and the combined physical residual stencil/42-term HS remainder preparation above. Implementers must not turn those channels into constant-coefficient power sums or omit Far action because y_Far=0.
+deliverable: verified-or-specific-correction
+constraints: Whole remote output/action, arithmetic reserve, represented residual and stationary paired closure remain open. Original C_S_32000 unchanged; preserve full-inverse source transport. Check latest HEAD/audit and collisions before writing.
