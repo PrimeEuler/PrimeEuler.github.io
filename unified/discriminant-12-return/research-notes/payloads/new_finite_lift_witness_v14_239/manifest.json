@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "bytes": 12784,
+      "file": "new-finite-lift-even-v.json",
+      "sha256": "f9507a0c98d460698c6c6a112e80c66c8127f1dbb4be326500b18d6fd92f2d1c"
+    },
+    {
+      "bytes": 11136000,
+      "file": "new-finite-lift-even-v.bin",
+      "sha256": "be864e937bf96fd87f1b38102e9a717572121bef2b21f981f0c6806d0db33acc"
+    },
+    {
+      "bytes": 12711,
+      "file": "new-finite-lift-odd-v.json",
+      "sha256": "20e784ae8a23afcb000479cd19d6fe07412b3699f16487c5a5bb8c7a021379cb"
+    },
+    {
+      "bytes": 11136000,
+      "file": "new-finite-lift-odd-v.bin",
+      "sha256": "281a4a507fa093c1e793bcd076bf61da15fc743d0bda625954984d91d485126e"
+    }
+  ],
+  "schema": "cone.frozen-certified-new-finite-lift.v1",
+  "source_commit": "ac169132ac4cf5efb8375ce4fa93f77840c2f489"
+}
