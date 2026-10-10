@@ -1,0 +1,15 @@
+{
+  "all_50_original_exact_nonprime_intervals_nested": true,
+  "all_50_original_physical_diagnostics_repeated": true,
+  "cached_moment_radius_budget_rational": "10000000000/2^B",
+  "complete_original_action_gate_byte_identical": true,
+  "finite_lift_solve_certified": false,
+  "infinite_capacity_tail_closed": false,
+  "minimum_working_bits": 512,
+  "nonprime_point_arithmetic_error_budget_rational": "1000000000000/2^B",
+  "original_action_gate_sha256": "4437af2f84b24e9adcb01de6b4833abcd0acaf21ec756283b93a103041b39674",
+  "original_scalar_producer_modified": false,
+  "schema": "cone.bulk-action-z-replay.v1",
+  "uniform_total_radius_strict_upper_rational": "1/1000000000000000000000000000000000000000",
+  "whole_remote_action_evaluated": false
+}
