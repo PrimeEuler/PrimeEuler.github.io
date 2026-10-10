@@ -1,0 +1,57 @@
+name: Suzuki combined-support Far action replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-combined-far-action.yml
+      - unified/discriminant-12-return/research-notes/suzuki_combined_far_action.py
+      - unified/discriminant-12-return/research-notes/payloads/combined_far_action_v14_243/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-far-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Reconstruct hash-bound actual256 witnesses
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,shutil
+          from pathlib import Path
+          root=Path('payloads/exact_outward_run_37827949740')
+          manifest=json.loads((root/'artifact_manifest.json').read_text())
+          for x in manifest['files']:
+              raw=(root/x['file']).read_bytes()
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+          target=Path('/tmp/full-stationary-input');target.mkdir()
+          for x in manifest['snapshots']:
+              if x['cutoff']!=256000:continue
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in x['base64_parts']),validate=True)
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+              (target/x['snapshot_file']).write_bytes(raw)
+              shutil.copyfile(root/x['certificate_file'],target/x['certificate_file'])
+          for short in ('even','odd'):
+              for kind in ('moments','far'):
+                  name=f'frozen256-{short}-{kind}.json'
+                  shutil.copyfile(root/name,target/name)
+          Path('/tmp/full-stationary-results').mkdir()
+          PY
+      - name: Recompute every retained coefficient and complete direct rows
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for sector in even-v odd-v; do
+            python suzuki_combined_far_action.py --root /tmp/full-stationary-input --rhs-root payloads/near_trial_rhs_witness_v14_238 --lift-root payloads/new_finite_lift_witness_v14_239 --source-root payloads/full_stationary_source_v14_213 --sector "$sector" --output "/tmp/full-stationary-results/combined-far-action-$sector.json"
+            cmp "payloads/combined_far_action_v14_243/combined-far-action-$sector.json" "/tmp/full-stationary-results/combined-far-action-$sector.json"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: combined-support-far-action
+          path: /tmp/full-stationary-results
+          if-no-files-found: error
