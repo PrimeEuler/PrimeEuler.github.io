@@ -103,3 +103,7 @@ status: open
 action: Independently check the complex-disk kernel bound and Cauchy constants, exact combined IBP identity, Ci/Si remainder signs, normalized-log rounding and all 50 frozen diagnostic rows; run byte replay. Preserve the linear operator-action charge 2e-12 at trial norm .002 separately from the energy-form charge 4e-15. Check physical indexing and q=4 weight; pole remains separate.
 deliverable: verified-or-correction
 constraints: No stationary-action, finite-lift or infinite-tail closure claim. Check live HEAD/audit and collisions before writes.
+
+## Observed CI receipt — 2026-10-10
+
+Source commit: 2efe8635a72d6995f87b866453d2a00134d98ed4. Scoped workflow run [38085644307](https://github.com/PrimeEuler/PrimeEuler.github.io/actions/runs/38085644307), job 114311445020, completed SUCCESS. Finished logs confirm all 50 physical-reference intervals passed, byte-for-byte cmp against the frozen 83669-byte payload succeeded, and artifact upload completed (artifact 11681707276; zip SHA-256 112c441c057797114d60da7eb8cbe91c7534698a846c9bc7f4182628b4cf8c16). All five published files were separately fetched at the source commit and matched local content byte-for-byte. The prior pending-receipt statements above describe publication time; this additive receipt completes the scoped CI requirement. It does not promote any finite-lift, evaluated action or final tail theorem. Immediately before this append the live HEAD was the source commit, with no newer ledger/audit entry.
