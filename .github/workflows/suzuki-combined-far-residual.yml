@@ -1,0 +1,34 @@
+name: Suzuki corrected combined Far residual replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-combined-far-residual.yml
+      - unified/discriminant-12-return/research-notes/suzuki_combined_far_residual.py
+      - unified/discriminant-12-return/research-notes/payloads/combined_far_residual_v14_248/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-far-residual-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Replay corrected two-sided Far residual bounds
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          mkdir -p /tmp/combined-far-residual
+          for sector in even-v odd-v; do
+            python suzuki_combined_far_residual.py --root payloads/combined_far_action_v14_243 --lift-root payloads/new_finite_lift_witness_v14_239 --source-root payloads/full_stationary_source_v14_213 --sector "$sector" --output "/tmp/combined-far-residual/combined-far-residual-$sector.json"
+            cmp "payloads/combined_far_residual_v14_248/combined-far-residual-$sector.json" "/tmp/combined-far-residual/combined-far-residual-$sector.json"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: corrected-combined-far-residual
+          path: /tmp/combined-far-residual
+          if-no-files-found: error
