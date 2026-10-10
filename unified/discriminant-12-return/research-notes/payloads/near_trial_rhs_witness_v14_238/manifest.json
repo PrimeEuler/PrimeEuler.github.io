@@ -1,0 +1,51 @@
+{
+  "files": [
+    {
+      "bytes": 3958,
+      "file": "new-near-trial-rhs-even-v.json",
+      "sha256": "7183ea82d33db24ece4cbb4c73e7ff84a001fe1783c565dc90dcd7fac498af45"
+    },
+    {
+      "bytes": 2688000,
+      "file": "even-v-action-z-near.bin",
+      "sha256": "a20f6112a925f8967aaf143f3f04eb3e16db3082531f3fb2c3e4961181266c30"
+    },
+    {
+      "bytes": 3840000,
+      "file": "even-v-lift-rhs.bin",
+      "sha256": "175066bb327e7d0bb5c19c6303babf27d56f2fba82ea6e825ce7ad5a59a47a62"
+    },
+    {
+      "bytes": 2304000,
+      "file": "even-v-trial-near.bin",
+      "sha256": "fd23702adaf8ead11dd9f809c82eefb3ec075ea920cbf524dddacc719208911d"
+    },
+    {
+      "bytes": 3949,
+      "file": "new-near-trial-rhs-odd-v.json",
+      "sha256": "3865461f0f672a0b04a9511cc49527f28316fc5c5ed551fb10b813cd9c3f2480"
+    },
+    {
+      "bytes": 2688000,
+      "file": "odd-v-action-z-near.bin",
+      "sha256": "d7d9b69731ce4c94a59f13c4156969ff40a24b8f5f55989bbe32b9fb8ee103a2"
+    },
+    {
+      "bytes": 3840000,
+      "file": "odd-v-lift-rhs.bin",
+      "sha256": "9d104eaf5ce67e1f853b05c649e80b50c581535cc6f13bcbd801f7135cc00910"
+    },
+    {
+      "bytes": 2304000,
+      "file": "odd-v-trial-near.bin",
+      "sha256": "9bdfe100bb78ecb8e58130e885c25bb73276f74e60d25d9d040fa82bebd0e4c4"
+    },
+    {
+      "bytes": 750,
+      "file": "bulk-action-z-gate.json",
+      "sha256": "9bf149989cb12ab4e7b8984af142aefc72dc501c14a9dc7022b419cea8e05865"
+    }
+  ],
+  "schema": "cone.frozen-new-near-trial-lift-rhs.v1",
+  "source_commit": "1bd7ec50432d34f3304e46a3f6563c0d102b2402"
+}
