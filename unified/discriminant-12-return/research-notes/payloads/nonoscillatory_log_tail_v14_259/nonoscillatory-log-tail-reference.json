@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "a": 512001,
+      "independent_90_digit_reference_inside_directed_interval": true,
+      "p": 2
+    },
+    {
+      "a": 512001,
+      "independent_90_digit_reference_inside_directed_interval": true,
+      "p": 128
+    },
+    {
+      "a": 512002,
+      "independent_90_digit_reference_inside_directed_interval": true,
+      "p": 3
+    }
+  ],
+  "reference_not_used_for_certificate": true,
+  "schema": "cone.nonoscillatory-log-tail-reference.v1"
+}
