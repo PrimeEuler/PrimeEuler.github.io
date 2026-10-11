@@ -1,0 +1,33 @@
+name: Suzuki complete infinite RHS moments replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-rhs-moments.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_rhs_moments.py
+      - unified/discriminant-12-return/research-notes/payloads/infinite_rhs_moments_v14_263/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  complete-inverse-moments-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute both physical infinite moment banks
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for sector in even-v odd-v; do
+            python suzuki_infinite_rhs_moments.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --coefficients payloads/physical_tail_coefficients_v14_262/physical-tail-coefficients.json --real-scalars payloads/nonoscillatory_log_tail_v14_259/nonoscillatory-log-tail.json --sector "$sector" --output "/tmp/infinite-rhs-moments-$sector.json"
+            cmp "payloads/infinite_rhs_moments_v14_263/infinite-rhs-moments-$sector.json" "/tmp/infinite-rhs-moments-$sector.json"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: complete-infinite-rhs-moments
+          path: /tmp/infinite-rhs-moments-*.json
+          if-no-files-found: error
