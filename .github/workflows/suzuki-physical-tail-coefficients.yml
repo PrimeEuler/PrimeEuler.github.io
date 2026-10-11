@@ -1,0 +1,31 @@
+name: Suzuki physical tail coefficients replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-physical-tail-coefficients.yml
+      - unified/discriminant-12-return/research-notes/suzuki_physical_tail_coefficients.py
+      - unified/discriminant-12-return/research-notes/payloads/physical_tail_coefficients_v14_262/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-physical-coefficients-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute physical coefficient models and reference checks
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_physical_tail_coefficients.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --output /tmp/physical-tail-coefficients.json
+          cmp payloads/physical_tail_coefficients_v14_262/physical-tail-coefficients.json /tmp/physical-tail-coefficients.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: physical-tail-coefficients
+          path: /tmp/physical-tail-coefficients.json
+          if-no-files-found: error
