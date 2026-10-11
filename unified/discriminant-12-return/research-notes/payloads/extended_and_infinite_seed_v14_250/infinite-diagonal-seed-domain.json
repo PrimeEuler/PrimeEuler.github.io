@@ -1,0 +1,51 @@
+{
+  "cases": [
+    {
+      "Near_recipe": "reuse frozen v14.238 compact Near trial exactly",
+      "action_evaluated": false,
+      "admissible_in_logarithmic_diagonal_domain": true,
+      "display_approximate": {
+        "logarithmic_diagonal_norm_upper": 0.0016620166098830062,
+        "whole_trial_norm_upper": 0.00014514523879619192
+      },
+      "first_infinite_mode": 512001,
+      "near_trial_certificate_sha256": "7183ea82d33db24ece4cbb4c73e7ff84a001fe1783c565dc90dcd7fac498af45",
+      "rational": {
+        "Far_trial_norm_upper": "138352742638407740193217340206963327098188777838999345955292713765370969659/1273712981610478149659280835095566986385969831322046204434033424087044426039296",
+        "Phi_tail_norm_upper": "138352742638407740193217340206963327098188777838999345955292713765370969659/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+        "whole_logarithmic_diagonal_norm_upper": "192448375605474784874008721859214288343844250235319777581032755005228169589/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+        "whole_trial_norm_upper": "16806670443060222322902736041999012930751623122029361850799751778947713891/115792089237316195423570985008687907853269984665640564039457584007913129639936"
+      },
+      "residual_acceptance_met": false,
+      "sector": "even-v",
+      "tail_recipe": "Phi(n)=sum W_j/n^(2j+1)-z_physical(n)*sum A_j/n^(2j+2)+odd/(n*(n-1)); y(n)=Phi(n)/log(n/4)",
+      "trial_tail_numerically_evaluated": false
+    },
+    {
+      "Near_recipe": "reuse frozen v14.238 compact Near trial exactly",
+      "action_evaluated": false,
+      "admissible_in_logarithmic_diagonal_domain": true,
+      "display_approximate": {
+        "logarithmic_diagonal_norm_upper": 0.0016604918812192452,
+        "whole_trial_norm_upper": 0.00014501186810722864
+      },
+      "first_infinite_mode": 512002,
+      "near_trial_certificate_sha256": "3865461f0f672a0b04a9511cc49527f28316fc5c5ed551fb10b813cd9c3f2480",
+      "rational": {
+        "Far_trial_norm_upper": "138223528122458315466393463600044505299813850820755218023255527014203242095/1273712981610478149659280835095566986385969831322046204434033424087044426039296",
+        "Phi_tail_norm_upper": "138223528122458315466393463600044505299813850820755218023255527014203242095/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+        "whole_logarithmic_diagonal_norm_upper": "192271824087977890413648645226814942421196289502176320348090226152437374385/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+        "whole_trial_norm_upper": "4197806793085535910309622857913199687177285026305247691510530031130500071/28948022309329048855892746252171976963317496166410141009864396001978282409984"
+      },
+      "residual_acceptance_met": false,
+      "sector": "odd-v",
+      "tail_recipe": "Phi(n)=sum W_j/n^(2j+1)-z_physical(n)*sum A_j/n^(2j+2)+odd/(n*(n-1)); y(n)=Phi(n)/log(n/4)",
+      "trial_tail_numerically_evaluated": false
+    }
+  ],
+  "domain_basis": "Phi is ell2 by inverse-power parity tails and |z|<8; Lambda*y=Phi on Far. Near is finite. Domain(S)=Domain(Lambda) since ||S-Lambda||<575.",
+  "infinite_capacity_tail_closed": false,
+  "requires_finite_42_positive_power_moments": false,
+  "schema": "cone.infinite-diagonal-seed-domain.v1",
+  "source_affine_payload_sha256": "6c2b8d1d76eca772c625042566d9af62d487808795d1479ee7de7e2735bad3d6"
+}

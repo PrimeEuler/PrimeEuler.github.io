@@ -1,0 +1,31 @@
+name: Suzuki infinite diagonal seed domain replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-diagonal-seed.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_diagonal_seed.py
+      - unified/discriminant-12-return/research-notes/payloads/extended_and_infinite_seed_v14_250/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-domain-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute infinite seed domain and norm certificate
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_infinite_diagonal_seed.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --rhs-root payloads/near_trial_rhs_witness_v14_238 --output /tmp/infinite-diagonal-seed-domain.json
+          cmp payloads/extended_and_infinite_seed_v14_250/infinite-diagonal-seed-domain.json /tmp/infinite-diagonal-seed-domain.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: infinite-diagonal-seed-domain
+          path: /tmp/infinite-diagonal-seed-domain.json
+          if-no-files-found: error
