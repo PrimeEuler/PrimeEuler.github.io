@@ -1,0 +1,31 @@
+name: Suzuki infinite tail analytic bounds replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-tail-bounds.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_tail_bounds.py
+      - unified/discriminant-12-return/research-notes/payloads/infinite_tail_bounds_v14_253/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-tail-bounds-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute corrected analytic tail budgets
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_infinite_tail_bounds.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --output /tmp/infinite-tail-bounds.json
+          cmp payloads/infinite_tail_bounds_v14_253/infinite-tail-bounds.json /tmp/infinite-tail-bounds.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: infinite-tail-bounds
+          path: /tmp/infinite-tail-bounds.json
+          if-no-files-found: error
