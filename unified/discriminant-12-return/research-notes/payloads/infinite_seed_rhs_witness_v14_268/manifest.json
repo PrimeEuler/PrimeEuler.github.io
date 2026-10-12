@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "bytes": 3840000,
+      "file": "even-v-infinite-seed-lift-rhs.bin",
+      "sha256": "0c140e15d74a118b0ed0dae6b0c8cf1f2efc950d8e049351783db40e77b00644"
+    },
+    {
+      "bytes": 9415,
+      "file": "infinite-seed-finite-rhs-even-v.json",
+      "sha256": "1dcd60af05c3ad589c8d04d84bd3d5372ce4b4079b12d7626472067dea0d0933"
+    },
+    {
+      "bytes": 9410,
+      "file": "infinite-seed-finite-rhs-odd-v.json",
+      "sha256": "3b05491693a6769fbfdf30b6ed8785384242364223498be73b3fb8f5c00133d4"
+    },
+    {
+      "bytes": 3840000,
+      "file": "odd-v-infinite-seed-lift-rhs.bin",
+      "sha256": "ad4b72819521350a0237b964de9af1f656f60f7056a5a600072e62131af8c8b5"
+    }
+  ],
+  "schema": "cone.frozen-infinite-seed-finite-rhs.v1",
+  "source_commit": "2cf503378dfaa2c65a07109c2129993203a6cbee"
+}
