@@ -1,0 +1,61 @@
+name: Freeze Suzuki infinite seed Region1 composition
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-seed-region1-composition-freeze.yml
+permissions:
+  actions: read
+  contents: write
+jobs:
+  freeze-exact-region1-witnesses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: PrimeEuler/PrimeEuler.github.io
+          run-id: 38310091619
+          pattern: region1-composed-*
+          path: /tmp/region1-composed
+          merge-multiple: true
+      - name: Verify and freeze exact Region1 composed witnesses
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('/tmp/region1-composed')
+          expected={
+            'even-v':('af8ddb14f7499856b55a1904d715157cb6047ba46982ab3502b4b36d48fc8490','1b4d89a6e8399d0d868820b915cab2789ecab0ad5179f4f7a9c316a2441b4f5f','0b5f615301d4246fc93dca77097e52b9ca7bff45d6d2cb95f82ace3636fbb803'),
+            'odd-v':('38c1dbd4c95fa810eebe1c7c001b90107305e69785e919c1e2703e83f8e29604','b63baba904b59e36508808e6687684421427492e9de7336fb684ed26312678a1','a7e3a946aa5e996aea23b4cf89c5b8f2559e1c5f9bd492e32f60105d369c5c2e'),
+          }
+          for sector,(jsha,fsha,csha) in expected.items():
+            jp=root/f'region1-close-plus-far-action-{sector}.json';rawj=jp.read_bytes();assert hashlib.sha256(rawj).hexdigest()==jsha
+            cert=json.loads(rawj);assert cert['full_rectangle_evaluated'] and cert['output_count']==128000
+            assert all(x['directed_interval_contains_represented_point'] for x in cert['directed_row_checks'])
+            for key,want in [('far_action_buffer',fsha),('composed_action_buffer',csha)]:
+              spec=cert[key];raw=(root/spec['file']).read_bytes()
+              assert len(raw)==spec['bytes']==3840000 and hashlib.sha256(raw).hexdigest()==spec['sha256']==want
+          PY
+          git fetch origin master
+          git checkout -B master origin/master
+          target=unified/discriminant-12-return/research-notes/payloads/infinite_seed_region1_composed_action_v14_294
+          mkdir -p "$target"
+          cp /tmp/region1-composed/even-v-region1-far-action.bin "$target/"
+          cp /tmp/region1-composed/even-v-region1-close-plus-far-action.bin "$target/"
+          cp /tmp/region1-composed/region1-close-plus-far-action-even-v.json "$target/"
+          cp /tmp/region1-composed/odd-v-region1-far-action.bin "$target/"
+          cp /tmp/region1-composed/odd-v-region1-close-plus-far-action.bin "$target/"
+          cp /tmp/region1-composed/region1-close-plus-far-action-odd-v.json "$target/"
+          git add "$target"
+          if git diff --cached --quiet; then
+            echo 'Exact Region1 composed witnesses already frozen.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'cone: freeze v14.294 Region1 composed witnesses'
+            git push origin master
+          fi
