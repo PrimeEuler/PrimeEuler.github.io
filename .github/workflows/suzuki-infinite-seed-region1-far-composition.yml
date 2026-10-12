@@ -1,0 +1,37 @@
+name: Suzuki infinite seed Region1 far composition
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-seed-region1-far-composition.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_seed_region1_far_composition.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  directed-region1-composition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Evaluate directed a-start far rows and compose Region1
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_infinite_seed_region1_far_composition.py \
+            --moments payloads/later_start_moments_v14_276/later-start-moments-${{ matrix.sector }}.json \
+            --remainder payloads/weighted_region1_remainder_v14_274/corrected-weighted-remainder.json \
+            --close-root payloads/infinite_seed_region1_close_action_v14_291 \
+            --sector '${{ matrix.sector }}' --output-root /tmp/region1-composed
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: region1-composed-${{ matrix.sector }}
+          path: /tmp/region1-composed
+          if-no-files-found: error
