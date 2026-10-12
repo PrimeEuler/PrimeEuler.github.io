@@ -23,6 +23,12 @@ jobs:
           for sector in even-v odd-v; do
             python suzuki_infinite_seed_region1_residual.py --compact-root payloads/infinite_seed_compact_near_middle_v14_285 --tail-root payloads/infinite_seed_region1_composed_action_v14_294 --lift-root payloads/infinite_seed_finite_lift_witness_v14_269 --source-root payloads/full_stationary_source_v14_213 --sector "$sector" --output-root /tmp/region1-residual
           done
+      - name: Compare frozen exact residual certificates
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for sector in even-v odd-v; do
+            cmp "payloads/infinite_seed_region1_residual_v14_297/region1-residual-$sector.json" "/tmp/region1-residual/region1-residual-$sector.json"
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: actual-infinite-seed-region1-residual
