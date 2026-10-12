@@ -1,0 +1,25 @@
+name: Suzuki corrected weighted Region1 remainder replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-close-far-weighted-remainder.yml
+      - unified/discriminant-12-return/research-notes/suzuki_close_far_weighted_remainder.py
+      - unified/discriminant-12-return/research-notes/payloads/weighted_region1_remainder_v14_274/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  directed-remainder-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute corrected weighted bounds
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_close_far_weighted_remainder.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --output /tmp/corrected-weighted-remainder.json
+          cmp payloads/weighted_region1_remainder_v14_274/corrected-weighted-remainder.json /tmp/corrected-weighted-remainder.json
