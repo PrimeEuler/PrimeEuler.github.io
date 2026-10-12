@@ -1,0 +1,125 @@
+name: Suzuki refined Near finite lift and exact replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-refined-near-finite-lift.yml
+      - unified/discriminant-12-return/research-notes/suzuki_refined_near_finite_lift.py
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  refined-lift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install proposal and exact convolution dependencies
+        run: |
+          python -m pip install numpy scipy
+          sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Reconstruct hash-bound actual256 witnesses
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,shutil
+          from pathlib import Path
+          root=Path('payloads/exact_outward_run_37827949740')
+          manifest=json.loads((root/'artifact_manifest.json').read_text())
+          for x in manifest['files']:
+              raw=(root/x['file']).read_bytes()
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+          target=Path('/tmp/full-stationary-input');target.mkdir()
+          for x in manifest['snapshots']:
+              if x['cutoff']!=256000:continue
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in x['base64_parts']),validate=True)
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+              (target/x['snapshot_file']).write_bytes(raw)
+              shutil.copyfile(root/x['certificate_file'],target/x['certificate_file'])
+          for short in ('even','odd'):
+              for kind in ('moments','far'):
+                  name=f'frozen256-{short}-{kind}.json'
+                  shutil.copyfile(root/name,target/name)
+          Path('/tmp/full-stationary-results').mkdir()
+          PY
+      - name: Download and verify the exact new trial and RHS
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/11776194780/zip > /tmp/refinement.zip
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,zipfile
+          raw=Path('/tmp/refinement.zip').read_bytes()
+          assert hashlib.sha256(raw).hexdigest()=='e33cec417a7c5ea6d74e38619bf1fcaa6b385ed1b5497c978ea949c48c8c2cb5'
+          root=Path('/tmp/refined-trial-and-lift');root.mkdir()
+          pins={'even-v':'cca920b7b5f20fd856807166fdc08cce82f4b108f61831c34f19da29e366f42b','odd-v':'85a45f5fa1e5bedc8100c69a3fd4c31324c10aa30bc635a1e61d9a24ac93c6ba'}
+          with zipfile.ZipFile('/tmp/refinement.zip') as z:
+              for sector,pin in pins.items():
+                  name=f'near-seed-refinement-{sector}.json';raw=z.read(name)
+                  assert hashlib.sha256(raw).hexdigest()==pin
+                  cert=json.loads(raw);(root/name).write_bytes(raw)
+                  for spec in cert['buffers'].values():
+                      data=z.read(spec['file'])
+                      assert len(data)==spec['bytes'] and hashlib.sha256(data).hexdigest()==spec['sha256']
+                      (root/spec['file']).write_bytes(data)
+          PY
+      - name: Compute and independently replay both new finite lifts
+        working-directory: unified/discriminant-12-return/research-notes
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+          MKL_NUM_THREADS: '1'
+        run: |
+          for sector in even-v odd-v; do
+            for mode in produce replay; do
+              python suzuki_refined_near_finite_lift.py --mode "$mode" --root /tmp/full-stationary-input --rhs-root /tmp/refined-trial-and-lift --sector "$sector" --output-root /tmp/refined-trial-and-lift
+            done
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: refined-near-trial-and-certified-lifts
+          path: /tmp/refined-trial-and-lift
+          if-no-files-found: error
+      - name: Freeze the actual verified new trial and lift witnesses
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin master
+            git checkout -B refined-near-freeze origin/master
+            git ls-tree -r --name-only HEAD unified/discriminant-12-return/ledger | sort -V | tail -4 | while read path; do git show "HEAD:$path"; done
+            python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,os
+          src=Path('/tmp/refined-trial-and-lift');dst=Path('unified/discriminant-12-return/research-notes/payloads/refined_near_trial_and_lift_v14_300');blobs={}
+          for sector in ('even-v','odd-v'):
+              for name in (f'near-seed-refinement-{sector}.json',f'refined-near-finite-lift-{sector}.json'):
+                  raw=(src/name).read_bytes();cert=json.loads(raw);blobs[name]=raw
+                  specs=list(cert['buffers'].values()) if 'buffers' in cert else [cert['lift_buffer']]
+                  for spec in specs:
+                      data=(src/spec['file']).read_bytes()
+                      assert len(data)==spec['bytes'] and hashlib.sha256(data).hexdigest()==spec['sha256']
+                      blobs[spec['file']]=data
+          manifest={'schema':'cone.frozen-refined-near-trial-and-lift.v1','source_commit':os.environ['SOURCE_COMMIT'],'files':[{'file':n,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in sorted(blobs.items())]}
+          blobs['manifest.json']=(json.dumps(manifest,indent=2,sort_keys=True)+'\n').encode()
+          if dst.exists():
+              assert {p.name for p in dst.iterdir()}==set(blobs) and all((dst/n).read_bytes()==b for n,b in blobs.items()),'archive collision'
+          else:
+              dst.mkdir(parents=True)
+              for n,b in blobs.items():(dst/n).write_bytes(b)
+          PY
+            git add unified/discriminant-12-return/research-notes/payloads/refined_near_trial_and_lift_v14_300
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Freeze refined Near trial and fresh certified lifts v14.300'
+            if git push origin HEAD:master; then exit 0; fi
+          done
+          exit 1
+
