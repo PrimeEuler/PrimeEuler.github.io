@@ -1,0 +1,33 @@
+name: Suzuki direct later-start inverse moments replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-later-start-inverse-moments.yml
+      - unified/discriminant-12-return/research-notes/suzuki_later_start_inverse_moments.py
+      - unified/discriminant-12-return/research-notes/payloads/later_start_moments_v14_276/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  later-start-moments-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute direct later-start moment banks
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for sector in even-v odd-v; do
+            python suzuki_later_start_inverse_moments.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --coefficients payloads/physical_tail_coefficients_v14_262/physical-tail-coefficients.json --real-scalars payloads/nonoscillatory_log_tail_v14_259/nonoscillatory-log-tail.json --sector "$sector" --output "/tmp/later-start-moments-$sector.json"
+            cmp "payloads/later_start_moments_v14_276/later-start-moments-$sector.json" "/tmp/later-start-moments-$sector.json"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: direct-later-start-inverse-moments
+          path: /tmp/later-start-moments-*.json
+          if-no-files-found: error
