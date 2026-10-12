@@ -1,0 +1,66 @@
+{
+  "files": [
+    {
+      "bytes": 2304000,
+      "file": "even-v-near-correction.bin",
+      "sha256": "ad8e22f86c7952d91bf54eae591d77788e98b83282beb47372a51acceb35a95f"
+    },
+    {
+      "bytes": 3840000,
+      "file": "even-v-refined-lift-rhs.bin",
+      "sha256": "b18bb86be4b94a1856e9f2016352a89b92aae7a9e729bdec2a6fa56772dcc37b"
+    },
+    {
+      "bytes": 11136000,
+      "file": "even-v-refined-near-finite-lift.bin",
+      "sha256": "e5dbea88b2f84623e0dabc8189f038699781e8ec78463e8de2418ac597eba441"
+    },
+    {
+      "bytes": 2304000,
+      "file": "even-v-refined-near-trial.bin",
+      "sha256": "7558e3c3c1b99ad9096d016c2eb2d666f963a7635cf0397a466f086d33bccf85"
+    },
+    {
+      "bytes": 3665,
+      "file": "near-seed-refinement-even-v.json",
+      "sha256": "cca920b7b5f20fd856807166fdc08cce82f4b108f61831c34f19da29e366f42b"
+    },
+    {
+      "bytes": 3655,
+      "file": "near-seed-refinement-odd-v.json",
+      "sha256": "85a45f5fa1e5bedc8100c69a3fd4c31324c10aa30bc635a1e61d9a24ac93c6ba"
+    },
+    {
+      "bytes": 2304000,
+      "file": "odd-v-near-correction.bin",
+      "sha256": "8a6a494a559f47c8e6ecca3b6d4690dcd9d54c5b95babf44df57d49472e34741"
+    },
+    {
+      "bytes": 3840000,
+      "file": "odd-v-refined-lift-rhs.bin",
+      "sha256": "a0d9c1750bf677993e1b20cf27058c03dee8d4de228752d0a93c1a7015d4c133"
+    },
+    {
+      "bytes": 11136000,
+      "file": "odd-v-refined-near-finite-lift.bin",
+      "sha256": "66c4c071bd90507af97537b797e634eeac9b6bff2f45a499b2f352888401a44f"
+    },
+    {
+      "bytes": 2304000,
+      "file": "odd-v-refined-near-trial.bin",
+      "sha256": "1db83d60623ede078cc8c1f20eb0d4a8648f29da0c514400287b42ee00e4e806"
+    },
+    {
+      "bytes": 14824,
+      "file": "refined-near-finite-lift-even-v.json",
+      "sha256": "8216f92d696549533138384556075d1e9af7f9d361a4282a37c0fbf42a1b9f75"
+    },
+    {
+      "bytes": 14736,
+      "file": "refined-near-finite-lift-odd-v.json",
+      "sha256": "3549eaf804253468ae22c56b58ad761cadba6a8e399a8ca360358b2559e39d7f"
+    }
+  ],
+  "schema": "cone.frozen-refined-near-trial-and-lift.v1",
+  "source_commit": "6be4bba87e93ca4e8066b19414306338d6c18211"
+}
