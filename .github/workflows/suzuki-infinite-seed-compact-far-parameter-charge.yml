@@ -1,0 +1,34 @@
+name: Suzuki infinite seed compact Far parameter charge replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-seed-compact-far-parameter-charge.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_seed_compact_far_parameter_charge.py
+      - unified/discriminant-12-return/research-notes/payloads/infinite_seed_compact_far_parameter_charge_v14_283/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-parameter-charge-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Replay compact Far physical-parameter charges
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          mkdir -p /tmp/infinite-seed-compact-far-parameter-charge
+          for sector in even-v odd-v; do
+            python suzuki_infinite_seed_compact_far_parameter_charge.py --root payloads/infinite_seed_compact_far_v14_277 --sector "$sector" --output "/tmp/infinite-seed-compact-far-parameter-charge/infinite-seed-compact-far-parameter-charge-$sector.json"
+            cmp "payloads/infinite_seed_compact_far_parameter_charge_v14_283/infinite-seed-compact-far-parameter-charge-$sector.json" "/tmp/infinite-seed-compact-far-parameter-charge/infinite-seed-compact-far-parameter-charge-$sector.json"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: infinite-seed-compact-far-parameter-charge
+          path: /tmp/infinite-seed-compact-far-parameter-charge
+          if-no-files-found: error
