@@ -1,0 +1,35 @@
+name: Suzuki infinite seed Region1 close action
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-seed-region1-close-action.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_seed_region1_close_action.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  directed-close-action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Evaluate the full directed close rectangle and pole
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_infinite_seed_region1_close_action.py --source payloads/whole_affine_source_v14_223/whole-source-affine.json --sector '${{ matrix.sector }}' --output-root /tmp/region1-close
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: region1-close-${{ matrix.sector }}
+          path: /tmp/region1-close
+          if-no-files-found: error
