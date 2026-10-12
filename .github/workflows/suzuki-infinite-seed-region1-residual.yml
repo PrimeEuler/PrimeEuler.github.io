@@ -1,0 +1,30 @@
+name: Suzuki actual infinite seed Region1 residual
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-infinite-seed-region1-residual.yml
+      - unified/discriminant-12-return/research-notes/suzuki_infinite_seed_region1_residual.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-region1-residual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Evaluate both complete residual subsets
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          for sector in even-v odd-v; do
+            python suzuki_infinite_seed_region1_residual.py --compact-root payloads/infinite_seed_compact_near_middle_v14_285 --tail-root payloads/infinite_seed_region1_composed_action_v14_294 --lift-root payloads/infinite_seed_finite_lift_witness_v14_269 --source-root payloads/full_stationary_source_v14_213 --sector "$sector" --output-root /tmp/region1-residual
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: actual-infinite-seed-region1-residual
+          path: /tmp/region1-residual
+          if-no-files-found: error
