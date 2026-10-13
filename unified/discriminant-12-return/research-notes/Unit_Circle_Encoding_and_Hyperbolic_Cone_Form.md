@@ -161,5 +161,34 @@ $\log(m/4) = 2\psi_{m,4}$ — the seed's denominator is the pair
 rapidity of $(m, 4)$. Verified symbolically (sympy) 2026-10-13;
 deposited as ledger v14.367.
 
+## 7. Addendum (2026-10-13): T(n) − D(n) = A(n) at the hyperbola, and the binary of d(n)
+
+Jeremy's identification: the encoding of §§1–6 is staged on the same
+hyperbola family as the Paper A content identity
+
+$$
+A(n) = T(n) - D(n), \qquad T(n) = \frac{n(n+1)}{2}, \quad
+D(n) = \sum_{k \le n} d(k),
+$$
+
+the integrated form of the front recursion
+$A(n{+}1) = A(n) + (n+1) - d(n+1)$ (inflow $n+1$ from the growing
+triangle's new row, outflow $d(n+1)$ across the front) [D, classical].
+$D(n)$ counts the lattice points under the hyperbola $xy \le n$
+(Dirichlet), so the identity lives on the hyperbola family
+$xy = \mathrm{const}$ — the same family the pair encoding parametrizes
+by rapidity, the pair $(n, k)$ having hyperbola constant
+$n/k = e^{2\psi_{n,k}}$ [D]. The encoding is thus a coordinate system
+on the very curves the divisor content is counted under [I].
+
+The binary of the divisor function: $d(n) \bmod 2$ is the square
+indicator — $d(n)$ is odd iff $n$ is a perfect square, since divisors
+pair off $(x, n/x)$ except at the self-paired $x = \sqrt n$ [D,
+classical; verified to $n = 2000$]. The squares are also exactly the
+stations where the encoding goes rational (§2, Euclid points). In
+Jeremy's phrase, the binary of $d(n)$ encodes the zero frequency:
+the self-paired divisor at the hyperbola's vertex is the unpaired
+(DC) mode of the pairing, and $d(n) \bmod 2$ is its detector [I].
+
 *Marking: [D] derived/verified identity · [I] interpretation ·
 [O] open/probe-pending.*
