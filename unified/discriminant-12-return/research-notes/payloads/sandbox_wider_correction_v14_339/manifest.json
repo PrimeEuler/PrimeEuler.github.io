@@ -1,0 +1,42 @@
+{
+  "schema": "cone.sandbox-wider-correction-transfer.v1",
+  "task_ledger": "v14.339",
+  "namespace": "research-notes/payloads/sandbox_wider_correction_v14_339/",
+  "buffer_format": "dyadic integers floor_160(delta_y * 2^160), signed little-endian 18-byte integers, 264192 rows, same-parity lattice step 2",
+  "reassembly": "concatenate .b64.partNNN in numeric order, base64-decode",
+  "buffers": {
+    "even-v-wider-correction.bin": {
+      "bytes": 4755456,
+      "sha256": "fdf93112802fe28ef53efa804be760a0fc17abc404993c8b2af6c33b1b5aba05",
+      "parts": [
+        "even-v-wider-correction.bin.b64.part000",
+        "even-v-wider-correction.bin.b64.part001",
+        "even-v-wider-correction.bin.b64.part002",
+        "even-v-wider-correction.bin.b64.part003",
+        "even-v-wider-correction.bin.b64.part004",
+        "even-v-wider-correction.bin.b64.part005",
+        "even-v-wider-correction.bin.b64.part006",
+        "even-v-wider-correction.bin.b64.part007"
+      ]
+    },
+    "odd-v-wider-correction.bin": {
+      "bytes": 4755456,
+      "sha256": "b772ab850121daf0bd85afd01e26fee9f72d14b940c4145ae7643734435f8967",
+      "parts": [
+        "odd-v-wider-correction.bin.b64.part000",
+        "odd-v-wider-correction.bin.b64.part001",
+        "odd-v-wider-correction.bin.b64.part002",
+        "odd-v-wider-correction.bin.b64.part003",
+        "odd-v-wider-correction.bin.b64.part004",
+        "odd-v-wider-correction.bin.b64.part005",
+        "odd-v-wider-correction.bin.b64.part006",
+        "odd-v-wider-correction.bin.b64.part007"
+      ]
+    }
+  },
+  "certificates": [
+    "wider-correction-even-v.json",
+    "wider-correction-odd-v.json"
+  ],
+  "producer": "build_wider_correction.py"
+}
