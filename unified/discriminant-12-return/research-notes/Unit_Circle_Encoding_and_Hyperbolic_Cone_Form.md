@@ -190,5 +190,17 @@ Jeremy's phrase, the binary of $d(n)$ encodes the zero frequency:
 the self-paired divisor at the hyperbola's vertex is the unpaired
 (DC) mode of the pairing, and $d(n) \bmod 2$ is its detector [I].
 
+The V4 overlay [I]: the divisor content under the hyperbola is
+indexed by the four units $U(12) = \{1, 5, 7, 11\}$ — the four
+hyperbola sections $X = (r-1)/2 \in \{0, 2, 3, 5\}$ of the Totient
+note's apparatus — and the Klein-four character group of $U(12)$
+($\chi_{12}$ and its companions) is the Fourier overlay on that
+content, carrying the proved complementarity
+$\phi_+(r) + \phi_-(r) = 1 \bmod 12$ and the genus split
+$\{1, 11\}$ split / $\{5, 7\}$ inert in $\mathbb{Q}(\sqrt3)$
+(Totient note, Props. 4.2/4.3, machine-verified). On the encoding's
+ruler this is the 12-division case, level $n = 11$: the V4 stations
+live on the same divisions.
+
 *Marking: [D] derived/verified identity · [I] interpretation ·
 [O] open/probe-pending.*
