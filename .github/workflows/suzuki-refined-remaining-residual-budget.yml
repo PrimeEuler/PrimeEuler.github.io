@@ -1,0 +1,25 @@
+name: Suzuki refined remaining residual budget replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-refined-remaining-residual-budget.yml
+      - unified/discriminant-12-return/research-notes/suzuki_refined_remaining_residual_budget.py
+      - unified/discriminant-12-return/research-notes/payloads/refined_remaining_residual_budget_v14_310/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-budget:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute exact remaining requirements
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_refined_remaining_residual_budget.py --root payloads/refined_trial_region1_and_far_v14_306 --output /tmp/remaining-residual-budget.json
+          cmp payloads/refined_remaining_residual_budget_v14_310/remaining-residual-budget.json /tmp/remaining-residual-budget.json
