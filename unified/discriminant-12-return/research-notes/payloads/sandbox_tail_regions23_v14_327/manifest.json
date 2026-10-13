@@ -1,0 +1,69 @@
+{
+  "schema": "cone.sandbox-tail-transfer.v1",
+  "source_ledger": "v14.327 (hashes) + v14.331 (ratio correction)",
+  "namespace": "research-notes/payloads/sandbox_tail_regions23_v14_327/",
+  "buffer_format": "signed little-endian 30-byte integers, 256 fractional bits, same-parity row order",
+  "reassembly": "concatenate .b64.partNNN in numeric order, base64-decode",
+  "buffers": {
+    "even-v-region2-action.bin": {
+      "bytes": 7680000,
+      "sha256": "01049b9491c91ff49a640964cb878da6fdcacd08542eddc5d345944cb8edf390",
+      "parts": [
+        "even-v-region2-action.bin.b64.part000",
+        "even-v-region2-action.bin.b64.part001",
+        "even-v-region2-action.bin.b64.part002",
+        "even-v-region2-action.bin.b64.part003",
+        "even-v-region2-action.bin.b64.part004",
+        "even-v-region2-action.bin.b64.part005",
+        "even-v-region2-action.bin.b64.part006",
+        "even-v-region2-action.bin.b64.part007",
+        "even-v-region2-action.bin.b64.part008",
+        "even-v-region2-action.bin.b64.part009",
+        "even-v-region2-action.bin.b64.part010",
+        "even-v-region2-action.bin.b64.part011",
+        "even-v-region2-action.bin.b64.part012"
+      ]
+    },
+    "odd-v-region2-action.bin": {
+      "bytes": 7680000,
+      "sha256": "e0dfb52f4255d8f13a1f312b6ae772d6e57d077810d620e4e4bd44eab21621a9",
+      "parts": [
+        "odd-v-region2-action.bin.b64.part000",
+        "odd-v-region2-action.bin.b64.part001",
+        "odd-v-region2-action.bin.b64.part002",
+        "odd-v-region2-action.bin.b64.part003",
+        "odd-v-region2-action.bin.b64.part004",
+        "odd-v-region2-action.bin.b64.part005",
+        "odd-v-region2-action.bin.b64.part006",
+        "odd-v-region2-action.bin.b64.part007",
+        "odd-v-region2-action.bin.b64.part008",
+        "odd-v-region2-action.bin.b64.part009",
+        "odd-v-region2-action.bin.b64.part010",
+        "odd-v-region2-action.bin.b64.part011",
+        "odd-v-region2-action.bin.b64.part012"
+      ]
+    },
+    "even-v-region3-action.bin": {
+      "bytes": 245760,
+      "sha256": "4705c6a0cf10b35d3050ba21c4a347ebe0c7ba393734225112da7eeafec992d2",
+      "parts": [
+        "even-v-region3-action.bin.b64.part000"
+      ]
+    },
+    "odd-v-region3-action.bin": {
+      "bytes": 245760,
+      "sha256": "29f39fd719d45690fb5240d0dc31e4c3241a482591a715501e04dbfbd1c1bfc7",
+      "parts": [
+        "odd-v-region3-action.bin.b64.part000"
+      ]
+    }
+  },
+  "certificates": [
+    "region2-action-even-v.json",
+    "region2-action-odd-v.json",
+    "region3-action-even-v.json",
+    "region3-action-odd-v.json",
+    "envelope-even-v.json",
+    "envelope-odd-v.json"
+  ]
+}
