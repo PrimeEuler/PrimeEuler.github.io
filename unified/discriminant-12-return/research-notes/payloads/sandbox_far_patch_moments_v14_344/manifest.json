@@ -1,0 +1,20 @@
+{
+  "schema": "cone.sandbox-far-patch-moments-transfer.v1",
+  "task_ledger": "v14.344",
+  "namespace": "research-notes/payloads/sandbox_far_patch_moments_v14_344/",
+  "files": {
+    "build_far_patch_moments.py": {
+      "bytes": 17824,
+      "sha256": "710906731778022a28ef2d8523e7f34a1a7d31d574a24d54e86fb94b525263b8"
+    },
+    "far-patch-moments-even-v.json": {
+      "bytes": 57763,
+      "sha256": "726c6bfeb55970fcb7f9fdcfcb1ce801b2e94e2e1e282c594f425049d085752e"
+    },
+    "far-patch-moments-odd-v.json": {
+      "bytes": 51348,
+      "sha256": "bdad8088311e0ce66705b7500a4b886602de4cf8d8a575c0520412c6cb49f7bd"
+    }
+  },
+  "content": "Exact 42-moment far-action package for the v14.341 wider correction patch alone (kernel+pole), output starts 2080767 even-v / 2080768 odd-v; certificates carry the moments as exact rationals, so no binary buffers are needed."
+}
