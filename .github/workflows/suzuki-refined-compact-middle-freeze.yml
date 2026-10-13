@@ -1,0 +1,70 @@
+name: Freeze refined compact Middle witnesses
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-refined-compact-middle-freeze.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and verify exact artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/refined-witnesses
+          python - <<'PY'
+          import subprocess,hashlib,zipfile,json
+          from pathlib import Path
+          specs=[{"id":11782547320,"sha":"111e4328b97b799727e658fdd692bba915e8141fa2ee73c0b1ccfad7fcd0c8c0"},{"id":11782637037,"sha":"231d25870a83d5cd5c320e13a0e3ba07a1558c4356e2d015d51aa74226f0b740"}]
+          dst=Path('/tmp/refined-witnesses')
+          for spec in specs:
+              raw=subprocess.check_output(['gh','api',f"repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/{spec['id']}/zip"])
+              assert hashlib.sha256(raw).hexdigest()==spec['sha']
+              import io
+              with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                  for name in z.namelist():
+                      assert '/' not in name
+                      data=z.read(name)
+                      if name.endswith('.json'):
+                          cert=json.loads(data)
+                          for key in ('buffer','point_buffer'):
+                              if key in cert:
+                                  s=cert[key];b=z.read(s['file'])
+                                  assert len(b)==s['bytes'] and hashlib.sha256(b).hexdigest()==s['sha256']
+                      (dst/name).write_bytes(data)
+          PY
+      - name: Publish additively after a refreshed HEAD check
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin master
+            git checkout -B refined-witness-freeze origin/master
+            git ls-tree -r --name-only HEAD unified/discriminant-12-return/ledger | sort -V | tail -4 | while read path; do git show "HEAD:$path"; done
+            python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          src=Path('/tmp/refined-witnesses');dst=Path('unified/discriminant-12-return/research-notes/payloads/refined_compact_middle_v14_309')
+          blobs={p.name:p.read_bytes() for p in src.iterdir()}
+          blobs['manifest.json']=(json.dumps({'schema':'cone.frozen-refined-compact-middle.v1','source_runs':[38330580489],'files':[{'file':n,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()} for n,b in sorted(blobs.items())]},indent=2,sort_keys=True)+'\n').encode()
+          dst.mkdir(parents=True,exist_ok=True)
+          assert {p.name for p in dst.iterdir()}<=set(blobs),'unexpected archive files'
+          for n,b in blobs.items():
+              if (dst/n).exists():assert (dst/n).read_bytes()==b,'archive collision'
+              else:(dst/n).write_bytes(b)
+          PY
+            git add unified/discriminant-12-return/research-notes/payloads/refined_compact_middle_v14_309
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Freeze refined Region1 residual and compact action witnesses v14.309'
+            if git push origin HEAD:master; then exit 0; fi
+          done
+          exit 1
+
+
