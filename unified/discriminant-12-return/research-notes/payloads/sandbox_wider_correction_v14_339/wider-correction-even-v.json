@@ -1,0 +1,74 @@
+{
+  "base_trial": "patch added to the existing trial; on this support the refined Near trial coincides with the original infinite seed (Near support is disjoint, below b); nothing outside the support changes",
+  "buffer": {
+    "bits": 160,
+    "bytes": 4755456,
+    "count": 264192,
+    "file": "even-v-wider-correction.bin",
+    "sha256": "fdf93112802fe28ef53efa804be760a0fc17abc404993c8b2af6c33b1b5aba05",
+    "width": 18
+  },
+  "candidate_only": true,
+  "contraction_claimed": false,
+  "definition": "delta_y(n)=floor_160(r_point(n)/midpoint(log_normalized(n,128))) on the evaluated rows; zero elsewhere",
+  "display_approximate": {
+    "base_trial_norm_upper_v14_300": 0.00015685523732266715,
+    "correction_l1": 0.0026870917831562087,
+    "correction_norm_upper": 6.583500641953496e-06,
+    "whole_trial_norm_upper_triangle": 0.00016343873796462063
+  },
+  "domain_justification": "delta_y is finitely supported (264192 modes) with dyadic-rational values; finitely supported sequences lie in the operator domain and in every weighted l2 space of the framework, and the domain is a vector space containing them, so adding delta_y to the existing domain-admissible trial (v14.300) keeps the sum domain-admissible. (Dy)_n for a finitely supported correction is a finite sum at every row.",
+  "infinite_capacity_tail_closed": false,
+  "inputs": {
+    "composition_certificate_sha256": "6678d9e273b3443c73f5ae54c1013fb237760bdcc3b9b0bcb037a81ae6e13ff0",
+    "far_window_residual_buffer_sha256": "d6882a889d68eae17d7753f227d91b94285a17de362c7e6dbe7de7903b9da29f",
+    "log_normalized_module": "suzuki_certified_remote_diagonal.py (byte-identical to repository copy)",
+    "log_normalized_module_sha256": "08226538dffb5db42d85db5edb0f1c043a56df326ed1f51dc7391ca7cf8a2788",
+    "middle_residual_buffer_sha256": "23dd9720663a508fa3524fce54def7db2f26ffcece4cedcd0e9d464ae561034a",
+    "residual_namespace": "research-notes/payloads/returned_tail_residual_composition_v14_337/",
+    "v14_300_trial_certificate": "refined_near_trial_and_lift_v14_300/near-seed-refinement-even-v.json",
+    "v14_300_trial_certificate_sha256": "cca920b7b5f20fd856807166fdc08cce82f4b108f61831c34f19da29e366f42b"
+  },
+  "lambda_inverse_equals_schur_inverse_claimed": false,
+  "new_residual_evaluated": false,
+  "rational": {
+    "base_trial_norm_upper_v14_300": "35473819604309927988660210050899722403958792260028391980463568215847636358263/226156424291633194186662080095093570025917938800079226639565593765455331328000000",
+    "correction_l1": "1963594520370607222115104926847564880306870271/730750818665451459101842416358141509827966271488",
+    "correction_norm_squared": "23144744221352576697569484110731711063631181568086261715561719909252421330489061090621/533996758980227520598755426542388028650676130589163192486760401955554931445160137505740521734144",
+    "correction_norm_upper": "41325303304525620137346450769785073083630763672488641/6277101735386680763835789423207666416102355444464034512896",
+    "whole_trial_norm_upper_triangle": "36962720568815802467345095559819596233030868560175094837959082284135124358263/226156424291633194186662080095093570025917938800079226639565593765455331328000000"
+  },
+  "schema": "cone.sandbox-wider-correction-candidate.v1",
+  "sector": "even-v",
+  "stationary_acceptance_met": false,
+  "support": {
+    "count": 264192,
+    "first_mode": 512001,
+    "last_mode": 1040383,
+    "segments": [
+      {
+        "first_mode": 512001,
+        "last_mode": 1023999,
+        "rows": 256000,
+        "source": "v14.337 Middle residual"
+      },
+      {
+        "first_mode": 1024001,
+        "last_mode": 1040383,
+        "rows": 8192,
+        "source": "v14.337 Far-window residual"
+      }
+    ],
+    "step": 2
+  },
+  "task": "v14.339 HANDOFF - Sandbox: evaluated wider finite correction candidate",
+  "verification": {
+    "all_logpoints_gt_11": true,
+    "buffer_round_trip_recomputed": true,
+    "integer_path_agrees_on_samples": true,
+    "logpoint_max": "8485829031989290795036205953163494308843/680564733841876926926749214863536422912",
+    "logpoint_min": "2000824161817295557788671604061717627837/170141183460469231731687303715884105728",
+    "one_quantum_bound_on_samples": "0 <= r_point - delta_y*logpoint < logpoint * 2^-160",
+    "sample_rows_checked": 64
+  }
+}
