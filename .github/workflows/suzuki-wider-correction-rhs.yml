@@ -1,0 +1,24 @@
+name: Verify wider correction RHS interface
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-wider-correction-rhs.yml
+      - unified/discriminant-12-return/research-notes/suzuki_wider_correction_rhs.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-rectangle-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Check generalized rectangular RHS against exact physical kernels
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_wider_correction_rhs.py --self-check
