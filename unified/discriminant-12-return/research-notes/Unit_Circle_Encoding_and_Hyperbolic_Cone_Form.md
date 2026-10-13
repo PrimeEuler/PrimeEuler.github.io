@@ -125,5 +125,41 @@ verified symbolically the same day. A repo-wide search on 2026-10-13
 found no prior occurrence of this dictionary (no sinh/cosh/tanh/sech/
 rapidity/"unit circle" anywhere in the repository).
 
+## 6. Addendum (2026-10-13): the pair encoding
+
+Jeremy's extension: everything on the $n+1$ divisions, via the ratio
+$(n+k)/(n-k)$ for $k \le n$. The encoding generalizes from the pair
+$(n, 1)$ to an arbitrary pair $(n, k)$ [D]:
+
+$$
+z_{n,k} \;=\; \frac{(n-k) + 2i\sqrt{nk}}{\,n+k\,}, \qquad |z_{n,k}| = 1
+$$
+
+by $(n-k)^2 + (2\sqrt{nk})^2 = (n+k)^2$; the angle is
+$2\arctan\sqrt{k/n}$. Section 1 is the slice $k = 1$. At level $n$,
+the values $k = 0, 1, \dots, n$ give exactly $n+1$ points sweeping
+the quarter circle from $(1, 0)$ to $(0, 1)$: every pair of division
+indices is a point on the circle.
+
+The pair carries its own rapidity $\psi_{n,k} = \tfrac12 \ln(n/k)$
+[D]:
+
+$$
+\tanh\psi_{n,k} = \frac{n-k}{n+k}, \qquad
+\cosh\psi_{n,k} = \frac{n+k}{2\sqrt{nk}} = \frac{\mathrm{AM}}{\mathrm{GM}}
+\ \text{of the pair } (n, k), \qquad
+\operatorname{sech}\psi_{n,k} = \frac{\mathrm{GM}}{\mathrm{AM}},
+$$
+
+and Jeremy's ratio is its hyperbolic cotangent,
+$\dfrac{n+k}{n-k} = \coth\psi_{n,k}$ — the boost ratio between the
+two division scales. Rapidities add over chains,
+$\psi_{n,k} + \psi_{k,j} = \psi_{n,j}$, while the coth factors
+multiply: the division lattice is a group in rapidity. The seed
+contact of §4 sharpens accordingly [D]:
+$\log(m/4) = 2\psi_{m,4}$ — the seed's denominator is the pair
+rapidity of $(m, 4)$. Verified symbolically (sympy) 2026-10-13;
+deposited as ledger v14.367.
+
 *Marking: [D] derived/verified identity · [I] interpretation ·
 [O] open/probe-pending.*
