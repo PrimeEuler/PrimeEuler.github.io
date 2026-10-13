@@ -1,0 +1,50 @@
+name: Suzuki wider correction frozen lift exact replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-wider-correction-finite-lift.yml
+      - unified/discriminant-12-return/research-notes/suzuki_wider_correction_finite_lift.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-frozen-lift-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Reconstruct hash-bound actual256 witnesses
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,shutil
+          from pathlib import Path
+          root=Path('payloads/exact_outward_run_37827949740')
+          manifest=json.loads((root/'artifact_manifest.json').read_text())
+          for x in manifest['files']:
+              raw=(root/x['file']).read_bytes()
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+          target=Path('/tmp/full-stationary-input');target.mkdir()
+          for x in manifest['snapshots']:
+              if x['cutoff']!=256000:continue
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in x['base64_parts']),validate=True)
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+              (target/x['snapshot_file']).write_bytes(raw)
+              shutil.copyfile(root/x['certificate_file'],target/x['certificate_file'])
+          for short in ('even','odd'):
+              for kind in ('moments','far'):
+                  name=f'frozen256-{short}-{kind}.json'
+                  shutil.copyfile(root/name,target/name)
+          Path('/tmp/full-stationary-results').mkdir()
+          PY
+      - name: Replay every coordinate and all six protected components
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_wider_correction_finite_lift.py --mode replay --root /tmp/full-stationary-input --rhs-root payloads/wider_correction_rhs_and_lift_v14_345 --output-root payloads/wider_correction_rhs_and_lift_v14_345 --sector even-v --rhs-certificate-sha256 077627b6be508cb26825eaab41e6304ac3d9ca5b9b79886443de6b1a3811f055 --rhs-point-sha256 c47680677bc4a13ba9658bac2c1ebcf47da6b97181e0547f8f29bdf42f3da134
+          python suzuki_wider_correction_finite_lift.py --mode replay --root /tmp/full-stationary-input --rhs-root payloads/wider_correction_rhs_and_lift_v14_345 --output-root payloads/wider_correction_rhs_and_lift_v14_345 --sector odd-v --rhs-certificate-sha256 b3bfb058f33e93cc6df7fd5d7b08a8a6ed38ef50d02b6977d57d724035a2ceac --rhs-point-sha256 72636f6caff65201c9831f5d84d9f001d24db15d44b725ad309bfa71bcbcd144

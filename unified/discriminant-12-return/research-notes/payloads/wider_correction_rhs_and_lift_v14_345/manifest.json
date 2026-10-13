@@ -1,0 +1,78 @@
+{
+  "schema": "cone.frozen-wider-correction-rhs-and-lift.v1",
+  "producer_source_commit": "a6545ce91c879c722109419a75875cf5cf4c1b7c",
+  "RHS_CI_source_commit": "98c2d7e276cbe093539281f352e173ac6e3addc5",
+  "RHS_CI_run": 38423143586,
+  "RHS_CI_artifacts": [
+    {
+      "id": 11828626331,
+      "name": "wider-correction-rhs-odd-v",
+      "zip_sha256": "sha256:938b7599a50628b835d11f585b82b68f3ff6e208ae1bb7b98ad0f1af9c86d113",
+      "bytes": 3843062
+    },
+    {
+      "id": 11827866788,
+      "name": "wider-correction-rhs-even-v",
+      "zip_sha256": "sha256:ddd18685ffca60f39fcdf16491036c9edbddd7bf8e24dc755494979c960dd2e6",
+      "bytes": 3843073
+    }
+  ],
+  "RHS_CI_and_local_all_output_bytes_identical": true,
+  "local_fresh_lift_produce_and_exact_replay_both_sectors": true,
+  "files": [
+    {
+      "file": "wider-correction-RHS-even-v.json",
+      "sha256": "077627b6be508cb26825eaab41e6304ac3d9ca5b9b79886443de6b1a3811f055"
+    },
+    {
+      "file": "wider-correction-finite-lift-even-v.json",
+      "sha256": "98df9edfee779854e540192a2941d43e44ab85556598c6b76b7d48f0e0e50df3"
+    },
+    {
+      "bits": 256,
+      "bytes": 3840000,
+      "count": 128000,
+      "file": "even-v-wider-correction-lift-rhs.bin",
+      "sha256": "c47680677bc4a13ba9658bac2c1ebcf47da6b97181e0547f8f29bdf42f3da134",
+      "width": 30,
+      "git_blob_sha1": "22a4f75f120db38a0d3a0883384f3279074b97eb"
+    },
+    {
+      "bits": 662,
+      "bytes": 11136000,
+      "count": 128000,
+      "file": "even-v-wider-correction-finite-lift.bin",
+      "sha256": "ad7bac0d13246703238c3f2be36b020778673cc7c37cf1e4c33f1d1d216ce3ed",
+      "width": 87,
+      "git_blob_sha1": "6cbf5175511be195fbc0c1644b1cbec0a86dc4b2"
+    },
+    {
+      "file": "wider-correction-RHS-odd-v.json",
+      "sha256": "b3bfb058f33e93cc6df7fd5d7b08a8a6ed38ef50d02b6977d57d724035a2ceac"
+    },
+    {
+      "file": "wider-correction-finite-lift-odd-v.json",
+      "sha256": "99a741a41932261569db364698f5998a52204fdf1aad872e972afa0857075075"
+    },
+    {
+      "bits": 256,
+      "bytes": 3840000,
+      "count": 128000,
+      "file": "odd-v-wider-correction-lift-rhs.bin",
+      "sha256": "72636f6caff65201c9831f5d84d9f001d24db15d44b725ad309bfa71bcbcd144",
+      "width": 30,
+      "git_blob_sha1": "a0c632e50f62792d1c86d7c344e1b4b69b318aa3"
+    },
+    {
+      "bits": 663,
+      "bytes": 11136000,
+      "count": 128000,
+      "file": "odd-v-wider-correction-finite-lift.bin",
+      "sha256": "c1ef2b6eb6bb13e1300b5b77d077aaeeeef50d2231a4227ed0390ed74910a092",
+      "width": 87,
+      "git_blob_sha1": "a94d0e1a2e48082c253ab76b2ddaa2ace0d0e7c9"
+    }
+  ],
+  "whole_residual_acceptance_certified": false,
+  "infinite_capacity_tail_closed": false
+}
