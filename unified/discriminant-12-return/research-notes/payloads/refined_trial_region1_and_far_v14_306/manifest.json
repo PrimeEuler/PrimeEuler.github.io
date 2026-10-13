@@ -1,0 +1,59 @@
+{
+  "files": [
+    {
+      "bytes": 3840000,
+      "file": "even-v-refined-compact-region1-action.bin",
+      "sha256": "64dafd2e2e7658dd55ad77a72927a70c62cff60d6d3c6175c6ea4935d419cd5e"
+    },
+    {
+      "bytes": 3840000,
+      "file": "even-v-refined-region1-residual.bin",
+      "sha256": "526f497bbb4fc74c242973b725ec3e6c54f308a323647a0f4147d412d9111181"
+    },
+    {
+      "bytes": 3840000,
+      "file": "odd-v-refined-compact-region1-action.bin",
+      "sha256": "b8889c743da581f76792ec24eb7675bf19a217ffe32b15734e3adab675ed745f"
+    },
+    {
+      "bytes": 3840000,
+      "file": "odd-v-refined-region1-residual.bin",
+      "sha256": "05a770a05dd851852cfcc8e692f8901a7eb57b1b83d0eb980e6e33097c42bcc6"
+    },
+    {
+      "bytes": 74550,
+      "file": "refined-compact-far-even-v.json",
+      "sha256": "9eb263543a18c3fa2610e7d56ab83b8b94cc3292d2838b75fbe396b9f5e1c30b"
+    },
+    {
+      "bytes": 71955,
+      "file": "refined-compact-far-odd-v.json",
+      "sha256": "ee1ea338b61c81aa13b303ea7eae0b868f607e8c5b9f0f8d3646cdd340f2f392"
+    },
+    {
+      "bytes": 4517,
+      "file": "refined-near-compact-region1-even-v.json",
+      "sha256": "a1a5c4eaa800e9382999cf9e68de7e2d3db0da6ad9c867baa8a676f0630c77d4"
+    },
+    {
+      "bytes": 4517,
+      "file": "refined-near-compact-region1-odd-v.json",
+      "sha256": "f6e194911ecc7443ff299db1003fe3aa9b242b35bafa7b105a5eca00c3ceeb87"
+    },
+    {
+      "bytes": 17111,
+      "file": "refined-region1-residual-even-v.json",
+      "sha256": "aba4f170458412a47f474d4935511ae45db231ac549f1744f46d81255ddea5ea"
+    },
+    {
+      "bytes": 15535,
+      "file": "refined-region1-residual-odd-v.json",
+      "sha256": "7a301d3b9806a1ad44623c971c38c0885c4de1b66e2677151b6403930c8157fc"
+    }
+  ],
+  "schema": "cone.frozen-refined-region1-and-far.v1",
+  "source_runs": [
+    38317601972,
+    38317747526
+  ]
+}
