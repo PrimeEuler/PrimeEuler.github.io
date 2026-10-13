@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "bytes": 7680000,
+      "file": "even-v-refined-compact-middle-action.bin",
+      "sha256": "e879a9a4899354606a6d52bc81cf8a51c3c98676c290128ea0ab622e9c10810b"
+    },
+    {
+      "bytes": 7680000,
+      "file": "odd-v-refined-compact-middle-action.bin",
+      "sha256": "d28c0750ec0d432a6406e72f6a197eda7b08a1617857118bc2a58c3e9ec9b03d"
+    },
+    {
+      "bytes": 4501,
+      "file": "refined-near-compact-middle-even-v.json",
+      "sha256": "23c21ac728574f6e9dd98161dfd5e0081748e2c980b084e5c0b3457d29c2038a"
+    },
+    {
+      "bytes": 4498,
+      "file": "refined-near-compact-middle-odd-v.json",
+      "sha256": "1c0e02bf3fb030c576f83120ac1ddcee972844602415fea00023be602d4c1340"
+    }
+  ],
+  "schema": "cone.frozen-refined-compact-middle.v1",
+  "source_runs": [
+    38330580489
+  ]
+}
