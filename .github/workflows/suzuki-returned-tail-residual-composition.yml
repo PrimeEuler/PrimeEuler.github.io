@@ -1,0 +1,33 @@
+name: Compose returned tail with refined residual
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-returned-tail-residual-composition.yml
+      - unified/discriminant-12-return/research-notes/suzuki_returned_tail_residual_composition.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-returned-tail-composition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify transferred buffers and evaluate cancellation rowwise
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_returned_tail_residual_composition.py --payload-root payloads --sector '${{ matrix.sector }}' --output-root /tmp/returned-tail-residual
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: returned-tail-residual-${{ matrix.sector }}
+          path: /tmp/returned-tail-residual
+          if-no-files-found: error
