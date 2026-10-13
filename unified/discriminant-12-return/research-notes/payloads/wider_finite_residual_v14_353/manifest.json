@@ -1,0 +1,78 @@
+{
+  "schema": "cone.frozen-wider-finite-residual.v1",
+  "source_action_commit": "8c6de9167fd10964876dcb08b05cc68e07b0d61a",
+  "composition_source_commit": "3bb0334c99a2f7174430d1a421bb85936e131984",
+  "action_CI_run": 38432919368,
+  "action_CI_artifacts": [
+    {
+      "id": 11833290204,
+      "zip_sha256": "sha256:59521a25f42e3f234d181f1fe6098b604116b932327b1ed2cb241a474b1ef0b9",
+      "bytes": 17313741
+    },
+    {
+      "id": 11832472681,
+      "zip_sha256": "sha256:7ca4c799d8166db086a74050bf5d4c6d03a1515528a31fdca37186b52f9289d0",
+      "bytes": 17313592
+    }
+  ],
+  "all_CI_action_outputs_byte_equal_local": true,
+  "files": [
+    {
+      "bits": 256,
+      "bytes": 245760,
+      "count": 8192,
+      "file": "even-v-wider-far-window-residual.bin",
+      "sha256": "13ed2f9d89845a51ee865127dabfe1339b40d3d560adf27cfb18ef64dedaba44",
+      "width": 30,
+      "git_blob_sha1": "f211f6a3dc417acbb4fe1393efaa6b96825adac0"
+    },
+    {
+      "bits": 256,
+      "bytes": 7680000,
+      "count": 256000,
+      "file": "even-v-wider-middle-residual.bin",
+      "sha256": "7c5bcbd1b61a5696a63632ee551655b83526027dbe4ed6911bf5639cf3f087ea",
+      "width": 30,
+      "git_blob_sha1": "cc072aa5fe9ef21c8d3dd688f12b03336c4b130d"
+    },
+    {
+      "bits": 256,
+      "bytes": 3840000,
+      "count": 128000,
+      "file": "even-v-wider-near-residual.bin",
+      "sha256": "3296b80123670369e150bb5341ae886643cf49aa02dc64fb133b0c37993c6986",
+      "width": 30,
+      "git_blob_sha1": "e9f94fa408aee92d0e11dafeb2c6bb27ddd19bbb"
+    },
+    {
+      "bits": 256,
+      "bytes": 245760,
+      "count": 8192,
+      "file": "odd-v-wider-far-window-residual.bin",
+      "sha256": "6119738dfd82525d9a5b677a1726d13c1813265e8bdd969bde1d2ab1888aacc2",
+      "width": 30,
+      "git_blob_sha1": "7d53cc35525aac7f3451991a6e05ff23a52868d9"
+    },
+    {
+      "bits": 256,
+      "bytes": 7680000,
+      "count": 256000,
+      "file": "odd-v-wider-middle-residual.bin",
+      "sha256": "207ddfd6a820cd2cb076a8ce2e717b1610e3bf7b8c312ce0a28ac0001c55191c",
+      "width": 30,
+      "git_blob_sha1": "bd19963778d0536c18d2054457ef844b21f336c1"
+    },
+    {
+      "bits": 256,
+      "bytes": 3840000,
+      "count": 128000,
+      "file": "odd-v-wider-near-residual.bin",
+      "sha256": "5e4bb9ac4e74093260c5694c8fa0e77c2bb8c95d37fc062cdba2c721074cbdb5",
+      "width": 30,
+      "git_blob_sha1": "9e5d91648ca31c0c9c270d49ac9bcd169aa3089e"
+    }
+  ],
+  "finite_rows_per_sector": 392192,
+  "whole_residual_acceptance_certified": false,
+  "infinite_capacity_tail_closed": false
+}

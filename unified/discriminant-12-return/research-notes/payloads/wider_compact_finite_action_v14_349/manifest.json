@@ -1,0 +1,60 @@
+{
+  "schema": "cone.frozen-wider-finite-compact-action.v1",
+  "source_action_commit": "8c6de9167fd10964876dcb08b05cc68e07b0d61a",
+  "composition_source_commit": "3bb0334c99a2f7174430d1a421bb85936e131984",
+  "action_CI_run": 38432919368,
+  "action_CI_artifacts": [
+    {
+      "id": 11833290204,
+      "zip_sha256": "sha256:59521a25f42e3f234d181f1fe6098b604116b932327b1ed2cb241a474b1ef0b9",
+      "bytes": 17313741
+    },
+    {
+      "id": 11832472681,
+      "zip_sha256": "sha256:7ca4c799d8166db086a74050bf5d4c6d03a1515528a31fdca37186b52f9289d0",
+      "bytes": 17313592
+    }
+  ],
+  "all_CI_action_outputs_byte_equal_local": true,
+  "files": [
+    {
+      "bits": 256,
+      "bytes": 11765760,
+      "count": 392192,
+      "file": "even-v-wide-compact-near-middle-window-action.bin",
+      "sha256": "c57129c4a48c7f4f76c2cd44fb96a4674198473e720e2c06d742f3f60e1e4971",
+      "width": 30,
+      "git_blob_sha1": "dc4da0ffb98f357cc36e88986e43b19f44e94f10"
+    },
+    {
+      "bits": 160,
+      "bytes": 5548032,
+      "count": 264192,
+      "file": "even-v-wide-patch-input-z.bin",
+      "sha256": "557167ea18270460f3cc4b1ffa8015c5ada0634a5d84dec5449d4d7249bb8d8e",
+      "width": 21,
+      "git_blob_sha1": "897edf250e429a6c9605ac129404353efc085a8c"
+    },
+    {
+      "bits": 256,
+      "bytes": 11765760,
+      "count": 392192,
+      "file": "odd-v-wide-compact-near-middle-window-action.bin",
+      "sha256": "1291cd070467cf487ef8218701e1befbb9c08133f9a4094fc74591d426c5806a",
+      "width": 30,
+      "git_blob_sha1": "f18ca85411a241410a51bea333354f31af16e24f"
+    },
+    {
+      "bits": 160,
+      "bytes": 5548032,
+      "count": 264192,
+      "file": "odd-v-wide-patch-input-z.bin",
+      "sha256": "3e0ca311e9c66021c7d4cd75a2ff40f935db46f2f03b4447c4dca486628bb476",
+      "width": 21,
+      "git_blob_sha1": "79a16213a458445481811f3d37e64ca08ef9eb23"
+    }
+  ],
+  "finite_rows_per_sector": 392192,
+  "whole_residual_acceptance_certified": false,
+  "infinite_capacity_tail_closed": false
+}

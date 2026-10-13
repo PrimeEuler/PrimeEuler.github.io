@@ -1,0 +1,63 @@
+name: Suzuki wider finite residual replay and compact gap
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-wider-compact-gap.yml
+      - unified/discriminant-12-return/research-notes/suzuki_wider_compact_gap_action.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay-and-gap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sector: even-v
+            compact_cert: 91ac66062b89bedcd3d04c09bd04330c2a6285167f119bca33231370a7473e18
+            compact_buffer: c57129c4a48c7f4f76c2cd44fb96a4674198473e720e2c06d742f3f60e1e4971
+          - sector: odd-v
+            compact_cert: 8c8394d88d20c1bfa8848c0a3b3291d982a3bd5b6732f4b53d696cac0e78da73
+            compact_buffer: 1291cd070467cf487ef8218701e1befbb9c08133f9a4094fc74591d426c5806a
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Replay the actual changed finite residual and all its buffers
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          sector='${{ matrix.sector }}'
+          python suzuki_wider_finite_residual_composition.py --compact-root payloads/wider_compact_finite_action_v14_349 --compact-certificate-sha256 '${{ matrix.compact_cert }}' --compact-buffer-sha256 '${{ matrix.compact_buffer }}' --tail1-root payloads/infinite_seed_region1_composed_action_v14_294 --tail23-root payloads/sandbox_tail_regions23_v14_327 --source-root payloads/full_stationary_source_v14_213 --lift-root payloads/wider_correction_rhs_and_lift_v14_345 --sector "$sector" --output-root "/tmp/compact-gap-$sector"
+          cmp "/tmp/compact-gap-$sector/wider-finite-residual-$sector.json" "payloads/wider_finite_residual_v14_353/wider-finite-residual-$sector.json"
+          for label in near middle far-window; do
+            cmp "/tmp/compact-gap-$sector/$sector-wider-$label-residual.bin" "payloads/wider_finite_residual_v14_353/$sector-wider-$label-residual.bin"
+          done
+      - name: Reassemble hash-bound wider candidate
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,base64,hashlib
+          root=Path('payloads/sandbox_wider_correction_v14_339');m=json.loads((root/'manifest.json').read_text())
+          name='${{ matrix.sector }}-wider-correction.bin';spec=m['buffers'][name]
+          raw=base64.b64decode(b''.join((root/q).read_bytes() for q in spec['parts']),validate=True)
+          assert len(raw)==spec['bytes'] and hashlib.sha256(raw).hexdigest()==spec['sha256']
+          (Path('/tmp')/name).write_bytes(raw)
+          PY
+      - name: Evaluate all 520191 changed compact gap rows
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_wider_compact_gap_action.py --self-check
+          python suzuki_wider_compact_gap_action.py --candidate-root /tmp --finite-root payloads/wider_compact_finite_action_v14_349 --finite-certificate-sha256 '${{ matrix.compact_cert }}' --front-near-root payloads/wider_front_near_far_v14_352 --patch-root payloads/sandbox_far_patch_moments_v14_344 --sector '${{ matrix.sector }}' --output-root '/tmp/compact-gap-${{ matrix.sector }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: changed-compact-gap-${{ matrix.sector }}
+          path: /tmp/compact-gap-${{ matrix.sector }}
+          if-no-files-found: error
