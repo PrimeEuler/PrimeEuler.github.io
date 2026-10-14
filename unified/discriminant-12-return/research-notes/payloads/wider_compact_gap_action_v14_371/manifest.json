@@ -1,0 +1,64 @@
+{
+  "schema": "cone.frozen-wider-compact-gap-action.v1",
+  "source_ci_run": 38436590050,
+  "source_ci_commit": "a89827f879fdf982a1625199733cec0266b7e159",
+  "artifact_archives": [
+    {
+      "sector": "even-v",
+      "artifact_id": 11833778843,
+      "bytes": 27267117,
+      "sha256": "52b81debffa89ad2d2482aa48f8e811ec0c5af21161558954d56870257eac9f2"
+    },
+    {
+      "sector": "odd-v",
+      "artifact_id": 11834810109,
+      "bytes": 27265858,
+      "sha256": "9fd1a5142d4b0a34cb4ce470fccf256c88332532287915c5a513ba145de33123"
+    }
+  ],
+  "buffers": [
+    {
+      "sector": "even-v",
+      "file": "even-v-wider-compact-gap-action.bin",
+      "reassembly": "concatenate parts in listed order without transformation",
+      "parts": [
+        {"file": "even-v-wider-compact-gap-action.part000", "bytes": 4000000, "sha256": "1c01c5412e52e2903b6e033ee68909cd9477e1998839655a38cad528b17f9a05"},
+        {"file": "even-v-wider-compact-gap-action.part001", "bytes": 4000000, "sha256": "71f1153659d7759f7ffe7f514de1b0c4976adf10c4f30c8e98aab8417a0a9628"},
+        {"file": "even-v-wider-compact-gap-action.part002", "bytes": 4000000, "sha256": "6ee1ab6d7ef87d044223ae7fbe400f54a3d2588620a3eb8cac924c09b23a9107"},
+        {"file": "even-v-wider-compact-gap-action.part003", "bytes": 3605730, "sha256": "c4b2222ce51b6b687611b65eaab4e051e6323344ee30e278a91963932dbedfcb"}
+      ],
+      "bytes": 15605730,
+      "count": 520191,
+      "width": 30,
+      "bits": 256,
+      "sha256": "f9cb90509bd06a9aa74f568cdad2d308f3da68789efe738608bc349343f55fb4",
+      "certificate_file": "wider-compact-gap-even-v.json",
+      "certificate_sha256": "af8d2f95e7cd0d375eedab76a48587c9d112ec7d8dbcdd558152dd43dd104d86"
+    },
+    {
+      "sector": "odd-v",
+      "file": "odd-v-wider-compact-gap-action.bin",
+      "reassembly": "concatenate parts in listed order without transformation",
+      "parts": [
+        {"file": "odd-v-wider-compact-gap-action.part000", "bytes": 4000000, "sha256": "53a586de26df57885a05a0d2dbd03058a8389a7b0e04ba53da458e7045f24611"},
+        {"file": "odd-v-wider-compact-gap-action.part001", "bytes": 4000000, "sha256": "a90114bfcd8ccf74df7d270734f1c38cccdc65d5b8104a34a34d366611eae56e"},
+        {"file": "odd-v-wider-compact-gap-action.part002", "bytes": 4000000, "sha256": "d3ae8e53c0137b9d25faab1943afe1965dcd6c66b0ff622a005f79ab9f3507df"},
+        {"file": "odd-v-wider-compact-gap-action.part003", "bytes": 3605730, "sha256": "8040ce38550a901d2a59510222459fd80adaea9be6881356705d90fb857e5e48"}
+      ],
+      "bytes": 15605730,
+      "count": 520191,
+      "width": 30,
+      "bits": 256,
+      "sha256": "e19659b9a4b42c1d487786242c263853dfa38f5b896ae1a75e9d015c17615a88",
+      "certificate_file": "wider-compact-gap-odd-v.json",
+      "certificate_sha256": "b29631007ed093dfd9bc5b3dec099bca940a09fd7adb802145dce1c13578ca45"
+    }
+  ],
+  "embedded_finite_residual_replay": {
+    "even_certificate_sha256": "0b0b5379ebf88196bcee4c191e412c563342a9e365a38d512a296ed20fe917e3",
+    "odd_certificate_sha256": "b61ce204c901c8075b865cd71870e4772a7c8fe47e2b269bf06f96a93bef9a33",
+    "all_six_residual_buffers_match_the_frozen_v14_353_hashes_and_lengths": true
+  },
+  "whole_residual_acceptance_certified": false,
+  "infinite_capacity_tail_closed": false
+}
