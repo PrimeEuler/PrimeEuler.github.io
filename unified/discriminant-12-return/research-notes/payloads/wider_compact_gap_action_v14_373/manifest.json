@@ -1,0 +1,311 @@
+{
+  "schema": "cone.compact-gap.action-buffer.freeze-repair.v1",
+  "date": "2026-10-14",
+  "parent_ledger": "v14.372",
+  "source_ledger": "v14.371",
+  "transport_note": "v14.371 raw 4,000,000-byte parts were truncated by the connector input ceiling. This additive repair uses raw 700,000-byte chunks (final 205,730 bytes), uploaded as exact base64-decoded git blobs. Concatenate each sector's chunks in ascending numeric order without transformation.",
+  "encoding": {
+    "row_format": "signed little-endian fixed point",
+    "bits": 256,
+    "bytes_per_row": 30,
+    "row_count": 520191
+  },
+  "sectors": {
+    "even-v": {
+      "buffer_bytes": 15605730,
+      "buffer_sha256": "f9cb90509bd06a9aa74f568cdad2d308f3da68789efe738608bc349343f55fb4",
+      "certificate_path": "../wider_compact_gap_action_v14_371/wider-compact-gap-even-v.json",
+      "certificate_sha256": "af8d2f95e7cd0d375eedab76a48587c9d112ec7d8dbcdd558152dd43dd104d86",
+      "chunks": [
+        {
+          "name": "even-v-wider-compact-gap-action.chunk000",
+          "bytes": 700000,
+          "sha256": "97805db85ffe8973d61793ffee2432e9c1b32c3f39dac7c3cb6d1c3489875613",
+          "git_blob_sha1": "8c51e6877fe1fee8ce3692072812d2eaf0e02130"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk001",
+          "bytes": 700000,
+          "sha256": "f19be2778e01fa210fa3e732c86f3930a853c5b8c1240ecc59694ae232766242",
+          "git_blob_sha1": "2d0164957e05cc00b338359b808cf532bea2851d"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk002",
+          "bytes": 700000,
+          "sha256": "6d652d9078a8115ca766677c086cb11088e501c32e33aad9c0a4f4afdab51660",
+          "git_blob_sha1": "2883f1cfe19b2563c22fa5b27faabe072d5ae7f1"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk003",
+          "bytes": 700000,
+          "sha256": "6d035d60ecee2f452fbf34d7a6307bb14c1c7c3063c6bd621ef8d579465438ee",
+          "git_blob_sha1": "97d736a0921dea5df4e646759f213c0a655e313c"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk004",
+          "bytes": 700000,
+          "sha256": "cc733b0445d597f8d1263edc13845c28dccbcacfc65dda905f08056e050fc77d",
+          "git_blob_sha1": "59d9cf078d99fa507d65c24a53112aff4c3095bb"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk005",
+          "bytes": 700000,
+          "sha256": "3690a60b2cb6e5b61dbfc877e56bb52426cac91b4642995f98ee02ab26feaba4",
+          "git_blob_sha1": "729e28f2c68aab92d727511ef42b4666ba4dbffd"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk006",
+          "bytes": 700000,
+          "sha256": "0fef56b3850d24ee874616e05c22cba80b4a1b639c1409d846d6804f1e12759b",
+          "git_blob_sha1": "0149bb13535ebcb0cbc3872a683642d518f9e23a"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk007",
+          "bytes": 700000,
+          "sha256": "448da97c24d2d71fb9f013aea0e1d91e3f273182ba39d750c6b9e3941e948cee",
+          "git_blob_sha1": "4b56d10cf9a720bad8ee2f09cf6e415467db9efd"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk008",
+          "bytes": 700000,
+          "sha256": "d229c5509a08f87e70f38499a2810429af37df4eba635ca134db6f3158e90d0a",
+          "git_blob_sha1": "7586c3ed75f14db5266e5afcc5e79c8cbcb53826"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk009",
+          "bytes": 700000,
+          "sha256": "52045a8a02489eea35872369f5cbf3bb36c221252f53c23e75c9aa337e432fbb",
+          "git_blob_sha1": "627fe9ae302dd92fca1768494adf070e2185fe8f"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk010",
+          "bytes": 700000,
+          "sha256": "41d21293d9eaa5378d9727142b9bf9eb950accb5d30c626867e8d5e99db6ae4b",
+          "git_blob_sha1": "0c345c235b98a740ab7e7d3f45e232047dd0bbd5"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk011",
+          "bytes": 700000,
+          "sha256": "79a13aa1865ae0c0b662f3a8d170c35ef31cc6b1449430a2a9afcf146b08fdaa",
+          "git_blob_sha1": "996dd27ba944fc062e7c7cc4b08919980d3c5d99"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk012",
+          "bytes": 700000,
+          "sha256": "10f5b8e9a38607b9a852db394a2f530ce655715abcd0a7e2982b1cec74212913",
+          "git_blob_sha1": "86fd3907dd0c382a3f3577fae4f3f2693ee0301b"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk013",
+          "bytes": 700000,
+          "sha256": "edc72ecdd224eea0751abbb843d50b12cb50b0edfce9ed2b0b6c59fd5140ff8e",
+          "git_blob_sha1": "42fd53ae08c981c1c6ea8b0266edd27da38923b2"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk014",
+          "bytes": 700000,
+          "sha256": "fffaf2d47264ea785afb19a23d355187151b3ed8b303eb5130a557696310989a",
+          "git_blob_sha1": "f94dfbc123eccf45dd5b92c8af1ed7e745159e54"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk015",
+          "bytes": 700000,
+          "sha256": "a85ba00a3b9216f2968c6c5acafb064586814038f747ac7e11bbe738c876c3bf",
+          "git_blob_sha1": "e76abea4684a536f28a4dae9c1b19dbead841431"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk016",
+          "bytes": 700000,
+          "sha256": "7537f3a96f1f37f76fa802724341fd9090c2ad19ebc7c938ebf84d1ef2e2ebef",
+          "git_blob_sha1": "398006406bd1519f22a819bc9c3a59e12aca0bbc"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk017",
+          "bytes": 700000,
+          "sha256": "e88aac9221143b1fb48cf44c218d16f7f0d2f790050892c22646cc7a09df8861",
+          "git_blob_sha1": "918a0c1b63b2ca4e2f729231bf16bdbe9c6c2af8"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk018",
+          "bytes": 700000,
+          "sha256": "0a76cb71ce23da5b79aa2d8a25499e79032013057694a46d1746d92d0085c5a2",
+          "git_blob_sha1": "e1d1784b818dee58b5340190c2f8313de3d401d6"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk019",
+          "bytes": 700000,
+          "sha256": "fd6074cd97bcc86074102902ba507f244c9c07791d9b02521e5cfa5966c32cef",
+          "git_blob_sha1": "8d0c57425718f51556698b4b98ecbffec5aa867e"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk020",
+          "bytes": 700000,
+          "sha256": "766d6172901e5e2b178211f9e3c87c25aacf856f35f093c7d1d0c9475a0f909d",
+          "git_blob_sha1": "6b7eaac098979206237cb68f12fa7e9022c92c41"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk021",
+          "bytes": 700000,
+          "sha256": "1155d920de00c2fbf3ce5a941916e34d144ef7c9e8f9ad3af8ccda3c91db6620",
+          "git_blob_sha1": "535c5237238056aad68037e1ce5c626c74e54e80"
+        },
+        {
+          "name": "even-v-wider-compact-gap-action.chunk022",
+          "bytes": 205730,
+          "sha256": "4d5550aca99e94d66be81c8ba5a4c834cdf206bd94bc7877169b90b8f0e403b0",
+          "git_blob_sha1": "0e1f1e6ac58ec39afcfa1e6c2b89adf5c91bcd48"
+        }
+      ]
+    },
+    "odd-v": {
+      "buffer_bytes": 15605730,
+      "buffer_sha256": "e19659b9a4b42c1d487786242c263853dfa38f5b896ae1a75e9d015c17615a88",
+      "certificate_path": "../wider_compact_gap_action_v14_371/wider-compact-gap-odd-v.json",
+      "certificate_sha256": "b29631007ed093dfd9bc5b3dec099bca940a09fd7adb802145dce1c13578ca45",
+      "chunks": [
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk000",
+          "bytes": 700000,
+          "sha256": "bf278990e08c3b84566a544320b779c000379e821912c7b83ccf245f29868ac9",
+          "git_blob_sha1": "b9c82de05306eada557d8ec23a2762cf0c787511"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk001",
+          "bytes": 700000,
+          "sha256": "b32a5b7e954a87fd9426335f9bba3874120c0ac6c5bfc8c73421065629521d18",
+          "git_blob_sha1": "c89ba712cc56e0aaf827f2f4eeb3b3a3bb6259d5"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk002",
+          "bytes": 700000,
+          "sha256": "b61c028ccc58c0d9fe551e68a37f23dbc738536821739637be57f30017f62af7",
+          "git_blob_sha1": "90cdb68c30047e09913627ac24c1028cbaa0b05c"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk003",
+          "bytes": 700000,
+          "sha256": "1728295a89e2972072654b49cb01b8288e07d2741422c9576402aa93bde1ab85",
+          "git_blob_sha1": "eba0aafa4c986ced09864209e54a0687a4f28f17"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk004",
+          "bytes": 700000,
+          "sha256": "f3d8d0b5233a6e8822d87f5b267a577c372f161084c95c2bea78314feb6beb1d",
+          "git_blob_sha1": "0cc4c4412d4640224ca89b36e658493cf96adc5e"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk005",
+          "bytes": 700000,
+          "sha256": "4d4dd8f3326f255024588ab1bf5b61e285f5fb680c9562d8e981f5a7ca65bb83",
+          "git_blob_sha1": "02a31ff23d9ade66b0bf83ec60fb29dd70226d9e"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk006",
+          "bytes": 700000,
+          "sha256": "66a219b9cb391d6cbfc4f405e46c563a26d0750c38b4a3f82acab4e0f92d712a",
+          "git_blob_sha1": "55de685db2519055f0d7ef254df66452d5aa06bd"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk007",
+          "bytes": 700000,
+          "sha256": "8c1138ac81847811c0a177269721cd3582ae9d059cb9bd5d3549294c2f4f40ee",
+          "git_blob_sha1": "147cd1f847cc104f06b64048d499e8024a5cd0d4"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk008",
+          "bytes": 700000,
+          "sha256": "8372a02558c4970eb12eccfcf428abed848b4c6d7fa8383d3ca4be19f6bde25e",
+          "git_blob_sha1": "1b3f638de88f7fa2d7c7cafdb566df48dc3f6827"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk009",
+          "bytes": 700000,
+          "sha256": "6310f1ecdc98ef44e1ed1aa75920a31306c8458c8071696862913fc254b9acc6",
+          "git_blob_sha1": "7eb7318db2b8e4ff2c1911d72774c7a8a31be004"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk010",
+          "bytes": 700000,
+          "sha256": "8818be819641f7fd4ddac83b3311c063a72e7b8fbb43a2118c24d008d15f1733",
+          "git_blob_sha1": "cca83d7fa48f4907c5f1c78e0eb25986d26d378f"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk011",
+          "bytes": 700000,
+          "sha256": "d88d3de1005278e4df80c84da16e6625162b4081c64624dd1867f7e6f77209d6",
+          "git_blob_sha1": "e226846867851a8a9103030d0646939b7bad06ff"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk012",
+          "bytes": 700000,
+          "sha256": "0834201a83f79c929f17cb62e955f6e07fd8181447068b916b6018e867077816",
+          "git_blob_sha1": "e0c3aba2be27e29cb0674a4a248565c0631fc176"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk013",
+          "bytes": 700000,
+          "sha256": "44ff788ce5a69ec981d78f25da3682a3f8d36186420f8512f0c994c66ef3c99d",
+          "git_blob_sha1": "3d491251e5fea971ea05dc063d8380a4e39355d2"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk014",
+          "bytes": 700000,
+          "sha256": "a3fb1911a46a4e15ecae8cee430f75fafdd90a0875b0bb60fc7a3a99caea7d5e",
+          "git_blob_sha1": "b24b12e6047ccc450a7344532484d18896337da3"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk015",
+          "bytes": 700000,
+          "sha256": "4b1157d20cfa3e4d30886b8a1cb4a997ef31c05cc42201594f0465f620418627",
+          "git_blob_sha1": "23d3d50b5288d983001a11ebb7e85e50cc9fbb22"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk016",
+          "bytes": 700000,
+          "sha256": "b9c04f04c4f0994083d43e92522a4d2a8174c2c636f4870d68932014f7c5e46e",
+          "git_blob_sha1": "5da0e5aa6fc0edc1065d5a84e145b2a55a6891dd"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk017",
+          "bytes": 700000,
+          "sha256": "e1c03a95c4edc600c06abb08bfcb04b055f5ad0e37fdd74f6f9f10776167f967",
+          "git_blob_sha1": "47ac204d45a7f5ea94b1b1a6ae998da270a759e4"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk018",
+          "bytes": 700000,
+          "sha256": "312c3b9c2a57032ba2c2eff6800c60b170ca786e7c8386b5a0d87f74c782be1e",
+          "git_blob_sha1": "97d31a1f6dd83fb527af0fe7f035314d2569d012"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk019",
+          "bytes": 700000,
+          "sha256": "de154f9fd582a09c7ba7be5edee28aad0b54b40d0e1bc4efe407b99b5d5cb9eb",
+          "git_blob_sha1": "55f41fa57f63afa7d69b4068c0a8bbef6902e3a3"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk020",
+          "bytes": 700000,
+          "sha256": "1e391c0ff1ff803d479d4b4cbee654ab0e78bc43196f9d577f84735ab5c9a0b1",
+          "git_blob_sha1": "1c92af2998247dc07eee3eabe400829ca8b2d523"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk021",
+          "bytes": 700000,
+          "sha256": "ca5a1ff3bc1775529035979b01eb5419f906c8e5a76e0abb589c0f9e982a22e5",
+          "git_blob_sha1": "3548430c8682604c86c66f9d206cf067ea83c352"
+        },
+        {
+          "name": "odd-v-wider-compact-gap-action.chunk022",
+          "bytes": 205730,
+          "sha256": "093772442e85309820e63fff45f54c7cd9a6df29bc98440a1c8c74852ee23704",
+          "git_blob_sha1": "9a6f55428a6a125a0ea824fda5a1a31484f16519"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "pre_commit": "Every returned Git blob SHA-1 equals local git hash-object for the exact chunk bytes.",
+    "post_commit": "Pending directory fetch-back; recorded in the following ledger receipt."
+  }
+}
