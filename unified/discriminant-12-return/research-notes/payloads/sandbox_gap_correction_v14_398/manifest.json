@@ -1,0 +1,56 @@
+{
+  "schema": "cone.sandbox-gap-correction-transfer.v1",
+  "task_ledger": "v14.398",
+  "namespace": "research-notes/payloads/sandbox_gap_correction_v14_398/",
+  "buffer_format": "dyadic integers floor_160(delta_gap * 2^160), signed little-endian 17-byte integers, 520191 rows, same-parity lattice step 2",
+  "reassembly": "concatenate .b64.partNNN in numeric order, base64-decode",
+  "buffers": {
+    "even-v-gap-correction.bin": {
+      "bytes": 8843247,
+      "sha256": "171883d6c8e41e9a92f88bea4fa96b70f538ada49ea296876e1f06aebe1f9da6",
+      "parts": [
+        "even-v-gap-correction.bin.b64.part000",
+        "even-v-gap-correction.bin.b64.part001",
+        "even-v-gap-correction.bin.b64.part002",
+        "even-v-gap-correction.bin.b64.part003",
+        "even-v-gap-correction.bin.b64.part004",
+        "even-v-gap-correction.bin.b64.part005",
+        "even-v-gap-correction.bin.b64.part006",
+        "even-v-gap-correction.bin.b64.part007",
+        "even-v-gap-correction.bin.b64.part008",
+        "even-v-gap-correction.bin.b64.part009",
+        "even-v-gap-correction.bin.b64.part010",
+        "even-v-gap-correction.bin.b64.part011",
+        "even-v-gap-correction.bin.b64.part012",
+        "even-v-gap-correction.bin.b64.part013",
+        "even-v-gap-correction.bin.b64.part014"
+      ]
+    },
+    "odd-v-gap-correction.bin": {
+      "bytes": 8843247,
+      "sha256": "f3a9b9a06efb728ee8ed51b4294fbd406d0b9bad8248831d03b3c4586f846a66",
+      "parts": [
+        "odd-v-gap-correction.bin.b64.part000",
+        "odd-v-gap-correction.bin.b64.part001",
+        "odd-v-gap-correction.bin.b64.part002",
+        "odd-v-gap-correction.bin.b64.part003",
+        "odd-v-gap-correction.bin.b64.part004",
+        "odd-v-gap-correction.bin.b64.part005",
+        "odd-v-gap-correction.bin.b64.part006",
+        "odd-v-gap-correction.bin.b64.part007",
+        "odd-v-gap-correction.bin.b64.part008",
+        "odd-v-gap-correction.bin.b64.part009",
+        "odd-v-gap-correction.bin.b64.part010",
+        "odd-v-gap-correction.bin.b64.part011",
+        "odd-v-gap-correction.bin.b64.part012",
+        "odd-v-gap-correction.bin.b64.part013",
+        "odd-v-gap-correction.bin.b64.part014"
+      ]
+    }
+  },
+  "certificates": [
+    "gap-correction-even-v.json",
+    "gap-correction-odd-v.json"
+  ],
+  "producer": "build_gap_correction.py"
+}
