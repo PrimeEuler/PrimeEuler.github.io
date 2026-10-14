@@ -1,0 +1,74 @@
+{
+  "base_trial": "correction added to the preserved v14.345 trial (refined Near + v14.341 Middle/window patch + unchanged original infinite seed); the gap support is disjoint from the finite trial support and from the compact support; nothing outside the gap support changes",
+  "buffer": {
+    "bits": 160,
+    "bytes": 8843247,
+    "count": 520191,
+    "file": "odd-v-gap-correction.bin",
+    "sha256": "f3a9b9a06efb728ee8ed51b4294fbd406d0b9bad8248831d03b3c4586f846a66",
+    "width": 17
+  },
+  "candidate_only": true,
+  "contraction_claimed": false,
+  "definition": "delta_gap(n)=floor_160(r_gap_point(n)/midpoint(log_normalized(n,128))) on the evaluated gap rows; zero elsewhere",
+  "display_approximate": {
+    "base_trial_norm_upper_v14_345": 0.000163414040717791,
+    "correction_l1": 0.002847623000164413,
+    "correction_norm_upper": 4.833161359289399e-06,
+    "whole_trial_norm_upper_triangle": 0.0001682472020770804
+  },
+  "domain_justification": "delta_gap is finitely supported (520191 modes) with dyadic-rational values; finitely supported sequences lie in the operator domain and in every weighted l2 space of the framework, and the domain is a vector space containing them, so adding delta_gap to the existing domain-admissible v14.345 trial keeps the sum domain-admissible. (D delta)_n for a finitely supported correction is a finite sum at every row.",
+  "infinite_capacity_tail_closed": false,
+  "inputs": {
+    "compact_buffer_sha256": "e19659b9a4b42c1d487786242c263853dfa38f5b896ae1a75e9d015c17615a88",
+    "log_normalized_module": "suzuki_certified_remote_diagonal.py (byte-identical to repository copy)",
+    "log_normalized_module_sha256": "08226538dffb5db42d85db5edb0f1c043a56df326ed1f51dc7391ca7cf8a2788",
+    "residual_buffer_sha256": "350e020a7bc9f30aa66dae7b1b7966e112b81c56141c7bd73ae64eaeefdcb5fd",
+    "residual_source": "reconstructed from frozen parents (v14.373 compact chunks + v14.393 seed buffers) by the v14.396 convention; pinned to the v14.396 manifest",
+    "seed_buffer_sha256": "675138c2ff20728945989bd14aa8c1a004a54229847a9664de4992a0d972c413",
+    "v14_345_trial_certificate": "research-notes/payloads/wider_correction_rhs_and_lift_v14_345/wider-correction-RHS-odd-v.json",
+    "v14_345_trial_certificate_sha256": "b3bfb058f33e93cc6df7fd5d7b08a8a6ed38ef50d02b6977d57d724035a2ceac",
+    "v14_396_manifest_sha256": "0657cccffa429feb45e297291194e8000a88529d28f327c10cd77eac8f34237a"
+  },
+  "lambda_inverse_equals_schur_inverse_claimed": false,
+  "new_residual_evaluated": false,
+  "norm_cap": {
+    "cap": "0.002 (unchanged, v14.339)",
+    "correction_norm_upper_within_cap": true
+  },
+  "rational": {
+    "base_trial_norm_upper_v14_345": "147828540511131848089405059183456748634851296724871003258765150887664702511177/904625697166532776746648320380374280103671755200316906558262375061821325312000000",
+    "correction_l1": "4161805677241427537300165049825064133447254423/1461501637330902918203684832716283019655932542976",
+    "correction_norm_squared": "49895479642705751589427460184658684677132083876374609818080449399259805228665626787203/2135987035920910082395021706169552114602704522356652769947041607822219725780640550022962086936576",
+    "correction_norm_upper": "30338245555799331670536005195143642168810467106577043/6277101735386680763835789423207666416102355444464034512896",
+    "whole_trial_norm_upper_triangle": "152200742475297367334963992593809576694488296070274259032290953419611198511177/904625697166532776746648320380374280103671755200316906558262375061821325312000000"
+  },
+  "schema": "cone.sandbox-gap-correction-candidate.v1",
+  "sector": "odd-v",
+  "stationary_acceptance_met": false,
+  "support": {
+    "count": 520191,
+    "first_mode": 1040386,
+    "last_mode": 2080766,
+    "segments": [
+      {
+        "first_mode": 1040386,
+        "last_mode": 2080766,
+        "rows": 520191,
+        "source": "v14.396 gap residual (independently reconstructed in v14.397 replay)"
+      }
+    ],
+    "step": 2
+  },
+  "task": "v14.398 HANDOFF - Sandbox: finite gap correction candidate from the replayed v14.396 residual",
+  "verification": {
+    "all_logpoints_gt_11": true,
+    "buffer_round_trip_recomputed": true,
+    "integer_path_agrees_on_samples": true,
+    "logpoint_max": "4478780279220158691656047119345901638821/340282366920938463463374607431768211456",
+    "logpoint_min": "8485830994431254825685913171715520898015/680564733841876926926749214863536422912",
+    "one_quantum_bound_on_samples": "0 <= r_gap_point - delta_gap*logpoint < logpoint * 2^-160",
+    "residual_reconstruction_pinned_to_v14_396_manifest": true,
+    "sample_rows_checked": 64
+  }
+}
