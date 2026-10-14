@@ -1,0 +1,71 @@
+{
+ "payload": "sandbox_suzuki_station_grams_v14_416",
+ "ledger_version": "v14.416",
+ "date": "2026-10-14",
+ "track": "Sandbox (Jeremy exploratory track, \"our Lane B\" \u2014 not ledger Lane B)",
+ "provenance": {
+  "suzuki_riemann_screw_calibration.py": "Byte-identical copy of the repo file research-notes/suzuki_riemann_screw_calibration.py (Lane A, v13.285), fetched 2026-10-14; implements Suzuki arXiv:2606.09096v2 eq. (1.3).",
+  "station_gram.py": "As-run producer of results.json (N=32 zeta station Gram, piece Grams, zero-mass identity, knot jumps, cone-screw covariance).",
+  "station_gram_scaling.py": "As-run producer of scaling_results.json (N=32..128; archimedean cache arch_cache.json, keys quantized to 1e-9 after a float key-mismatch crash and rerun).",
+  "d12_screw_audit.py": "As-run producer of d12_audit_results.json (normalization re-audit of v13.258 vs Suzuki eq. (1.3)).",
+  "d12_station_gram.py": "As-run producer of d12_gram_results.json (chi_12 and Dedekind g_K station Grams, N=32/64).",
+  "EXPLORATION.md": "Sandbox exploration note (formalization, results, readings, next steps), as reviewed by Jeremy."
+ },
+ "files": [
+  {
+   "path": "EXPLORATION.md",
+   "bytes": 9374,
+   "sha256": "5333f6caa7eca4b92d0d1cc055a09c43ce48292b300e820fb4bde6e935e4362c"
+  },
+  {
+   "path": "arch_cache.json",
+   "bytes": 178292,
+   "sha256": "4137cd2ddf6d21e926460a5b3206fb791ee0ef0c1e853a6b29156d83d3ca66cc"
+  },
+  {
+   "path": "d12_audit_results.json",
+   "bytes": 1661,
+   "sha256": "4d4efaed40a57a4ce0b8ab1abc5cc7021ac20adad7c1730a8c418cd101809015"
+  },
+  {
+   "path": "d12_gram_results.json",
+   "bytes": 1593,
+   "sha256": "f3892fe2af6c96537fd650656ef7d241045cc1fb0427ff64097d5f7f279826e0"
+  },
+  {
+   "path": "d12_screw_audit.py",
+   "bytes": 5119,
+   "sha256": "d06d72681c9cdfb90f52da6f02b4a7b7e541009cfa29434f4aaa5506cb7115cc"
+  },
+  {
+   "path": "d12_station_gram.py",
+   "bytes": 3617,
+   "sha256": "b2f7ecc7e55c2418e2685da5e0ed78d125c94f13092b8a350a51948e3e3ddaf9"
+  },
+  {
+   "path": "results.json",
+   "bytes": 1840,
+   "sha256": "fea7e219c726f7bb134861cbb81f21343c5cfa93ef4cabd914cac0a2a70ee7bf"
+  },
+  {
+   "path": "scaling_results.json",
+   "bytes": 1105,
+   "sha256": "ff6d459e271d2988b7cdfdaaf35284b8b7f6979f796c25b59023c5bb7107987a"
+  },
+  {
+   "path": "station_gram.py",
+   "bytes": 3839,
+   "sha256": "243ac27e8c1e8d5d6e7887d59cedb7749c727860b5de9f0c82d885e3e0ef1e5d"
+  },
+  {
+   "path": "station_gram_scaling.py",
+   "bytes": 2834,
+   "sha256": "de72e8fef429358236cc06e901ea38867440afa699c8821851a897a9b2c879f3"
+  },
+  {
+   "path": "suzuki_riemann_screw_calibration.py",
+   "bytes": 3754,
+   "sha256": "a11082e0d229dcbb2aac4b3415c254aab48b6a01e3da619a2ac79ec880733047"
+  }
+ ]
+}
