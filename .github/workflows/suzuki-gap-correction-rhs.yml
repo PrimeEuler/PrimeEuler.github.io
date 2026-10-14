@@ -1,0 +1,72 @@
+name: Evaluate supplied gap correction finite RHS
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-gap-correction-rhs.yml
+      - unified/discriminant-12-return/research-notes/suzuki_gap_correction_rhs.py
+      - unified/discriminant-12-return/research-notes/payloads/sandbox_gap_correction_v14_398/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  supplied-gap-correction-rhs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sector: even-v
+            candidate_sha256: 171883d6c8e41e9a92f88bea4fa96b70f538ada49ea296876e1f06aebe1f9da6
+          - sector: odd-v
+            candidate_sha256: f3a9b9a06efb728ee8ed51b4294fbd406d0b9bad8248831d03b3c4586f846a66
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Reassemble and verify hash-bound candidate and snapshot
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64, hashlib, json
+          from pathlib import Path
+          sector='${{ matrix.sector }}'
+          candidate_sha='${{ matrix.candidate_sha256 }}'
+          candidate_root=Path('payloads/sandbox_gap_correction_v14_398')
+          manifest=json.loads((candidate_root/'manifest.json').read_text())
+          spec=manifest['buffers'][f'{sector}-gap-correction.bin']
+          raw=base64.b64decode(b''.join(b''.join((candidate_root/p).read_bytes().split()) for p in spec['parts']),validate=True)
+          assert len(raw)==spec['bytes']==8843247
+          assert hashlib.sha256(raw).hexdigest()==spec['sha256']==candidate_sha
+          target=Path('/tmp/gap-correction-input'); target.mkdir(parents=True,exist_ok=True)
+          (target/f'{sector}-gap-correction.bin').write_bytes(raw)
+          snapshot_root=Path('payloads/exact_outward_run_37827949740')
+          snapshot_manifest=json.loads((snapshot_root/'artifact_manifest.json').read_text())
+          snapshot=next(x for x in snapshot_manifest['snapshots'] if x['cutoff']==256000 and x['sector']==sector)
+          raw=base64.b64decode(b''.join((snapshot_root/p).read_bytes() for p in snapshot['base64_parts']),validate=True)
+          assert len(raw)==snapshot['bytes']
+          assert hashlib.sha256(raw).hexdigest()==snapshot['sha256']
+          (target/snapshot['snapshot_file']).write_bytes(raw)
+          PY
+      - name: Evaluate all 128000 physical finite-front RHS rows
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          mkdir -p '/tmp/gap-correction-rhs-${{ matrix.sector }}'
+          python suzuki_gap_correction_rhs.py \
+            --snapshot '/tmp/gap-correction-input/joint-256000-${{ matrix.sector }}.trace-256000.full.zip' \
+            --old-root payloads/wider_correction_rhs_and_lift_v14_345 \
+            --candidate '/tmp/gap-correction-input/${{ matrix.sector }}-gap-correction.bin' \
+            --candidate-width 17 \
+            --candidate-sha256 '${{ matrix.candidate_sha256 }}' \
+            --sector '${{ matrix.sector }}' \
+            --output-root '/tmp/gap-correction-rhs-${{ matrix.sector }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gap-correction-rhs-${{ matrix.sector }}
+          path: /tmp/gap-correction-rhs-${{ matrix.sector }}
+          if-no-files-found: error
