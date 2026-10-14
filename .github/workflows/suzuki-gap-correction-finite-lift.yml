@@ -1,0 +1,69 @@
+name: Suzuki gap correction fresh lift exact replay
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-gap-correction-finite-lift.yml
+      - unified/discriminant-12-return/research-notes/suzuki_gap_correction_finite_lift.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay-new-lifts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Reconstruct hash-bound actual256 witnesses
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,shutil
+          from pathlib import Path
+          root=Path('payloads/exact_outward_run_37827949740')
+          manifest=json.loads((root/'artifact_manifest.json').read_text())
+          for x in manifest['files']:
+              raw=(root/x['file']).read_bytes()
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+          target=Path('/tmp/full-stationary-input');target.mkdir()
+          for x in manifest['snapshots']:
+              if x['cutoff']!=256000:continue
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in x['base64_parts']),validate=True)
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+              (target/x['snapshot_file']).write_bytes(raw)
+              shutil.copyfile(root/x['certificate_file'],target/x['certificate_file'])
+          for short in ('even','odd'):
+              for kind in ('moments','far'):
+                  name=f'frozen256-{short}-{kind}.json'
+                  shutil.copyfile(root/name,target/name)
+          Path('/tmp/full-stationary-results').mkdir()
+          PY
+      - name: Reconstruct and verify every frozen buffer chunk
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,shutil
+          root=Path('payloads/gap_correction_rhs_and_lift_v14_403');m=json.loads((root/'manifest.json').read_text());target=Path('/tmp/new-gap-trial');target.mkdir()
+          for c in m['certificates']:
+              raw=(root/c['file']).read_bytes();assert len(raw)==c['bytes'] and hashlib.sha256(raw).hexdigest()==c['sha256'];(target/c['file']).write_bytes(raw)
+          for name,s in m['buffers'].items():
+              parts=[]
+              for p in s['chunks']:
+                  raw=(root/p['name']).read_bytes()
+                  assert len(raw)==p['bytes'] and hashlib.sha256(raw).hexdigest()==p['sha256']
+                  assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==p['git_blob_sha1']
+                  parts.append(raw)
+              raw=b''.join(parts);assert len(raw)==s['bytes'] and hashlib.sha256(raw).hexdigest()==s['sha256'];(target/name).write_bytes(raw)
+          PY
+      - name: Replay all new finite residual coordinates and six protected components
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_compact_component_rectangle.py
+          python suzuki_gap_correction_finite_lift.py --mode replay --root /tmp/full-stationary-input --rhs-root /tmp/new-gap-trial --output-root /tmp/new-gap-trial --sector even-v --rhs-certificate-sha256 42c71d7e017eadc08a6ebe20045f6d6e83bbe3523e17ba282903eccf08edc075 --rhs-point-sha256 2007a804cb269ea1c5018d5305e772930be018ba1236985c2f845ffbc98be21c
+          python suzuki_gap_correction_finite_lift.py --mode replay --root /tmp/full-stationary-input --rhs-root /tmp/new-gap-trial --output-root /tmp/new-gap-trial --sector odd-v --rhs-certificate-sha256 1309bec0a4568684f3631a2d88a278ba711c8496960491e5a81428a8fb5b30b3 --rhs-point-sha256 bd3077e6903e1c63d4a1f60b1e2916fc212105c03700469e6550c597065db109

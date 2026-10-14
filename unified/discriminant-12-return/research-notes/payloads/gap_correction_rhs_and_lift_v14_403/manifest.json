@@ -1,0 +1,659 @@
+{
+  "schema": "cone.frozen-gap-correction-rhs-and-lift.v1",
+  "source_commit": "dcb10d14ba3a54eacccbfe7a8c79b3eaefdae976",
+  "candidate_ledger": "v14.399",
+  "RHS_CI_run": 38607293592,
+  "RHS_CI_artifacts": [
+    {
+      "id": 11917311498,
+      "bytes": 14755839,
+      "zip_sha256": "sha256:e62040be08299e40cf22203d8400e9eff109f820c2b1e3c63f0ade96aa4f9a96"
+    },
+    {
+      "id": 11917077294,
+      "bytes": 14755793,
+      "zip_sha256": "sha256:c2d4386a39267cbf00522a04c3bdd01f74b97a69b89ba30e2b0b59978693c6db"
+    }
+  ],
+  "RHS_CI_all_output_bytes_equal_local": true,
+  "local_fresh_lift_produce_and_exact_replay_both_sectors": true,
+  "buffers": {
+    "even-v-gap-correction-input-z.bin": {
+      "bits": 160,
+      "bytes": 10924011,
+      "count": 520191,
+      "file": "even-v-gap-correction-input-z.bin",
+      "sha256": "7440766af36e77af4e26de0ee182cda57da90fc185ea0f7939095ed3a5e6f3a4",
+      "width": 21,
+      "chunks": [
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk000",
+          "offset": 0,
+          "bytes": 700000,
+          "sha256": "c1981c0c7fb2e5ba85059ca1ae62b2533eae4c5629a1de95bb73da7a7680eeb8",
+          "git_blob_sha1": "d748f968f44ab3405231aa6d25cfb5f4efb9c9c6"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk001",
+          "offset": 700000,
+          "bytes": 700000,
+          "sha256": "08fd95ed7ff0608e9cfc4cb624c7c37657f385c7cc95c056dfbcf7c182d13c25",
+          "git_blob_sha1": "b9e1700f5695b033445887e11102b0ddab486513"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk002",
+          "offset": 1400000,
+          "bytes": 700000,
+          "sha256": "f18181dda2c60c75d655678252f74551ea3d24c37f57b882cac51a2de5671911",
+          "git_blob_sha1": "224a06b3c2cceb83e989416cd92d67f7d6c158ca"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk003",
+          "offset": 2100000,
+          "bytes": 700000,
+          "sha256": "95c86449af2b6d18b0150f0f584c3aba2a1683167f166260b069718bd879cb79",
+          "git_blob_sha1": "c3bc77ac8f74a18bd839939e210e356e22015f96"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk004",
+          "offset": 2800000,
+          "bytes": 700000,
+          "sha256": "bc73b65079e3f0b5e498b25c1b3d6db024d9bfa9191b7ab0ff0af5e9a22e0cc2",
+          "git_blob_sha1": "6bd2fa5db9e950a2fa28c5f4d7cf16069398b3ee"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk005",
+          "offset": 3500000,
+          "bytes": 700000,
+          "sha256": "ad02a4dc222d01d8bd1b04e874535a3423606923caeb5fc8f7855a060f6cfe4e",
+          "git_blob_sha1": "ad42d98b7e61a497eba8a68bf3992631cdcc42dc"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk006",
+          "offset": 4200000,
+          "bytes": 700000,
+          "sha256": "41c2aced5eccf81414badfa6a910eb575385a40632a5df732a57176f5a6f8282",
+          "git_blob_sha1": "c47f5b14bfb2433f57d9cd73a8ef310f0022249a"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk007",
+          "offset": 4900000,
+          "bytes": 700000,
+          "sha256": "656c81b202bdfc0295698e1506adbb857f1895c06989f1d0860efb80757917b4",
+          "git_blob_sha1": "d8fdde42ca78a7b628f5c672a25a1615645393bd"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk008",
+          "offset": 5600000,
+          "bytes": 700000,
+          "sha256": "46378678f209d18e3d397d54cc19ca7a5735f8428e65f8e3482068616b4e0580",
+          "git_blob_sha1": "4518971a49fdacdbf2938a683b7bc784957513e2"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk009",
+          "offset": 6300000,
+          "bytes": 700000,
+          "sha256": "93bc5831cb300d3f4463919b3aa7ecb22de2bd82ba7cc486d3cd54bdc2316d7c",
+          "git_blob_sha1": "eafe7546df88c46099f5c0cc9f503f74e918644c"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk010",
+          "offset": 7000000,
+          "bytes": 700000,
+          "sha256": "74e83128ab2486dd4f4f956d66bbda76abefa1b2c46e4e78792ad7b901c6ad17",
+          "git_blob_sha1": "1dc7fb53383f0045907dcff6b89606baff068065"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk011",
+          "offset": 7700000,
+          "bytes": 700000,
+          "sha256": "098f5d8e5a909781369ad7897fdb89579d77b49102eb87677ef92abc8cce40d0",
+          "git_blob_sha1": "e10660b80e24bc56ea42f9720a63797eab67dded"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk012",
+          "offset": 8400000,
+          "bytes": 700000,
+          "sha256": "ea80dd515d6d70c9ef0012c1715c92bf487f91951bb0d47bc6da481baf04e9a8",
+          "git_blob_sha1": "654afc7980dae1243e251772679c740d1fba2c0a"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk013",
+          "offset": 9100000,
+          "bytes": 700000,
+          "sha256": "09358aa892f1a1f6d1f8c8f75837dbd1bb26c84d4e9b7d28b3cd883caefda205",
+          "git_blob_sha1": "dad521eba2da7944d5218d5ccae90959169782e0"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk014",
+          "offset": 9800000,
+          "bytes": 700000,
+          "sha256": "0ad747daba48c4e00237593df5b6260ec5328eaa48b5edfbe253fd1ba7f28c1a",
+          "git_blob_sha1": "f42034652676fcc1a5e39e16181fc1a8339ba549"
+        },
+        {
+          "name": "even-v-gap-correction-input-z.bin.chunk015",
+          "offset": 10500000,
+          "bytes": 424011,
+          "sha256": "8949fa42ea4401a872ff8812cbc0c837029cdaa6ffaad37b19cebc1211ff21fb",
+          "git_blob_sha1": "b8c12b581aac1e44ab3bbfbb7e66ef2017b47756"
+        }
+      ]
+    },
+    "even-v-gap-correction-lift-rhs.bin": {
+      "bits": 256,
+      "bytes": 3840000,
+      "count": 128000,
+      "file": "even-v-gap-correction-lift-rhs.bin",
+      "sha256": "2007a804cb269ea1c5018d5305e772930be018ba1236985c2f845ffbc98be21c",
+      "width": 30,
+      "chunks": [
+        {
+          "name": "even-v-gap-correction-lift-rhs.bin.chunk000",
+          "offset": 0,
+          "bytes": 700000,
+          "sha256": "730daefb693da34c5ff9c822759eae607b5c387f5f422a43319386b483ed5fe4",
+          "git_blob_sha1": "d2b5e3b5db8d7f4a6a8556d1e0154452dc2997c8"
+        },
+        {
+          "name": "even-v-gap-correction-lift-rhs.bin.chunk001",
+          "offset": 700000,
+          "bytes": 700000,
+          "sha256": "2beb412d2dc5a2d599a08479ca2bd5eda4cdb1f19554a1ba8c1031b0cdccf1a9",
+          "git_blob_sha1": "24c9fb27a89779dff79d4424ab746052356f7ced"
+        },
+        {
+          "name": "even-v-gap-correction-lift-rhs.bin.chunk002",
+          "offset": 1400000,
+          "bytes": 700000,
+          "sha256": "cafa83ef5b7ac4cf97c57175d034730246a8b0c4e8c16077c7444aaac250b27d",
+          "git_blob_sha1": "db4019de86afccdfaf948c305ae1937959e8de0f"
+        },
+        {
+          "name": "even-v-gap-correction-lift-rhs.bin.chunk003",
+          "offset": 2100000,
+          "bytes": 700000,
+          "sha256": "47acc86378bd722eebaf34b0002501e6d138d86593dae9b1f8dd7d0d058d1aa8",
+          "git_blob_sha1": "a4e4200245b92ab0f9705ed91f4857e70ac53030"
+        },
+        {
+          "name": "even-v-gap-correction-lift-rhs.bin.chunk004",
+          "offset": 2800000,
+          "bytes": 700000,
+          "sha256": "f8f505c147559f80f615214e3fb0f880dfd15b53653cc0b27899ff6426220e34",
+          "git_blob_sha1": "078d146d11b331308ec77072210ffd5996398984"
+        },
+        {
+          "name": "even-v-gap-correction-lift-rhs.bin.chunk005",
+          "offset": 3500000,
+          "bytes": 340000,
+          "sha256": "d380ba4aec6424c5f546e014c75ded27c5055502562b5b03d16494b9c28ada65",
+          "git_blob_sha1": "2d0e14367f186a480b3a280a86ab76db37c9687a"
+        }
+      ]
+    },
+    "even-v-gap-correction-finite-lift.bin": {
+      "bits": 662,
+      "bytes": 11136000,
+      "count": 128000,
+      "file": "even-v-gap-correction-finite-lift.bin",
+      "sha256": "8f6cfeb212ff739ee788cee2d6eef2433afb8bf7338348646e7082b769b46449",
+      "width": 87,
+      "chunks": [
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk000",
+          "offset": 0,
+          "bytes": 700000,
+          "sha256": "a2f63b8b0eb6a76328cef246deb385cd81cd5ec726b14b87077c099eeadb7d2b",
+          "git_blob_sha1": "0d6ff9c2c5cd1c04c2fd0006470a4ea07e4e79b1"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk001",
+          "offset": 700000,
+          "bytes": 700000,
+          "sha256": "a0a35e5c52875714c5c581f379aa195ffeafed9320aa863ecaf18df3c0e55ad6",
+          "git_blob_sha1": "1909a52db5ca92c27fc4996ad077a5e77b41dcc4"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk002",
+          "offset": 1400000,
+          "bytes": 700000,
+          "sha256": "037ddbf7325ea91a3c77e371beeeea5abd7301feca9b2faccfcf4579cd4189e8",
+          "git_blob_sha1": "0d0556f5be88767159a3a5f22ae20863a8120175"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk003",
+          "offset": 2100000,
+          "bytes": 700000,
+          "sha256": "cfdbc1dd903c9869b4bec373b49f05792c47d243c20d2a96ddcfa1b64145e615",
+          "git_blob_sha1": "61c7d8515177c8e830af9d657ec61ce985948351"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk004",
+          "offset": 2800000,
+          "bytes": 700000,
+          "sha256": "558e911515e662d300532cd2fb2d9707b3ad1060c6edc94703354da6238a8179",
+          "git_blob_sha1": "e5dc6af7669bb556750e05c3c4e5f6233bf5b647"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk005",
+          "offset": 3500000,
+          "bytes": 700000,
+          "sha256": "2f45b9d107ef3feca9e697aabd0ed4724c6d86f2c8e34d951076a4b6783cb185",
+          "git_blob_sha1": "9429c0e1e2a0ad5e5418327b294b61186f23ce9c"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk006",
+          "offset": 4200000,
+          "bytes": 700000,
+          "sha256": "3462008166f05b10d9189cc94ec8b05b3229609af7cae05e4c6d7aad870972a4",
+          "git_blob_sha1": "95dea86f072e8d6f42f9ac3af527dd8a76f3e5ad"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk007",
+          "offset": 4900000,
+          "bytes": 700000,
+          "sha256": "60cfd050c83e440ef6920d7d9e8732a901a7f0e57af47d6eccc9ba4d227de665",
+          "git_blob_sha1": "ea84cf8a127f71c2f18b0da50a9cf2a88ed2dcf3"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk008",
+          "offset": 5600000,
+          "bytes": 700000,
+          "sha256": "61b885bbd3a51a92e6e4a3277ab53f5ecf234501c42de1c7675ee30d3359c9cc",
+          "git_blob_sha1": "61d72bd329a4941762b1c00a8a7d1d8ffa074baf"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk009",
+          "offset": 6300000,
+          "bytes": 700000,
+          "sha256": "a20fac9e1766e61d41e49aa51ffe52c987ae11749b3a9b328a22c60e2d557680",
+          "git_blob_sha1": "b3d7ab073dd1c64decf83674300aa8714387219a"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk010",
+          "offset": 7000000,
+          "bytes": 700000,
+          "sha256": "4d8a3f59ea31e122c8b3dffd03eb2d36e9d36f25f8ff409f3f24285fd67d081e",
+          "git_blob_sha1": "c81feb4ef0717e07f0fb168c6d060b18e0b76bd6"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk011",
+          "offset": 7700000,
+          "bytes": 700000,
+          "sha256": "20c8f3120a769260fb21242e3df42fb6c6587f8efa2b4403238e2d243d1f66c6",
+          "git_blob_sha1": "6fee65f4d80cadbbc51846f42780ff36fa1fe37f"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk012",
+          "offset": 8400000,
+          "bytes": 700000,
+          "sha256": "f0dcbd3fd27cfdc5a82dd78758ab95605f854d5c68c6d398e1e6afd6948b47f0",
+          "git_blob_sha1": "b3215acc883ec9cfbca26e01a6c8e76ca3d90c6f"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk013",
+          "offset": 9100000,
+          "bytes": 700000,
+          "sha256": "fceb3a1cf8d5aa651767a19fc96904615ac8ed2a32e8f070949bccaf46d60964",
+          "git_blob_sha1": "4c41c9153a4c6f24323b37247e1c773378701240"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk014",
+          "offset": 9800000,
+          "bytes": 700000,
+          "sha256": "2b272c11449834951cec1c455266c2b990d89ba9c87cada171422d571d40e88d",
+          "git_blob_sha1": "f08496b503eb2f87474a8573e7e2332b26a29338"
+        },
+        {
+          "name": "even-v-gap-correction-finite-lift.bin.chunk015",
+          "offset": 10500000,
+          "bytes": 636000,
+          "sha256": "d94264ad0c6a52cbbeac6179b69dc812e06ce56355b3994794507d814fd6e0db",
+          "git_blob_sha1": "b0bc52d64da94dc55bcd844fc6f6e2cf803e6f59"
+        }
+      ]
+    },
+    "odd-v-gap-correction-input-z.bin": {
+      "bits": 160,
+      "bytes": 10924011,
+      "count": 520191,
+      "file": "odd-v-gap-correction-input-z.bin",
+      "sha256": "02f902c8d9de0b194b3e860afe17abd91a3d8b4ba6ed69fefb49529a908c4438",
+      "width": 21,
+      "chunks": [
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk000",
+          "offset": 0,
+          "bytes": 700000,
+          "sha256": "fc8d0aad75d030547228a3db477a211502f5ca3cb9c0cf3f9992b305dab1da27",
+          "git_blob_sha1": "d06c2984b2ad9fa22f76db17d2fa47074000aec1"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk001",
+          "offset": 700000,
+          "bytes": 700000,
+          "sha256": "ebb47a9dabad9a444be98cf6fe19c0f4818a89465363245c4a8cc65c1b30deb4",
+          "git_blob_sha1": "d597add55625954836c7bda39f9f259e68f69426"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk002",
+          "offset": 1400000,
+          "bytes": 700000,
+          "sha256": "1a1270c9855fb05c3c7c58926c9821f36d9e0766f6ee52c264354ec7cdaa827e",
+          "git_blob_sha1": "3f4b8dedf0d9035eb37311f7867e7ce7355950f1"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk003",
+          "offset": 2100000,
+          "bytes": 700000,
+          "sha256": "678cb1f473f14a87a011f4c5c744c340023bb3e704ed9aa204d7e7e3e4bc26ae",
+          "git_blob_sha1": "6c38e20a9e99a7a066e6755f74d7cb7849bface9"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk004",
+          "offset": 2800000,
+          "bytes": 700000,
+          "sha256": "d6ddef62c29f2722359c3cbb44d21f0fb253e84dc5d1185733f1b0850065760e",
+          "git_blob_sha1": "7d44ae15ff6288591493cc3b348727b440a80312"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk005",
+          "offset": 3500000,
+          "bytes": 700000,
+          "sha256": "0bf9a134809941f828cdd3104ce36487d8c833a7a7b2ac63832b0020e1a33c35",
+          "git_blob_sha1": "7823c4a6a7ada1526c8a8bab3091672231f76002"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk006",
+          "offset": 4200000,
+          "bytes": 700000,
+          "sha256": "eed77012e8996a8f664c8c50109169a031ac5825c07ccdd813e8b7e8fb0f6913",
+          "git_blob_sha1": "22f67dcc53ba4c951c09774c57977d9bae1a0ba6"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk007",
+          "offset": 4900000,
+          "bytes": 700000,
+          "sha256": "17d2462a140ff2010f059d3c85888a9c6dad5ff4a42714eca92f47c4bdff783a",
+          "git_blob_sha1": "42acadb610b6da267c0f7e30d57ee59df3fa96be"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk008",
+          "offset": 5600000,
+          "bytes": 700000,
+          "sha256": "39ebbef9b8b076ec754d3867137da7c28e6f200cda0889ec94ba3f81cdc25f51",
+          "git_blob_sha1": "6f4ad6f1a723d5bb7c61b5b62b01318dbf0efd5c"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk009",
+          "offset": 6300000,
+          "bytes": 700000,
+          "sha256": "14ea1291e3f502eb32e73ce9700b858495cd94caad2606020283a821e5fd657f",
+          "git_blob_sha1": "ae859a34dff9e92731b2518b8c5a8913f6513c6b"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk010",
+          "offset": 7000000,
+          "bytes": 700000,
+          "sha256": "daff98a853ed65c43d8a6f1ec751be73afd380cc0222cb07383a1a6e05ecd58e",
+          "git_blob_sha1": "deb69f9f5daf08a1ba9a7cfe7d01f4603c1c5bbf"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk011",
+          "offset": 7700000,
+          "bytes": 700000,
+          "sha256": "37a13a418c9e300150321437044178577a6135e2a73332da0e873086ca718973",
+          "git_blob_sha1": "2ff9bde44162b8cfcacf9c35c7d5577aa2d8c07e"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk012",
+          "offset": 8400000,
+          "bytes": 700000,
+          "sha256": "01ba0cf6ca9231d501e776cbb02d46b1c88275d4979d86f9de93f2a19438c8e6",
+          "git_blob_sha1": "26b0e28fbedfa663f6eab05e43d303a19c819af4"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk013",
+          "offset": 9100000,
+          "bytes": 700000,
+          "sha256": "892848bef6b615f0003e925cf8c88b4a1b1bb07a9e17fc73269c34a7f82c0bc0",
+          "git_blob_sha1": "d2de7a507141eafd9ae37753f1e85976cd18bf52"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk014",
+          "offset": 9800000,
+          "bytes": 700000,
+          "sha256": "8f65b86345b7daf3be49ecdf61b2dc8582d9d3fc9eda2e87a9ec6176a266d93a",
+          "git_blob_sha1": "7a6e05516da4a3133ff2f1dd48f9c0084e0b309e"
+        },
+        {
+          "name": "odd-v-gap-correction-input-z.bin.chunk015",
+          "offset": 10500000,
+          "bytes": 424011,
+          "sha256": "d3222b616a4d5c1e0efd33f4de25d295f83a28bc46c957e67a0d9cf0b22e4bc4",
+          "git_blob_sha1": "b2fb0aac9fa0d46a83c41dc9922cea2fc4a8dbc4"
+        }
+      ]
+    },
+    "odd-v-gap-correction-lift-rhs.bin": {
+      "bits": 256,
+      "bytes": 3840000,
+      "count": 128000,
+      "file": "odd-v-gap-correction-lift-rhs.bin",
+      "sha256": "bd3077e6903e1c63d4a1f60b1e2916fc212105c03700469e6550c597065db109",
+      "width": 30,
+      "chunks": [
+        {
+          "name": "odd-v-gap-correction-lift-rhs.bin.chunk000",
+          "offset": 0,
+          "bytes": 700000,
+          "sha256": "aab9df8845b88397476bf165b47e891ffdc916c8fce01c59909f68eb564bc0d3",
+          "git_blob_sha1": "2ee9440df68e082e46a6f955991e9a90138fc6bd"
+        },
+        {
+          "name": "odd-v-gap-correction-lift-rhs.bin.chunk001",
+          "offset": 700000,
+          "bytes": 700000,
+          "sha256": "1c3c044f2dd4641e0faec0811273f010ce91c7e11008065a2951c6c218c21c04",
+          "git_blob_sha1": "1ae50e406182f76e7e285c1f06a83483ee8c669b"
+        },
+        {
+          "name": "odd-v-gap-correction-lift-rhs.bin.chunk002",
+          "offset": 1400000,
+          "bytes": 700000,
+          "sha256": "d25544d559f3c39d4d134cb11b11fbcee9503a4666bca96a484c9e1b5c38291a",
+          "git_blob_sha1": "50b1ca766b2f54f12401e3b5b18ff8375fa574e6"
+        },
+        {
+          "name": "odd-v-gap-correction-lift-rhs.bin.chunk003",
+          "offset": 2100000,
+          "bytes": 700000,
+          "sha256": "6a667213665281f93e5ef238605ccd1ba0bf3767f3b7aec679178f3d8bf7f066",
+          "git_blob_sha1": "9c3e5d9bcfb771708c68a0736a50ef794a8ffe4f"
+        },
+        {
+          "name": "odd-v-gap-correction-lift-rhs.bin.chunk004",
+          "offset": 2800000,
+          "bytes": 700000,
+          "sha256": "fcd82cf838409cde9e8e65b01f8df5fb555c4c027a4240355cce45c547b8f5ad",
+          "git_blob_sha1": "82c2a35fda6b5925bba928b899739e929fefef12"
+        },
+        {
+          "name": "odd-v-gap-correction-lift-rhs.bin.chunk005",
+          "offset": 3500000,
+          "bytes": 340000,
+          "sha256": "63297f58c9c7cebb71c2eaba448a26db0b2428d7df514f21222ace1731bd5a07",
+          "git_blob_sha1": "f48f1e98df4e989aeea5fab52a222757badaa875"
+        }
+      ]
+    },
+    "odd-v-gap-correction-finite-lift.bin": {
+      "bits": 663,
+      "bytes": 11136000,
+      "count": 128000,
+      "file": "odd-v-gap-correction-finite-lift.bin",
+      "sha256": "f9c1b79fafd8fab6b4797f9af10ade090317ae5f22cc837c80ecac96d6db2b87",
+      "width": 87,
+      "chunks": [
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk000",
+          "offset": 0,
+          "bytes": 700000,
+          "sha256": "81db3bcc9c5d556222f3f0ee7f5545e8b224804b87b0dc8e226163196d97cd3f",
+          "git_blob_sha1": "af79ac5bdec73e6ef2ba2981c9d230a06ae13dcd"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk001",
+          "offset": 700000,
+          "bytes": 700000,
+          "sha256": "688d3e1ea881c8197520e2be222ad16df66cc234dfa911206de02e489f8a87d8",
+          "git_blob_sha1": "a5eb1ca21c4da17a27073f320ef89553678a9c56"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk002",
+          "offset": 1400000,
+          "bytes": 700000,
+          "sha256": "ea22fe30c4a3280bf7488cb43b1027acd8eeb6d0498adaaec166ded46e69527f",
+          "git_blob_sha1": "b11e6387a6f944c058db335ead168b5502151c06"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk003",
+          "offset": 2100000,
+          "bytes": 700000,
+          "sha256": "6aea71ef97014c54728aa48de2d060c5ac47b6a459846ca06b530de85afd33d3",
+          "git_blob_sha1": "119a1bee4d110337b809b69f5b4c2c2466ec4e6a"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk004",
+          "offset": 2800000,
+          "bytes": 700000,
+          "sha256": "6e2b32982900b2761195af84cfae28084d7906c013f169b6b866ccba000caa97",
+          "git_blob_sha1": "03e96c7af15a45c04eec840af36876af7125a0ef"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk005",
+          "offset": 3500000,
+          "bytes": 700000,
+          "sha256": "d6abf8ed11658574acc845ee1f8b9102bb120d5b5bbeb3d8d9cf417afe82240e",
+          "git_blob_sha1": "8ca5084b5aa9517f704496ac24a8b0e97c3165b1"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk006",
+          "offset": 4200000,
+          "bytes": 700000,
+          "sha256": "149fcc87b82e307f088b053209a165a5917af32a4dc2db0abd67b5c844a6cc1e",
+          "git_blob_sha1": "cfe002b41f63da9510840efd687434c22250a407"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk007",
+          "offset": 4900000,
+          "bytes": 700000,
+          "sha256": "d6d0f4f5398b2ef5de69dcf490e80e7dd5ff51dac8c262d7891536620eb1aa14",
+          "git_blob_sha1": "ba014a48b82bfa9f4fff9125fe85ab643a732e70"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk008",
+          "offset": 5600000,
+          "bytes": 700000,
+          "sha256": "7771a13525a0ca124c303dba9185322d3afc1bc78b0ffd668255008c94267326",
+          "git_blob_sha1": "3ef78a956580c53252888575bc3380560eba44e9"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk009",
+          "offset": 6300000,
+          "bytes": 700000,
+          "sha256": "0e1f0d6553f3284d31fefae832fb2dd5b1851b72512a97feeda4c75aa68f6a2e",
+          "git_blob_sha1": "5b0df1a54fba3efde9cc41e14a301f4d24fceb45"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk010",
+          "offset": 7000000,
+          "bytes": 700000,
+          "sha256": "487c7b3723b15accef9270f53c8c6b4b944bb07a75b3f8954a4e0207734d8a63",
+          "git_blob_sha1": "4f28a1812f3c39c0658424ba8e1d8c0a269463e0"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk011",
+          "offset": 7700000,
+          "bytes": 700000,
+          "sha256": "ad6b3ad91d15c0fa2f19947d9579d2f7cb567bf115a0dcbbb3c9558987b96e20",
+          "git_blob_sha1": "565d1efc2cbc2d7550e39ab0f750de171fa7b5e7"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk012",
+          "offset": 8400000,
+          "bytes": 700000,
+          "sha256": "c02c37c876f16e0debdfd4e1fed7309cd93b80b96c63c0ba04ba2af74bd8fc67",
+          "git_blob_sha1": "2c4644bea5c176880d20b93b2068a085870f4948"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk013",
+          "offset": 9100000,
+          "bytes": 700000,
+          "sha256": "58f72ef8db095a48da4c048f631fc677d138221a1743f161f46c27dc106fd3c5",
+          "git_blob_sha1": "879ab5802952f66dea79575ff333691c2eb504ae"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk014",
+          "offset": 9800000,
+          "bytes": 700000,
+          "sha256": "fa3d07d046ac017f99d1c18d194903c8aeb9a776a5c745f8a04ada9041b48286",
+          "git_blob_sha1": "856eb4b78b2a60ca1f656e2295c3c3acfb11f317"
+        },
+        {
+          "name": "odd-v-gap-correction-finite-lift.bin.chunk015",
+          "offset": 10500000,
+          "bytes": 636000,
+          "sha256": "5efe79d564e3ed329c503a63ee72a367bba441747e66f2f7606c069914d5848d",
+          "git_blob_sha1": "78817b39c5af165e358d38457caf24ad52111ecf"
+        }
+      ]
+    }
+  },
+  "certificates": [
+    {
+      "file": "gap-correction-RHS-even-v.json",
+      "bytes": 3471,
+      "sha256": "42c71d7e017eadc08a6ebe20045f6d6e83bbe3523e17ba282903eccf08edc075",
+      "display": {
+        "RHS_error": 3.2131128292548455e-30,
+        "correction_norm": 0.000004842039229796809,
+        "trial_norm_upper": 0.00016828077719441745
+      }
+    },
+    {
+      "file": "gap-correction-finite-lift-even-v.json",
+      "bytes": 14832,
+      "sha256": "4d49b475c4a6b97de137258d7b53415b914aec8fa1a0fb52f8b6400ba214bfb3",
+      "display": {
+        "energy_error": 1.9963208986550784e-23,
+        "finite_lift_remote_action_charge": 9.829645542689003e-11,
+        "lift_norm": 3043067791.0673804
+      }
+    },
+    {
+      "file": "gap-correction-RHS-odd-v.json",
+      "bytes": 3462,
+      "sha256": "1309bec0a4568684f3631a2d88a278ba711c8496960491e5a81428a8fb5b30b3",
+      "display": {
+        "RHS_error": 3.2100986315445134e-30,
+        "correction_norm": 0.000004833161359289399,
+        "trial_norm_upper": 0.0001682472020770804
+      }
+    },
+    {
+      "file": "gap-correction-finite-lift-odd-v.json",
+      "bytes": 14734,
+      "sha256": "f2f2a9e3c018902198a8a9b7df5e91bba42a81de4bd1334cffaa1e2fb0cf0daf",
+      "display": {
+        "energy_error": 3.185382848347673e-30,
+        "finite_lift_remote_action_charge": 3.926480992695971e-14,
+        "lift_norm": 60099633.53711399
+      }
+    }
+  ],
+  "encoding": "Concatenate each buffer's raw chunks in listed order; verify every chunk and complete buffer hash/length.",
+  "whole_residual_acceptance_certified": false,
+  "infinite_capacity_tail_closed": false
+}
