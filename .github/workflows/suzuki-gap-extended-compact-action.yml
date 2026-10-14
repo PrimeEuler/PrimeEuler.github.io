@@ -1,0 +1,113 @@
+name: Suzuki gap-extended compact action
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-gap-extended-compact-action.yml
+      - unified/discriminant-12-return/research-notes/suzuki_gap_extended_compact_action.py
+      - unified/discriminant-12-return/research-notes/suzuki_compact_component_rectangle.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  gap-extended-compact-action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [even-v, odd-v]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact convolution dependency
+        run: sudo apt-get update && sudo apt-get install -y libgmp10
+      - name: Reconstruct hash-bound actual256 witnesses
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,shutil
+          from pathlib import Path
+          root=Path('payloads/exact_outward_run_37827949740')
+          manifest=json.loads((root/'artifact_manifest.json').read_text())
+          for x in manifest['files']:
+              raw=(root/x['file']).read_bytes()
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+          target=Path('/tmp/full-stationary-input');target.mkdir()
+          for x in manifest['snapshots']:
+              if x['cutoff']!=256000:continue
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in x['base64_parts']),validate=True)
+              assert len(raw)==x['bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+              (target/x['snapshot_file']).write_bytes(raw)
+              shutil.copyfile(root/x['certificate_file'],target/x['certificate_file'])
+          for short in ('even','odd'):
+              for kind in ('moments','far'):
+                  name=f'frozen256-{short}-{kind}.json'
+                  shutil.copyfile(root/name,target/name)
+          PY
+      - name: Reassemble and verify both finite correction buffers
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json
+          from pathlib import Path
+          target=Path('/tmp/full-stationary-input')
+          sector='${{ matrix.sector }}'
+          for rootname,filename in (
+              ('sandbox_wider_correction_v14_339',f'{sector}-wider-correction.bin'),
+              ('sandbox_gap_correction_v14_398',f'{sector}-gap-correction.bin'),
+          ):
+              root=Path('payloads')/rootname
+              m=json.loads((root/'manifest.json').read_text())
+              spec=m['buffers'][filename]
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in spec['parts']),validate=True)
+              assert len(raw)==spec['bytes'] and hashlib.sha256(raw).hexdigest()==spec['sha256']
+              (target/filename).write_bytes(raw)
+          PY
+      - name: Reconstruct and verify v14.403 RHS, z caches and fresh lifts
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          root=Path('payloads/gap_correction_rhs_and_lift_v14_403')
+          m=json.loads((root/'manifest.json').read_text())
+          target=Path('/tmp/new-gap-trial');target.mkdir()
+          for c in m['certificates']:
+              raw=(root/c['file']).read_bytes()
+              assert len(raw)==c['bytes'] and hashlib.sha256(raw).hexdigest()==c['sha256']
+              (target/c['file']).write_bytes(raw)
+          for name,s in m['buffers'].items():
+              parts=[]
+              for p in s['chunks']:
+                  raw=(root/p['name']).read_bytes()
+                  assert len(raw)==p['bytes'] and hashlib.sha256(raw).hexdigest()==p['sha256']
+                  assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==p['git_blob_sha1']
+                  parts.append(raw)
+              raw=b''.join(parts)
+              assert len(raw)==s['bytes'] and hashlib.sha256(raw).hexdigest()==s['sha256']
+              (target/name).write_bytes(raw)
+          PY
+      - name: Verify component rectangle and mixed-scale identities
+        working-directory: unified/discriminant-12-return/research-notes
+        run: python suzuki_gap_extended_compact_action.py --self-check
+      - name: Evaluate all 912383 compact-action rows
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_gap_extended_compact_action.py \
+            --root /tmp/full-stationary-input \
+            --near-root payloads/refined_near_trial_and_lift_v14_300 \
+            --gap-root /tmp/new-gap-trial \
+            --source-root payloads/full_stationary_source_v14_213 \
+            --old-finite-root payloads/wider_compact_finite_action_v14_349 \
+            --candidate-root /tmp/full-stationary-input \
+            --sector '${{ matrix.sector }}' \
+            --output-root '/tmp/gap-extended-compact-${{ matrix.sector }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gap-extended-compact-action-${{ matrix.sector }}
+          path: /tmp/gap-extended-compact-${{ matrix.sector }}
+          if-no-files-found: error
