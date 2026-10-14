@@ -1,0 +1,38 @@
+{
+  "files": {
+    "compose_finite_gap_residual.py": {
+      "bytes": 8645,
+      "sha256": "b776504804e4e83684a30fe1a4fdee2eae9a909f0755b45b91cd523f75481f05"
+    },
+    "even-v-wider-gap-residual.bin": {
+      "bytes": 15605730,
+      "sha256": "52211d2328ed390dc9874b1534784c709fe9412244f552194f4dd558b9e830fe",
+      "storage": "derived-replay-output-not-duplicated"
+    },
+    "finite-plus-gap-residual-even-v.json": {
+      "bytes": 26452,
+      "sha256": "85a0c9e338115606974c3f113c0b17d5629514d4e826f70dfea53b86b8de6cba"
+    },
+    "finite-plus-gap-residual-odd-v.json": {
+      "bytes": 25718,
+      "sha256": "fa477a8ea4b4be6949a3b4cdca8414889e32cee2f3c37f15de27037b8ac4c254"
+    },
+    "odd-v-wider-gap-residual.bin": {
+      "bytes": 15605730,
+      "sha256": "350e020a7bc9f30aa66dae7b1b7966e112b81c56141c7bd73ae64eaeefdcb5fd",
+      "storage": "derived-replay-output-not-duplicated"
+    }
+  },
+  "infinite_capacity_tail_closed": false,
+  "ledger_version": "v14.396",
+  "parents": [
+    "v14.353",
+    "v14.354",
+    "v14.373",
+    "v14.393",
+    "v14.395"
+  ],
+  "replay": "Run compose_finite_gap_residual.py against the exact parent buffers and certificates named in the two output certificates; verify derived buffer bytes and SHA-256 against this manifest.",
+  "schema": "cone.wider-finite-plus-gap-residual-payload.v1",
+  "whole_residual_acceptance_certified": false
+}
