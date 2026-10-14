@@ -1,0 +1,80 @@
+{
+  "schema": "cone.sandbox-seed-gap-action-transfer.v1",
+  "task_ledger": "v14.351",
+  "namespace": "research-notes/payloads/sandbox_seed_gap_action_v14_351/",
+  "buffer_format": "dyadic integers floor_256(point * 2^256), signed little-endian 30-byte integers, 520191 rows, same-parity lattice step 2",
+  "reassembly": "concatenate .b64.partNNN in numeric order, base64-decode",
+  "buffers": {
+    "even-v-gap-action.bin": {
+      "bytes": 15605730,
+      "sha256": "00c1651f1013f821d3135f136bb91a9196792ff9663b4762d7d80a42dbc66af6",
+      "parts": [
+        "even-v-gap-action.bin.b64.part000",
+        "even-v-gap-action.bin.b64.part001",
+        "even-v-gap-action.bin.b64.part002",
+        "even-v-gap-action.bin.b64.part003",
+        "even-v-gap-action.bin.b64.part004",
+        "even-v-gap-action.bin.b64.part005",
+        "even-v-gap-action.bin.b64.part006",
+        "even-v-gap-action.bin.b64.part007",
+        "even-v-gap-action.bin.b64.part008",
+        "even-v-gap-action.bin.b64.part009",
+        "even-v-gap-action.bin.b64.part010",
+        "even-v-gap-action.bin.b64.part011",
+        "even-v-gap-action.bin.b64.part012",
+        "even-v-gap-action.bin.b64.part013",
+        "even-v-gap-action.bin.b64.part014",
+        "even-v-gap-action.bin.b64.part015",
+        "even-v-gap-action.bin.b64.part016",
+        "even-v-gap-action.bin.b64.part017",
+        "even-v-gap-action.bin.b64.part018",
+        "even-v-gap-action.bin.b64.part019",
+        "even-v-gap-action.bin.b64.part020",
+        "even-v-gap-action.bin.b64.part021",
+        "even-v-gap-action.bin.b64.part022",
+        "even-v-gap-action.bin.b64.part023",
+        "even-v-gap-action.bin.b64.part024",
+        "even-v-gap-action.bin.b64.part025",
+        "even-v-gap-action.bin.b64.part026"
+      ]
+    },
+    "odd-v-gap-action.bin": {
+      "bytes": 15605730,
+      "sha256": "675138c2ff20728945989bd14aa8c1a004a54229847a9664de4992a0d972c413",
+      "parts": [
+        "odd-v-gap-action.bin.b64.part000",
+        "odd-v-gap-action.bin.b64.part001",
+        "odd-v-gap-action.bin.b64.part002",
+        "odd-v-gap-action.bin.b64.part003",
+        "odd-v-gap-action.bin.b64.part004",
+        "odd-v-gap-action.bin.b64.part005",
+        "odd-v-gap-action.bin.b64.part006",
+        "odd-v-gap-action.bin.b64.part007",
+        "odd-v-gap-action.bin.b64.part008",
+        "odd-v-gap-action.bin.b64.part009",
+        "odd-v-gap-action.bin.b64.part010",
+        "odd-v-gap-action.bin.b64.part011",
+        "odd-v-gap-action.bin.b64.part012",
+        "odd-v-gap-action.bin.b64.part013",
+        "odd-v-gap-action.bin.b64.part014",
+        "odd-v-gap-action.bin.b64.part015",
+        "odd-v-gap-action.bin.b64.part016",
+        "odd-v-gap-action.bin.b64.part017",
+        "odd-v-gap-action.bin.b64.part018",
+        "odd-v-gap-action.bin.b64.part019",
+        "odd-v-gap-action.bin.b64.part020",
+        "odd-v-gap-action.bin.b64.part021",
+        "odd-v-gap-action.bin.b64.part022",
+        "odd-v-gap-action.bin.b64.part023",
+        "odd-v-gap-action.bin.b64.part024",
+        "odd-v-gap-action.bin.b64.part025",
+        "odd-v-gap-action.bin.b64.part026"
+      ]
+    }
+  },
+  "certificates": [
+    "gap-action-even-v.json",
+    "gap-action-odd-v.json"
+  ],
+  "producer": "sandbox_gap_evaluator.py"
+}
