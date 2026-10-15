@@ -202,5 +202,45 @@ $\{1, 11\}$ split / $\{5, 7\}$ inert in $\mathbb{Q}(\sqrt3)$
 ruler this is the 12-division case, level $n = 11$: the V4 stations
 live on the same divisions.
 
+## 8. Addendum (2026-10-15): the Cayley form
+
+Jeremy's repackaging of §§1 and 6. The components of the encoding
+read
+
+$$\operatorname{Re} z_n = 1 - \frac{2}{n+1}, \qquad
+\operatorname{Im} z_n = \frac{\sqrt n}{(n+1)/2} = \frac{\mathrm{GM}}{\mathrm{AM}}$$
+
+[D — the imaginary part is the geometric over the arithmetic mean of
+$n$ and $1$], and the point itself is a single Cayley transform:
+
+$$z_n = \frac{\sqrt n + i}{\sqrt n - i}, \qquad
+z_{n,k} = \frac{\sqrt n + i\sqrt k}{\sqrt n - i\sqrt k}
+= \frac{1 + i\,e^{-\psi_{n,k}}}{1 - i\,e^{-\psi_{n,k}}}$$
+
+[D; verified symbolically]. Consequences:
+
+- $|z_{n,k}| = 1$ is manifest: the point is a complex number over
+  its own conjugate, a pure phase by construction.
+- $z_{n,k} = \left(\frac{\sqrt n + i\sqrt k}{\sqrt{n+k}}\right)^2$:
+  the station is the *square* of the normalized $(\sqrt n, \sqrt k)$
+  direction, so its angle is $\varphi_{n,k} = 2\arctan\sqrt{k/n}$,
+  and the inverse Cayley transform returns the rapidity directly,
+  $\frac{1 + z_{n,k}}{1 - z_{n,k}} = i\sqrt{n/k} = i\,e^{\psi_{n,k}}$,
+  i.e. $\cot(\varphi_{n,k}/2) = e^{\psi_{n,k}}$ [D]. Chains multiply
+  the real Cayley arguments $e^{-\psi}$ — rapidities adding, as in
+  §6 — and $\varphi = \pi/2 - \mathrm{gd}\,\psi$ is the Cayley map's
+  angle law, the transposed Gudermannian of the literature scan [D].
+- The full pair ratio of §6 has no separate point; it is the secant
+  of the same station angle:
+
+$$\frac{n+k}{n-k} = \coth\psi_{n,k} = \frac{1}{\operatorname{Re} z_{n,k}}
+= \sec\varphi_{n,k} = \frac{|w|^2}{\operatorname{Re}(w^2)},
+\qquad w = \sqrt n + i\sqrt k$$
+
+[D]. In Cayley language it is the *real* transform
+$\frac{1+x}{1-x}$ at $x = k/n$, where $z_{n,k}$ is the *imaginary*
+transform at $\sqrt x$: one ratio, read on the real axis as $\coth$
+and on the circle as the station [I].
+
 *Marking: [D] derived/verified identity · [I] interpretation ·
 [O] open/probe-pending.*
