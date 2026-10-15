@@ -1,0 +1,73 @@
+name: Suzuki gap-extended residual composition
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-gap-extended-residual.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  gap-extended-residual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sector: even-v
+            cert: 9c0c130ddfff0ecb89f733217ec02f5044ed6418f6e4a5911be1c6c4626845aa
+            buffer: 3cee101b110920e8c0c25d2670bef771e4cb4554c61721bef16428499c798e5a
+          - sector: odd-v
+            cert: 1f69c52108f8d4cc4070251b210f3485b323b28884506ca674767eda5c009799
+            buffer: 21ff1c7b2242d8c7b10bd7448788ec5f8cc7275b20a860a2583097a7ffe8cc27
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve already-completed original compact artifacts (NO recomputation)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 38614396312 --repo ${{ github.repository }} --name gap-extended-compact-action-${{ matrix.sector }} --dir /tmp/compact
+      - name: Prepare archived v14.327 and v14.393 seed buffers; verify manifests
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,base64
+          target=Path('/tmp/seed-gap');target.mkdir()
+          root=Path('payloads/sandbox_seed_gap_action_v14_351')
+          manifest=json.loads((root/'manifest.json').read_bytes())
+          for s in ('even-v','odd-v'):
+              name=f'{s}-gap-action.bin'
+              # Exact reassembly directed by certificate (and independently pinned by consumer)
+              cert=json.loads((root/f'gap-action-{s}.json').read_bytes())
+              spec=cert['point_buffer']
+              f=spec['file']
+              entries=manifest['buffers'][f]
+              raw=base64.b64decode(b''.join((root/p).read_bytes() for p in entries['parts']),validate=True)
+              assert len(raw)==spec['bytes'] and hashlib.sha256(raw).hexdigest()==spec['sha256']
+              (target/f).write_bytes(raw)
+              (target/f'gap-action-{s}.json').write_bytes((root/f'gap-action-{s}.json').read_bytes())
+          (target/'manifest.json').write_bytes((root/'manifest.json').read_bytes())
+          PY
+      - name: Execute exact hash-gated 912383-row residual composition
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_gap_extended_residual_composition.py \
+            --compact-root /tmp/compact \
+            --compact-certificate-sha256 '${{ matrix.cert }}' \
+            --compact-buffer-sha256 '${{ matrix.buffer }}' \
+            --tail1-root payloads/infinite_seed_region1_composed_action_v14_294 \
+            --tail23-root payloads/sandbox_tail_regions23_v14_327 \
+            --gap-seed-root /tmp/seed-gap \
+            --source-root payloads/full_stationary_source_v14_213 \
+            --lift-root payloads/gap_correction_rhs_and_lift_v14_403 \
+            --sector '${{ matrix.sector }}' \
+            --output-root /tmp/residual-result
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gap-extended-residual-${{ matrix.sector }}
+          path: /tmp/residual-result
+          if-no-files-found: warn
