@@ -1,0 +1,42 @@
+{
+  "beyond_gap_residual_evaluated": false,
+  "compact_index_count": 1040383,
+  "direct_middle_rows_evaluated": false,
+  "geometric_power": 84,
+  "half_power_upper": "1/19342813113834066795298816",
+  "infinite_capacity_tail_closed": false,
+  "moment_order": 42,
+  "schema": "cone.beyond-gap-direct-middle-far-split.v1",
+  "sectors": [
+    {
+      "compact_last_index": 1040382,
+      "compact_last_mode": 2080765,
+      "compact_to_far_endpoint_ratio": "2080765/4161533",
+      "compact_to_far_endpoint_ratio_lt_one_half": true,
+      "direct_middle_first_index": 1040383,
+      "direct_middle_first_mode": 2080767,
+      "direct_middle_last_index": 2080765,
+      "direct_middle_last_mode": 4161531,
+      "direct_middle_row_count": 1040383,
+      "far_first_index": 2080766,
+      "far_first_mode": 4161533,
+      "sector": "even-v"
+    },
+    {
+      "compact_last_index": 1040382,
+      "compact_last_mode": 2080766,
+      "compact_to_far_endpoint_ratio": "1040383/2080767",
+      "compact_to_far_endpoint_ratio_lt_one_half": true,
+      "direct_middle_first_index": 1040383,
+      "direct_middle_first_mode": 2080768,
+      "direct_middle_last_index": 2080765,
+      "direct_middle_last_mode": 4161532,
+      "direct_middle_row_count": 1040383,
+      "far_first_index": 2080766,
+      "far_first_mode": 4161534,
+      "sector": "odd-v"
+    }
+  ],
+  "stationary_cone_closed": false,
+  "whole_action_evaluated": false
+}

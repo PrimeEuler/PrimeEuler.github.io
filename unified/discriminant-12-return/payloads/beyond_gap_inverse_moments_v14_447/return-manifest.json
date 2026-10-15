@@ -1,0 +1,37 @@
+{
+  "schema": "cone.beyond-gap-inverse-moment-return-manifest.v1",
+  "source_ledger": "v14.446",
+  "workflow_run_id": 38752704973,
+  "workflow_conclusion": "success",
+  "returns": [
+    {
+      "sector": "even-v",
+      "job_id": 116482952144,
+      "artifact_id": 11981533760,
+      "artifact_zip_sha256": "a5ca7303d3f6aed643e36847a42ae0b63a1f2adc6cda53b546935adf20af9828",
+      "certificate_sha256": "4f127165733ab1e359661a7430cad76913ab1f23e842d3ddc41b8791021222ee",
+      "first_tail_mode": 2080767,
+      "original_seed_first_mode": 512001,
+      "maximum_radius": "2615/2923003274661805836407369665432566039311865085952"
+    },
+    {
+      "sector": "odd-v",
+      "job_id": 116482951560,
+      "artifact_id": 11981114768,
+      "artifact_zip_sha256": "9e68af17680a598dda010ba248ff8783e05530b26f9a94a9494a58996535a084",
+      "certificate_sha256": "d7f103b96a5e4f6b3888774fc430c840dc462433519dcb28420bbd8855da4d53",
+      "first_tail_mode": 2080768,
+      "original_seed_first_mode": 512002,
+      "maximum_radius": "2613/2923003274661805836407369665432566039311865085952"
+    }
+  ],
+  "all_85_infinite_inverse_moments_evaluated_both_sectors": true,
+  "oscillatory_scalar_values_evaluated_per_sector": 1736,
+  "positive_V_envelope_checks_per_sector": 42,
+  "physical_nonprime_pole_odd_model_errors_included_once": true,
+  "radius_below_1e_minus40_all": true,
+  "finite_RHS_rows_evaluated": false,
+  "finite_lift_certified": false,
+  "whole_action_evaluated": false,
+  "infinite_capacity_tail_closed": false
+}
