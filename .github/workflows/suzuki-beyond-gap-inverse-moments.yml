@@ -1,0 +1,43 @@
+name: Suzuki beyond-gap exact-start inverse moments
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-beyond-gap-inverse-moments.yml
+      - unified/discriminant-12-return/research-notes/suzuki_beyond_gap_inverse_moments.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  beyond-gap-inverse-moments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sector: even-v
+            first_tail_mode: 2080767
+          - sector: odd-v
+            first_tail_mode: 2080768
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Evaluate all 85 exact-start inverse moments
+        working-directory: unified/discriminant-12-return/research-notes
+        run: |
+          python suzuki_beyond_gap_inverse_moments.py \
+            --source payloads/whole_affine_source_v14_223/whole-source-affine.json \
+            --coefficients payloads/physical_tail_coefficients_v14_262/physical-tail-coefficients.json \
+            --real-scalars payloads/nonoscillatory_log_tail_v14_259/nonoscillatory-log-tail.json \
+            --sector '${{ matrix.sector }}' \
+            --first-tail-mode '${{ matrix.first_tail_mode }}' \
+            --output '/tmp/beyond-gap-inverse-moments-${{ matrix.sector }}.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: beyond-gap-inverse-moments-${{ matrix.sector }}
+          path: /tmp/beyond-gap-inverse-moments-${{ matrix.sector }}.json
+          if-no-files-found: error
