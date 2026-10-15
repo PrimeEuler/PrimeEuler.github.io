@@ -49,6 +49,12 @@ jobs:
               assert len(raw)==spec['bytes'] and hashlib.sha256(raw).hexdigest()==spec['sha256']
               (target/f).write_bytes(raw)
               (target/f'gap-action-{s}.json').write_bytes((root/f'gap-action-{s}.json').read_bytes())
+          # Consumer load_gap_seed() reads the manifest's original Base64 parts.
+          # Keep those parts available at the supplied root; the decoded binary
+          # above is only an additional verification of the archived transfer.
+          for spec in manifest['buffers'].values():
+              for part in spec['parts']:
+                  (target/part).write_bytes((root/part).read_bytes())
           (target/'manifest.json').write_bytes((root/'manifest.json').read_bytes())
           PY
       - name: Execute exact hash-gated 912383-row residual composition
