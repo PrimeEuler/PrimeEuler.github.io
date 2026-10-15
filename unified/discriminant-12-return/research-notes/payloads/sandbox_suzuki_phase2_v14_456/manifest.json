@@ -1,0 +1,67 @@
+{
+  "files": {
+    "EXPLORATION.md": {
+      "bytes": 12005,
+      "sha256": "551ce3f5c04c16b490163599aae61deb252ee5a536f0cd994f9c759ab5c66397"
+    },
+    "THREAD3.md": {
+      "bytes": 25433,
+      "sha256": "1fa2ef9c5d81d74f9630c9ebf31da96a2b6737275daaea24567bf20f08502d27"
+    },
+    "THREAD4.md": {
+      "bytes": 17775,
+      "sha256": "1a7f5ebe91c9aa220758bdde06b0e76a8c1fba637e7735f897079a85225fea55"
+    },
+    "arch_ks_check.py": {
+      "bytes": 6107,
+      "sha256": "d858f2185e13190eefe0aeba02146a8a87b701fc7fb7b2570371924881200319"
+    },
+    "arch_ks_results.json": {
+      "bytes": 3808,
+      "sha256": "14dabff8930181a405dda3ade181bdecaf683e99613d28d9963f53ba1deff034"
+    },
+    "gram_K_N128.npz": {
+      "bytes": 105236,
+      "sha256": "e4e2657b28931f24fae7f0dc4859273d03f0cbdbf417876308bb17b95e7161d7"
+    },
+    "gram_K_N96.npz": {
+      "bytes": 53021,
+      "sha256": "ee3761ea7c4105c6622b5b3b0381c4ecc2af33d5123a8a45532faa29eb8cfe83"
+    },
+    "gram_chi_N128.npz": {
+      "bytes": 105307,
+      "sha256": "e40dcdff38507d1865fe3e9b353cd262a6548ca336a9015a09c987d468b852fe"
+    },
+    "gram_chi_N96.npz": {
+      "bytes": 53043,
+      "sha256": "bcb77f96d9c10d5c2458c8370066e79b1293992fc33cf43beb99d71efd0393a4"
+    },
+    "thread1_eigenmode.py": {
+      "bytes": 3415,
+      "sha256": "11e7d5607e3748e94f5bfafb933890170daabc892a5d916c7c9871283a40aba8"
+    },
+    "thread1_refresh.py": {
+      "bytes": 1502,
+      "sha256": "d0127da191033d8429f2d04959062df0e7ec7b60b47c1750c4ea2bf1096be98b"
+    },
+    "thread1_refresh_96128.json": {
+      "bytes": 14161,
+      "sha256": "3d3b454ff0b4faf6dba1477f2275dc37ce2eba8cc46ba5e0444010ec5e9e38f4"
+    },
+    "thread1_results.json": {
+      "bytes": 23021,
+      "sha256": "043583929fa6add607fc94ee1b0404efc5d506207c36e0ae367dcc137b870994"
+    },
+    "thread2_results.json": {
+      "bytes": 2135,
+      "sha256": "0c828b1a87592bab9b80588422060ad66a3dc8ddd8b27425a9c8116b7bfc38d2"
+    },
+    "thread2_scaling_d12.py": {
+      "bytes": 1966,
+      "sha256": "0b5572e58d3efd7384937a0468ac64c4ea8d0033c6729011bda50fe0cf9e66ed"
+    }
+  },
+  "package": "Suzuki station-lattice exploration Phase 2 (four threads, 2026-10-15)",
+  "parent_entry": "v14.416",
+  "schema": "sandbox.suzuki-phase2-payload-manifest.v1"
+}
