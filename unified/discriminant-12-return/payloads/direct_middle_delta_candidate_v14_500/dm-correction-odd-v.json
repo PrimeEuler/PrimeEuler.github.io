@@ -1,0 +1,75 @@
+{
+  "action_evaluated": false,
+  "base_trial": "correction is a candidate addition to the current trial (v14.345 lineage + v14.399 delta_gap, as frozen in the v14.403 RHS/lift); the original C_S,32000 is preserved and no existing coefficient is changed by this certificate",
+  "buffer": {
+    "bits": 160,
+    "bytes": 17686511,
+    "count": 1040383,
+    "file": "odd-v-dm-correction.bin",
+    "sha256": "e9efaf914390a6edda7076ad1a1dfa7da5a398246895bc76e00cbb21b682f776",
+    "width": 17
+  },
+  "candidate_only": true,
+  "definition": "delta_DM(n)=floor_160(r_DM_point(n)/midpoint(log_normalized(n,128))) on the direct-middle rows; zero elsewhere",
+  "display_approximate": {
+    "base_whole_trial_norm_upper_v14_403": 0.0001682472020770804,
+    "correction_l1": 0.003244346453824934,
+    "correction_norm_upper": 3.7451276392601123e-06,
+    "whole_trial_norm_upper_triangle": 0.0001719923297163405
+  },
+  "domain_justification": "delta_DM is finitely supported (1040383 modes) with dyadic-rational values; finitely supported sequences lie in the operator domain and in every weighted l2 space of the framework, and the domain is a vector space containing them, so adding delta_DM to the existing domain-admissible trial keeps the sum domain-admissible. (D delta)_n for a finitely supported correction is a finite sum at every row.",
+  "infinite_capacity_tail_closed": false,
+  "inputs": {
+    "base_trial_certificate": "research-notes/payloads/gap_correction_rhs_and_lift_v14_403/gap-correction-RHS-odd-v.json",
+    "base_trial_certificate_sha256": "1309bec0a4568684f3631a2d88a278ba711c8496960491e5a81428a8fb5b30b3",
+    "convention": "v14.399 delta_gap convention, reused exactly (Audit R290, v14.491)",
+    "log_normalized_module": "suzuki_certified_remote_diagonal.py (byte-identical to repository copy)",
+    "log_normalized_module_sha256": "08226538dffb5db42d85db5edb0f1c043a56df326ed1f51dc7391ca7cf8a2788",
+    "residual_buffer_sha256": "35d4d104c9f81fb58bb48c46de063b6f0c56cbec0e501e9822287b308ab1394c",
+    "residual_certificate_sha256": "aae73e899409d1e2c13284ca8ee519d1003dffbc97c963bacc91d12fedbfe144",
+    "residual_source": "sandbox v14.488 composition (frozen v14.471 compact return + v14.486 seed action vs bare source), retained residual buffer consumed and hash-asserted"
+  },
+  "norm_cap": {
+    "cap": "0.002 (unchanged, v14.339)",
+    "correction_norm_upper_within_cap": true,
+    "whole_trial_norm_upper_triangle_within_cap": true
+  },
+  "rational": {
+    "base_whole_trial_norm_upper_v14_403": "304401484950594734669927985187619153388976592140548517948369687879201521069229/1809251394333065553493296640760748560207343510400633813116524750123642650624000000",
+    "correction_l1_upper": "2370808827166925000919285162274506687557272921/730750818665451459101842416358141509827966271488",
+    "correction_norm_squared": "7489828413861050924259430998033490652510203808597504666124847063948181027992101229943/533996758980227520598755426542388028650676130589163192486760401955554931445160137505740521734144",
+    "correction_norm_upper": "23508547203644273860864653785738660934584935374732471/6277101735386680763835789423207666416102355444464034512896",
+    "whole_trial_norm_upper_triangle": "311177362353881394990263171976437821041679134046153909425936740588040945069229/1809251394333065553493296640760748560207343510400633813116524750123642650624000000"
+  },
+  "residual_acceptance_met": false,
+  "schema": "cone.sandbox-dm-correction-candidate.v1",
+  "sector": "odd-v",
+  "stationary_acceptance_met": false,
+  "support": {
+    "count": 1040383,
+    "first_mode": 2080768,
+    "last_mode": 4161532,
+    "segments": [
+      {
+        "first_mode": 2080768,
+        "last_mode": 4161532,
+        "rows": 1040383,
+        "source": "v14.488 direct-middle residual support"
+      }
+    ],
+    "step": 2
+  },
+  "task": "v14.490 gate - Sandbox: direct-middle delta candidate from the exact v14.488 point residuals",
+  "verification": {
+    "buffer_round_trip_recomputed": true,
+    "integer_path_agrees_on_samples": true,
+    "log_module_hash_asserted": true,
+    "logpoint_max": "9429292084891343971587982524220112246441/680564733841876926926749214863536422912",
+    "logpoint_min": "4478780606294133741207161351123819056373/340282366920938463463374607431768211456",
+    "max_defect_over_logpoint": "3124817076588044249295137448310397943083/4566926017064702752370760071345133927863957199139290582936944653017556874454909774200832",
+    "one_quantum_enclosure_all_rows": "0 <= r_DM_point - delta_DM*logpoint < logpoint * 2^-160, verified exactly on all 1040383 rows",
+    "residual_buffer_hash_asserted_to_v14_488_witness": true,
+    "sample_rows_recomputed_integer_only": 64
+  },
+  "whole_residual_closed": false
+}
