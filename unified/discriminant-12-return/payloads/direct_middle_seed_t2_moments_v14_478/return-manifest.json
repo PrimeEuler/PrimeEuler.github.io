@@ -1,0 +1,33 @@
+{
+  "certificates": [
+    {
+      "all_85_infinite_inverse_moments_evaluated": true,
+      "archive_sha256": "b69e7383a740c06f377d236fb33636189192f7597d8e67c2abfe2111237012d0",
+      "artifact_id": 12021829881,
+      "certificate_bytes": 55232,
+      "certificate_file": "direct-middle-seed-tail-moments-even-v.json",
+      "certificate_sha256": "5b1354021491de3d0d6fd32733e8d0b64d357cab9bcd71092bcef3b9bf05029a",
+      "first_tail_mode": 8323063,
+      "maximum_radius": "2615/2923003274661805836407369665432566039311865085952",
+      "sector": "even-v"
+    },
+    {
+      "all_85_infinite_inverse_moments_evaluated": true,
+      "archive_sha256": "9e3d993df05481f76bd90bbafe87636ea55336b07697b5beaf033b378482b63c",
+      "artifact_id": 12022807237,
+      "certificate_bytes": 55075,
+      "certificate_file": "direct-middle-seed-tail-moments-odd-v.json",
+      "certificate_sha256": "3a0a748a11bdf223c5eb68dc4d14cb6b9e27054efce00a91869613487a98813a",
+      "first_tail_mode": 8323064,
+      "maximum_radius": "2613/2923003274661805836407369665432566039311865085952",
+      "sector": "odd-v"
+    }
+  ],
+  "direct_middle_residual_evaluated": false,
+  "infinite_capacity_tail_closed": false,
+  "pointwise_seed_action_evaluated": false,
+  "schema": "cone.direct-middle-original-seed-t2-moment-return.v1",
+  "source_head_sha": "fc35a5acd4c964d9c6046b55372d23a0df48c53f",
+  "source_run_id": 38844104691,
+  "whole_action_evaluated": false
+}
