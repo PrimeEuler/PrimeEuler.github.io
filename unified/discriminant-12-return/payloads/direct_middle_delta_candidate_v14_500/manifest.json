@@ -1,0 +1,320 @@
+{
+  "action_evaluated": false,
+  "binds_ledger": [
+    "v14.490 (gate)",
+    "v14.500 (delta candidate return)",
+    "v14.502 (norm-column clarification)"
+  ],
+  "buffers": {
+    "even-v": {
+      "bits": 160,
+      "chunk_size": 700000,
+      "chunks": [
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk000",
+          "sha256": "3455e6d1e81be9b985c1b0b01b6c1bc2d2eb534c2a69134a25e578f7d4244a7c"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk001",
+          "sha256": "0cbcd65cd931c8b2782dcc11988ade63464e3f46e44b4e189fe6adaeb74902c5"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk002",
+          "sha256": "cdaaf07f4c709173b437d7c2a04eafd249e3bcb382a6947c4a258f8c4e86c226"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk003",
+          "sha256": "486896d18c61329abf72ed8743b85312b454abfab13239bff0991e86478b4bf2"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk004",
+          "sha256": "6eea8e3b99cd07e66c7a7b91a47cfc6f52ee8b649a539d51ab4da75bb333fd22"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk005",
+          "sha256": "eca4c41bca04f60f8e8b1ceab9d1ae6e2d218302d57e0e607a880c49c3ff1de2"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk006",
+          "sha256": "5e17ce0587d6804fdaf9bb752e0cd64ee6173faf8550a6b4ceddece9abf8b140"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk007",
+          "sha256": "6970722f92f494c8e4cf95e56eac43f9827da9aec13e02631e2c441e6623aa19"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk008",
+          "sha256": "32024d7d5eeaa5e52f797484606f91ad7e6bb9968d46d86657261bafdbce0075"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk009",
+          "sha256": "1cef02556972401899d1690fb54febb02fbe7ad8ca571e3c04690e0e05f29641"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk010",
+          "sha256": "35902e820a4d2cf749a99ab4042fcc595ec015fbb8d1f1b75a8f263df7e386cf"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk011",
+          "sha256": "801644ea5602ddb5ad677a45ab7778835a17d73450dc5c4d23553efe31a4db96"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk012",
+          "sha256": "2b2156a0cc4b7e69ccdb7f7bb75cda2a8028b982f2e821bcc3b21e25e0f72414"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk013",
+          "sha256": "a3c92b392a4f163220ee8c6b2f6b199d25152e533a629ce31c27eef146043355"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk014",
+          "sha256": "ff26a50fbef9e50d841566f892cf432672f9c16ed02bd303ff018c513c4ce4bf"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk015",
+          "sha256": "4283db8f4fd887594e0a15f43332741941b220f1a68fb891935f7093ab2af156"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk016",
+          "sha256": "ba08ea0814f28bd0af4068ceb9a46e5d36776a3e3a02b16caa9dc030158f952d"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk017",
+          "sha256": "aa74275693c0a8593f91a8904d50639256b6d339a3aebc2187df27b556777b61"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk018",
+          "sha256": "ca73364c06d2ce50328bdb6c031eb87afcfa8a64f71dcbdf0c237a6550d16b00"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk019",
+          "sha256": "5f21a3237c3a0c8101fdff6cf6754e766a565384d663b5e6a551a09f447d646f"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk020",
+          "sha256": "0965ef8cb8daeff894a057bb3d7400d380c3f72d3a944fddc45d224d8bdb2881"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk021",
+          "sha256": "19fd49d279158c5c146eca8de204d298088046dce25d5182634473891a56f173"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk022",
+          "sha256": "aafd6e2b1ed2d5ec895118a92c3918bfd11e7273b0b810e254fa186483a89e5a"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk023",
+          "sha256": "7e1602f6a1e11015fc8fe31bf63475cd45f49bb40c72d5ce324e1bdce4cd28e2"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-dm-correction.bin.chunk024",
+          "sha256": "adb0a0c4c029bf24f54c1670c09b1ea4c6906cafa1ef2709e3b6628e2d508023"
+        },
+        {
+          "bytes": 186511,
+          "file": "even-v-dm-correction.bin.chunk025",
+          "sha256": "701e55729fff315d00a29e0f3045d588a7c720747562bef11b9ece266c0178f4"
+        }
+      ],
+      "count": 1040383,
+      "file": "even-v-dm-correction.bin",
+      "support": "2080767..4161531 step 2",
+      "width": 17
+    },
+    "odd-v": {
+      "bits": 160,
+      "chunk_size": 700000,
+      "chunks": [
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk000",
+          "sha256": "f1f8c84675cd2ebe483fe0fa6a01f8c6c4b850441e967d010a3075094f434c62"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk001",
+          "sha256": "661d9e463d617c651c5148dc58a34b7be1705e5f652a17f54af72c3ee521fdbb"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk002",
+          "sha256": "aaa891500481e9571ed12ac125ea433d3af78ce0aeefab5b60183dd42d4618aa"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk003",
+          "sha256": "9ec89ba001e0634aa41d3aee0020ca65b7284e9c95a47a67cdd18cb2d6068eee"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk004",
+          "sha256": "74048fb87a2240929ca6f091426d32dc708b8bdf7805e784b9c3d17c62ada00b"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk005",
+          "sha256": "10f572ad0190910f56dc2e099cbf9b743614a243d91fa3e8009189a1d3a032f4"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk006",
+          "sha256": "c6f60fac098ed01429fbf3e75bf4fd1029e76dd2811e247acdd958ee413bc2a7"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk007",
+          "sha256": "9cc844803abe17c7a058095713843bed42848e664061668acce5ecadbc73a1e7"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk008",
+          "sha256": "0fab8edb165c6784b1e7e85876824aa04c98d3d802801cd1cb4584d9c7b20309"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk009",
+          "sha256": "78a079e0a52524794691acce5a57a1401bf5d897308e5907ae901e6d0ea0eb99"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk010",
+          "sha256": "33d3bb854bc0414d477d242cd50cdb47fcfd2a96c711cad470d836525ffef2d1"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk011",
+          "sha256": "7d1e70bfe2ea2da69c51a57ea97aae908f4e5f6d9405e5bfe07b117836a94448"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk012",
+          "sha256": "193712072dc1cacf4728a1d8d7ef9c12fa10c43dac14d6a4c0823870459cbb73"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk013",
+          "sha256": "218bc634bce03d26bb37a74ec9b00112f2013530dc818e32cd9a476132c39747"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk014",
+          "sha256": "1cd45e8bb662e8ee0cbffdab0908aea4cde2f3f5368b89525d7f452b204d02a4"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk015",
+          "sha256": "438de76fb91edfbb5075e185b36a416d1bde3e03c7d0ecf0ca4d20b6160e2c97"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk016",
+          "sha256": "81c1562fbd3e63c83a57ec81dc1488c042819b2b2f03aa9c1c9597391bed2c82"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk017",
+          "sha256": "30c7e541ad7095cb138a0100f627c17cde7ba336eaacfcd968f6c99a70dd4462"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk018",
+          "sha256": "61ec290dbd8dc376a1d615a81b62ff2bb8e903a8fa560a1cbcbe69cba19be11b"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk019",
+          "sha256": "a43c6dc8eda14a6821d97113229e491fa5c7e3f44c57aaa8b1bed142a7c53746"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk020",
+          "sha256": "7ee3b79776c316f9325ebb3bd3c72b6a4b807f0b9f5cff0e3df117d0796a1b2e"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk021",
+          "sha256": "a4d58a90dfb2590b4920bb3c1350dd137819e09196dbad7fd8a34ca50dea6a17"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk022",
+          "sha256": "c0d9be2929a0442426df87498a753becc29c0ed6502d2ff2ec5abc26decf3598"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk023",
+          "sha256": "f46a4d74ee2804e5cb41fbcf0c2277b3f4c42aa8dcf476f1bed93bbc85f7e746"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-dm-correction.bin.chunk024",
+          "sha256": "d5a9011ac3b532dbb602b559a0dc0824c139522bc2e50d09e0fd3622c5164798"
+        },
+        {
+          "bytes": 186511,
+          "file": "odd-v-dm-correction.bin.chunk025",
+          "sha256": "0ab8e604d4025ef4a02a038080928b6220bf1c4537da9d8862d6db9ef03adacd"
+        }
+      ],
+      "count": 1040383,
+      "file": "odd-v-dm-correction.bin",
+      "support": "2080768..4161532 step 2",
+      "width": 17
+    }
+  },
+  "candidate_only": true,
+  "consumed_residual_sha256": {
+    "even-v": "b441468d283c8276b54e637f71f6b8641a936b3126dbba59e2e17a2483db6f5e",
+    "odd-v": "35d4d104c9f81fb58bb48c46de063b6f0c56cbec0e501e9822287b308ab1394c"
+  },
+  "files": {
+    "dm-correction-even-v.json": {
+      "bytes": 4736,
+      "sha256": "99f743ec7c58307054ad872a67970b3ca325b29e820a2ac0f0df9ac2eb6a6911"
+    },
+    "dm-correction-odd-v.json": {
+      "bytes": 4729,
+      "sha256": "c4a14709bb44e1fa989e595d06a1d5678b2376c947f7609ddee7a157cbbdf703"
+    },
+    "even-v-dm-correction.bin": {
+      "bytes": 17686511,
+      "sha256": "c5b6845303cb059ca9a1ed79a628c4ba135fd49f2012b5fc011b0aeb14d12bb2"
+    },
+    "odd-v-dm-correction.bin": {
+      "bytes": 17686511,
+      "sha256": "e9efaf914390a6edda7076ad1a1dfa7da5a398246895bc76e00cbb21b682f776"
+    }
+  },
+  "infinite_capacity_tail_closed": false,
+  "log_normalized_module_sha256": "08226538dffb5db42d85db5edb0f1c043a56df326ed1f51dc7391ca7cf8a2788",
+  "payload_for": "v14.503 HANDOFF: exact replayable four-file delta payload",
+  "residual_acceptance_met": false,
+  "schema": "cone.sandbox-dm-delta-payload-manifest.v1",
+  "stationary_acceptance_met": false,
+  "whole_residual_closed": false
+}
