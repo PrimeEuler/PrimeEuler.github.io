@@ -1,0 +1,121 @@
+name: Suzuki direct-middle seed T2 freeze verifier
+on:
+  push:
+    branches: [master]
+    paths:
+      - .github/workflows/suzuki-direct-middle-seed-tail-freeze.yml
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  verify-and-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download exact T2 moment artifact archives
+        run: |
+          gh api /repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/12021829881/zip > /tmp/t2-even.zip
+          gh api /repos/PrimeEuler/PrimeEuler.github.io/actions/artifacts/12022807237/zip > /tmp/t2-odd.zip
+      - name: Verify exact certificates and build freeze bundle
+        run: |
+          python - <<'PY'
+          import base64, hashlib, json, shutil, zipfile
+          from fractions import Fraction as F
+          from pathlib import Path
+
+          root = Path('/tmp/t2-freeze')
+          root.mkdir()
+          common = {
+              'schema': 'cone.direct-beyond-gap-infinite-seed-moments.v1',
+              'source_affine_sha256': '6c2b8d1d76eca772c625042566d9af62d487808795d1479ee7de7e2735bad3d6',
+              'physical_coefficients_sha256': 'f2d4da7447483fc4ec010158fee1ec8abcab354d718bcf205b910742c7158e55',
+              'original_real_bank_reference_sha256': 'ce70f8b407836f4904c965b793962608541aa415efcdabd05af2843b801695c2',
+          }
+          cases = {
+              'even-v': {
+                  'zip': Path('/tmp/t2-even.zip'),
+                  'archive_id': 12021829881,
+                  'archive_sha256': 'b69e7383a740c06f377d236fb33636189192f7597d8e67c2abfe2111237012d0',
+                  'first_tail_mode': 8323063,
+                  'original_seed_first_mode': 512001,
+                  'maximum_radius': '2615/2923003274661805836407369665432566039311865085952',
+              },
+              'odd-v': {
+                  'zip': Path('/tmp/t2-odd.zip'),
+                  'archive_id': 12022807237,
+                  'archive_sha256': '9e3d993df05481f76bd90bbafe87636ea55336b07697b5beaf033b378482b63c',
+                  'first_tail_mode': 8323064,
+                  'original_seed_first_mode': 512002,
+                  'maximum_radius': '2613/2923003274661805836407369665432566039311865085952',
+              },
+          }
+          manifest = {
+              'schema': 'cone.direct-middle-original-seed-t2-moment-return.v1',
+              'source_run_id': 38844104691,
+              'source_head_sha': 'fc35a5acd4c964d9c6046b55372d23a0df48c53f',
+              'certificates': [],
+              'pointwise_seed_action_evaluated': False,
+              'direct_middle_residual_evaluated': False,
+              'whole_action_evaluated': False,
+              'infinite_capacity_tail_closed': False,
+          }
+          for sector, expect in cases.items():
+              rawzip = expect['zip'].read_bytes()
+              assert hashlib.sha256(rawzip).hexdigest() == expect['archive_sha256']
+              with zipfile.ZipFile(expect['zip']) as z:
+                  names = [n for n in z.namelist() if not n.endswith('/')]
+                  assert len(names) == 1 and names[0].endswith('.json')
+                  raw = z.read(names[0])
+              cert = json.loads(raw)
+              assert cert['schema'] == common['schema']
+              assert cert['sector'] == sector
+              assert cert['first_tail_mode'] == expect['first_tail_mode']
+              assert cert['original_seed_first_mode'] == expect['original_seed_first_mode']
+              for key in ('source_affine_sha256', 'physical_coefficients_sha256', 'original_real_bank_reference_sha256'):
+                  assert cert[key] == common[key]
+              assert [r['j'] for r in cert['Ubar']] == list(range(42))
+              assert [r['j'] for r in cert['Vbar']] == list(range(42))
+              radii = [F(r['radius']) for r in cert['Ubar'] + cert['Vbar']] + [F(cert['P_tail']['radius'])]
+              assert cert['maximum_radius'] == str(max(radii)) == expect['maximum_radius']
+              assert max(radii) < F('1e-40')
+              assert cert['real_scalar_values_evaluated'] == 127
+              assert cert['oscillatory_scalar_values_evaluated'] == 1736
+              assert cert['positive_V_envelope_checks'] == 42
+              assert cert['all_85_infinite_inverse_moments_evaluated']
+              assert cert['physical_nonprime_pole_odd_model_errors_included_once']
+              assert cert['radius_below_1e_minus40_all']
+              assert cert['original_model_error_budgets_retained_conservatively']
+              for key in ('finite_RHS_rows_evaluated', 'finite_lift_certified', 'whole_action_evaluated', 'infinite_capacity_tail_closed'):
+                  assert cert[key] is False
+              out = root / f'direct-middle-seed-tail-moments-{sector}.json'
+              out.write_bytes(raw)
+              cert_sha = hashlib.sha256(raw).hexdigest()
+              manifest['certificates'].append({
+                  'sector': sector,
+                  'artifact_id': expect['archive_id'],
+                  'archive_sha256': expect['archive_sha256'],
+                  'certificate_file': out.name,
+                  'certificate_bytes': len(raw),
+                  'certificate_sha256': cert_sha,
+                  'first_tail_mode': expect['first_tail_mode'],
+                  'maximum_radius': expect['maximum_radius'],
+                  'all_85_infinite_inverse_moments_evaluated': True,
+              })
+              print(f'T2_CERTIFICATE_{sector}_SHA256={cert_sha}')
+              print(f'T2_CERTIFICATE_{sector}_BASE64={base64.b64encode(raw).decode()}')
+          manifest['certificates'].sort(key=lambda x: x['sector'])
+          mraw = (json.dumps(manifest, indent=2, sort_keys=True) + '\n').encode()
+          (root / 'return-manifest.json').write_bytes(mraw)
+          print('T2_RETURN_MANIFEST_SHA256=' + hashlib.sha256(mraw).hexdigest())
+          print('T2_RETURN_MANIFEST_BASE64=' + base64.b64encode(mraw).decode())
+          print(json.dumps(manifest, sort_keys=True))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: direct-middle-seed-t2-freeze-bundle
+          path: /tmp/t2-freeze/*
+          if-no-files-found: error
