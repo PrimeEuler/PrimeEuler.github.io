@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The (n,k) machine — diameter, secant, half-chord</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#141a23; --panel2:#10151d; --line:#26303d;
+    --txt:#e6edf3; --dim:#8b949e;
+    --amber:#f0a13c; --sky:#57b6ff; --green:#7ee787; --red:#ff7b72; --violet:#c9a6ff;
+    --meshrow:#7fa7cf; --meshcol:#b08fcf;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;}
+  header{padding:22px 28px 6px;max-width:1280px;margin:0 auto}
+  header h1{margin:0;font-size:24px;font-weight:650;letter-spacing:.2px}
+  header p{margin:8px 0 0;color:var(--dim);font-size:14.5px;line-height:1.5}
+  header p em{color:var(--txt);font-style:normal}
+  .wrap{max-width:1280px;margin:0 auto;padding:14px 28px 40px}
+  #controls{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+            padding:16px 20px;display:flex;flex-wrap:wrap;gap:26px;align-items:center}
+  .slider{display:flex;align-items:center;gap:12px}
+  .slider label{font-size:15px;font-weight:600;min-width:18px}
+  .slider input[type=range]{width:220px;accent-color:var(--amber)}
+  .slider .val{font-size:15px;min-width:52px;color:var(--amber);font-variant-numeric:tabular-nums}
+  #kSliderWrap .val{color:var(--sky)}
+  #kSliderWrap input[type=range]{accent-color:var(--sky)}
+  .checks{display:flex;gap:16px;align-items:center;font-size:13.5px;color:var(--dim)}
+  .checks label{display:flex;gap:6px;align-items:center;cursor:pointer}
+  .presets{display:flex;gap:8px;flex-wrap:wrap}
+  .presets button{background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+                  border-radius:8px;padding:7px 12px;font-size:13px;cursor:pointer}
+  .presets button:hover{border-color:var(--dim);background:#182030}
+  main{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+  @media(max-width:980px){main{grid-template-columns:1fr}}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+           padding:14px 16px 10px;position:relative}
+  section h2{margin:0 0 4px;font-size:15.5px;font-weight:650}
+  section .cap{margin:6px 0 8px;color:var(--dim);font-size:12.8px;line-height:1.55;min-height:40px}
+  section .cap b{color:var(--txt);font-weight:600}
+  svg{width:100%;height:auto;display:block;background:var(--panel2);border-radius:8px}
+  canvas#coneCanvas{width:100%;height:430px;display:block;background:var(--panel2);border-radius:8px;cursor:grab}
+  canvas#coneCanvas:active{cursor:grabbing}
+  #readouts{grid-column:1/-1;background:var(--panel);border:1px solid var(--line);
+            border-radius:12px;padding:14px 20px}
+  #readouts h2{margin:0 0 10px;font-size:15.5px}
+  #roGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px 22px;
+          font-size:14px;font-variant-numeric:tabular-nums}
+  #roGrid .ro{display:flex;justify-content:space-between;border-bottom:1px dotted var(--line);
+             padding:4px 0}
+  #roGrid .ro .k{color:var(--dim)}
+  #roGrid .ro .v{font-weight:600}
+  #roGrid .chk .v{color:var(--green)}
+  footer{max-width:1280px;margin:0 auto;padding:0 28px 34px;color:var(--dim);font-size:13px;line-height:1.6}
+  footer b{color:var(--txt)}
+  .lg{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<header>
+  <h1>The (n,k) machine</h1>
+  <p><em>GM-factor hyperbolas define the cone; their shadow is a chord on the circle;
+  the half-chord centers the AM.</em><br>
+  The circle has diameter <b style="color:var(--txt)">n+k</b>; the secant line splits it into
+  <b style="color:var(--amber)">n</b> and <b style="color:var(--sky)">k</b>, sits at
+  <b style="color:var(--txt)">(n−k)/2</b> from the center, and its half-chord is
+  <b style="color:var(--green)">√(nk)</b> — the geometric mean, Thales' altitude.
+  Drag the sliders; everything follows.</p>
+</header>
+
+<div class="wrap">
+  <div id="controls">
+    <div class="slider">
+      <label for="nSlider">n</label>
+      <input type="range" id="nSlider" min="1" max="12" step="0.05" value="3">
+      <span class="val" id="nVal">3.00</span>
+    </div>
+    <div class="slider" id="kSliderWrap">
+      <label for="kSlider">k</label>
+      <input type="range" id="kSlider" min="1" max="12" step="0.05" value="1">
+      <span class="val" id="kVal">1.00</span>
+    </div>
+    <div class="presets">
+      <button data-n="3"  data-k="1">n=3, k=1 · 60°</button>
+      <button data-n="4"  data-k="1">n=4 · Euclid point</button>
+      <button data-n="2"  data-k="1">n=2, k=1</button>
+      <button data-n="12" data-k="3">n=12, k=3</button>
+      <button data-n="1"  data-k="1">n=k · centered</button>
+      <button id="swapBtn">swap n ⇄ k</button>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="locusChk" checked> endpoint locus</label>
+      <label><input type="checkbox" id="spinChk" checked> 3D spin</label>
+    </div>
+  </div>
+
+  <main>
+    <section>
+      <h2>① The circle of diameter n+k</h2>
+      <svg id="circleSvg" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg"></svg>
+      <p class="cap"><span class="lg" style="background:var(--amber)"></span><b>n</b> segment
+        <span class="lg" style="background:var(--sky)"></span><b>k</b> segment
+        <span class="lg" style="background:var(--green)"></span><b>GM</b> = √(nk), the half-chord
+        <span class="lg" style="background:#e6edf3"></span><b>AM</b> = (n+k)/2, the radius
+        <span class="lg" style="background:var(--red)"></span>offset (n−k)/2.<br>
+        The angle φ at the center has cos φ = (n−k)/(n+k): it is the argument of
+        z<sub>n,k</sub>. At fixed k, the chord's endpoint walks the faint parabola —
+        vertex at <b>−k/2</b>, focal length k/2.</p>
+    </section>
+
+    <section>
+      <h2>② The GM hyperbola u² − v² = nk</h2>
+      <svg id="hypSvg" viewBox="-2 -6 10 12" xmlns="http://www.w3.org/2000/svg"></svg>
+      <p class="cap">The secant's foot, lifted: <b>u = AM</b> horizontal, <b>v = offset</b> vertical.
+        The dashed 45° lines are the light-cone: from the point, u+v = <b>n</b> and u−v =
+        <b>k</b> — the pair <em>is</em> the light-cone coordinates. The ray from the origin
+        is the rapidity ψ = ½ ln(n/k): tanh ψ = (n−k)/(n+k), coth ψ = (n+k)/(n−k).</p>
+    </section>
+
+    <section style="grid-column:1/-1">
+      <h2>③ The cone — hyperbolas defining, chord as shadow</h2>
+      <canvas id="coneCanvas"></canvas>
+      <p class="cap">The cone with the canonical row/column parabola mesh behind the content.
+        The circle of diameter n+k sits as a section at height <b>T = AM</b>; on it the diameter
+        splits <b>n | k</b>, the chord is the hyperbola's shadow, and the purple GM-hyperbola
+        T² − X² = nk passes through the foot, its half-chord hanging down in green.
+        Drag to rotate, scroll to zoom.</p>
+    </section>
+
+    <div id="readouts">
+      <h2>Live readouts</h2>
+      <div id="roGrid"></div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <b>How to read it.</b> Euclid's altitude theorem: the altitude to the hypotenuse of a right
+  triangle is the geometric mean of the two segments it makes. Thales' semicircle makes the
+  hypotenuse a diameter, so the altitude <em>is</em> the half-chord — the GM, drawn as a length.
+  Ptolemy ran planetary kinematics on half-chords; Galileo's trajectories are the parabolas;
+  the hyperbola is the mass shell, and the rapidities add. The assembly isn't in the literature —
+  the parts are ~2,300 years old.<br>
+  Built as one dependency-free file; only your own Python needed for the math checks.
+</footer>
+
+<script>
+"use strict";
+/* ---------------- state & derived quantities (all verified algebra) -------- */
+const S = { n: 3, k: 1, locus: true, spin: true, az: -0.65, el: 0.46, zoom: 1.3 };
+function derived(n, k){
+  const D  = n + k;              // diameter
+  const R  = D / 2;              // AM = radius
+  const d  = (n - k) / 2;        // offset of secant from center
+  const h  = Math.sqrt(n * k);   // GM = half-chord
+  const phi = 2 * Math.atan(Math.sqrt(k / n));          // arg z_{n,k}
+  const psi = 0.5 * Math.log(n / k);
+  const ratio = (n - k) === 0 ? Infinity : (n + k) / (n - k);
+  const zre = (n - k) / (n + k), zim = 2 * h / (n + k);
+  return { n, k, D, R, d, h, phi, psi, ratio, zre, zim };
+}
+const fmt = (x, p=3) => !isFinite(x) ? "∞" : Math.abs(x) < 1e-12 ? "0" : (+x.toFixed(p)).toString();
+const fmtF = (x, p=2) => !isFinite(x) ? "∞" : x.toFixed(p);
+const PAL = { amber:"#f0a13c", sky:"#57b6ff", green:"#7ee787", red:"#ff7b72",
+              violet:"#c9a6ff", txt:"#e6edf3", dim:"#8b949e" };
+
+/* ---------------- Panel A: circle of diameter n+k -------------------------- */
+function drawCircle(){
+  const { n, k, D, R, d, h, phi } = derived(S.n, S.k);
+  const svg = document.getElementById("circleSvg");
+  const ext = Math.max(R, h * 1.15) + 0.9;
+  const fs = Math.min(0.52, Math.max(0.24, ext * 0.075));
+  const Y = y => -y;
+  let s = "";
+  /* circle (drawn first so nothing hides under its fill) */
+  s += `<circle cx="0" cy="0" r="${R}" fill="#ffffff" fill-opacity="0.03" stroke="${PAL.dim}" stroke-width="${fs*0.09}"/>`;
+  /* endpoint locus: at fixed k, as n varies, (d,h) traces h^2 = 2k(d + k/2) */
+  if (S.locus){
+    let pts = [];
+    for (let i = 0; i <= 90; i++){
+      const nn = 0.2 + (16 - 0.2) * i / 90;
+      const dd = (nn - k) / 2, hh = Math.sqrt(nn * k);
+      if (Math.abs(dd) > ext * 0.99 || hh > ext * 0.99){ if (pts.length) break; else continue; }
+      pts.push(dd.toFixed(3) + "," + (-hh).toFixed(3));
+    }
+    s += `<polyline points="${pts.join(" ")}" fill="none" stroke="${PAL.dim}" stroke-width="${fs*0.09}" opacity="0.55"/>`;
+    s += `<circle cx="${(-k/2).toFixed(3)}" cy="0" r="${fs*0.16}" fill="${PAL.dim}"/>`;
+    s += `<text x="${(-k/2 - fs*0.35).toFixed(3)}" y="${(fs*1.3).toFixed(3)}" font-size="${fs*0.8}" fill="${PAL.dim}" text-anchor="end">vertex −k/2</text>`;
+  }
+  /* full chord */
+  s += `<line x1="${d}" y1="${Y(h)}" x2="${d}" y2="${Y(-h)}" stroke="${PAL.dim}" stroke-width="${fs*0.10}" opacity="0.8"/>`;
+  /* diameter: n segment + k segment */
+  s += `<line x1="${-R}" y1="0" x2="${d}"  y2="0" stroke="${PAL.amber}" stroke-width="${fs*0.20}"/>`;
+  s += `<line x1="${d}"  y1="0" x2="${R}" y2="0" stroke="${PAL.sky}"   stroke-width="${fs*0.20}"/>`;
+  /* diameter end ticks */
+  s += `<line x1="${-R}" y1="${-fs*0.3}" x2="${-R}" y2="${fs*0.3}" stroke="${PAL.dim}" stroke-width="${fs*0.09}"/>`;
+  s += `<line x1="${R}"  y1="${-fs*0.3}" x2="${R}"  y2="${fs*0.3}" stroke="${PAL.dim}" stroke-width="${fs*0.09}"/>`;
+  /* offset (dashed) */
+  const off = d >= 0 ? [0, d] : [d, 0];
+  s += `<line x1="${off[0]}" y1="${fs*0.34}" x2="${off[1]}" y2="${fs*0.34}" stroke="${PAL.red}" stroke-width="${fs*0.10}" stroke-dasharray="${fs*0.22} ${fs*0.16}"/>`;
+  /* half-chord (GM) */
+  s += `<line x1="${d}" y1="0" x2="${d}" y2="${Y(h)}" stroke="${PAL.green}" stroke-width="${fs*0.22}"/>`;
+  /* radius (AM) */
+  s += `<line x1="0" y1="0" x2="${d}" y2="${Y(h)}" stroke="${PAL.txt}" stroke-width="${fs*0.13}"/>`;
+  /* phi arc */
+  const ra = Math.min(R * 0.34, 1.05);
+  const arcN = 28; let ap = [];
+  for (let i = 0; i <= arcN; i++){
+    const a = phi * i / arcN;
+    ap.push((ra * Math.cos(a)).toFixed(3) + "," + (-ra * Math.sin(a)).toFixed(3));
+  }
+  s += `<polyline points="${ap.join(" ")}" fill="none" stroke="${PAL.txt}" stroke-width="${fs*0.09}" opacity="0.75"/>`;
+  /* dots */
+  s += `<circle cx="0" cy="0" r="${fs*0.15}" fill="${PAL.txt}"/>`;
+  s += `<circle cx="${d}" cy="0" r="${fs*0.15}" fill="${PAL.red}"/>`;
+  s += `<circle cx="${d}" cy="${Y(h)}" r="${fs*0.20}" fill="none" stroke="${PAL.green}" stroke-width="${fs*0.11}"/>`;
+  s += `<circle cx="${d}" cy="${Y(-h)}" r="${fs*0.12}" fill="${PAL.dim}"/>`;
+  /* labels */
+  const segLbl = y => fs * 1.5;
+  s += `<text x="${((-R + d) / 2).toFixed(3)}" y="${-segLbl(0)}" font-size="${fs}" fill="${PAL.amber}" text-anchor="middle" font-weight="600">n = ${fmtF(n, Math.abs(n % 1) < 1e-9 ? 0 : 2)}</text>`;
+  s += `<text x="${((R + d) / 2).toFixed(3)}" y="${-segLbl(0)}" font-size="${fs}" fill="${PAL.sky}" text-anchor="middle" font-weight="600">k = ${fmtF(k, Math.abs(k % 1) < 1e-9 ? 0 : 2)}</text>`;
+  s += `<text x="${(d + fs * 0.45).toFixed(3)}" y="${Y(h * 0.58)}" font-size="${fs}" fill="${PAL.green}" font-weight="600">GM = ${fmtF(h)}</text>`;
+  const mx = d / 2, my = h / 2;
+  s += `<text x="${(mx - fs * 0.5).toFixed(3)}" y="${Y(my) - fs * 0.28}" font-size="${fs}" fill="${PAL.txt}" font-weight="600">AM</text>`;
+  s += `<text x="${(d / 2).toFixed(3)}" y="${fs * 1.05}" font-size="${fs * 0.85}" fill="${PAL.red}" text-anchor="middle">offset ${fmtF(d)}</text>`;
+  const am = phi / 2, la = ra * 1.45;
+  s += `<text x="${(la * Math.cos(am)).toFixed(3)}" y="${(-la * Math.sin(am) + fs * 0.3).toFixed(3)}" font-size="${fs}" fill="${PAL.txt}">φ</text>`;
+  svg.setAttribute("viewBox", `${(-ext).toFixed(2)} ${(-ext).toFixed(2)} ${(2 * ext).toFixed(2)} ${(2 * ext).toFixed(2)}`);
+  svg.innerHTML = s;
+}
+
+/* ---------------- Panel B: hyperbola u^2 - v^2 = nk ----------------------- */
+function drawHyperbola(){
+  const { n, k, R, d, h, psi } = derived(S.n, S.k);
+  const svg = document.getElementById("hypSvg");
+  const nk = n * k;
+  const V = Math.max(Math.abs(d) * 1.5, R * 0.5, 1.25);
+  const U = Math.max(Math.sqrt(nk + V * V) * 1.04, n * 1.03, R * 1.15);
+  const pad = Math.max(0.55, U * 0.07);
+  const fs = Math.min(0.5, Math.max(0.2, U * 0.07));
+  const Y = y => -y;
+  let s = "";
+  /* asymptotes / light cone directions (clipped symmetrically to the frame) */
+  const tA = Math.min(U, V + pad);
+  s += `<line x1="0" y1="0" x2="${tA}" y2="${Y(tA)}" stroke="${PAL.dim}" stroke-width="${fs*0.07}" stroke-dasharray="${fs*0.25} ${fs*0.2}" opacity="0.6"/>`;
+  s += `<line x1="0" y1="0" x2="${tA}" y2="${Y(-tA)}" stroke="${PAL.dim}" stroke-width="${fs*0.07}" stroke-dasharray="${fs*0.25} ${fs*0.2}" opacity="0.6"/>`;
+  /* axes */
+  s += `<line x1="${-pad * 0.6}" y1="0" x2="${U}" y2="0" stroke="${PAL.dim}" stroke-width="${fs*0.09}"/>`;
+  s += `<line x1="0" y1="${Y(V)}" x2="0" y2="${Y(-V)}" stroke="${PAL.dim}" stroke-width="${fs*0.09}"/>`;
+  s += `<text x="${U.toFixed(3)}" y="${(fs * 2.1).toFixed(3)}" font-size="${fs}" fill="${PAL.dim}" text-anchor="end">u = AM</text>`;
+  s += `<text x="${(fs * 0.3).toFixed(3)}" y="${Y(V) + fs * 0.9}" font-size="${fs}" fill="${PAL.dim}">v = offset</text>`;
+  /* ghost hyperbolas */
+  for (const g of [0.5, 2]){
+    const gnk = nk * g; let pts = [];
+    for (let i = 0; i <= 46; i++){
+      const v = -V + 2 * V * i / 46;
+      pts.push(Math.sqrt(gnk + v * v).toFixed(3) + "," + Y(v).toFixed(3));
+    }
+    s += `<polyline points="${pts.join(" ")}" fill="none" stroke="${PAL.violet}" stroke-width="${fs*0.07}" opacity="0.3"/>`;
+  }
+  /* main hyperbola */
+  let pts = [];
+  for (let i = 0; i <= 60; i++){
+    const v = -V + 2 * V * i / 60;
+    pts.push(Math.sqrt(nk + v * v).toFixed(3) + "," + Y(v).toFixed(3));
+  }
+  s += `<polyline points="${pts.join(" ")}" fill="none" stroke="${PAL.violet}" stroke-width="${fs*0.15}"/>`;
+  /* light-cone dashed connectors from P to (n,0) and (k,0) */
+  s += `<line x1="${R}" y1="${Y(d)}" x2="${n}" y2="0" stroke="${PAL.amber}" stroke-width="${fs*0.10}" stroke-dasharray="${fs*0.22} ${fs*0.16}"/>`;
+  s += `<line x1="${R}" y1="${Y(d)}" x2="${k}" y2="0" stroke="${PAL.sky}" stroke-width="${fs*0.10}" stroke-dasharray="${fs*0.22} ${fs*0.16}"/>`;
+  s += `<circle cx="${n}" cy="0" r="${fs*0.14}" fill="${PAL.amber}"/>`;
+  s += `<circle cx="${k}" cy="0" r="${fs*0.14}" fill="${PAL.sky}"/>`;
+  s += `<text x="${n.toFixed(3)}" y="${(fs * 1.05).toFixed(3)}" font-size="${fs*0.9}" fill="${PAL.amber}" text-anchor="middle">n</text>`;
+  if (Math.abs(n - k) > U * 0.06)
+    s += `<text x="${k.toFixed(3)}" y="${(fs * 1.05).toFixed(3)}" font-size="${fs*0.9}" fill="${PAL.sky}" text-anchor="middle">k</text>`;
+  /* projections of P */
+  s += `<line x1="${R}" y1="${Y(d)}" x2="${R}" y2="0" stroke="${PAL.txt}" stroke-width="${fs*0.07}" stroke-dasharray="${fs*0.14} ${fs*0.12}" opacity="0.7"/>`;
+  s += `<line x1="${R}" y1="${Y(d)}" x2="0" y2="${Y(d)}" stroke="${PAL.txt}" stroke-width="${fs*0.07}" stroke-dasharray="${fs*0.14} ${fs*0.12}" opacity="0.7"/>`;
+  /* rapidity ray */
+  s += `<line x1="0" y1="0" x2="${R}" y2="${Y(d)}" stroke="${PAL.txt}" stroke-width="${fs*0.12}"/>`;
+  s += `<circle cx="${R}" cy="${Y(d)}" r="${fs*0.18}" fill="${PAL.violet}" stroke="${PAL.txt}" stroke-width="${fs*0.06}"/>`;
+  s += `<text x="${(R * 0.52).toFixed(3)}" y="${Y(d * 0.52) - fs * 0.35}" font-size="${fs}" fill="${PAL.txt}">ψ = ${fmtF(psi)}</text>`;
+  s += `<text x="${(Math.sqrt(nk) + fs * 0.25).toFixed(3)}" y="${-fs * 0.35}" font-size="${fs*0.9}" fill="${PAL.violet}">u²−v² = ${fmt(nk, 2)}</text>`;
+  svg.setAttribute("viewBox", `${(-pad).toFixed(2)} ${(-V - pad).toFixed(2)} ${(U + 2 * pad).toFixed(2)} ${(2 * V + 2 * pad).toFixed(2)}`);
+  svg.innerHTML = s;
+}
+
+/* ---------------- readouts ------------------------------------------------- */
+function drawReadouts(){
+  const q = derived(S.n, S.k);
+  const rows = [
+    ["n", fmtF(q.n)], ["k", fmtF(q.k)],
+    ["diameter n+k", fmtF(q.D)],
+    ["AM = (n+k)/2", fmtF(q.R)],
+    ["offset = (n−k)/2", fmtF(q.d)],
+    ["GM = √(nk)", fmtF(q.h)],
+    ["(n+k)/(n−k)", fmt(q.ratio)],
+    ["sec φ", fmt(q.ratio)],
+    ["coth ψ", fmt(q.ratio)],
+    ["φ = 2·atan√(k/n)", fmtF(q.phi * 180 / Math.PI, 1) + "°"],
+    ["ψ = ½·ln(n/k)", fmtF(q.psi)],
+    ["z = Re", fmt(q.zre)], ["z = Im", fmt(q.zim)],
+    ["sin φ = GM/AM = sech ψ", fmt(2 * q.h / q.D)],
+    ["AM² = offset² + GM² ✓", fmtF(q.R * q.R) + " = " + fmtF(q.d * q.d + q.h * q.h), "chk"],
+  ];
+  document.getElementById("roGrid").innerHTML = rows.map(r =>
+    `<div class="ro ${r[2] || ""}"><span class="k">${r[0]}</span><span class="v">${r[1]}</span></div>`).join("");
+}
+</script>
+
+<script>
+"use strict";
+/* ---------------- Panel C: the cone (canvas 3D, ghost-projection style) ---- */
+const cv = document.getElementById("coneCanvas");
+const ctx = cv.getContext("2d");
+let dragging = false, lastX = 0, lastY = 0;
+
+function sizeCanvas(){
+  const dpr = window.devicePixelRatio || 1;
+  cv.width  = cv.clientWidth * dpr;
+  cv.height = 430 * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+function projector(Tf){
+  const W = cv.clientWidth, H = 430;
+  const scale = (H * 0.40 / Tf) * S.zoom;
+  const cA = Math.cos(S.az), sA = Math.sin(S.az);
+  const cE = Math.cos(S.el), sE = Math.sin(S.el);
+  const cx = W / 2, cy = H / 2;
+  return function(p){           // p = [X, T, Y] in Jeremy's coords
+    const x = p[0], T = p[1], z = p[2];
+    const x1 = x * cA - z * sA, z1 = x * sA + z * cA;
+    const y2 = T * cE - z1 * sE;
+    return [cx + x1 * scale, cy - y2 * scale];
+  };
+}
+function seg(P, a, b, color, w, alpha, dash){
+  const A = P(a), B = P(b);
+  ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]);
+  ctx.strokeStyle = color; ctx.lineWidth = w; ctx.globalAlpha = alpha;
+  ctx.setLineDash(dash || []); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+}
+function poly(P, pts, color, w, alpha){
+  if (pts.length < 2) return;
+  ctx.beginPath();
+  const A = P(pts[0]); ctx.moveTo(A[0], A[1]);
+  for (let i = 1; i < pts.length; i++){ const B = P(pts[i]); ctx.lineTo(B[0], B[1]); }
+  ctx.strokeStyle = color; ctx.lineWidth = w; ctx.globalAlpha = alpha; ctx.stroke();
+  ctx.globalAlpha = 1;
+}
+function dot(P, p, color, r){
+  const A = P(p);
+  ctx.beginPath(); ctx.arc(A[0], A[1], r, 0, 2 * Math.PI);
+  ctx.fillStyle = color; ctx.fill();
+}
+function drawCone(){
+  const q = derived(S.n, S.k);
+  const { R, d, h } = q, nk = S.n * S.k;
+  const Tf = Math.max(6, R + 0.25);
+  ctx.clearRect(0, 0, cv.clientWidth, 430);
+  const P = projector(Tf);
+  /* canonical mesh: rows #7fa7cf / columns #b08fcf, ghost projection, both cones */
+  const us = []; for (let i = 1; i <= 11; i++) us.push(i * Tf / 6);
+  for (const sgn of [1, -1]){
+    for (const u of us){
+      for (const fam of [0, 1]){
+        for (const br of [1, -1]){
+          const pts = [];
+          const NS = 40;
+          for (let i = 0; i <= NS; i++){
+            const T = Math.max(u / 2, 0.15) + (Tf - Math.max(u / 2, 0.15)) * i / NS;
+            const Yv = br * Math.sqrt(Math.max(0, u * (2 * T - u)));
+            const Xv = fam === 0 ? u - T : T - u;      // rows / columns
+            pts.push([Xv, sgn * T, Yv]);
+          }
+          poly(P, pts, fam === 0 ? "#7fa7cf" : "#b08fcf", 1, 0.30);
+        }
+      }
+    }
+  }
+  /* silhouette + rims + axis */
+  for (const sgn of [1, -1]){
+    seg(P, [0, 0, 0], [ Tf, sgn * Tf, 0], "#3a4656", 1, 0.9);
+    seg(P, [0, 0, 0], [-Tf, sgn * Tf, 0], "#3a4656", 1, 0.9);
+    const rim = [];
+    for (let i = 0; i <= 72; i++){
+      const a = 2 * Math.PI * i / 72;
+      rim.push([Tf * Math.cos(a), sgn * Tf, Tf * Math.sin(a)]);
+    }
+    poly(P, rim, "#3a4656", 1, 0.7);
+  }
+  seg(P, [0, -Tf, 0], [0, Tf, 0], "#3a4656", 1, 0.8);
+  /* GM hyperbola T^2 - X^2 = nk in the Y=0 plane; foot point = (d, R) */
+  if (Tf * Tf > nk){
+    const Xm = Math.sqrt(Tf * Tf - nk);
+    for (const sgn of [1, -1]){
+      const pts = [];
+      for (let i = 0; i <= 60; i++){
+        const X = -Xm + 2 * Xm * i / 60;
+        pts.push([X, sgn * Math.sqrt(nk + X * X), 0]);
+      }
+      poly(P, pts, PAL.violet, sgn === 1 ? 2.2 : 1.4, sgn === 1 ? 0.95 : 0.4);
+    }
+  }
+  /* section circle at T = AM */
+  const circ = [];
+  for (let i = 0; i <= 90; i++){
+    const a = 2 * Math.PI * i / 90;
+    circ.push([R * Math.cos(a), R, R * Math.sin(a)]);
+  }
+  poly(P, circ, "#d7dee8", 1.6, 0.85);
+  /* diameter split n | k on the section */
+  seg(P, [-R, R, 0], [d, R, 0], PAL.amber, 3.2, 1);
+  seg(P, [ d, R, 0], [R, R, 0], PAL.sky,   3.2, 1);
+  /* chord (the shadow) and half-chord (GM) */
+  seg(P, [d, R, -h], [d, R, h], PAL.dim, 1.6, 0.9);
+  seg(P, [d, R,  0], [d, R, h], PAL.green, 3.4, 1);
+  /* radius AM */
+  seg(P, [0, R, 0], [d, R, h], PAL.txt, 2.2, 1);
+  /* dots: center, foot (= hyperbola point), chord end */
+  dot(P, [0, R, 0], PAL.txt, 3);
+  dot(P, [d, R, 0], PAL.violet, 4);
+  dot(P, [d, R, h], PAL.green, 3.5);
+  requestAnimationFrame(drawCone);
+}
+/* interactions */
+cv.addEventListener("pointerdown", e => { dragging = true; lastX = e.clientX; lastY = e.clientY; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => {
+  if (!dragging) return;
+  S.az += (e.clientX - lastX) * 0.008;
+  S.el = Math.min(1.35, Math.max(0.08, S.el - (e.clientY - lastY) * 0.006));
+  lastX = e.clientX; lastY = e.clientY;
+});
+cv.addEventListener("pointerup", () => dragging = false);
+cv.addEventListener("wheel", e => {
+  e.preventDefault();
+  S.zoom = Math.min(2.6, Math.max(0.45, S.zoom * Math.exp(-e.deltaY * 0.0011)));
+}, { passive: false });
+setInterval(() => { if (S.spin && !dragging) S.az += 0.0035; }, 30);
+
+/* ---------------- controls wiring ----------------------------------------- */
+const nS = document.getElementById("nSlider"), kS = document.getElementById("kSlider");
+function update(){
+  S.n = parseFloat(nS.value); S.k = parseFloat(kS.value);
+  document.getElementById("nVal").textContent = fmtF(S.n);
+  document.getElementById("kVal").textContent = fmtF(S.k);
+  drawCircle(); drawHyperbola(); drawReadouts();
+}
+nS.addEventListener("input", update);
+kS.addEventListener("input", update);
+document.querySelectorAll(".presets button[data-n]").forEach(b => {
+  b.addEventListener("click", () => {
+    nS.value = b.dataset.n; kS.value = b.dataset.k; update();
+  });
+});
+document.getElementById("swapBtn").addEventListener("click", () => {
+  const t = nS.value; nS.value = kS.value; kS.value = t; update();
+});
+document.getElementById("locusChk").addEventListener("change", e => { S.locus = e.target.checked; drawCircle(); });
+document.getElementById("spinChk").addEventListener("change", e => { S.spin = e.target.checked; });
+window.addEventListener("resize", sizeCanvas);
+sizeCanvas();
+update();
+requestAnimationFrame(drawCone);
+</script>
+</body>
+</html>
