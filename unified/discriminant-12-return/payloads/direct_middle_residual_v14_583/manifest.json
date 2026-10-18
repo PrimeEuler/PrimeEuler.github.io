@@ -1,0 +1,485 @@
+{
+ "binds_ledger": [
+  "v14.583 (residual composition return, PASS)",
+  "v14.585 (Lane A ACK; witness freeze; far gate)"
+ ],
+ "buffers": {
+  "even-v-direct-middle-residual.bin": {
+   "bytes": 31211490,
+   "chunk_count": 45,
+   "chunk_size": 700000,
+   "chunks": [
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part000",
+     "sha256": "eb95e28439356dc73f45484109ac79f46d709324ab91ca8b1e92eb21f050c028"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part001",
+     "sha256": "2be97dd91a8bf26234030b3d544922e094c3d68d995d44fa75578523b55466ff"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part002",
+     "sha256": "1c90b79de629fd87fb5d73d8204baced9d5fb5cf3caebb8898ab6827fe545848"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part003",
+     "sha256": "fdddc435cd840ded38511af7b67ff880504a278d78aa51d276762674b6d239ef"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part004",
+     "sha256": "77610db34f2eaa0340539a193e6a1d1cceda3076fba9e530f5497ebf4c386fed"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part005",
+     "sha256": "b664a5a5533f0e88e56fc9d54dbb61ce7893229bcc62edac28a72186d252e97c"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part006",
+     "sha256": "ba304b2b464b95c58ed011873d4c6847ff47cf02e06aaf19b1d94224314b749d"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part007",
+     "sha256": "14406fb3abbd372f9cf1f384816bd632fd5cbebcc8bbef43601733cc05c05695"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part008",
+     "sha256": "6a01a0543bd857948f0219104fec5cb14fc8b0dcc07bc53540d39f512d08b142"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part009",
+     "sha256": "28a5557e0f46878441ab2f740fa7cbe950c7da244208e8bfe112f02e2cfeedd1"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part010",
+     "sha256": "ce2d6e73db42f74b6f876fe286aaabc5df07bc10f7e56f267d9a0d1724f6cde1"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part011",
+     "sha256": "800c9e2b0a068725ffa6a3baf98547ecf8b574ba356d5c351852704ccc31be22"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part012",
+     "sha256": "565c54ff3378e628f353b20131ef29889f515a31a9f7b213968732c5136ceb13"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part013",
+     "sha256": "d432d5555d858c07f4e2ca04a6c3876d498646d349390c55d2988cc7aa97368f"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part014",
+     "sha256": "17ab19b0a94b2bf0a188dec2e96babc312070253f63ef1b65b2cf5efd8713e87"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part015",
+     "sha256": "8413f5c355c9f005493607c985309660bf4c88378e05b015360e14afde0b5203"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part016",
+     "sha256": "bdf22f5e98f46f8c07c2bf8fe387595462ec67e48024307e5a6af25cf486a345"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part017",
+     "sha256": "f9e8a12d5a7094beca1a4a40183d7458ff836ed0ee9c7de745fda94d0382b9a4"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part018",
+     "sha256": "79a1ff88d6a503a287e7d95bdace768720dc612eb2290d22f0ab7da5b46a6de3"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part019",
+     "sha256": "737da55c3b145da6955308172996fbef22f0d7e62740ea49f6b884f97be2ba74"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part020",
+     "sha256": "95f4f97f9b7a84b8df08976e527e48206f3107e31fda6d84c6ca150f6525cdad"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part021",
+     "sha256": "06331cdcee2d080c5cb9bc7d8a613381e0a3b0f66427dccbc90165e896db4262"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part022",
+     "sha256": "bf792c253d8e5d80ca3fcc1cff8c44a1da96ffc4f6b104ad0ba3d76b0607ac2c"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part023",
+     "sha256": "7b1583b49b262d49a106ae6a57bf33f554947e96afb1fdc938a1cc86d0f1fe71"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part024",
+     "sha256": "b20b12c248366a2920cca34be434a2666b9c4d2abbb067d84e738343021c6f3f"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part025",
+     "sha256": "4eb75c66ea7e5c5d43f729d9dfb1d63ca764c55074581816326ffd73bdbebdb1"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part026",
+     "sha256": "814ca05e3bea988f0f17d53cfdc1bfdc72c05dab388b3b34246ead8cd2644f11"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part027",
+     "sha256": "cf7210a7780b8fc2f8ce3d95700b13f98f5151609ae84e8ba34ac2951e02cebe"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part028",
+     "sha256": "eafc48a9891b40538ebfcab8ca02a92175c8783b211885235b7a4d472df4c7f5"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part029",
+     "sha256": "4832f563856273d80ef2ef8b08edbcc13b916ca8710eedd4f0e1fce1f4bc9624"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part030",
+     "sha256": "b11dc16f26d6f7f4e722b3e54064bb1e6fa12995861b395a4245651206e55ade"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part031",
+     "sha256": "5d74db5ab1336c014b8744b13cfe5d5309572785c37f57a86ff315f927ae9c95"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part032",
+     "sha256": "06c0876d51cd5988b30f1285e5cbbed687c2871f2e48847a63cb5ccac48f8f60"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part033",
+     "sha256": "43d07031f8494397e739dabb94ec0b9f37b9d4ce56a94afdca2f965814dac5c1"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part034",
+     "sha256": "882ff3fc0f8d6769c1a19d2151ba1ae2936e0f43ea7d7e4d54ddb368abb8f09c"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part035",
+     "sha256": "b3311b1736997145beca8e4b0e07b2c33506b6750d599ea57dde2d17901ab4d2"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part036",
+     "sha256": "bc1c3877bdd9c2561b0ae747423a1fc5b9d4cf3f20e14b98fbe37bbd81e10ef4"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part037",
+     "sha256": "d0143771c2a266e9a4d565574c02308986e43ac373aec23048ffb754445dba32"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part038",
+     "sha256": "f31b000e199e2f7783c8370b1c376a293bcca73dd0a2aad0f99930eb30199313"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part039",
+     "sha256": "8a8d7e119d60d5ab1417b6bda9234fbfcd5d098bbefe0d8b2558351f798997ea"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part040",
+     "sha256": "eb1b9c72ea030b3db3186cd0bc692e3fa9b153c3b8756b734603531abcd91cfa"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part041",
+     "sha256": "3fa662c12869a36f4b61ec01b113e167d44d7312c1fa959367f30da297dce0bb"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part042",
+     "sha256": "6933dfb3dab2da7d7af1e1ecc1638f6e6fef63ab2ab5254d4c99a2c4e01a85d9"
+    },
+    {
+     "bytes": 700000,
+     "file": "even-v-direct-middle-residual.bin.part043",
+     "sha256": "e2d04143ebe7bf027b3bfc232056776f20cf965385dee7f80f7d41d4e50f6682"
+    },
+    {
+     "bytes": 411490,
+     "file": "even-v-direct-middle-residual.bin.part044",
+     "sha256": "066e057b6acb3baa9e94bd60aeb8d9b5da566f93048783adb9acba6f2198bf7b"
+    }
+   ],
+   "sha256": "8c6d880c40fc9a3fd4fb0d8da76e737b86457e1ff71e3bd092552e73eb4e0c36"
+  },
+  "odd-v-direct-middle-residual.bin": {
+   "bytes": 31211490,
+   "chunk_count": 45,
+   "chunk_size": 700000,
+   "chunks": [
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part000",
+     "sha256": "8af4160e57fe4f410cc15e27e12f0b1faa9ea38a830b7ed31ab400f41296f754"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part001",
+     "sha256": "8d41044a2158cce5d061803083068e0fc816b9e267c9c8baa148fde6fc930eb3"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part002",
+     "sha256": "f8e42938738c2e110bf692506969f1f87c8264dd2cfe97802488cb08b2a71dc4"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part003",
+     "sha256": "86ed6680857da31b245dd515707697aec54b4f30f6de9d749b439a96914b2fb8"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part004",
+     "sha256": "244bad689a35ba485778051777cd41c9a15745136f1b83ef1d88bd3305aa5547"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part005",
+     "sha256": "e9955c9bcd235f3eb7af7878ef05a043f48cb26df7ae0f274395d812749a2ffe"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part006",
+     "sha256": "198b63183449a695b63aacdf429e6960c4b97ef41d1f7c59ab4dbc962a52917d"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part007",
+     "sha256": "f7b211f5693cbf40ef2105a333d2566f4fdd3f0cd25ca7867f6889410f6c56a6"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part008",
+     "sha256": "84553ddfc7a3810c0717d4719707cf9ea1d6539a6e90f25a2a186e7b1d143782"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part009",
+     "sha256": "03c79ac4405d9e8c33267546dfda873d8a5792a153db2530c3c0f7117aa9e417"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part010",
+     "sha256": "b08c095bf8927b50505649b49ab7c89846e77ff3fbf6bf44d89c2ed5e4ea38d4"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part011",
+     "sha256": "65de4fae9f44c9ffa606e35afedd52e57f497c2bbf26b066cfccb381d9a49585"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part012",
+     "sha256": "860653f4d2bbed20607dedf01cea380af2d9cfb1c4f7e7634414998d6e403dc6"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part013",
+     "sha256": "cbbd4d39f45bfa4fb83941abb92ece9b139563a67fe2427e0dbf3a128f161dcb"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part014",
+     "sha256": "e799db4937b407025626adc7a6493913d70c8b2e85031063ae0670ed11fae42a"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part015",
+     "sha256": "08639b96f51a459ea8dcd1558ffd38167652158313c47e2a9888b710e2f4ae18"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part016",
+     "sha256": "f949dbfe8979797a62de3c210c729543e4dce51ab08f06219a156f5203f6ea3c"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part017",
+     "sha256": "7d95432385780ed0a6c894673a79d788d94bc7aca005e9b91b8cb2f4af7201bd"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part018",
+     "sha256": "ab55056494bb55f32e1809ec4806faef2a52236d1e828818863ca587cf1295ca"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part019",
+     "sha256": "95f30ad270dd41248160c8354d81f0b3758e526f6d140016d9f8e8c66228f12b"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part020",
+     "sha256": "c231164df8e66d1de75608805248897059f41b4dd3d23c3b168cde15d5c8d2ce"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part021",
+     "sha256": "3d8cd0e78ff9f63c87a9aa72a1847110b557bd84a24f6f1406eb868fb1d0b925"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part022",
+     "sha256": "0e9049eeb388b155ec5b8715097fc27d0b7b6c58011c17ac2dd9d2cf9ba1b996"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part023",
+     "sha256": "e4a70c7b242239992b641a6c5a7869cfcbbf3eb6c3be0dce848c149086cd4384"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part024",
+     "sha256": "5bb1cb5d6d11a8ce770adabd85b5a75a474228df9af0f9da03ba35847b851330"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part025",
+     "sha256": "3131cce8080fa83a1b96fa8fa5f5f97e167d6e03d5f9236cd733dd291e6ba88d"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part026",
+     "sha256": "7c71417a48ef3ba86ea77ac75685b86b401ad0c1e4087449a0fb1685d6b267ab"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part027",
+     "sha256": "ed584d5a7082a0a18d2a50389388e4c028a46782c9655287efe82f33a9b83d55"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part028",
+     "sha256": "dadcf6aa6e3f2f7b32eadebdc389e33c737d47bd23eb723cdcdf71c91028f896"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part029",
+     "sha256": "8f7e7090664200cb90f71265a332322ead84216948bf22b1ba6e81f9ba451885"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part030",
+     "sha256": "b049a3c33191941f49db964fb9fc1d3aeeb18f50e8a3ca351a57ad6ef71d1053"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part031",
+     "sha256": "d5b5b8bd5a790efab34dd412da13de285bc4c2eec103c25c80d43b26b3cc1844"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part032",
+     "sha256": "0d3479b16f75c6df4d639bad383bae2c47db96b9e56984826c2d1188e928f4ea"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part033",
+     "sha256": "c59425a7358dfdb9f450898504451f2c28b56ebde60e2d806185d22aa368b703"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part034",
+     "sha256": "5991843c6c102f081733e0983beaacdb031861ccb51cb35fd3abe7cc4f39b9d7"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part035",
+     "sha256": "4329f7404f0accb5cfb38dc2c69a3aa70519a2d475639ff06f3669418527dea6"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part036",
+     "sha256": "95147cfbed4ece19c647c0cedf95378c30fe7e7f2c94d5373726e40902ac9331"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part037",
+     "sha256": "0faf9afae977cc1df92357f3c2b32f20836a4d5e68870b143b5342fc1b2b4a33"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part038",
+     "sha256": "54e6f580d081b98903d80f35ac96571e2182c7910fc70df0b64cfe3ed512bc90"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part039",
+     "sha256": "aa8c1e486d263199b3655c2129f1a197713e801701d5e74a20a876ff5e755871"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part040",
+     "sha256": "90816682e66af81de6ae26289106f60de05e1584a580e868a2bc1615eaf7eaa7"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part041",
+     "sha256": "d4ea25394239467d899dee4901d49aeb271bfe6afbd963a1a009d1cae7e05f38"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part042",
+     "sha256": "ebaa8360d33380b01c95b1d0a37e343aaa1e1dea6583ea7ccb061d61487c955f"
+    },
+    {
+     "bytes": 700000,
+     "file": "odd-v-direct-middle-residual.bin.part043",
+     "sha256": "8fe74c5f9fb000ef3be6e27754a064ac226b64e0913627f3dd8c3f437866868e"
+    },
+    {
+     "bytes": 411490,
+     "file": "odd-v-direct-middle-residual.bin.part044",
+     "sha256": "b69cb4fb5d2a07a8345e48a951f99f4ab691a67ef79a95d9c9ee8088c8523c9d"
+    }
+   ],
+   "sha256": "5606cc01d675aec1920c2cb887bcf5d3d2b1df20bd1a655cbee0fa51dd245316"
+  }
+ },
+ "files": {
+  "dm-residual-even-v.json": {
+   "bytes": 24396,
+   "sha256": "96bc942e1119a4dc24d5a8c03ae25138e14bae34c0a62d5f3f8acbaf5a3661dc"
+  },
+  "dm-residual-odd-v.json": {
+   "bytes": 24841,
+   "sha256": "0648b71e80a73f49c0b8234d216cfe11fe1a0c4aaefe0a10addbf49fe8dce2b8"
+  }
+ },
+ "payload": "direct_middle_residual_v14_583"
+}
