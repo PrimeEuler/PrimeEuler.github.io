@@ -1,0 +1,210 @@
+{
+  "artificial_Hankel_self_removed_once": true,
+  "buffer": {
+    "bits": 256,
+    "bytes": 7802880,
+    "count": 260096,
+    "file": "even-v-shard-0-of-4-direct-middle-changed-compact-action.bin",
+    "sha256": "a0e44079d7cbff283b82e5a80d1515a06f909c84ab0d6f6d6cd5a764a5e887ae",
+    "width": 30
+  },
+  "charge_accounting_statement": "Charge accounting: the v14.354 Hankel self-diagonal correction charge and the global source + v14.403 lift transport charge were each charged exactly once in ledger v14.442 and are not charged again in this composition. No term in this certificate's error budget is, contains, or repeats either charge. The Hankel self-interaction removal and raw-diagonal insertion applied to the delta component are evaluation procedures of this compact action under the v14.544 frozen contract, not repetitions of the v14.354 error charge.",
+  "complete_output_rows": 260096,
+  "component_offsets_counts": [
+    [
+      "front",
+      0,
+      128000,
+      662,
+      146
+    ],
+    [
+      "near",
+      128000,
+      128000,
+      160,
+      160
+    ],
+    [
+      "patch1",
+      256000,
+      264192,
+      160,
+      160
+    ],
+    [
+      "patch2",
+      520192,
+      520191,
+      160,
+      160
+    ],
+    [
+      "delta",
+      1040383,
+      1040383,
+      160,
+      160
+    ]
+  ],
+  "direct_component_rows": [
+    {
+      "component": "front",
+      "direct_channel_match": true,
+      "output_index": 1040383,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2080767
+    },
+    {
+      "component": "front",
+      "direct_channel_match": true,
+      "output_index": 1170431,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2340863
+    },
+    {
+      "component": "front",
+      "direct_channel_match": true,
+      "output_index": 1300478,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2600957
+    },
+    {
+      "component": "near",
+      "direct_channel_match": true,
+      "output_index": 1040383,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2080767
+    },
+    {
+      "component": "near",
+      "direct_channel_match": true,
+      "output_index": 1170431,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2340863
+    },
+    {
+      "component": "near",
+      "direct_channel_match": true,
+      "output_index": 1300478,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2600957
+    },
+    {
+      "component": "patch1",
+      "direct_channel_match": true,
+      "output_index": 1040383,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2080767
+    },
+    {
+      "component": "patch1",
+      "direct_channel_match": true,
+      "output_index": 1170431,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2340863
+    },
+    {
+      "component": "patch1",
+      "direct_channel_match": true,
+      "output_index": 1300478,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2600957
+    },
+    {
+      "component": "patch2",
+      "direct_channel_match": true,
+      "output_index": 1040383,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2080767
+    },
+    {
+      "component": "patch2",
+      "direct_channel_match": true,
+      "output_index": 1170431,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2340863
+    },
+    {
+      "component": "patch2",
+      "direct_channel_match": true,
+      "output_index": 1300478,
+      "output_relative_to_component_support": "outside",
+      "physical_mode": 2600957
+    },
+    {
+      "component": "delta",
+      "direct_channel_match": true,
+      "output_index": 1040383,
+      "output_relative_to_component_support": "inside",
+      "physical_mode": 2080767
+    },
+    {
+      "component": "delta",
+      "direct_channel_match": true,
+      "output_index": 1170431,
+      "output_relative_to_component_support": "inside",
+      "physical_mode": 2340863
+    },
+    {
+      "component": "delta",
+      "direct_channel_match": true,
+      "output_index": 1300478,
+      "output_relative_to_component_support": "inside",
+      "physical_mode": 2600957
+    }
+  ],
+  "direct_middle_residual_evaluated": false,
+  "display_approximate": {
+    "complete_changed_direct_middle_compact_action_error_upper": 7.622486346878942e-18,
+    "diagonal_interval_action_charge_upper": 7.620449472121114e-18,
+    "final_row_rounding_charge_upper": 4.40441209564029e-75,
+    "offdiagonal_and_pole_parameter_charge_upper": 2.036874757828112e-21,
+    "reciprocal_kernel_rounding_charge_upper": 7.036317493688301e-63
+  },
+  "first_output_index": 1040383,
+  "first_output_mode": 2080767,
+  "full_compact_pole_pairing_included_once": true,
+  "global_source_v14_403_transport_charge_repeated": false,
+  "infinite_capacity_tail_closed": false,
+  "input_pins": {
+    "delta_candidate_buffer_sha256": "c5b6845303cb059ca9a1ed79a628c4ba135fd49f2012b5fc011b0aeb14d12bb2",
+    "delta_correction_input_z_sha256": "0e9e889c915a55267bcf81f9c39d9aed0d768dc857e5bcbf0731f503e6a3ed7f",
+    "direct_middle_rhs_certificate_sha256": "d56eaf3ade699c5c85ad3ae954c5817c3e58045c6894268b3e49e6a7b2ad55ad",
+    "fresh_lift_buffer_sha256": "d3fd00e05bd19709811086ec246764feb36379dc52ec410798d2a01d8e1bf237",
+    "fresh_lift_certificate_sha256": "d3ea64364f8ca69b569ed9f981828048bd80448d3dc6055934b50e6a278fa263",
+    "full_source_certificate_sha256": "40fcbd9ba5745598fa0e8d98a5da43b7c088411c8fdcb4c6d0dcae10a0b9dc80",
+    "gap_correction_input_z_sha256": "7440766af36e77af4e26de0ee182cda57da90fc185ea0f7939095ed3a5e6f3a4",
+    "gap_patch_candidate_sha256": "171883d6c8e41e9a92f88bea4fa96b70f538ada49ea296876e1f06aebe1f9da6",
+    "gap_rhs_certificate_sha256": "42c71d7e017eadc08a6ebe20045f6d6e83bbe3523e17ba282903eccf08edc075",
+    "near_action_z_sha256": "a20f6112a925f8967aaf143f3f04eb3e16db3082531f3fb2c3e4961181266c30",
+    "near_rhs_witness_certificate_sha256": "7183ea82d33db24ece4cbb4c73e7ff84a001fe1783c565dc90dcd7fac498af45",
+    "near_trial_buffer_sha256": "7558e3c3c1b99ad9096d016c2eb2d666f963a7635cf0397a466f086d33bccf85",
+    "near_trial_certificate_sha256": "cca920b7b5f20fd856807166fdc08cce82f4b108f61831c34f19da29e366f42b",
+    "old_finite_compact_certificate_sha256": "91ac66062b89bedcd3d04c09bd04330c2a6285167f119bca33231370a7473e18",
+    "old_patch_candidate_sha256": "fdf93112802fe28ef53efa804be760a0fc17abc404993c8b2af6c33b1b5aba05",
+    "old_patch_input_z_sha256": "557167ea18270460f3cc4b1ffa8015c5ada0634a5d84dec5449d4d7249bb8d8e",
+    "snapshot_sha256": "da7189749abb6872e28e2af6c189c609248bc094428db21ee0cafa5e68c2deb5"
+  },
+  "last_output_index": 1300478,
+  "last_output_mode": 2600957,
+  "original_infinite_seed_action_included": false,
+  "output_rows_owned_by_delta_component": true,
+  "prep_artifact_sha256": "395b7f66e06d314e3f13c0cd5e54b54399f0de928ea304454970222585dc9669",
+  "rational": {
+    "complete_changed_direct_middle_compact_action_error_upper": "71149479846349200309224107184773494418415124247672662558498371168127501925507909530677151693428297360419772072364866569775225927057849664239775222719555349934190958197317480211211088345583882872367228107413519849890229657855384334712046832861739506075603370789877431183730841132558709424110383125088288149714159466860259186360391216339749078075975516475367739/9334156416755229106450255389283100404226045798254516456633819209429885527968133288846872549157405363817725297069322059104073945366674217323354128553804111585398021388470553902146878539583733276307991456930820910963152737133000747465369893212326053290542578425579035014591186920702461547563636124964893682474143407160771872446392535157686927360000000000000000000000000000000000",
+    "diagonal_interval_action_charge_upper": "441193882652153549138654715558808096341312517604809323355473/57896044618658097711785492504343953926634992332820282019728792003956564819968",
+    "final_row_rounding_charge_upper": "59053511422660970628558473968280893078316841595103342473513902078795548082032717/13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084096",
+    "offdiagonal_and_pole_parameter_charge_upper": "22566819230779945521135264537068914259547692350267409095666606662837004742599523039360711194664126280486430990261104048313716997163851344921947324570167066130623230750476183698397652561885743928394434865896236931353761121565298876024835422869467119768551882077012032087085960291321846532503/11079139325602226427183020846172426343942137074913043223736970568567072280946406524964930970193120469076921968088991739231754729491061759798160423197615106595925769511218815102746236397581530637072318760919209101841358458302005232037284217330430880807429888140068530386863390720000000000000000000000000000000000",
+    "reciprocal_kernel_rounding_charge_upper": "112834096153899727605676322685344571297738461751337045478333033314185023712997615196803555973320631402432154951305520241568584985819256724609736622850835330653116153752380918491988262809428719641972174329481184656768805607826494380124177114347335598842759410385060160435429801456609232662515/16035958618284902179676459819127466048654098757960544826214422300831173259058730322306495660204483357524844742409849155497350662286222596676081055666067374259847685202635816187490411006398550350131901972386107338807867546815649205082927433555981113188653424173350850100363212253696007077393346254227355005737381719747810962509575780672318222407171047424"
+  },
+  "raw_physical_diagonal_included_once": true,
+  "schema": "cone.direct-middle-changed-compact-action-shard.v1",
+  "sector": "even-v",
+  "shard": 0,
+  "shards": 4,
+  "stationary_acceptance_met": false,
+  "support_aware": true,
+  "v14_354_charge_repeated": false,
+  "whole_action_evaluated": false
+}
