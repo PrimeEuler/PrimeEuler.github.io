@@ -1,0 +1,183 @@
+{
+  "U": 1040383,
+  "artificial_Hankel_self_removed_once": true,
+  "buffer": {
+    "bits": 256,
+    "bytes": 31211490,
+    "count": 1040383,
+    "file": "even-v-direct-middle-changed-compact-action.bin",
+    "sha256": "807a4c6e89ab0ff89ce7687a617c01a6c37e83f7ee75b94b189d1a9128c4faec",
+    "width": 30
+  },
+  "changed_direct_middle_compact_output_rows_evaluated": true,
+  "charge_accounting_statement": "Charge accounting: the v14.354 Hankel self-diagonal correction charge and the global source + v14.403 lift transport charge were each charged exactly once in ledger v14.442 and are not charged again in this composition. No term in this certificate's error budget is, contains, or repeats either charge. The Hankel self-interaction removal and raw-diagonal insertion applied to the delta component are evaluation procedures of this compact action under the v14.544 frozen contract, not repetitions of the v14.354 error charge.",
+  "complete_contiguous_coverage": true,
+  "complete_output_rows": 1040383,
+  "component_offsets_counts": [
+    [
+      "front",
+      0,
+      128000,
+      662,
+      146
+    ],
+    [
+      "near",
+      128000,
+      128000,
+      160,
+      160
+    ],
+    [
+      "patch1",
+      256000,
+      264192,
+      160,
+      160
+    ],
+    [
+      "patch2",
+      520192,
+      520191,
+      160,
+      160
+    ],
+    [
+      "delta",
+      1040383,
+      1040383,
+      160,
+      160
+    ]
+  ],
+  "definition": "changed compact component = (Z_full - v14.543 fresh lift) + refined Near + v14.341 patch + v14.399 gap patch + v14.500 direct-middle delta; original infinite seed action separate",
+  "direct_middle_residual_evaluated": false,
+  "display_approximate": {
+    "complete_changed_direct_middle_compact_action_error_upper": 9.252926241952067e-18,
+    "diagonal_interval_action_charge_upper": 9.248852494394221e-18,
+    "final_row_rounding_charge_upper": 8.808891926196334e-75,
+    "offdiagonal_and_pole_parameter_charge_upper": 4.073747557845216e-21,
+    "reciprocal_kernel_rounding_charge_upper": 1.4072628224182262e-62
+  },
+  "first_output_index": 1040383,
+  "first_output_mode": 2080767,
+  "full_compact_pole_pairing_included_once": true,
+  "global_source_v14_403_transport_charge_repeated": false,
+  "infinite_capacity_tail_closed": false,
+  "input_pins": {
+    "delta_candidate_buffer_sha256": "c5b6845303cb059ca9a1ed79a628c4ba135fd49f2012b5fc011b0aeb14d12bb2",
+    "delta_correction_input_z_sha256": "0e9e889c915a55267bcf81f9c39d9aed0d768dc857e5bcbf0731f503e6a3ed7f",
+    "direct_middle_rhs_certificate_sha256": "d56eaf3ade699c5c85ad3ae954c5817c3e58045c6894268b3e49e6a7b2ad55ad",
+    "fresh_lift_buffer_sha256": "d3fd00e05bd19709811086ec246764feb36379dc52ec410798d2a01d8e1bf237",
+    "fresh_lift_certificate_sha256": "d3ea64364f8ca69b569ed9f981828048bd80448d3dc6055934b50e6a278fa263",
+    "full_source_certificate_sha256": "40fcbd9ba5745598fa0e8d98a5da43b7c088411c8fdcb4c6d0dcae10a0b9dc80",
+    "gap_correction_input_z_sha256": "7440766af36e77af4e26de0ee182cda57da90fc185ea0f7939095ed3a5e6f3a4",
+    "gap_patch_candidate_sha256": "171883d6c8e41e9a92f88bea4fa96b70f538ada49ea296876e1f06aebe1f9da6",
+    "gap_rhs_certificate_sha256": "42c71d7e017eadc08a6ebe20045f6d6e83bbe3523e17ba282903eccf08edc075",
+    "near_action_z_sha256": "a20f6112a925f8967aaf143f3f04eb3e16db3082531f3fb2c3e4961181266c30",
+    "near_rhs_witness_certificate_sha256": "7183ea82d33db24ece4cbb4c73e7ff84a001fe1783c565dc90dcd7fac498af45",
+    "near_trial_buffer_sha256": "7558e3c3c1b99ad9096d016c2eb2d666f963a7635cf0397a466f086d33bccf85",
+    "near_trial_certificate_sha256": "cca920b7b5f20fd856807166fdc08cce82f4b108f61831c34f19da29e366f42b",
+    "old_finite_compact_certificate_sha256": "91ac66062b89bedcd3d04c09bd04330c2a6285167f119bca33231370a7473e18",
+    "old_patch_candidate_sha256": "fdf93112802fe28ef53efa804be760a0fc17abc404993c8b2af6c33b1b5aba05",
+    "old_patch_input_z_sha256": "557167ea18270460f3cc4b1ffa8015c5ada0634a5d84dec5449d4d7249bb8d8e",
+    "snapshot_sha256": "da7189749abb6872e28e2af6c189c609248bc094428db21ee0cafa5e68c2deb5"
+  },
+  "last_output_index": 2080765,
+  "last_output_mode": 4161531,
+  "original_infinite_seed_action_included": false,
+  "output_rows_owned_by_delta_component": true,
+  "producer_pins": {
+    "base_gap_extended_compact_action_sha256": "e6be6ccb5ffa3dee6437e5a3c7efb95566078db7d9ed7a21a7eaa55509cab400",
+    "changed_producer_sha256": "7784532512ea8a9e6c5bdb3728bb52ca7af281b6da97f076b17057f39885eeb2",
+    "compact_action_self_diagonal_sha256": "e9db14bf7623b65895060b7cf0977ae05f38a8e126bd920b91f9809e2e36228e",
+    "compact_component_rectangle_sha256": "362c1742c4e22ba2acaacc2c2ce3d356768cfb0b18592127d524447694137874",
+    "wider_correction_finite_lift_sha256": "0134f6dd4b1195392c7593a2d5b36048aa8df9650f4e9cc880b257fd19bcbc6f",
+    "wider_correction_rhs_sha256": "543d31fe1b9a3288247fe7e306aaa99e852ea140643efa82c0ab8d6014fe5ea2"
+  },
+  "rational": {
+    "complete_changed_direct_middle_compact_action_error_upper": "1071415661114418401438620833359297856383971744835575567564207/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+    "diagonal_interval_action_charge_upper": "1070943953373670089248025042699566179061580843935482857651267/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+    "final_row_rounding_charge_upper": "255/28948022309329048855892746252171976963317496166410141009864396001978282409984",
+    "offdiagonal_and_pole_parameter_charge_upper": "471707740748312190595790659731677322390899270593686773833/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+    "reciprocal_kernel_rounding_charge_upper": "1629499023138087/115792089237316195423570985008687907853269984665640564039457584007913129639936"
+  },
+  "raw_physical_diagonal_included_once": true,
+  "represented_compact_l1": "382141869079782440337254474962262186059860044530395607589433422984978614281647384919987574944493533946031309199594683259496728598179431969502223565436669318487881918298260772533947749326906092645851455965516659/9568131466127621947163770315237577352582483950433331955534014747297500715462012198465648064079848065788579276806882658480425438483841942548911565191978080929321047135323978360596199778018349602045952",
+  "represented_compact_norm_upper": "1425085476511741827056713964457091202147521279130208105300710620297146425449861353228351/57896044618658097711785492504343953926634992332820282019728792003956564819968",
+  "schema": "cone.direct-middle-changed-compact-action.v1",
+  "seams_checked": 3,
+  "sector": "even-v",
+  "self_checks": {
+    "component_rectangle_rows_verified": 486,
+    "mixed_scale_split_rows_verified": 30,
+    "self_diagonal_rows_verified": 54
+  },
+  "shard_coverage": [
+    {
+      "buffer": {
+        "bits": 256,
+        "bytes": 7802880,
+        "count": 260096,
+        "file": "even-v-shard-0-of-4-direct-middle-changed-compact-action.bin",
+        "sha256": "a0e44079d7cbff283b82e5a80d1515a06f909c84ab0d6f6d6cd5a764a5e887ae",
+        "width": 30
+      },
+      "certificate_sha256": "47c9a26b16a8dd82d8be7cea4ec9c2cf4ebfd2d1fa27f6d949475993e12e51de",
+      "first_output_index": 1040383,
+      "last_output_index": 1300478,
+      "rows": 260096,
+      "shard": 0
+    },
+    {
+      "buffer": {
+        "bits": 256,
+        "bytes": 7802880,
+        "count": 260096,
+        "file": "even-v-shard-1-of-4-direct-middle-changed-compact-action.bin",
+        "sha256": "0a964fa474dedbf6a7686b7091d76b4b016dbccb566329023f0aea921c0cd889",
+        "width": 30
+      },
+      "certificate_sha256": "6b684d9d1da77359a4e9c5c468bcf041e684a871a30f9a857b677624ae42846d",
+      "first_output_index": 1300479,
+      "last_output_index": 1560574,
+      "rows": 260096,
+      "shard": 1
+    },
+    {
+      "buffer": {
+        "bits": 256,
+        "bytes": 7802880,
+        "count": 260096,
+        "file": "even-v-shard-2-of-4-direct-middle-changed-compact-action.bin",
+        "sha256": "4b3facafe64423bb678f386701214b750ce9a6fdfb7747ebfe971a5e8019aa33",
+        "width": 30
+      },
+      "certificate_sha256": "01f9b4adace7716853a21693dd6686389cd735c5d1850a591b77dddf4467a78f",
+      "first_output_index": 1560575,
+      "last_output_index": 1820670,
+      "rows": 260096,
+      "shard": 2
+    },
+    {
+      "buffer": {
+        "bits": 256,
+        "bytes": 7802850,
+        "count": 260095,
+        "file": "even-v-shard-3-of-4-direct-middle-changed-compact-action.bin",
+        "sha256": "cd8a836b40d67725e55a58d283d52bb542efd1071c3e6528af5b8a038518837d",
+        "width": 30
+      },
+      "certificate_sha256": "9efffe4adf6cfc8c7726161e378d103e497050ffb9eef2ec56924c0ba5623681",
+      "first_output_index": 1820671,
+      "last_output_index": 2080765,
+      "rows": 260095,
+      "shard": 3
+    }
+  ],
+  "shards": 4,
+  "stationary_acceptance_met": false,
+  "support_aware": true,
+  "v14_354_charge_repeated": false,
+  "whole_action_evaluated": false
+}
