@@ -1,0 +1,326 @@
+{
+  "binds_ledger": [
+    "v14.541 (fresh-lift producer + handoff)",
+    "v14.543 (fresh-lift return)",
+    "v14.542 (Audit R307)"
+  ],
+  "buffers": {
+    "even-v-direct-middle-finite-lift.bin": {
+      "bytes": 11136000,
+      "chunk_count": 16,
+      "chunk_size": 700000,
+      "chunks": [
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part000",
+          "sha256": "3a78d783d6114747615be8812c905144cd1508d6460356bf142af99ddd03c0b0"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part001",
+          "sha256": "b087b3f0c8017ba2bfade9d1bdd6c550d75e01cba65f289923f9740e1f63603e"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part002",
+          "sha256": "b4eb6139a07f7bdfa0751608cdd298245b18fdfb95985a19aaabd24bbc7ee2cc"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part003",
+          "sha256": "2ce9b9ceeae4f110c3dccb9405b99cf90a87ae5742ba3ccf79522ff8aa34d253"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part004",
+          "sha256": "2d3adc0f323569422db625c0ef00505ee5b13b8ec070fd08d07199a5199af827"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part005",
+          "sha256": "90aa53491249500418ad5ff5fc319fdfa819d6ae6a55c18943b123c54d37a56e"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part006",
+          "sha256": "6f58cb9b7e1069e719386a54343174c84f9ffb9b703902e824131853cda08f93"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part007",
+          "sha256": "feadb3e56f8392f6a3529e12ee6d3764dda0de9bf6652ba8f8aa314f7b2dabd7"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part008",
+          "sha256": "fc57d59136ebe6b0ed2e79c59cccb0c77ff6fdb528be61c8898c9bc15fdf707c"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part009",
+          "sha256": "eb700522162c9ca34c3fe1bf30e3bc5f00348249203a78a6676e0232fd9c1158"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part010",
+          "sha256": "30ae99736381fcd6142a6323f6c77e688765f02cb2f050f78a5a4b448fc36864"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part011",
+          "sha256": "2abf6d71023d9d76f14a0aa967ab0f80f34725d90f7a04e7d381cd9ae8063e3a"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part012",
+          "sha256": "6bfae37ed275d383ad3ed5c2a865a91eb6fd9fa3fe16cedf9c19d7c9f1706e94"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part013",
+          "sha256": "8c09d4234e1a042764ee9c000e0ad79ec11729437321a6010f4c2b34b111afc1"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-finite-lift.bin.part014",
+          "sha256": "cd061b8ce237ba3ad01268ddd5bedfe921e592173e7f58592f358b6e2775f892"
+        },
+        {
+          "bytes": 636000,
+          "file": "even-v-direct-middle-finite-lift.bin.part015",
+          "sha256": "19fbc07fceb5b4925b3570920a47323ca37d2cf6bd7cdb801adcb2f62a5eda6a"
+        }
+      ],
+      "sha256": "d3fd00e05bd19709811086ec246764feb36379dc52ec410798d2a01d8e1bf237"
+    },
+    "odd-v-direct-middle-finite-lift.bin": {
+      "bytes": 11136000,
+      "chunk_count": 16,
+      "chunk_size": 700000,
+      "chunks": [
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part000",
+          "sha256": "0cac0d4a3d27c08676249ccf6d5623bf993d4dcee154ae2fcde35a902aac4f76"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part001",
+          "sha256": "de94b40893d8d97dba3751e2e4de47f002408ca2d593d7ae03e7ee22a0b2a108"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part002",
+          "sha256": "00c449d807f7a44fbd1d30707e3b6bc5276b53a5ff992af6eee10dc216da9ff7"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part003",
+          "sha256": "ddaa9cd4c71d1872eeff2bf100fbf88e6469c3de2e136ca64472c8961ab46b72"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part004",
+          "sha256": "7da89687d9be2671990a22270100bdb4e09edacd69ce5071fe23a8f81ca9a55d"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part005",
+          "sha256": "e49acf9425b96efc3d6ebb5b83d6456560caa3ddd32681d3933a003639c537d5"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part006",
+          "sha256": "0fdf7f8ff31d45fef0214b7a210ce9eae453a6f0aad2c75c9d88ce4ac1d4cbdf"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part007",
+          "sha256": "6e36bc134a4626524e92106999fb8980d53b5b9994525b68c2dd8206eed769ff"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part008",
+          "sha256": "69f0c36bec9a60866e497a684a1ea54465ab5ba09a48e782a574abba4939943a"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part009",
+          "sha256": "fe3c74a9a0a26c34e2e5f4922694e1f6dc658c9ea09177542baa53407b75bceb"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part010",
+          "sha256": "1d4d398ad4e34ee1c42246259dc58cc6d49e287704cc475fef982427656fb506"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part011",
+          "sha256": "4c2f4c8c015dd7dd9f831520932f8b739b685a46941cee14b02ed52392256042"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part012",
+          "sha256": "9d01a5234b548c401a53be12c5e6070b2431dec01987ce47b83cf324668e2791"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part013",
+          "sha256": "8cfd6f1433912cf3acb1e68755a533ff7c76ca5a93f2d21aea5d3a511abe92af"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part014",
+          "sha256": "d5cc43424acfc216e4e21caaf029d02f25472efda967d56d719e6ddd0671751b"
+        },
+        {
+          "bytes": 636000,
+          "file": "odd-v-direct-middle-finite-lift.bin.part015",
+          "sha256": "006f4268ade1f28174d8d3e857b1f49308fd36624db8b2d3d4c3c26cabf422d5"
+        }
+      ],
+      "sha256": "a852b54e22ef62d029528c9856f24a5ea6fb9618c99725ccdb052b5a562a739c"
+    }
+  },
+  "files": {
+    "direct-middle-finite-lift-even-v.json": {
+      "bytes": 15056,
+      "sha256": "d3ea64364f8ca69b569ed9f981828048bd80448d3dc6055934b50e6a278fa263"
+    },
+    "direct-middle-finite-lift-odd-v.json": {
+      "bytes": 14943,
+      "sha256": "6c52c4fd7eaa615582375e455588164316254ced57cfb9b4a90d5b82bd5fa95f"
+    },
+    "even-v-direct-middle-finite-lift.bin.part000": {
+      "bytes": 700000,
+      "sha256": "3a78d783d6114747615be8812c905144cd1508d6460356bf142af99ddd03c0b0"
+    },
+    "even-v-direct-middle-finite-lift.bin.part001": {
+      "bytes": 700000,
+      "sha256": "b087b3f0c8017ba2bfade9d1bdd6c550d75e01cba65f289923f9740e1f63603e"
+    },
+    "even-v-direct-middle-finite-lift.bin.part002": {
+      "bytes": 700000,
+      "sha256": "b4eb6139a07f7bdfa0751608cdd298245b18fdfb95985a19aaabd24bbc7ee2cc"
+    },
+    "even-v-direct-middle-finite-lift.bin.part003": {
+      "bytes": 700000,
+      "sha256": "2ce9b9ceeae4f110c3dccb9405b99cf90a87ae5742ba3ccf79522ff8aa34d253"
+    },
+    "even-v-direct-middle-finite-lift.bin.part004": {
+      "bytes": 700000,
+      "sha256": "2d3adc0f323569422db625c0ef00505ee5b13b8ec070fd08d07199a5199af827"
+    },
+    "even-v-direct-middle-finite-lift.bin.part005": {
+      "bytes": 700000,
+      "sha256": "90aa53491249500418ad5ff5fc319fdfa819d6ae6a55c18943b123c54d37a56e"
+    },
+    "even-v-direct-middle-finite-lift.bin.part006": {
+      "bytes": 700000,
+      "sha256": "6f58cb9b7e1069e719386a54343174c84f9ffb9b703902e824131853cda08f93"
+    },
+    "even-v-direct-middle-finite-lift.bin.part007": {
+      "bytes": 700000,
+      "sha256": "feadb3e56f8392f6a3529e12ee6d3764dda0de9bf6652ba8f8aa314f7b2dabd7"
+    },
+    "even-v-direct-middle-finite-lift.bin.part008": {
+      "bytes": 700000,
+      "sha256": "fc57d59136ebe6b0ed2e79c59cccb0c77ff6fdb528be61c8898c9bc15fdf707c"
+    },
+    "even-v-direct-middle-finite-lift.bin.part009": {
+      "bytes": 700000,
+      "sha256": "eb700522162c9ca34c3fe1bf30e3bc5f00348249203a78a6676e0232fd9c1158"
+    },
+    "even-v-direct-middle-finite-lift.bin.part010": {
+      "bytes": 700000,
+      "sha256": "30ae99736381fcd6142a6323f6c77e688765f02cb2f050f78a5a4b448fc36864"
+    },
+    "even-v-direct-middle-finite-lift.bin.part011": {
+      "bytes": 700000,
+      "sha256": "2abf6d71023d9d76f14a0aa967ab0f80f34725d90f7a04e7d381cd9ae8063e3a"
+    },
+    "even-v-direct-middle-finite-lift.bin.part012": {
+      "bytes": 700000,
+      "sha256": "6bfae37ed275d383ad3ed5c2a865a91eb6fd9fa3fe16cedf9c19d7c9f1706e94"
+    },
+    "even-v-direct-middle-finite-lift.bin.part013": {
+      "bytes": 700000,
+      "sha256": "8c09d4234e1a042764ee9c000e0ad79ec11729437321a6010f4c2b34b111afc1"
+    },
+    "even-v-direct-middle-finite-lift.bin.part014": {
+      "bytes": 700000,
+      "sha256": "cd061b8ce237ba3ad01268ddd5bedfe921e592173e7f58592f358b6e2775f892"
+    },
+    "even-v-direct-middle-finite-lift.bin.part015": {
+      "bytes": 636000,
+      "sha256": "19fbc07fceb5b4925b3570920a47323ca37d2cf6bd7cdb801adcb2f62a5eda6a"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part000": {
+      "bytes": 700000,
+      "sha256": "0cac0d4a3d27c08676249ccf6d5623bf993d4dcee154ae2fcde35a902aac4f76"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part001": {
+      "bytes": 700000,
+      "sha256": "de94b40893d8d97dba3751e2e4de47f002408ca2d593d7ae03e7ee22a0b2a108"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part002": {
+      "bytes": 700000,
+      "sha256": "00c449d807f7a44fbd1d30707e3b6bc5276b53a5ff992af6eee10dc216da9ff7"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part003": {
+      "bytes": 700000,
+      "sha256": "ddaa9cd4c71d1872eeff2bf100fbf88e6469c3de2e136ca64472c8961ab46b72"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part004": {
+      "bytes": 700000,
+      "sha256": "7da89687d9be2671990a22270100bdb4e09edacd69ce5071fe23a8f81ca9a55d"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part005": {
+      "bytes": 700000,
+      "sha256": "e49acf9425b96efc3d6ebb5b83d6456560caa3ddd32681d3933a003639c537d5"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part006": {
+      "bytes": 700000,
+      "sha256": "0fdf7f8ff31d45fef0214b7a210ce9eae453a6f0aad2c75c9d88ce4ac1d4cbdf"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part007": {
+      "bytes": 700000,
+      "sha256": "6e36bc134a4626524e92106999fb8980d53b5b9994525b68c2dd8206eed769ff"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part008": {
+      "bytes": 700000,
+      "sha256": "69f0c36bec9a60866e497a684a1ea54465ab5ba09a48e782a574abba4939943a"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part009": {
+      "bytes": 700000,
+      "sha256": "fe3c74a9a0a26c34e2e5f4922694e1f6dc658c9ea09177542baa53407b75bceb"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part010": {
+      "bytes": 700000,
+      "sha256": "1d4d398ad4e34ee1c42246259dc58cc6d49e287704cc475fef982427656fb506"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part011": {
+      "bytes": 700000,
+      "sha256": "4c2f4c8c015dd7dd9f831520932f8b739b685a46941cee14b02ed52392256042"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part012": {
+      "bytes": 700000,
+      "sha256": "9d01a5234b548c401a53be12c5e6070b2431dec01987ce47b83cf324668e2791"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part013": {
+      "bytes": 700000,
+      "sha256": "8cfd6f1433912cf3acb1e68755a533ff7c76ca5a93f2d21aea5d3a511abe92af"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part014": {
+      "bytes": 700000,
+      "sha256": "d5cc43424acfc216e4e21caaf029d02f25472efda967d56d719e6ddd0671751b"
+    },
+    "odd-v-direct-middle-finite-lift.bin.part015": {
+      "bytes": 636000,
+      "sha256": "006f4268ade1f28174d8d3e857b1f49308fd36624db8b2d3d4c3c26cabf422d5"
+    }
+  },
+  "payload_for": "v14.543 fresh-lift return: certificates and lift buffers for byte-level replay",
+  "repository_destination": "unified/discriminant-12-return/payloads/direct_middle_fresh_lift_v14_543/",
+  "schema": "cone.sandbox-dm-fresh-lift-payload-manifest.v1"
+}
