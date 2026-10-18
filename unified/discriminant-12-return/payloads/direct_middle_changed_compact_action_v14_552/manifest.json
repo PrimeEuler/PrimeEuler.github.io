@@ -1,0 +1,896 @@
+{
+  "binds_ledger": [
+    "v14.544 (changed compact-action handoff)",
+    "v14.552 (changed compact-action return)"
+  ],
+  "buffers": {
+    "even-v-direct-middle-changed-compact-action.bin": {
+      "bytes": 31211490,
+      "chunk_count": 45,
+      "chunk_size": 700000,
+      "chunks": [
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part000",
+          "sha256": "1d9823c38125bbf6f9957752886f784c9ea3062d837d1ad1737a4ca0b09f5868"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part001",
+          "sha256": "1006ca7e226edcb966d54b61b578eb3bd27680fc479663db2d28592097624e19"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part002",
+          "sha256": "3e91fada0e9bad60eb4a0ec0dd7e11ca5d8c3b8d29d0d190629f680c711c2527"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part003",
+          "sha256": "7290f64c24b5eef56b972e28ef7e6bb9735ff566c6fcdea4db79bcb522db3188"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part004",
+          "sha256": "c3eb794c4b77f9819afc9a5a6ef308274a071ac0b44783b4c79483b5c77da472"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part005",
+          "sha256": "f5fe568f0c773ebee1cefa1bcb04a3a08dd3da2f066bf0e3f1d5690a704913ed"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part006",
+          "sha256": "7afaa0972893c5d6e1a9ded4e5215c4a15e9891bf94ccd6bda5529d35eb50a82"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part007",
+          "sha256": "8310178d2be5aa82a77ca651303a73f6e6bca8dcaa2b8cc16b2a45702c7fee95"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part008",
+          "sha256": "24e2a9f42e7c5fb602364c7db85f8db9faec80463bc96c84381ce546269f646c"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part009",
+          "sha256": "a5b59f3a9a0050207f3d513a917f997031b012743e07cbafa7801a60ffdae8b0"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part010",
+          "sha256": "112cb972911bd15b086856cb997926bfb6bdb617c540729737c4269b525f948d"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part011",
+          "sha256": "7054f042d9dccc4d4a1e8bc1bb386befd54eb8f29bd665c100dafa2554386c41"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part012",
+          "sha256": "924a45b5827992b943b44c3a54df7beac7c337edfaf92e09a319432c2f47d540"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part013",
+          "sha256": "128fb0c170bd4a2f9419931de7b91c4837e69827339847de518eae44ee2971e9"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part014",
+          "sha256": "7e2ed3155d34dfb6f2dee21b53724eefa2090566e39e6ca154ab8e5611bc47b7"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part015",
+          "sha256": "2afa2da3f6f9c9c992cff992e3ed0c864d5cca759937904b1ecff716b6e6d154"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part016",
+          "sha256": "849560597a9c9ae45d727c6cc5380233b685fd6ac07ef2341aaf9871dbf17a55"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part017",
+          "sha256": "d660fd4f6cf14ef9d568057cc0ed79f563eb69f5fc82d25c87072c39af0a410c"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part018",
+          "sha256": "81ba96ad70f109c777f3105d4c1f76ddadc3f376ed483e0ede67b772a5cbe8cb"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part019",
+          "sha256": "2d368150646204f67edcc229fe60fbc47986b2e1d6dcfcd79e9718a938c41622"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part020",
+          "sha256": "abcd679e04e7e114ab5be71a242ea6d48c7fdfde0e077a2ecf9c9b497484dc32"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part021",
+          "sha256": "55c7784007ed284acd28e3cd13d851557bfbc2832882f0ce5f285d2d2a732b26"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part022",
+          "sha256": "f47d022693f3aad3518dc6b958f8f5041b7f96165cf2712982f165cb0e633271"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part023",
+          "sha256": "856061bba6b4b9c60d274a85de05d0521b2e3fb15f66943eb999411598449e36"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part024",
+          "sha256": "8a68eb276544ecc47015e6b88adfc144675518a449537b6be399b1198ca35cf6"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part025",
+          "sha256": "6fc28a04b8b437296d4549b6c49d93e18e3d5d5c32f762dea87741c08fe57d5b"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part026",
+          "sha256": "5d70f06e868ef4fcf3a8521a5163be1a3913c664e3f75fc36d692af5924a0a33"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part027",
+          "sha256": "e28ac2a02134239df2a09e01a9dddc4093d4854d8aaab23687dbaad22bc96e0a"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part028",
+          "sha256": "2b406c0e598946089faf36a6912f23720025848c8a81fa17facf40fc77822d1c"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part029",
+          "sha256": "a1dba45f2d1ca1a3e1ada122502381d02a8f8515b58e8816b7fc0e72dba35657"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part030",
+          "sha256": "3e80458ead4c6236c22767a6d1748d60497ff6ccc62a995a62a8e696742c49d6"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part031",
+          "sha256": "94c8932ff03d2a51f282bb288609cd98fb480a20acfab0d9b5d0a61a68810591"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part032",
+          "sha256": "bcac3f97135cecf608462f4ad0bda3786c655eac0ba46adeaa573d4fd4eaf59f"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part033",
+          "sha256": "0a90bbaf0999cb4730056360c4e026697f511efd8cda372c2ddb7fe4e1a729c9"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part034",
+          "sha256": "571489089b5f239cfab95f191b6fcb82b91236c8e8bf763f644af662c3714ebd"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part035",
+          "sha256": "4fbb1738773dd03559b30d389d83911bc61d25647117c028173d8cbe4c8c569f"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part036",
+          "sha256": "db3f85feb90bf8047d95cb23ddc2dd2956860950c715a1e7c4644dddcbb191af"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part037",
+          "sha256": "348a72c74668009c453a02991609ad069b8c193756da1f5cfa350aa937504dfb"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part038",
+          "sha256": "31066ab451311131621a6cd27a2955dd00d05acc9b76b111d6036a8169c40130"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part039",
+          "sha256": "f715587ed8bb577885191da0f40c536daa52c90a1dcb1ae8d93aad6eda699acc"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part040",
+          "sha256": "a3fdfe48baaf69fd98422e214644b6cec0e1d3837d76242693de70ccabc85064"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part041",
+          "sha256": "2438828ad63776793cb3d07eab1d20e089d3fdb29dcb3a6cc724931614f55cad"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part042",
+          "sha256": "24e126e700ff862d39d32c304475f0428d1f6c2968bb5e669b3430faf1f73be0"
+        },
+        {
+          "bytes": 700000,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part043",
+          "sha256": "12aafa12971827d819b2b75367a25f43579750c9a782aacb33a0e649f0bf8af8"
+        },
+        {
+          "bytes": 411490,
+          "file": "even-v-direct-middle-changed-compact-action.bin.part044",
+          "sha256": "16b6b095583219aabc93b883079db508578c7d92630c8b71aff8fd21b88c9751"
+        }
+      ],
+      "sha256": "807a4c6e89ab0ff89ce7687a617c01a6c37e83f7ee75b94b189d1a9128c4faec"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin": {
+      "bytes": 31211490,
+      "chunk_count": 45,
+      "chunk_size": 700000,
+      "chunks": [
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part000",
+          "sha256": "52e0e13e8aa8534462398aa787e16b2cccfbb1c3eb083f21e71a9037cc26ed92"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part001",
+          "sha256": "d11f14a0b5116e753e3b40ea7fe2d6c5f0f7c580a69b55850d689bd395dd32dd"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part002",
+          "sha256": "7a4fef2f3b2a236459bb8bb7862836a02e2d374edbb4982e006fc06d3a3593cb"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part003",
+          "sha256": "470be3800f0fa834a19de702639fe5a7e6f289d659e2dfadb0f2be921d6f2b0e"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part004",
+          "sha256": "4e50440808962679f9547fd9e28d812e125b2ce43055f0452463418fd4a93f71"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part005",
+          "sha256": "07caabcaa4f34a7728a301021ef3ee60d1f5531eb2ac7c2be69bd6a567967092"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part006",
+          "sha256": "842a8ef1b4adf2341c1ece8823d0646dedc9f3f85930f4f3f647665ac6414f33"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part007",
+          "sha256": "db2766494fcad6f73bf9d13769a8cfb3115cbbfadd0326b52d514134ebad0cdb"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part008",
+          "sha256": "6977291d77916a5472a24d062cc2ef11ec2be43806c9291948c3e3ac680c6e9b"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part009",
+          "sha256": "2d1063df117b007f94a3e3d6394e4fa7661cd2ad0aa20d83f8fb3030ff4e58cf"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part010",
+          "sha256": "e209d82e4889d236e83f2eba623dcabc904c1aad565554b3239855786eda34e3"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part011",
+          "sha256": "4e198cf2160b7a628a5d61cb428cbddcddadafe89cf4797e5b9fc4024fbb45da"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part012",
+          "sha256": "2cc6460dfe0d75814b3910adb3431a7d1a1fe79aab3890a3ab5c3b4af4851838"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part013",
+          "sha256": "41974dc9d899c01f6417215f56eb4872f03c527835d15ab32138b5df0324f0b9"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part014",
+          "sha256": "cb918382cc9cd6bdd9a4bc014a60b888b33ca7691b665deba92fe15619246681"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part015",
+          "sha256": "b53629070cb223140ac256c621e51188cb063e060e1946517c5b0e038b947d30"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part016",
+          "sha256": "9dcbd0edb07fde2cc7b5b4ad0430e336d1322c214b51493a76e5958e5214188d"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part017",
+          "sha256": "df24b2c09588f6733b0265ecd67c4fd2e668752a37b7b95839c2e5e3fe97a94c"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part018",
+          "sha256": "7cf2a5cfe97a588e0b98b9a480725b14bb7a0b00d55acd51897e3eb171ebf18f"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part019",
+          "sha256": "f793502b77034cade4ff3a97bc6cefb297e437f410353f94fe4f492d0eb96ea7"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part020",
+          "sha256": "e5e3e7941e2f8038c21f08508cd162deed51e2ab3d57240c931bd2b6e5b2e0f7"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part021",
+          "sha256": "3c8b944fa3020fa0c38cf1188618a66c8920829f1cc3e561a1d5fcc1888798b0"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part022",
+          "sha256": "352aee1bb3b21be8c5f00f4497f8d3b51b7bb02f3e5a82355b08a9a06b0c09ff"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part023",
+          "sha256": "db8a7ddc78874074c4f84528fd46f597c7ef6920cfe3c68a5524002f0738bf84"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part024",
+          "sha256": "ec3628e5dff5f3436f43d53b2e16b86adbc2427d2d118fdb4612a6cb90f40b99"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part025",
+          "sha256": "6690e54004e9b48f36d40051ee924dadbc31af15fce9a82254a4d1984fdc7cde"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part026",
+          "sha256": "50159e54fd5ffaa98c9ea07cd08f8e330c7d45e97d0c4e62d70b03515a3052e3"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part027",
+          "sha256": "32d2ff1a06beeca2d78c9791fd06cb7556126a49444660daa7f783c4b9f276a9"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part028",
+          "sha256": "c1a7f035b323d6201b1f7a41b220bdbe6bb71bd2544ff35aab6e7e37f371c249"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part029",
+          "sha256": "4ca1503733fc15880f604cb7ec387dc3f4c8b72361914c61fc0b5eb5dc8bcc4f"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part030",
+          "sha256": "d0691cfa3dc7d474f2f622217f40a77230689b90af6e8e929b852bd4d8d97ef7"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part031",
+          "sha256": "2d204ad0f25a8767c92ce098314ec3d4085f46f3d5bec8f6213d93b28ba9dca3"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part032",
+          "sha256": "737c0b0082d99c6b431be32c74b832f12940fd9c0ece87d787e068d16c235978"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part033",
+          "sha256": "f16413908d8692b2e4ccd66d784948bcf4b9aadc11c7383d3ccd03b5599273b6"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part034",
+          "sha256": "027d12cf30be3fc2e8e397543cb1842bf4948ed4b118dc88a187e2037429b5bb"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part035",
+          "sha256": "8d63b9b353980404dceb27b7fcf3d90cd2d6e1a9b0b7db24133359c3675f1307"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part036",
+          "sha256": "b498b1c9c85bf87577a7c005b696348b45282afe2c68aaf253739c55275ac091"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part037",
+          "sha256": "3c22fe989a60075a06bfee748ca64be68f759d3b4571ac18ed77b8d38c49fa5a"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part038",
+          "sha256": "f19d70f0bd19f7bf2d62d90038499d27c42632887385d92361e17e7f22837e33"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part039",
+          "sha256": "ba84ce1d1cf4dff78065ae378e69e2ac95e84288fd5240f0f761a8ef230df95d"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part040",
+          "sha256": "eed71ec947c73bc58e987a3ec55fc3ea450106dbef10cbc4626cecc68e744bef"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part041",
+          "sha256": "538acc5965ef5cb2e29c20de0c8505f8cc050c93b329ba51b57917148c498963"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part042",
+          "sha256": "643c0ef6e73dda424186770d2d181972e521b5c93d38a40cce5399348ee95a4d"
+        },
+        {
+          "bytes": 700000,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part043",
+          "sha256": "6373144e82b231dd983799100d72cbd5c5681ee6c1fc5107b2b6fb39754656c7"
+        },
+        {
+          "bytes": 411490,
+          "file": "odd-v-direct-middle-changed-compact-action.bin.part044",
+          "sha256": "0edd500dfb0571c38c2a69b57f1ff9af8eebfd9152b802241b699e677611c49c"
+        }
+      ],
+      "sha256": "1788550cb29227a74a0ba9a0561d73b932886e21ff5c1070f368df3db7e8e7a1"
+    }
+  },
+  "files": {
+    "direct-middle-changed-compact-action-even-v-shard-0-of-4.json": {
+      "bytes": 9928,
+      "sha256": "47c9a26b16a8dd82d8be7cea4ec9c2cf4ebfd2d1fa27f6d949475993e12e51de"
+    },
+    "direct-middle-changed-compact-action-even-v-shard-1-of-4.json": {
+      "bytes": 9930,
+      "sha256": "6b684d9d1da77359a4e9c5c468bcf041e684a871a30f9a857b677624ae42846d"
+    },
+    "direct-middle-changed-compact-action-even-v-shard-2-of-4.json": {
+      "bytes": 9929,
+      "sha256": "01f9b4adace7716853a21693dd6686389cd735c5d1850a591b77dddf4467a78f"
+    },
+    "direct-middle-changed-compact-action-even-v-shard-3-of-4.json": {
+      "bytes": 9924,
+      "sha256": "9efffe4adf6cfc8c7726161e378d103e497050ffb9eef2ec56924c0ba5623681"
+    },
+    "direct-middle-changed-compact-action-even-v.json": {
+      "bytes": 8930,
+      "sha256": "2013799b36b5810ec90e9f815822634c7da518e8e18dda401b9f1c72dc0d7a6a"
+    },
+    "direct-middle-changed-compact-action-odd-v-shard-0-of-4.json": {
+      "bytes": 9924,
+      "sha256": "9594a751918a6ba1d935eed47607fc5de9fd7263b14a8704df4c98f0b2c20274"
+    },
+    "direct-middle-changed-compact-action-odd-v-shard-1-of-4.json": {
+      "bytes": 9926,
+      "sha256": "be2832b873106e0394abadbe64add7be4f47ee5b999b7294345c6a603d492087"
+    },
+    "direct-middle-changed-compact-action-odd-v-shard-2-of-4.json": {
+      "bytes": 9927,
+      "sha256": "13414d3604e0626e5e5616f68899a9065a25a1e8dda63eca056d496725548d2b"
+    },
+    "direct-middle-changed-compact-action-odd-v-shard-3-of-4.json": {
+      "bytes": 9923,
+      "sha256": "024dc39e6ec0df9ab1178bd25edd5e54eb1e3b6bac1388c1cc2db3649e1bd13b"
+    },
+    "direct-middle-changed-compact-action-odd-v.json": {
+      "bytes": 8915,
+      "sha256": "ebe5cc360f1daceb90de47c12ae98ec90836941213b595f2b234340ae92fe4c1"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part000": {
+      "bytes": 700000,
+      "sha256": "1d9823c38125bbf6f9957752886f784c9ea3062d837d1ad1737a4ca0b09f5868"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part001": {
+      "bytes": 700000,
+      "sha256": "1006ca7e226edcb966d54b61b578eb3bd27680fc479663db2d28592097624e19"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part002": {
+      "bytes": 700000,
+      "sha256": "3e91fada0e9bad60eb4a0ec0dd7e11ca5d8c3b8d29d0d190629f680c711c2527"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part003": {
+      "bytes": 700000,
+      "sha256": "7290f64c24b5eef56b972e28ef7e6bb9735ff566c6fcdea4db79bcb522db3188"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part004": {
+      "bytes": 700000,
+      "sha256": "c3eb794c4b77f9819afc9a5a6ef308274a071ac0b44783b4c79483b5c77da472"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part005": {
+      "bytes": 700000,
+      "sha256": "f5fe568f0c773ebee1cefa1bcb04a3a08dd3da2f066bf0e3f1d5690a704913ed"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part006": {
+      "bytes": 700000,
+      "sha256": "7afaa0972893c5d6e1a9ded4e5215c4a15e9891bf94ccd6bda5529d35eb50a82"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part007": {
+      "bytes": 700000,
+      "sha256": "8310178d2be5aa82a77ca651303a73f6e6bca8dcaa2b8cc16b2a45702c7fee95"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part008": {
+      "bytes": 700000,
+      "sha256": "24e2a9f42e7c5fb602364c7db85f8db9faec80463bc96c84381ce546269f646c"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part009": {
+      "bytes": 700000,
+      "sha256": "a5b59f3a9a0050207f3d513a917f997031b012743e07cbafa7801a60ffdae8b0"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part010": {
+      "bytes": 700000,
+      "sha256": "112cb972911bd15b086856cb997926bfb6bdb617c540729737c4269b525f948d"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part011": {
+      "bytes": 700000,
+      "sha256": "7054f042d9dccc4d4a1e8bc1bb386befd54eb8f29bd665c100dafa2554386c41"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part012": {
+      "bytes": 700000,
+      "sha256": "924a45b5827992b943b44c3a54df7beac7c337edfaf92e09a319432c2f47d540"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part013": {
+      "bytes": 700000,
+      "sha256": "128fb0c170bd4a2f9419931de7b91c4837e69827339847de518eae44ee2971e9"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part014": {
+      "bytes": 700000,
+      "sha256": "7e2ed3155d34dfb6f2dee21b53724eefa2090566e39e6ca154ab8e5611bc47b7"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part015": {
+      "bytes": 700000,
+      "sha256": "2afa2da3f6f9c9c992cff992e3ed0c864d5cca759937904b1ecff716b6e6d154"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part016": {
+      "bytes": 700000,
+      "sha256": "849560597a9c9ae45d727c6cc5380233b685fd6ac07ef2341aaf9871dbf17a55"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part017": {
+      "bytes": 700000,
+      "sha256": "d660fd4f6cf14ef9d568057cc0ed79f563eb69f5fc82d25c87072c39af0a410c"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part018": {
+      "bytes": 700000,
+      "sha256": "81ba96ad70f109c777f3105d4c1f76ddadc3f376ed483e0ede67b772a5cbe8cb"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part019": {
+      "bytes": 700000,
+      "sha256": "2d368150646204f67edcc229fe60fbc47986b2e1d6dcfcd79e9718a938c41622"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part020": {
+      "bytes": 700000,
+      "sha256": "abcd679e04e7e114ab5be71a242ea6d48c7fdfde0e077a2ecf9c9b497484dc32"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part021": {
+      "bytes": 700000,
+      "sha256": "55c7784007ed284acd28e3cd13d851557bfbc2832882f0ce5f285d2d2a732b26"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part022": {
+      "bytes": 700000,
+      "sha256": "f47d022693f3aad3518dc6b958f8f5041b7f96165cf2712982f165cb0e633271"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part023": {
+      "bytes": 700000,
+      "sha256": "856061bba6b4b9c60d274a85de05d0521b2e3fb15f66943eb999411598449e36"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part024": {
+      "bytes": 700000,
+      "sha256": "8a68eb276544ecc47015e6b88adfc144675518a449537b6be399b1198ca35cf6"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part025": {
+      "bytes": 700000,
+      "sha256": "6fc28a04b8b437296d4549b6c49d93e18e3d5d5c32f762dea87741c08fe57d5b"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part026": {
+      "bytes": 700000,
+      "sha256": "5d70f06e868ef4fcf3a8521a5163be1a3913c664e3f75fc36d692af5924a0a33"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part027": {
+      "bytes": 700000,
+      "sha256": "e28ac2a02134239df2a09e01a9dddc4093d4854d8aaab23687dbaad22bc96e0a"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part028": {
+      "bytes": 700000,
+      "sha256": "2b406c0e598946089faf36a6912f23720025848c8a81fa17facf40fc77822d1c"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part029": {
+      "bytes": 700000,
+      "sha256": "a1dba45f2d1ca1a3e1ada122502381d02a8f8515b58e8816b7fc0e72dba35657"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part030": {
+      "bytes": 700000,
+      "sha256": "3e80458ead4c6236c22767a6d1748d60497ff6ccc62a995a62a8e696742c49d6"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part031": {
+      "bytes": 700000,
+      "sha256": "94c8932ff03d2a51f282bb288609cd98fb480a20acfab0d9b5d0a61a68810591"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part032": {
+      "bytes": 700000,
+      "sha256": "bcac3f97135cecf608462f4ad0bda3786c655eac0ba46adeaa573d4fd4eaf59f"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part033": {
+      "bytes": 700000,
+      "sha256": "0a90bbaf0999cb4730056360c4e026697f511efd8cda372c2ddb7fe4e1a729c9"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part034": {
+      "bytes": 700000,
+      "sha256": "571489089b5f239cfab95f191b6fcb82b91236c8e8bf763f644af662c3714ebd"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part035": {
+      "bytes": 700000,
+      "sha256": "4fbb1738773dd03559b30d389d83911bc61d25647117c028173d8cbe4c8c569f"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part036": {
+      "bytes": 700000,
+      "sha256": "db3f85feb90bf8047d95cb23ddc2dd2956860950c715a1e7c4644dddcbb191af"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part037": {
+      "bytes": 700000,
+      "sha256": "348a72c74668009c453a02991609ad069b8c193756da1f5cfa350aa937504dfb"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part038": {
+      "bytes": 700000,
+      "sha256": "31066ab451311131621a6cd27a2955dd00d05acc9b76b111d6036a8169c40130"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part039": {
+      "bytes": 700000,
+      "sha256": "f715587ed8bb577885191da0f40c536daa52c90a1dcb1ae8d93aad6eda699acc"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part040": {
+      "bytes": 700000,
+      "sha256": "a3fdfe48baaf69fd98422e214644b6cec0e1d3837d76242693de70ccabc85064"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part041": {
+      "bytes": 700000,
+      "sha256": "2438828ad63776793cb3d07eab1d20e089d3fdb29dcb3a6cc724931614f55cad"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part042": {
+      "bytes": 700000,
+      "sha256": "24e126e700ff862d39d32c304475f0428d1f6c2968bb5e669b3430faf1f73be0"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part043": {
+      "bytes": 700000,
+      "sha256": "12aafa12971827d819b2b75367a25f43579750c9a782aacb33a0e649f0bf8af8"
+    },
+    "even-v-direct-middle-changed-compact-action.bin.part044": {
+      "bytes": 411490,
+      "sha256": "16b6b095583219aabc93b883079db508578c7d92630c8b71aff8fd21b88c9751"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part000": {
+      "bytes": 700000,
+      "sha256": "52e0e13e8aa8534462398aa787e16b2cccfbb1c3eb083f21e71a9037cc26ed92"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part001": {
+      "bytes": 700000,
+      "sha256": "d11f14a0b5116e753e3b40ea7fe2d6c5f0f7c580a69b55850d689bd395dd32dd"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part002": {
+      "bytes": 700000,
+      "sha256": "7a4fef2f3b2a236459bb8bb7862836a02e2d374edbb4982e006fc06d3a3593cb"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part003": {
+      "bytes": 700000,
+      "sha256": "470be3800f0fa834a19de702639fe5a7e6f289d659e2dfadb0f2be921d6f2b0e"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part004": {
+      "bytes": 700000,
+      "sha256": "4e50440808962679f9547fd9e28d812e125b2ce43055f0452463418fd4a93f71"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part005": {
+      "bytes": 700000,
+      "sha256": "07caabcaa4f34a7728a301021ef3ee60d1f5531eb2ac7c2be69bd6a567967092"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part006": {
+      "bytes": 700000,
+      "sha256": "842a8ef1b4adf2341c1ece8823d0646dedc9f3f85930f4f3f647665ac6414f33"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part007": {
+      "bytes": 700000,
+      "sha256": "db2766494fcad6f73bf9d13769a8cfb3115cbbfadd0326b52d514134ebad0cdb"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part008": {
+      "bytes": 700000,
+      "sha256": "6977291d77916a5472a24d062cc2ef11ec2be43806c9291948c3e3ac680c6e9b"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part009": {
+      "bytes": 700000,
+      "sha256": "2d1063df117b007f94a3e3d6394e4fa7661cd2ad0aa20d83f8fb3030ff4e58cf"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part010": {
+      "bytes": 700000,
+      "sha256": "e209d82e4889d236e83f2eba623dcabc904c1aad565554b3239855786eda34e3"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part011": {
+      "bytes": 700000,
+      "sha256": "4e198cf2160b7a628a5d61cb428cbddcddadafe89cf4797e5b9fc4024fbb45da"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part012": {
+      "bytes": 700000,
+      "sha256": "2cc6460dfe0d75814b3910adb3431a7d1a1fe79aab3890a3ab5c3b4af4851838"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part013": {
+      "bytes": 700000,
+      "sha256": "41974dc9d899c01f6417215f56eb4872f03c527835d15ab32138b5df0324f0b9"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part014": {
+      "bytes": 700000,
+      "sha256": "cb918382cc9cd6bdd9a4bc014a60b888b33ca7691b665deba92fe15619246681"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part015": {
+      "bytes": 700000,
+      "sha256": "b53629070cb223140ac256c621e51188cb063e060e1946517c5b0e038b947d30"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part016": {
+      "bytes": 700000,
+      "sha256": "9dcbd0edb07fde2cc7b5b4ad0430e336d1322c214b51493a76e5958e5214188d"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part017": {
+      "bytes": 700000,
+      "sha256": "df24b2c09588f6733b0265ecd67c4fd2e668752a37b7b95839c2e5e3fe97a94c"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part018": {
+      "bytes": 700000,
+      "sha256": "7cf2a5cfe97a588e0b98b9a480725b14bb7a0b00d55acd51897e3eb171ebf18f"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part019": {
+      "bytes": 700000,
+      "sha256": "f793502b77034cade4ff3a97bc6cefb297e437f410353f94fe4f492d0eb96ea7"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part020": {
+      "bytes": 700000,
+      "sha256": "e5e3e7941e2f8038c21f08508cd162deed51e2ab3d57240c931bd2b6e5b2e0f7"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part021": {
+      "bytes": 700000,
+      "sha256": "3c8b944fa3020fa0c38cf1188618a66c8920829f1cc3e561a1d5fcc1888798b0"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part022": {
+      "bytes": 700000,
+      "sha256": "352aee1bb3b21be8c5f00f4497f8d3b51b7bb02f3e5a82355b08a9a06b0c09ff"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part023": {
+      "bytes": 700000,
+      "sha256": "db8a7ddc78874074c4f84528fd46f597c7ef6920cfe3c68a5524002f0738bf84"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part024": {
+      "bytes": 700000,
+      "sha256": "ec3628e5dff5f3436f43d53b2e16b86adbc2427d2d118fdb4612a6cb90f40b99"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part025": {
+      "bytes": 700000,
+      "sha256": "6690e54004e9b48f36d40051ee924dadbc31af15fce9a82254a4d1984fdc7cde"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part026": {
+      "bytes": 700000,
+      "sha256": "50159e54fd5ffaa98c9ea07cd08f8e330c7d45e97d0c4e62d70b03515a3052e3"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part027": {
+      "bytes": 700000,
+      "sha256": "32d2ff1a06beeca2d78c9791fd06cb7556126a49444660daa7f783c4b9f276a9"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part028": {
+      "bytes": 700000,
+      "sha256": "c1a7f035b323d6201b1f7a41b220bdbe6bb71bd2544ff35aab6e7e37f371c249"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part029": {
+      "bytes": 700000,
+      "sha256": "4ca1503733fc15880f604cb7ec387dc3f4c8b72361914c61fc0b5eb5dc8bcc4f"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part030": {
+      "bytes": 700000,
+      "sha256": "d0691cfa3dc7d474f2f622217f40a77230689b90af6e8e929b852bd4d8d97ef7"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part031": {
+      "bytes": 700000,
+      "sha256": "2d204ad0f25a8767c92ce098314ec3d4085f46f3d5bec8f6213d93b28ba9dca3"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part032": {
+      "bytes": 700000,
+      "sha256": "737c0b0082d99c6b431be32c74b832f12940fd9c0ece87d787e068d16c235978"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part033": {
+      "bytes": 700000,
+      "sha256": "f16413908d8692b2e4ccd66d784948bcf4b9aadc11c7383d3ccd03b5599273b6"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part034": {
+      "bytes": 700000,
+      "sha256": "027d12cf30be3fc2e8e397543cb1842bf4948ed4b118dc88a187e2037429b5bb"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part035": {
+      "bytes": 700000,
+      "sha256": "8d63b9b353980404dceb27b7fcf3d90cd2d6e1a9b0b7db24133359c3675f1307"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part036": {
+      "bytes": 700000,
+      "sha256": "b498b1c9c85bf87577a7c005b696348b45282afe2c68aaf253739c55275ac091"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part037": {
+      "bytes": 700000,
+      "sha256": "3c22fe989a60075a06bfee748ca64be68f759d3b4571ac18ed77b8d38c49fa5a"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part038": {
+      "bytes": 700000,
+      "sha256": "f19d70f0bd19f7bf2d62d90038499d27c42632887385d92361e17e7f22837e33"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part039": {
+      "bytes": 700000,
+      "sha256": "ba84ce1d1cf4dff78065ae378e69e2ac95e84288fd5240f0f761a8ef230df95d"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part040": {
+      "bytes": 700000,
+      "sha256": "eed71ec947c73bc58e987a3ec55fc3ea450106dbef10cbc4626cecc68e744bef"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part041": {
+      "bytes": 700000,
+      "sha256": "538acc5965ef5cb2e29c20de0c8505f8cc050c93b329ba51b57917148c498963"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part042": {
+      "bytes": 700000,
+      "sha256": "643c0ef6e73dda424186770d2d181972e521b5c93d38a40cce5399348ee95a4d"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part043": {
+      "bytes": 700000,
+      "sha256": "6373144e82b231dd983799100d72cbd5c5681ee6c1fc5107b2b6fb39754656c7"
+    },
+    "odd-v-direct-middle-changed-compact-action.bin.part044": {
+      "bytes": 411490,
+      "sha256": "0edd500dfb0571c38c2a69b57f1ff9af8eebfd9152b802241b699e677611c49c"
+    }
+  },
+  "notes": {
+    "shard_buffer_sha256": {
+      "even-v": [
+        "a0e44079d7cbff283b82e5a80d1515a06f909c84ab0d6f6d6cd5a764a5e887ae",
+        "0a964fa474dedbf6a7686b7091d76b4b016dbccb566329023f0aea921c0cd889",
+        "4b3facafe64423bb678f386701214b750ce9a6fdfb7747ebfe971a5e8019aa33",
+        "cd8a836b40d67725e55a58d283d52bb542efd1071c3e6528af5b8a038518837d"
+      ],
+      "odd-v": [
+        "388f0fe34003d1554f185e9c34887a51fdf231b2271e84508a4b6f9450658478",
+        "a3d28140e0d140bc8dc8a0d2a2cb50b8cac09386b5df440e509b2a9aa3cd76f7",
+        "88dd53a01504b307df5fc7594d2e030637c3dda0eac45df42a427a6dbf6476f2",
+        "51479c0d9a0c5f05fbecbc5a29186f6a7fa1d4b9df4089ba37ebea8daa28dcd1"
+      ]
+    },
+    "shard_buffers": "The 8 per-shard action buffers are NOT included in this payload. Each sector's stitched buffer is the exact concatenation of its four shard buffers in shard order 0,1,2,3 (verified at staging: SHA-256 of each concatenation equals the stitched buffer SHA-256 recorded here)."
+  },
+  "payload_for": "v14.552 changed direct-middle compact-action return: sector certificates, shard certificates, and stitched action buffers for byte-level replay",
+  "repository_destination": "unified/discriminant-12-return/payloads/direct_middle_changed_compact_action_v14_552/",
+  "schema": "cone.sandbox-dm-changed-compact-action-payload-manifest.v1"
+}
