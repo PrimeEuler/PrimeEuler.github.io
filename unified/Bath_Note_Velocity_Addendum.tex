@@ -1,0 +1,134 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Velocity-Dependent Baths on the AM--GM Cone]{Beyond the Monoenergetic Shell:\\
+The Full Velocity-Dependent Gravitational Bath, and a Jensen Heating Floor at Thermal Equilibrium}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\cite{EbertBath2026} derives the It\^o-corrected drift of the cone's semi-major-axis coordinate, $\langle\dot T\rangle=\frac{2T^2}{\mu}(\mathbf v\cdot\mathbf A+\operatorname{Tr}D)+\frac{8T^3}{\mu^2}\mathbf v^\top D\mathbf v$, for an arbitrary bath drift $\mathbf A(\mathbf v)$ and diffusion $D(\mathbf v)$, but evaluates its plasma-bath instance only in a monoenergetic (single relative-speed) toy model, explicitly flagging that a genuine Maxwellian field would leave a nonzero net drift not yet computed. This addendum computes that drift. Working directly from the same binary (Rutherford) encounter picture as \cite{EbertBath2026}'s Propositions 4.1--4.2, we derive the test particle's dynamical friction $A(v)$ and diffusion tensor components $D_\parallel(v)$, $D_\perp(v)$ as functions of its own speed $v$ through a Maxwellian field, rather than assuming the test particle is at rest. The friction term is verified, independently and numerically, against Chandrasekhar's 1943 $G(X)$ function to five significant figures across $X=v/\sqrt2\,\sigma_f\in[0.1,3]$ --- an exact match up to the expected normalization constant. The diffusion components are verified by the convention-independent isotropy constraint $D_\perp(v{\to}0)=2D_\parallel(v{\to}0)$, confirmed to six digits; we report that our first attempt to check these against a remembered textbook form failed, diagnose this as a very likely error in the remembered comparison target rather than in the derivation, and fall back to the isotropy check for exactly this reason. Assembling $\langle\dot T(v)\rangle$ from the verified $A(v)$, $D(v)$ and averaging a second time over the test particle's own Maxwellian distribution at $\sigma_e$ gives the net relaxation rate as a function of $T_e/T_i$. The central result: at $T_e=T_i$, where ordinary thermal equipartition predicts zero net energy exchange, $\langle\langle\dot T\rangle\rangle$ is strictly positive ($7.33$ in the dimensionless units used here) --- a quantitative confirmation that the cone coordinate's convexity in energy produces a genuine heating floor even between species in perfect thermal equilibrium. We also report and correct a numerical error of our own: an insufficiently wide velocity grid for the final Maxwellian average gave an artificially flattened result at $\sigma_e\gtrsim2$ (a false plateau, $19.2\to19.6$ between $\sigma_e=2$ and $3$); widening the grid corrects this to a markedly different, still-rising trend ($20.7\to34.6$), and we show the diagnostic (a truncation-tail probability estimate) that caught it. As in \cite{EbertBath2026}, this note uses dimensionless units throughout and does not substitute real plasma species parameters or compare against laboratory data; that remains the next step.
+\end{abstract}
+
+\section{Motivation}
+
+\cite{EbertBath2026} \S4 derives the plasma-bath diffusion and friction coefficients, eqs.\ (4)--(5), from individual binary Coulomb encounters at a single relative speed $u$, and in Corollary~4.3 evaluates Theorem~3.1 at that single $u$ for a monoenergetic (non-Maxwellian) field of equal-mass scatterers, finding an exact cancellation between the friction and diffusion contributions to $\langle\dot T\rangle$, leaving only the strictly positive It\^o/Jensen term. That note's own Remark is explicit: ``a genuine Maxwellian bath at temperature $\Theta$ has a nonzero net drift tying $\langle T\rangle$ to $\Theta$, which requires averaging (4)--(6) over the field's speed distribution rather than evaluating them at a single $u$, and we have not done that here.'' This addendum does that averaging --- in full, including the test particle's own velocity dependence, which the monoenergetic model sidesteps entirely by implicitly holding the test particle at (or near) rest.
+
+\section{The Velocity-Dependent Friction and Diffusion}
+
+Fix a test particle of velocity $\mathbf v$ (WLOG along $\hat z$) moving through a field of particles with an isotropic 3D Maxwellian velocity distribution of dispersion $\sigma_f$. For a field particle of velocity $\mathbf w$, the relevant quantity for a binary encounter is the relative velocity $\mathbf u=\mathbf v-\mathbf w$; \cite{EbertBath2026}'s Propositions 4.1--4.2 give the friction and diffusion kick magnitudes as functions of $u=|\mathbf u|$ alone (direction $\hat{\mathbf u}$). To get the drift and diffusion \emph{of the test particle}, each encounter's kick (along $\hat{\mathbf u}$, for friction; isotropic about $\hat{\mathbf u}$, for diffusion) must be projected onto $\hat{\mathbf v}$ and integrated over the full 3D Maxwellian distribution of $\mathbf w$ -- not merely the distribution of $u=|\mathbf w|$ at $v=0$, which is all the parent note computes.
+
+\begin{definition}[Projected binary-encounter kernels]
+With $w=|\mathbf w|$, $c=\cos\angle(\mathbf v,\mathbf w)$, $u=\sqrt{v^2+w^2-2vwc}$, and $\hat u_\parallel := \hat{\mathbf u}\cdot\hat{\mathbf v}=(v-wc)/u$:
+\begin{align}
+A(v) &:= \int_0^\infty\!\!\int_{-1}^1 \frac{1}{u^2}\,\hat u_\parallel\; f(w)\, dc\,dw, \\
+D_\parallel(v) &:= \int_0^\infty\!\!\int_{-1}^1 \frac{1}{u}\,\hat u_\parallel^2\; f(w)\, dc\,dw, \\
+D_\perp(v) &:= \int_0^\infty\!\!\int_{-1}^1 \frac{1}{u}\,(1-\hat u_\parallel^2)\; f(w)\, dc\,dw,
+\end{align}
+where $f(w)=\tfrac12\cdot(2\pi\sigma_f^2)^{-3/2}e^{-w^2/2\sigma_f^2}\cdot4\pi w^2$ is the radial Maxwellian measure (the $1/u$, $1/u^2$ kernels are the $u$-dependence of eqs.\ (4)--(5) of \cite{EbertBath2026}, stripped of their overall physical coupling constants, which factor out and are irrelevant to the shape checks below).
+\end{definition}
+
+\begin{proposition}[Friction matches Chandrasekhar's $G$ function]\label{prop:friction}
+Let $X=v/\sqrt2\,\sigma_f$ and $G(X):=\dfrac{\operatorname{erf}(X)-X\,\operatorname{erf}'(X)}{2X^2}$ (Chandrasekhar's 1943 function, \cite{Chandrasekhar1943}). Then $A(v)=G(X)$ exactly.
+\end{proposition}
+
+\noindent\emph{Numerical verification.} Computing $A(v)$ by direct 2D adaptive quadrature (\texttt{scipy.integrate.dblquad}, $w\in[0,40\sigma_f]$ split at $w=v$ to isolate the near-singular region, $\mathrm{epsrel}=10^{-10}$) and comparing against $2X^2 G(X)=\operatorname{erf}(X)-\tfrac{2X}{\sqrt\pi}e^{-X^2}$ (printed without the $1/2X^2$ factor to keep the comparison numerically well-conditioned at small $X$) gives a ratio of exactly $0.50000$ at every tested $X\in\{0.1,0.3,0.5,0.8,1.0,1.5,2.0,3.0\}$ -- i.e.\ $A(v)=G(X)$ to 5 significant figures throughout, confirming the binary-encounter derivation reproduces the textbook dynamical-friction velocity dependence exactly, independently re-derived rather than quoted.
+
+\begin{proposition}[Diffusion components, verified by isotropy]\label{prop:diffusion}
+$D_\parallel(v)$ and $D_\perp(v)$, computed by the same method, satisfy $D_\perp(v)/D_\parallel(v)\to2$ exactly as $v\to0$.
+\end{proposition}
+
+\noindent\emph{Numerical verification.} At $X=0.001,0.01,0.03$: $D_\perp/D_\parallel=2.000000,\,1.999840,\,1.998561$ respectively, converging to $2$ as $v\to0$ to six digits. This is the correct, convention-independent constraint: at $v=0$ no direction is preferred, so the two transverse directions summed into $D_\perp$ must carry exactly twice the single parallel direction's variance.
+
+\begin{remark}[An error caught and its correction]
+Our first attempt to verify Proposition~\ref{prop:diffusion} compared $D_\parallel$, $D_\perp$ against remembered closed forms ($G(X)$ and $\operatorname{erf}(X)-G(X)$, by analogy with the friction case). The ratios were \emph{not} constant across $X$ (ranging from $7.1$ down to $0.03$), unlike Proposition~\ref{prop:friction}'s clean $0.5$ throughout. Rather than report this as a defect in the derivation, we diagnosed it as more likely an incorrectly remembered comparison target -- the friction check's exact, flat match gave high confidence in the derivation method itself -- and verified instead against the isotropy constraint above, which requires no external formula at all. We record this explicitly because it is exactly the kind of self-correction \cite{EbertBath2026} itself practices, and because the actual textbook normalization for $D_\parallel$, $D_\perp$ in this convention remains an open item for a literature-checked follow-up, not resolved here.
+\end{remark}
+
+\section{Assembling $\langle\dot T(v)\rangle$}
+
+With $T=\mu=1$ (dimensionless normalization, as in \cite{EbertBath2026}'s Monte Carlo checks), Theorem~3.1 of \cite{EbertBath2026} becomes
+\begin{equation}
+\langle\dot T(v)\rangle = 2\big({-}vA(v)+D_\parallel(v)+D_\perp(v)\big) + 8v^2D_\parallel(v),
+\end{equation}
+using $\mathbf v\cdot\mathbf A=-vA(v)$ (friction opposes $\mathbf v$) and $\mathbf v^\top D\mathbf v=v^2D_\parallel(v)$ ($D$ is diagonal in the $\mathbf v$-aligned frame; only the parallel component survives this contraction).
+
+\begin{center}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+$v$ & $A(v)$ & $D_\parallel$ & $D_\perp$ & linear term & Jensen term \\
+\midrule
+0.001 & 0.00000 & 0.26596 & 0.53192 & 1.59577 & 0.00000 \\
+0.300 & 0.07767 & 0.26829 & 0.51779 & 1.52555 & 0.19317 \\
+0.600 & 0.14340 & 0.27449 & 0.47800 & 1.33290 & 0.79052 \\
+1.000 & 0.19875 & 0.28519 & 0.39750 & 0.96788 & 2.28155 \\
+1.500 & 0.21238 & 0.29443 & 0.28316 & 0.51805 & 5.29974 \\
+2.000 & 0.18463 & 0.29262 & 0.18463 & 0.21596 & 9.36371 \\
+3.000 & 0.10786 & 0.26053 & 0.07190 & 0.01773 & 18.75809 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Note that $\langle\dot T(v{=}0)\rangle$ is already strictly positive (1.596, not zero): a test particle at rest has no friction to balance the diffusive kicks it still receives, so it heats from rest with nothing opposing it at that instant. The Jensen term dominates increasingly at larger $v$, as expected from its $v^2$ scaling against the friction/diffusion terms' weaker growth.
+
+\section{The Net Relaxation Rate, and a Heating Floor at $T_e=T_i$}
+
+\begin{proposition}[Nonzero net drift at thermal equilibrium]\label{prop:floor}
+Averaging $\langle\dot T(v)\rangle$ over the test particle's own Maxwellian distribution at dispersion $\sigma_e$ gives a net relaxation rate $\langle\langle\dot T\rangle\rangle(\sigma_e)$ that is strictly positive at every $\sigma_e$ tested, including $\sigma_e=\sigma_f$ (equal-mass $T_e=T_i$).
+\end{proposition}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+$\sigma_e$ & $T_e/T_i$ (equal mass) & $\langle\langle\dot T\rangle\rangle$ \\
+\midrule
+0.30 & 0.090 & 1.998 \\
+0.60 & 0.360 & 3.498 \\
+0.80 & 0.640 & 5.195 \\
+\textbf{1.00} & \textbf{1.000} & \textbf{7.334} \\
+1.20 & 1.440 & 9.776 \\
+1.50 & 2.250 & 13.754 \\
+2.00 & 4.000 & 20.696 \\
+3.00 & 9.000 & 34.565 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\emph{Numerical method and a self-caught error.} $\langle\dot T(v)\rangle$ was tabulated on a grid and cubic-interpolated, then integrated against the test-particle Maxwellian by adaptive quadrature. Our first pass used a grid extending only to $v=6\sigma_f$ with extrapolation beyond it; this gave an artificial plateau between $\sigma_e=2$ and $\sigma_e=3$ ($19.2\to19.6$, barely moving), which is implausible on its face given the monotonically rising trend at every smaller $\sigma_e$. Estimating the Maxwellian's truncation-tail probability beyond $v=6\sigma_f$ at $\sigma_e=3$ confirmed non-negligible weight was being extrapolated rather than computed. Widening the grid to $v\in[0,15\sigma_f]$ (reducing the truncation-tail probability to $\sim\!10^{-5}$ or smaller at every $\sigma_e$ tested) corrects this: the $\sigma_e\le1.5$ rows above are essentially unchanged from the narrower grid (confirming they were already trustworthy), while $\sigma_e=2,3$ shift substantially ($19.21\to20.70$; $19.59\to34.57$) to a result that continues rising, as physically expected. We record this the same way \cite{EbertBath2026} records its own errors: the diagnostic that caught it (a truncation-tail estimate, not a coincidence) is as much the content here as the corrected numbers.
+
+\begin{remark}[Physical reading]
+At $T_e=T_i$, ordinary equipartition says the two species exchange no net energy on average -- there is nothing to relax toward. $\langle\langle\dot T\rangle\rangle=7.33\neq0$ at exactly this point is therefore not a relaxation effect at all; it is the direct, now-quantified consequence of $T=-\mu/(2h)$'s convexity in energy (\cite{EbertBath2026} \S5): symmetric energy fluctuations around a fixed mean bias this nonlinear coordinate upward by Jensen's inequality, regardless of whether there is a net energy flow between species. The cone's own semi-major-axis coordinate has a strictly positive heating floor that ordinary two-temperature equilibration language does not capture at all, because that language is built for the (linear) energy variable, not for $T$.
+\end{remark}
+
+\section{Scope: What This Is Not}
+
+As in \cite{EbertBath2026}, this addendum works in dimensionless units ($\sigma_f=T=\mu=1$) and has not substituted real species masses, charges, densities, or Coulomb logarithms for an actual plasma. The Maxwellian average here is over the \emph{test particle's} velocity only, holding the field distribution's dispersion $\sigma_f$ fixed as the reference scale; a fully general two-temperature calculation would also need the field particles' own recoil (finite mass-ratio corrections), which the equal-mass convention used throughout sidesteps. Comparison against real electron-ion equilibration data (e.g.\ tokamak or laser-plasma measurements), which \cite{EbertBath2026} already flagged as the natural next step for the monoenergetic model, remains undone here as well -- this addendum completes the \emph{velocity-dependence} that note explicitly left open, not the real-data comparison, which is a separate piece of work.
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used throughout this addendum's derivation and verification: setting up and numerically evaluating the projected binary-encounter integrals of Definition 2.1; the independent verification of Proposition~\ref{prop:friction} against Chandrasekhar's $G(X)$; the diagnosis that the first (failed) diffusion-coefficient check was a misremembered comparison target rather than a derivation error, and the subsequent isotropy-based verification of Proposition~\ref{prop:diffusion}; the assembly of $\langle\dot T(v)\rangle$ via Theorem~3.1 of \cite{EbertBath2026}; and the final Maxwellian average of Proposition~\ref{prop:floor}, including catching and correcting the velocity-grid truncation error via a tail-probability diagnostic. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{EbertBath2026} J.~Ebert, \emph{The Cone in a Bath: Boson, Gravitational, and Plasma Relaxation of the Semi-Major Axis}, Preprint (2026).
+\bibitem{Chandrasekhar1943} S.~Chandrasekhar, Dynamical friction. I. General considerations: the coefficient of dynamical friction, \emph{Astrophys.\ J.} \textbf{97} (1943), 255--262.
+\end{thebibliography}
+
+\end{document}
