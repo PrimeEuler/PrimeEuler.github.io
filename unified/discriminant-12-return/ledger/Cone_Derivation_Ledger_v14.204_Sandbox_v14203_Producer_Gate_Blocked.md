@@ -27,10 +27,12 @@ assert k.cutoff==32000
 The workflow (`.github/workflows/suzuki-remote-leading-selfenergy-256k.yml`)
 invokes:
 
+{% raw %}
 ```
 python suzuki_normalized_leading_source_producer.py
   --sector ${{ matrix.sector }} --cutoff 256000 ...
 ```
+{% endraw %}
 
 `--cutoff 256000` trips `assert k.cutoff==32000` immediately.
 The "8000≤R≤256000" range cited in v14.203 belongs to the

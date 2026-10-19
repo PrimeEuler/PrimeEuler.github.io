@@ -68,8 +68,8 @@ For one parity sector, use the corrected arbitrary-carrier data of v13.978/v13.9
 M_p
 =
 \begin{pmatrix}
-H_{C,p}&K_{{\rm eff},p}^T\\
-K_{{\rm eff},p}&J_{{\rm eff},p}
+{% raw %}H_{C,p}&K_{{\rm eff},p}^T\\{% endraw %}
+{% raw %}K_{{\rm eff},p}&J_{{\rm eff},p}{% endraw %}
 \end{pmatrix},
 \]
 
@@ -79,14 +79,14 @@ f_p
 \binom{
 f_{C,p}
 }{
-s_{{\rm eff},p}
+{% raw %}s_{{\rm eff},p}{% endraw %}
 },
 \]
 
 and regular source background
 
 \[
-h_p=h_{{\rm reg},p}.
+{% raw %}h_p=h_{{\rm reg},p}.{% endraw %}
 \]
 
 The replay reproduces the v13.987 reduced singular minima:

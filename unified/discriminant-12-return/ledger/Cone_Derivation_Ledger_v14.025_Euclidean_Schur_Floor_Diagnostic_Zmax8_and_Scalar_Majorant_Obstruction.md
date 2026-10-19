@@ -219,13 +219,13 @@ R^*D_{\rm far}^{-1}R
 
 At the \(M=8000\) split the raw shifted remote blocks are strongly coercive:
 \[
-\gamma_{{\rm far},e}
+{% raw %}\gamma_{{\rm far},e}{% endraw %}
 >
 3.88001442351648
 \quad(\mu_e=0.10),
 \]
 \[
-\gamma_{{\rm far},o}
+{% raw %}\gamma_{{\rm far},o}{% endraw %}
 >
 3.58008440161287
 \quad(\mu_o=0.40).

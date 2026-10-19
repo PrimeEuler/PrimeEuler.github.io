@@ -104,6 +104,6 @@ Source commit af86f7811d090acafc5aea5562d584d913de5823: all nine publication fil
 
 The guarded nonforced freeze succeeded at archive commit 90aca785b6d94415d2a7962e7338dc4eba5d1237. Namespace payloads/numerical_near_witness_v14_228 contains both raw binary witnesses, both numerical certificates and manifest.json, 4357217 bytes total. The manifest was fetched at that commit and its source_commit equals the exact source commit above. For each of the four witness/certificate files, the committed Git blob SHA-1/length was checked against the direct local bytes; all SHA-256/lengths also match the source-bound manifest. This closes the durable point-witness freeze and full replay gate.
 
-The separate Pages deployment run 37996110510 failed in Jekyll on a pre-existing Liquid expression in v13.993 (line 71, '{{\\rm eff}'). That failure is distinct from the successful scoped certificate/replay jobs and is not concealed as an all-CI-green claim. No old ledger mathematics was rewritten here.
+{% raw %}The separate Pages deployment run 37996110510 failed in Jekyll on a pre-existing Liquid expression in v13.993 (line 71, '{{\\rm eff}'). That failure is distinct from the successful scoped certificate/replay jobs and is not concealed as an all-CI-green claim. No old ledger mathematics was rewritten here.{% endraw %}
 
 Receipt collision check: current live archive HEAD refreshed immediately before the append; preserve any newer audit/ledger updates with expected-head nonforced publication. Only this lane's receipt is appended; immutable prior payloads are unchanged.

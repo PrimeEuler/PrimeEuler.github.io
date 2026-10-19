@@ -279,13 +279,13 @@ With \(\|W\|_F^2\le8\), the exact-source protected-form charge is negligible com
 The 32k positive pre-cancellation component replay gives
 
 \[
-Q_{{\rm comp},e}^{\rm mid}
+{% raw %}Q_{{\rm comp},e}^{\rm mid}{% endraw %}
 =
 6.831462611825017,
 \]
 
 \[
-Q_{{\rm comp},o}^{\rm mid}
+{% raw %}Q_{{\rm comp},o}^{\rm mid}{% endraw %}
 =
 2.4199994307658286.
 \]

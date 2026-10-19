@@ -286,15 +286,15 @@ By Minkowski,
 le
 B_{1,p}
 +
-B_{{m src},p}
+{% raw %}B_{{m src},p}{% endraw %}
 +
-B_{{m pole},p}
+{% raw %}B_{{m pole},p}{% endraw %}
 +
 B_{Z,p}
 +
 B_{M,p}
 +
-B_{{m geom},p},
+{% raw %}B_{{m geom},p},{% endraw %}
 ]
 
 where
@@ -307,13 +307,13 @@ sqrt{Sigma_2(n_0)},
 ]
 
 [
-B_{{m src},e}=0,
+{% raw %}B_{{m src},e}=0,{% endraw %}
 ]
 
 and, since (nge n_0),
 
 [
-B_{{m src},o}
+{% raw %}B_{{m src},o}{% endraw %}
 le
 rac1{1-1/n_0}
 sqrt{Sigma_4(n_0)}.
@@ -322,7 +322,7 @@ sqrt{Sigma_4(n_0)}.
 The pole correction is
 
 [
-B_{{m pole},p}
+{% raw %}B_{{m pole},p}{% endraw %}
 le
 rac{|d_p|}{pi^2}
 sqrt{Sigma_6(n_0)}.
@@ -367,7 +367,7 @@ crac43 Z_{max}S^p_{23},
 the genuine K=10 remainder obeys
 
 [
-B_{{m geom},p}
+{% raw %}B_{{m geom},p}{% endraw %}
 le
 sqrt{
 2(A_p^{m geom})^2Sigma_{46}(n_0)
@@ -384,15 +384,15 @@ Therefore
 le
 B_{1,p}
 +
-B_{{m src},p}
+{% raw %}B_{{m src},p}{% endraw %}
 +
-B_{{m pole},p}
+{% raw %}B_{{m pole},p}{% endraw %}
 +
 B_{Z,p}
 +
 B_{M,p}
 +
-B_{{m geom},p}.
+{% raw %}B_{{m geom},p}.{% endraw %}
 }
 	ag{1}
 ]

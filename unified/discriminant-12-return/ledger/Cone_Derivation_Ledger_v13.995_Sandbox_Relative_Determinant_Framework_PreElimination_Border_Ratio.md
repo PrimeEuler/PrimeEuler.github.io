@@ -115,8 +115,8 @@ R_N
 :=
 \frac{\det\mathfrak B_{N,+}}{\det\mathfrak B_{N,-}}
 =
-\frac{\det\mathfrak B_{{\rm red},N}(p_{+})}
-     {\det\mathfrak B_{{\rm red},N}(p_{-})},
+{% raw %}\frac{\det\mathfrak B_{{\rm red},N}(p_{+})}{% endraw %}
+{% raw %}     {\det\mathfrak B_{{\rm red},N}(p_{-})},{% endraw %}
 }
 \]
 
@@ -153,7 +153,7 @@ is a concrete next computation.
 * **(H1) for exact \(D\):** v13.979 certifies the *numerical*
   complement (\(\|\widehat D^{-1}\|<10.2\)); exact-\(D\) invertibility
   needs \(\|D-\widehat D\|<1/10.2\) in the gap metric — open.
-* **Weaker fallback:** track \(\det\mathfrak B_{{\rm red},N}(p(z))\) by
+{% raw %}* **Weaker fallback:** track \(\det\mathfrak B_{{\rm red},N}(p(z))\) by{% endraw %}
   argument principle along a contour (topological nonvanishing, no
   quantitative lower bound).
 

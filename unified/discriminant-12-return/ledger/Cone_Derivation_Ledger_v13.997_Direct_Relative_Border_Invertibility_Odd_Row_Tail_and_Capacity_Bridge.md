@@ -893,7 +893,7 @@ Equation (9) gives an explicit approximation rate for the **rank-one perturbatio
 It does not by itself prove
 
 \[
-\det_{\rm F}(I+K_{{\rm rel},N})
+{% raw %}\det_{\rm F}(I+K_{{\rm rel},N}){% endraw %}
 \to
 \det_{\rm F}(I+K_{\rm rel}),
 \]

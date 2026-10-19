@@ -263,13 +263,13 @@ le
 gives
 
 [
-Delta Q_{{m graph},e}
+{% raw %}Delta Q_{{m graph},e}{% endraw %}
 =
 0.004150843777715575,
 ]
 
 [
-Delta Q_{{m graph},o}
+{% raw %}Delta Q_{{m graph},o}{% endraw %}
 =
 5.6660714930713476	imes10^{-5}.
 ]

@@ -329,15 +329,15 @@ visible precisely where the quotient was *not* taken.
    reaches only after the integration of v13.737 Gate 3, i.e. after a choice of
    normalization constant. This is the same normalization gap as §2.3, seen from
    the other side.
-2. **Finite-to-infinite convergence [O].** $\widetilde T_{{\rm pair},A} = T_{{\rm pair},A}$
-   is finite-$A$ transport invariance [D]; $T_{{\rm pair},A} \to T_{\rm pair}$ is
+{% raw %}2. **Finite-to-infinite convergence [O].** $\widetilde T_{{\rm pair},A} = T_{{\rm pair},A}${% endraw %}
+{% raw %}   is finite-$A$ transport invariance [D]; $T_{{\rm pair},A} \to T_{\rm pair}$ is{% endraw %}
    not proved. Needed (v13.754 §10, v13.677 §8, v13.737 Gate 10): the infinite HB
    operator as a strong/generalized resolvent limit of the finite transported
    extensions; $m_a \to m_\infty$ locally uniformly; $\gamma_a \to \gamma_\infty$
    on compacta of the resolvent set, with gauge factors controlled mod zero-free
    real-entire factors. A sharp sufficient-condition question is already posed in
    v13.754 §11: convergence of the finite HB determinants
-   $\Delta_{{\rm HB},A/\pi}(z;z_*) =
+{% raw %}   $\Delta_{{\rm HB},A/\pi}(z;z_*) ={% endraw %}
    \frac{\tau_{\rm HB} - m_A(z)}{\tau_{\rm HB} - m_A(z_*)}$ with $\tau_{\rm HB}$
    defined at finite $A$. Additionally (v13.720 §§8, 11): promoting the paired-core
    recovery of $\Xi$ to the full Suzuki defect sources requires asymptotics of
@@ -397,7 +397,7 @@ Numerical (mpmath, 30-digit) [N]:
 2. **Intrinsic-$c_a$ probe [N/O]:** compute candidate finite $c_a$ from deficiency
    norms/anchor values at $z = 0, \pm i$ across a ladder of $a$ and test
    $c_a \to c_\infty = 0.0461359281\ldots$ — a direct numerical attack on gap 1.
-3. **Convergence probe [N/O]:** track $\Delta_{{\rm HB},A/\pi}(z;z_*)$ and
+{% raw %}3. **Convergence probe [N/O]:** track $\Delta_{{\rm HB},A/\pi}(z;z_*)$ and{% endraw %}
    $R_a = [1 + ic_\infty m_a]^{-1}$ (v13.670 §7 form) on compact $z$-sets as $A$
    grows, against the closed-form $\Xi/E$; locally uniform convergence of $R_a$
    would be the numerical shadow of gap 2 (and would *not* by itself prove it).
