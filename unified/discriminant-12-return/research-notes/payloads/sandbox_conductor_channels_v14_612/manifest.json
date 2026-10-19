@@ -1,0 +1,28 @@
+{
+ "payload": "sandbox_conductor_channels_v14_612",
+ "ledger_version": "v14.612",
+ "date": "2026-10-19",
+ "track": "Sandbox (Jeremy exploratory track, \"our Lane B\" \u2014 not ledger Lane B)",
+ "provenance": {
+  "RESULTS.md": "As-run sandbox note (2026-10-18): the general channel formula, the measured eleven-channel table, the dive-flip threshold, and scope flags.",
+  "conductors.py": "As-run producer (mpmath, dps 50): channel constants C1(chi), dive rates s(chi), zeros t0 and bump maxima by bisection/ternary search on Suzuki's zero-free ramp; prints both dive thresholds in closed form.",
+  "conductors_rerun_2026-10-19.log": "Independent re-run of conductors.py on 2026-10-19 (deposit day); reproduces every value in RESULTS.md to all quoted digits, including the q=12 control (s=0.2406063975, t0=1.912049281) and thresholds 215.33252 / 9.3053617."
+ },
+ "files": [
+  {
+   "path": "RESULTS.md",
+   "bytes": 3467,
+   "sha256": "d740c70a2793f3aeaa41edc138846f3be80da24f75d33e8fb8885313cc4049f9"
+  },
+  {
+   "path": "conductors.py",
+   "bytes": 3118,
+   "sha256": "b22643e738b60bc087890290672bea57150bb49100fc217726671c804649c29b"
+  },
+  {
+   "path": "conductors_rerun_2026-10-19.log",
+   "bytes": 1615,
+   "sha256": "928603fe36b160775afeccf5b744bfce10befe0de4879083eeea447d666204b0"
+  }
+ ]
+}
