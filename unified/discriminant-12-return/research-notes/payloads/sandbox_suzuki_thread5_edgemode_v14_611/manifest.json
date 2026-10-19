@@ -1,0 +1,46 @@
+{
+ "payload": "sandbox_suzuki_thread5_edgemode_v14_611",
+ "ledger_version": "v14.611",
+ "date": "2026-10-19",
+ "track": "Sandbox (Jeremy exploratory track, \"our Lane B\" \u2014 not ledger Lane B)",
+ "provenance": {
+  "THREAD5.md": "Standalone deposit note for Thread 5 (edge-mode test), adapted from explorations/screw-stations/EXPLORATION.md (Thread 5 section, 2026-10-15) with per-sector values taken from the verified results file.",
+  "thread5_edgetest.py": "As-run producer (2026-10-15). Assembles the zeta N=128 station Gram once (saved as gram_zeta_N128.npz) and analyses principal submatrices of the full N=128 station Grams.",
+  "thread5_edgetest_results.json": "As-run results. Re-run from the deposited buffers on 2026-10-19 reproduced all 888 floating-point values exactly (worst relative difference 0).",
+  "gram_zeta_N128.npz": "Zeta station Gram at N=128, assembled and saved by thread5_edgetest.py (station_gram.py machinery of v14.416).",
+  "gram_chi_N128.npz": "chi_12 station Gram at N=128, Phase 2 buffer (v14.456 lineage), loaded read-only by the producer.",
+  "gram_K_N128.npz": "Dedekind g_K station Gram at N=128, Phase 2 buffer (v14.456 lineage), loaded read-only by the producer."
+ },
+ "files": [
+  {
+   "path": "THREAD5.md",
+   "bytes": 4074,
+   "sha256": "bffd0cfae7486e3b4192f486ce5822e1750710649fc16fbeb83a1b73386b0a49"
+  },
+  {
+   "path": "thread5_edgetest.py",
+   "bytes": 4055,
+   "sha256": "310b50fa503006cdf9254b53845efd08645de51cefd93b9c920b1175747791d7"
+  },
+  {
+   "path": "thread5_edgetest_results.json",
+   "bytes": 32812,
+   "sha256": "dc970eff752ef1da191f741fd6a9b61f142aeba514e1648b7cbf7004e3d6ec3d"
+  },
+  {
+   "path": "gram_zeta_N128.npz",
+   "bytes": 104077,
+   "sha256": "f78afcc024cf3c275df9f7d91362bab1d42daee5fa1f019fa7fb6c1bf01a0649"
+  },
+  {
+   "path": "gram_chi_N128.npz",
+   "bytes": 105307,
+   "sha256": "e40dcdff38507d1865fe3e9b353cd262a6548ca336a9015a09c987d468b852fe"
+  },
+  {
+   "path": "gram_K_N128.npz",
+   "bytes": 105236,
+   "sha256": "e4e2657b28931f24fae7f0dc4859273d03f0cbdbf417876308bb17b95e7161d7"
+  }
+ ]
+}
