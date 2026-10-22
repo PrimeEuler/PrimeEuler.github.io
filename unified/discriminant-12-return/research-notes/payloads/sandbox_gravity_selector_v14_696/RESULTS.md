@@ -218,7 +218,7 @@ applies). Permitted, not selected.
 l_P = sqrt(hbar G / c^3) contains G — quoting R_H/l_P ~ 1e61 as
 "the scale to be fixed" embeds the unknown in the yardstick.
 Restated G-free (hbar, c, e, masses only): R_H/a0 = 2.60e36
-(ln 83.98, required k = 63.77); t_U/t_atomic = 4.63e40 (ln 93.65,
+(ln 83.85, required k = 63.67); t_U/t_atomic = 4.63e40 (ln 93.64,
 k = 71.11); N_pairs ln 184.09 (k = 139.79). Verdict unchanged —
 no integral k — but the spec sharpens: psi and D are themselves
 G-laden; an admissible selector may not output psi. It must output
