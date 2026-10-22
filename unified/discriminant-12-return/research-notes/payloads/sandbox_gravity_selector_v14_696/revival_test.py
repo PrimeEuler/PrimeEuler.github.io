@@ -4,7 +4,7 @@ leading revival T_rev = (4 pi/3) nbar^4; discrete-difference time
 T_disc = 4 pi / |D2 E(nbar)| from the ladder's own second difference;
 packet-averaged n^4 law <n^4>/nbar^4 corrects the peak position."""
 import numpy as np
-for nbar, sig in ((40, 1.2), (40, 1.0), (60, 1.5)):
+for nbar, sig in ((40, 1.2), (40, 1.0), (40, 0.8), (60, 1.5)):
     ns = np.arange(nbar-15, nbar+16)
     w = np.exp(-(ns-nbar)**2/(2*sig**2)); w /= w.sum()
     E = -1.0/(2*ns**2)
