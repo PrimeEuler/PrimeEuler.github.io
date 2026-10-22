@@ -18,7 +18,8 @@ print('=== single native integers ===')
 best = []
 for k, story in sorted(cands.items()):
     v = k * lne
-    t, gap = min(targets.items(), key=lambda kv: abs(kv[1] - v))
+    t, tv = min(targets.items(), key=lambda kv: abs(kv[1] - v))
+    gap = abs(tv - v)   # corrected 2026-10-22 (Audit R330): was the target's raw value, not the difference
     best.append((gap, k, story, t))
     print(f'  k={k:4d} ({story:38s}) log={v:8.3f}  nearest {t} gap {gap:.3f}')
 print()
