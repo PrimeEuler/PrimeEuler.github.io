@@ -1,0 +1,411 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=1in}
+\pagestyle{plain}
+\numberwithin{equation}{section}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\title{The Gravitational Dyon Pair:\\ Quarter Quantisation on the Poincar\'e Cone}
+\author{Jeremy Ebert}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A mass $m$ and a NUT charge $l$ form gravity's dyon pair: the monopole of the
+gravitoelectric field and the monopole of the gravitomagnetic field. That the
+pair obeys a Dirac-type quantisation condition has been known in essence
+since Misner and Dowker, and is usually left as a remark. This note pins the
+condition down. From the $\mathrm{SU}(2)$ Killing triad of Taub--NUT we show
+that a test particle's conserved angular momentum satisfies
+$\mathbf{J}\cdot\hat{\mathbf{n}}=-2\eps l$ exactly, so the pair's stored
+angular momentum is $2\eps l$, twice the electromagnetic value at the same
+formalism; the Misner time period $8\pi l$ gives the same lattice by an
+independent route. The pair product is therefore quantised in quarters,
+$\mu c l/\hbar\in\tfrac14\ZZ$, i.e.\ $\alpha_G(\mu)\,\alpha_G(\tilde\mu)
+=(k/4)^2$ with minimum $1/16$, against the electromagnetic
+$\alpha\,\alpha_m=(1/2)^2=1/4$. We then exhibit structures of the pair
+that appear not to have been stated: its seats in the parabolic separation of
+the MIC--Kepler problem are $k/2\pm\eps l$; the monopole enters the spectrum
+only through the offset $\Lambda+\tfrac12=\sqrt{(j+\tfrac12)^2-s^2}$ of the
+ladder's diameter--secant split; the electromagnetic half-lattice
+is the even sublattice of the gravitational quarter-lattice; and a boost
+decomposes the state's Casimir between its orbital and pair legs, saturating
+at a finite rapidity $\gamma_{\max}=2\sqrt{j(j+1)}/n$. All identities were
+verified by exact symbolic computation.
+\end{abstract}
+
+\section{Two dyon pairs}
+
+Electromagnetism has one observed monopole, the electric charge, and one
+exact zero, $\nabla\!\cdot\!\mathbf{B}=0$. Gravity repeats the pattern one
+column over: mass is the observed monopole of the gravitoelectric field, and
+the monopole of the gravitomagnetic field---the NUT charge, or dual
+mass---is unobserved. In each theory the two charges form a dyon pair, and
+in each theory the pair is constrained by single-valuedness.
+
+For the electromagnetic pair the constraint is Dirac's \cite{Dirac}. Its
+sharpest derivation is Poincar\'e's: the field of a charge--monopole pair
+stores angular momentum $eg/c$, directed along the line joining them,
+independently of their separation. The total angular momentum of a test
+charge therefore has a fixed radial component,
+\begin{equation}
+\mathbf{J}\cdot\hat{\mathbf{n}}=-eg,
+\qquad
+J^2=L^2+(eg)^2,
+\end{equation}
+with $L\perp\hat{\mathbf{n}}$ the orbital part; the position direction
+$\hat{\mathbf{n}}$ is confined to a cone about $\mathbf{J}$ (the Poincar\'e
+cone), and $\mathrm{SU}(2)$ consistency forces $eg\in\tfrac{\hbar}{2}\ZZ$.
+In dimensionless couplings, with $\alpha=e^2/\hbar c$ and
+$\alpha_m=g^2/\hbar c$,
+\begin{equation}
+\alpha\,\alpha_m=\Big(\frac{eg}{\hbar c}\Big)^2=\Big(\frac{k}{2}\Big)^2,
+\qquad k\in\ZZ,
+\end{equation}
+with minimum $1/4$: the pair product is the square of the pair's
+angular-momentum quantum, $\hbar/2$.
+
+The gravitational analogue---Taub--NUT \cite{Taub,NTU} read as a
+gravitational dyon---goes back to Demia\'nski--Newman and to Dowker
+\cite{Dowker}, and the existence of a quantisation condition relating mass
+and NUT charge, obtained from the periodicity of the time coordinate, is
+recorded e.g.\ in the double-copy literature \cite{LMOW} following Misner
+\cite{Misner}. What seems not to be in print is the condition's coefficient
+in pair-product form, nor the structures of Sections 5--8. We supply both
+routes to the coefficient here because their agreement is the content: the
+factor of two that decides between $1/4$ and $1/16$ is the fibration's own
+$2$, read once from particle dynamics and once from topology.
+
+\section{The pair term from the Killing triad}
+
+Write Taub--NUT in the standard parametrisation, in geometric units, with
+$\Sigma=r^2+l^2$ and $f(r)=(r^2-2mr-l^2)/\Sigma$:
+\begin{equation}
+ds^2=-f\,\chi^2+\frac{dr^2}{f}+\Sigma\,(d\theta^2+\sin^2\theta\,d\varphi^2),
+\qquad
+\chi=dt+2l\cos\theta\,d\varphi .
+\end{equation}
+The isometry group is $\mathrm{SU}(2)\times\mathrm{U}(1)$. The
+$\mathrm{SU}(2)$ factor is not the naive rotation group of the
+$(\theta,\varphi)$ sphere: each would-be rotation must be accompanied by a
+$t$-shift to remain a symmetry. Solving the Killing equation with $f(r)$
+left arbitrary, the shift is forced (the opposite sign fails), giving the
+triad
+\begin{align}
+\xi_x&=2l\,\frac{\cos\varphi}{\sin\theta}\,\partial_t
+-\sin\varphi\,\partial_\theta-\cos\varphi\cot\theta\,\partial_\varphi,\\
+\xi_y&=2l\,\frac{\sin\varphi}{\sin\theta}\,\partial_t
++\cos\varphi\,\partial_\theta-\sin\varphi\cot\theta\,\partial_\varphi,\\
+\xi_z&=\partial_\varphi ,
+\end{align}
+which closes as an $\mathfrak{su}(2)$ algebra,
+$[\xi_i,\xi_j]=-\epsilon_{ijk}\xi_k$. The closure is a real constraint: the
+alternative third generator $\partial_\varphi+2l\,\partial_t$ is also a
+Killing vector, being a linear combination of symmetries, but it does
+\emph{not} close the algebra with $\xi_x,\xi_y$.
+
+For a unit-mass geodesic let $\eps=-p_t$ (specific energy) and
+$k=p_\varphi$. The conserved charges $Q_i=\xi_i\cdot p$ assemble into a
+total angular momentum $\mathbf{J}$ satisfying two exact identities:
+\begin{equation}
+\mathbf{J}\cdot\hat{\mathbf{n}}=-2\eps l,
+\qquad
+J^2=\Sigma^2\dot\theta^{\,2}
++\frac{\big(k+2\eps l\cos\theta\big)^2}{\sin^2\theta}
++\big(2\eps l\big)^2 .
+\end{equation}
+This is Poincar\'e's structure (1.1) with the replacement
+\begin{equation}
+eg\ \longrightarrow\ 2\eps l .
+\end{equation}
+Three remarks. First, the ``electric'' member of the gravitational pair is
+the particle's \emph{energy}: the gravitomagnetic charge couples to $\eps$,
+as the Kaluza--Klein reading of the $t$-fibration requires. At rest at
+infinity $\eps=1$. Second, $\mathbf{J}\cdot\hat{\mathbf{n}}$ fixed confines
+$\hat{\mathbf{n}}$ to a cone about $\mathbf{J}$ with
+$\cos\alpha=-2\eps l/|\mathbf{J}|$: the Poincar\'e cone, in the
+gravitational theory, with the pair term as one leg of the cone relation
+$J^2=(\text{orbital})^2+(\text{pair})^2$. Third, the coefficient is $2$,
+not $1$: it is the $2$ in $\chi=dt+2l\cos\theta\,d\varphi$, and it is
+physical, since the same $l$ appears in $f$ and $\Sigma$ and admits no
+reparametrisation.
+
+\section{The Misner route}
+
+The same coefficient controls the string. Near the poles,
+$\chi\approx dt\pm2l\,d\varphi$; the regular time coordinates
+$t_N=t+2l\varphi$ and $t_S=t-2l\varphi$ disagree by $4l\varphi$ on the
+overlap, hence by $8\pi l$ after one wind. Removing the Misner string
+therefore requires $t$ periodic with period $T_t=8\pi l/c$ \cite{Misner},
+and single-valuedness of $e^{-iEt/\hbar}$ quantises energy in steps
+\begin{equation}
+E_k=\frac{2\pi\hbar}{T_t}\,k=\frac{\hbar c}{4l}\,k,\qquad k\in\ZZ .
+\end{equation}
+Setting $E=\mu c^2$ places a test mass on the ladder. Both routes give the
+pair lattice of the next section, and both read the answer off the same
+$2$: Route~A as the strength of the fibration's monopole potential in the
+particle's angular momentum, Route~B as the Misner period $8\pi l=4\pi\cdot2l$.
+
+\section{The pair product: quarters}
+
+Since $\mathbf{J}\cdot\hat{\mathbf{n}}$ is a component of an
+$\mathrm{SU}(2)$ generator and the remaining part of $\mathbf{J}$ is
+orthogonal to $\hat{\mathbf{n}}$, equation (2.5) with $\eps=1$ requires
+$2\mu_{\mathrm{geo}} l_{\mathrm{geo}}/\ell_P^2\in\tfrac12\ZZ$ for a test
+mass $\mu$, i.e.
+\begin{equation}
+\frac{\mu_{\mathrm{geo}}\,l_{\mathrm{geo}}}{\ell_P^2}\in\frac14\ZZ
+\qquad\Longleftrightarrow\qquad
+\frac{\mu\, c\, l}{\hbar}\in\frac14\ZZ ,
+\end{equation}
+the second form showing that $G$ cancels identically: the condition is
+dimensionless, $G$-free, and a property of the pair alone. With the dual
+mass $\tilde\mu=c^2l/G$ and the dimensionless gravitational couplings
+$\alpha_G(\mu)=G\mu^2/\hbar c$, $\alpha_G(\tilde\mu)=G\tilde\mu^2/\hbar c$,
+\begin{equation}
+\boxed{\ \alpha_G(\mu)\,\alpha_G(\tilde\mu)=\Big(\frac{k}{4}\Big)^2,\qquad
+k\in\ZZ,\qquad \text{minimum } \frac{1}{16}.\ }
+\end{equation}
+Gravity's pair quantum is $\hbar/4$, against electromagnetism's $\hbar/2$.
+
+The exponent structure is worth displaying. The electromagnetic product is
+$(1/2)^2$: one factor $1/2$ from single-valuedness on the half-ladder,
+squared by the pairing. The gravitational product is
+$1/16=(1/2)^{2\cdot2}$: the same half, halved once more by the spin-2
+fibration coefficient, then squared by the pairing. The quarter is also the
+cone's native quarter: on the angular-momentum ladder the Casimir obeys
+$T^2=j(j+1)+\tfrac14$ with $T=j+\tfrac12$, i.e.\ the offset between the
+arithmetic radius $j+\tfrac12$ and the geometric Casimir $\sqrt{j(j+1)}$ is
+$1/2$, and its square---the deficit in $T^2$---is $1/4$. The pair quantum
+$\hbar/4$ and the Casimir deficit $1/4$ are the same quarter seen in two
+places: one in a product of charges, one in a spectrum. The mechanism has
+been isolated before \cite{EbertCas} as \emph{dyadic quadratic
+normalisation}: a canonical half-coordinate becomes a quarter under a
+quadratic operation, with four exact realisations (the factor-cell
+midpoint square, the shifted compact and noncompact Casimirs, the
+primitive null-edge midpoint norm, and the cyclotomic relative-norm
+normalisation). The pair product (4.2) is that mechanism at dyadic depth
+two---half to quarter for the pair quantum, quarter to sixteenth for its
+square---and its first realisation in a product of charges. The same
+square root governs the power laws on the parabolas themselves: a
+parabolic segment has area $\propto h^{3/2}$ with $3/2=1+\tfrac12$, and the
+bouncer spectrum warps as $E\propto(n-\tfrac14)^{2/3}$ with
+$2/3=1/(1+\tfrac12)$ \cite{EbertSecant}.
+
+\section{Parabolic seats}
+
+The Kepler problem separates in parabolic coordinates
+$\xi=r(1+\cos\theta)$, $\eta=r(1-\cos\theta)$, and its parabolic quantum
+numbers are the seats from which the hydrogenic fine-structure bookkeeping
+is read off. The monopole deformation of Kepler---the MIC problem
+\cite{MIC,Zwanziger}---is the flat-space twin of Taub--NUT geodesic motion.
+Its Hamilton--Jacobi equation separates in the same coordinates. Exactly
+(including the Zwanziger term $+s^2/r^2$, without which a remainder
+$-s^2/(\xi+\eta)$ obstructs separation), with $s$ the Poincar\'e strength
+and $\kappa$ the Coulomb coupling:
+\begin{equation}
+\Big[\xi U'^2+\frac{((k-s)/2)^2}{\xi}-\frac{E\xi}{2}\Big]
++\Big[\eta V'^2+\frac{((k+s)/2)^2}{\eta}-\frac{E\eta}{2}\Big]=\kappa .
+\end{equation}
+Each parabola carries one charge, $(k\mp s)/2$: centre $k/2$, offset $s/2$.
+Hydrogen is $s=0$, both seats equal to $(k/2)^2$.
+
+Taub--NUT's Hamilton--Jacobi equation has MIC's angular and pair sectors
+\emph{identically}, at $s=2\eps l$: subtracting the two equations,
+\begin{equation}
+\mathrm{TN}-\mathrm{MIC}=-(2mr+l^2)\,p_r^2-(2\eps l)^2 ,
+\end{equation}
+which is purely radial---a $p_r^2$ weight and a constant, the sector
+absorbed by the standard time reparametrisation identifying the two flows
+\cite{IK}. The parabolic content is undeformed. Hence Taub--NUT's
+parabolic seats are
+\begin{equation}
+\frac{k}{2}-\eps l,\qquad \frac{k}{2}+\eps l :
+\end{equation}
+the diameter is $k$, the arithmetic centre is $k/2$, and the offset is the
+pair product $\eps l$ itself. The twist does not build a new lattice; it
+splits each hydrogen seat symmetrically about its centre by the pair term
+of Section~2. The state lattice of the separation thus runs in halves,
+while the pair lattice of Section~4 runs in quarters---one additional
+power of two of resolution, supplied by the fibration.
+
+\section{The monopole is the offset}
+
+The identity (2.5) says $J^2=L^2+s^2$ with $s$ the pair strength ($s=eg$
+electromagnetically, $s=2\eps l$ gravitationally): the orbital part is what
+remains of the Casimir after the pair takes its leg. Quantising, the
+mechanical angular momentum of the MIC system has eigenvalues
+$\Lambda(\Lambda+1)$ with \cite{MIC}
+\begin{equation}
+\Lambda(\Lambda+1)=j(j+1)-s^2,
+\qquad\text{i.e.}\qquad
+\Lambda+\frac12=\sqrt{\Big(j+\frac12\Big)^2-s^2}\;,
+\end{equation}
+and the bound spectrum is hydrogenic in the shifted rung,
+$E=-\kappa^2/(2N^2)$ with $N=n_r+\Lambda+1$, recovering hydrogen at $s=0$.
+
+Equation (6.1) is a diameter--secant split \cite{EbertSecant}: the
+arithmetic mean is $j+\tfrac12$, the offset is $s$, and the rung the
+spectrum actually climbs is the geometric mean
+$\sqrt{\mathrm{AM}^2-\mathrm{offset}^2}$. A monopole therefore does not
+deform the ladder; it offsets it, entering through the offset slot alone.
+The parabolic seats (5.3) show the same entry in the other coordinate
+system: centre $k/2$ untouched, offset $\eps l$.
+
+Consequently both monopoles obey the machine's power laws, not by
+generating them but by inheriting them: the laws belong to the parabola
+and its square root---segment area $\propto h^{3/2}$ with
+$3/2=1+\tfrac12$, spectral warp $(n-\tfrac14)^{2/3}$ with
+$2/3=1/(1+\tfrac12)$, and the dyadic half-to-quarter normalisation of
+Section~4---and the offset is the only door a monopole has into that
+machine. In the diameter--secant picture the offset $(n-k)/2$ was always
+the free parameter, the position chosen by the secant. The pair gives
+that slot a physical occupant: the product of the pair's two charges. The
+question ``what fixes the offset'' and the question ``what carries
+monopole charge, and how much'' are the same question.
+
+\section{Intertwining of the two lattices}
+
+Equations (1.2) and (4.2) place the two theories' pair lattices on one
+grid:
+\begin{equation}
+\frac{eg}{\hbar c}\in\frac12\ZZ\subset\frac14\ZZ\ni\frac{\mu c l}{\hbar}.
+\end{equation}
+The electromagnetic half-lattice is the \emph{even sublattice} of the
+gravitational quarter-lattice: the minimal electromagnetic pair quantum
+$\hbar/2$ is the $k=2$ rung of the gravitational lattice, $2\times\hbar/4$.
+Electromagnetism occupies every second rung; the odd rungs belong to the
+twist sector alone. Two lattices, one grid---and the grid is fixed by
+single-valuedness in both theories, not fitted in either.
+
+\section{Boost decomposition}
+
+A boost along the symmetry axis acts on the pair through $\eps$ alone:
+$k$, $l$ and $|\mathbf{J}|$ are unchanged, while a boost from rest sends
+$\eps\to\cosh\psi$. The parabolic seats (5.3) split hyperbolically about
+their fixed centre,
+\begin{equation}
+\text{seats}=\frac{k}{2}\pm l\cosh\psi ,
+\end{equation}
+and the Casimir budget $J^2=(\text{orbital})^2+(2\eps l)^2$ is
+transferred, at fixed $J^2$, from the orbital leg to the pair leg: the
+boost decomposes the state into the pair. Writing the pair fraction with
+both quantisations imposed, $\mu c l/\hbar=n/4$ and
+$|\mathbf{J}|^2/\hbar^2=j(j+1)$, the transfer saturates when the orbital
+leg vanishes, $2\eps l=|\mathbf{J}|/\mu$, at the finite rapidity
+\begin{equation}
+\gamma_{\max}=\frac{2\sqrt{j(j+1)}}{n},
+\qquad
+\psi_{\max}=\operatorname{arcosh}\gamma_{\max}.
+\end{equation}
+At the saturation the Poincar\'e cone has closed,
+$\hat{\mathbf{n}}$ locked antiparallel to $\mathbf{J}$. The minimal state
+$(j,n)=(\tfrac12,1)$ has $\gamma_{\max}=\sqrt3$,
+$\psi_{\max}=\operatorname{arcosh}\sqrt3\approx1.146$, and rest-frame split
+pair $1/3$ / orbital $2/3$ (arithmetic of the minimal rung, recorded as
+such). Finiteness cuts the other way as well: a shell $j$ admits at rest
+only the pair charges $n\le2\sqrt{j(j+1)}$---$n=1$ for $j=\tfrac12$;
+$n=1,2$ for $j=1$; $n=1,2,3$ for $j=\tfrac32$.
+
+On the source side, the $\psi\to\infty$ image of a boost is the
+Aichelburg--Sexl shockwave \cite{AS}: a fully boosted field collapses onto
+the null cone as an impulsive wave. The pair-side saturation (8.2) is the
+finite, quantised counterpart for a test state: the cone closes before
+the boost diverges.
+
+\section{The action is the integration}
+
+None of the preceding structure floats free of an action: the action is
+the Hamilton--Jacobi integral itself. The characteristic function
+$W=U(\xi)+V(\eta)$ of Section~5 \emph{is} Hamilton's action for the pair
+system, separated into its two parabolic pieces, and each quantisation
+encountered above is a statement about its periods. Route~A fixes the
+angular period: $\mathbf{J}$ is the action variable of the
+$\mathrm{SU}(2)$ motion, and the pair term is the part of that period
+carried by the twist. Route~B fixes the time period: single-valuedness of
+$e^{-iEt/\hbar}$ on the Misner cycle. The parabolic power laws are
+periods again---the Archimedean segment area $\propto h^{3/2}$ is the
+action of the linear-potential (bouncer) problem, whose Bohr--Sommerfeld
+periods, with their Maslov quarter, give the warp
+$E\propto(n-\tfrac14)^{2/3}$. The lattice of Section~4 is, in one phrase,
+the period lattice of the pair's action in units of $\hbar$: halves where
+the action is electromagnetic, quarters where it is gravitational.
+
+This places the structure one rung below a field theory, not outside the
+theory business altogether. A worldline effective theory of the pair is
+built on precisely this action, and for such a theory the results above
+are exact period data---matching conditions it must reproduce: the
+quarter lattice (4.2), the seats (5.3) and the offset law (6.1), and the
+boost saturation (8.2). What is absent is the field layer: a Lagrangian
+density for the gravitoelectric and gravitomagnetic fields jointly, with
+an expansion organised on top of the worldline action. Section~10 returns
+to what that absence does and does not affect.
+
+\section{Scope}
+
+Nothing here detects the pair. NUT charge is unobserved; Taub--NUT without
+the periodic-time identification carries the Misner string, and with it,
+closed timelike curves. Equations (4.2), (5.3) and (8.2) are statements
+about the solution space of general relativity and the representation
+theory of its isometries, not about nature's inventory. Nor does the pair
+product derive $G$: $l$ is a free charge, and the lattice constrains
+products, not values---exactly Dirac's situation, where the condition
+quantises $eg$ given a monopole and leaves $\alpha$ free.
+
+What the structure does supply is the \emph{form} a gravitational
+selection principle would take if one exists in this family: dimensionless,
+$G$-free once written as (4.1), and pair-dependent at once, with its
+symmetry---the boost action of Section~8---already realised in the
+gravitomagnetic sector that frame-dragging measurements probe. The missing
+ingredient is the same one Dirac's condition waited on: a physical pair
+with one member known. Until then the correct classification is a
+quantisation of permitted pairs, on a quarter lattice, with electromagnetism
+on its even rungs.
+
+\begin{thebibliography}{99}
+\bibitem{Dirac} P.~A.~M. Dirac, Quantised singularities in the
+electromagnetic field, \emph{Proc.\ Roy.\ Soc.\ A} \textbf{133} (1931)
+60--72.
+\bibitem{Taub} A.~H. Taub, Empty space-times admitting a three parameter
+group of motions, \emph{Ann.\ of Math.} \textbf{53} (1951) 472--490.
+\bibitem{NTU} E.~Newman, L.~Tamburino and T.~Unti, Empty-space
+generalization of the Schwarzschild metric, \emph{J.\ Math.\ Phys.}
+\textbf{4} (1963) 915--923.
+\bibitem{Misner} C.~W. Misner, The flatter regions of Newman, Unti, and
+Tamburino's generalized Schwarzschild space, \emph{J.\ Math.\ Phys.}
+\textbf{4} (1963) 924--937.
+\bibitem{DN} M.~Demia\'nski and E.~T. Newman, A combined Kerr--NUT
+solution of the Einstein--Maxwell equations, \emph{Bull.\ Acad.\ Polon.\
+Sci.} \textbf{14} (1966) 653--657.
+\bibitem{Dowker} J.~S. Dowker, The NUT solution as a gravitational dyon,
+\emph{Gen.\ Rel.\ Grav.} \textbf{5} (1974) 603--613.
+\bibitem{LMOW} A.~Luna, R.~Monteiro, D.~O'Connell and C.~D. White, The
+classical double copy for Taub--NUT spacetime, \emph{JHEP} \textbf{11}
+(2015) 143.
+\bibitem{MIC} H.~V. McIntosh and A.~Cisneros, Degeneracy in the presence
+of a magnetic monopole, \emph{J.\ Math.\ Phys.} \textbf{11} (1970)
+896--916.
+\bibitem{Zwanziger} D.~Zwanziger, Quantum field theory of particles with
+both electric and magnetic charges, \emph{Phys.\ Rev.} \textbf{176}
+(1968) 1480--1488.
+\bibitem{IK} T.~Iwai and Y.~Katayama, On extended Taub-NUT metrics,
+\emph{J.\ Geom.\ Phys.} (1993--94), on the Taub--NUT $\leftrightarrow$
+MIC--Kepler correspondence under time reparametrisation.
+\bibitem{AS} P.~C. Aichelburg and R.~U. Sexl, On the gravitational field
+of a massless particle, \emph{Gen.\ Rel.\ Grav.} \textbf{2} (1971)
+303--312.
+\bibitem{BH} C.~Bunster, S.~Cnockaert, M.~Henneaux and R.~Portugues,
+Monopoles for gravitation and for higher spin fields, \emph{Phys.\ Rev.\
+D} \textbf{73} (2006) 105014.
+\bibitem{EbertCas} J.~Ebert, Casimir completion and primitive null
+diamonds: edge centering, cyclotomic normalization, and the ramified
+Boolean return, manuscript (2026).
+\bibitem{EbertSecant} J.~Ebert, The diameter--secant machine and the
+gravity road, with addendum: the Airy comb and the two powers of the
+machine, research notes (2026).
+\end{thebibliography}
+
+\end{document}
