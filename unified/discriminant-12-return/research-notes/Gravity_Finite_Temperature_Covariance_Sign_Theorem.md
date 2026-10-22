@@ -13,13 +13,13 @@ The exact integral identity
 \]
 therefore gives
 \[
-D_\parallel(v)=\frac{\mathcal K}{\sqrt{2\pi}\sigma^3}\int_0^1u^2e^{-v^2u^2/(2\sigma^2)}\,du.
+D_\parallel(v)=\frac{\sqrt2\mathcal K}{\sqrt\pi\,\sigma}\int_0^1u^2e^{-v^2u^2/(2\sigma^2)}\,du.
 \]
 The prefactor follows by substituting \(1/(2\chi^2 v)\Psi(\chi)\); in particular it is positive, and
 \[
-D_\parallel'(v)=-\frac{\mathcal K v}{\sqrt{2\pi}\sigma^5}\int_0^1u^4e^{-v^2u^2/(2\sigma^2)}\,du<0
+D_\parallel'(v)=-\frac{\sqrt2\mathcal K v}{\sqrt\pi\,\sigma^3}\int_0^1u^4e^{-v^2u^2/(2\sigma^2)}\,du<0
 \]
-for \(v>0,\sigma>0,\mathcal K>0\). [Check the displayed prefactor carefully against the original v3.4 units; only positivity and monotonicity are used in the theorem.]
+for \(v>0,\sigma>0,\mathcal K>0\). The absolute prefactor follows directly from the v3.4 half-covariance normalization. The sign theorem uses only its strict positivity and the decreasing integral.
 
 For a bound ellipse \(0<e<1\), \(v(E)^2=(\mu/T)(1+e\cos E)/(1-e\cos E)\). Applying the Kepler time measure \((1-e\cos E)dE/(2\pi)\) to v14.720's exact joint covariance yields
 \[
