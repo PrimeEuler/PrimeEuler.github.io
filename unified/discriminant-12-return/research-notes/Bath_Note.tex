@@ -1,0 +1,203 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title[Baths on the AM--GM Cone]{The Cone in a Bath:\\
+Boson, Gravitational, and Plasma Relaxation of the Semi-Major Axis}
+\author{Jeremy Ebert}
+\address{Franklin County, Ohio, USA}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Schwinger-boson dictionary of \cite{Ebert2026Quantum} identifies the cone coordinate $T$ with the total occupation number of two oscillator modes, $T=(n_1+n_2+1)/2$, and the perturbed Levi-Civita regularization of \cite{Ebert2026LeviCivita} gives an exact classical equation for $\dot T$ under an arbitrary perturbing acceleration. This note asks what happens to $T$ when the perturbation is not a single deterministic force but a genuine bath. On the quantum side, coupling each oscillator independently to a thermal bath at mean occupation $\bar n$ gives \emph{exact} linear relaxation, $\dot T=-\kappa(T-\bar n-\tfrac12)$ and $\dot X=-\kappa(X-\tfrac12)$, with the third cone coordinate satisfying $\langle Y^2\rangle_{\rm ss}=\bar n(\bar n+1)$ at steady state --- consistent with the cone identity itself, $\langle X\rangle^2+\langle Y^2\rangle=\langle T\rangle^2$, which we verify holds exactly. On the classical side, modeling a gravitational bath as a stochastic velocity process with drift $\mathbf A(\mathbf v)$ and diffusion tensor $D(\mathbf v)$, a direct application of It\^o's lemma gives $\langle\dot T\rangle=\frac{2T^2}{\mu}(\mathbf v\cdot\mathbf A+\operatorname{Tr}D)+\frac{8T^3}{\mu^2}\mathbf v^\top D\mathbf v$: an extra, always-nonnegative term beyond the naive chain-rule guess, present because $T=-\mu/(2h)$ is a convex function of energy. We report the numerical process by which the missing term was caught (a $20\sigma$ disagreement against a $20{,}000$-trajectory ensemble simulation) and verify the corrected formula to $0.09\sigma$. Since the underlying theorem holds for any drift and diffusion, we derive both the diffusion coefficient and (from the same binary-encounter framework) the dynamical-friction coefficient for a charged particle in a plasma directly from Rutherford scattering, verify each against $3\times10^6$ simulated encounters to the $O(1/\ln\Lambda)$ accuracy expected of a leading-log calculation, and find that for equal test/field masses the two combine to cancel exactly, isolating the pure It\^o/Jensen heating term for this idealized (monoenergetic, non-Maxwellian) bath. Both derivations caught and corrected their own arithmetic errors along the way (a too-small impact-parameter cutoff in one case, a mis-simplified power of the relative speed in the other), each caught by comparison against the numerical data. We discuss why the It\^o correction has no counterpart on the quantum side --- $T$ is exactly linear in the boson numbers, but only reciprocally related to the classical conserved energy --- and we are explicit about the substantial classical astrophysics and plasma physics (Chandrasekhar dynamical friction, two-body relaxation, Coulomb collision theory, and the absence of a true global equilibrium for self-gravitating systems) that this note only partially imports.
+\end{abstract}
+
+\section{Two Baths, One Coordinate}
+
+\cite{Ebert2026Quantum} shows $T-\tfrac12=j=(n_1+n_2)/2$: the cone's own semi-major-axis coordinate is, up to an additive constant, half the total number of quanta in the two-oscillator Schwinger realization. \cite{Ebert2026LeviCivita} separately derives an exact classical equation, $\dot T=\frac{2T^2}{\mu}(\mathbf P\cdot\mathbf v)$, for how $T$ responds to an arbitrary perturbing acceleration $\mathbf P$. Both results concern a \emph{single}, deterministic perturbation. This note asks the natural next question on each side: what happens to $T$ under a genuine \emph{bath} --- many independent, statistically-specified interactions --- rather than one prescribed force or drive.
+
+\section{The Boson Bath}
+
+Couple each oscillator independently to a thermal reservoir at mean occupation $\bar n$, with damping rate $\kappa$, via the standard two-mode Lindblad master equation
+\[
+\dot\rho = -i[H,\rho] + \sum_{i=1,2}\Big[\kappa(\bar n+1)\,\mathcal D[a_i]\rho + \kappa\bar n\,\mathcal D[a_i^\dagger]\rho\Big], \qquad \mathcal D[L]\rho:=L\rho L^\dagger-\tfrac12\{L^\dagger L,\rho\}.
+\]
+
+\begin{theorem}[Exact linear relaxation of $T$ and $X$]\label{thm:relax}
+Under the master equation above,
+\begin{equation}
+\dot T = -\kappa\Big(T-\bar n-\tfrac12\Big), \qquad \dot X=-\kappa\Big(X-\tfrac12\Big). \tag{1}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+For a single mode with this dissipator, $d\langle n\rangle/dt=-\kappa(\langle n\rangle-\bar n)$ is the standard input-output result \cite{GardinerZoller2004}; applying it to each independent mode and using $T=(n_1+n_2+1)/2$, $X=(n_1-n_2+1)/2$ gives (1) directly, with $\bar n$ cancelling in the difference defining $X$.
+\end{proof}
+
+\subsection*{Numerical Verification}
+Simulating the single-mode master equation directly on a truncated ($N=40$) Fock space from the non-thermal initial state $|5\rangle\langle5|$, with $\kappa=0.7$, $\bar n=2.3$, the resulting $\langle n(t)\rangle$ matches the analytic solution $\bar n+(n_0-\bar n)e^{-\kappa t}$ to within $1.9\times10^{-3}$ over $t\in[0,8]$ (RK4, $dt=10^{-3}$), and $\operatorname{tr}\rho$ remains $1$ to machine precision throughout.
+
+\begin{proposition}[Steady-state third coordinate]\label{prop:Y2}
+$Y$ is not itself a well-defined observable, but $Y^2=xy=J_-J_+=a_2^\dagger a_1a_1^\dagger a_2$ is Hermitian. At the thermal steady state (both modes independently thermal at $\bar n$),
+\begin{equation}
+\langle Y^2\rangle_{\rm ss}=\bar n(\bar n+1), \tag{2}
+\end{equation}
+and the cone identity survives exactly at the level of these mixed moments: $\langle X\rangle^2+\langle Y^2\rangle_{\rm ss}=\langle T\rangle^2$.
+\end{proposition}
+
+\begin{proof}
+At steady state the two modes factorize, so $\langle Y^2\rangle_{\rm ss}=\langle a_1a_1^\dagger\rangle\langle a_2^\dagger a_2\rangle=(\bar n+1)\bar n$. For the identity: $\langle X\rangle^2+\langle Y^2\rangle_{\rm ss}=\tfrac14+\bar n^2+\bar n=(\bar n+\tfrac12)^2=\langle T\rangle^2$.
+\end{proof}
+
+\subsection*{Numerical Verification}
+Computing the exact thermal-state moments on a truncated ($N=60$) Fock space at $\bar n=2.3$: $\langle Y^2\rangle=7.58999987$ against $\bar n(\bar n+1)=7.59$ (agreement limited by truncation), and $\langle X\rangle^2+\langle Y^2\rangle-\langle T\rangle^2=-1.8\times10^{-15}$.
+
+\begin{remark}[What is not closed]
+Proposition~\ref{prop:Y2} is a steady-state statement only. Away from steady state, $\langle Y^2(t)\rangle$ involves a genuine fourth moment of the ladder operators, which closes into a small system of ODEs only for Gaussian states (via Wick's theorem); a sharp Fock state such as $|n_1,n_2\rangle$ is not Gaussian, and the bath drives it through non-Gaussian intermediate states on its way to the (Gaussian) thermal steady state. We have not derived a transient equation for $\langle Y^2(t)\rangle$ and do not claim one is available in closed form for arbitrary initial states.
+\end{remark}
+
+\section{The Gravitational Bath}
+
+Model the effect of many weak gravitational encounters on the physical (unregularized) velocity as a Langevin process, $d\mathbf v = \mathbf A(\mathbf v)\,dt+B\,dW$, with diffusion tensor $D:=\tfrac12BB^\top$, superposed on the two-body acceleration. Let $h=\tfrac12|\mathbf v|^2-\mu/r$ and $T=-\mu/(2h)$ as before.
+
+\begin{theorem}[It\^o-corrected drift of $T$]\label{thm:ito}
+\begin{equation}
+\langle\dot T\rangle = \frac{2T^2}{\mu}\big(\mathbf v\cdot\mathbf A+\operatorname{Tr}D\big) + \frac{8T^3}{\mu^2}\,\mathbf v^\top D\,\mathbf v. \tag{3}
+\end{equation}
+Both correction terms are always $\ge0$ for any physical (positive semi-definite) $D$.
+\end{theorem}
+
+\begin{proof}
+By It\^o's lemma applied directly to $h=\tfrac12|\mathbf v|^2-\mu/r$ under the velocity process (the potential term contributes no stochastic part, since only $\mathbf v$ is driven by noise): $dh=\mathbf v\cdot d\mathbf v+\tfrac12\,d\mathbf v\cdot d\mathbf v=[\mathbf v\cdot\mathbf A+\operatorname{Tr}D]\,dt+\mathbf v^\top B\,dW$, using $\langle d\mathbf v\,d\mathbf v^\top\rangle=2D\,dt$. So $h$ itself is a diffusion with drift $\mathbf v\cdot\mathbf A+\operatorname{Tr}D$ and instantaneous variance rate $\sigma_h^2=\mathbf v^\top(2D)\mathbf v$. Applying It\^o's lemma once more to $T(h)=-\mu/(2h)$, using $T'(h)=2T^2/\mu$ and $T''(h)=8T^3/\mu^2$:
+\[
+\langle\dot T\rangle = T'(h)\big[\mathbf v\cdot\mathbf A+\operatorname{Tr}D\big] + \tfrac12T''(h)\,\sigma_h^2 = \frac{2T^2}{\mu}\big(\mathbf v\cdot\mathbf A+\operatorname{Tr}D\big)+\frac{8T^3}{\mu^2}\mathbf v^\top D\mathbf v. \qedhere
+\]
+\end{proof}
+
+\subsection*{How the second term was found}
+A first version of this note claimed only the first term of (3), obtained by differentiating $T$ with respect to the \emph{mean} of $h$ and substituting the mean drift --- the natural but incomplete generalization of \cite{Ebert2026LeviCivita}'s deterministic Corollary. Simulating an ensemble of $20{,}000$ independent noisy trajectories (isotropic constant $D$, linear friction $\mathbf A=-\gamma\mathbf v$, $\mu,T_0,e_0$ as in \cite{Ebert2026Clock}, $t\in[0,40\text{s}]$) and comparing the ensemble mean $\langle T(t_{\rm end})\rangle$ against that first formula gave a $20\sigma$ discrepancy, always in the same direction (the simulation ran hotter). Since $T$ is convex in $h$, this is exactly the signature of a missing Jensen/It\^o second-derivative term; deriving it, as above, and re-running the same ensemble gave agreement to $0.086\sigma$ (Table~1). We record the initial error and its diagnosis deliberately: it is the numerical verification itself that is the load-bearing part of this note's method, not any individual formula.
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& $T$ at $t=40$s & \\
+\hline
+Monte Carlo ensemble ($n=20{,}000$) & $25105.51\pm30.25$ & \\
+Formula without It\^o correction & $24494.04$ & ($20.2\sigma$ off) \\
+Formula (3), with correction & $25108.10$ & ($0.09\sigma$ off) \\
+\hline
+\end{tabular}
+\end{center}
+\emph{Table 1. Parameters: $\mu=398600.4418$ km$^3$/s$^2$, $T_0=24482$ km, $e_0=0.72$, $\gamma=3\times10^{-6}\,\mathrm{s}^{-1}$, isotropic $D=2\times10^{-4}\,\mathrm{km^2/s^3}$, Euler--Maruyama, $dt=0.01$s.}
+
+\begin{remark}[Scope: what this is not]
+This note uses a toy, state-independent (or simply velocity-linear) $D$ for the numerical check. The classical theory of a real gravitational bath --- Chandrasekhar dynamical friction and two-body relaxation \cite{Chandrasekhar1943,BinneyTremaine2008} --- gives $\mathbf A(\mathbf v)$ and $D(\mathbf v)$ specific, velocity-dependent forms set by the background mass density $\rho$, velocity dispersion $\sigma$, and Coulomb logarithm $\ln\Lambda$; Theorem~\ref{thm:ito} holds for any such $\mathbf A,D$, but we have not substituted the Chandrasekhar forms or connected $\kappa,\bar n$-language to $\rho,\sigma$ for an astrophysical bath. Nor do we claim a global equilibrium exists for a genuinely self-gravitating system: negative specific heat and the gravothermal catastrophe are well known obstructions to that \cite{BinneyTremaine2008}, and the physics here --- like Chandrasekhar's own --- only concerns one test orbit relaxing toward local equipartition with a fixed background, not the thermalization of the whole system.
+\end{remark}
+
+\section{The Electric (Plasma) Bath}
+
+Theorem~\ref{thm:ito} holds for \emph{any} $\mathbf A(\mathbf v),D(\mathbf v)$; nothing in its proof is specific to gravity. For a test charge moving through a plasma --- density $n_f$, background charge $q_f$, test charge $q_t$, reduced mass $\mu_{\rm red}$ --- the same Coulomb $1/r^2$ scattering that underlies Chandrasekhar's formula gives the diffusion tensor directly, and here we derive it from individual binary (Rutherford) encounters rather than quote it, since the numerical-verification standard of this note requires it.
+
+\begin{proposition}[Diffusion coefficient from binary Coulomb encounters]\label{prop:plasmaD}
+For a test particle of mass $m_t$ moving at relative speed $u$ through field particles of density $n_f$, coupling $\kappa_{\rm int}=q_tq_f/(4\pi\epsilon_0)$, the small-angle (leading-log) perpendicular diffusion coefficient is
+\begin{equation}
+\operatorname{Tr}D = \frac{8\pi\,\kappa_{\rm int}^2\,n_f\,\ln\Lambda}{m_t^2\,u}, \qquad \ln\Lambda=\ln(b_{\max}/b_{90}),\quad b_{90}=\frac{\kappa_{\rm int}}{\mu_{\rm red}u^2}. \tag{4}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For an encounter at impact parameter $b$, the exact Rutherford deflection is $\theta=2\arctan(b_{90}/b)$; for $b\gg b_{90}$, $\theta\approx2b_{90}/b$, and the resulting lab-frame kick is $|\Delta v|\approx\frac{m_f}{m_t+m_f}u\theta=\frac{2\kappa_{\rm int}}{m_t u b}$ (using $\mu_{\rm red}=m_tm_f/(m_t+m_f)$). Field particles cross impact parameter $[b,b+db]$ at rate $n_fu\cdot2\pi b\,db$, so
+\[
+\operatorname{Tr}D=\int_{b_{90}}^{b_{\max}}\Big(\frac{2\kappa_{\rm int}}{m_tub}\Big)^2n_fu\,2\pi b\,db=\frac{8\pi\kappa_{\rm int}^2n_f}{m_t^2u}\int_{b_{90}}^{b_{\max}}\frac{db}{b}=\frac{8\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2u}. \qedhere
+\]
+The lower cutoff is taken at $b_{90}$, the standard choice: below it the deflection is $O(1)$, not small, and the integrand above is no longer valid.
+\end{proof}
+
+\subsection*{Numerical Verification}
+We simulated $3\times10^6$ trial time-windows, each containing a Poisson-distributed number of \emph{exact} (not small-angle) Rutherford encounters at correctly-weighted impact parameters $b\in[b_{90},50b_{90}]$ ($\ln\Lambda=3.91$), and measured $\operatorname{Tr}D$ directly from the resulting velocity-kick statistics of a test particle initially at rest in an isotropic field of speed-$u_0$ scatterers ($\kappa_{\rm int}=m_t=m_f=1$, $u_0=2$, $n_f=0.05$, arbitrary units). Result: $\operatorname{Tr}D_{\rm MC}=2.241\pm0.002$ against the analytic prediction (4) of $2.458$ --- a $9\%$ gap, entirely consistent with the well known fact that the coefficient inside $\ln\Lambda$ is only defined up to $O(1)$ (the precise value of $b_{\min}$ is a convention), so leading-log accuracy at $\ln\Lambda\approx4$ is expected to be good only to $O(1/\ln\Lambda)\approx25\%$. We initially used $b_{\min}=0.01\,b_{90}$ and found the prediction off by a factor of $2.3$; the fix (restoring $b_{\min}=b_{90}$, the standard cutoff, since small-angle theory is invalid below it) resolved this, and we record the mistake for the same reason as Section~3's.
+
+\begin{proposition}[Dynamical friction from the same binary encounters]\label{prop:plasmaA}
+Under the same small-angle, leading-log approximation as Proposition~\ref{prop:plasmaD}, the longitudinal (friction) drift is
+\begin{equation}
+\langle\Delta v_\parallel\rangle/\Delta t = -\frac{4\pi\kappa_{\rm int}^2(m_t+m_f)n_f\ln\Lambda}{m_t^2m_fu^2}, \tag{5}
+\end{equation}
+and consequently
+\begin{equation}
+\frac{\langle\Delta v_\parallel\rangle/\Delta t}{\operatorname{Tr}D}=-\frac{m_t+m_f}{2m_fu}\ \xrightarrow{\ m_t=m_f\ }\ -\frac1u. \tag{6}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+For an encounter at impact parameter $b\gg b_{90}$, the exact elastic parallel kick is $\Delta v_\parallel=\frac{m_f}{m_t+m_f}u(\cos\theta-1)$, small-angle-expanded to $-\frac{m_f}{m_t+m_f}u\theta^2/2=-\frac{2m_f\kappa_{\rm int}^2}{(m_t+m_f)\mu_{\rm red}^2u^3b^2}$. Integrating against the encounter rate $n_fu\cdot2\pi b\,db$ from $b_{90}$ to $b_{\max}$ and simplifying with $\mu_{\rm red}=m_tm_f/(m_t+m_f)$ gives (5); dividing by (4) gives (6), verified symbolically.
+\end{proof}
+
+\subsection*{Numerical Verification}
+Tracking the exact (non-small-angle) parallel component of the same $3\times10^6$-encounter-window simulation as Proposition~\ref{prop:plasmaD} gives $\langle\Delta v_\parallel\rangle/\Delta t=-1.120\pm0.001$ against the analytic prediction (5) of $-1.229$ --- a $9\%$ gap, the same size and same leading-log origin as Proposition~\ref{prop:plasmaD}'s. This calculation caught its own bookkeeping error along the way: an initial version of (5) had the wrong power of $u$ (a stray factor of $1/u$ from mis-simplifying the algebra by hand), giving a value $2\times$ too small; comparing directly against a symbolic recomputation, and against the same Monte Carlo data, caught it immediately, since (6) is a clean closed form and the erroneous version visibly violated it.
+
+\begin{corollary}[Semi-major-axis diffusion under a plasma bath, completed]\label{cor:plasma}
+For equal test/field masses, combining (4)--(6) with Theorem~\ref{thm:ito} (using $\mathbf v\cdot\mathbf A=u\cdot\langle\Delta v_\parallel\rangle/\Delta t=-\operatorname{Tr}D$ for this single-speed-shell model) gives
+\begin{equation}
+\langle\dot T\rangle = \frac{2T^2}{\mu}\big(\operatorname{Tr}D-\operatorname{Tr}D\big)+\frac{8T^3}{\mu^2}\mathbf v^\top D\,\mathbf v = \frac{8T^3}{\mu^2}\mathbf v^\top D\,\mathbf v\ \ge0. \tag{7}
+\end{equation}
+\end{corollary}
+
+\begin{remark}
+Equation (7) says that for a test particle scattering off a monoenergetic (single-speed, not Maxwellian) field of identical particles, the leading friction and diffusion contributions to $\langle\dot T\rangle$ cancel \emph{exactly}, leaving only the strictly positive It\^o/Jensen term --- the same convexity heating identified in Section~3, here isolated with no competing loss term at all. This is a feature of the idealized monoenergetic-shell model, not a general plasma-physics result: a genuine Maxwellian bath at temperature $\Theta$ has a nonzero net drift tying $\langle T\rangle$ to $\Theta$, which requires averaging (4)--(6) over the field's speed distribution rather than evaluating them at a single $u$, and we have not done that here.
+\end{remark}
+
+\begin{remark}
+Unlike the astrophysical case, this bath is directly testable: electron-ion relaxation rates in laboratory and fusion plasmas are routinely measured, so (4)--(6), combined with a proper Maxwellian average, would in principle be checkable against real data rather than only against simulation. We have not made that comparison.
+\end{remark}
+
+\section{Discussion: Why the Correction Is One-Sided}
+
+Table~2 summarizes both results. The It\^o/Jensen correction appears only on the classical side, and the reason is structural rather than accidental: in the quantum dictionary $T$ is \emph{linear} in the additively-conserved quantity the bath actually exchanges, the boson number $N=n_1+n_2$; in the classical regularized picture, the quantity the bath exchanges is energy $h$, and $T=-\mu/(2h)$ is only a \emph{nonlinear} (reciprocal) function of it. It\^o corrections arise exactly where the coordinate of interest is a nonlinear function of the variable actually undergoing additive diffusion --- so the asymmetry between the two bath pictures is a statement about which coordinate is linearly exchanged in each formalism, not a difference in the underlying physics of dissipation and fluctuation.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{3.1cm}p{3.6cm}p{3.6cm}@{}}
+\hline
+& boson bath & gravitational bath & electric (plasma) bath \\
+\hline
+exchanged quantity & $N=n_1+n_2$ (linear in $T$) & $h$ (reciprocal in $T$) & $h$ (reciprocal in $T$) \\
+loss term & $-\kappa T$ & $\frac{2T^2}{\mu}\mathbf v\cdot\mathbf A$ & $-\frac{2T^2}{\mu}\operatorname{Tr}D$ (derived, eq. 6; exactly cancels gain for equal masses) \\
+gain term & $+\kappa(\bar n+\tfrac12)$ & $\frac{2T^2}{\mu}\operatorname{Tr}D$ & $\frac{2T^2}{\mu}\cdot\frac{8\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2u}$ (derived, eq. 4) \\
+extra (Jensen) term & none ($T$ linear) & $\frac{8T^3}{\mu^2}\mathbf v^\top D\mathbf v$ & same term; isolated exactly (eq. 7) for the monoenergetic-shell model \\
+equilibrium & $T_{\rm eq}=\bar n+\tfrac12$ & requires $\mathbf A,D$ balance; not derived & Maxwellian average not done; shell model has no drift term at all \\
+testable directly? & in principle (cavity QED) & no (astrophysical) & yes (lab/fusion plasmas) \\
+\hline
+\end{tabular}
+\end{center}
+\emph{Table 2.}
+
+\section*{AI Assistance Disclosure}
+
+Large language model tools (Anthropic's Claude) were used in the derivation, symbolic and numerical cross-checking, and \LaTeX{} preparation of this note. This includes: numerical verification of Theorem~2.1 against direct master-equation simulation; numerical verification of Proposition~2.2 against exact thermal-state moments; symbolic (Taylor-series) verification of the It\^o expansion underlying Theorem~3.1; the $20{,}000$-trajectory Monte Carlo ensemble verification of Theorem~3.1, including the initial $20\sigma$ discrepancy against an incomplete first version of the formula, its diagnosis as a missing convexity/It\^o term, and confirmation of the corrected formula to $0.09\sigma$; and the $3\times10^6$-trial binary-encounter Monte Carlo verification of Propositions~4.1 and 4.2, including an initial factor-of-$2.3$ discrepancy in the diffusion coefficient (traced to an incorrectly small $b_{\min}$ cutoff) and a separate factor-of-$2$ discrepancy in the friction coefficient (traced to a mis-simplified power of $u$), both caught by comparison against the numerical data and corrected. All mathematical claims were independently verified by the author.
+
+\begin{thebibliography}{9}
+\bibitem{Ebert2026Cone} J.~Ebert, \emph{The Dynamic Slicing Operator on the AM--GM Cone: A Quadric Geometric Framework for Keplerian Orbits and Perturbed Trajectories}, Preprint (2026).
+\bibitem{Ebert2026Clock} J.~Ebert, \emph{Closing the Clock: An Exact Orbital-Phase Equation on the AM--GM Cone}, Preprint (2026).
+\bibitem{Ebert2026Table} J.~Ebert, \emph{The Cutting Plane: Every Line Through the Multiplication Table Is a Conic Section}, Preprint (2026).
+\bibitem{Ebert2026EigenCoord} J.~Ebert, \emph{Every Cut Is an Orbit: Eigen-Coordinates and a Power-Map Companion to the Cutting-Plane Theorem}, Preprint (2026).
+\bibitem{Ebert2026Quantum} J.~Ebert, \emph{Two Oscillators, Two Algebras: SU(2) and SU(1,1) Realizations of the Cone's Symmetry, and the Fate of the Power Map}, Preprint (2026).
+\bibitem{Ebert2026LeviCivita} J.~Ebert, \emph{Straightening the Clock: A Levi-Civita Regularization of the AM--GM Cone's Position Spinor}, Preprint (2026).
+\bibitem{GardinerZoller2004} C.~W.~Gardiner, P.~Zoller, \emph{Quantum Noise}, 3rd ed., Springer, 2004.
+\bibitem{Chandrasekhar1943} S.~Chandrasekhar, Dynamical friction. I. General considerations: the coefficient of dynamical friction, \emph{Astrophys.\ J.} \textbf{97} (1943), 255--262.
+\bibitem{BinneyTremaine2008} J.~Binney, S.~Tremaine, \emph{Galactic Dynamics}, 2nd ed., Princeton Univ.\ Press, 2008.
+\end{thebibliography}
+
+\end{document}
