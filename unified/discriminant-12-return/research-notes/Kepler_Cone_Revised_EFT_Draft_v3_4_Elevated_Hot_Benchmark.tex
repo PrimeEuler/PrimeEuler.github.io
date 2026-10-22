@@ -1,0 +1,1961 @@
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Kep}{\mathrm{Kep}}
+\newcommand{\Rminus}{R_-^2}
+\newcommand{\Rplus}{R_+^2}
+\newcommand{\1}{\mathbf 1}
+
+\title{Regime Transitions on the Kepler Cone:\\
+From the Audited Planar $R_-^2$ Sector to the 3D BPS Open EFT}
+\author{Working Draft}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop an audited open-system effective theory for a bound Kepler orbit
+weakly coupled to a Maxwellian bath.  The analysis separates two stochastic
+models that had previously been conflated.  In the planar constrained-noise
+sector, with oriented angular momentum $\ell_z$, the corrected
+half-covariance It\^o normalization gives a sign-changing secular
+$R_-^2=2T(1-q)$ response and an extreme-eccentricity fold.  This sector is a
+consistent planar model but is not the physical three-dimensional isotropic
+plasma problem.
+
+For an isotropic bath the physical angular momentum is
+$L=|\bm r\times\bm v|$.  Its It\^o curvature changes the leading-log
+generator, and exact hard collisions require the bounded jump-safe shape
+coordinate
+\[
+s:=1-q=1-\frac{L\sqrt{-2h}}{\mu}.
+\]
+In the hot-bath limit $\Theta\to0$, the exact Maxwellian generator reduces
+analytically to
+\[
+\left\langle\mathcal Ls\right\rangle
+=
+\frac{5D_0T}{2\mu q}(3q^2-1),
+\]
+so that
+\[
+q_0=\frac1{\sqrt3},
+\qquad
+e_0=\sqrt{\frac23}.
+\]
+This reproduces both the zero and the absolute drift coefficient of the
+independent high-speed encounter result of Hamilton \& Modak
+\cite{HamiltonModak2024}.  It provides a normalization benchmark for the
+Rosenbluth half-covariance convention, the three-dimensional It\^o curvature,
+the change of variables to $s$, and the Kepler time measure.  Retaining the
+full Maxwellian speed dependence continues this known hot-limit zero into a
+two-parameter drift-zero curve.  The three-dimensional leading-log shape fold is
+\[
+(q_c^{(0)},\Theta_c^{(0)},e_c^{(0)})
+=
+(0.59618619,\;0.32464127,\;0.80284620).
+\]
+We then match the long-distance Balescu--Lenard/BPS Fokker--Planck sector to
+the exact short-distance Rutherford jump process.  For bound-preserving shape
+evolution the matched endpoint is
+\[
+q_c^{\rm bound}
+=
+0.59618619+\frac{0.0111477}{L_{\rm C}}+O(L_{\rm C}^{-2}),
+\qquad
+\Theta_c^{\rm bound}
+=
+0.32464127+\frac{0.12838}{L_{\rm C}}+O(L_{\rm C}^{-2}).
+\]
+For the cemetery-extended killed observable, absorption produces the larger
+endpoint displacement
+\[
+q_c^{\rm kill}
+=
+0.59618619+\frac{0.0683356}{L_{\rm C}}+O(L_{\rm C}^{-2}),
+\qquad
+\Theta_c^{\rm kill}
+=
+0.32464127-\frac{0.474482}{L_{\rm C}}+O(L_{\rm C}^{-2}).
+\]
+The latter is an unconditional killed-moment boundary, not the phase boundary
+of the normalized surviving population.  The resulting EFT is therefore a
+hierarchy: planar cone diffusion, three-dimensional jump-safe shape dynamics,
+and BPS-matched finite jumps with a distinct absorbing channel.
+\end{abstract}
+
+\tableofcontents
+
+\noindent\textbf{Main-result roadmap.}
+The physical three-dimensional calculation has three checkpoints:
+(i) the exact hot-bath match
+$q_0=1/\sqrt3$ to Hamilton--Modak,
+(ii) its finite-temperature continuation to the saddle-node
+$(q_c,\Theta_c)=(0.59618619,0.32464127)$, and
+(iii) the BPS exact-hard-jump correction to that fold.
+The preceding planar cone calculation is retained as the normalization audit
+and constrained-noise precursor.
+
+
+\section{Scope and corrected status}
+
+This note replaces the earlier secular-positivity draft.  The conservative
+Kepler cone geometry, Levi--Civita regularization, It\^o projection from
+$(h,\ell)$ to $(T,Y)$, and Kepler time measure survive the audit.  What changes
+is the microscopic normalization of the transverse bath diffusion and all
+downstream drift formulas that depended on it.
+
+The corrected claims established here are:
+\begin{enumerate}[leftmargin=2em]
+\item the Maxwellian friction shape is unchanged;
+\item the per-direction transverse It\^o diffusion eigenvalue carries an
+additional factor $1/2$ relative to the old cone note;
+\item Proposition~7.1 of \emph{Rest of the Cone} must be replaced as a whole;
+\item pointwise positivity of $\dot R_-^2$ is false;
+\item global secular positivity of $\overline{\dot R_-^2}$ is also false;
+\item the secular sign boundary has a fold endpoint and two asymptotically
+distinct branches.
+\end{enumerate}
+
+Sections 2--13 below first audit the equal-mass \emph{planar
+constrained-noise} problem using the oriented angular-momentum component
+$\ell=\ell_z$.  This is not yet the physical three-dimensional isotropic
+plasma model developed in the later sections.  In the planar sector we choose
+the $Y\ge0$ branch, so that
+\[
+q=Y/T=\sqrt{1-e^2}\ge0.
+\]
+The opposite orientation is related by $Y\mapsto-Y$ and exchanges the roles
+of $R_-^2$ and $R_+^2$.  General mass ratio and full three-dimensional
+$|\bm L|$ dynamics require separate reductions.
+
+\section{Kepler cone and Levi--Civita amplitudes}
+
+Let
+\[
+T=-\frac{\mu}{2h},
+\qquad
+Y=\frac{\ell}{\sqrt{-2h}},
+\qquad
+X^2=T^2-Y^2.
+\]
+Then
+\[
+e=\frac XT,
+\qquad
+q:=\sqrt{1-e^2}=\frac YT,
+\qquad
+T^2=X^2+Y^2.
+\]
+
+The nonnegative spinor amplitudes are
+\[
+\boxed{
+R_\pm^2=2(T\pm Y).
+}
+\]
+In particular,
+\[
+w:=R_-^2=2(T-Y)=2T(1-q).
+\]
+
+The quadratic structure of the cone will reappear near the
+radial/collision edge $q\to0$ at fixed negative energy:
+\[
+1-e=\frac{q^2}{1+e}.
+\]
+This is the degenerate radial ellipse $e\to1$ with
+$h=-\mu/(2T)<0$ fixed; it is not the zero-energy parabolic Kepler orbit.
+and near apoapsis, in the half-angle coordinate
+\[
+u=\tan\frac{E-\pi}{2},
+\]
+one has
+\[
+z-z_{\min}=O(u^2).
+\]
+
+\section{Microscopic diffusion convention}
+
+The velocity SDE is written
+\[
+d\bm v=\bm a(\bm v)\,dt+B\,dW,
+\]
+with
+\[
+\boxed{
+D:=\frac12BB^{\mathsf T}.
+}
+\]
+Hence
+\[
+d v_i\,d v_j=2D_{ij}\,dt.
+\]
+
+For an isotropic bath,
+\[
+D
+=
+D_\parallel\,\hat{\bm v}\hat{\bm v}^{\mathsf T}
++
+D_{\perp,\mathrm{eig}}
+(I-\hat{\bm v}\hat{\bm v}^{\mathsf T}),
+\]
+so
+\[
+\operatorname{Tr}D
+=
+D_\parallel+2D_{\perp,\mathrm{eig}}.
+\]
+
+The convention audit shows that the older bath notes mixed this half-covariance
+tensor with the full Kramers--Moyal variance rate.  The corrected equal-mass
+Maxwellian coefficients, in the Rosenbluth--MacDonald--Judd framework
+\cite{Rosenbluth1957}, are
+\begin{equation}
+\boxed{
+A(v)
+=
+2\mathcal K\frac{\Psi(\chi)}{v^2},
+}
+\end{equation}
+\begin{equation}
+\boxed{
+D_\parallel(v)
+=
+\mathcal K\frac{G(\chi)}{v},
+}
+\end{equation}
+\begin{equation}
+\boxed{
+D_{\perp,\mathrm{eig}}(v)
+=
+\frac{\mathcal K}{2v}
+[\erf(\chi)-G(\chi)],
+}
+\end{equation}
+where
+\[
+\chi=\frac{v}{\sqrt2\sigma},
+\]
+\[
+\Psi(\chi)
+=
+\erf\chi-\frac{2\chi}{\sqrt\pi}e^{-\chi^2},
+\]
+\[
+G(\chi)
+=
+\frac{\Psi(\chi)}{2\chi^2},
+\]
+and
+\[
+\mathcal K
+=
+\frac{4\pi\kappa_{\rm int}^2n_f\ln\Lambda}{m_t^2}.
+\]
+
+The project-local Rutherford encounter calculation gives
+\[
+\frac{d}{dt}
+\langle|\Delta\bm v_\perp|^2\rangle
+=
+\frac{2\mathcal K}{u}
+\]
+in the fast-particle/cold-field limit.  Azimuthal symmetry splits this equally
+between the two transverse covariance eigenvalues, so
+\[
+D_{\perp,\mathrm{eig}}
+\to
+\frac{\mathcal K}{2u},
+\]
+confirming the normalization above without importing external notation.
+
+\section{General-phase It\^o generator}
+
+For the oriented planar angular-momentum component,
+\[
+b_h=-vA+D_\parallel+2D_{\perp,\mathrm{eig}},
+\]
+\[
+b_\ell=-A\frac{\ell}{v},
+\]
+and
+\[
+C_{hh}=2D_\parallel v^2,
+\qquad
+C_{h\ell}=2D_\parallel\ell.
+\]
+
+For
+\[
+T=-\frac{\mu}{2h},
+\]
+\[
+T_h=\frac{2T^2}{\mu},
+\qquad
+T_{hh}=\frac{8T^3}{\mu^2},
+\]
+hence
+\[
+\boxed{
+\mathcal LT
+=
+\frac{2T^2}{\mu}
+(-vA+D_\parallel+2D_\perp)
++
+\frac{8T^3v^2}{\mu^2}D_\parallel.
+}
+\]
+
+For
+\[
+Y=\frac{\ell}{\sqrt{-2h}},
+\]
+\[
+Y_h=\frac{YT}{\mu},
+\quad
+Y_\ell=\frac{Y}{\ell},
+\quad
+Y_{hh}=\frac{3YT^2}{\mu^2},
+\quad
+Y_{h\ell}=\frac{YT}{\mu\ell},
+\quad
+Y_{\ell\ell}=0,
+\]
+so
+\[
+\boxed{
+\frac{\mathcal LY}{Y}
+=
+-A\left(\frac{Tv}{\mu}+\frac1v\right)
++
+D_\parallel
+\left(
+\frac{3T}{\mu}
++
+\frac{3T^2v^2}{\mu^2}
+\right)
++
+2D_{\perp,\mathrm{eig}}\frac{T}{\mu}.
+}
+\]
+
+\section{Corrected cone Wilson functions}
+
+Define
+\[
+z=\frac{Tv^2}{\mu},
+\qquad
+\Theta=\frac{\mu}{2T\sigma^2},
+\qquad
+\chi^2=\Theta z,
+\]
+and
+\[
+\Gamma
+=
+\mathcal K\frac{T^{3/2}}{\mu^{3/2}}.
+\]
+
+Then
+\[
+\mathcal LT=\Gamma T f_T,
+\qquad
+\mathcal LY=\Gamma Y f_Y,
+\]
+with
+\begin{equation}
+\boxed{
+f_T
+=
+\frac{4\sqrt\Theta}{\sqrt\pi}e^{-\Theta z}
++
+4\sqrt z\,(2-\Theta)G(\sqrt{\Theta z}).
+}
+\label{eq:fTcorr}
+\end{equation}
+
+and
+\begin{equation}
+\boxed{
+f_Y
+=
+\frac1{\sqrt z}
+\left[
+\erf(\sqrt{\Theta z})
++
+\{2+3z-4\Theta(z+1)\}
+G(\sqrt{\Theta z})
+\right].
+}
+\label{eq:fYcorr}
+\end{equation}
+
+Because
+\[
+R_-^2=2(T-Y),
+\]
+\[
+\mathcal LR_-^2
+=
+2\Gamma T f_-,
+\qquad
+f_-=f_T-qf_Y.
+\]
+Thus
+\begin{equation}
+\boxed{
+f_-
+=
+\frac{2(2-q)\sqrt\Theta}{\sqrt\pi}e^{-\Theta z}
++
+\frac{G(\sqrt{\Theta z})}{\sqrt z}
+\left[
+z\{8-3q-2(2-q)\Theta\}
++
+2q(2\Theta-1)
+\right].
+}
+\label{eq:fminuscorr}
+\end{equation}
+
+\section{Direct $w(h,\ell)$ reconstruction}
+
+A completely independent route begins from
+\[
+w(h,\ell)
+=
+-\frac{\mu}{h}
+-\frac{\sqrt2\,\ell}{\sqrt{-h}}.
+\]
+Direct differentiation gives
+\[
+w_h=\frac{2T(2T-Y)}{\mu},
+\qquad
+w_\ell=-2\sqrt{\frac{T}{\mu}},
+\]
+\[
+w_{hh}
+=
+\frac{T^2(16T-6Y)}{\mu^2},
+\]
+\[
+w_{h\ell}
+=
+-\frac{2T^{3/2}}{\mu^{3/2}},
+\qquad
+w_{\ell\ell}=0.
+\]
+
+Substitution into the It\^o generator yields
+\begin{equation}
+\boxed{
+\begin{aligned}
+\frac{\mathcal Lw}{\mathcal K}
+={}&
+\frac{4T(2T-Y)}
+{\sqrt\pi\,\mu v}
+\chi e^{-\chi^2}
+\\
+&+
+\Psi(\chi)
+\left[
+\frac{8T^3v}{\chi^2\mu^2}
+-\frac{3T^2Yv}{\chi^2\mu^2}
+-\frac{4T^2}{\mu v}
++\frac{2TY}{\mu v}
+-\frac{2TY}{\chi^2\mu v}
++\frac{4Y}{v^3}
+\right].
+\end{aligned}
+}
+\label{eq:wcorrected}
+\end{equation}
+
+Equation \eqref{eq:wcorrected} reduces identically to
+\eqref{eq:fminuscorr}.  This replaces Proposition~7.1 of the earlier cone
+note.  The coefficient $4T(2T-Y)$ is retained, but the entire
+$\Psi$ bracket changes.
+
+\section{Kepler secular measure}
+
+At leading adiabatic order,
+\[
+\varepsilon_{\rm bath}
+=
+\frac{P}{\tau_{\rm bath}}\ll1,
+\]
+so the osculating orbit is frozen over one Kepler period.
+
+Using eccentric anomaly $E$,
+\[
+r=T(1-e\cos E),
+\]
+\[
+z(E)
+=
+\frac{1+e\cos E}{1-e\cos E},
+\]
+and
+\[
+\boxed{
+d\mu_e
+=
+\frac{1-e\cos E}{2\pi}\,dE.
+}
+\]
+
+The exact identity
+\[
+z\,d\mu_e
+=
+\frac{1+e\cos E}{2\pi}\,dE
+\]
+implies
+\[
+\boxed{
+\langle z\rangle_{\Kep}=1.
+}
+\]
+
+The corrected secular coefficient is
+\begin{equation}
+\boxed{
+F_-(q,\Theta)
+=
+\int f_-(z(E),q,\Theta)\,d\mu_e(E).
+}
+\label{eq:Fminus}
+\end{equation}
+
+\subsection{Analytic hot-bath check}
+
+Using
+\[
+G(x)=\frac{2x}{3\sqrt\pi}+O(x^3),
+\qquad
+e^{-\Theta z}=1+O(\Theta),
+\]
+equation \eqref{eq:fminuscorr} gives
+\[
+f_-
+=
+\frac{2\sqrt\Theta}{3\sqrt\pi}
+\left[
+6-5q+(8-3q)z
+\right]
++
+O(\Theta^{3/2}).
+\]
+Since \(\langle z\rangle_{\Kep}=1\),
+\begin{equation}
+\boxed{
+F_-(q,\Theta)
+=
+\frac{4(7-4q)}{3\sqrt\pi}\sqrt\Theta
++
+O(\Theta^{3/2})
+>0
+}
+\qquad
+(\Theta\to0^+).
+\label{eq:hotsecular}
+\end{equation}
+Thus secular growth in the sufficiently hot-bath regime is analytic, not
+merely numerical.
+
+\section{Pointwise sign transition}
+
+At fixed physical phase,
+\[
+G(\sqrt{\Theta z})
+\sim
+\frac{1}{2\Theta z}
+\]
+as
+\[
+\Theta\to\infty.
+\]
+Equation \eqref{eq:fminuscorr} therefore gives
+\begin{equation}
+\boxed{
+f_-
+\longrightarrow
+\frac{2q-(2-q)z}{z^{3/2}}.
+}
+\label{eq:pointwisecold}
+\end{equation}
+
+Hence sufficiently cold baths produce negative local drift whenever
+\[
+\boxed{
+z>\frac{2q}{2-q}.
+}
+\]
+
+The first physical orbit for which this can happen is obtained by setting
+\[
+z_p=\frac{1+e}{1-e}
+=
+\frac{2q}{2-q}.
+\]
+The physical solution is
+\[
+q_{\rm pt}
+=
+0.9559344860\ldots,
+\]
+or
+\begin{equation}
+\boxed{
+e_{\rm pt}
+=
+0.2935800716\ldots.
+}
+\end{equation}
+
+Thus local sign reversal begins already at moderate eccentricity, near
+periapsis.
+
+\section{Secular fold and negative band}
+
+Numerical continuation of the secular zero set
+\[
+F_-(q,\Theta)=0
+\]
+finds a fold at
+\begin{equation}
+\boxed{
+q_c
+=
+0.00929307\ldots,
+}
+\end{equation}
+\begin{equation}
+\boxed{
+\Theta_c
+=
+54.2694\ldots,
+}
+\end{equation}
+or
+\begin{equation}
+\boxed{
+e_c
+=
+0.99995682\ldots.
+}
+\end{equation}
+
+At the fold,
+\[
+F_-(q_c,\Theta_c)=0,
+\qquad
+F_\Theta(q_c,\Theta_c)=0,
+\]
+with
+\[
+F_q
+=
+127.527\ldots>0,
+\]
+and
+\[
+F_{\Theta\Theta}
+=
+4.17398\times10^{-4}>0.
+\]
+
+These nonzero numerical derivatives are the standard nondegeneracy
+signature of a saddle-node/fold.  The numerical continuation finds no other
+secular zero for
+\[
+q>q_c,
+\]
+over the scanned domain.  For
+\[
+0<q<q_c,
+\]
+two roots
+\[
+\Theta_-(q)<\Theta_+(q)
+\]
+appear, and
+\begin{equation}
+\boxed{
+F_-<0
+\qquad
+\Theta_-(q)<\Theta<\Theta_+(q).
+}
+\label{eq:negativeband}
+\end{equation}
+
+Near the fold,
+\[
+\delta=q_c-q,
+\]
+and
+\begin{equation}
+\boxed{
+\Theta_\pm
+=
+\Theta_c
+\pm
+781.701\sqrt{\delta}
++
+9.530\times10^3\,\delta
++
+O(\delta^{3/2}).
+}
+\label{eq:foldbranches}
+\end{equation}
+
+In eccentricity variables,
+\[
+\boxed{
+\Theta_\pm(e)
+=
+\Theta_c
+\pm
+8108.71\sqrt{e-e_c}
++
+O(e-e_c).
+}
+\]
+
+\section{Lower asymptote: finite-temperature radial-edge boundary}
+
+As
+\[
+q\to0
+\]
+at fixed finite $\Theta$, introduce
+\[
+y=\sqrt{\Theta z}.
+\]
+The limiting Kepler measure is
+\[
+d\mu_{0,\Theta}
+=
+\frac{4}{\pi\sqrt\Theta}
+\frac{dy}{(1+y^2/\Theta)^2}.
+\]
+
+At $q=0$, the corrected local coefficient becomes
+\[
+f_-^{\rm par}
+=
+\frac{4\sqrt\Theta}{\sqrt\pi}e^{-y^2}
++
+\frac{4(2-\Theta)y}{\sqrt\Theta}G(y).
+\]
+
+Hence
+\begin{equation}
+\boxed{
+F_{\rm par}(\Theta)
+=
+\frac{16}{\pi}
+\int_0^\infty
+\frac{
+\dfrac{e^{-y^2}}{\sqrt\pi}
++
+\dfrac{2-\Theta}{\Theta}yG(y)
+}{
+(1+y^2/\Theta)^2
+}\,dy.
+}
+\label{eq:Fpar}
+\end{equation}
+
+High-precision quadrature gives a positive zero at
+\begin{equation}
+\boxed{
+\Theta_-^{(0)}
+=
+20.4956600\ldots.
+}
+\end{equation}
+
+A scan over positive \(\Theta\) finds no additional radial-edge zero.  The
+small-\(q\) numerical roots are consistent with the expansion
+\begin{equation}
+\boxed{
+\Theta_-(q)
+=
+20.4956600
++
+781.986\,q
++
+o(q).
+}
+\label{eq:lowerbranch}
+\end{equation}
+The constant term is therefore an exact one-dimensional root problem, while
+the displayed linear coefficient is presently a numerical asymptotic
+coefficient rather than an analytic theorem.
+
+Thus the entrance into the negative secular band is controlled by a
+finite-temperature radial-edge instability.
+
+\section{Upper asymptote: correlated cold/radial-edge boundary}
+
+Set
+\[
+s=q\Theta,
+\qquad
+L=\ln\frac1q.
+\]
+For fixed $s>0$,
+\begin{equation}
+\boxed{
+F_-(q,s/q)
+=
+-\frac4\pi L
++
+H(s)
++
+o(1).
+}
+\label{eq:fixeds}
+\end{equation}
+
+The negative logarithm comes from the overlap
+\[
+\sqrt q\ll u\ll1,
+\]
+where
+\[
+f_-\,d\mu
+\sim
+-\frac8\pi\frac{du}{u}.
+\]
+
+The leading negative logarithm in \eqref{eq:fixeds} follows analytically
+from the overlap region.  Numerical extraction of the finite part, together
+with the large-\(s\) matched form, gives
+\begin{equation}
+\boxed{
+H(s)
+=
+\frac8\pi s
+-
+\frac4\pi\ln s
++
+C
++
+o(1),
+}
+\end{equation}
+with
+\[
+C
+=
+3.86618\ldots.
+\]
+The coefficients of this large-\(s\) finite-part form have been checked
+numerically over increasing \(s\), but a full written matched-asymptotic
+derivation should be supplied before treating the constant term as a theorem.
+
+The upper root therefore obeys
+\[
+2s-\ln s
+=
+L-C_*+o(1),
+\qquad
+C_*=\frac{\pi C}{4}=3.03649\ldots.
+\]
+Hence
+\begin{equation}
+\boxed{
+s_+(q)
+=
+\frac12\ln\frac1q
++
+\frac12\ln\ln\frac1q
+-
+1.86482
++
+o(1),
+}
+\end{equation}
+and
+\begin{equation}
+\boxed{
+\Theta_+(q)
+=
+\frac1q
+\left[
+\frac12\ln\frac1q
++
+\frac12\ln\ln\frac1q
+-
+1.86482
++
+o(1)
+\right].
+}
+\label{eq:upperbranch}
+\end{equation}
+
+Thus the upper boundary belongs to a distinct cold/radial-edge scaling sector.
+
+\section{Complete corrected phase diagram}
+
+The local and secular transitions are parametrically distinct.
+
+Pointwise:
+\[
+e<0.29358007
+\quad\Rightarrow\quad
+\text{no asymptotic cold negative phase},
+\]
+while
+\[
+e>0.29358007
+\quad\Rightarrow\quad
+\text{some sufficiently fast phases have }f_-<0.
+\]
+
+Secular numerical continuation:
+\[
+e<0.99995682
+\quad\Rightarrow\quad
+F_->0
+\quad\text{over the scanned domain},
+\]
+while
+\[
+e>0.99995682
+\]
+opens the negative band
+\[
+\Theta_-(e)<\Theta<\Theta_+(e).
+\]
+
+At extreme eccentricity,
+\begin{equation}
+\boxed{
+20.49566+781.986\,q+o(q)
+<
+\Theta
+<
+\frac1q
+\left[
+\frac12\ln\frac1q
++
+\frac12\ln\ln\frac1q
+-
+1.86482+\cdots
+\right].
+}
+\end{equation}
+
+The corrected secular phase structure is therefore
+\[
+\boxed{
+\text{hot bath: }R_-^2\text{ grows},
+}
+\]
+\[
+\boxed{
+\text{extreme-eccentricity intermediate/cold band: }R_-^2\text{ shrinks},
+}
+\]
+\[
+\boxed{
+\text{ultra-cold at fixed }q>0:\ \text{numerically }R_-^2\text{ grows again}.
+}
+\]
+
+\section{Numerical status and reproducibility}
+
+The algebraic formulas through \eqref{eq:Fminus}, the pointwise cold limit,
+and the hot-bath secular expansion are analytic.  The detailed secular phase
+boundary is presently numerical/matched-asymptotic.
+
+For ordinary eccentricities the integral \eqref{eq:Fminus} was evaluated in
+eccentric anomaly.  Near the parabolic edge an independent half-angle
+coordinate
+\[
+u=\tan\frac{E-\pi}{2}
+\]
+was used, with
+\[
+z=
+\frac{(1-e)+(1+e)u^2}
+{(1+e)+(1-e)u^2}
+\]
+and the exact symmetric time density
+\[
+d\mu_e
+=
+\frac{2}{\pi}
+\frac{(1+e)+(1-e)u^2}{(1+u^2)^2}\,du.
+\]
+The two quadratures agree in their common region.
+
+The fold was obtained from the simultaneous numerical equations
+\[
+F_-(q,\Theta)=0,
+\qquad
+\partial_\Theta F_-(q,\Theta)=0.
+\]
+The leading fold coefficient
+\[
+C_q=\sqrt{\frac{2F_q}{F_{\Theta\Theta}}}
+\simeq781.701
+\]
+is stable under changes of finite-difference step and quadrature coordinate.
+The next common branch-shift coefficient is less well conditioned numerically;
+the quoted \(9.53\times10^3\) should be regarded as a working value, not a
+validated constant.
+
+Likewise, the parabolic threshold
+\[
+\Theta_-^{(0)}=20.4956600\ldots
+\]
+is the numerical root of the explicit one-dimensional integral
+\eqref{eq:Fpar}.  The upper finite-part constant \(C\simeq3.86618\) is
+numerically stable, but the complete written large-\(s\) matched derivation
+remains to be supplied.
+
+Accordingly, no digit in the phase-boundary constants should presently be
+interpreted as an interval-certified error bound.
+
+\section{EFT interpretation}
+
+The natural reduced object is not a globally positive coupling but the
+sign-changing secular response function
+\[
+F_-(q,\Theta).
+\]
+We use ``Wilson function'' below only in the provisional EFT sense: a full
+Wilson-coefficient interpretation requires an explicit operator basis,
+power counting, and matching prescription beyond leading logarithmic order.
+
+Near the fold, the reduced normal form is
+\[
+F_-
+\simeq
+127.527\,(q-q_c)
++
+2.08699\times10^{-4}
+(\Theta-\Theta_c)^2.
+\]
+Thus the natural local scaling variable is
+\[
+\boxed{
+\Xi
+=
+\frac{\Theta-\Theta_c}{\sqrt{q_c-q}}.
+}
+\]
+
+The lower and upper boundaries are controlled by two different asymptotic
+charts:
+\[
+\text{finite-}\Theta\text{ radial-edge chart}
+\quad\longrightarrow\quad
+\Theta_-^{(0)},
+\]
+and
+\[
+\text{correlated cold/radial-edge chart}
+\quad\longrightarrow\quad
+\Theta_+(q).
+\]
+
+This is a more genuine effective-theory structure than the discarded
+monotonicity theorem.  Coarse graining does not produce a universal sign;
+instead it reveals a regime transition that is invisible in the conservative
+cone alone.
+
+\section{Relation to previous work}
+\label{sec:related-work}
+
+The ingredients entering the present calculation have substantial precedents
+in both stellar dynamics and plasma kinetic theory.  Our contribution is not
+a new formulation of orbit-averaged relaxation, a new set of Rosenbluth
+coefficients, or a new hard--soft matching scheme.  Rather, it is the
+combination of these ingredients for a particular bounded Kepler shape
+observable, together with the resulting finite-temperature drift topology and
+its finite-hard-collision correction.  We summarize the closest points of
+contact here.
+
+\paragraph{Orbit-averaged relaxation in Kepler potentials.}
+Two-dimensional Fokker--Planck descriptions in energy and angular momentum
+are classical in stellar dynamics.  In particular, Cohn \& Kulsrud \cite{CohnKulsrud1978} developed
+an orbit-averaged treatment in energy--angular-momentum space for stars around
+a massive black hole, including angular-momentum diffusion and a loss-cone
+boundary.  Subsequent non-resonant-relaxation calculations retain the same
+basic structure: local velocity-space diffusion coefficients are transformed
+to energy and angular momentum and then averaged along Keplerian orbits.
+Modern work on galactic nuclei commonly uses the normalized angular momentum
+\[
+j=\frac{J}{J_c(E)}=\sqrt{1-e^2}
+\]
+as the eccentricity coordinate.  Consequently, neither orbit averaging in
+$(E,J)$ nor the use of $J/J_c$ is new here.  The bounded variable
+\[
+s=1-j
+\]
+is chosen because it is convenient for the present drift-sign problem and,
+unlike the unbounded cone amplitude $R_-^2$, remains admissible when exact
+finite jumps approach the bound--unbound separatrix.
+
+\paragraph{A known high-speed eccentricity-drift reversal.}
+The closest direct predecessor to our leading-log drift calculation is the
+recent wide-binary analysis of Hamilton \& Modak \cite{HamiltonModak2024}.  For weak, isotropic,
+impulsive, penetrative encounters they derive a Fokker--Planck equation in
+semimajor axis and squared eccentricity,
+\[
+\varepsilon=e^2,
+\]
+with first and second moments of the form
+\[
+A_\varepsilon=C(1-2\varepsilon),
+\qquad
+D_\varepsilon=2C\,\varepsilon(1-\varepsilon),
+\]
+for an encounter-dependent positive coefficient $C$.  Thus their
+single-orbit eccentricity drift already reverses sign at
+$\varepsilon=1/2$.  Applying It\^o's formula to
+$s=1-\sqrt{1-\varepsilon}$ gives
+\[
+A_s
+=
+\frac{C}{4q}(3q^2-1),
+\qquad
+q=\sqrt{1-e^2},
+\]
+and therefore the corresponding zero
+\[
+q=\frac{1}{\sqrt3},
+\qquad
+e=\sqrt{\frac23}.
+\]
+Accordingly, an orbit-averaged eccentricity-drift reversal under isotropic
+encounters is not itself a new result.
+
+The distinction relevant here is the velocity regime.  Hamilton \& Modak
+work in the impulsive high-field-star-speed limit in which the encounter
+variance becomes independent of binary orbital phase.  The present
+calculation retains the full speed dependence of the Maxwellian
+Rosenbluth tensor.  In our variables this promotes the high-speed drift zero
+to a two-parameter condition
+\[
+F_s(q,\Theta)=0.
+\]
+We find that the resulting zero set terminates at the finite-temperature
+saddle-node
+\[
+(q_c,\Theta_c)
+=
+(0.59618619,\;0.32464127).
+\]
+To our knowledge, this finite-temperature continuation and its saddle-node
+endpoint have not previously been reported.
+
+\paragraph{Resonant and non-resonant relaxation.}
+The galactic-nucleus literature also studies diffusion of
+$j=\sqrt{1-e^2}$ by resonant and non-resonant relaxation.  These works are
+important conceptual neighbors but should be distinguished from the present
+model.  Resonant relaxation is driven by coherent torques between
+orbit-averaged Keplerian wires, whereas the bath considered here produces
+local two-body velocity scattering.  Non-resonant relaxation is closer:
+modern calculations construct local velocity kicks, transform them to
+$(E,J)$, and orbit-average them along the Keplerian wire.  Our leading-log
+calculation belongs to this latter Chandrasekhar--Rosenbluth family, but
+specializes to a homogeneous Maxwellian bath and asks a different question:
+the sign topology of the first moment of the bounded shape $s$ as the ratio
+of orbital to bath thermal speeds is varied.
+
+\paragraph{Boltzmann descriptions and finite jumps.}
+Finite-jump descriptions of perturbed Kepler orbits also have precedents.
+For example, Collins \& Sari \cite{CollinsSari2008} formulate a Boltzmann equation for almost
+circular binaries undergoing impulsive encounters and show that eccentricity
+and inclination can undergo L\'evy-flight evolution.  Hence the use of a
+Boltzmann collision operator, or the observation that finite encounters
+contain information beyond a second-order Fokker--Planck truncation, is not
+new.
+
+Our hard-collision calculation differs in two respects.  First, the observable
+is the bounded shape $s=1-J/J_c(E)$ over the full eccentricity range rather
+than a near-circular eccentricity vector.  Second, the hard operator is not
+introduced as an independent phenomenological model: it is used to replace
+the short-distance Fokker--Planck surrogate inside a controlled weak-coupling
+matching calculation.
+
+\paragraph{Balescu--Lenard and BPS matching.}
+Collective kinetic theories based on Balescu--Lenard equations
+\cite{Lenard1960,Balescu1960} are well established in both plasma and stellar dynamics, including secular
+Balescu--Lenard descriptions of quasi-Keplerian stellar systems
+\cite{FouvryPichonMagorrian2017}.  These
+self-gravitating theories describe resonant action-space diffusion generated
+by the fluctuating stellar system itself and are physically distinct from
+the homogeneous plasma bath considered here.
+
+For the plasma problem, Brown, Preston \& Singleton (BPS) \cite{BPS2005} provide the
+relevant controlled weak-coupling matching.  Their calculation combines the
+short-distance Boltzmann sector with the long-distance collective sector and
+determines finite next-to-leading-order transport coefficients without an
+arbitrary collision cutoff.  BPS also construct the corresponding
+Fokker--Planck description.  We therefore do not regard either the
+hard--soft matching method or the BPS transport coefficients as new.
+
+The new step in the present work is the observable-level projection of this
+matched kinetic theory onto the Kepler shape drift.  Schematically, we use
+\[
+H_s^{\rm matched}
+=
+H_{\rm BPS\!-\!FP}^{\rm full}
++
+\left(
+H_{\rm hard}^{\rm exact}[s]
+-
+H_{\rm hard}^{\rm BPS\!-\!FP}[s]
+\right),
+\]
+so that the Fokker--Planck representation of the hard sector is replaced,
+rather than double counted, by the exact Rutherford jump generator acting on
+$s$.  At the leading-log fold the finite reconstructed-FP contribution and
+the exact hard residual have opposite signs.  The latter is large enough to
+reverse the direction of the NLO fold displacement predicted by the
+reconstructed Fokker--Planck operator alone.  We have not located a previous
+BPS calculation projected onto a Kepler orbital-shape drift, or a previous
+calculation of this hard-jump displacement of a finite-temperature Kepler
+drift fold.
+
+\paragraph{Scope of the novelty claim.}
+The drift zero studied here is an observable-dependent It\^o quantity and
+should not be interpreted as a coordinate-invariant thermodynamic phase
+transition.  We therefore refer to it as a \emph{secular drift-sign fold} or
+\emph{stochastic shape-regime boundary}.  The literature comparison above
+also narrows the priority claim: eccentricity-drift reversal, normalized
+angular-momentum variables, Kepler orbit averaging, finite-jump Boltzmann
+dynamics, and BPS matching all have established precedents.  The results for
+which we find no direct predecessor are (i) the continuation of the
+high-speed isotropic-encounter drift zero through the full
+velocity-dependent Maxwellian Rosenbluth problem to a finite-temperature
+saddle-node, and (ii) the observable-level BPS hard-jump correction to that
+fold, including the reversal of the NLO shift relative to the reconstructed
+Fokker--Planck prediction.  We state these priority claims with the
+qualification ``to our knowledge.''
+
+
+The comparison above fixes the interpretation of the calculation that follows.
+Before presenting the finite-temperature fold, we first establish an exact
+analytic literature benchmark: the full three-dimensional Maxwellian
+generator reduces in the hot-bath limit to the Hamilton--Modak drift not only
+in its zero but in its absolute coefficient.  The finite-temperature
+saddle-node and its observable-level BPS hard-jump displacement are then the
+candidate new results.
+
+
+
+\section{Main analytic benchmark: exact hot-bath match}
+\label{sec:hot-bath-benchmark}
+
+The closest literature benchmark admits an exact analytic match.  Consider
+the hot-bath limit
+\[
+\Theta=\frac{\mu}{2T\sigma^2}\longrightarrow0
+\]
+at fixed Kepler orbit.  Then $\chi=v/(\sqrt2\sigma)\to0$ everywhere along
+the orbit.  The Maxwellian Rosenbluth functions have the expansions
+\[
+\Psi(\chi)
+=
+\frac{4}{3\sqrt\pi}\chi^3+O(\chi^5),
+\qquad
+G(\chi)
+=
+\frac{2}{3\sqrt\pi}\chi+O(\chi^3).
+\]
+Consequently,
+\[
+D_\parallel
+=
+D_0+O(\sigma^{-3}v^2),
+\qquad
+D_{\perp,\mathrm{eig}}
+=
+D_0+O(\sigma^{-3}v^2),
+\]
+where
+\[
+\boxed{
+D_0
+=
+\frac{2\mathcal K}{3\sqrt{2\pi}\,\sigma}.
+}
+\]
+The friction is parametrically smaller,
+\[
+A(v)=O\!\left(\frac{\mathcal K v}{\sigma^3}\right),
+\]
+so at leading order the local velocity process is simply isotropic additive
+diffusion,
+\[
+d v_i\,d v_j=2D_0\delta_{ij}\,dt.
+\]
+This is precisely the phase-independent kick limit relevant to the
+penetrative high-speed encounter calculation of Hamilton \& Modak
+\cite{HamiltonModak2024}.
+
+The match can be performed directly in the present variables.  Let
+\[
+h=\frac{v^2}{2}-\frac{\mu}{r},
+\qquad
+L=|\bm r\times\bm v|,
+\qquad
+q=\frac{L\sqrt{-2h}}{\mu},
+\qquad
+s=1-q.
+\]
+For constant isotropic diffusion $D_0$, the local It\^o coefficients are
+\[
+\mathcal L h=3D_0,
+\qquad
+\mathcal L L=D_0\frac{r^2}{L},
+\]
+and
+\[
+C_{hh}=2D_0v^2,
+\qquad
+C_{hL}=2D_0L.
+\]
+The required derivatives of $s(h,L)$ are
+\[
+s_h=-\frac{q}{2h},
+\qquad
+s_L=-\frac{q}{L},
+\qquad
+s_{hh}=\frac{q}{4h^2},
+\qquad
+s_{hL}=-\frac{q}{2hL},
+\qquad
+s_{LL}=0.
+\]
+Therefore
+\[
+\mathcal Ls
+=
+qD_0
+\left[
+-\frac{5}{2h}
+-\frac{r^2}{L^2}
++\frac{v^2}{4h^2}
+\right].
+\]
+
+For a Kepler ellipse of semimajor axis $T$,
+\[
+h=-\frac{\mu}{2T},
+\qquad
+L^2=\mu Tq^2,
+\]
+and the exact time averages are
+\[
+\langle v^2\rangle=\frac{\mu}{T},
+\qquad
+\langle r^2\rangle
+=
+T^2\left(1+\frac32e^2\right)
+=
+\frac{T^2}{2}(5-3q^2).
+\]
+It follows immediately that
+\[
+\boxed{
+\left\langle\mathcal Ls\right\rangle
+=
+\frac{5D_0T}{2\mu q}(3q^2-1).
+}
+\]
+Thus the hot-bath zero is
+\[
+\boxed{
+q_0=\frac1{\sqrt3},
+\qquad
+e_0=\sqrt{\frac23}.
+}
+\]
+
+This agrees exactly with the independent wide-binary result.  Hamilton \&
+Modak write $\varepsilon=e^2$ and obtain
+\cite{HamiltonModak2024}
+\[
+A_\varepsilon=C(1-2\varepsilon),
+\qquad
+D_\varepsilon=2C\varepsilon(1-\varepsilon).
+\]
+Applying It\^o's formula to
+$s=1-\sqrt{1-\varepsilon}$ gives
+\[
+A_s=\frac{C}{4q}(3q^2-1).
+\]
+In our isotropic hot limit,
+\[
+\frac{\langle|\Delta\bm v|^2\rangle}{\Delta t}=6D_0.
+\]
+Their coefficient
+\[
+C
+=
+\frac{5T}{3\mu}
+\frac{\langle|\Delta\bm v|^2\rangle}{\Delta t}
+\]
+therefore becomes
+\[
+C=\frac{10D_0T}{\mu},
+\]
+and hence
+\[
+\frac{C}{4q}(3q^2-1)
+=
+\frac{5D_0T}{2\mu q}(3q^2-1),
+\]
+identically equal to the result above.
+
+This is a nontrivial normalization benchmark: the Rosenbluth
+half-covariance convention, the three-dimensional It\^o curvature of $L$,
+the transformation to $s=1-J/J_c(E)$, and the Kepler time measure all combine
+to reproduce an independently derived encounter-theory result, including its
+absolute coefficient once the kick-variance conventions are identified.
+
+The finite-temperature calculation can therefore be viewed as the controlled
+continuation
+\[
+q_0=\frac1{\sqrt3}
+\quad\longrightarrow\quad
+F_s(q,\Theta)=0,
+\]
+whose zero set terminates at
+\[
+(q_c,\Theta_c)=(0.59618619,0.32464127).
+\]
+
+
+\section{Three-dimensional jump-safe completion}
+
+The preceding sections establish the audited \emph{planar} $R_-^2$ sector.
+That sector remains a valid constrained-noise model, but it is not by itself
+the physical BPS plasma problem: an isotropic three-dimensional collision
+changes the orbital plane.  The exact jump theory therefore requires
+\[
+L=|\bm r\times\bm v|
+\]
+rather than an oriented planar component $\ell$.
+
+The globally admissible shape coordinate is
+\[
+\boxed{
+s:=1-q
+=
+1-\frac{L\sqrt{-2h}}{\mu},
+\qquad 0\le s\le1.
+}
+\]
+It is related to the planar cone amplitude by $R_-^2=2Ts$ before plane
+tilting, but unlike $R_-^2$ it remains bounded at the Kepler separatrix
+$h\to0^-$.  This distinction matters only when finite hard jumps are retained:
+the exact hard generator of $R_-^2$ diverges logarithmically from the bound
+side of $h'=0$, whereas the exact hard generator of $s$ is finite.
+
+For the three-dimensional isotropic diffusion tensor the angular-momentum
+magnitude has the It\^o curvature
+\[
+\frac{\partial^2 L}{\partial v_z^2}=\frac{r^2}{L}
+\]
+at a planar state, and hence
+\[
+\mathcal L L
+=
+-\frac{A L}{v}
++
+D_\perp\frac{r^2}{L}.
+\]
+This term is absent for the linear oriented component $\ell_z$.  It changes
+the leading-log secular theory before any NLO matching is performed.
+
+The resulting jump-safe leading-log fold is
+\[
+\boxed{
+q_c^{(0)}=0.59618619,
+\qquad
+\Theta_c^{(0)}=0.32464127,
+\qquad
+e_c^{(0)}=0.80284620.
+}
+\]
+The local fold derivatives are
+\[
+F_q=2.89734555,
+\qquad
+F_{q\Theta}=3.80451347,
+\qquad
+F_{\Theta\Theta}=0.58826836.
+\]
+
+Thus the extreme-eccentricity planar $R_-^2$ fold derived above and the
+three-dimensional $s$ fold are not competing numerical estimates of the same
+quantity.  They belong to different stochastic models and different
+observable domains.
+
+\section{Full BPS matching for the bound-survivor shape fold}
+
+Write the secular generator as
+\[
+\dot s
+=
+\mathcal K_0
+\left[
+L_{\rm C}F_s(q,\Theta)
++
+H_s^{\rm BPS}(q,\Theta)
++
+O(L_{\rm C}^{-1})
+\right],
+\]
+where $L_{\rm C}$ denotes the large Coulomb logarithm.
+
+At the three-dimensional LL fold the finite BPS reconstructed-FP term is
+\[
+H_{\rm FP}=+0.04519133,
+\qquad
+\partial_\Theta H_{\rm FP}=-0.02890912.
+\]
+Replacing the hard FP sector by the exact importance-sampled Rutherford jump
+gives, for the bound-preserving process,
+\[
+H_{\rm hard}=-0.07750043,
+\qquad
+\partial_\Theta H_{\rm hard}=-0.08808845.
+\]
+Here $H_{\rm hard}$ is a \emph{residual},
+\[
+H_{\rm hard}
+=
+H_{\rm hard}^{\rm exact,bound}
+-
+H_{\rm hard}^{\rm BPS\!-\!FP},
+\]
+not an additional hard contribution.  Thus the bookkeeping is
+\[
+\boxed{
+H_{\rm FP}^{\rm full}+H_{\rm hard}
+=
+H_{\rm soft}^{\rm BPS\!-\!FP}
++
+H_{\rm hard}^{\rm exact,bound},
+}
+\]
+so the hard sector is replaced rather than double counted.  In the
+importance-sampled implementation, escaping hard events have zero exact
+bound-preserving increment but their local FP surrogate is still subtracted;
+this is precisely the subtraction required by the equation above.
+
+The quoted hard derivative is numerical.  Its sampling uncertainty dominates
+the uncertainty of the $\Theta$-shift and should not be interpreted as an
+interval-certified value.
+
+Therefore
+\[
+\boxed{
+H_{\rm BPS}^{\rm bound}
+=
+-0.03230910,
+}
+\qquad
+\boxed{
+\partial_\Theta H_{\rm BPS}^{\rm bound}
+=
+-0.11699757.
+}
+\]
+
+Let
+\[
+q_c=q_c^{(0)}+\frac{q_c^{(1)}}{L_{\rm C}}+\cdots,
+\qquad
+\Theta_c=\Theta_c^{(0)}+\frac{\Theta_c^{(1)}}{L_{\rm C}}+\cdots.
+\]
+The fold equations imply
+\[
+q_c^{(1)}=-\frac{H_c}{F_q},
+\qquad
+\Theta_c^{(1)}
+=
+-\frac{F_{q\Theta}q_c^{(1)}+H_\Theta}{F_{\Theta\Theta}}.
+\]
+Hence the full bound-survivor BPS fold is
+\[
+\boxed{
+q_c^{\rm bound}(L_{\rm C})
+=
+0.59618619+\frac{0.0111477}{L_{\rm C}}+O(L_{\rm C}^{-2}),
+}
+\]
+\[
+\boxed{
+\Theta_c^{\rm bound}(L_{\rm C})
+=
+0.32464127+\frac{0.12838}{L_{\rm C}}+O(L_{\rm C}^{-2}),
+}
+\]
+and
+\[
+\boxed{
+e_c^{\rm bound}(L_{\rm C})
+=
+0.80284620-\frac{0.0082782}{L_{\rm C}}+O(L_{\rm C}^{-2}).
+}
+\]
+
+The sign is nontrivial.  The reconstructed-FP finite term alone shifts the
+fold toward smaller $q$, but the exact finite hard jumps overcompensate that
+motion and leave a smaller net shift toward larger $q$.
+
+\section{Cemetery-weighted killed-moment endpoint}
+
+For an absorbing population, an unbound hard jump is assigned the cemetery
+value $s'=0$.  At the LL $s$ fold the exact hard escape hazard is
+\[
+\frac{\lambda_{\rm esc}}{\mathcal K_0}
+=
+0.41027\pm0.00088
+\]
+in the present importance-sampled normalization.  Because
+\[
+s_c=1-q_c^{(0)}=0.40381381,
+\]
+the absorbing sink is of order
+\[
+-\lambda_{\rm esc}s_c\simeq-0.1657\,\mathcal K_0.
+\]
+
+The importance-sampled killed hard residual at the fold is
+\[
+H_{\rm hard}^{\rm kill}
+=
+-0.24318,
+\]
+with local temperature derivative
+\[
+\partial_\Theta H_{\rm hard}^{\rm kill}
+=
++0.04805.
+\]
+Adding the same matched BPS reconstructed-FP finite term gives
+\[
+\boxed{
+H_{\rm BPS}^{\rm kill}
+=
+-0.19799,
+}
+\]
+\[
+\boxed{
+\partial_\Theta H_{\rm BPS}^{\rm kill}
+=
++0.01914.
+}
+\]
+
+Consequently the killed-population fold is
+\[
+\boxed{
+q_c^{\rm kill}(L_{\rm C})
+=
+0.59618619
++
+\frac{0.0683356}{L_{\rm C}}
++
+O(L_{\rm C}^{-2}),
+}
+\]
+\[
+\boxed{
+\Theta_c^{\rm kill}(L_{\rm C})
+=
+0.32464127
+-
+\frac{0.474482}{L_{\rm C}}
++
+O(L_{\rm C}^{-2}),
+}
+\]
+and
+\[
+\boxed{
+e_c^{\rm kill}(L_{\rm C})
+=
+0.80284620
+-
+\frac{0.0507454}{L_{\rm C}}
++
+O(L_{\rm C}^{-2}).
+}
+\]
+
+Thus absorption produces a parametrically larger NLO displacement than the
+bound-survivor hard correction.  It moves the endpoint toward larger $q$ and
+lower $\Theta$.
+
+If one shifts the endpoint to NLO but retains the leading-log curvature,
+the local killed-moment zero set has the approximation
+\[
+F_{\rm kill}
+\simeq
+F_q\left(q-q_c^{\rm kill}\right)
++
+\frac12F_{\Theta\Theta}
+\left(\Theta-\Theta_c^{\rm kill}\right)^2.
+\]
+Therefore, on the side where the two branches exist,
+\[
+\boxed{
+\Theta_\pm^{\rm kill}(q;L_{\rm C})
+=
+\Theta_c^{\rm kill}(L_{\rm C})
+\pm
+3.1385\,
+\sqrt{q_c^{\rm kill}(L_{\rm C})-q}
++\cdots.
+}
+\]
+The $3.1385$ coefficient is the LL curvature
+$\sqrt{2F_q/F_{\Theta\Theta}}$; its own $O(L_{\rm C}^{-1})$ renormalization
+would require $q$-derivatives of the full killed NLO function and is not
+included here.
+
+For illustration, if the BPS coupling convention is parameterized by
+$L_{\rm C}=-\ln g$,
+\[
+\begin{array}{c|ccc}
+g&q_c^{\rm kill}&\Theta_c^{\rm kill}&e_c^{\rm kill}\\
+\hline
+10^{-2}&0.611025&0.221609&0.791827\\
+10^{-3}&0.606079&0.255953&0.795500\\
+10^{-4}&0.603606&0.273125&0.797337\\
+10^{-6}&0.601132&0.290297&0.799173
+\end{array}
+\]
+The $g=10^{-2}$ row has $1/L_{\rm C}\simeq0.22$ and should be regarded as
+qualitative rather than a precision asymptotic prediction.
+
+This boundary is the zero set of the generator acting on the
+\emph{cemetery-extended, unnormalized} observable $s$, with $s=0$ after
+escape.  It therefore combines shape drift with probability loss.  It is not
+the phase boundary of the normalized surviving population.  For a survivor
+density normalized at each time, the evolution contains the nonlinear
+selection term
+\[
+-[\lambda_{\rm esc}-\langle\lambda_{\rm esc}\rangle]\rho_{\rm surv},
+\]
+so a genuine conditional-population boundary requires an ensemble
+calculation.  The killed-moment endpoint should therefore be reported
+separately from both the local bound-survivor fold and any future
+conditional-survivor phase diagram.
+
+\section{Three-dimensional numerical status}
+
+The three-dimensional leading-log fold was independently recomputed from the
+local generator of $s(h,L)$ and Gauss--Legendre Kepler quadrature.  The result
+\[
+(q_c,\Theta_c)=(0.59618619,0.32464127)
+\]
+and the derivatives
+\[
+F_q=2.89734555,\qquad
+F_{q\Theta}=3.80451347,\qquad
+F_{\Theta\Theta}=0.58826836
+\]
+are stable under quadrature refinement and finite-difference changes.
+
+The exact hard residual was evaluated with scrambled Sobol importance
+sampling, exact Maxwellian bath sampling, uniform mean anomaly for the Kepler
+time measure, and the grazing coordinate
+$t=\sin^2(\theta/2)=y^2$.  Around the physical $s$ fold the quoted
+$H_{\rm hard}$ values use four $2^{19}$-sample replicates.  The value of
+$H_{\rm hard}$ is substantially better conditioned than its numerical
+$\Theta$ derivative.
+
+The BPS reconstructed-FP numbers $H_{\rm FP}$ and
+$\partial_\Theta H_{\rm FP}$ come from the certified classical equal-mass OCP
+BPS coefficient implementation with cancellation of the arbitrary matching
+scale checked numerically.  A publication version should include the
+coefficient-evaluation code or a compact reproducibility appendix; the
+present draft records the numerical outputs but does not yet constitute an
+interval-certified computation.
+
+\section{Revised EFT hierarchy}
+
+The audited theory now separates three levels:
+\[
+\boxed{
+\begin{array}{c}
+\text{planar oriented cone sector: }R_-^2\\
+\downarrow\\
+\text{3D isotropic LL shape sector: }s=1-q\\
+\downarrow\\
+\text{BPS NLO matching + exact hard jumps}\\
+\downarrow\\
+\text{bound-survivor fold and cemetery-weighted killed-moment endpoint}.
+\end{array}
+}
+\]
+The planar analysis remains useful as a constrained stochastic model and as
+the historical route by which the sign-changing cone Wilson function was
+found.  The physical isotropic-plasma completion, however, is the
+three-dimensional bounded-shape theory.
+
+
+\section{Conclusion}
+
+The audit resolves three distinct layers of the bath-coupled Kepler problem.
+First, correcting the half-covariance It\^o normalization overturns the old
+planar monotonicity conjecture and produces a sign-changing $R_-^2$ response.
+That planar sector is internally consistent and retains its extreme-
+eccentricity radial-edge asymptotics, but it describes noise constrained to
+the orbital plane.
+
+Second, a physical isotropic three-dimensional bath requires the angular-
+momentum magnitude $L=|\bm r\times\bm v|$.  The It\^o curvature of $L$
+changes the leading-log generator, and exact hard collisions force a bounded
+observable.  The resulting normalization chain admits an external analytic
+benchmark.  As $\Theta\to0$,
+\[
+\boxed{
+\left\langle\mathcal Ls\right\rangle
+=
+\frac{5D_0T}{2\mu q}(3q^2-1),
+\qquad
+q_0=\frac1{\sqrt3},
+}
+\]
+which agrees identically with the high-speed isotropic-encounter result of
+Hamilton \& Modak after matching their kick variance to
+$\langle|\Delta\bm v|^2\rangle/\Delta t=6D_0$.  Thus the physical
+finite-temperature result is anchored to an independent analytic limit rather
+than only to internal numerical checks.  For the jump-safe shape $s=1-q$,
+the continuation of this hot-limit zero terminates at the leading-log fold
+\[
+\boxed{
+(q_c^{(0)},\Theta_c^{(0)},e_c^{(0)})
+=
+(0.59618619,\;0.32464127,\;0.80284620).
+}
+\]
+
+Third, controlled plasma NLO matching is not a scalar Coulomb-log replacement.
+The BPS reconstructed-FP finite term must be combined with the exact
+short-distance hard-jump residual.  For the bound-preserving shape generator,
+the hard residual reverses the direction of the formal FP shift and leaves
+\[
+\boxed{
+q_c^{\rm bound}
+=
+0.59618619+\frac{0.0111477}{L_{\rm C}}+\cdots,
+\qquad
+\Theta_c^{\rm bound}
+=
+0.32464127+\frac{0.12838}{L_{\rm C}}+\cdots.
+}
+\]
+For the cemetery-extended killed observable, escape produces the larger
+unconditional moment shift
+\[
+\boxed{
+q_c^{\rm kill}
+=
+0.59618619+\frac{0.0683356}{L_{\rm C}}+\cdots,
+\qquad
+\Theta_c^{\rm kill}
+=
+0.32464127-\frac{0.474482}{L_{\rm C}}+\cdots.
+}
+\]
+The latter is not yet the phase boundary of the normalized surviving
+population; that requires the hazard-selection term at the ensemble level.
+
+The resulting open EFT is therefore not a single diffusion on a cone.  It is
+a hierarchy of planar cone diffusion, three-dimensional jump-safe shape
+dynamics, BPS-matched finite hard jumps, and an absorbing unbound channel.
+That separation is the central structural result of the present draft.
+
+\begin{thebibliography}{99}
+
+\bibitem{Rosenbluth1957}
+M.~N. Rosenbluth, W.~M. MacDonald, and D.~L. Judd,
+``Fokker--Planck Equation for an Inverse-Square Force,''
+\emph{Physical Review} \textbf{107}, 1--6 (1957).
+doi:10.1103/PhysRev.107.1.
+
+\bibitem{CohnKulsrud1978}
+H. Cohn and R.~M. Kulsrud,
+``The Stellar Distribution Around a Black Hole: Numerical Integration of the
+Fokker--Planck Equation,''
+\emph{The Astrophysical Journal} \textbf{226}, 1087--1108 (1978).
+
+\bibitem{Lenard1960}
+A. Lenard,
+``On Bogoliubov's Kinetic Equation for a Spatially Homogeneous Plasma,''
+\emph{Annals of Physics} \textbf{10}, 390--400 (1960).
+doi:10.1016/0003-4916(60)90003-8.
+
+\bibitem{Balescu1960}
+R. Balescu,
+``Irreversible Processes in Ionized Gases,''
+\emph{Physics of Fluids} \textbf{3}, 52--63 (1960).
+doi:10.1063/1.1706002.
+
+\bibitem{BPS2005}
+L.~S. Brown, D.~L. Preston, and R.~L. Singleton Jr.,
+``Charged Particle Motion in a Highly Ionized Plasma,''
+\emph{Physics Reports} \textbf{410}, 237--333 (2005).
+doi:10.1016/j.physrep.2005.01.001.
+
+\bibitem{CollinsSari2008}
+B.~F. Collins and R. Sari,
+``L\'evy Flights of Binary Orbits due to Impulsive Encounters,''
+\emph{The Astronomical Journal} \textbf{136}, 2552--2562 (2008).
+doi:10.1088/0004-6256/136/6/2552.
+
+\bibitem{FouvryPichonMagorrian2017}
+J.-B. Fouvry, C. Pichon, and J. Magorrian,
+``The Secular Evolution of Discrete Quasi-Keplerian Systems. I. Kinetic
+Theory of Stellar Clusters near Black Holes,''
+\emph{Astronomy \& Astrophysics} \textbf{598}, A71 (2017).
+doi:10.1051/0004-6361/201629645.
+
+\bibitem{HamiltonModak2024}
+C. Hamilton and S. Modak,
+``Eccentricity Dynamics of Wide Binaries -- II. The Effect of Stellar
+Encounters and Constraints on Formation Channels,''
+\emph{Monthly Notices of the Royal Astronomical Society}
+\textbf{532}, 2425--2440 (2024).
+doi:10.1093/mnras/stae1654.
+
+\end{thebibliography}
+
+\end{document}
