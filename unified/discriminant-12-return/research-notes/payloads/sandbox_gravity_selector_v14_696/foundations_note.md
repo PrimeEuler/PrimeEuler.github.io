@@ -53,9 +53,13 @@ Slicing a cone generates every conic; eccentricity is the cone's
 native continuous parameter, and $e = 0$ (pure $L$) is the single
 member whose phase integral gives the quantum lobes. Deforming the
 integral with the Kepler squash $\rho = \sqrt{(1-e)/(1+e)}$ at
-$e = 0.6$ produces a genuinely new family — the ratio to any
-reparametrized Legendre function is $\theta$-dependent — with the
-harmonics recovered exactly at $e = 0$. The cone therefore contains
+$e = 0.6$ deforms the family state by state, through the $k \ge 2$
+binomial moments: the $(2,0)$, $(3,0)$, and $(3,1)$ profiles change
+shape (ratio to $P_j^m$ genuinely $\theta$-dependent), single-moment
+$m \ge 1$ states rescale in amplitude by $\rho^m$, and $(1,0)$ is
+exactly invariant — $I_{1,0} = \cos\theta$ at every $\rho$ — with
+the harmonics recovered exactly at $e = 0$. (Statement corrected
+2026-10-22 per Audit R330; see erratum entry v14.698.) The cone therefore contains
 a one-parameter family of "lobes," the Hansen–Bessel sideband
 structure of Kepler motion, of which quantum angular structure is
 the circular member. [D]/[N]
