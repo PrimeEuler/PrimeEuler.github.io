@@ -48,7 +48,7 @@ W(e):=\langle I_{00},I_{20}\rangle=\frac23(1-\rho^2)
 \]
 The same Itô generator acts on the nonlinear observable as
 \[
-\boxed{{\cal L}W=-\frac{C(e^2+2e-1)}{3e(1+e)^2}.}
+{% raw %}\boxed{{\cal L}W=-\frac{C(e^2+2e-1)}{3e(1+e)^2}.}{% endraw %}
 \]
 Thus W's drift vanishes at \(e=\sqrt2-1\), NOT at \(e=\sqrt{2/3}\). At the bath's q-drift zero, \({\cal L}W/C=-12+29\sqrt6/6\approx-0.1607995765\), strictly negative.
 
