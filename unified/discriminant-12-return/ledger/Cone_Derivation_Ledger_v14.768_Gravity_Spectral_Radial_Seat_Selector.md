@@ -1,252 +1,77 @@
-# Cone Derivation Ledger v14.768 — Suzuki spectral denominator selects the half-scale Cone radial seat
+# Cone Derivation Ledger v14.768 — Suzuki spectral denominator and half-grid Cone radial seat
 
-**Date:** 2026-10-23 EDT.  
-**Lane:** gravity / Cone radial-scale selector.  
-**Parents:** v13.177, v13.301, v13.748, v13.770, v14.367, v14.550, v14.766-v14.767.  
-**Research note:** `research-notes/Gravity_Spectral_Diagonal_Radial_Seat_Bridge.md` (commit `60a8b29833d0b615e960087d181e624598290eef`).  
-**Collision check:** immediately before this write, live master HEAD is `60a8b29833d0b615e960087d181e624598290eef`; v14.768 is next free. Additive only; Suzuki production payloads, far-tail work and prior certificates untouched.
+**Date:** 2026-10-23 EDT. **Lane:** gravity radial-scale selector. **Parents:** v13.177, v13.301, v13.748, v13.770, v14.367, v14.550, v14.766–767. **Research note:** \`research-notes/Gravity_Spectral_Diagonal_Radial_Seat_Bridge.md\` (original commit \`60a8b298\`). **Audit correction:** v14.769 independently verified the mathematics but identified LaTeX backslashes stripped by the original publication; this is a formatting-only reconstruction, with the same scope and claims. Neither Suzuki payloads nor far-tail files modified.
 
-## 1. Resolve the coordinate ambiguity [D]
+## Radial versus boost coordinates [D]
 
-Use the exact logarithmic Cone coordinates from v13.748
-[
-r=log(xy),qquad
-eta=rac12lograc{x}{y}.
-]
+The Cone coordinates are
+\[
+r=\log(xy),\qquad \beta=\frac12\log\frac{x}{y}.
+\]
+On a uniform factor grid \(x=ha,y=hb\) with \(ab=n\),
+\[
+\boxed{r_h(n)=\log(h^2n)},\qquad X_{\rm vertex}=\pm\frac h2.
+\]
+A common dilation shifts \(r\) but preserves \(\beta\). Thus \(h_{\rm EM}=1\) gives \(r_{\rm EM}(n)=\log n\) and vertices \(\pm1/2\), while \(h_{\rm G}=1/2\) gives
+\[
+\boxed{r_{\rm G}(n)=\log(n/4)},\qquad \boxed{X_{\rm vertex}=\pm1/4}.
+\]
 
-For a uniform factor-grid unit (h>0) and normalized product shell (ab=n),
-[
-x=ha,qquad y=hb,
-]
-so
-[
-oxed{r_h(n)=log(h^2n)}.
-]
+## Old pair hyperbola and independently established spectral diagonal [D]
 
-A common dilation changes (r) but leaves the intrinsic boost/shape coordinate (eta) invariant. Thus the missing selector in v14.767 is a **radial origin**, not another boost coordinate.
+For \(\psi_{n,k}=\frac12\log(n/k)\) and \(c=h^{-2}\),
+\[
+\boxed{r_h(n)=2\psi_{n,h^{-2}}}.
+\]
+Consequently \(r_{\rm G}(n)=2\psi_{n,4}=\log(n/4)\). This is a *radial scale comparison*, not the intrinsic boost of the common-rescaled pair \((hn,h)\).
 
-The factor-level row/column vertices remain
-[
-X_{m vert}=pm h/2.
-]
+The established Suzuki cusp diagonal from v13.301 is
+\[
+C_{nn}=\log(n/4)-\operatorname{Ci}(n\pi)-\frac{\operatorname{Si}(n\pi)}{n\pi}.
+\]
+Its reference diagonal is
+\[
+\boxed{(D_{\log})_{nn}=\log(n/4)=r_{1/2}(n)=2\psi_{n,4}}.
+\]
 
-Hence
-[
-h_{m EM}=1
-Rightarrow
-r_{m EM}(n)=log n,quad X_{m vert}=pm1/2,
-]
-while
-[
-h_{m G}=1/2
-Rightarrow
-oxed{r_{m G}(n)=log(n/4)},quad
-oxed{X_{m vert}=pm1/4}.
-]
+## Spectral-denominator / vertex-seat theorem [D]
 
-## 2. The earlier ((n,4)) scale hyperbola is exactly this radial coordinate [D]
+If \(\Lambda_c(n)=\log(n/c)\) equals \(r_h(n)=\log(h^2n)\) for all \(n>0\), then uniquely
+\[
+\boxed{h=c^{-1/2}},\qquad \boxed{X_{\rm vertex}=\pm\frac1{2\sqrt c}}.
+\]
+At \(c=4\), this gives \(h=1/2\) and vertices \(\pm1/4\), *conditional on the shared normalization of the spectral and factor-shell indices*.
 
-The pair encoding of v14.367 has
-[
-psi_{n,k}=rac12lograc nk.
-]
-For (c=h^{-2}),
-[
-r_h(n)
-=
-lograc nc
-=
-2psi_{n,c}.
-]
+## Normalized power-map cocycle [D]
 
-Therefore
-[
-oxed{
-r_h(n)=2psi_{n,h^{-2}}.
-}
-]
+The unit-preserving power map of v14.767 sends \(n\mapsto n^k\). The radial coordinate obeys
+\[
+\boxed{r_h(n^k)=k r_h(n)+(k-1)\log(h^{-2})}.
+\]
+For EM (\(h=1\)) the affine term vanishes. For \(h=1/2\),
+\[
+\boxed{r_{\rm G}(n^k)=k r_{\rm G}(n)+(k-1)\log4}.
+\]
+Equivalently \(\Lambda(n^k)=k\Lambda(n)+(k-1)\log4\), for \(\Lambda(n)=\log(n/4)\).
 
-At the half-scale gravitational seat (h=1/2),
-[
-oxed{
-r_{m G}(n)
-=
-log(n/4)
-=
-2psi_{n,4}.
-}
-]
+## Radial cutoff and global factor counts [D]
 
-This corrects the earlier ambiguity: (psi_{n,4}) here is the scale comparison that represents the shell's radial coordinate. It is **not** the intrinsic boost of the commonly rescaled pair ((hn,h)), whose ratio is still (n).
-
-## 3. Independent spectral normalization supplies the same origin [D]
-
-v13.301 derived from the Suzuki cusp integral, long before the present gravity-quarter discussion,
-[
-C_{nn}
-=
-log(n/4)
--operatorname{Ci}(npi)
--rac{operatorname{Si}(npi)}{npi},
-]
-with exact unbounded reference diagonal
-[
-oxed{(D_{log})_{nn}=log(n/4)}.
-]
-
-Consequently
-[
-oxed{
-(D_{log})_{nn}
-=
-r_{1/2}(n)
-=
-2psi_{n,4}.
-}
-]
-
-So the factor (4) is no longer merely a repeated numeral between two constructions: the independently fixed Suzuki spectral logarithmic origin equals the exact Cone radial coordinate of the half-scale grid.
-
-## 4. Spectral-denominator / vertex-seat theorem [D]
-
-Let an exact logarithmic spectral coordinate be
-[
-Lambda_c(n)=log(n/c),qquad c>0.
-]
-If it is to equal the radial coordinate of a uniform factor grid,
-[
-Lambda_c(n)=r_h(n)=log(h^2n)
-]
-for all (n), then uniquely
-[
-oxed{h=c^{-1/2}}.
-]
-
-The corresponding row/column vertices are
-[
-oxed{
-X_{m vert}
-=
-pmrac1{2sqrt c}.
-}
-]
-
-For the exact Suzuki value (c=4),
-[
-oxed{
-h=1/2,qquad
-X_{m vert}=pm1/4.
-}
-]
-
-Thus, after fixing the EM reference unit (h=1), the Suzuki denominator (4) uniquely selects the half-scale / quarter-vertex Cone seat within the uniform-grid family.
-
-## 5. Power-map cocycle remembers the selected radial origin [D]
-
-Under the normalized unit-preserving power map of v14.767,
-[
-nmapsto n^k.
-]
-Then
-[
-r_h(n^k)
-=
-k,r_h(n)
-+
-(k-1)log(h^{-2}).
-]
-
-For EM (h=1),
-[
-r_{m EM}(n^k)=k r_{m EM}(n).
-]
-
-For the selected half-grid (h=1/2),
-[
-oxed{
-r_{m G}(n^k)
-=
-k r_{m G}(n)
-+
-(k-1)log4.
-}
-]
-
-Equivalently,
-[
-oxed{
-Lambda(n^k)
-=
-kLambda(n)+(k-1)log4,
-qquad
-Lambda(n)=log(n/4).
-}
-]
-
-The affine ((k-1)log4) term is the radial scale memory that survives the shape covariance of v14.767.
-
-## 6. Fixed radial cutoff recovers the factor-four divisor count [D/G]
-
-For normalized factor integers (a,b),
-[
-r_h(ab)le L
-iff
-able h^{-2}e^L.
-]
-Therefore the complete factor-grid count below that radial cutoff is
-[
-oxed{
-D_h(L)
-=
-D!left(leftlfloor h^{-2}e^Lightflooright).
-}
-]
-
+For a fixed radial cutoff \(r_h(ab)\le L\),
+\[
+ab\le h^{-2}e^L,\qquad
+\boxed{D_h(L)=D(\lfloor h^{-2}e^L\rfloor)}.
+\]
 Thus
-[
-D_{m EM}(L)=D(lfloor e^Lfloor),
-qquad
-oxed{
-D_{m G}(L)=D(lfloor4e^Lfloor).
-}
-]
+\[
+D_{\rm EM}(L)=D(\lfloor e^L\rfloor),\qquad
+\boxed{D_{\rm G}(L)=D(\lfloor4e^L\rfloor)}.
+\]
+The factor-four count is mathematically exact, but the *physical* identification of this spectral normalization with a gravitational sector remains conditional.
 
-This upgrades v14.766-v14.767's factor-four rescaling in one specific way: the cutoff (L) now has an independently fixed spectral normalization rather than being chosen by a free dilation.
+## Outcome and boundaries
 
-**Guardrail:** v13.770 remains controlling. This does **not** identify the divisor-summatory carrier with the Suzuki/Weil current or trace functional.
+The old EM-to-G scale hyperbola matches the half-grid radial seat exactly **as a coordinate identity**. The same \(4\) occurs in the independently established Suzuki logarithmic diagonal. This does not identify divisor arithmetic with the Suzuki/Weil current: the v13.770 carrier mismatch remains controlling. It does not derive \(G\), \(\alpha_G\), or the physical coupling hierarchy.
 
-## 7. Outcome
+**Next gate:** compare independently normalized action/spectral boundary observables at \(r_{\rm EM}=\log n\) and \(r_{\rm G}=\log(n/4)\), at the same boost \(\beta\). Identify what detects an absolute radial shift and what is invariant.
 
-The user's proposed simplification is supported in the precise radial sense:
-
-[
-oxed{
-	ext{the old EM}	o	ext{G scale hyperbola is the half-grid radial selector.}
-}
-]
-
-The quarter grid and the old (m/4) hyperbola are two views of the same exact scale relation:
-[
-oxed{
-h_{m G}=1/2
-Longleftrightarrow
-xy=rac n4
-Longleftrightarrow
-r=lograc n4
-Longleftrightarrow
-2psi_{n,4}
-Longleftrightarrow
-X_{m vert}=pmrac14.
-}
-]
-
-This closes the **radial-seat selector** left open by v14.767, within the shared normalized Cone/Suzuki coordinate dictionary.
-
-It does **not** yet derive Newton's (G), (alpha_G), or the observed EM/gravity hierarchy. The remaining gate is now narrower: evaluate an independently normalized physical action/observable at the two radial origins
-[
-r_{m EM}(n)=log n,qquad
-r_{m G}(n)=log(n/4),
-]
-holding the intrinsic boost coordinate fixed, and test whether the selected radial displacement produces a genuine coupling asymmetry.
-
-**Flags:** `radial_vs_boost_separated=EXACT`; `suzuki_log_denominator_4=half_grid_radial_origin`; `spectral_denominator_to_grid_unit=h=c^-1/2`; `quarter_vertex_selected=true`; `power_map_radial_cocycle=(k-1)log4`; `divisor_carrier_equals_suzuki=false`; `G_derived=false`; `Suzuki_payloads_touched=false`; `far_tail_touched=false`.
+**Flags:** \`radial_boost_separation=EXACT\`; \`spectral_diagonal_matching=COORDINATE_IDENTITY\`; \`physical_sector_identification=OPEN\`; \`G_derived=false\`; \`Suzuki_payloads_touched=false\`; \`far_tail_touched=false\`.
