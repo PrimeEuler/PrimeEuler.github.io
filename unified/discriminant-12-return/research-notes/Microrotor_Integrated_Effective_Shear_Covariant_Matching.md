@@ -20,7 +20,7 @@ for transverse shear waves, according to the v14.829 normalization. At K=0 rotat
 ## Matching to v14.830 (conditional, not a physical derivation) [D/O]
 That covariant model's shear modulus is \(\mu_{\rm cov}=2D\rho/(3C)\); thus equating local, quasistatic isotropic shear stiffnesses implies
 \[
-\boxed{{D\over C}={3\over2\rho}\left(\mu_0+{\gamma K\over4\gamma+K}\right)}.
+{% raw %}\boxed{{D\over C}={3\over2\rho}\left(\mu_0+{\gamma K\over4\gamma+K}\right)}{% endraw %}.
 \]
 For its previously stated local stable causal window 1/4≤D/C≤1, the necessary conditional matching requirement is
 \[
