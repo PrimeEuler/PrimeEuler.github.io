@@ -1,0 +1,90 @@
+{
+ "even-v": [
+  {
+   "center": 6161535,
+   "template_l2_partial": 1.4225423919653942e-09,
+   "template_l2_norm": 3.771660631559253e-05,
+   "remainder_l2_partial_bound": 1.0308785415105278e-07,
+   "phantom_l2_partial_bound": 2.0902079308603633e-07
+  },
+  {
+   "center": 12000001,
+   "template_l2_partial": 2.0505139343781567e-09,
+   "template_l2_norm": 4.5282600790791124e-05,
+   "remainder_l2_partial_bound": 1.3520249548883356e-07,
+   "phantom_l2_partial_bound": 2.7450601884642345e-07
+  },
+  {
+   "center": 25000001,
+   "template_l2_partial": 2.9621033948526583e-09,
+   "template_l2_norm": 5.4425209185198895e-05,
+   "remainder_l2_partial_bound": 1.6947968123886068e-07,
+   "phantom_l2_partial_bound": 3.448835692674267e-07
+  },
+  {
+   "center": 50000001,
+   "template_l2_partial": 3.371433424979637e-09,
+   "template_l2_norm": 5.806404588882553e-05,
+   "remainder_l2_partial_bound": 1.803400031074336e-07,
+   "phantom_l2_partial_bound": 3.674228730648265e-07
+  },
+  {
+   "center": 100000001,
+   "template_l2_partial": 3.647093812542641e-09,
+   "template_l2_norm": 6.039117329993383e-05,
+   "remainder_l2_partial_bound": 1.8600420161456628e-07,
+   "phantom_l2_partial_bound": 3.7930259085421784e-07
+  },
+  {
+   "center": 200000001,
+   "template_l2_partial": 3.824074308450726e-09,
+   "template_l2_norm": 6.183910015880508e-05,
+   "remainder_l2_partial_bound": 1.8885480945533566e-07,
+   "phantom_l2_partial_bound": 3.853577675275728e-07
+  }
+ ],
+ "odd-v": [
+  {
+   "center": 6161536,
+   "template_l2_partial": 1.4132914684373877e-09,
+   "template_l2_norm": 3.759376901080002e-05,
+   "remainder_l2_partial_bound": 1.0122709538531121e-07,
+   "phantom_l2_partial_bound": 2.0528077370749718e-07
+  },
+  {
+   "center": 12000002,
+   "template_l2_partial": 2.037111397095862e-09,
+   "template_l2_norm": 4.513437046305024e-05,
+   "remainder_l2_partial_bound": 1.3299892499929988e-07,
+   "phantom_l2_partial_bound": 2.700720727927915e-07
+  },
+  {
+   "center": 25000002,
+   "template_l2_partial": 2.9426154898191914e-09,
+   "template_l2_norm": 5.424587993404837e-05,
+   "remainder_l2_partial_bound": 1.670560431599234e-07,
+   "phantom_l2_partial_bound": 3.399973172994852e-07
+  },
+  {
+   "center": 50000002,
+   "template_l2_partial": 3.3491958748976508e-09,
+   "template_l2_norm": 5.78722375141799e-05,
+   "remainder_l2_partial_bound": 1.7788237310080497e-07,
+   "phantom_l2_partial_bound": 3.624631379514053e-07
+  },
+  {
+   "center": 100000002,
+   "template_l2_partial": 3.6230016956316213e-09,
+   "template_l2_norm": 6.019137559178741e-05,
+   "remainder_l2_partial_bound": 1.835367521466449e-07,
+   "phantom_l2_partial_bound": 3.74319507684553e-07
+  },
+  {
+   "center": 200000002,
+   "template_l2_partial": 3.798792333586752e-09,
+   "template_l2_norm": 6.163434378320866e-05,
+   "remainder_l2_partial_bound": 1.8638472230114786e-07,
+   "phantom_l2_partial_bound": 3.803670292694692e-07
+  }
+ ]
+}
