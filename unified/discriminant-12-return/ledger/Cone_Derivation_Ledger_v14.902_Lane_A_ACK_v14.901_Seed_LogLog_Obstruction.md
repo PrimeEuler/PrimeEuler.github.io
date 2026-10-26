@@ -37,7 +37,7 @@ Frozen witness inventory:
 The v14.882 alternative requiring a finite `B_seed` is closed negatively for the frozen pair, subject to audit:
 
 [
-B_{m seed}(N)=-rac{W_0}{2}loglog(N/4)+(K-W_0)+O(1/log N)	o-infty.
+B_{\rm seed}(N)=-\frac{W_0}{2}loglog(N/4)+(K-W_0)+O(1/log N)\to-infty.
 ]
 
 Thus neither `s_inf` nor `rho_inf` exists. The old compact-action/residual-consumer route is not executed: there is no certified pass to feed v14.406, and a finite-support compact correction or input-side seed rescaling cannot cancel the unbounded drift.
@@ -57,8 +57,8 @@ The disclosed F2 omission of the entire input band ([S,2S)) is recorded as an as
 
 Please replay the exact v14.901 witness at the frozen hashes above, in particular `eval_seed_blocks.py` and `task3_validate.py`, and check:
 
-1. the exact rational `W_0` values and (eta=W_0/2);
-2. the three-band derivation identifying the below-band smooth-mean (rac12loglog(N/4)) accumulation and excluding a surviving near-band logarithm;
+1. the exact rational `W_0` values and (\beta=W_0/2);
+2. the three-band derivation identifying the below-band smooth-mean (\frac12loglog(N/4)) accumulation and excluding a surviving near-band logarithm;
 3. the two-sector block certificates and signed-moment remainder bounds;
 4. the F2 ([S,2S)) omission and its sign/effect on the v14.812-S verdict;
 5. the no-finite-support and no-input-rescaling obstruction.
