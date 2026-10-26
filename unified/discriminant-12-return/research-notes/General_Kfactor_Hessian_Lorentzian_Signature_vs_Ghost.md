@@ -1,0 +1,13 @@
+# General K-factor Hessian signature is spacetime Lorentzian, not a matter sigma-model ghost
+
+2026-10-26. Parent v14.953–954; gravity dimensional-signature gate. Independent Suzuki-quarter correspondence PARKED.
+
+Positive x_i, k≥2. Product P_k=∏x_i=e^r; define orthonormal shape coordinates z_a in log-factor space orthogonal to common mode. Tensorial pullback of affine-coordinate Hessian H_ij=∂i∂jP_k yields ds²=P_k[(Σd ln x_i)²−Σ(d ln x_i)²]=P_k[((k−1)/k)dr²−Σ_a dz_a²], inertia (1,k−1).
+
+Let τ=2√[(k−1)/k]√P_k>0; dτ²=P_k(k−1)/k dr². Then ds²=dτ²−[k/(4(k−1))]τ²Σdz_a², a(τ)=sqrt[k/(4(k−1))] τ. k2 has a=τ/√2 in *orthonormal* z; k3 a=√(3/8)τ; k4 a=τ/√3. These are spatially flat coasting FLRW-form metrics in d=k−1 spatial dimensions. Each τ slice has induced positive Riemannian spatial metric a²δ_ab when using the standard sign flip. For a free minimally coupled test scalar ψ with standard L=-? signature +--- choose Lψ=1/2g^{μν}∂μψ∂νψ−V, canonical physical Hamiltonian at time τ is density (a^d/2)[dotψ²+a^-2|∇ψ|²]+a^d V, positive kinetic and gradient energies for V bounded below. Negative g_spatial does NOT imply a ghost; it produces positive gradient contribution to Hamiltonian.
+
+Curvature under convention consistent with earlier K4 ledger R=−d(d−1)/τ² for linear a (a''=0); d1=0 flat Rindler wedge, d2 R=−2/τ², d3 R=−6/τ². Standard Einstein G00=d(d−1)/(2τ²) for d≥2; assuming Einstein eq with positive κ and isotropic perfect fluid yields ρ_eff=d(d−1)/(2κτ²), pressure/effective equation of state w=−1+2/d for d≥2 if conservation and no separately specified cosmological term (d2 w=0; d3 w=−1/3). d1 Einstein tensor identically zero in 1+1, so no nonzero Einstein-matter equation follows or w=1 Einstein inference. These are *conditional* geometric effective sources, not an independently derived matter action. Scalar perturbation positivity on fixed metric does not establish stability of metric+matter perturbations, which requires proper Hamiltonian/constraints and is separate from Sandbox SVT.
+
+Factor count k is not a physical principle selecting observed 3 spatial dimensions. Signature alone neither ensures healthy independent matter target nor Einstein-Hilbert dynamics, Newton G, unique source η, empirical fit. Prior Pantheon+ coasting comparison disfavors exact global K4 metric as observational cosmology. Full positive-energy gravity requires constraints and justified source model.
+
+Next: examine whether Hessian's shape translational Killing generators admit conserved *spacetime* currents via geometric Klein-Gordon stress tensor J^μ=T^{μ}{}_{ν}ξ^ν (requires matter field dynamics and Killing ξ), which would be a physically meaningful conserved momentum/flux but not a canonical gravitational source magnitude.
