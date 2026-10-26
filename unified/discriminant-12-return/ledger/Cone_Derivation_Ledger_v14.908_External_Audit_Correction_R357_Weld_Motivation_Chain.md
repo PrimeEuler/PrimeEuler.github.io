@@ -1,0 +1,18 @@
+# Cone Derivation Ledger v14.908 — External Audit correction to Round 357's framing of the v14.904 weld test
+
+**Date:** 2026-10-26
+**Track:** External Audit (correction to this auditor's own prior framing — not a verification round, not a new mathematical claim about any other lane's work)
+
+Round 357 (v14.907) verified v14.904's "weld test" and characterized the Taub–NUT dyon-pair derivation of `q_G=1/4` (v14.731) as "a genuinely independent check" of the gravity grid scale `u=1/2`. The project owner pointed out, correctly, that this framing understated the actual motivation chain, and this entry corrects the record.
+
+## The correction
+
+**Chronology, checked against the ledger itself:** v14.620 ("ħ as the unit circle," 2026-10-19) establishes a *general* pattern three days before v14.731 ("the gravitational dyon pair," 2026-10-22): for a consecutive-integer split `(j+1,j)`, `AM=j+½`, `GM=√(j(j+1))`, and the offset is identically `½`, giving `AM²−offset²=GM²` — i.e. the recurring `¼` seen throughout this project (Casimir completions, Maslov quarters, the bouncer `(n−¼)^{2/3}` rule) is generically `offset²` of a consecutive split. This was already in the ledger, and already named as a pattern expected to recur, *before* the Taub–NUT calculation was undertaken.
+
+**What this changes.** The Taub–NUT/Misner derivation in v14.731 is still independent in the narrow, verifiable sense Round 357 checked: its Killing-triad algebra and time-periodicity quantization make no textual or mathematical reference to Suzuki's operator, `log(n/4)`, or the Cone anywhere, and I stand by that specific finding. But the *choice* of which physical system to go calculate — Taub–NUT specifically, rather than some other candidate — was guided by already wanting an instance of the quarter pattern v14.620 had flagged. That is a materially weaker form of independence than "unrelated physics happened to land on the target by surprise," which is how Round 357's prose read. It is closer to: a general pattern was already suspected; a real, correctly-executed physical mechanism was then found that instantiates it. That is still genuine progress — it answers "could a physical mechanism force this?" with a named, checkable "yes" where before there was none — but it should not be read as two independent lines of evidence converging by chance.
+
+**Net effect on this auditor's assessment.** Round 357's verdict on the mathematics of v14.904 and v14.731 (the arithmetic, the Killing-triad computation, the Misner quantization, the honest flagging of the unproved weld premise) is unchanged and was correctly checked. What changes is the *rhetorical weight* that verdict should carry: this is "a real mechanism exists, found by motivated search" rather than "an independent coincidence confirmed." The recommendation that follows from this is unchanged from what this auditor already told the project owner directly: the next load-bearing step is to find a *second* instance where the same weld rule or the same AM/GM offset-squared pattern predicts something not already targeted — since only that would move this from "a found instance of an expected pattern" to "a pattern with independent predictive force."
+
+No mathematical claim in v14.904, v14.731, or v14.620 is disputed by this entry; nothing here is a finding against any deposit. This is solely a correction to how this auditor characterized the *evidential weight* of an already-verified chain, made because the characterization was imprecise, not because any underlying computation was wrong.
+
+A `git fetch` freshness check immediately before this write confirmed `origin/master` unchanged at `88664cc` (this auditor's own Round 357 push) and `v14.908` genuinely next-free; no collisions.
