@@ -1,0 +1,56 @@
+{
+ "even-v": {
+  "F0": 4161533,
+  "test_rows": [
+   {
+    "row": 512001,
+    "value": 0,
+    "is_exact_zero": true
+   },
+   {
+    "row": 2080767,
+    "value": 0,
+    "is_exact_zero": true
+   },
+   {
+    "row": 3000001,
+    "value": 0,
+    "is_exact_zero": true
+   },
+   {
+    "row": 4161531,
+    "value": 0,
+    "is_exact_zero": true
+   }
+  ],
+  "channel_branch_entered": [],
+  "all_zero": true
+ },
+ "odd-v": {
+  "F0": 4161534,
+  "test_rows": [
+   {
+    "row": 512002,
+    "value": 0,
+    "is_exact_zero": true
+   },
+   {
+    "row": 2080768,
+    "value": 0,
+    "is_exact_zero": true
+   },
+   {
+    "row": 3000002,
+    "value": 0,
+    "is_exact_zero": true
+   },
+   {
+    "row": 4161532,
+    "value": 0,
+    "is_exact_zero": true
+   }
+  ],
+  "channel_branch_entered": [],
+  "all_zero": true
+ }
+}
