@@ -1,0 +1,74 @@
+[
+ {
+  "center": 6161535,
+  "bands_NCT": {
+   "below": 0.0951365086998624,
+   "near": 0.011812084243647446,
+   "above": 0.03452114993742144
+  },
+  "spike_in_below_included": true,
+  "pole_NCT": -1.0032939869295731e-06,
+  "total_NCT_center_row": 0.14146873958694436,
+  "seconds": 4.7
+ },
+ {
+  "center": 12000001,
+  "bands_NCT": {
+   "below": 0.12531309444382155,
+   "near": 0.08260501639436174,
+   "above": 0.03313449029703564
+  },
+  "spike_in_below_included": true,
+  "pole_NCT": -1.0032939869295752e-06,
+  "total_NCT_center_row": 0.241051597841232,
+  "seconds": 8.6
+ },
+ {
+  "center": 25000001,
+  "bands_NCT": {
+   "below": 0.14285970444513796,
+   "near": 0.03555971889921649,
+   "above": 0.047657249159830536
+  },
+  "spike_in_below_included": true,
+  "pole_NCT": -1.0032939869295757e-06,
+  "total_NCT_center_row": 0.2260756692101981,
+  "seconds": 23.9
+ },
+ {
+  "center": 50000001,
+  "bands_NCT": {
+   "below": 0.18485639617262395,
+   "near": -0.023436932313879326,
+   "above": 0.028874449067632063
+  },
+  "spike_in_below_included": true,
+  "pole_NCT": -1.0032939869295759e-06,
+  "total_NCT_center_row": 0.19029290963238976,
+  "seconds": 57.8
+ },
+ {
+  "center": 100000001,
+  "bands_NCT": {
+   "below": 0.18802871296792567,
+   "near": 0.015426670317995403,
+   "above": 0.0558739879001048
+  },
+  "spike_in_below_included": true,
+  "pole_NCT": -1.003293986929576e-06,
+  "total_NCT_center_row": 0.25932836789203895,
+  "seconds": 145.5
+ },
+ {
+  "center": 200000001,
+  "bands_NCT": {
+   "below": 0.24737225949160846,
+   "near": 0.07830471970623004,
+   "above": 0.011870997200768082
+  },
+  "spike_in_below_included": true,
+  "pole_NCT": -1.003293986929576e-06,
+  "total_NCT_center_row": 0.3375469731046196,
+  "seconds": 385.7
+ }
+]
