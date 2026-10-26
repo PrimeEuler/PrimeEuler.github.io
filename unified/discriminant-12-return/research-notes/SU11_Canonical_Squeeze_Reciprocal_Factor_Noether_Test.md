@@ -1,0 +1,11 @@
+# SU(1,1) canonical squeezing versus factor Noether charge
+
+Date 2026-10-26. Parents v13.583, v14.944–947. User requested test of canonical SU11 bridge. Live HEAD checked; additive gravity lane, Suzuki spectral quarter parked.
+
+Let [q,p]=iℏ, D=(qp+pq)/2. Direct canonical commutators: [D,q]=−iℏ q; [D,p]=+iℏ p. For U(α)=exp(−iαD/ℏ), Heisenberg conjugation U†qU=e^α q and U†pU=e^−α p; [q,p] invariant. Thus exact reciprocal canonical scale, and D itself invariant under its own conjugation. At the classical level symplectic form dq∧dp and canonical product qp stay invariant; phase space q,p is NOT a pair of globally positive commuting factor fields, nor does this identification preserve integer oscillator occupations.
+
+Define K0=(q²+p²)/(4ℏ), K1=(q²−p²)/(4ℏ), K2=(qp+pq)/(4ℏ)=D/(2ℏ). Then [K0,K1]=−i K2, [K0,K2]=i K1, [K1,K2]=i K0 (with these conventions); the standard su(1,1) Casimir K0²−K1²−K2² equals −3/16 times identity in the oscillator metaplectic realization (even/odd Bargmann indices 1/4,3/4). Importantly this separate oscillator su11 Casimir is NOT the SU2 C=j(j+1) nor the 1/4 centering offset; do not conflate.
+
+For H_osc=(p²+q²)/2, [H_osc,D]=iℏ(q²−p²) (equivalently dD/dt=(i/ℏ)[H,D]=p²−q²), so D is not conserved under ordinary harmonic-oscillator evolution. For scale invariant H=p²/2 alone, D also is not conserved ([H,D]=−2iℏ H), and a time-dependent combination could be conserved; a genuine time-independent D charge requires a dilation-invariant Hamiltonian (e.g. H proportional to D itself, with different physics). No physically justified generator identification to factor-field shift current Jμ=F(ρ)∇μs from v14.946. A representation map would need to assign s to a canonical squeeze coordinate and identify conjugate momentum π_s (not generally D of Schwinger oscillators), preserve operator commutators and spacetime action, and show an integrated Ward charge equals a fixed representation datum. Arbitrary dynamics and amplitudes still leave normalization open.
+
+Conclusion: canonical reciprocal scaling gate PASS; conserved physical gravitational Noether charge gate NOT CLOSED. The SU11 algebra supplies a more faithful canonical scaling carrier than SU2 rotations, but does not fix the radial flux nor Newton G. Independently audit sign conventions and Casimir.
