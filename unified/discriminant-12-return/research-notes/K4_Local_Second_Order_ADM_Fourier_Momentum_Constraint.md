@@ -1,0 +1,12 @@
+# Local Fourier second-order ADM momentum constraint and IR obstruction
+Date 2026-10-27. Parents v15.003, v15.005, v15.007. Concurrent Muse v15.008-009 on means/conics separate and untouched. Convention h=h0+h1+h2, Π=Π0+Π1+Π2, φI=zi+π1I+π2I, p=p0+p1+p2, no 1/2 order coefficients; homogeneous h0=a²δ, Π0=−aHδ/κ, p0=0. Exact momentum density H_i=−2∂k(hijΠjk)+Πjk∂i hjk+pI∂iφI=0.
+
+Extract degree two:
+H_i2=−2∂k[h0ijΠ2jk+h1ijΠ1jk+h2ijΠ0jk]+Π0jk∂i h2jk+Π1jk∂i h1jk+p_i2+pI1∂iπ1I.
+On T³ integral of derivatives zero, and ∫Π0∂i h2=0, so reproduce v15.007 ∫[Π1jk∂i h1jk+p_i2+pI1∂iπ1I]=0. On R³ retain boundary flux. This is exact local second-order identity including gravitational divergence, but NOT solved for second-order shift/lapse: h2,Π2,p2 include unknown degree-two fields; Π2 depends on shift and lapse and metric. Physical constraints include Hamiltonian as well.
+
+Fourier K: define quadratic known source S_i2=−2iK_k [h1ijΠ1jk]^hat(K)+[Π1jk ∂i h1jk]^hat(K)+[pI1 ∂iπ1I]^hat(K). Linear second-order unknown operator L_i(K)[h2,Π2,p2]=−2iK_k[h0ijΠ2jk+h2ijΠ0jk]^hat+iK_i Π0jk h2jk_hat+(p_i2)_hat (p_i2 contains genuine second-order mode plus first-order products; split its bilinear pieces into source as needed). For full consistent split p_i2=p_i2,linear(second-order fields)+p_i2,bilinear(first-order). Thus S must additionally include bilinear p_i2, and L contains (2C/3)a³(dotπ_i2−β_i2). Omitting this split would falsely claim complete source. ∂h1 term convolution output K has input internal factor not necessarily K; same for p1∂π1 and bilinear p2. At K=0 total source must satisfy solvability compatible with linear second-order homogeneous modes; does not imply S(K)=O(K) uniformly on R³ or bounded inverse. Even if S(0)=0 and smooth, O(K) need not offset operator inverse K^-2 in some gauge. At fixed flat Fourier space and finite derivative Sobolev regularity, inverse elliptic estimates may require weighted norms, moment vanishing or choice of gauge/mean data.
+
+Precise convention for matter p2 as v15.005: p_i2=(2C/3)a³[(dotπ_i2−β_i2)+(trε/2−α)(dotπ_i1−β_i1)−β1^j∂jπ_i1]; so S_bilin includes these latter terms. h1=a²ε, Π1 formula v15.007. No second-order complete ADM constraint inversion proved. The exact identity is a required starting point for reconstruction. Next test full second-order L(K) with Hamiltonian constraint, constraint-preserving gauge, uniform low-K estimates for constrained initial data.
+
+Scope: no asserted nonlinear instability or future stability; Suzuki weld parked, no protected edits.
