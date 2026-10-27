@@ -1,0 +1,11 @@
+# All four Pythagorean means in the original two-factor Cone
+
+Date 2026-10-26. Owner supplied Wikimedia MathematicalMeans.svg (A/G/H/Q construction) and asked whether other means embedded in Cone constrain source. Parents v14.944–959; latest live HEAD f6dd79e0318590b58e8371a114e11befd03e64e0. Suzuki quarter weld parked.
+
+For a,b>0, original Cone coordinates T=(a+b)/2, X=(a−b)/2, Y=√ab, T²=X²+Y². The four means in diagram are arithmetic A=T; geometric G=Y; harmonic H=2ab/(a+b)=Y²/T=T−X²/T; quadratic/root-mean-square Q=√[(a²+b²)/2]=√(T²+X²)=√(2T²−Y²). Exact identities A H=G²=ab, Q²+G²=2 A², Q²−A²=A²−G²=X², Q≥A≥G≥H, equal iff a=b.
+
+Fixed-product hyperbola set a=G e^s,b=G e^-s with G>0, then A=G cosh s, X=G sinh s, H=G sech s, Q=G sqrt(cosh 2s). Thus AH=G² is constant under reciprocal factor transformation s→s+α. H is reciprocal dual A at fixed G, and its dependence on anisotropy s gives compact scalar measure of shape (H/G=sech s). Q/G grows as sqrt(cosh 2s). Exact two-factor identity AH=G² DOES NOT generalize to arbitrary k factors (for k>2 generally AH≠G²), and H is not itself a separately Noether-conserved charge: both A and H vary under reciprocal flow while product remains constant. The generalized k-factor arithmetic, harmonic and quadratic means obey Q≥A≥G≥H but do not universally obey pair-specific product identity.
+
+Connection to Hessian line element h2=2dG²−2G²ds²: using means as functions on the Cone DOES NOT add new spacetime fields or conserved stress-energy. At fixed product, normalized Q,A,H capture anisotropy s but are not automatically geodesic constants. Geometric radial flux in K4 still needs a defined field current and source charge; these means by themselves do not select F(ρ), η, gravitational κ or G. Potential next useful gate: construct symmetric deviations of arithmetic/harmonic/quadratic from GM and check whether their small-anisotropy expansion matches the Hessian shape quadratic and possible positive-definite anisotropy energy (with explicit extra physical assumptions).
+
+Source diagram https://commons.wikimedia.org/wiki/File:MathematicalMeans.svg ; image labels Q quadratic mean A arithmetic G geometric H harmonic. This note derived exact identities independently.
