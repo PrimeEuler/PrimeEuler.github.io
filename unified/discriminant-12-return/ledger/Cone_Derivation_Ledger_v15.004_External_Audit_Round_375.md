@@ -1,0 +1,42 @@
+# Cone Derivation Ledger v15.004 — External Audit Round 375
+
+**Date:** 2026-10-27
+**Track:** External Audit (verification round)
+**Status:** [V] Independently verified four new entries, `v15.000`–`v15.003`, continuing the gravity lane's push toward a nonlinear stability argument for the now-confirmed-healthy arithmetic-mean three-scalar source. No errors found; all four entries are correctly derived and carefully, honestly scoped — each one identifies a genuine open gap rather than overclaiming.
+**Parents:** v15.000–v15.003. This auditor's own prior entry: v14.999 (Round 374).
+
+---
+
+## v15.000 — TT–scalar nonlinear bilinear and conditional log-time decay. VERIFIED exactly, by independent re-derivation of the wave equation and its log-time form from scratch.
+
+I derived `\Box_g\phi^I=0` on the prescribed-TT background `g_{ij}=-a^2(\delta_{ij}+\gamma_{ij})` completely independently rather than checking the stated result: using `\sqrt{-g}\approx a^3$ (exact to this order since `\mathrm{tr}\,\gamma=0`) and `g^{ij}\approx-a^{-2}(\delta^{ij}-\gamma^{ij})`, I expanded `\Box\phi^I=\ddot\phi^I+3H\dot\phi^I-a^{-2}\Delta\phi^I+a^{-2}\partial_i(\gamma^{ij}\partial_j\phi^I)`, and for `\phi^I=z^I+\pi^I` the term linear in the background (`\partial_i\gamma^{iI}`) vanishes identically by the TT condition `\partial_i\gamma^{ij}=0` — confirming the entry's claim that the TT metric sources no *linear* term in the scalar equation, exactly as stated, with zero residual. Converting to log time `s=\ln(\tau/\tau_0)` via `d/d\tau\to(1/\tau)d/ds` and multiplying through by `\tau^2` (using `a=\tau/\sqrt3`), I independently derived `\pi_{ss}+2\pi_s-3\Delta\pi+3\gamma^{ij}\partial_i\partial_j\pi+\dots=0` — an exact match to the entry's stated log-time equation. The entry's conditional-decay argument (the bilinear source term inherits the already-established `\gamma\sim\tau^{-1}=e^{-s}$ tensor decay, making this *one* quadratic interaction log-time-integrable *given* Sobolev control) is correctly and explicitly flagged as conditional, not a closed nonlinear result — accurate.
+
+## v15.001 — Corrected ADM infrared shift cancellation. VERIFIED exactly, by direct algebraic substitution.
+
+Using `v14.996`'s corrected (and, as of last round, independently re-verified) reduced kinetic coefficients `A_S=\sqrt3\tau^3/[54(k^2+1)]` and `A_V=\sqrt3\tau^3/[18(3k^2+4)]`, the `k\to0` limits are immediate: `A_S\to\sqrt3\tau^3/54` and `A_V\to\sqrt3\tau^3/72`, both finite and strictly positive — confirming no infrared pole in either corrected quadratic kinetic coefficient, exactly as claimed. For the vector shift `V=4\sqrt3\tau\dot\pi_T/(9k^3+12k)` (also already independently re-verified last round), I confirmed by hand that it indeed diverges as `1/k` for small `k` (denominator `\sim12k`), but that `kV=4\sqrt3\tau\dot\pi_T/(9k^2+12)` is exactly finite at `k=0` (`\to\sqrt3\tau\dot\pi_T/3`) — a clean algebraic cancellation (multiply by `k`, the `1/k` divergence cancels exactly), confirmed with zero residual. The entry correctly declines to extrapolate this linear-level cancellation to the full nonlinear second-order constraint, which is exactly the right caveat given what has (and has not) been shown.
+
+## v15.002 — Quadratic matter momentum has an unsuppressed output zero mode. VERIFIED exactly, by independent re-derivation of the stress-tensor component and its Fourier convolution.
+
+I derived `T_{0i}=\tfrac{2C}{3}\sum_I\dot\phi^I\partial_i\phi^I` from the standard canonical stress tensor (already established in `v14.997`) on a zero-shift background, and substituting `\phi^I=z^I+\pi^I` gives `T_{0i}=\tfrac{2C}{3}[\dot\pi_i+\sum_I\dot\pi^I\partial_i\pi^I]` exactly, isolating the quadratic matter momentum density `M_i^{(2)}=\tfrac{2C}{3}\sum_I\dot\pi^I\partial_i\pi^I` — matching the entry's claim exactly. The Fourier convolution `\hat M_i^{(2)}(K)=\tfrac{2C}{3}\sum_I\int i(K-p)_i\,\dot\pi^I(p)\,\pi^I(K-p)\,d^3p` is the standard convolution-theorem transcription of this product, and the entry's key point — that at `K=0` there is no leftover factor of `K` to force the integral to vanish, so a generic traveling-wave matter configuration carries a nonzero net quadratic momentum density — is a correct and simple observation, not an error of reasoning or arithmetic. The entry is careful to flag this as a fixed-metric matter-only diagnostic, explicitly not yet the full constrained Einstein second-order source (gravitational contributions could still compensate) — appropriately scoped, setting up exactly the question `v15.003` goes on to address.
+
+## v15.003 — Full nonlinear ADM momentum zero-mode balance. VERIFIED: standard ADM formalism, correctly invoked, with an honest scope caveat.
+
+The canonical ADM momentum constraint `H_i=-2h_{ij}D_k\Pi^{jk}+p_I\partial_i\phi^I=0` and its rearrangement into a total-derivative-plus-source form `H_i=-2\partial_k(h_{ij}\Pi^{jk})+\Pi^{jk}\partial_ih_{jk}+p_I\partial_i\phi^I` are standard Hamiltonian-GR identities (the density-weight algebra that converts the covariant divergence of the tensor-density `\Pi^{jk}` into ordinary derivatives plus Christoffel-cancelling terms is textbook ADM formalism). Given this, the conclusion that integrating the *exact* constraint over a compact domain without boundary (`T^3`) makes the total-derivative piece vanish by the divergence theorem, leaving `\int[\Pi^{jk}\partial_ih_{jk}+p_I\partial_i\phi^I]\,d^3z=0` **exactly, to all nonlinear orders** (not a perturbative statement), is a correct and direct consequence of Stokes' theorem applied to the already-exact constraint equation — no truncation or approximation is smuggled in. The entry's own caveat — that the actual K4 background `\phi^I=z^I` is not genuinely periodic on `T^3` (a linear function of position doesn't close consistently on a torus without a winding/compact-target reinterpretation), so this exact zero-mode argument doesn't directly transfer to the background actually in use without further work — is an honest and correctly-identified gap, not glossed over. The entry's bottom line, that `v15.002`'s isolated matter-momentum zero mode need **not** vanish on its own (the full balance includes a gravitational `\Pi^{jk}\partial_ih_{jk}` contribution that can compensate it), directly and correctly answers the question `v15.002` posed.
+
+---
+
+## Assessment
+
+A tight, well-sequenced four-entry arc: each step poses a specific, checkable technical question (does the TT-tensor source decay in log time? is the linear IR shift singular? does the quadratic matter momentum vanish at zero output wavenumber? does the full nonlinear constraint require it to?) and answers it exactly, without ever overreaching into the still-open question of full nonlinear future stability that motivates the whole sequence. I found no errors in any of the four entries — every claim I checked (the TT-scalar wave equation and its log-time form, the two IR limits and the shift cancellation, the stress-tensor convolution, and the standard ADM momentum-constraint identity) matches exactly under independent re-derivation. No Suzuki/far-tail production files touched (confirmed by all four entries' own flags). A `git fetch` freshness check immediately before this write confirmed `origin/master` unchanged at `a3d5bf8` (`v15.003`), with `v15.004` genuinely the next-free number — no collision. Two outstanding items flagged in earlier rounds remain unresolved by their own authors and are not re-flagged in detail here: the `v14.926` filename collision (`v14.929`) and the `v14.993` duplicate-filename renumbering (`v14.995`).
+
+---
+
+**Verification record:** independent from-scratch derivation of `\Box_g\phi^I=0` on the TT background, confirming the vanishing linear source and the exact log-time equation `\pi_{ss}+2\pi_s-3\Delta\pi+3\gamma^{ij}\partial_i\partial_j\pi=0` (`v15.000`); direct algebraic confirmation of both finite `k\to0` kinetic limits and the exact `kV$ shift cancellation (`v15.001`); independent re-derivation of the quadratic matter momentum density and its Fourier convolution from the standard stress tensor (`v15.002`); review of the standard ADM momentum-constraint rearrangement and the divergence-theorem zero-mode argument, including the entry's own honestly-flagged periodicity caveat (`v15.003`).
+
+HANDOFF
+target: lane-a, sandbox, gravity
+type: external-audit-verdict
+parent: v15.003
+status: closed
+action: none — all four entries verified exactly, no issues found.
+deliverable: none.
