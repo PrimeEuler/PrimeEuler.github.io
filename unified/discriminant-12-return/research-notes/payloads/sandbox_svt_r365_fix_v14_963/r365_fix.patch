@@ -1,0 +1,24 @@
+--- scalar_statespace.py.orig	2026-10-26 21:04:18.399865255 +0000
++++ scalar_statespace.py	2026-10-26 21:04:33.449267642 +0000
+@@ -32,10 +32,19 @@
+     chk = [abs(float(e1.coeff(psd))), abs(float(e1.coeff(ppd))), abs(float(e2.coeff(psd)))]
+     assert max(chk) < 1e-6, f"unexpected first-deriv terms {chk}"
+     C00 = float(e1.coeff(ps)); C01 = float(e1.coeff(pp_))
+-    alpha = -C01/C00                      # psi = alpha * P  (pure constraint)
+     A22 = float(e2.coeff(ppdd)); B21 = float(e2.coeff(ppd))
+     C20 = float(e2.coeff(ps)); C21 = float(e2.coeff(pp_))
+-    Ceff = C21 + C20*alpha
++    # R365 robustness fix: C00, C01 and C20 are symbolically exactly zero
++    # (psi is auxiliary and drops out of E2), so alpha = -C01/C00 is a 0/0
++    # ratio of float noise. Guard the degenerate case instead of dividing:
++    # when C00 vanishes, C01 and C20 must vanish with it and Ceff = C21.
++    if abs(C00) < 1e-9:
++        assert abs(C01) < 1e-9 and abs(C20) < 1e-9, \
++            f"degenerate constraint with live coupling C01={C01} C20={C20}"
++        Ceff = C21
++    else:
++        alpha = -C01/C00                  # psi = alpha * P  (pure constraint)
++        Ceff = C21 + C20*alpha
+     disc = B21**2 - 4*A22*Ceff
+     if disc >= 0:
+         lam = [(-B21 + np.sqrt(disc))/(2*A22), (-B21 - np.sqrt(disc))/(2*A22)]
