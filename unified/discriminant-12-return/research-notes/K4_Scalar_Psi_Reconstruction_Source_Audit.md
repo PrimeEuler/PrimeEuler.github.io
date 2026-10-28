@@ -1,0 +1,12 @@
+# v15.052 — Reconstruction operator audit: exact source pathway and remaining IR coefficient certificate
+
+Date 2026-10-28. Parent gravity v15.049, audit v15.051 verified v15.049. Checked live HEAD. Inspected actual corrected v14.996 files scalar_adm2.py and scalar_final2.py. Protected Lane A and Sandbox unaffected; Suzuki physical-quarter weld PARKED.
+
+Source definition:
+scalar_adm2.py sets phi3=z+e*pi(t)/k*sin(kz), hf=a²(1−2e psi cos(kz)), lapse Phi, shift B. scalar_final2.py machine-builds L2, eliminates auxiliaries Phi,B, calls Lred, E1=EL(Lred,psi), E2=EL(Lred,pi), sets solpsi=solve(E1,psi)[0], E1p=dt(E1), solpsid=solve(E1p,dotpsi)[0]. Substitutes solpsi and solpsid into E2 to isolate pi oscillator. Thus the corrected reconstruction algorithm is explicit, and piecing physical metric psi to strain pi requires E1 output after correcting lapse/shift. v14.996 report scalar second-order equation ddotpi+3/t dotpi+(3k²+4)/t² pi=0 and kinetic >0, but the reconciliation note reports no exact psi_sol coefficient expression. Source itself writes psi_sol to scalar_final.txt at runtime; that text file not found at repository path checked. We have NOT executed the symbolic build or extracted psi_sol from its generated expression in this gate. Therefore no coefficient-wise claim of psi=τ^-1 w with uniform low-k bound can be made. This is not a new metric decay theorem.
+
+An exact reconstruction certificate must report the symbolic expression R_k[pi,dotpi] (and possibly other derivatives if present), all denominators and their k→0 limiting behavior, and τ scaling after pi=τ^-1u. Cross-check against original unconstrained Euler equations with full inverse metric and machine Christoffels, because previous v14.993 ghost was a wrong unreduced action. If R_k has factors like 1/k or 1/k², those might cancel in physical combinations but must be shown; raw homogeneous k=0 in scalar potential gauge is separately special. Even clean k→0 coefficients are insufficient without τ uniform bounds and required Sobolev derivative counts.
+
+Actionable reproducer: run scalar_final2.py in working directory containing scalar_adm2.py; capture scalar_final.txt psi_sol, psid_sol, residual outputs, and kinetic checks; audit all k denominators. Full building potentially costly; handoff to Sandbox or External Audit is an instruction, not confirmation of completed execution.
+
+Next: obtain exact psi_sol from the machine-built source and prove weighted H^r multiplier estimates; only thereafter promote v15.049 normal-energy estimate beyond conditional scope.
