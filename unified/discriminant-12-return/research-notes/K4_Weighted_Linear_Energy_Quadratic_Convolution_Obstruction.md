@@ -1,0 +1,12 @@
+# v15.071 — Conserved inverse-Laplacian-weighted scalar energy and quadratic convolution obstruction
+Date 2026-10-28. Parent v15.070; read Sandbox/Muse latest v15.069 classification audit. HEAD checked; gravity note additive, protected other lanes untouched.
+
+Muse classification v15.069: geometric 1/3 derived, eta=3/2 selected fingerprint, kappa C=1 matched, κ/G empirical; no unique G derivation obligation; nonlinear future stability remains proof owed. Distinguish that scope taxonomy from proof of unique physical source. Pantheon+ loss remains.
+
+Corrected gravity scalar oscillator u_ss+ω(k)^2u=0, ω²=3(1+|k|²), π=τ^-1u, and externally audited metric ψ=τ^-1[-u+|k|^-2(u_s−u)]/[3(1+|k|²)], k≠0. Define E_-2=1/2∫_{R³}|k|^-4 (|u_s|²+ω²|u|²) d³k for data in domain of |∇|^-2. Differentiation gives dE_-2/ds=Re∫|k|^-4 conj(u_s)(u_ss+ω²u)=0. Combined with standard oscillator energy, controls τψ in H^r when same H^r weights applied (e.g. E_{r,-2}=1/2∫(1+k²)^r |k|^-4(|u_s|²+3(1+k²)|u|²) d³k; conserved). This is an exact LINEAR weighted-energy theorem, conditional on finite initial weighted energy, not proof generic perturbations belong to that class.
+
+Quadratic convolution obstruction: let f real Schwartz, nonzero, with Fourier support compactly separated from k=0 and symmetric about ±p (so f allowed in all weighted Sobolev classes). Then hat(f²)(0) ∝∫ f² dx>0. Continuity yields |hat(f²)(K)|≥c>0 for small |K|, so ∫_{|K|<ε}|hat(f²)(K)|²/|K|⁴ d³K ≥ const∫_0^ε r^-2 dr=∞. Hence generic multiplication does not map weighted H^r∩dot H^-2 into dot H^-2; even high-frequency smooth data may produce a dangerous output-zero component. This is NOT proof physical nonlinear ADM forcing contains unprotected f², nor proof instability. Must examine full Hamiltonian/momentum constraints and total zero mode, null/derivative structures, normal-form transforms, or use gauge invariant/alternative norms.
+
+More precise near-zero criterion: for smooth Fourier source, hatF(K)=O(|K|^α) implies local integrability of |K|^-4|hatF|² in 3D if α>1/2; merely forcing Fhat(0)=0 with smooth Lipschitz behavior is sufficient, but no blanket source cancellation established. On compact torus excluding homogeneous mode, finite minimum positive momentum bounds inverse but constant depends on box scale.
+
+Next: compute exact full quadratic ADM source zero-mode and low-K expansion, test whether compatibility enforces sufficient vanishing and weighted data class closed; do not equate integrated constraint compatibility alone with all source divisibility.
