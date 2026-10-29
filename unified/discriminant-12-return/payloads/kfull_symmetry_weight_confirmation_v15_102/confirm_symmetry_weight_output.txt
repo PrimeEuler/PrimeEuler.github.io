@@ -1,0 +1,20 @@
+[D] Gate 1: K[N,m] - K[m,N] simplifies to 0 identically for the
+    FULL frozen kernel (V/U part + 2*sigma*p_N*p_m pole part).
+    Diagonal K[N,N] = d_N + 2*sigma*p_N^2 is a single real entry:
+    symmetric trivially.
+[D] Gate 2: with K[m,N] = K[N,m] real, weighted symmetry
+    w_N*K[N,m] = w_m*K[m,N] is exactly (w_N - w_m)*K[N,m] = 0:
+    every nonzero edge forces equal endpoint weights.
+[D] even-v: m1 = 512001, certified |z_m1| >= 1.0066924292 (mid 1.0066924292 - radius 7.150e-42)
+    vanishing of K[N,m1] on the p_N=0 tail would require N <= 3.775470e+06,
+    but the tail starts at N >= 1.662471e+77 (rigorous floor bound).
+    => K[N,m1] != 0 for ALL tail N; w_N = w_{m1} forced there;
+    power weights w_N = N^(2a) give w_N/w_m1 = (N/m1)^(2a) != 1 for N != m1, a != 0: excluded.
+[D] odd-v: m1 = 512002, certified |z_m1| >= 1.5117101051 (mid 1.5117101051 - radius 7.150e-42)
+    vanishing of K[N,m1] on the p_N=0 tail would require N <= 2.514202e+06,
+    but the tail starts at N >= 7.682564e+76 (rigorous floor bound).
+    => K[N,m1] != 0 for ALL tail N; w_N = w_{m1} forced there;
+    power weights w_N = N^(2a) give w_N/w_m1 = (N/m1)^(2a) != 1 for N != m1, a != 0: excluded.
+[N] even-v: float spot-checks of K[a,b] vs K[b,a] at 4 pairs (incl. spike column): worst relative asymmetry 0.000e+00 (float-model noise level).
+[N] odd-v: float spot-checks of K[a,b] vs K[b,a] at 4 pairs (incl. spike column): worst relative asymmetry 0.000e+00 (float-model noise level).
+ALL CONFIRMATION CHECKS PASSED
