@@ -1,0 +1,44 @@
+## SOURCE BASE (named by v15.115): 3 files
+-- pattern 'synthesis map / Phi_a': 0 hits
+-- pattern 'sequence-indexed source family': 0 hits
+-- pattern 'frozen-data reference': 0 hits
+
+## SUZUKI DIGEST RANGE v13.640-v13.799: 160 files
+-- pattern 'synthesis map / Phi_a': 32 hits
+  v13.643:5: Status: exact analog-simulation/control result. Opens the separate gate proposed by External Audit Addendum v1
+  v13.643:102: ## 3. Exact quadratic-control synthesis
+  v13.643:370: &J_x^2	ext{ control is sufficient for an exact two-stage synthesis};\
+  v13.646:7: Scope: the LQG/tetrahedron thread's response to External Audit Checkpoint v13.635 and Addendum v13.638 — v13.6
+  v13.646:15: ## 1. v13.636 / companion — LQG synthesis closure: independently reproduced, PASS
+  v13.646:17: This entry and its companion restate the content already independently verified in External Audit Rounds 66-67
+  v13.646:23: This is substantial new mathematics — a no-go theorem plus an explicit two-stage pulse-synthesis protocol — bu
+  v13.646:33: ### 2c. Exact pulse synthesis: independently reproduced as a full matrix identity, PASS
+  v13.646:77: | v13.636 + companion | LQG synthesis closure | restates Round 66/67 results faithfully; guardrails correct | 
+  v13.646:79: | v13.643 §3 (pulse synthesis) | `R_Y=e^{i\pi/8}Z(-\pi)X(\pi)Q_x(\pi/2)` | independent eigenbasis construction
+  v13.650:1: # Cone Derivation Ledger v13.650 — Exact Endpoint-Free Local Quadratic Synthesis of the j=3/2 Tetrahedral Orie
+  v13.650:13: - v13.646, External Audit Round 68, independently verified the load-bearing v13.643 no-go, pulse synthesis, in
+  v13.651:7: Scope: v13.649 (exact magnetic-driver `h_x^{(11)}`, `h_z^{(12)}`, `c_P,12(j)`), v13.650 (exact endpoint-free l
+  v13.651:17: ## 2. v13.650 — exact endpoint-free local quadratic tetrahedral synthesis: independently reproduced, PASS (thi
+  ... and 18 more
+-- pattern 'sequence-indexed source family': 0 hits
+-- pattern 'frozen-data reference': 42 hits
+  v13.640:5: Status: exact convention audit for the frozen primitive chi_-4 screw-function formula. This closes the source-
+  v13.640:67: Therefore the frozen linear coefficient is forced to be
+  v13.640:124: Thus the frozen archimedean term is exactly
+  v13.640:133: ## 5. Certified frozen formula
+  v13.640:151: This matches the frozen implementation in
+  v13.664:23: **This is worth flagging prominently rather than passing through quietly**: the project has now stated three d
+  v13.664:67: The single actionable item from this round: the Suzuki v2 Corollary 1.6 citation (v13.279 vs v13.280 vs v13.66
+  v13.674:30: - This is now **four** stated positions on a single equation from what is claimed each time to be the same fro
+  v13.685:11: This uses the source-faithful transport frozen in v13.667 and the characteristic convention stabilized in v13.
+  v13.691:17: This entry does not replace those results. It reconciles them with the harmonic-mean and divisor continuation 
+  v13.693:17: P_m=m(m+1).
+  v13.693:22: P_m+\frac14=\left(m+\frac12\right)^2
+  v13.693:28: \sqrt{P_m+\frac14}=m+\frac12.
+  v13.693:34: 4P_m+1=(2m+1)^2.
+  ... and 28 more
+
+Classification (manual, from full reads): every hit in the source base
+concerns the deficiency pair, parity sources, or the abstract spectral
+resolution of T_a. No hit prescribes a sequence-indexed synthesis or
+any map from the frozen K_full index data to source functions.
