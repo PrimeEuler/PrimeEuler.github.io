@@ -1,0 +1,38 @@
+BUILD2 L2 built
+BUILD2 L2 ready
+c2 = -sqrt(3)*t**3/(27*k**2 + 27)   [= -2A_kin]
+P = 3/t
+Q = (3*k**2 + 4)/t**2
+Omega^2 = (12*k**2 + 13)/(4*t**2)
+high-k Om2/(k^2/a^2): 1
+k->0: Om2*t^2: 13/4  P*t: 3
+residual EL_B(orig) on recon: 0
+residual EL_Phi(orig) on recon: 0
+residual E1: 0 | E2f is the reduced eq by construction
+  k=0.0500  Om2*t^2=   +3.2575   P*t= +3.0000
+  k=0.2000  Om2*t^2=   +3.3700   P*t= +3.0000
+  k=0.4000  Om2*t^2=   +3.7300   P*t= +3.0000
+  k=0.5000  Om2*t^2=   +4.0000   P*t= +3.0000
+  k=0.5774  Om2*t^2=   +4.2502   P*t= +3.0000
+  k=0.7000  Om2*t^2=   +4.7200   P*t= +3.0000
+  k=1.0000  Om2*t^2=   +6.2500   P*t= +3.0000
+  k=1.1547  Om2*t^2=   +7.2500   P*t= +3.0000
+  k=1.3000  Om2*t^2=   +8.3200   P*t= +3.0000
+  k=1.5000  Om2*t^2=  +10.0000   P*t= +3.0000
+  k=3.0000  Om2*t^2=  +30.2500   P*t= +3.0000
+[D] psi     = (-k**2*pi(t) + t*Derivative(pi(t), t))/(3*k**2*(k**2 + 1))
+[D] psi_dot = (-k**2*t*Derivative(pi(t), t) - 3*k**2*pi(t) - 2*t*Derivative(pi(t), t) - 4*pi(t))/(3*k**2*t*(k**2 + 1))  (pi'' eliminated; pi' coeff -> -2/(3k^2) as k->0: the v15.110 1/k^2 pole)
+[D] alpha = (3*k**2*pi(t) + t*Derivative(pi(t), t) + 4*pi(t))/(3*k**2*(k**2 + 1))
+[D] B     = 0
+[D] residual EL_B(orig) on reconstruction: 0
+[D] residual EL_Phi(orig) on reconstruction: 0
+[D] <H2>_on-shell = (-3*k**8*pi(t)**2 - k**6*t**2*Derivative(pi(t), t)**2 - 7*k**6*pi(t)**2 - k**4*t**2*Derivative(pi(t), t)**2 - 4*k**4*t*pi(t)*Derivative(pi(t), t) - 15*k**4*pi(t)**2 - 2*k**2*t**2*Derivative(pi(t), t)**2 - 6*k**2*t*pi(t)*Derivative(pi(t), t) - 16*k**2*pi(t)**2 + 3*t**2*Derivative(pi(t), t)**2 + 8*t*pi(t)*Derivative(pi(t), t))/(3*k**4*t**2*(k**4 + 2*k**2 + 1))
+[D] quadratic form: <H2> = A*pi^2 + B*pi*pi' + C*pi'^2
+    A = -(3*k**6 + 7*k**4 + 15*k**2 + 16)/(3*k**2*t**2*(k**2 + 1)**2)
+    B = -2*(2*k**4 + 3*k**2 - 4)/(3*k**4*t*(k**2 + 1)**2)
+    C = -(k**6 + k**4 + 2*k**2 - 3)/(3*k**4*(k**2 + 1)**2)
+[D] identically zero on-shell? False
+    k->0: t^2*A -> -oo | k^2-scaled: -16/3
+    k->0: t^2*B -> oo | k^2-scaled: oo
+    k->0: t^2*C -> oo | k^2-scaled: oo
+h2_certificate.txt written
