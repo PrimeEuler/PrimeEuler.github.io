@@ -1,0 +1,10 @@
+# v15.113 — Conditional on-shell scalar longitudinal shift cancellation, source-action verification OPEN
+Date 2026-10-29. Parent v15.111, audit v15.112 R402 verified v15.107-111. Live HEAD checked.
+
+Using earlier linear scalar ADM constraints v15.038 in h=a²(1+2ψ_old)δ convention with ψ_old=−ψ_source, p=Δσ and k²>0, derive S:=dotσ−b=−3Hψ_source−(pdot+Hp)/(1+k²), α=−dotψ_source/H+S/(3H). Using externally audited ψ_source=[−k²p+τpdot]/[3k²(1+k²)], scalar oscillator pdd+3pdot/τ+(3k²+4)p/τ²=0, direct SymPy algebra reduces S=−pdot/k²=dotσ, so b=0, and α=[(3k²+4)p+τpdot]/[3k²(1+k²)]. Check source-sign scalar wave ∂τ[a³(dotσ−b)]−a(p+α−ψ_source)=0; substituting gives zero residual after oscillator. This demonstrates algebraic consistency of candidate auxiliary coefficients and wave equation.
+
+CRITICAL: v15.038 constraints were derived in opposite ψ convention, and although transformation is algebraically stated, original corrected v14.996 action EL_B and EL_Phi were NOT executed independently this turn to certify b=0 or α expression; their original source coefficients must be compared. Therefore status CANDIDATE, NOT VERIFIED_SOURCE_AUXILIARY. Source script scalar_final2.py was inspected, and Audit v15.112 independently certified previous quadratic ADM calculations but not these coefficients. Nonlinear H2 substitution not done or claimed; no infrared cancellation of full physical source, no second-order solvability, no future stability theorem.
+
+Because α carries 1/k² and ψ time derivative does likewise, there may be cancellations in quadratic lapse/shift/extrinsic sector; cannot infer without original source residuals and complete constrained H2. Even if b=0 in a particular gauge, this is gauge-dependent; k=0 excluded.
+
+Next exact gate: execute original scalar_final2.py with diagnostics print(sp.factor(solB),sp.factor(PhiS)) after solpsi and solpsid substituted; report residuals EL_B, EL_Phi, E1, E2. Compare candidate α and B=0 exactly, and if verified insert into v15.107 H2 and evaluate bilinear ±k zero-mode. External audit requested. Other lanes untouched; Suzuki physical-quarter weld parked.
