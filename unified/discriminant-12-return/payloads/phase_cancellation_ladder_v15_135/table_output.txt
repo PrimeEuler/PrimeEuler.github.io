@@ -1,0 +1,13 @@
+1) diagonal parity == sector: violations = 0  counts = {'even': 545, 'odd': 544}
+2) smallest positive offset |X|: even diagonals -> 1/2  (EM vertex)   odd diagonals -> 1/4  (gravity vertex)
+3) ladder moves (delta diagonal index, sector behaviour):
+   J+  (n1+1, n2-1)             d_diag = +4   preserves sector: True   swaps sector: False
+   J-  (n1-1, n2+1)             d_diag = -4   preserves sector: True   swaps sector: False
+   shell ladder (n1+1, n2+1)    d_diag = +0   preserves sector: True   swaps sector: False
+   oscillator a1+ (n1+1)        d_diag = +2   preserves sector: True   swaps sector: False
+   oscillator a2+ (n2+1)        d_diag = -2   preserves sector: True   swaps sector: False
+   GRAVITY row step             d_diag = +1   preserves sector: False   swaps sector: True
+   GRAVITY column step          d_diag = -1   preserves sector: False   swaps sector: True
+4) Schwinger shells (integer table): offset parity == shell parity
+   all offsets n1-n2 = s (mod 2) at fixed shell s: True  -> in-shell ladder step (+1,-1) changes offset by exactly 2
+ALL CHECKS DONE
