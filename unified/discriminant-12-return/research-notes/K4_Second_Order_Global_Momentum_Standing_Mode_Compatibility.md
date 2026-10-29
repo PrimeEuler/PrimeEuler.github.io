@@ -1,0 +1,10 @@
+# v15.126 — Integrated ADM momentum compatibility; standing scalar mode passes
+Date 2026-10-29. Parent gravity v15.124, Sandbox build-2 certification v15.118 independently audited R403 v15.119. HEAD prewrite v15.125. Other lanes untouched; Suzuki quarter physical weld parked.
+
+Canonical exact ADM momentum constraint H_i=−2∂_j(h_ik Π^{kj})+Π^{jk}∂_i h_jk+p_I∂_i φI=0; Π^{ij}=√h(K^{ij}−h^{ij}K)/(2κ), p_I=(2C/3)(√h/N)(dotφI−β^j∂jφI). On spatial torus periodic boundary divergence integrates to zero. Hence necessary global constraint ∫(Π^{jk}∂_i h_jk+p_I∂_iφI)=0 for every i. Applies at each perturbative order; nonzero traveling-wave momentum can require compensating modes/data.
+
+For source-certified BUILD-2 single longitudinal standing scalar mode h_ij=a²(1−2εΨ cos kz)δij, N=1+εA cos kz, shift B=0 and φ³=z+ε p sin(kz)/k; φ¹=x, φ²=y. The metric and lapse are even in z, Kij and Πij even; ∂z h odd. Normal field velocity dotφ³=ε pdot sin(kz)/k odd; ∂zφ³=1+ε p cos kz even, p3 odd. Hence Πjk ∂z h_jk+p3∂zφ³ is odd and its integral over full periodic wavelength vanishes exactly, not just to order two. For i=x,y, ∂i h=0, dotφ¹,²=0 and p1,p2=0, so their global momentum contributions also vanish. Reflection argument holds for this restricted standing-wave ansatz and sources with sufficient periodicity and background winding coordinate conventions.
+
+This is ONLY the integrated global momentum constraint. Local H_i(z)=0 is not checked at order ε²: odd integrands can have nonzero higher harmonic sin(2kz) requiring second-order shift/metric/matter corrections. The Hamiltonian mean v15.124 has exact homogeneous response for prescribed lapse, but simultaneous complete second-order constraint solvability/evolution and low-k uniformity remain OPEN. General traveling-wave superpositions can carry nonzero total momentum; global constraint is a selection/compensation condition. No nonlinear stability theorem.
+
+Next: compute explicit sin(2kz) coefficient in local second-order momentum source, include H1[U2] and see whether 2k harmonic can be canceled with a second-order correction. Audit requested.
