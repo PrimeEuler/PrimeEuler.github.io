@@ -1,0 +1,7 @@
+even diagonals (EM)          count  1201   C mod 1 = ['0', '3/4']
+odd diagonals (gravity-only) count  1200   C mod 1 = ['13/16', '5/16']
+1) Casimir classes disjoint between sectors: True
+2) (j+1/2)^2 - j(j+1) = 1/4 exactly for all shells j in (1/2)Z: True  -- ladder and Casimir landing circles never coincide
+3) gravity step (1,0) flips diagonal class at every node: True
+   EM moves preserve diagonal class at every node: True
+ALL CHECKS DONE
