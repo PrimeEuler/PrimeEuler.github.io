@@ -1,0 +1,52 @@
+PART A -- chain termination audit (exact rationals)
+ T=  1/4 [ODD  (T odd quarter)] closed chains: 0
+      chain mod 1 = X=1/4: one-ended fragment (1 states; bottom escape^2=1/2)
+      chain mod 1 = X=3/4: one-ended fragment (1 states; top escape^2=1/2)
+ T=  1/2 [EVEN (T in (1/2)Z)] closed chains: 1
+      chain mod 1 = X=0: open fragment (1 states; top escape^2=3/4, bottom escape^2=3/4)
+      chain mod 1 = X=1/2: CLOSED (2 states)
+ T=  3/4 [ODD  (T odd quarter)] closed chains: 0
+      chain mod 1 = X=1/4: one-ended fragment (2 states; top escape^2=1)
+      chain mod 1 = X=3/4: one-ended fragment (2 states; bottom escape^2=1)
+ T=    1 [EVEN (T in (1/2)Z)] closed chains: 1
+      chain mod 1 = X=0: CLOSED (3 states)
+      chain mod 1 = X=1/2: open fragment (2 states; top escape^2=5/4, bottom escape^2=5/4)
+ T=  5/4 [ODD  (T odd quarter)] closed chains: 0
+      chain mod 1 = X=1/4: one-ended fragment (3 states; bottom escape^2=3/2)
+      chain mod 1 = X=3/4: one-ended fragment (3 states; top escape^2=3/2)
+ T=  3/2 [EVEN (T in (1/2)Z)] closed chains: 1
+      chain mod 1 = X=0: open fragment (3 states; top escape^2=7/4, bottom escape^2=7/4)
+      chain mod 1 = X=1/2: CLOSED (4 states)
+ T=  7/4 [ODD  (T odd quarter)] closed chains: 0
+      chain mod 1 = X=1/4: one-ended fragment (4 states; top escape^2=2)
+      chain mod 1 = X=3/4: one-ended fragment (4 states; bottom escape^2=2)
+ T=    2 [EVEN (T in (1/2)Z)] closed chains: 1
+      chain mod 1 = X=0: CLOSED (5 states)
+      chain mod 1 = X=1/2: open fragment (4 states; top escape^2=9/4, bottom escape^2=9/4)
+ T=  9/4 [ODD  (T odd quarter)] closed chains: 0
+      chain mod 1 = X=1/4: one-ended fragment (5 states; bottom escape^2=5/2)
+      chain mod 1 = X=3/4: one-ended fragment (5 states; top escape^2=5/2)
+ T=  5/2 [EVEN (T in (1/2)Z)] closed chains: 1
+      chain mod 1 = X=0: open fragment (5 states; top escape^2=11/4, bottom escape^2=11/4)
+      chain mod 1 = X=1/2: CLOSED (6 states)
+ escape weights minus (T + 1/4), all open ends, all shells: {Fraction(0, 1)}  -> every open end escapes with weight exactly T + 1/4
+
+PART B -- SU(2) commutator defect on single chains (Jz = geometric X)
+ T=2, integer chain (Schwinger j=2)
+   states X = ['-2', '-1', '0', '1', '2']
+   defect diag([J+,J-] - 2Jz) = [ 0.  0.  0. -0.  0.]   (T + 1/4 = 2.25)
+ T=1, halfway chain (Casimir family)
+   states X = ['-1/2', '1/2']
+   defect diag([J+,J-] - 2Jz) = [-1.25  1.25]   (T + 1/4 = 1.25)
+ T=5/4, odd chain X=1/4 mod 1
+   states X = ['-3/4', '1/4', '5/4']
+   defect diag([J+,J-] - 2Jz) = [-1.5 -0.   0. ]   (T + 1/4 = 1.5)
+ T=5/4, odd chain X=3/4 mod 1
+   states X = ['-5/4', '-1/4', '3/4']
+   defect diag([J+,J-] - 2Jz) = [-0.   0.   1.5]   (T + 1/4 = 1.5)
+
+Reading: closed chain -> defect 0 (true SU(2) representation).
+Fragment -> defect = +(T+1/4) at an open top, -(T+1/4) at an open
+bottom, 0 in the interior: SU(2) holds inside the fragment and fails
+by exactly the escape weight at the end where the ladder leaves the cone.
+ALL CHECKS DONE
