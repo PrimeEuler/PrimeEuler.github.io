@@ -1,0 +1,51 @@
+========================================================================
+PART 0 -- the parabolic ladder is s-blind (symbolic separation)
+========================================================================
+MIC split residual (symbolic s): 0 -> separation holds for ANY s
+TN-MIC purely radial: True -> TN seats are MIC seats at s = 2*eps*l, centre k/2, root offset eps*l
+
+========================================================================
+PART 1 -- dyadic pair theorem: centre/offset of two half variables
+========================================================================
+checkerboard violations: 0
+   ('opposite-parity', 'C,X odd quarters') -> 544 pairs
+   ('same-parity', 'C,X in (1/2)Z') -> 545 pairs
+odd-quarter example: A=1/2, B=0 -> C=1/4, X=1/4 (both raw vars are EM-legal)
+
+========================================================================
+PART 2 -- cancellation conditions: which centre leaves odd-quarter X?
+========================================================================
+  centre C mod 1 =    0:  X mod 1 in ['0', '1/2']   odd quarters survive: False
+  centre C mod 1 =  1/4:  X mod 1 in ['1/4', '3/4']   odd quarters survive: True
+  centre C mod 1 =  1/2:  X mod 1 in ['0', '1/2']   odd quarters survive: False
+  centre C mod 1 =  3/4:  X mod 1 in ['1/4', '3/4']   odd quarters survive: True
+exact cancellation C = 0 forces X = A in (1/2)Z: odd quarters KILLED.
+odd-quarter offsets survive IFF the centre itself carries an odd-quarter
+holonomy (opposite-parity pair). Cancellation alone does not choose this.
+
+========================================================================
+PART 3 -- twist combination rules vs the TN structure
+========================================================================
+s1 + s2 denominators: [1, 2]  (stays in (1/2)Z: (1/2)Z is a group)
+s1 - s2 denominators: [1, 2]  (stays in (1/2)Z)
+(s1 - s2)/2 denominators: [1, 2, 4]  (reaches (1/4)Z -- offset coordinate)
+root offset s/2, EM/TN twists in (1/2)Z: [1, 2, 4]
+root offset s/2, half-difference twists: [1, 2, 4, 8]  -> EIGHTH lattice at seat level: rule overshoots, not in the record
+minimal-twist seat charges EM (s=1/2) == TN (eps*l=1/4): True
+  -> the parabolic seats cannot see the quarter; it is in the FACTORISATION
+     s = 2*eps*l (state x coupling), not in the twist or the seats.
+
+========================================================================
+PART 4 -- the fiber benchmark an EM-only mechanism would have to match
+========================================================================
+  Misner rung n=0: eps*l = 0  (quarter lattice, fiber momentum)
+  Misner rung n=1: eps*l = 1/4  (quarter lattice, fiber momentum)
+  Misner rung n=2: eps*l = 1/2  (quarter lattice, fiber momentum)
+  Misner rung n=3: eps*l = 3/4  (quarter lattice, fiber momentum)
+  Misner rung n=4: eps*l = 1  (quarter lattice, fiber momentum)
+EM has no time fiber and no eps: its quarter (Part 1) is a COORDINATE
+quarter (centre/offset of a pair). Identifying it with the fiber-product
+quarter above is exactly the weld's node=state premise (v14.904),
+not a consequence of EM phase algebra alone.
+
+ALL CHECKS DONE
