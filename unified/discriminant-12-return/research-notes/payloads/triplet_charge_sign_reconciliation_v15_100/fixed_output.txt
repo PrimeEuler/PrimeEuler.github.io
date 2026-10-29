@@ -1,0 +1,11 @@
+R1 (spatial B): B = Matrix([[a**(-2), 0, 0], [0, a**(-2), 0], [0, 0, a**(-2)]])  -> A_B = tr B/3 = a**(-2) : rotation INVISIBLE to W (singular values of R are 1)
+   canonical momentum pi_I = dL/d(phidot^I) = 0 (W has no phidot) -> Noether charge density J^t = pi_I * delta phi^I = 0 EXACTLY:
+   the internal rotation is a flat direction carrying NO charge density (spatial current only).
+
+R2 (full B): tr B = omega**2*z1**2 + omega**2*z2**2 - 3/a**2  -> A_B = -tr B/3 = (-a**2*omega**2*(z1**2 + z2**2) + 3)/(3*a**2)
+   internal charge density q3 = 2*C*omega*(z1**2 + z2**2)/3  -> proportional to C * omega * (distance to axis)^2: a MOMENT density,
+   extensive over any ball (integral ~ C omega R^5), and omega, R are state data: quantization of a total
+   charge would pin C x (state), not C. On the homogeneous cosmology there is no finite total at all.
+
+Derrick check (finite lump, pure-gradient W): profile phi(z/lam): A_B -> A_B/lam^2, volume -> lam^3,
+   E(lam) = lam * E(1): monotone -- no finite-size soliton; and W has no potential term, so no Q-ball either.
