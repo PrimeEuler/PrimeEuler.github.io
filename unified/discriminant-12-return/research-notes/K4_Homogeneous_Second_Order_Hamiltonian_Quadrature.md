@@ -1,0 +1,10 @@
+# v15.124 — Homogeneous order-two Hamiltonian response: exact quadrature, fixed-mode decay
+Date 2026-10-29. Gravity parents v15.102, v15.117 source-certified by Sandbox v15.118 and External Audit R403 v15.119. Live HEAD checked at v15.123; other lanes protected.
+
+Working on periodic spatial slices and conformal gauge h_ij=a²(1−2ψ)δij (with source ψ sign). For U1 satisfying source-certified linear equations, let F(t)=⟨H2[U1](t)⟩ be the certified constrained quadratic Hamiltonian source. The integrated order-two constraint H1[U2]+H2[U1]=0 from v15.102 gives 12H⟨dotψ2⟩+12H²⟨ψ2+α2⟩=F. Put m(t)=⟨ψ2⟩, n(t)=⟨α2⟩, H=1/t: d(t m)/dt=t²F(t)/12−n(t). Exact quadrature
+m(t)=t^-1[t0 m(t0)+∫_{t0}^t (r²F(r)/12−n(r))dr].
+For choice n=0 as a prescribed homogeneous time gauge, the single fixed nonzero Fourier pair from v15.118 has p~t^-1, pdot~t^-2 (oscillator characteristic roots −1±i√(3k²+3)); certified α,ψ~t^-1, ψdot~t^-2. Thus every term in F fixed-k source is O_k(t^-4), and ∫t0^∞r²F(r)dr converges absolutely. Then m(t)=C∞/t+O_k(t^-2). If homogeneous integration constant is chosen so C∞=0, m(t)=−(12t)^-1 ∫_t^∞r²F(r)dr=O_k(t^-2), a future-normalized solution; this tuning is a boundary/initial-data choice, not automatic.
+
+This is an exact SOLVABILITY result for the SPATIALLY AVERAGED SECOND-ORDER HAMILTONIAN ONLY. Nonzero spatial Fourier modes, local momentum constraints, propagation under Einstein–matter evolution, valid homogeneous time gauge, backreaction/background renormalization, and IR-uniform sum over k remain OPEN. In particular k-dependent O_k constants may diverge as k→0 because ψ,α contain k^-2 coefficients; no global nonlinear stability, no physically allowed arbitrary data conclusion. A prescribed lapse n is a gauge choice, not a proof of full gauge propagation. Source v15.118 build2 statement retained; build3 auxiliaries not certified here.
+
+Next: compute spatially averaged order-two momentum source (global integrated momentum compatibility), test nonzero-mode inverses and coupling to m,n; derive constraint propagation from Bianchi. Independent audit requested; Suzuki quarter weld parked.
