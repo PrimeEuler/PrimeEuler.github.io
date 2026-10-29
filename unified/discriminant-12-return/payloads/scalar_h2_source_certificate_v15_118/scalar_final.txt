@@ -1,0 +1,6 @@
+c2 = -sqrt(3)*t**3/(27*k**2 + 27)
+P = 3/t
+Q = (3*k**2 + 4)/t**2
+Om2 = (12*k**2 + 13)/(4*t**2)
+psi_sol = (-k**2*pi(t) + t*Derivative(pi(t), t))/(3*k**2*(k**2 + 1))
+psid_sol = k**4*pi(t)/(3*k**6*t + 6*k**4*t + 3*k**2*t) - k**2*t*Derivative(pi(t), t)/(3*k**6*t + 6*k**4*t + 3*k**2*t) - k**2*t*Derivative(pi(t), t)/(3*k**4*t + 3*k**2*t) + k**2*pi(t)/(3*k**6*t + 6*k**4*t + 3*k**2*t) - k**2*pi(t)/(3*k**4*t + 3*k**2*t) + t**2*Derivative(pi(t), (t, 2))/(3*k**4*t + 3*k**2*t) - t*Derivative(pi(t), t)/(3*k**6*t + 6*k**4*t + 3*k**2*t) + 2*t*Derivative(pi(t), t)/(3*k**4*t + 3*k**2*t)
