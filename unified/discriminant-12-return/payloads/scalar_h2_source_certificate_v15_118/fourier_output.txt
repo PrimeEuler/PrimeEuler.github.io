@@ -1,0 +1,3 @@
+[D] per-mode: sum_ij (K_i K_j)^2 = (K1**2 + K2**2 + K3**2)**2  == |K|^4 = (K1**2 + K2**2 + K3**2)**2 -> identity exact for every K.
+[N] grid check: <theta^2> = 0.000300879005188, <S_ij S^ij> = 0.000300879005188, diff = 0.000e+00
+FOURIER HESSIAN IDENTITY VERIFIED (symbolic [D] + discrete Parseval [N])
