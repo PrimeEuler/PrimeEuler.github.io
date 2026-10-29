@@ -1,0 +1,36 @@
+(C) closure obstruction at every open end, shells T = 1/4 .. 5/2
+  T= 1/4 class 3/4: missing state X*=3/4  ghost factor in shell T: -1   outward factor in own shell 3/4: 0
+  T= 1/4 class 1/4: missing state X*=-3/4  ghost factor in shell T: -1   outward factor in own shell 3/4: 0
+  T= 1/2 class 0: missing state X*=1  ghost factor in shell T: -5/4   outward factor in own shell 1: 0
+  T= 1/2 class 0: missing state X*=-1  ghost factor in shell T: -5/4   outward factor in own shell 1: 0
+  T= 3/4 class 1/4: missing state X*=5/4  ghost factor in shell T: -3/2   outward factor in own shell 5/4: 0
+  T= 3/4 class 3/4: missing state X*=-5/4  ghost factor in shell T: -3/2   outward factor in own shell 5/4: 0
+  T=   1 class 1/2: missing state X*=3/2  ghost factor in shell T: -7/4   outward factor in own shell 3/2: 0
+  T=   1 class 1/2: missing state X*=-3/2  ghost factor in shell T: -7/4   outward factor in own shell 3/2: 0
+  T= 5/4 class 3/4: missing state X*=7/4  ghost factor in shell T: -2   outward factor in own shell 7/4: 0
+  T= 5/4 class 1/4: missing state X*=-7/4  ghost factor in shell T: -2   outward factor in own shell 7/4: 0
+  T= 3/2 class 0: missing state X*=2  ghost factor in shell T: -9/4   outward factor in own shell 2: 0
+  T= 3/2 class 0: missing state X*=-2  ghost factor in shell T: -9/4   outward factor in own shell 2: 0
+  T= 7/4 class 1/4: missing state X*=9/4  ghost factor in shell T: -5/2   outward factor in own shell 9/4: 0
+  T= 7/4 class 3/4: missing state X*=-9/4  ghost factor in shell T: -5/2   outward factor in own shell 9/4: 0
+  T=   2 class 1/2: missing state X*=5/2  ghost factor in shell T: -11/4   outward factor in own shell 5/2: 0
+  T=   2 class 1/2: missing state X*=-5/2  ghost factor in shell T: -11/4   outward factor in own shell 5/2: 0
+  T= 9/4 class 3/4: missing state X*=11/4  ghost factor in shell T: -3   outward factor in own shell 11/4: 0
+  T= 9/4 class 1/4: missing state X*=-11/4  ghost factor in shell T: -3   outward factor in own shell 11/4: 0
+  T= 5/2 class 0: missing state X*=3  ghost factor in shell T: -13/4   outward factor in own shell 3: 0
+  T= 5/2 class 0: missing state X*=-3  ghost factor in shell T: -13/4   outward factor in own shell 3: 0
+  violations of [ghost = -(T + 3/4), own-shell factor = 0]: 0
+
+(D) escape iteration: follow the missing end upward
+  step 0: shell T=1/4 chain class 1/4 (1 states), closed=False, escapes at bottom with weight 1/2, missing state -3/4
+  step 1: shell T=3/4 chain class 1/4 (2 states), closed=False, escapes at top with weight 1, missing state 5/4
+  step 2: shell T=5/4 chain class 1/4 (3 states), closed=False, escapes at bottom with weight 3/2, missing state -7/4
+  step 3: shell T=7/4 chain class 1/4 (4 states), closed=False, escapes at top with weight 2, missing state 9/4
+  step 4: shell T=9/4 chain class 1/4 (5 states), closed=False, escapes at bottom with weight 5/2, missing state -11/4
+  step 5: shell T=11/4 chain class 1/4 (6 states), closed=False, escapes at top with weight 3, missing state 13/4
+  step 6: shell T=13/4 chain class 1/4 (7 states), closed=False, escapes at bottom with weight 7/2, missing state -15/4
+  step 7: shell T=15/4 chain class 1/4 (8 states), closed=False, escapes at top with weight 4, missing state 17/4
+  step 8: shell T=17/4 chain class 1/4 (9 states), closed=False, escapes at bottom with weight 9/2, missing state -19/4
+  step 9: shell T=19/4 chain class 1/4 (10 states), closed=False, escapes at top with weight 5, missing state 21/4
+  all visited shells odd quarters: True  none closed: True
+ALL CHECKS DONE
