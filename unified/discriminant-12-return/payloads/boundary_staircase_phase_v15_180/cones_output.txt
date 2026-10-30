@@ -1,0 +1,41 @@
+(1) squared radii and gaps
+  T= 1/4: AM^2=1/16  C^2=5/16  R^2=9/16   depth R^2-C^2=1/4   escape R^2-AM^2=1/2   C^2-AM^2=1/4
+  T= 1/2: AM^2=1/4  C^2=3/4  R^2=1   depth R^2-C^2=1/4   escape R^2-AM^2=3/4   C^2-AM^2=1/2
+  T= 5/4: AM^2=25/16  C^2=45/16  R^2=49/16   depth R^2-C^2=1/4   escape R^2-AM^2=3/2   C^2-AM^2=5/4
+  T= 5/2: AM^2=25/4  C^2=35/4  R^2=9   depth R^2-C^2=1/4   escape R^2-AM^2=11/4   C^2-AM^2=5/2
+  T=   3: AM^2=9  C^2=12  R^2=49/4   depth R^2-C^2=1/4   escape R^2-AM^2=13/4   C^2-AM^2=3
+(2) open ends and total escape per shell, T = 1/4 .. 5
+  T=  1/4: open ends=2  total escape=1  (2T+1/2=1)  OK
+  T=  1/2: open ends=2  total escape=3/2  (2T+1/2=3/2)  OK
+  T=  3/4: open ends=2  total escape=2  (2T+1/2=2)  OK
+  T=    1: open ends=2  total escape=5/2  (2T+1/2=5/2)  OK
+  T=  5/4: open ends=2  total escape=3  (2T+1/2=3)  OK
+  T=  3/2: open ends=2  total escape=7/2  (2T+1/2=7/2)  OK
+  T=  7/4: open ends=2  total escape=4  (2T+1/2=4)  OK
+  T=    2: open ends=2  total escape=9/2  (2T+1/2=9/2)  OK
+  T=  9/4: open ends=2  total escape=5  (2T+1/2=5)  OK
+  T=  5/2: open ends=2  total escape=11/2  (2T+1/2=11/2)  OK
+  T= 11/4: open ends=2  total escape=6  (2T+1/2=6)  OK
+  T=    3: open ends=2  total escape=13/2  (2T+1/2=13/2)  OK
+  T= 13/4: open ends=2  total escape=7  (2T+1/2=7)  OK
+  T=  7/2: open ends=2  total escape=15/2  (2T+1/2=15/2)  OK
+  T= 15/4: open ends=2  total escape=8  (2T+1/2=8)  OK
+  T=    4: open ends=2  total escape=17/2  (2T+1/2=17/2)  OK
+  T= 17/4: open ends=2  total escape=9  (2T+1/2=9)  OK
+  T=  9/2: open ends=2  total escape=19/2  (2T+1/2=19/2)  OK
+  T= 19/4: open ends=2  total escape=10  (2T+1/2=10)  OK
+  T=    5: open ends=2  total escape=21/2  (2T+1/2=21/2)  OK
+(3) nesting across shells
+  R(T=1/4)^2=9/16 = AM(T+1/2)^2   C(T+1/2)^2 - R(T)^2 = 3/4 = R(T)=3/4
+  R(T=1/2)^2=1 = AM(T+1/2)^2   C(T+1/2)^2 - R(T)^2 = 1 = R(T)=1
+  R(T=5/4)^2=49/16 = AM(T+1/2)^2   C(T+1/2)^2 - R(T)^2 = 7/4 = R(T)=7/4
+  R(T=5/2)^2=9 = AM(T+1/2)^2   C(T+1/2)^2 - R(T)^2 = 3 = R(T)=3
+  R(T=3)^2=49/4 = AM(T+1/2)^2   C(T+1/2)^2 - R(T)^2 = 7/2 = R(T)=7/2
+(4) step intervals dT^2 - dX^2 in the (X, T) plane (refined steps dp, dq; dX=(dp-dq)/4, dT=(dp+dq)/4)
+  gravity row step (1,0)           dX=1/4  dT=1/4  interval=0  NULL
+  gravity column step (0,1)        dX=-1/4  dT=1/4  interval=0  NULL
+  EM shell ladder (2,2)            dX=0  dT=1  interval=1  timelike
+  EM oscillator / J step (2,-2)    dX=1  dT=0  interval=-1  spacelike
+  halfway step (1,1)               dX=0  dT=1/2  interval=1/4  timelike
+  diagonal step (1,-1)             dX=1/2  dT=0  interval=-1/4  spacelike
+ALL CHECKS DONE
