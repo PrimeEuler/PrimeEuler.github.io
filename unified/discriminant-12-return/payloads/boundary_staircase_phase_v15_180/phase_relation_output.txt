@@ -1,0 +1,16 @@
+phase-relation states (eigenstates of the quarter-step U):
+  Bloch wave k=1 (phase winding 1 around the ring) even weight 0.500   <U> = +0.966-0.259j   |<U>| = 1.000
+  Bloch wave k=2 (phase winding 2 around the ring) even weight 0.500   <U> = +0.866-0.500j   |<U>| = 1.000
+  Bloch wave k=3 (phase winding 3 around the ring) even weight 0.500   <U> = +0.707-0.707j   |<U>| = 1.000
+  Bloch wave k=6 (phase winding 6 around the ring) even weight 0.500   <U> = -0.000-1.000j   |<U>| = 1.000
+sector states:
+  site state |0> (pure even sector)            even weight 1.000   <U> = +0.000+0.000j   |<U>| = 0.000
+  lowest H_EM eigenstate, even sector          even weight 1.000   <U> = +0.000+0.000j   |<U>| = 0.000
+  highest H_EM eigenstate, even sector         even weight 1.000   <U> = +0.000+0.000j   |<U>| = 0.000
+
+Reading: the quarter-step's eigenstates are pure phase relations --
+half in each sector, <U> a pure phase. Sector states (everything EM
+dynamics can prepare) have <U> = 0: no inter-sector phase at all.
+The relative phase between the grid's two sectors is a gravitational
+observable in the exact sense that only the gravity operator sees it.
+ALL CHECKS DONE
