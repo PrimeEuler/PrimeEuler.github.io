@@ -1,0 +1,26 @@
+Poincare cone verification -- MIC charge-monopole trajectories
+checks per orbit: |dJ| (conservation), |J.rhat + s| (identity),
+|cos(alpha) - s/|J|| (cone angle constancy), |dE| (integrator)
+
+     s L^2=j(j+1)      |J|  alpha(deg)    max|dJ|  max|J.r+s|  max|dcos|    max|dE|
+   0.0     3.7500   1.9365     90.0000   2.61e-14    4.44e-16   2.29e-16   3.64e-15
+   0.5     3.7500   2.0000     75.5225   4.27e-14    5.55e-16   2.78e-16   4.77e-15
+   1.0     3.7500   2.1794     62.6883   2.49e-14    6.66e-16   3.33e-16   1.94e-15
+   1.5     3.7500   2.4495     52.2388   3.53e-14    8.88e-16   3.33e-16   4.69e-15
+  -0.5     3.7500   2.0000    104.4775   6.51e-14    6.66e-16   3.33e-16   7.27e-15
+
+shell scan at s = 1/2 (closed form: |J| = j + 1/2 = R, cos(alpha) = 1/(2j+1))
+   0.5     0.7500   1.0000     60.0000   3.64e-12    3.33e-16   3.33e-16   2.65e-12   |J|-(j+1/2) = 0.00e+00
+   0.5     0.7500   1.0000     60.0000   4.06e-12    3.33e-16   3.33e-16   3.18e-12   |J|-(j+1/2) = 0.00e+00
+   0.5     2.0000   1.5000     70.5288   1.52e-14    4.44e-16   3.33e-16   4.88e-15   |J|-(j+1/2) = 2.22e-16
+   0.5     2.0000   1.5000     70.5288   2.52e-14    4.44e-16   3.33e-16   9.05e-15   |J|-(j+1/2) = 2.22e-16
+   0.5     3.7500   2.0000     75.5225   3.69e-14    5.55e-16   2.78e-16   4.41e-15   |J|-(j+1/2) = 0.00e+00
+   0.5     3.7500   2.0000     75.5225   3.29e-14    5.55e-16   2.78e-16   2.28e-15   |J|-(j+1/2) = 0.00e+00
+   0.5     8.7500   3.0000     80.4059   9.30e-14    8.88e-16   2.78e-16   3.32e-15   |J|-(j+1/2) = 0.00e+00
+   0.5     8.7500   3.0000     80.4059   4.47e-14    6.66e-16   2.22e-16   1.04e-15   |J|-(j+1/2) = 0.00e+00
+
+VERDICT: ALL CHECKS PASS
+Trajectory lies on the Poincare cone in every case; the cone
+opening is a function of (s, |J|) only -- not of energy,
+eccentricity, or radial range. At s = 1/2 the cone axis data
+are the ladder radius R = j + 1/2 and cos(alpha) = 1/(2j+1).
