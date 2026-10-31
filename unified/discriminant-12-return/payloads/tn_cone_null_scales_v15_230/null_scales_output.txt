@@ -1,0 +1,44 @@
+==========================================================================
+A. APEX BOOKKEEPING:  -1/2 (seat) ... 0 (apex) ... +1/2 (Sciama)
+==========================================================================
+Identity: for a sphere of radius R and mean density rho,
+  GM/(R c^2) = 4 pi G rho R^2 / (3 c^2).
+At R = R_H = c/H0 and rho = Omega * rho_c, rho_c = 3 H0^2/(8 pi G):
+  GM/(R_H c^2) = Omega/2   exactly -- H0 cancels.
+  Planck 2018 (Omega_K = 0.0007 +/- 0.0019): Omega_tot = 0.9993 +/- 0.0019 -> B = Omega/2 = 0.4996 +/- 0.0009
+  The +1/2 entry is measured (cosmology), H0-independent: the
+  Hubble tension moves R_H and M_H but cannot move B.
+  Planck: H0 = 67.36 -> R_H = 1.373e+26 m = 14.52 Gly, M_H = 9.246e+52 kg, r_s(M_H) = 1.0000 R_H
+  SH0ES: H0 = 73.04 -> R_H = 1.267e+26 m = 13.39 Gly, M_H = 8.527e+52 kg, r_s(M_H) = 1.0000 R_H
+  Geometric face: at Omega = 1 the Hubble sphere sits exactly at
+  its own Schwarzschild radius (r_s = Omega * R_H).
+  Entries: seat -1/2 [D, geometry]; apex 0 [the sum, no dynamics
+  on record]; cosmic +1/2 [empirical, = Omega/2]. Sciama's Machian
+  reading makes +1/2 an identity (G defined by the inventory);
+  LCDM makes it a measured initial condition. Nothing on record
+  identifies the two 1/2's or supplies the apex cancellation.
+
+==========================================================================
+B. CROSS-RATIO CATALOG OF THE NULL SCALES (the temptation, tagged)
+==========================================================================
+scales: c^2/g = 9.165e+15 m = 0.9687 ly | c/g = 0.9687 yr | c/H0 = 14.52 Gly
+        a_P = 5.561e+51 m/s^2 | cH0 = 6.544e-10 | a0 = 1.20e-10 | T_U(g) = 3.98e-20 K | T_GH = 2.65e-30 K
+  c^2/g in light-years               =      0.96872   ln =    -0.032   [the '1 g = 1 ly' headline]
+  (c/g) in years                     =      0.96872   ln =    -0.032   [SAME coincidence restated (x c)]
+  (c^2/g) / (c/H0) = cH0/g           =   6.6735e-11   ln =   -23.430   [local g vs cosmic null scale]
+  a0 / (cH0)                         =      0.18336   ln =    -1.696   [raw MOND-cosmic ratio]
+  a0 / (cH0/2pi) [Planck H0]         =       1.1521   ln =     0.142   [THE MOND coincidence]
+  a0 / (cH0/2pi) [SH0ES H0]          =       1.0625   ln =     0.061   [same, other H0]
+  g / a0                             =   8.1722e+10   ln =    25.127   [terrestrial vs galactic acceleration]
+  g / aP                             =   1.7636e-51   ln =  -116.865   [terrestrial vs Planck acceleration]
+  a0 / aP                            =    2.158e-62   ln =  -141.991   [galactic vs Planck acceleration]
+  (c/H0) / lP                        =   8.4969e+60   ln =   140.295   [Hubble radius in Planck lengths]
+  (c^2/g) / lP                       =   5.6704e+50   ln =   116.865   [Rindler length in Planck lengths]
+  T_U(g) / T_CMB                     =   1.4593e-20   ln =   -45.674   [Unruh at 1 g vs the microwave sky]
+  T_U(g) / T_GH                      =   1.4985e+10   ln =    23.430   [= g/(cH0): pins ratio]
+
+  comparison depth: psi_D (v14.621) = 45.310004305; 2 psi_D = 90.62;
+  ln(aP/g) = 116.86, ln(aP/a0) = 141.99 -- neither lands on psi_D
+  or 2 psi_D: the null-scale log-depths (~117, ~142, ~140) are NOT
+  the Dirac depth. Discipline: every row above is a catalog entry,
+  not a derivation; no mechanism on record connects any pair.
