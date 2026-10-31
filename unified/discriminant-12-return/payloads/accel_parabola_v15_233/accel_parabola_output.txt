@@ -1,0 +1,24 @@
+DEPTH COMPARISON (log-depth below the Planck acceleration)
+  a_P = 5.5607e+51 m/s^2;  depth of g: ln(a_P/g) = 116.865
+  Dirac depth psi_D = 45.310004305;  ratio = 2.5792;  excess = 71.555 (factor e^71.55 = 1.190e+31)
+  acceleration AT the Dirac depth: a_P e^-psi = 1.1675e+32 m/s^2
+  its Rindler length c^2/a = 7.698e-16 m (= l_P e^psi = 7.698e-16 m)
+  references: proton charge radius 8.41e-16 m (ratio 0.915),
+  proton reduced Compton 2.103e-16 m (ratio 3.661) --
+  fermi neighbourhood, NOT an identity: psi was built from p/e data.
+
+CROSSINGS (scaled coordinates; exact algebra + numeric check)
+  parabola x edge (xi = u): u = [2]  -> t = 2c/g = 1.9374301591445777 yr, x = 2c^2/g = 1.9374301591445777 ly
+  parabola - Rindler hyperbola = u**4/8 - u**6/16 + O(u**8)  (tangent at 0, > 0 after:
+    numeric min over u in (0, 20]: 0.0000 at u = 0.01 -> parabola strictly outside, NEVER crosses its own hyperbola
+  parabola x interval hyperbola u^2 - xi^2 = sigma^2:
+    u^2 - u^4/4 = sigma^2  ->  u^2 = 2 +/- 2 sqrt(1 - sigma^2):
+    sigma = 0.5: TWO crossings, u = 0.5176 and 1.9319
+    sigma = 0.9: TWO crossings, u = 1.0622 and 1.6946
+    sigma = 1: ONE grazing crossing, u = sqrt(2) = 1.4142 (xi = 1, inside the edge)
+    sigma = 1.1: NO crossing (discriminant < 0)
+  -> the parabola crosses exactly the hyperbolas inside its own
+     Rindler scale (sigma < 1), grazes sigma = 1, and never reaches
+     the ones beyond it. Its own Rindler hyperbola it only touches
+     at birth: the hyperbola bends toward the edge and stays inside;
+     the parabola crosses the edge itself at u = 2 and leaves.
