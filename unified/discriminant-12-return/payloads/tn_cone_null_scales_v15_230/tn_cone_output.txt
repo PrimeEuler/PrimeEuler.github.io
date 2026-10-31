@@ -1,0 +1,20 @@
+Hamilton equations built from the TN inverse metric (sympy).
+
+TN trajectory cone -- full geodesic integration
+ s=2leps       l     j      |J|     alpha    max|dJ|  max|J.n+s|  max|dcos|    max|dH|   steps
+   0.000  0.0000   0.5   0.8660   90.0000   1.12e-14    8.33e-17   9.61e-17   4.40e-09    2499
+   0.000  0.0000   1.5   1.9365   90.0000   1.76e-13    2.22e-16   1.15e-16   5.95e-09    3042
+   0.500  0.2717   0.5   1.0000   60.0000   3.53e-15    2.22e-16   2.22e-16   6.97e-09    2462
+   0.500  0.2717   1.5   2.0000   75.5225   8.25e-13    2.22e-16   1.11e-16   4.52e-09    2976
+   1.000  0.5435   0.5   1.3229   40.8934   1.17e-14    4.44e-16   3.33e-16   7.32e-09    2363
+   1.000  0.5435   1.5   2.1794   62.6883   4.32e-13    4.44e-16   2.22e-16   6.94e-09    2802
+   1.500  0.8152   0.5   1.7321   30.0000   1.18e-14    6.66e-16   4.44e-16   5.08e-09    2219
+   1.500  0.8152   1.5   2.4495   52.2388   2.68e-13    6.66e-16   2.22e-16   5.56e-09    2567
+
+VERDICT: ALL CHECKS PASS
+TN geodesics lie on the Poincare cone with s = 2 l eps:
+the trajectory cone sees the PAIRED charge 2*eps*l, while the
+parabolic seats sit at k/2 -/+ eps*l -- the seat offset is half
+the cone's charge (weight-2 fibration, v14.731). Openings match
+the MIC cone at equal (s, |J|): the TN-MIC difference is purely
+radial, now verified in trajectory space, not only in the HJ.
