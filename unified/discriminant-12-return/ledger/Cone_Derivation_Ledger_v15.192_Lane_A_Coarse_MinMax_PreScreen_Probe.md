@@ -1,6 +1,8 @@
 # Cone Derivation Ledger v15.192 — Lane A: actual coarse v15.179 pre-screen probe returns INCONCLUSIVE
 
-**Date:** 2026-10-30. **Lane:** A. **Parents:** v15.129, v15.139/141, v15.155, v15.179, v15.184/v15.186, External Audit v15.187; collision repair v15.192; Round 418 v15.193; ACK v15.195. **Status:** [N] concrete first-100-diagonal source-formula probe; [D] coarse global bound cannot establish a low-index spectral gap; [O] rigorously sorted infinite diagonal and sharp local-block spectral contour.\n\n**Canonical rename provenance:** This is the mechanically corrected canonical path requested by External Audit Round 418. It preserves the substantive content of legacy commit `20216773fb68184f2980296d7676b17fbf658cc2`, blob `555bbfc46ab25588729269d442e52ca66dfa5e89`. Gravity retains v15.189; this Lane A result is v15.192. The historical pre-write paragraph below is retained as provenance and is not a new collision claim.
+**Date:** 2026-10-30. **Lane:** A. **Parents:** v15.129, v15.139/141, v15.155, v15.179, v15.184/v15.186, External Audit v15.187; collision repair v15.192; Round 418 v15.193; ACK v15.195. **Status:** [N] concrete first-100-diagonal source-formula probe; [D] coarse global bound cannot establish a low-index spectral gap; [O] rigorously sorted infinite diagonal and sharp local-block spectral contour.
+
+**Canonical rename provenance:** This is the mechanically corrected canonical path requested by External Audit Round 418. It preserves the substantive content of legacy commit `20216773fb68184f2980296d7676b17fbf658cc2`, blob `555bbfc46ab25588729269d442e52ca66dfa5e89`. Gravity retains v15.189; this Lane A result is v15.192. The historical pre-write paragraph below is retained as provenance and is not a new collision claim.
 
 **Live collision check:** pre-write master HEAD `e8535b9785a0eb1bfe47dae2bb04be038240d550`, gravity source commit after v15.188; v15.189 is proposed additive next ledger entry. No protected sources modified.
 
