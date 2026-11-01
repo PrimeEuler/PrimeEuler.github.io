@@ -1,0 +1,23 @@
+vertices and foci (symbolic, row family Y^2 = u^2 - 2uX):
+  u=1/2: vertex X = +1/4, focus X = 0 (column: vertex -1/4, focus 0)
+  u=  1: vertex X = +1/2, focus X = 0 (column: vertex -1/2, focus 0)
+  u=3/2: vertex X = +3/4, focus X = 0 (column: vertex -3/4, focus 0)
+  u=  2: vertex X = +1, focus X = 0 (column: vertex -1, focus 0)
+  u=  3: vertex X = +3/2, focus X = 0 (column: vertex -3/2, focus 0)
+-> focus at 0 for EVERY u; the innermost vertices are +-u_min/2:
+   EM (step 1): +-1/2 = +-q_EM;  gravity (step 1/2): +-1/4 = +-q_G,
+   with q = h/2 the weld relation (v14.904). The extreme parabolas
+   of each sector carry the sector's charge quantum as their vertex
+
+EM innermost crossing (row 1 x column 1):
+  X = (n-k)/2 = 0, Y = sqrt(nk) = 1, T = (n+k)/2 = 1
+  = the seat state (1,1): shell T = 1 = c_EM, the unit raw pair
+    of the weld (r = 0 sits at shell n = c_EM = 1).
+
+j = 1/2 ladder (EM fundamental): states m = -1/2, +1/2 (the extremes
+are the whole ladder); transitions: factor pairs of n+k = 2j+1 = 2:
+  pair (1,1): amplitude sqrt(1) = 1 = R = j + 1/2 -- the (1,1)
+  crossing's height. Casimir j(j+1) = 3/4: the EM class {0, 3/4}.
+So +-1/2 names three coincident extremes of the EM sector: the
+innermost parabola vertices, the j=1/2 ladder's end states, and
+the minimal pair charge s = +-1/2 (cone flip at s<0, v15.229).
