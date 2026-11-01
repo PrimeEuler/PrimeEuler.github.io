@@ -1,0 +1,44 @@
+TEST 1: commutator grading under the pair exchange A<->B
+  [L0,L1]: parity +1x+1 -> commutator parity +1 (want +1)  OK 
+  [L0,L2]: parity +1x+1 -> commutator parity +1 (want +1)  OK 
+  [L0,M1]: parity +1x-1 -> commutator parity -1 (want -1)  OK 
+  [L0,M2]: parity +1x-1 -> commutator parity -1 (want -1)  OK 
+  [L1,L0]: parity +1x+1 -> commutator parity +1 (want +1)  OK 
+  [L1,L2]: parity +1x+1 -> commutator parity +1 (want +1)  OK 
+  [L1,M0]: parity +1x-1 -> commutator parity -1 (want -1)  OK 
+  [L1,M2]: parity +1x-1 -> commutator parity -1 (want -1)  OK 
+  [L2,L0]: parity +1x+1 -> commutator parity +1 (want +1)  OK 
+  [L2,L1]: parity +1x+1 -> commutator parity +1 (want +1)  OK 
+  [L2,M0]: parity +1x-1 -> commutator parity -1 (want -1)  OK 
+  [L2,M1]: parity +1x-1 -> commutator parity -1 (want -1)  OK 
+  [M0,L1]: parity -1x+1 -> commutator parity -1 (want -1)  OK 
+  [M0,L2]: parity -1x+1 -> commutator parity -1 (want -1)  OK 
+  [M0,M1]: parity -1x-1 -> commutator parity +1 (want +1)  OK 
+  [M0,M2]: parity -1x-1 -> commutator parity +1 (want +1)  OK 
+  [M1,L0]: parity -1x+1 -> commutator parity -1 (want -1)  OK 
+  [M1,L2]: parity -1x+1 -> commutator parity -1 (want -1)  OK 
+  [M1,M0]: parity -1x-1 -> commutator parity +1 (want +1)  OK 
+  [M1,M2]: parity -1x-1 -> commutator parity +1 (want +1)  OK 
+  [M2,L0]: parity -1x+1 -> commutator parity -1 (want -1)  OK 
+  [M2,L1]: parity -1x+1 -> commutator parity -1 (want -1)  OK 
+  [M2,M0]: parity -1x-1 -> commutator parity +1 (want +1)  OK 
+  [M2,M1]: parity -1x-1 -> commutator parity +1 (want +1)  OK 
+  Z2 grading holds for all commutators: True
+  ([odd,odd] lands EVEN, [even,odd] lands ODD: Cartan-type grading;
+   the exchange is an automorphism, not just a relabelling.)
+
+TEST 2: Kepler orbit (m=k=1, eccentric), T-parity audit
+  E drift: 7.94e-13;  L drift: 3.62e-14 (L conserved AND T-odd: the naive 'labels are even' form FAILS on L)
+  A^2 drift: 9.50e-13;  A^2 vs 1 + 2 E L^2: max err 4.44e-16
+  -> REFINED form holds: labels are EVEN FUNCTIONS (Casimirs) of the
+     odd generators -- E, L^2, A^2 all even; the generators p, L,
+     reaction forces themselves are odd. Eccentricity is fixed by
+     even data alone.
+
+TEST 3: damped oscillator scoping (m=k=1, gamma=0.3, exact solution)
+  work by spring (T-even force): +0.425702 = -Delta U = +0.425702 (state function, reversible bookkeeping)
+  work by damping (T-odd force): -0.425702 = Delta E_mech = -0.425702 (ALL dissipation passes through the odd force)
+  closure: W_s + W_d - Delta KE = -1.79e-11
+  -> force-level split is clean; dissipation is carried entirely
+     by the exchange-odd force, the even force's work is a state
+     function -- exactly the scope the principle states.
