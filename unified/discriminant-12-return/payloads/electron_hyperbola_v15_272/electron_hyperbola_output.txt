@@ -1,0 +1,22 @@
+electron reduced Compton length L_e = 3.8616e-13 m = 4.0817e-29 ly
+electron rest energy m_e c^2 = 0.5110 MeV
+
+log-depths of L_e (ln of ratio):
+  ln(L_e / Planck length l_P                 ) = +51.528
+  ln(L_e / depth-psi length l_P e^psi        ) = +6.218
+  ln(L_e / Rindler length c^2/g (0.9687 ly)  ) = -65.337
+  ln(L_e / one light-year                    ) = -65.368
+  ln(R_H / L_e) [Planck H0=67.4] = 88.766   (total ln(R_H/l_P) = 140.29)
+  ln(R_H / L_e) [SH0ES H0=73.0] = 88.687   (total ln(R_H/l_P) = 140.21)
+
+marked-rung tests:
+  depth above Planck: ln(L_e/l_P) = 51.528
+    vs psi_D = 45.310: excess +6.218 (factor 501.6) -- NOT the Dirac rung
+    vs psi_D + ln(m_p/m_e) built-in check: 46.607 (the 3.66 of v15.233) -- arithmetic, not a lock
+  depth below horizon: 88.766 vs 2 psi_D = 90.620: off by -1.85 (factor 6.4) -- NOT 2 psi
+
+position summary: on a cone drawn at light-year scale, the
+electron hyperbola is a level curve at Y ~ 4.1e-29 ly --
+indistinguishable from the apex axis; atomic physics lives in
+the apex's immediate neighborhood of the cosmic ladder, at log
+depth 51.5 of 140.3 from Planck to horizon.
