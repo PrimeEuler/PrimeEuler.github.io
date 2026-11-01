@@ -1,0 +1,10 @@
+radiation reaction over one period:
+  <F_react . v> = -A**2*m*omega**4*tau_0/2
+  <P_Larmor>    = A**2*m*omega**4*tau_0/2
+  sum = 0  -- the pushback exactly collects the radiated energy.
+  electron reaction time tau_0 = 6.266e-24 s (nature's pushback delay on an accelerating electron).
+
+fluctuation-dissipation: damping gamma=1.0, noise set BY gamma
+  (strength 2 gamma k_B T): measured <v^2> = 0.9991 +- 0.0032, k_B T / m = 1.0000
+  -> drive and pushback share one coefficient; their balance IS
+     the equilibrium (the diagonal): <v^2> = k_B T/m, no net drift.
