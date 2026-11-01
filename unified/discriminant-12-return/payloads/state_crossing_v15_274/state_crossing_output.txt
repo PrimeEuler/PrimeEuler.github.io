@@ -1,0 +1,16 @@
+lattice check: for every factor pair of N, AM^2 - offset^2 = N
+  N=12: 6 crossings, identity exact: True, psi range [-1.242, +1.242], seat at psi=0 absent
+    all crossings carry GM = sqrt(N) = 3.464 = the hyperbola label; position along it = ratio n/k.
+  N=36: 9 crossings, identity exact: True, psi range [-1.792, +1.792], seat at psi=0 present (sqrt(N) integer)
+    all crossings carry GM = sqrt(N) = 6.000 = the hyperbola label; position along it = ratio n/k.
+  N=60: 12 crossings, identity exact: True, psi range [-2.047, +2.047], seat at psi=0 absent
+    all crossings carry GM = sqrt(N) = 7.746 = the hyperbola label; position along it = ratio n/k.
+
+electron (continuous labels, c=1): u = E + pc, v = E - pc, uv = m^2
+  E= 0.5110 MeV: u=0.51100, v=0.51100, uv=0.261120 (m^2=0.261120), psi=0.0000 = arccosh(E/m)=0.0000
+  E= 1.0000 MeV: u=1.85958, v=0.14042, uv=0.261120 (m^2=0.261120), psi=1.2917 = arccosh(E/m)=1.2917
+  E= 5.0000 MeV: u=9.97382, v=0.02618, uv=0.261120 (m^2=0.261120), psi=2.9714 = arccosh(E/m)=2.9714
+-> at rest the two parabola labels are EQUAL (u = v = m c^2): the
+   electron at rest is the diagonal crossing -- seat -- of its own
+   hyperbola, the opposed pair in exact balance. Motion is the
+   pair splitting asymmetrically at fixed product uv = m^2.
