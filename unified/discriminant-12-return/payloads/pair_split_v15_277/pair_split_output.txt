@@ -1,0 +1,19 @@
+(a) exchange parity of the pair observables (exact):
+    uv = m^2                   24 -> swap ->     24   EVEN
+    AM = E                      5 -> swap ->      5   EVEN
+    offset = p                  1 -> swap ->     -1   ODD 
+    curv net (1/k - 1/n)     1/12 -> swap ->  -1/12   ODD 
+    rapidity psi = (1/2) ln(n/k): +0.2027 -> -0.2027   ODD
+    phase doublet (e^{+i phi}, e^{-i phi}): exchanged as a pair
+  -> invariants even; momentum, rapidity, net curvature odd;
+     the fixed locus n = k (p = psi = net curvature = 0) is rest.
+
+(b) Unruh pair: |0_M> = sqrt(1-t^2) sum_n t^n |n_L, n_R>, t = tanh r
+    t=0.3: reduced one-wedge spectrum geometric: ratios constant = True (ratio 0.090); full state L<->R symmetric by construction of the pair sum;
+          mean occupation 0.0989 = t^2/(1-t^2) = 0.0989 -- a thermal (Bose) spectrum: balance
+    t=0.6: reduced one-wedge spectrum geometric: ratios constant = True (ratio 0.360); full state L<->R symmetric by construction of the pair sum;
+          mean occupation 0.5625 = t^2/(1-t^2) = 0.5625 -- a thermal (Bose) spectrum: balance
+    t=0.9: reduced one-wedge spectrum geometric: ratios constant = True (ratio 0.810); full state L<->R symmetric by construction of the pair sum;
+          mean occupation 4.2632 = t^2/(1-t^2) = 4.2632 -- a thermal (Bose) spectrum: balance
+          in the pair (pure, symmetric vacuum); heat in the part
+          (tracing one wedge). T = a/(2 pi) in natural units.
