@@ -1,0 +1,21 @@
+x_R series: u**2/2 - u**4/8 + u**6/16 - 5*u**8/128 + O(u**9)
+x_N series: u**2/2
+gap x_N - x_R: u**4/8 - u**6/16 + 5*u**8/128 + O(u**9)
+-> parabola and hyperbola agree through u^2 (position, velocity,
+   acceleration F/m at the rest point); first disagreement at u^4,
+   gap +u^4/8 - u^6/16 + ... -- the v15.233 tangency series verbatim.
+   Parabola lies OUTSIDE: Newton overshoots (relativity caps v < c,
+   the hyperbola bends to the null asymptote; the parabola runs past).
+
+coordinate acceleration under constant force:
+   a(t) = F*c**3*m**2/(F**2*t**2 + c**2*m**2)**(3/2)
+   with u = gt/c this is a = g (1+u^2)^(-3/2) = g/gamma^3:
+   check: True
+-> constant F is constant PROPER acceleration; coordinate a falls
+   as 1/gamma^3. The parabola (constant coordinate a) is the gamma->1
+   shadow of the hyperbola.
+
+mass shell E(p): dE/dp = c**2*p/sqrt(c**4*m**2 + c**2*p**2)  = v; at p=0: 0
+-> rest point is the vertex of the boost hyperbola E^2 - p^2c^2 = (mc^2)^2;
+   tangent there is E = mc^2 (horizontal); force slides the point along
+   the shell at dp/dt = F, mass = the shell's label (grid: GM = s).
