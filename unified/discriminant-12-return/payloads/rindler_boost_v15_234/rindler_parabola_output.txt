@@ -1,0 +1,32 @@
+rho^2 = X^2 - t^2 = t**4/4 + 1  -- the t^2 terms CANCEL exactly:
+  rho^2 = 1 + (t^2/2)^2 = 1 + xi^2, xi = the parabola's own x.
+  (The cancellation IS the parabola-hyperbola tangency of v15.233.)
+
+parametric table (u = gt/c, xi = gx/c^2, rho in units of c^2/g):
+      u       xi       rho       eta
+  0.000    0.000    1.0000    0.0000
+  0.500    0.125    1.0078    0.4778
+  1.000    0.500    1.1180    0.8047
+  1.414    1.000    1.4142    0.8814  <- eta MAX (the sigma=1 grazing point)
+  2.000    2.000    2.2361    0.8047  <- inertial edge crossing (u=2)
+  3.000    4.500    4.6098    0.6119
+  5.000   12.500   12.5399    0.3889
+ 10.000   50.000   50.0100    0.1987
+eta_max = artanh(1/sqrt(2)) = ln(1+sqrt(2)) = 0.881374, at u = sqrt(2), rho = sqrt(2).
+After the fold, eta DECREASES back toward 0 while rho -> infinity:
+in Rindler time the parabola runs backward on its outer branch.
+
+family scan: parabola of acceleration a in the Rindler frame of g
+(X = 1 + (a/g) u^2/2 in scaled units; horizon exit iff X = u has roots)
+  a/g = 0.25: EXITS the wedge at u = 1.172 (eta -> inf at the horizon) before the formal fold u = 2.828; rho dips first (a<g)
+  a/g =  0.5: fold exactly ON the horizon at u = 2.000 (eta_max = inf); rho dips first (a<g)
+  a/g = 0.75: fold inside the wedge at u = 1.633, eta_max = 1.1462; rho dips first (a<g); stays in wedge
+  a/g =  1.0: fold inside the wedge at u = 1.414, eta_max = 0.8814; rho flat to 4th order (a=g); stays in wedge
+  a/g =  1.5: fold inside the wedge at u = 1.155, eta_max = 0.6585; rho grows at once (a>g); stays in wedge
+  a/g =  2.0: fold inside the wedge at u = 1.000, eta_max = 0.5493; rho grows at once (a>g); stays in wedge
+  a/g =  4.0: fold inside the wedge at u = 0.707, eta_max = 0.3695; rho grows at once (a>g); stays in wedge
+
+Reading: in its own Rindler frame the parabola is a curve that
+departs the observer monotonically in rho but folds in Rindler
+time at eta_max = ln(1+sqrt(2)) -- the fold point is exactly the
+sigma=1 grazing crossing of v15.233 seen from the accelerated frame.
