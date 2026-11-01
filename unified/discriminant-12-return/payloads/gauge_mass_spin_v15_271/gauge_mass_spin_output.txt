@@ -1,0 +1,21 @@
+Dirac hydrogen binding energies (eV):
+  1S1/2            n=1 j=0.5: 13.605874
+  2S1/2 / 2P1/2    n=2 j=0.5: 3.401480
+  2P3/2            n=2 j=1.5: 3.401435
+  3S1/2 / 3P1/2    n=3 j=0.5: 1.511764
+  3P3/2 / 3D3/2    n=3 j=1.5: 1.511750
+  3D5/2            n=3 j=2.5: 1.511746
+  2P3/2 - 2P1/2 splitting: 4.528e-05 eV = 10.95 GHz
+  (measured: 4.53e-5 eV, 10.97 GHz -- the J-dependence of atomic levels)
+
+Thomas bookkeeping: naive rest-frame coefficient g/2 = 1.00116;
+  Thomas precession subtracts 1/2; net (g-1)/2 = 0.50116.
+  Without the transport correction the spin-orbit splitting is 2x
+  too large -- hydrogen's fine structure measures the spin-transport
+  holonomy (Wigner rotation along the orbit) directly.
+
+Linear Stark shifts dE = (3/2) n k F (atomic units), k = n1 - n2:
+  n=2: (n1,n2)=(0,0) k=+0 dE/F=+0.0; (n1,n2)=(0,1) k=-1 dE/F=-3.0; (n1,n2)=(1,0) k=+1 dE/F=+3.0
+  n=3: (n1,n2)=(0,0) k=+0 dE/F=+0.0; (n1,n2)=(0,1) k=-1 dE/F=-4.5; (n1,n2)=(0,2) k=-2 dE/F=-9.0; (n1,n2)=(1,0) k=+1 dE/F=+4.5; (n1,n2)=(1,1) k=+0 dE/F=+0.0; (n1,n2)=(2,0) k=+2 dE/F=+9.0
+-> the mesh offset (Stark number k = 2X) is an atomic EM observable;
+   the parabolic states |n1 n2 m> are the mesh crossings (Paper C).
