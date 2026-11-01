@@ -1,0 +1,18 @@
+intersections of row n and column k (symbolic):
+   X = -k/2 + n/2 , Y = -sqrt(k)*sqrt(n)
+   X = -k/2 + n/2 , Y = sqrt(k)*sqrt(n)
+-> exactly TWO: the crossing ((n-k)/2, +sqrt(nk)) and its mirror
+   ((n-k)/2, -sqrt(nk)) -- the two nappes of the cone.
+
+foci: row Y^2 = -2n (X - n/2): vertex (n/2, 0), 4p = -2n,
+focus = (n/2 - n/2, 0) = (0, 0).
+      col Y^2 = +2k (X + k/2): vertex (-k/2, 0), 4p = +2k,
+focus = (-k/2 + k/2, 0) = (0, 0).
+-> BOTH families are confocal at the ORIGIN (the apex): the mesh
+   is exactly the classical confocal-parabola system that defines
+   parabolic coordinates -- which is why the HJ equation separates
+   there (MIC v14.731, TN tn_sector.py).
+
+patch check (n, k in 1..8): every crossing is one row-parabola
+   x one column-parabola intersection: 64/64 crossings verified,
+   each the meeting of a '-' parabola (row) and a '+' parabola (column).
