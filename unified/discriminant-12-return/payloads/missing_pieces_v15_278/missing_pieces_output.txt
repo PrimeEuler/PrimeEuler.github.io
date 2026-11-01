@@ -1,0 +1,31 @@
+SHOT 1: denominators of the record's forms (j on the quarter lattice)
+  j(j+1) Casimir                 denominators mod 1: [1, 4, 16]
+  (j+1/2)^2 ladder               denominators mod 1: [1, 4, 16]
+  (k/4)^2 pair product (j=k/2)   denominators mod 1: [1, 4, 16, 64]
+  seat ((2j-1)/4)^2-ish root sq  denominators mod 1: [1, 4, 16, 64]
+  cubic contrast j^3: denominators: [1, 8, 64] -- j=1/2 gives exactly 1/8.
+
+  parity mechanism for j(j+1), j = a/4 -> a(a+4)/16:
+    a=0: v2(a(a+4)) = inf(0) -> denominator 16
+    a=1: v2(a(a+4)) = 0 -> denominator 16
+    a=2: v2(a(a+4)) = 2 -> denominator 4
+    a=3: v2(a(a+4)) = 0 -> denominator 16
+    a=4: v2(a(a+4)) = 5 -> denominator 1
+    a=5: v2(a(a+4)) = 0 -> denominator 16
+    a=6: v2(a(a+4)) = 2 -> denominator 4
+    a=7: v2(a(a+4)) = 0 -> denominator 16
+    a=8: v2(a(a+4)) = 5 -> denominator 1
+  v2 is never 1 (a and a+4 share a parity class), so the reduced
+  denominator is never 8: the 8 is missing BY PARITY in every
+  quadratic form on the dyadic lattice -- it exists only at odd
+  degree (cubic: 1/8 at j = 1/2).
+
+SHOT 2: Kramers -- T^2 and forced doublets
+  j=0.5: T^2 = -1 x I   (predicted (-1)^(2j) = -1)
+  j=1.0: T^2 = +1 x I   (predicted (-1)^(2j) = +1)
+  j=1.5: T^2 = -1 x I   (predicted (-1)^(2j) = -1)
+  j=1.5: H T-invariant: True; spectrum [-1.1269 -1.1269  1.1269  1.1269]
+  j=1.0: H T-invariant: True; spectrum [-0.6667  0.0333  0.6333]
+  -> spin-3/2: two forced doublets (Kramers); spin 1: three
+     distinct levels. The v15.277 phase doublet is a theorem on
+     the half-integer side -- the cone's odd diagonals.
