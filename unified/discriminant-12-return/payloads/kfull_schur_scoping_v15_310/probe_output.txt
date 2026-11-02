@@ -1,0 +1,83 @@
+tail_norm_probe + floor_check — sandbox [N] scoping output
+============================================================
+Scope: numerical scoping for the v15.232 full-K transfer-alternative
+handoff against Lane A gates v15.303/v15.304/v15.305. NOT a
+certificate. Finite-window compression norms are LOWER bounds for
+the true ||Q_N B Q_N|| / ||Q B P||. z_n = z_float model
+(coeff819/eval_seed_blocks.py); p_n = L*n/(n^2+t) float approx.
+Kernel: K_{N,m} = (2/pi)*(m z_N - N z_m)/(N^2-m^2) + 2 sigma p_N p_m
+(N != m); B = off-diagonal part. Probe wall time 271 s.
+
+v15.305 floor (50-digit, floor_check.py):
+  A = 8 * sum_q w_q^2 sin^2(theta_q)
+    = 6.70411705806156354127349965482
+  (|c|/4)*sqrt(A) = 0.412088908974624344780378086738
+  Cesaro mean of |z_{n+2}-z_n|^2 from z_float, n in [1e5, 4.1e6),
+  2,000,000 samples per lattice:
+    odd lattice : 6.704125   (rel. err vs A: +1.2e-06)
+    even lattice: 6.704115   (rel. err vs A: -3.7e-07)
+  => the adjacent-difference mechanism of v15.305 reproduces in the
+  float evaluator; M_N does NOT decay.
+
+(a) ||Q_N B Q_N|| finite-window estimates (extremal eigenvalues of B
+    on the first W sector-lattice modes above physical cutoff N):
+
+  odd lattice (b=512001, sigma=+1, L=1.4357379705709206):
+    N=1000    W=2000   1.8954   (4.60 x floor)
+    N=1000    W=4000   1.9088   (4.63 x floor)
+    N=10000   W=2000   1.9140   (4.64 x floor)
+    N=100000  W=2000   1.8885   (4.58 x floor)
+    N=500000  W=2000   1.9090   (4.63 x floor)
+    N=500000  W=4000   1.9202   (4.66 x floor)
+  even lattice (b=512002, sigma=-1, L=0.6634791495304894):
+    N=1000    W=2000   1.9601   (4.76 x floor)
+    N=1000    W=4000   1.9605   (4.76 x floor)
+    N=10000   W=2000   1.9151   (4.65 x floor)
+    N=100000  W=2000   1.9669   (4.77 x floor)
+    N=500000  W=2000   1.9202   (4.66 x floor)
+    N=500000  W=4000   1.9243   (4.67 x floor)
+
+  Every window estimate is 4.6-4.8x the v15.305 floor and flat in N:
+  consistent with a persistent M_N ~ 1.9-2.0 in [0.4121, 15]. No
+  window falls below the floor; no window artifact to flag. The
+  spread across cutoffs (1.89-1.97) is window fluctuation around a
+  non-decaying constant, NOT decay.
+
+(b) ||V|| = ||Q B P||, P = v15.227 remote block (J=100, n = b+2j),
+    Q = all other sector-lattice modes (chunked Gram accumulation;
+    below-block part exact finite; above-block truncated at W=20000
+    modes, dropped-tail Gram residual scale ~2.8e-04 per column,
+    labeled estimate):
+    odd lattice : below-only 0.7219 | above-only 0.7581 | combined 0.8677
+    even lattice: below-only 0.7415 | above-only 0.7262 | combined 0.8835
+  Combined ||V|| ~ 0.87-0.88, above the v15.305 Gate-2 floor 0.4121,
+  as expected for a sharp block: the off-block coupling does NOT
+  vanish. ||V||^2 = 0.7529 (odd) / 0.7805 (even).
+  NOTE: this V is the remote-block off-block coupling. The prefix
+  V_N = Q_N B P_N of v15.304 is a different quantity (scale
+  indicator only; see SPEC_DRAFT.md).
+
+(c) v15.304 stopping scale, N_stop = 4*exp(b_int + C + M_N) - 2,
+    C = 1.745855454249828; b_int = 10.45 (odd) / 10.30 (even):
+
+    M_N        odd N_stop      even N_stop     kind
+    15         2.59e12         2.23e12         crude certified (Lane A)
+    10         1.74e10         1.50e10         hypothetical
+    7          8.68e08         7.47e08         hypothetical
+    5          1.18e08         1.01e08         hypothetical
+    3          1.59e07         1.37e07         hypothetical
+    2          5.85e06         5.04e06         hypothetical
+    1          2.15e06         1.85e06         hypothetical
+    ~1.89-1.91 (odd, measured)   5.23e06 / 5.34e06   window est. (lower bd)
+    ~1.92-1.97 (even, measured)  4.87e06 / 4.65e06   window est. (lower bd)
+
+  Coarse Schur residual ||V||^2 / g (remote-block ||V||, indicator):
+    g = 0.1 -> 7.53 (odd) / 7.81 (even)
+    g = 0.5 -> 1.51       / 1.56
+    g = 1.0 -> 0.753      / 0.781
+    g = 2.0 -> 0.376      / 0.390
+  v15.227 certified gap scales: 0.004151 (odd) / 0.012958 (even).
+  The coarse A_N-only residual exceeds those gaps by ~30x-1800x at
+  every margin tabulated: the A_N-only acceptance test is NOT
+  viable at the v15.227 gap scale. See SPEC_DRAFT.md for the
+  Fhat-route error scale (eps_F) and the resonant-P branch.
