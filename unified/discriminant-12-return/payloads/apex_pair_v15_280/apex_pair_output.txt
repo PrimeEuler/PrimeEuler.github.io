@@ -1,0 +1,17 @@
+innermost pair (n = k = 1):
+  vertices: row +1/2 (mass), column -1/2 (counter); midpoint = 0
+  crossing: X_row = X_col -> Y^2 = 1, X = 0: the seat state (0,1),
+            ON the apex axis -- the sum -1/2 + +1/2 = 0 is the
+            crossing's own X-coordinate.
+  curvatures at crossing: row d2X/dY2 = -1, column d2X/dY2 = 1 -- exactly opposite (net 0):
+            the counter parabola cancels the mass parabola's
+            curvature at their meeting point.
+
+general pair (n, k): row vertex +n/2, column vertex -k/2,
+  (n,k)=(1,1): vertex midpoint 0, crossing X 0, curvatures -1/1, +1/1 (balanced (diagonal))
+  (n,k)=(2,1): vertex midpoint 1/4, crossing X 1/2, curvatures -1/2, +1/1 (imbalanced)
+  (n,k)=(3,1): vertex midpoint 1/2, crossing X 1, curvatures -1/3, +1/1 (imbalanced)
+  (n,k)=(6,3): vertex midpoint 3/4, crossing X 3/2, curvatures -1/6, +1/3 (imbalanced)
+  (n,k)=(5,5): vertex midpoint 0, crossing X 0, curvatures -1/5, +1/5 (balanced (diagonal))
+-> the vertex sum and the curvature sum vanish together, exactly
+   on the diagonal: balance is one condition in three readings.
