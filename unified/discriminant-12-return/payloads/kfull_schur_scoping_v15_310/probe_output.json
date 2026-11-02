@@ -1,0 +1,390 @@
+{
+ "meta": {
+  "scope": "sandbox [N] scoping probe; finite-window estimates are LOWER bounds for the true compression norms; NOT a certificate",
+  "kernel": "K_{N,m} = c*(m*z_N - N*z_m)/(N^2-m^2) + 2*sigma*p_N*p_m, c=2/pi, t=1/pi^2, z = z_float model, p = L*n/(n^2+t) float",
+  "C_env": 1.745855454249828,
+  "wall_seconds": 270.76448369026184
+ },
+ "odd-lattice_b512001_even-v": {
+  "sector": "odd-lattice_b512001_even-v",
+  "sigma": 1,
+  "L": 1.4357379705709206,
+  "b": 512001,
+  "b_int_top": 10.45,
+  "tail_norms_QBQ": [
+   {
+    "cutoff_N": 1000,
+    "window_W": 2000,
+    "first_mode": 1001,
+    "last_mode": 4999,
+    "norm_est": 1.895398247391738,
+    "lambda_min": -1.895398247391738,
+    "lambda_max": 1.643427501644038
+   },
+   {
+    "cutoff_N": 1000,
+    "window_W": 4000,
+    "first_mode": 1001,
+    "last_mode": 8999,
+    "norm_est": 1.9088236624172708,
+    "lambda_min": -1.9088236624172708,
+    "lambda_max": 1.643477417729432
+   },
+   {
+    "cutoff_N": 10000,
+    "window_W": 2000,
+    "first_mode": 10001,
+    "last_mode": 13999,
+    "norm_est": 1.9139905322799389,
+    "lambda_min": -1.9139905322799389,
+    "lambda_max": 1.6278265831262309
+   },
+   {
+    "cutoff_N": 100000,
+    "window_W": 2000,
+    "first_mode": 100001,
+    "last_mode": 103999,
+    "norm_est": 1.8885462435444822,
+    "lambda_min": -1.8885462435444822,
+    "lambda_max": 1.6543285190356698
+   },
+   {
+    "cutoff_N": 500000,
+    "window_W": 2000,
+    "first_mode": 500001,
+    "last_mode": 503999,
+    "norm_est": 1.908985102824132,
+    "lambda_min": -1.908985102824132,
+    "lambda_max": 1.640048054722853
+   },
+   {
+    "cutoff_N": 500000,
+    "window_W": 4000,
+    "first_mode": 500001,
+    "last_mode": 507999,
+    "norm_est": 1.920231348594384,
+    "lambda_min": -1.920231348594384,
+    "lambda_max": 1.6431112390119882
+   }
+  ],
+  "offblock_V": {
+   "block_first": 512001,
+   "block_last": 512199,
+   "below_modes": 256000,
+   "norm_below_only": 0.7219135588755656,
+   "above_W2000": {
+    "modes": 2000,
+    "last_mode": 516199,
+    "norm_above_only": 0.7568592597599412,
+    "norm_combined": 0.8656579357978003,
+    "frob_combined": 1.3827192345746055
+   },
+   "above_W20000": {
+    "modes": 20000,
+    "last_mode": 552199,
+    "norm_above_only": 0.7581234651326012,
+    "norm_combined": 0.8676978267425544,
+    "frob_combined": 1.3856627953197536
+   },
+   "dropped_tail_gram_residual_scale_per_column": 0.00027916673167538306,
+   "combined_norm_used": 0.8676978267425544
+  },
+  "stopping": [
+   {
+    "M_N": 15.0,
+    "kind": "hypothetical",
+    "N_stop": 2588629796029.67
+   },
+   {
+    "M_N": 10.0,
+    "kind": "hypothetical",
+    "N_stop": 17442050363.914814
+   },
+   {
+    "M_N": 7.0,
+    "kind": "hypothetical",
+    "N_stop": 868388552.0435272
+   },
+   {
+    "M_N": 5.0,
+    "kind": "hypothetical",
+    "N_stop": 117523608.9209133
+   },
+   {
+    "M_N": 3.0,
+    "kind": "hypothetical",
+    "N_stop": 15905089.17097127
+   },
+   {
+    "M_N": 2.0,
+    "kind": "hypothetical",
+    "N_stop": 5851154.051757752
+   },
+   {
+    "M_N": 1.0,
+    "kind": "hypothetical",
+    "N_stop": 2152518.0185275446
+   },
+   {
+    "M_N": 1.8885462435444822,
+    "kind": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "N_stop": 5234048.753516953
+   },
+   {
+    "M_N": 1.908985102824132,
+    "kind": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "N_stop": 5342127.521254484
+   }
+  ],
+  "coarse_schur_residual": [
+   {
+    "M_N": 1.8885462435444822,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 0.1,
+    "N": 5784518.676518864,
+    "V2_over_g": 7.528995185337519
+   },
+   {
+    "M_N": 1.8885462435444822,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 0.5,
+    "N": 8629488.809247434,
+    "V2_over_g": 1.5057990370675038
+   },
+   {
+    "M_N": 1.8885462435444822,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 1.0,
+    "N": 14227623.052517507,
+    "V2_over_g": 0.7528995185337519
+   },
+   {
+    "M_N": 1.8885462435444822,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 2.0,
+    "N": 38674692.64238701,
+    "V2_over_g": 0.37644975926687596
+   },
+   {
+    "M_N": 1.908985102824132,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 0.1,
+    "N": 5903964.187483835,
+    "V2_over_g": 7.528995185337519
+   },
+   {
+    "M_N": 1.908985102824132,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 0.5,
+    "N": 8807680.572527358,
+    "V2_over_g": 1.5057990370675038
+   },
+   {
+    "M_N": 1.908985102824132,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 1.0,
+    "N": 14521411.602900682,
+    "V2_over_g": 0.7528995185337519
+   },
+   {
+    "M_N": 1.908985102824132,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 2.0,
+    "N": 39473292.72030292,
+    "V2_over_g": 0.37644975926687596
+   }
+  ],
+  "v15227_gap_scale": 0.004150625992394043
+ },
+ "even-lattice_b512002_odd-v": {
+  "sector": "even-lattice_b512002_odd-v",
+  "sigma": -1,
+  "L": 0.6634791495304894,
+  "b": 512002,
+  "b_int_top": 10.3,
+  "tail_norms_QBQ": [
+   {
+    "cutoff_N": 1000,
+    "window_W": 2000,
+    "first_mode": 1002,
+    "last_mode": 5000,
+    "norm_est": 1.9600721803017729,
+    "lambda_min": -1.9600721803017729,
+    "lambda_max": 1.5911123335269897
+   },
+   {
+    "cutoff_N": 1000,
+    "window_W": 4000,
+    "first_mode": 1002,
+    "last_mode": 9000,
+    "norm_est": 1.9605206535422026,
+    "lambda_min": -1.9605206535422026,
+    "lambda_max": 1.6406340051101085
+   },
+   {
+    "cutoff_N": 10000,
+    "window_W": 2000,
+    "first_mode": 10002,
+    "last_mode": 14000,
+    "norm_est": 1.915069938831122,
+    "lambda_min": -1.915069938831122,
+    "lambda_max": 1.616978137053866
+   },
+   {
+    "cutoff_N": 100000,
+    "window_W": 2000,
+    "first_mode": 100002,
+    "last_mode": 104000,
+    "norm_est": 1.966904082530874,
+    "lambda_min": -1.966904082530874,
+    "lambda_max": 1.5928883752263783
+   },
+   {
+    "cutoff_N": 500000,
+    "window_W": 2000,
+    "first_mode": 500002,
+    "last_mode": 504000,
+    "norm_est": 1.9201685776587725,
+    "lambda_min": -1.9201685776587725,
+    "lambda_max": 1.635092325922421
+   },
+   {
+    "cutoff_N": 500000,
+    "window_W": 4000,
+    "first_mode": 500002,
+    "last_mode": 508000,
+    "norm_est": 1.9242610929023998,
+    "lambda_min": -1.9242610929023998,
+    "lambda_max": 1.6352571320061633
+   }
+  ],
+  "offblock_V": {
+   "block_first": 512002,
+   "block_last": 512200,
+   "below_modes": 256000,
+   "norm_below_only": 0.7414612160605979,
+   "above_W2000": {
+    "modes": 2000,
+    "last_mode": 516200,
+    "norm_above_only": 0.7246911903178574,
+    "norm_combined": 0.8813964928344882,
+    "frob_combined": 1.3741842188962714
+   },
+   "above_W20000": {
+    "modes": 20000,
+    "last_mode": 552200,
+    "norm_above_only": 0.7262059424340559,
+    "norm_combined": 0.8834738074464806,
+    "frob_combined": 1.3770970982452877
+   },
+   "dropped_tail_gram_residual_scale_per_column": 0.00027916673167538306,
+   "combined_norm_used": 0.8834738074464806
+  },
+  "stopping": [
+   {
+    "M_N": 15.0,
+    "kind": "hypothetical",
+    "N_stop": 2228054313454.0317
+   },
+   {
+    "M_N": 10.0,
+    "kind": "hypothetical",
+    "N_stop": 15012511873.150501
+   },
+   {
+    "M_N": 7.0,
+    "kind": "hypothetical",
+    "N_stop": 747428953.1014873
+   },
+   {
+    "M_N": 5.0,
+    "kind": "hypothetical",
+    "N_stop": 101153507.33790526
+   },
+   {
+    "M_N": 3.0,
+    "kind": "hypothetical",
+    "N_stop": 13689636.836622754
+   },
+   {
+    "M_N": 2.0,
+    "kind": "hypothetical",
+    "N_stop": 5036134.685055653
+   },
+   {
+    "M_N": 1.0,
+    "kind": "hypothetical",
+    "N_stop": 1852689.1493612735
+   },
+   {
+    "M_N": 1.966904082530874,
+    "kind": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "N_stop": 4872187.08369304
+   },
+   {
+    "M_N": 1.9201685776587725,
+    "kind": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "N_stop": 4649721.870111033
+   }
+  ],
+  "coarse_schur_residual": [
+   {
+    "M_N": 1.966904082530874,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 0.1,
+    "N": 5384599.682663184,
+    "V2_over_g": 7.805259684439811
+   },
+   {
+    "M_N": 1.966904082530874,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 0.5,
+    "N": 8032879.777157682,
+    "V2_over_g": 1.5610519368879623
+   },
+   {
+    "M_N": 1.966904082530874,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 1.0,
+    "N": 13243981.051019317,
+    "V2_over_g": 0.7805259684439811
+   },
+   {
+    "M_N": 1.966904082530874,
+    "anchor": "measured window est. (lower bound), cutoff 100000, W=2000",
+    "g": 2.0,
+    "N": 36000876.464005396,
+    "V2_over_g": 0.39026298422199057
+   },
+   {
+    "M_N": 1.9201685776587725,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 0.1,
+    "N": 5138737.598328862,
+    "V2_over_g": 7.805259684439811
+   },
+   {
+    "M_N": 1.9201685776587725,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 0.5,
+    "N": 7666096.64753418,
+    "V2_over_g": 1.5610519368879623
+   },
+   {
+    "M_N": 1.9201685776587725,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 1.0,
+    "N": 12639257.903475089,
+    "V2_over_g": 0.7805259684439811
+   },
+   {
+    "M_N": 1.9201685776587725,
+    "anchor": "measured window est. (lower bound), cutoff 500000, W=2000",
+    "g": 2.0,
+    "N": 34357068.52078736,
+    "V2_over_g": 0.39026298422199057
+   }
+  ],
+  "v15227_gap_scale": 0.012958023663653584
+ }
+}
