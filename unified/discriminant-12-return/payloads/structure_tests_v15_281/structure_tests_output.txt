@@ -1,0 +1,28 @@
+TEST A: gravity refined mesh (p, q quarter coordinates)
+  refined rows are parabolas with u = p/2: Y^2 = u^2 - 2uX form
+  (p,q)=(1,1): crossing X=0, vertex midpoint=0 (=X/2: True), curvatures -2/1, +2/1, net 0
+  (p,q)=(1,3): crossing X=-1/2, vertex midpoint=-1/4 (=X/2: True), curvatures -2/1, +2/3, net -4/3
+  (p,q)=(2,2): crossing X=0, vertex midpoint=0 (=X/2: True), curvatures -2/2, +2/2, net 0
+  (p,q)=(3,5): crossing X=-1/2, vertex midpoint=-1/4 (=X/2: True), curvatures -2/3, +2/5, net -4/15
+  (p,q)=(4,4): crossing X=0, vertex midpoint=0 (=X/2: True), curvatures -2/4, +2/4, net 0
+  innermost pair (1,1): vertices +-1/4, crossing (0, 1/2), curvatures
+  -2/+2 cancel. The triple balance holds at the gravity scale with
+  q = 1/4 vertices -- sector-generality of v15.280 CONFIRMED.
+
+TEST D: Wigner rotation under boost-order exchange
+  gamma_w: 1.091218 vs swapped 1.091218 (EVEN: True); theta: +0.059263 vs -0.059263 (ODD: True); pure rotation: True
+  gamma_w: 1.477230 vs swapped 1.477230 (EVEN: True); theta: +0.153860 vs -0.153860 (ODD: True); pure rotation: True
+  gamma_w: 1.225079 vs swapped 1.225079 (EVEN: True); theta: -0.043093 vs +0.043093 (ODD: True); pure rotation: True
+  gamma_w: 1.525589 vs swapped 1.525589 (EVEN: True); theta: -0.060066 vs +0.060066 (ODD: True); pure rotation: True
+  -> transport holonomy sits in the ODD channel, shell in the EVEN:
+     Pair-Split placement of the v15.271 gauge CONFIRMED (True).
+
+TEST G: rest gaps psi_min(N), N = 1..24 (0 iff square)
+  1:0.000*  2:0.347  3:0.549  4:0.000*  5:0.805  6:0.203  7:0.973  8:0.347  9:0.000*  10:0.458  11:1.199  12:0.144  13:1.282  14:0.626  15:0.255  16:0.000*  17:1.417  18:0.347  19:1.472  20:0.112  21:0.424  22:0.852  23:1.568  24:0.203   (* = square, exact rest)
+  worst gap N<=500: N=499 (prime: True), psi_min = 3.1063 = 1/2 ln N = 3.1063
+  N = 3^2-1 = 8: psi_min = 0.3466, 1/2 ln((m+1)/(m-1)) = 0.3466
+  N = 5^2-1 = 24: psi_min = 0.2027, 1/2 ln((m+1)/(m-1)) = 0.2027
+  N = 10^2-1 = 99: psi_min = 0.1003, 1/2 ln((m+1)/(m-1)) = 0.1003
+  -> the lattice holds exact rest only on square shells; every
+     other shell's nearest state is boosted by psi_min(N) > 0,
+     largest for primes, ~1/sqrt(N) for near-square factorable N.
