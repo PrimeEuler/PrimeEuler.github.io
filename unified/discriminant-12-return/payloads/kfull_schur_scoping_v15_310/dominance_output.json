@@ -1,0 +1,74 @@
+{
+ "meta": {
+  "scope": "Route B prototype B2 [N]; prototype grade, NOT a certificate",
+  "dominance_criterion": "band passes at energy x iff min|d_n - x| over band modes > Frobenius norm of the band's B-rows over the prototype window (band block + cross-coupling); l1 Gershgorin row sums NOT used (log-divergent, see diagnostic)"
+ },
+ "gershgorin_diagnostic": {
+  "kind": "labeled diagnostic [N]; partial l1 Gershgorin row sums grow without bound: the far-tail (m >> N) increments track log M (for both sample rows the increment from M = 2e6 to M = 9.58e6 is ~0.35-0.41 over dlogM ~ 1.57, slope ~0.22-0.26 per ln unit, consistent with the |B_{N,m}| ~ c|z_N|/m tail), and the partial sums at the log-clearing cutoff already reach 7.2-9.6, far above any usable dominance margin at the target scale. l1 row-sum dominance is therefore disqualified for this kernel, as expected",
+  "rows": [
+   {
+    "row_N": 512001,
+    "ladder": [
+     {
+      "M": 2000,
+      "partial_l1_sum": 0.002489189876375443,
+      "sum_over_logM": 0.000327486096502994
+     },
+     {
+      "M": 20000,
+      "partial_l1_sum": 0.024960837721725523,
+      "sum_over_logM": 0.0025204088548920773
+     },
+     {
+      "M": 200000,
+      "partial_l1_sum": 0.2507700992440326,
+      "sum_over_logM": 0.020544699882305208
+     },
+     {
+      "M": 2000000,
+      "partial_l1_sum": 6.8233471438588085,
+      "sum_over_logM": 0.47029485889249883
+     },
+     {
+      "M": 9582891,
+      "partial_l1_sum": 7.233912938744659,
+      "sum_over_logM": 0.44999642270410317
+     }
+    ]
+   },
+   {
+    "row_N": 1000003,
+    "ladder": [
+     {
+      "M": 2000,
+      "partial_l1_sum": 0.0012752506677888784,
+      "sum_over_logM": 0.00016777621796579481
+     },
+     {
+      "M": 20000,
+      "partial_l1_sum": 0.012851716019972752,
+      "sum_over_logM": 0.0012976959835408314
+     },
+     {
+      "M": 200000,
+      "partial_l1_sum": 0.13075674130185452,
+      "sum_over_logM": 0.01071243348283178
+     },
+     {
+      "M": 2000000,
+      "partial_l1_sum": 9.240146771375237,
+      "sum_over_logM": 0.6368712349482385
+     },
+     {
+      "M": 9582891,
+      "partial_l1_sum": 9.5829654205086,
+      "sum_over_logM": 0.5961227615872204
+     }
+    ]
+   }
+  ]
+ },
+ "status": "NOT_RUN",
+ "reason": "B1 hard stop triggered: certified resonant count exceeded 20000 (certified evaluation halted at 20001 resonant of 20364 evaluated candidates; float census puts |R| at ~7.9e5 for rho = 2.5). Per the B2 gate ('only if B1 passes'), the banded dominance pass was not run. The B2 implementation above is present but UNEXECUTED beyond this gate branch and the diagnostic.",
+ "wall_seconds": 3.1104483604431152
+}
