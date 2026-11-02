@@ -1,0 +1,20 @@
+rotation sign R(2pi) = exp(-2 pi i J_z) = (-1)^{2j} I:
+  j=0.0: R(2pi) = +1 I   tensor (scalar channels)   shell: even diagonal
+  j=0.5: R(2pi) = -1 I   SPINOR (doublet channel)   shell: odd diagonal 
+  j=1.0: R(2pi) = +1 I   tensor (scalar channels)   shell: even diagonal
+  j=1.5: R(2pi) = -1 I   SPINOR (doublet channel)   shell: odd diagonal 
+  j=2.0: R(2pi) = +1 I   tensor (scalar channels)   shell: even diagonal
+  j=2.5: R(2pi) = -1 I   SPINOR (doublet channel)   shell: odd diagonal 
+  j=3.0: R(2pi) = +1 I   tensor (scalar channels)   shell: even diagonal
+
+spinor bilinears from an explicit 2-spinor psi = (a, b):
+  density psi+ psi = 1.0025 (scalar -- EVEN channel)
+  current psi+ sigma psi = [-0.27    0.96   -0.1025] (vector -- the ODD
+  generators). The spinor itself is in NEITHER scalar channel:
+  under the doublet's phase exchange it is the pair (psi, T psi),
+  and its own sign under 2pi / T^2 is -1. Only its bilinears
+  descend to the channels of v15.277.
+
+-> spinors live only in the doublet channel = on the odd
+   diagonals; even diagonals (integer j) cannot host them,
+   because their exchange sign is +1 by the same computation.
