@@ -1,0 +1,21 @@
+=== ScanA S=0.2 ===
+SCANJSON {"S": 0.2, "SEP0": 10.0, "V0": 0.221, "t_stop": 120.0, "sep_end": 3.131147991599745, "fdev_rms_5_40": 1.5213480406778854, "fdev_mean_5_40": 1.1789740462139366, "fdev_rms_halforb": 3.142384404255316, "fdev_mean_halforb": 2.6694316808469702, "inspiral_slope_halforb": -0.032852060323746685, "ecc_quarterorb": 0.04183596800752891, "orb_period": 142.1535137370947}
+=== ScanA S=0.5 ===
+SCANJSON {"S": 0.5, "SEP0": 10.0, "V0": 0.221, "t_stop": 84.0, "sep_end": 3.183485163771522, "fdev_rms_5_40": 3.946748295954253, "fdev_mean_5_40": 2.117097481993075, "fdev_rms_halforb": 6.450372436853033, "fdev_mean_halforb": 5.176131231069313, "inspiral_slope_halforb": -0.06892632216629635, "ecc_quarterorb": 0.1008169748960583, "orb_period": 142.1535137370947}
+=== ScanA S=1.0 ===
+SCANJSON {"S": 1.0, "SEP0": 10.0, "V0": 0.221, "t_stop": 58.0, "sep_end": 3.083603566644027, "fdev_rms_5_40": 9.248712578869807, "fdev_mean_5_40": 5.339599804661528, "fdev_rms_halforb": 12.80339442559675, "fdev_mean_halforb": 9.519832276596505, "inspiral_slope_halforb": -0.11406352725145913, "ecc_quarterorb": 0.2400821118235524, "orb_period": 142.1535137370947}
+=== ScanA S=1.5 ===
+SCANJSON {"S": 1.5, "SEP0": 10.0, "V0": 0.221, "t_stop": 46.5, "sep_end": 2.8101408223648185, "fdev_rms_5_40": 16.23438498987897, "fdev_mean_5_40": 10.209063591524863, "fdev_rms_halforb": 17.568639822754896, "fdev_mean_halforb": 12.20504768541461, "inspiral_slope_halforb": -0.15104743501433227, "ecc_quarterorb": 0.41945246437759176, "orb_period": 142.1535137370947}
+=== ScanA S=2.0 ===
+SCANJSON {"S": 2.0, "SEP0": 10.0, "V0": 0.221, "t_stop": 39.0, "sep_end": 3.1223408708774016, "fdev_rms_5_40": 21.713923492096033, "fdev_mean_5_40": 13.950129758720049, "fdev_rms_halforb": 21.713923492096033, "fdev_mean_halforb": 13.950129758720049, "inspiral_slope_halforb": -0.18313720840474698, "ecc_quarterorb": 0.6909743079536558, "orb_period": 142.1535137370947}
+=== ScanB sep=5 S=1.0 ===
+SCANJSON {"S": 1.0, "SEP0": 5.0, "V0": 0.3162, "t_stop": 13.5, "sep_end": 2.9416702704420152, "fdev_rms_5_40": 21.72602398910524, "fdev_mean_5_40": 16.542011033050212, "fdev_rms_halforb": 21.72602398910524, "fdev_mean_halforb": 16.542011033050212, "inspiral_slope_halforb": -0.23926221604817924, "ecc_quarterorb": 0.4201511909110107, "orb_period": 49.67730318769439}
+=== ScanB sep=5 S=0.05 ===
+SCANJSON {"S": 0.05, "SEP0": 5.0, "V0": 0.3162, "t_stop": 28.0, "sep_end": 3.172844641722166, "fdev_rms_5_40": 4.382282462987884, "fdev_mean_5_40": 4.229026579056539, "fdev_rms_halforb": 4.382282462987884, "fdev_mean_halforb": 4.229026579056539, "inspiral_slope_halforb": -0.07535585896819298, "ecc_quarterorb": 0.056453232035182134, "orb_period": 49.67730318769439}
+=== ScanB sep=10 S=0.05 ===
+SCANJSON {"S": 0.05, "SEP0": 10.0, "V0": 0.221, "t_stop": 163.5, "sep_end": 3.1788937857035773, "fdev_rms_5_40": 1.2717988739337949, "fdev_mean_5_40": 1.2586800197338754, "fdev_rms_halforb": 1.7150972914662515, "fdev_mean_halforb": 1.6571574696869633, "inspiral_slope_halforb": -0.021869389180221587, "ecc_quarterorb": 0.023383869628946917, "orb_period": 142.1535137370947}
+=== ScanB sep=20 S=1.0 ===
+SCANJSON {"S": 1.0, "SEP0": 20.0, "V0": 0.1581, "t_stop": 465.0, "sep_end": 3.1327282108500545, "fdev_rms_5_40": 2.6115628741688477, "fdev_mean_5_40": -2.3958711868261755, "fdev_rms_halforb": 3.695622810168393, "fdev_mean_halforb": 1.0923447945368132, "inspiral_slope_halforb": -0.03481376958991668, "ecc_quarterorb": 0.07593954504480109, "orb_period": 397.41842550155513}
+=== ScanB sep=20 S=0.05 ===
+SCANJSON {"S": 0.05, "SEP0": 20.0, "V0": 0.1581, "t_stop": 515.5, "sep_end": 17.256837564501033, "fdev_rms_5_40": 0.3638327526999061, "fdev_mean_5_40": 0.3637158695849155, "fdev_rms_halforb": 0.6204163120504068, "fdev_mean_halforb": 0.5958186175373595, "inspiral_slope_halforb": -0.001063184897907446, "ecc_quarterorb": 0.00988145169088206, "orb_period": 397.41842550155513}
+ALL SCANS DONE
