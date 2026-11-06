@@ -1,0 +1,5 @@
+# Lane A v15.477 natural-extension solenoid dual
+# witness_commit 6f7e13c602c6c25594b6c010fc1ae472ad1149b5
+# witness_blob ff736d22c7fbddd6a44bc7ef9e9ec0f8a2feb00a
+# replay python3 -I lane_a_v15_477_solenoid_dual_certificate.py
+93bb703528190c75170032d25b2c9700a67a23478137542ca91ee9fb28b96d05  lane_a_v15_477_solenoid_dual_certificate.py
