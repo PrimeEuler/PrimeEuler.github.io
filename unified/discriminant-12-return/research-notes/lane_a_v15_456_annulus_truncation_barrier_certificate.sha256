@@ -1,0 +1,5 @@
+# Lane A v15.456 finite-annulus truncation barrier
+# witness_commit 5573c93288cff4e1db5ea8d9135b60a3e18943ac
+# witness_blob 6873788e7203ba1af86db5a9b292678781c97d8d
+# replay python3 -I lane_a_v15_456_annulus_truncation_barrier_certificate.py
+a723804e14a8ff22507a1ac1149f85a4960cc5979c93ec4763c1f12d47a761a1  lane_a_v15_456_annulus_truncation_barrier_certificate.py
