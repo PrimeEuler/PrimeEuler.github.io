@@ -1,0 +1,5 @@
+# Lane A v15.464 doubling-endomorphism architecture
+# witness_commit 072f3d9dd0b8976f064918743cdfc436924f28dd
+# witness_blob 5144c95014e6ec17837306e318d8f8f1ad5f549d
+# replay python3 -I lane_a_v15_464_doubling_endomorphism_certificate.py
+a1635c734e48fd247f850b0eeec7d724c1c836cc19cc0df1c1883eccea8ff95d  lane_a_v15_464_doubling_endomorphism_certificate.py
