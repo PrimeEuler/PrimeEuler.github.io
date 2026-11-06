@@ -1,0 +1,5 @@
+# Lane A v15.462 annulus phase doubling
+# witness_commit e6c7e65a3e09204bd1851b72518252180531c2cb
+# witness_blob 6b3bfc54463c35289766bae5ddbc42e4cb1cca99
+# replay python3 -I lane_a_v15_462_annulus_phase_doubling_certificate.py
+4efaf15915de7b7e903b1e4848d57670dbd1f3e302b638819af8b5a580cdb7f9  lane_a_v15_462_annulus_phase_doubling_certificate.py
