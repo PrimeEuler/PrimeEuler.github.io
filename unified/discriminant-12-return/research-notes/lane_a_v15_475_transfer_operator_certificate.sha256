@@ -1,0 +1,5 @@
+# Lane A v15.475 exact 16-branch transfer operator
+# witness_commit f430cd657abfa6114c00ee948b36f9d8b7cf7bdf
+# witness_blob d2919db0e4e637f3163d90d71813407218bd13fa
+# replay python3 -I lane_a_v15_475_transfer_operator_certificate.py
+3374f1745a243d6f85a300b5109905f3d56b38662ff4a57bcf00d2fc9e80673c  lane_a_v15_475_transfer_operator_certificate.py
