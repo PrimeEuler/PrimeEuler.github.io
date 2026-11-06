@@ -1,0 +1,5 @@
+# Lane A v15.459 four-torus phase hull
+# witness_commit 88c80cf27aacc853eff3d22f09ed362274a16ad3
+# witness_blob 8144ccb164a628128d688908fda2421ab2fef182
+# replay python3 -I lane_a_v15_459_four_torus_phase_hull_certificate.py
+6256452da3a623601d6dc8cc50bb90f0b7cbc0430b9234049175413b73e2907b  lane_a_v15_459_four_torus_phase_hull_certificate.py
