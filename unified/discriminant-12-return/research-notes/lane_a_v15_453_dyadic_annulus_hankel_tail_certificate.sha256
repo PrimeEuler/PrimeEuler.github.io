@@ -1,0 +1,5 @@
+# Lane A v15.453 dyadic-annulus Hankel tail reduction
+# witness_commit 28e0c9c2b056a2d000196393ea89a9d7920213b4
+# witness_blob 9d6b41fc3f3b5bb651ef7e108ad1b0155d3e8729
+# replay python3 -I lane_a_v15_453_dyadic_annulus_hankel_tail_certificate.py
+31c813b4150ff9a86d20011137772d9eaa8f26c792265ab4b6db5eea19e261f2  lane_a_v15_453_dyadic_annulus_hankel_tail_certificate.py
