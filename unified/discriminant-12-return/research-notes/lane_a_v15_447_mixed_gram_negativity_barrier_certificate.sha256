@@ -1,0 +1,5 @@
+# Lane A v15.447 mixed-Gram negativity barrier
+# witness_commit 9b2ba4bc3c309465278a4a4f3c3192c0a5cf686c
+# witness_blob 675c0878585f47bb104c8dc01f89141673466304
+# replay python3 -I lane_a_v15_447_mixed_gram_negativity_barrier_certificate.py
+9abfbe93e710a9a8d06743c063382a0344e11fa12b9a8c1e072b8aa2e3da22fa  lane_a_v15_447_mixed_gram_negativity_barrier_certificate.py
