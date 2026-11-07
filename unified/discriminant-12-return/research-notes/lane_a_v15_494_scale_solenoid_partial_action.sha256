@@ -1,0 +1,5 @@
+# Lane A v15.494 exact scale-solenoid partial action
+# witness_commit fc56f6fcab5af64cccae28d0c86aaf6622cc2977
+# witness_blob d27ff90f3d7129f417035c7cf3014a953dd372b8
+# replay python3 -I lane_a_v15_494_scale_solenoid_partial_action.py
+b866f116b333453ccc8ddf7f3956269ad11fccf02a27a889f81f3699178fe4d7  lane_a_v15_494_scale_solenoid_partial_action.py
