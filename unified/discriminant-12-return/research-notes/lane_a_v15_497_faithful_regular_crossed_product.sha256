@@ -1,0 +1,5 @@
+# Lane A v15.497 faithful regular crossed-product architecture
+# witness_commit 8f2bbadc5d168f836b100af74f98b47b23a552d8
+# witness_blob 772fc7dadbf08cbf241b027568cbaeb18deac6f6
+# replay python3 -I lane_a_v15_497_faithful_regular_crossed_product.py
+9066cabc5a08984ede5e0441e2b28b6d12e1cc06c0dd65723adf522fa3a9f027  lane_a_v15_497_faithful_regular_crossed_product.py
