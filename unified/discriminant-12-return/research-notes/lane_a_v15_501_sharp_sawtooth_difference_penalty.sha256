@@ -1,0 +1,5 @@
+# Lane A v15.501 sharp sawtooth-difference penalty
+# witness_commit 928a40199c4a556c74a9019c951d26a670894520
+# witness_blob 8f3c00aa550c843e49fa9182513f29592b37a149
+# replay python3 -I lane_a_v15_501_sharp_sawtooth_difference_penalty.py
+580fb49993bd91d062aa52904861345068fb2ba90a3dfcaec0f751457d6f74d5  lane_a_v15_501_sharp_sawtooth_difference_penalty.py
