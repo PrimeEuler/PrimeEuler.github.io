@@ -1,0 +1,5 @@
+# Lane A v15.485 annulus scale-coordinate obstruction
+# witness_commit c57fb475be8ca897d4d36f255d8fb5172c00e436
+# witness_blob 6a31cd9abd9076d844435f11c02ea84713e12409
+# replay python3 -I lane_a_v15_485_scale_coordinate_obstruction.py
+08751e4188450bb0aabfb52e2d9463b4e017e764b29102f4fb484326f4dd5328  lane_a_v15_485_scale_coordinate_obstruction.py
