@@ -1,0 +1,5 @@
+# Lane A v15.491 exact common dyadic fiber
+# witness_commit 5f01751aa8e7581d7aff9b385d19291b80c4e1db
+# witness_blob 9fadebd1695d84ebc0f42d0fb55c481ad573d411
+# replay python3 -I lane_a_v15_491_common_dyadic_fiber.py
+43c915d153fda65b24227b53afda3a25d35e4a2f1db23c19339f92669e4ae788  lane_a_v15_491_common_dyadic_fiber.py
