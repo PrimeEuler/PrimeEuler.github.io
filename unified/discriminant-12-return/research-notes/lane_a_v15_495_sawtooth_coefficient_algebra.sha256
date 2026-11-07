@@ -1,0 +1,5 @@
+# Lane A v15.495 exact sawtooth coefficient algebra
+# witness_commit 4d3aa8877a1f1ce4bb5983d39bbf2aa2f8f1b8e5
+# witness_blob fcffe5e237c6869222e14df9b559f56ed5063ab2
+# replay python3 -I lane_a_v15_495_sawtooth_coefficient_algebra.py
+4302a7c4ad2caa010655f100d09cf9dc83c65e88afca19b0b43beeba7257c915  lane_a_v15_495_sawtooth_coefficient_algebra.py
