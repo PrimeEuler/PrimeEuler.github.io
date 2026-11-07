@@ -1,0 +1,5 @@
+# Lane A v15.499 exact Folner-localization upper enclosure
+# witness_commit 4d830b178154ab21a897afbd6b28c9d19fe55853
+# witness_blob 176fe33c8b520785edb73bf50fd6a9d73bba786a
+# replay python3 -I lane_a_v15_499_folner_localization_upper_enclosure.py
+14bd5f124c6da78deca28a0a7e19422ff0767c38c83a48763106ac762b623236  lane_a_v15_499_folner_localization_upper_enclosure.py
