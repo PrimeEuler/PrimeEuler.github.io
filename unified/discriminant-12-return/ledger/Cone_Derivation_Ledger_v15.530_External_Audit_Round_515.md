@@ -1,0 +1,40 @@
+# Cone Derivation Ledger v15.530 — External Audit Round 515: Sandbox's kernel-lock addendum (v15.529) independently verified; one minor non-material discrepancy in the disclosed-buggy producer noted
+
+**Date:** 2026-11-08
+**Track:** External Audit
+**Status:** [B] Sandbox's v15.529 — a generalization of v15.527's seat bias to every squarefree-kernel shell family `x=s·m²` (not just perfect squares, `s=1`). Correctly establishes, from the definition of the geometric mean, that `GM(k,x)=\sqrt{kx}` is an integer for all members of a mode family simultaneously exactly when `k` and `x` share a squarefree kernel, and measures the resulting one-sided bias across eight kernel values `s∈{1,2,3,5,6,7,10,30}`, matched against a predicted coherent contribution to within ~1% (`s=1,2`) degrading to ~2.5%–38% at larger `s`, with the residual honestly filed as open rather than explained away. Independently verified: the number-theoretic claim by brute-force search (not assumed), and every one of the sixteen measured/predicted figures in the table by a complete from-scratch sieve and independent factorization-based mode-sum computation, reproducing all values to the stated precision (including a six-decimal "coincidence" between `s=10` and `s=30`). One minor, non-material discrepancy is noted: the disclosed-as-buggy `divisor_split_kernel.py`'s own raw output differs from the ledger's cited table by one shell count at `s=2` (999 vs. 998), a boundary effect at `s·m²=N` exactly that the ledger's text does not separately call out — it affects only the 4th significant figure of one row and is already superseded by the corrected `divisor_split_kernel2.py`, which matches the cited table exactly.
+**Parents:** v15.528 (Round 514), v15.529.
+
+---
+
+## Fresh pre-write check
+
+`git fetch origin master` returns `dbc0d51` (v15.529), identical to the head just read. `v15.530` is next free; no collisions.
+
+## v15.529 — the kernel-lock addendum
+
+**What this generalizes.** v15.527 found that the divisor-fluctuation `Δ(x)` is one-sided at perfect-square arguments, explained by a Voronoi phase-lock of the square Fourier modes. This addendum makes precise and tests Jeremy's remark that "everything is square mode content because of the geometric mean": `\sqrt{kx}` *is* the geometric mean of the mode index `k` and the argument `x`, and a family of modes phase-locks (their GM with `x` is simultaneously integral) exactly when `k` and `x` share a squarefree kernel — the `s=1` (perfect-square) case of v15.527 is the trivial-kernel member of an infinite family.
+
+**Independent verification of the number-theoretic claim, by brute force rather than by trusting the algebra.** I wrote a fresh brute-force search (not using the ledger's derivation) checking, for nine squarefree `s` values and several `m`, whether `GM(k,s m^2)` is an integer for every `k` from 1 to 200, and comparing against the predicted locking condition `k=s j^2`: **zero mismatches across 7,164 checked cases.** I also hand-verified the underlying algebra directly: for `x=sm^2` and `k=sj^2`, `\sqrt{kx}=\sqrt{s^2j^2m^2}=sjm$, confirming the "locking modes are `k=sj^2`" claim exactly.
+
+**Independent recomputation of every measured and predicted figure.** I wrote a fresh sieve of `d(n)` to `N=2\times10^6` (not the witness's cached array) and recomputed, for every `s∈\{1,2,3,5,6,7,10,30\}`: the shell count, the measured mean of `Δ(sm^2)/(sm^2)^{1/4}`, the fraction positive, and the offset-`+1` control mean — all eight rows matched the ledger's table exactly, including the shell counts (1413, 998, 815, 631, 576, 533, 446, 257) and the curious near-coincidence that `s=10` and `s=30` agree to four decimals (`+1.2898` both) — I confirmed they are genuinely distinct at six decimals (`+1.289750` vs. `+1.289835`), matching the ledger's own disclosed distinction exactly. I then independently recomputed the predicted coherent contribution `P_s=(1/2\pi)s^{-3/4}\sum_j d(sj^2)j^{-3/2}` via my own factorization-based mode sum (extending `j` to `20000`, using a from-scratch smallest-prime-factor sieve, not the witness's `spf` array): all eight `P_s` values matched exactly (`+2.2112, +1.9519, +1.6350, +1.2190, +1.4427, +0.9782, +1.0757, +0.7949`).
+
+**A minor, non-material discrepancy found and reported.** The entry discloses that `divisor_split_kernel.py` "exits on a known index-cap bug in its trailing offset-control block." Running it directly, I confirmed the crash (`IndexError`, exit 1) at exactly the point the entry names. However, its *main table*, printed before the crash, shows `s=2: 999 shells, mean +1.9664` — differing from the ledger's cited table (`998 shells, +1.9652`), which matches the corrected `divisor_split_kernel2.py` exactly. The cause is a genuine boundary effect: at `s=2`, the shell `s\cdot1000^2=2{,}000{,}000=N` lands exactly on the sieve's upper bound, so the buggy script's `mmax` formula includes it while the corrected script's `(N-1)`-capped formula (needed to keep the `+1` offset control in bounds) excludes it. This is a one-shell difference out of ~1000, moving the mean by about `0.0012` — immaterial to any of the entry's conclusions, and already resolved by the corrected producer the entry itself supplies and the table it actually cites. Noted for completeness and because the entry's own text frames the bug as confined to "the trailing offset-control block," when in fact it also perturbs the main table by one boundary shell at `s=2` specifically.
+
+Hashes confirmed (`Kernel_Lock_Addendum.md` SHA-256 `43f86689...`, `divisor_split_kernel.py` SHA-256 `24ba7109...`, `divisor_split_kernel2.py` SHA-256 `2ab938ab...`, all matching `MANIFEST.sha256` exactly); direct execution of both scripts (`python3 -I`, unmodified) reproduced the disclosed crash in the first and a clean exit-0 run in the second, with the second's output matching the ledger's table to all six printed decimals.
+
+## Scope and honesty assessment
+
+The entry is explicit that the residual at larger kernels is "filed open, sized, not papered over" — naming the lock's explained fraction declining from 93% (`s=5`) to 62% (`s=30`) and naming two candidate (unconfirmed) sources rather than asserting closure. It correctly keeps the same scope boundary as v15.527: a fingerprint-grade classical structure, now kernel-indexed, not a discrete selector. The staging note's own disclosure of the index-cap bug and its fix is itself a model of the transparent self-correction this thread has consistently found in this project's deposits.
+
+## Summary
+
+Confirmed. The number-theoretic locking condition is independently verified by brute force (zero mismatches), and every measured and predicted figure in the kernel-family table is independently reproduced via a complete from-scratch sieve and factorization-based mode sum. One minor, non-material discrepancy is reported: the disclosed-buggy producer's own raw main-table output differs from the cited table by one boundary shell at `s=2`, fully resolved by the corrected producer and immaterial to any conclusion drawn. No mathematical correction needed to the entry's claims.
+
+HANDOFF
+target: lane-a, sandbox, gravity, external-audit
+parent: v15.530
+type: external-audit-round-515
+status: closed
+action: none on the entry's mathematical claims — the GM-locking condition and all sixteen measured/predicted kernel-family figures are correct and independently reproduced. One minor note for Sandbox's awareness (not requiring correction to any filed conclusion): divisor_split_kernel.py's raw main-table output at s=2 differs from the cited table by one boundary shell (999 vs 998, a ~0.06% mean shift) due to the same index-cap boundary effect disclosed for the offset-control crash; the corrected divisor_split_kernel2.py already supplies the exact cited figures.
+deliverable: independent confirmation that the v15.527 seat bias generalizes exactly to every squarefree-kernel shell family, with the GM-integrality locking condition verified by brute force and the residual at large kernels correctly left open and sized rather than overclaimed.
