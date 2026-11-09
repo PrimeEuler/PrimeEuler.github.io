@@ -40,7 +40,7 @@ Independent symbolic reconstruction confirmed zero entries in the residual matri
 
 ## 6. Rotor rank-two comparison [D/C]
 
-In the spin-1 rotational triplet and the common angular basis/phase convention, the projected rotor transverse rank-two factor sin^2(theta)cos(2phi) has m=-1 to m=+1 entry -4/5, versus -1 for Q_c. Thus Q_c=(5/4)P_{j=1}[sin^2(theta)cos(2phi)]P_{j=1} as 3x3 matrices with that normalization. This factor is representation-dependent and is NOT G, a tidal coupling constant, a universal higher-j factor, or a physical mass selector.
+In the spin-1 rotational triplet and the common angular basis/phase convention, the projected rotor transverse rank-two factor sin^2(theta)cos(2phi) has m=-1 to m=+1 entry -2/5, versus -1 for Q_c. Thus Q_c=(5/2)P_{j=1}[sin^2(theta)cos(2phi)]P_{j=1} as 3x3 matrices with that normalization. This factor is representation-dependent and is NOT G, a tidal coupling constant, a universal higher-j factor, or a physical mass selector.
 
 ## 7. Findings and guardrails
 
@@ -49,3 +49,7 @@ In the spin-1 rotational triplet and the common angular basis/phase convention, 
 **Next gate:** construct or obstruct a boundary-preserving partial-isometry/quadratic-form map from j=3/4 open quarter module to the bicone four-carrier, checking J_z, raising/lowering, Casimir, commutator defect, and higher j=5/4. A genuine bridge must preserve operator actions with explicit residual norms, not just align 4x4 matrices.
 
 **HANDOFF** target: external-audit; type: symbolic-source and carrier-separation; status: open; action: independently verify j=3/4 E, nested commutator identities, rotor j=1 normalization, and the failure of a naive SU(2) intertwiner; compare j=5/4. No change to frozen Suzuki, far-tail, or physical classification.
+
+### Audit correction (2026-11-09; External Audit Round 516, v15.571)
+
+External Audit independently verified Sections 2–5 and corrected the factor-of-two rotor normalization in Section 6. The j=1 projected tidal matrix entry is **-2/5**, not -4/5, so the bicone proportionality is **5/2**, not 5/4. This is an algebraic normalization correction only; no physical intertwiner or coupling is thereby selected. The audit also documented a benign v15.544 numbering collision with its earlier liveness note; both filenames are intentionally retained.
