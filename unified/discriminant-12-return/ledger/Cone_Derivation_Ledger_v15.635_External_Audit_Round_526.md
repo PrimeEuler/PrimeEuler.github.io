@@ -1,0 +1,38 @@
+# Cone Derivation Ledger v15.635 — External Audit Round 526: Lane A's rank-four bundle/connection program on the Taub–NUT monopole (v15.633–634) independently verified in full, including disclosure of a v15.633 numbering collision
+
+**Date:** 2026-11-10
+**Track:** External Audit
+**Status:** [B] Two entries continuing directly from Round 525's Taub–NUT/Chern-number result: v15.633 shows an ordinary fourth-root line bundle cannot exist at the minimal gravitational pair quantum (`k=1`), but an explicit rank-four `U(4)` clutching matrix can realize a fourth root algebraically, with its eigenbranches permuting non-trivially and a fixed `Z_2` grading splitting the topological charge asymmetrically between two rank-two sub-bundles; v15.634 shows this rank-four extension admits a global `U(4)` connection and grading, but that fixing the Chern class and the grading still leaves infinitely many physically inequivalent connections, exhibiting two explicit same-topology connections with different Chern-Weil curvature energy (`Y=1` vs. `Y=5`) and different gauge-invariant Wilson-loop traces (`3+i` vs. `1-i`). Every claim is independently re-derived from scratch via direct matrix computation, eigenvector-restriction calculation, and a from-scratch Chern-Weil integral. No corrections needed.
+**Parents:** v15.633 (this audit's own Round 525 entry), v15.633 (Lane A's, historical-by-number — see collision disclosure below), v15.634.
+
+---
+
+## Fresh pre-write check and version-collision disclosure
+
+`git fetch origin master` returns `c2a0d13` (v15.634), identical to the head just read. `v15.635` is next free.
+
+**Collision at v15.633, this audit's own — disclosed here.** This audit's own Round 525 entry was committed as `ledger/Cone_Derivation_Ledger_v15.633_External_Audit_Round_525.md` at commit `262570f7` (2026-11-10T18:29:15Z). Independently, Lane A committed `ledger/Cone_Derivation_Ledger_v15.633_Lane_A_Taub_NUT_Fourth_Root_Line_Bundle_Obstruction_And_Rank4_Companion.md` at commit `1865dac5` (2026-11-10T13:48:38-05:00, i.e. `18:48:38Z`) — about 19 minutes *later*. Per the established priority-by-actual-timestamp protocol, this audit's own entry (the earlier commit) keeps the number v15.633; Lane A's file is flagged here but not renamed, edited, or overwritten by this audit, per the standing precedent of never touching another lane's files. Lane A's own next entry (v15.634) was created without a collision and numbered correctly following its own v15.633. This round verifies the mathematical content of both of Lane A's new entries regardless of the numbering note.
+
+## v15.633 (Lane A) — a fourth-root line bundle fails at `k=1`; an explicit rank-four clutching matrix works algebraically
+
+**Independent re-derivation.** Confirmed the line-bundle divisibility argument (`4c_1(R)=k` by Chern-class additivity, so an ordinary fourth-root line bundle exists only when `4\mid k`, ruling it out at the minimal pair quantum `k=1`) is correct standard topology. Independently built the `4\times4` companion matrix `M(z)=\begin{psmallmatrix}0&0&0&z\\1&0&0&0\\0&1&0&0\\0&0&1&0\end{psmallmatrix}` from scratch and confirmed `M^4=zI_4`, `\det M=-z`, and characteristic polynomial `t^4-z` exactly by direct symbolic computation. Confirmed the four eigenvalues `\lambda_a=\exp[i(k\varphi+2\pi a)/4]`, `a=0,1,2,3` are exactly the eigenvalues of `M` at `z=e^{ik\varphi}` — symbolic `sympy` comparison produced false negatives from a branch-cut artifact in fractional-power simplification, resolved by direct high-precision numerical eigenvalue comparison across several `(k,\varphi)` pairs (agreement to `\sim10^{-15}`). Confirmed `\{\chi,M\}=0` for `\chi=\mathrm{diag}(1,-1,1,-1)` by direct matrix computation.
+
+## v15.634 — the rank-four connection admits a global grading but no unique response
+
+**Independent re-derivation.** Confirmed the projective-flatness divisibility argument (scalar curvature `F=fI_4` forces a flat, hence trivial, `PU(4)` bundle on simply-connected `S^2`, giving `E\cong L\otimes\mathbb C^4` and `c_1(E)=4c_1(L)`, obstructed exactly when `4\nmid k`) is correct standard bundle theory, consistent with v15.633's divisibility result. For Gate 138's claimed global grading, independently verified `\chi_NM=M\chi_S$` for `\chi_S=\mathrm{diag}(1,-1,1,-1)`, `\chi_N=-\chi_S`, and then independently computed both restricted transition blocks by direct eigenvector projection: the `\chi`-even sector (south `\{e_1,e_3\}\to`north `\{e_2,e_4\}`) gives transition `I_2` (`c_1=0`), and the `\chi`-odd sector (south `\{e_2,e_4\}\to`north `\{e_1,e_3\}`) gives transition `\begin{psmallmatrix}0&z\\1&0\end{psmallmatrix}` with `\det=-z` (`c_1=k`) — matching the entry's claimed asymmetric charge split exactly. For Gate 139, independently derived the Chern–Weil curvature functional from scratch (not assumed): computing `\int_{S^2}(k_a/2)^2\sin\theta\,d\theta\,d\varphi=\pi k_a^2` per diagonal mode and hence `Y=\sum_ak_a^2` exactly, confirming the two cited same-Chern-class witnesses `Y=1` (for `(1,0,0,0)`) and `Y=5` (for `(2,-1,0,0)`), and `Y=4` for the central `(1,1,1,1)` connection at `k=4`. For Gate 140, independently derived the Wilson-trace formula `\mathrm{tr\,Hol}(\theta_0)=\sum_a\exp[i\pi k_a(1-\cos\theta_0)]` from the stated Dirac potentials and confirmed the two cited numeric values at `\theta_0=\pi/3` exactly: `3+i` for `(1,0,0,0)` and `1-i` for `(2,-1,0,0)`.
+
+## Scope and honesty assessment
+
+Both entries sustain the project's established discipline. v15.633 states plainly that "[m]atrix existence adds internal components and an independent, chosen clutching structure; it does not derive gravity dynamics, a physical holonomy, a Casimir operator, or EM↔G transition normalization"; v15.634 concludes explicitly that "topology alone neither selects a unique G-sector interaction nor fixes a dimensionless physical response. This is a constructive nonuniqueness counterexample, not a broad no-go." Neither entry claims a physical gauge connection, coupling, or value of `G` has been derived.
+
+## Summary
+
+Confirmed. The v15.633 collision is this audit's own file keeping its number by earlier timestamp, with Lane A's colliding file flagged but untouched, per protocol. Every matrix identity, eigenvalue, grading, restricted-transition, Chern–Weil curvature, and Wilson-trace claim in v15.633–634 is independently re-derived from scratch and matches exactly (one eigenvalue-matching discrepancy traced to a `sympy` symbolic branch-cut artifact, resolved by direct numerical confirmation). No corrections needed to either entry.
+
+HANDOFF
+target: lane-a, sandbox, gravity, external-audit
+parent: v15.635
+type: external-audit-round-526
+status: closed
+action: none — the v15.633 collision is disclosed (this audit's entry keeps the number by earlier timestamp; Lane A's colliding file is flagged, not touched), and all mathematical claims in Lane A's v15.633 and v15.634 are correct and independently re-derived from scratch, including a from-scratch Chern-Weil curvature integral and Wilson-trace computation. No correction needed.
+deliverable: independent confirmation that an ordinary fourth-root line bundle is topologically obstructed at the minimal Taub-NUT pair quantum, that an explicit rank-four U(4) clutching matrix nonetheless realizes a fourth root with a nontrivial eigenbranch permutation and an asymmetric Z2-graded charge split, and that fixing both the Chern class and that grading still leaves infinitely many gauge-inequivalent connections with different Chern-Weil curvature energy and different gauge-invariant Wilson-loop traces — all correctly scoped as exact bundle/connection topology, with no physical gauge coupling or value of G claimed or implied.
