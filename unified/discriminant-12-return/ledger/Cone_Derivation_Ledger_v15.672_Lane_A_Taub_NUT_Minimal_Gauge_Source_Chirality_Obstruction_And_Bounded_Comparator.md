@@ -1,0 +1,43 @@
+# Cone Derivation Ledger v15.672 — Gravity lane: minimal local gauge source has zero same-chirality zero-mode matrix; bounded charge-changing comparator requires an external profile
+
+**Date:** 2026-11-11 (US Eastern). **Parents:** Lane A v15.651 (global chiral scalar→spinor monopole bridge; audited Round 530); v15.653 (Jante–Schroers 4D radial modes; audited Round 531); v15.654 (gravity charge-raising multiplication mode generator; audited Round 532); v15.656 (full Dirac commutator and nonlocal manually truncated zero-mode ladder); existing original Taub–NUT worldline line charge v15.637. **Background current HEAD:** Suzuki v15.670–671 and External Audit Round 537, with commit 0b9343fa550b12c5a173e58b5c03ccfadd6a5ff3 before this test. **Status:** [D] chiral selection for local gauge perturbations, exact bounded local charge-one comparator and projected finite coefficients; [C] physical interpretation of a chosen scalar endomorphism, no source-derived source term; [O] Lorentzian gravitational pair ↔ Euclidean zero-mode charge identification, geometric quarter Casimir, Newton G or a new G-free response. Immediately prewrite live HEAD **e12ba8bc941ea971563927ceb5aef3513920852e**, and exact v15.672 ledger collision search negative. Additive only. Do not alter frozen Suzuki or audit commits. Historical version-number conflicts retained and not edited.
+
+## Gate 184 — exact chirality selection: standard minimal Abelian gauge perturbation cannot directly mix the chiral Dirac zero modes
+
+The Euclidean Jante–Schroers (2014) operator is D_A=c(e^mu)(nabla^spin_mu + iq A_mu), on an auxiliary self-dual Abelian gauge connection of **free continuous** strength p_aux; its normalizable zero modes occupy one chiral summand. Write Γ for Euclidean chirality, Γ²=1, {Γ,c(ξ)}=0, and P0 for the orthogonal projection onto this **positive-chirality** normalizable kernel. A minimal gauge perturbation δA is the zeroth-order operator δD=iq c(δA). Since P0=Π_+ P0 and Π_+ c(δA) Π_+=0, one has the **exact first-order zero-mode block**
+
+**P0 δD P0=0.**
+
+This is true even if δA carries an explicit charge-one fiber Fourier harmonic; it uses chirality, independent of its Fourier selection rules. The unchanged self-dual background and its fiber-invariant current have no native charge-changing external harmonic at all. This is a **first-order within-zero-modes** obstruction, not an assertion that general gauge deformations leave the complete four-dimensional spectrum or all higher-order effects unchanged. Nor does it forbid fermionic/Pauli/curvature corrections or other chirality-preserving sources chosen separately. It is not a general physical no-go for every possible gravitational perturbation.
+
+For the Hermitian 4×4 Euclidean Clifford gamma matrices used in the exact reproducer, Γ=diag(1,1,−1,−1), Π_+=(I+Γ)/2 and Π_+ γ_a Π_+=0 for all a=1,...,4, verified exactly.
+
+## Gate 185 — construct a smooth bounded source candidate of the correct charge and SU(2) tensor type
+
+Unlike the exponentially growing zero-mode solution generator B_alpha=√ρ exp(+ρ/2) z_alpha (v15.654, unbounded at infinity), choose the **new externally selected** smooth globally defined test profile
+
+**F_alpha(ρ,z)=√ρ exp(−ρ/2) z_alpha, alpha=1,2**, with ρ=r/L>0 and Hopf coordinates z₁,z₂. It has the same **unit right-fiber charge** and the requisite SU(2) spinor-doublet transformation. Near the nut, √ρ z_alpha is a smooth Cartesian complex coordinate up to the fixed nonzero scale; the radial damping exp(−ρ/2) remains smooth. As rho→∞ the profile decays; |F_alpha|≤exp(−1/2), since |z_alpha|≤1 and sqrt(rho)exp(−rho/2) has its maximum at rho=1. Thus M_F is a **bounded local multiplication operator on 4D L²**. It is *not* a conserved Dirac symmetry: [D_A,M_F]=c(dF)≠0. A chosen spinor polarisation v^alpha F_alpha + c.c. is necessary to turn the doublet into a real fixed background scalar; this explicitly chooses a direction in SU2 and breaks the original continuous isometry.
+
+Unlike raw B_alpha, **P0 M_F P0 is a well-defined bounded finite-rank operator on all of ker_L² D_A**. The top sector is projected to zero automatically because M_F is bounded and its n+1 Fourier output is outside the finite zero-mode tower. The earlier v15.656 non-definition of P0 M_B P0 applied specifically to the *unbounded* exponentially growing B, and is not contradicted. Conversely P0 M_F P0 is a projected perturbation, not an exact solution generator: its output after multiplication generally contains components outside ker D_A.
+
+## Gate 186 — exact projected normalized charge-changing matrix element
+
+For p_aux>0, let n=1,...,N (where n<p_aux) label the normalizable zero-mode multiplets, with |n,a>, a=0,...,n−1 normalized using round Hopf S³ angular harmonics and radial measure ρ(1+ρ)dρ. Standard modes have R_n=ρ^((n−1)/2) exp[−(p_aux−n)ρ/2]/sqrt(1+ρ), radial norm I_n=Γ(n+1)/(p_aux−n)^(n+1). The angular z₁ multiplication coefficient is sqrt((a+1)/(n+1)); z₂ gives sqrt((n−a)/(n+1)). The F radial product integral is **Γ(n+2)/(p_aux−n)^(n+2)**, since the damping exponential in F changes the combined decay to exp[−(p_aux−n)ρ]. Thus, for adjacent **allowed** modes n+1<p_aux,
+
+**<n+1,a+1|M_(F1)|n,a> = sqrt(a+1) (p_aux−n−1)^((n+2)/2)/(p_aux−n)^((n+3)/2).**
+
+For F₂ replace sqrt(a+1) by sqrt(n−a). At p_aux=7/2 (six zero modes across n=1,2,3), the n=1 a=0 F₁ amplitude is **3sqrt(6)/25 ≈0.29393877**; n=2 a=0 is **sqrt(6)/27 ≈0.09072184**; n=2 a=1 is **2sqrt(3)/27 ≈0.12830006**. Exact positive results. They depend on continuous p_aux and on an **arbitrary chosen profile F**, so there is no universal physical coupling or parameter-free observable. Real perturbation F1+conjugate carries both ±1 fiber harmonics.
+
+## Gate 187 — symmetry/source decision
+
+There are two distinct independent obstructions in the **unchanged** model: (i) geometric fiber-translation invariance fixes existing background coefficients to right-charge zero, so any explicitly charge-one source is extra input; (ii) minimal vector gauge variations c(δA) flip chirality, so their **first-order zero-mode block** vanishes even if a charge-one external field is supplied. Our constructed bounded **chirality-even** scalar-profile multiplier has nonzero projected charge-changing matrix elements, but it is a chosen non-invariant source/endormorphism; adding a coupling λ to the action supplies a new freely normalised interaction. If interpreted as a physical fermion bilinear/mass/Yukawa term, the full Lorentz- and gauge-covariant matter fields and transformation law must be specified separately. This gate does not conflate the scalar L² compression with an actual minimally coupled electromagnetic current.
+
+No source-independent coefficient, G-free tidal ratio or physically distinguished odd-quarter geometric Casimir is obtained. The standard gravitational pair p_G=k/4 lives in the separately regulated **Lorentzian** Taub–NUT mass-time setup and is not equal to the free Euclidean auxiliary self-dual p_aux; do not transplant without a separate physical map.
+
+## Reproducibility and audit handoff
+
+**Exact executed SymPy reproducer**: research-notes/tn_dirac_minimal_source_chirality_v15_672.py, commit e12ba8bc941ea971563927ceb5aef3513920852e. Tests Euclidean gamma chirality anticommution and vanishing positive-chiral vector blocks, bounded F radial derivative/maximum, normalized Γ-integral coefficients, and full six-state p_aux=7/2 charge-raising matrix, with [N,P0F1P0]=P0F1P0. The local independent shell script /mnt/data/tn_source_gate_184_187.py also ran PASS. Published baseline: Jante and Schroers, *Dirac operators on the Taub-NUT space, monopoles and SU(2) representations*, JHEP 01 (2014) 114, DOI 10.1007/JHEP01(2014)114.
+
+**HANDOFF**: external audit, gravity, sandbox. Verify exact chirality selection and its perturbative limitation, nut smoothness and global SU2/fiber transformation of F_alpha, boundedness, normalized adjacent-mode coefficients and top-sector projection, and distinguish chirality-even chosen scalar source from native minimal U1 gauge vector coupling. Audit the caveat about treating this as a sourced Lorentzian gravity force: none has been derived. Avoid frozen Suzuki edits, collisions or re-numbering older ledger files.
+
+**Next gate**: close the auxiliary-TN zero-mode charge-ladder as a geometry-compatible yet source-unselected mechanism unless a physically justified field can be identified. Return to original Cone geometry's actual stress-energy, tidal/clock comparisons, and parameter-free dimensionless observables; compare rigorously against standard GR and known dipole multipoles before any experimental claim.
