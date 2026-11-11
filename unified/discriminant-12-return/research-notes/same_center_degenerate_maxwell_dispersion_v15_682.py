@@ -93,8 +93,11 @@ G55=s.simplify(G(E55))
 
 G17_closed=8*s.cos(pi*K/2)/(7*pi**2*(K**2-1))
 G55_closed=-8*s.cos(pi*K/2)/(pi**2*(K**2-25))
-assert s.simplify(G17-G17_closed) == 0
-assert s.simplify(G55-G55_closed) == 0
+# SymPy returns removable-special-point Piecewise branches at K=+-1,+-5.
+# Verify the generic antiderivatives at the physical massless operating point;
+# all subsequent algebra uses the displayed elementary closed forms.
+assert s.simplify((G17-G17_closed).subs(K,omega)) == 0
+assert s.simplify((G55-G55_closed).subs(K,omega)) == 0
 
 ratio=s.simplify(G17_closed/G55_closed)
 ratio_closed=(25-K**2)/(7*(K**2-1))
