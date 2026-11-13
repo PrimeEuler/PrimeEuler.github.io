@@ -59,7 +59,9 @@ def main():
                        "P_perp":str(max(x.width() for row in Pp for x in row)),
                        "B_perp":str(max(x.width() for row in B for x in row))}}
     cp=OUT/"M16001_orthonormal_sixplane_certificate.json"
-    cp.write_text(json.dumps(cert,indent=2,sort_keys=True)+"\n",encoding="ascii")
+    cert_txt=json.dumps(cert,indent=2,sort_keys=True)+"\\n"
+    cp.write_text(cert_txt,encoding="ascii")
+    cert_sha=hashlib.sha256(cert_txt.encode("ascii")).hexdigest()
     print("M16001 orthonormal six-plane certificate")
     print("exact G_P=P^T P SPD             PASS")
     print("R_P^T R_P contains exact G_P    PASS")
@@ -68,8 +70,10 @@ def main():
     print("P_perp^T N_perp contains 0       PASS")
     print("B_perp^T B_perp contains I10     PASS")
     print("G_P exact SHA-256 =",gsha)
+    for i,x in enumerate(piv,1): print(f"LDL pivot {i} = {x.numerator}/{x.denominator}")
     for k,v in cert["max_width"].items(): print("max interval width",k,"=",v)
     for k,v in files.items(): print(k,"SHA-256 =",v["sha256"])
     print("certificate =",cp)
+    print("certificate JSON SHA-256 =",cert_sha)
     print("ORTHONORMAL SIX-PLANE CERTIFICATE: PASS")
 if __name__=="__main__": main()
