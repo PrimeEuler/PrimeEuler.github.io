@@ -1,0 +1,41 @@
+# Cone Derivation Ledger v15.973 — Shared n+1 action circles: reduced Schwinger symplectic areas, quarter-step representation, and physical-action normalization obstruction
+
+**Date:** 2026-11-14 Eastern. **Lane:** gravity/quantum Cone. **User:** continue v15.972; identify a canonical action-angle structure for EM and quarter sectors on the shared n+1 null-cone circle, and test whether rest/product normalization selects their kinetic action. **Prior work and redundancy:** v15.617 factor-plane symplectic chart, v15.622 null equation does not supply a first-class moment map, v15.623 *already derives* the two-mode U(1) reduction to CP1 and proves the factor product and rapidity commute on a fixed-total-number quotient; Paper C two-oscillator Schwinger algebra; v15.934 co-scaled half-step quadratic versus defective original-unit-step formal Casimir; v15.951/952 shared-D parity and Schwinger null incidence; v15.970 three alternative kinetic inertia controls; v15.972 quarter product rest circle Pq=j_q and normalized formal/scaled difference 1/2. Independent Audit Round 578 at canonical v15.966 accepted v15.954/955 after noting version collisions repaired v15.967–968. **Live prewrite HEAD:** 6a65a84fcf01eae458a68a7cb550fc5767a15e02 (this gate's exact reproducer). Target path checked absent. Strictly additive, preserve frozen Suzuki and other lanes.
+
+**Status:** [D] exact symplectic reduction, area quantization and matrices; [N] formal q2 spin coordinate is not a legitimate ordinary hbar SU2 irrep/quantized coadjoint sphere at fixed common D; [O] physical gravity symplectic form, action-angle/time Hamiltonian, kinetic mass or G-free observable.
+
+## Gate 758 — canonical two-mode reduction, recovered rather than reinvented
+
+Let two oscillator actions n1,n2>=0 and phases phi1,phi2 mod 2pi, and choose the **physical** oscillator symplectic form in action units `Omega=hbar(dphi1 wedge dn1+dphi2 wedge dn2)`. On the surface n1+n2=N with quotient by the common U1 phase, the surviving relative phase phi=phi1−phi2 and action n1 yield `Omega_red=hbar dphi wedge dn1`, subject to consistent orientation. The reduced manifold is CP1=S2 including collapsed phase fibers at n1=0,N. Its symplectic area magnitude is **A=2pi hbar N**. The global action-angle coordinates are only regular in 0<n1<N. This derivation is already in v15.623; no independent Cone source from the null equation is claimed.
+
+The EM fixed physical outer diameter D=n+1 has N_e=D−1 and **D** ordinary Fock states; A_e/(2pi hbar)=D−1. A formal geometric quarter grid with step 1/2 has **2D** nodes. Its genuine closed refined-step SU2 Fock realization uses N_q=2D−1 and ordinary spin J_q=N_q/2, so the native physical oscillator quotient has **A_q/(2pi hbar)=2D−1**. These are different phase-space spheres at the same chosen *geometric* diameter D, not a physical identification of two systems by itself. At equal D their areas differ by exactly **2pi hbar D**, despite each lying on its own consistent canonical oscillator carrier.
+
+## Gate 759 — half-step magnetic coordinate needs double symplectic coefficient
+
+On the quarter refined irrep, define *geometric* quarter magnetic coordinate `m'=J_z/2`. Classically Jz=n1−N_q/2, hence `m'=n1/2−N_q/4`, so `dn1=2 dm'`. In this coordinate
+
+**Omega_q,red=2hbar dphi wedge dm'**.
+
+Correspondingly the q2 co-scaled generators K_i=J_i/2 have **[K_x,K_y]=(i/2)K_z**, and co-scaled Casimir **K²=J_q(J_q+1)/4=j_q(j_q+1/2)** with geometric j_q=N_q/4=(2D−1)/4. It is physically the SAME genuine 2D-dimensional ordinary SU2 representation expressed in scaled dimensionless angular coordinates. It is **not** a new original-normalization SU2 representation of spin j_q.
+
+Trying instead to treat m' as the ordinary physical magnetic action coordinate with `Omega_wrong=hbar dphi wedge dm'` on a closed spin-j_q sphere gives **A_wrong/(2pi hbar)=2j_q=(2D−1)/2=D−1/2**, a half-integer for every D integer. This violates the integral cohomology/prequantization condition for a compact SU2 coadjoint orbit at the same physical hbar: 2j must be an integer, and 2j_q is not. (State counting makes the same point: 2j_q+1=D+1/2 is not an integer representation dimension.) The **proper** doubled-coefficient form above yields A_q/(2pi hbar)=N_q=2D−1, an integer, and the full 2D states.
+
+Scope: failure is for a *closed, ordinary SU2 sphere with the standard hbar action unit and formal j_q*; it is not a universal obstruction to projective, noncompact, anyonic, q-deformed or different kinetic/gauge representations. Those would need new explicitly specified algebra/bundle and physical action.
+
+## Gate 760 — rest/product circle is a function of fixed occupation; it cannot normalize the action by itself
+
+At the chosen primitive quarter endpoint pair, the earlier identity is **P_q=R_rest,q²=(2D−1)/4=j_q=N_q/4**. The genuine quarter oscillator symplectic area is therefore **A_q=2pi hbar N_q=8pi hbar P_q**. The positive rest product Pq is constant within this *fixed-D* primitive endpoint convention; across the ladder, the local product `xy` changes from row to row and is not the canonical action coordinate n1. In particular, as v15.623 already proved, `{psi,xy}_red=0` because both depend only on n1 on any fixed-N quotient. Thus a proposed fundamental action J_phys=κ xy would not be canonically conjugate to the native relative phase at fixed N without an additional phase-dependent map or changed symplectic structure. The equality A_q=8pi hbar P_q is an algebraic consequence of separately assigning oscillator Nq and primitive endpoint product, not an independent derivation that the product circle determines hbar, κ, frequency or kinetic inertia.
+
+For the EM primitive pair, P_e=D−1=N_e, so A_e=2pi hbar P_e. For q2, A_q=8pi hbar P_q; their different coefficients are precisely the occupation count/geometry conversion, not measured action quanta in distinct physical forces. There is no common physical frequency or inertial term without a Hamiltonian. All possible Hamiltonians H(n1,phi) on the same reduced manifold yield the same symplectic form but different time evolution and phase gaps.
+
+## Gate 761 — exact checks / verdict / next decisive research gate
+
+**Executable:** `research-notes/k4_schwinger_reduced_action_quarter_quantization_v15_973.py`, additive commit **6a65a84fcf01eae458a68a7cb550fc5767a15e02**. Actually ran equivalent local SymPy script successfully: D=2..100 exact integrality/half-integrality checks; D=2..7 complete (2D)x(2D) matrices with [Kx,Ky]=iKz/2 and K²=j_q(j_q+1/2); PASS. The deposited script extends the matrix sweep to D=8. Independent Audit pending.
+
+**Positive:** Genuine oscillator action-angle reduction exists and the q2 co-scaled representation has an exactly defined integral symplectic area. The shared null diameter and proposed rest product are compatible with a clean geometric *dictionary*, A_q=8pi hbar Pq, when an oscillator action is already supplied.
+
+**Negative:** Fixed null-cone geometry does not itself supply the symplectic form, kinetic time normalization or physical gravity operator. The unrescaled formal odd-quarter spin j_q has a half-integer prequantization index and cannot be treated as a conventional physical SU2 coadjoint sphere at the same hbar. Merely halving magnetic spacing does not halve hbar. The exact gap (C_formal−C_scaled)/Pq=1/2 from v15.972 is therefore a difference of two mathematical quadratic **conventions**, not an independently sourced kinetic energy.
+
+**NEXT:** If the quarter grid's action has a genuine gravitational role, test a physically specified extra connection over the existing EM Schwinger CP1 orbit, or a new independent field bundle whose curvature changes relative holonomy without changing physical hbar. Specify global patching/charge integrality, explicit coupling to an observable, and show why the connection is not gauge-equivalent to standard Dirac monopole/Berry phase. Alternatively supply an independent EM/G kinetic field action with canonically normalized momentum; neither emerges from the null identity alone.
+
+**HANDOFF Audit/Muse:** verify prequantum integrality with correct symplectic orientation, matrix [Kx,Ky] and Casimir, EM/q2 area counts, factor-product bracket obstruction already in v15.623, and the careful scope of the ordinary SU2 no-go.
