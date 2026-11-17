@@ -1,0 +1,32 @@
+# Cone Derivation Ledger v15.1116 — Fixed camera circularization selects one ellipse; smooth elliptical magnetic pinch pressure no-go
+
+**Date:** 2026-11-17 Eastern. **Lane:** Gravity/Cone. **Status:** [D] one fixed oblique linear viewing map sends the fixed-height cone circles to circles but circularizes exactly one nonzero tilted-cut eccentricity in the chosen class; [D] standard magnetostatics shows scalar-pressure-only balance fails for the *smooth compact elliptical* stream profile used in v15.1110 unless the ellipse becomes circular; [C] an interior linear stream function is a piecewise/sheet-current exception needing explicit boundary stress and current; [N] no viewing-independent half/quarter-grid selector, new gravitational observable or freely stable elliptic current. **Immediately prewrite HEAD:** b9388e22e0c3408841cfffad257826fd1487f660; v15.1116 collision-free, additive-only, all prior certified, Suzuki, Audit, Sandbox and Muse objects unchanged.
+
+## Scope, prior ledger and Audit
+External Audit Round 596/v15.1113, commit d3e183c29ca8561b3612e82f17616f1d2e02f76e, verified Gravity v15.1110–1112. Gravity v15.1114 derived exact frozen flux of an ideal material ellipse but exposed a nonzero magnetic force curl with a finite axial envelope; Gravity v15.1115 independently derived an oblique visualization of the cone ellipse as an offset apparent circle within a fixed-height n+1 circle and solved a scalar-pressure-balanced **axially uniform circular** magnetic cylinder. The owner asked about a shifted circle actually being an ellipse on the cone. This gate asks whether one physically fixed view circularizes the entire elliptic cone family, and whether the smooth **elliptical** transverse pinch can admit scalar-pressure force equilibrium in the axially uniform limit. Unlike the circular tube in v15.1115, the latter has an anisotropic transverse shape.
+
+## Gate 997 — a fixed viewer cannot circularize all tilted ellipses
+For the genuine cone tilted section T+eX=C with |e|<1 and the oblique projection U=X+qT,V=Y with q held **fixed** across the family, its transformed planar ellipse has an X semi-axis scaled by |1-qe| relative to the original projected ellipse's X semi-axis A=C/(1-e²), whereas its Y semi-axis remains B=C/sqrt(1-e²). The image is a **circle** precisely when
+**(1-qe)²=1-e²**,
+equivalent to **e[(1+q²)e-2q]=0**.
+Therefore it circles the untilted section e=0 for any q and at most **one** nonzero eccentricity,
+**e=2q/(1+q²)**,
+for a fixed q (within |e|<1). The v15.1115 view q=(1-sqrt(1-e²))/e is the appropriate inverse chosen for the particular ellipse. The other algebraic branch with reflected orientation, and q values outside physically comfortable camera configurations, do not change the conclusion that one fixed projection fails to circularize the full continuum. Thus a gallery of offset circles for distinct cone ellipses cannot all be attributed to *the same fixed* linear viewer with the same transverse coordinate scaling; a moving camera or changing projection is an extra assumption. It is incorrect to infer a unique dynamical eccentricity or gravitational ellipse selector from the n+1 nesting view alone.
+
+## Gate 998 — why the smooth ellipse needs non-scalar magnetic support
+Take the axially uniform current tube with magnetic stream function Ψ(y,z)=Ψ0 F(q), q=(y/A)²+(z/B)², F(q)=(1-q)^4 for q<1 and zero beyond, with magnetic field B=(0,Ψ_z,-Ψ_y). The x-axis current is Jx=-Δ⊥Ψ/μ0 and the transverse Lorentz force is
+**F=(J×B)_⊥=-(Δ⊥Ψ/μ0)∇⊥Ψ**.
+For an equilibrium supported solely by isotropic scalar pressure, F=∇⊥p and necessarily curl⊥F=0. However
+**(curl F)_x=-(1/μ0)[∂y(ΔΨ)∂zΨ-∂z(ΔΨ)∂yΨ]**.
+For Ψ=(1-q)^4 with Ψ0=1 and μ0=1, direct symbolic expansion gives
+**(curl F)_x=768 yz (A²-B²) ( -A²B²+A²z²+B²y² )^5 / (A^14 B^14)**.
+The exact expression vanishes in the circular limit A=B but is generically nonzero for A≠B, yz≠0 in the elliptical interior. Hence **no scalar pressure field p(y,z)** alone balances this smooth elliptic magnetic pinch: one must add material shear/anisotropic stress, an appropriately reorganized current/profile, boundary stresses or some combination. This obstruction is even present with *no* axial variation, unlike the separate finite-x obstruction found in v15.1114.
+
+**Exception requiring different physics:** an interior stream Ψ=Ψ0(1-q), q<1, has constant ΔΨ and therefore admits a local pressure function of Ψ, but joining to zero outside at q=1 has a tangential magnetic-field jump and generally needs a sheet current and boundary support. It is not a smooth compact-field counterexample. There are other possible Grad–Shafranov profiles and support models; this gate does not claim all elliptic magnetostatic equilibria are impossible. It closes only the **simple scalar-pressure smooth prescribed-profile** attempt.
+
+## Gate 999 — verdict, reproducibility and next force-balance gate
+Reproducer `research-notes/k4_fixed_view_elliptical_pinch_pressure_gate_v15_1116.py`, additive commit **b9388e22e0c3408841cfffad257826fd1487f660**, locally executed: PASS symbolic fixed q circularization condition, nonzero curl of smooth elliptical pinch, circle limit A=B, and linear-sheet-boundary exception. The earlier v15.1115 reproducer and ledger were also executed and committed at 1ec36582d471ed74d48187e5068da2d8264c585b and 025380548990488609eced88bd319b0f103eaa1c. Independent external Audit pending.
+
+**Positive:** the apparent offset-circle geometry has a precise exact camera/ellipse relationship, and the magnetic-rest-state ellipse has a clear anisotropic Lorentz-force support requirement. **Negative:** a fixed view cannot circularize an entire variable-e family, nor can an isotropic fluid alone hold the smooth compact elliptical magnetic circulation. Neither geometric fact selects the physical phase of the tide or a new gravito-EM coupling. **NEXT:** derive one explicit anisotropic *elastic* equilibrium for the smooth cone ellipse from a consistent local stress/displacement law, or treat a piecewise constant-current ellipse with a physical current sheet and boundary traction; then compute its TT stress and compare to the identically supported ordinary Einstein–Maxwell apparatus.
+
+**AUDIT HANDOFF:** check the 2D force-curl sign and nonzero factor, apparent-circle fixed-q condition including e=0, the difference between a genuine cone plane cut and a circle from an arbitrary XY lift, sheet-current exception and no new gravity scale. Preserve the exact additive ledger history.
