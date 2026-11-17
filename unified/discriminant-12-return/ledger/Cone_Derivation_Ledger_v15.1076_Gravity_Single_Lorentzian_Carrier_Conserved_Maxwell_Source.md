@@ -1,0 +1,38 @@
+# Cone Derivation Ledger v15.1076 — One signed Lorentzian carrier suffices; conserved Maxwell standing-wave source comparator
+
+**Date:** 2026-11-17 Eastern. **Gravity/Cone lane. Status:** [D] geometric redundancy of a separate Minkowski X spacetime; [D] exact source-free cavity Maxwell local conservation and transverse anisotropic stress; [C] conditional linear tensor response; [N] no new Cone-specific dynamical selector, physical quarter-ladder action or G-free observable. **Immediately prewrite live HEAD:** 4b349c26f992cc8a8d32d3e2ca1c533b3a1fac48; target ledger path absent. Strict additive-only, no earlier certified objects, Suzuki, Audit, Sandbox or Muse modified.
+
+## Live synchronization and redundancy
+
+Latest completed external Audit **Round 589, canonical v15.1063**, confirmed gravity v15.1060–1062; subsequent Audit v15.1064–1075 are liveness entries and reserve those sequence labels. The next free label is v15.1076. v15.1060–62 established conditional Minkowski null-coordinate compactification, physical K4 FLRW null chart, causal and massless conformal tensor source restrictions. v15.995–998 derived actual Maxwell–K4 canonical source projections, verified Audit v15.999. Earlier v15.722 computed K4 source-to-curvature retarded transfer for stipulated conserved stress. This entry does not rederive those or assert new spacetime physics.
+
+## Gate 885 — one Lorentzian plane, two sign-sector descriptions
+
+On a **single** signed real two-dimensional factor carrier (u,v) with u=T+X,v=T-X, the formal Minkowski metric is ds²=-dT²+dX²=-du dv. The conditions uv>0 and uv<0 describe timelike and spacelike coordinate wedges of that SAME metric, not separate spacetimes. The 'T cone' and 'X cone' algebraic square-root surfaces over positive/negative uv are two descriptions of sector slices; adding an X-labeled diagram does not add a gravitational degree of freedom, source, second causal spacetime, or new physical action. The signed state must still retain signs of u and v to represent all four wedges and future/past orientation. The prior circle map x_A/A=(u-|v|)/(u+|v|), y_A/A=2sqrt(u|v|)/(u+|v|) depends only on ratio, losing common scale and epsilon=sgn(v) (plus signs if u changes). Therefore a **single fixed n positive action-circle arc by itself does NOT encode full 1+1 Minkowski spacetime**; a family parameterized by radial scale plus complete sign labels does. Nor does the formal Lorentzian metric follow dynamically from the arithmetic circle; v15.1061 derived a separate physical K4 FLRW metric with conformal factor. This resolves the user's insight without overstating an arithmetic circle as an Einstein solution.
+
+## Gate 886 — exact locally conserved Maxwell stress from a genuine standing field
+
+In flat spacetime units c=epsilon0=mu0=1, take the vacuum Maxwell standing-wave interior of a cavity 0<=z<=pi/k:
+E_x=-E0 sin(kz) cos(kt), B_y=E0 cos(kz) sin(kt), other E,B components zero. The source-free Maxwell PDEs (interior) are
+∂t B_y=-∂z E_x, ∂t E_x=-∂z B_y,
+each identically satisfied.
+
+The energy density rho=(E_x²+B_y²)/2 and Poynting flux S_z=E_x B_y obey ∂t rho+∂z S_z=0. The longitudinal mechanical stress spatial component is T_zz=rho for this field, and ∂t S_z+∂z T_zz=0. Thus the actual source in the cavity interior is locally stress-energy conserved. The wall flux S_z=0 at z=0 and pi/k, but perfect conducting boundary conditions and matching the gravitational field also require explicit electromagnetic surface currents, wall mechanical stress, and gauge/ADM conditions; an infinite transverse-area idealization is not a physically compact isolated source.
+
+With physical EM stress T_ij=-E_i E_j-B_i B_j+(E²+B²)delta_ij/2, obtain T_xx=(B_y²-E_x²)/2 and T_yy=(E_x²-B_y²)/2. Consequently the plus-anisotropic component Pi_plus=(T_xx-T_yy)/2=(B_y²-E_x²)/2 exactly equals
+Pi_plus(t,z)=E0²/4 [cos(2kz)-cos(2kt)].
+The source contains a spatial 2k Fourier harmonic that is static and a spatially homogeneous zero-harmonic oscillating at temporal frequency 2k. It has NO independent 'quarter-grid' or V4 label. For strictly nonzero spatial wavevector parallel z, Pi_plus is the relevant transverse traceless plus component. For k_z=0 homogeneous anisotropy the TT/gauge/radiative decomposition is special; do not call the time-oscillating homogeneous component an ordinary freely radiating graviton without a properly constructed finite device and boundary field.
+
+## Gate 887 — conditional source-to-tensor response, no new projector
+
+For a prescribed normalized static 2k tensor drive F from the above Pi_plus, the conformal tensor amplitude of v15.1062 obeys h''+[4k²+mu²]h=F, mu²=(8zeta-3)/9, *after proper derivation of the source prefactor from the physical action*. With initial data h(0)=h'(0)=0 its particular retarded response is exactly
+h(eta)=F[1-cos(sqrt(4k²+mu²) eta)]/(4k²+mu²),
+for positive denominator. This checks a conditional Green function response only; F is not equated to E0²/4 without including Einstein-K4 normalization and the full cosmological source matching. At zeta=3/8 the effective conformal mass vanishes but the response remains ordinary massless GR-like linear propagation; no off-diagonal spatial mixing or q2 boundary-source rank-two selection follows. A genuine 3+1 finite-apparatus solution demands full Einstein/solid/Maxwell conservation, ADM constraints, retarded Green propagation, matter boundaries and gauge-invariant Weyl observable. Standard GR+elasticity comparison must use same geometry, source and normalization before asserting any residual.
+
+## Gate 888 — original code assertion correction, reproduction, and next criterion
+
+An initial new reproducer `research-notes/k4_conserved_maxwell_standing_tt_v15_1076.py`, commit 28437f135a100047e9a76d819bf9c31667e30fff, **contained two erroneous Maxwell derivative assertions**: it accidentally tested ∂z E_x−∂t B_y=0 and ∂z B_y−∂t E_x=0 rather than plus signs. The field definitions and energy/momentum/stress identities were correct; those two assertions would FAIL and the original script must NOT be claimed as a passing reproducer. The historical file was preserved as required, and an additive authoritative correction was committed: `research-notes/k4_conserved_maxwell_standing_tt_v15_1076_corrected.py`, commit 4b349c26f992cc8a8d32d3e2ca1c533b3a1fac48. The corrected script asserts both physical source-free Maxwell equations with plus signs and retains all local conservation, stress, zero-wall-flux and conditional tensor-ODE tests. The field/conservation/stress identities were independently evaluated in local SymPy and passed exactly. The second script code is the intended fully executable reproducer, pending external Audit.
+
+**Verdict:** The X-cone is not an extra physical spacetime under the signed-null-coordinate Minkowski interpretation; it is a sector label of the same carrier. A single *unlabeled* action circle does not capture radial scale or spacelike sign. Locally conserved Maxwell fields yield nonzero physical gravitational anisotropic stress without a second cone and without a guessed source term. Neither it nor the standard K4 tensor Green response picks a q2 boundary projector or new gravitational coupling. No new G-free experimental observable is established.
+
+**Audit handoff:** check signs of all Maxwell equations, stress components and conservation; confirm correction provenance and run only corrected script as passing implementation; distinguish interior cavity field conservation from global finite apparatus, zero spatial harmonic TT ambiguity and physical spacetime null vs algebraic factor signs. Compare source-to-Weyl with matched GR+elasticity only after complete boundary+constraint analysis. No overwrite/rename of earlier code.
