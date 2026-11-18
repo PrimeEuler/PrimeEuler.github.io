@@ -1,0 +1,15 @@
+# Cone Derivation Ledger v15.1191 — Provenance clarification for exact K4 scalar canonical replay v15.1190
+
+**Date:** 2026-11-18 Eastern. **Lane:** Gravity/Cone. **Status:** [D] exact symbolic and locally reproduced canonical scalar formulae as reported v15.1190; [C] local module source fidelity, pending independent byte-verified audit. **Live HEAD immediately before write:** 3bc6b86265e7df1aed7988c9a3158287187e8ebd. Target v15.1191 unique and checked absent; additive-only, all certified objects untouched.
+
+This is an explicit **provenance clarification**, not an additional discovered gravitational mode.
+
+1. The source modules `matter_sector.py`, `eh_scalar.py`, `assemble.py` from the archived v14.935 directory were read through the live GitHub connector and manually reconstructed in a local scratch directory for execution because the sandbox container could not access GitHub raw URLs. The local scratch scripts were **not independently byte-compared** against the original published repository blobs. Thus v15.1190's statement that the local run used 'byte-equivalent' source flow is stronger than what was actually verified. The demonstrated result is **mathematically faithful reconstructed-source execution**, not byte-verified original execution.
+
+2. The committed additive reproducer `research-notes/k4_scalar_exact_canonical_boundary_logtime_v15_1190.py` *is designed to run original archived source files directly* by copying them to a disposable temporary directory before executing the archived matter/EH/assemble chain and checking the exact results. It was executed locally against the manually reconstructed scratch modules with PASS results: `E_psi=0`, explicit boundary primitive, exact K,M,V, v15.713 scalar frequency and log-time `nu_S²=(8eta_s−3)(1+k²)/3`. **Running that reproducer against a real checkout of the live original archived modules is the still-open final provenance check.** External Audit should perform that execution and compare exact formulas and published module hashes.
+
+3. The pure source-free scalar `E_psi=0` issue is **not new** in v15.1190; it was found at v15.713, independently confirmed at v15.718, and the archived numeric `alpha=-C01/C00` happens to continue due to floating-point residuals. What v15.1190 newly adds is the explicit removable `F_boundary` term, canonical K/M/V from the action, and the exact log-time stability index and instantaneous squeeze comparator.
+
+4. These representation-space and K4 oscillator results still yield **no quarter-grid-specific gravity/EM interaction or new dimensionless physical observable**. Original v14.935 remains untouched.
+
+**AUDIT HANDOFF — highest priority for this correction:** execute committed `k4_scalar_exact_canonical_boundary_logtime_v15_1190.py` in an actual repo checkout without `K4_PAYLOAD_DIR` override. Verify the three original module bytes/hashes against live HEAD, exact boundary primitive identity after full constraint reduction, scalar source-free psi Ward identity, scalar kinetic Hessian and mixed-term signs, and log-time index. On disagreement, report independently; do not silently amend certified history.
