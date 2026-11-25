@@ -1,0 +1,28 @@
+# Cone Derivation Ledger v15.1488 — Fine nonlinear Einstein–H² Cauchy solve loses constraints when projected onto a smaller spectral evolution grid
+
+**Date:** 2026-11-25. **Track:** Gravity/Cone. **Status:** [ACTUAL NUMERICAL NEGATIVE] Solving the *full nonlinear* Einstein–H² Hamiltonian and momentum constraints directly on a 2N³ grid yields an extremely accurate constrained geometry, but **Fourier-projecting its full metric, metric velocities and H² fields to the smaller N³ evolution space** does not preserve the constraints on that reduced state. Projecting the reduced state back to 2N³ and monitoring there still shows large GH/ADM errors. Thus even “solve Cauchy data on a finer grid then truncate” cannot certify the reduced-grid initial-value problem; correct resolution requires **joint constraint solving/projection in the chosen evolution representation** and independent off-grid monitors. This is a real negative, not a claim of physical instability or failed GR equations. Main objective unchanged: unrestricted 3D GH Einstein–H² evolution with constraint convergence before testing Weyl–Maxwell–H² EFT; q2=1/16 variance still not a selected EM coupling (Sandbox v15.1485 no-selector census).
+
+## Gate 1415 — exact initial-data representation consistency control
+
+Parent v15.1485 repaired, fully unrestricted GH Einstein–H² implementation, v15.1486 two-times padded RHS positive but constraint negative, v15.1487 oversampled constraint-monitor discovery. Use same prescribed κ=.003 and same real H² sigma profiles at every N. Solve the nonlinear conformal ADM Hamiltonian and momentum constraints *independently at N³ and 2N³*, initialize full 4D harmonic lapse/shift time velocities from the corresponding solved spatial metric and K. Let `U_N` denote the N-grid solution and `U_2N` the 2N solution. Construct `P_N U_2N` by Fourier resampling every spacetime metric component, all time-derivative components, both scalar fields and their time derivatives. Evaluate the same full GH gauge and independent Einstein H/M residuals in four configurations: native `U_N` measured at N, direct fine `U_2N` measured at 2N, fine→coarse `P_N U_2N` at N, fine→coarse→fine `I_2 P_N U_2N` at 2N. No evolution, temporal truncation or filtering of the original N-grid solution is involved.
+
+**Actually executed local program:** `/mnt/data/cone_gh/high_solve_projection_v15_1488.py`, re-executed after being written and passed the negative assertions for N=12,16,24. The locally tested source uses `gh3d.py`. **Equivalent additive canonical reproducer:** `research-notes/k4_gh_fine_cauchy_projection_negative_v15_1488.py`, commit **6a9587f733c2e1fd9de86914d0a1ead9f6b7851d**, importing repaired v15.1485 solver. It checks N=16,24, as N12 is already established unacceptably coarse; exact committed-byte Audit replay pending. Audit Round 650 found and corrected the v15.1481 original SyntaxError/inherited N16 assertion only through disposable copies, requiring repaired v15.1485 for committed reproductions.
+
+| N | representation | GH max | ADM H max | ADM M max |
+|---:|---|---:|---:|---:|
+| 12 | direct 2N solve | 8.65938e−13 | 1.10589e−8 | 9.72077e−12 |
+| 12 | 2N solve→N projection | 1.14449e−8 | 1.17384e−5 | 2.75732e−5 |
+| 16 | original native N solve | 9.75793e−12 | 4.21694e−6 | 2.08002e−9 |
+| 16 | direct 2N solve | 1.05082e−14 | 1.50105e−10 | 2.90055e−14 |
+| 16 | 2N solve→N projection | 3.38902e−7 | 4.26400e−6 | 1.46818e−7 |
+| 16 | projected back to 2N monitor | 3.38902e−7 | 1.08860e−5 | 1.47053e−7 |
+| 24 | original native N solve | 8.65938e−13 | 1.10589e−8 | 9.72077e−12 |
+| 24 | direct 2N solve | 3.00740e−15 | 2.65867e−13 | 7.24230e−17 |
+| 24 | 2N solve→N projection | 9.88321e−10 | 1.12526e−8 | 6.21503e−10 |
+| 24 | projected back to 2N monitor | 9.88322e−10 | 4.76479e−8 | 6.15673e−10 |
+
+The N16 fine-solved momentum error 2.90e−14 jumps to 1.47e−7 upon projection (more than 5 million-fold), while the N24 fine-solved momentum 7.24e−17 jumps to 6.22e−10 (over 8 million-fold). **These are numbers in the chosen numerical norm** and do not imply the physical Einstein constraints are truly violated by a continuum exact solution; the truncated fields no longer solve the nonlinear constraint functional in the reduced representation. The GH gauge condition is also derivative/nonlinear and depends on consistency between the metric and coordinate time velocities, so naive mode truncation likewise loses its cancellation.
+
+**Audit:** run v15.1488 exact committed bytes using v15.1485, independently verify at N16/24 and check projection of *all* components and actual Lorentz g^tt; distinguish a fine solution projected without re-solving constraints from a solution of correctly projected constraint equations. If possible independently derive a Newton/elliptic re-projection of the truncated fields to a manifold satisfying the *padded* Hamiltonian, momentum and 4D harmonic constraints. Do not classify this as evidence against strongly hyperbolic GH continuum equations.
+
+**NEXT MAIN:** Build a conformal nonlinear Hamiltonian/momentum spectral residual functional with all products evaluated at oversampled nodes; seek an N-bandlimited `ψ,W,H` satisfying the *projected* nonlinear constraints and post-check on 2N/3N nodes, with explicit boundary/zero-mode treatments. Once initial constraints are genuinely certified beyond native points, rerun unrestricted GH evolution with padded nonlinear RHS and matched padded independent constraint monitors. Long-time evolution, Maxwell–Weyl–H² metric variation, and a physical G-free quarter-grid response remain open.
