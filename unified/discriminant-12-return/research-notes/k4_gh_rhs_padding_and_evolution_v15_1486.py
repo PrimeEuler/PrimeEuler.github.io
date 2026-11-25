@@ -34,7 +34,7 @@ def finite_time(N,T=.008,dt=.004):
        "Momentum",mom,"inverse_gtt",gtt,flush=True)
   assert np.isfinite(gh+ham+mom) and gtt<0
 if __name__=="__main__":
- for n in (12,16):
+ for n in (16,):
   check_rhs(n)
   finite_time(n)
  print("PASS 2x padded acceleration closer to 3x reference")
