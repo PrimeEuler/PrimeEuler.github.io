@@ -1,0 +1,17 @@
+# Gravity v15.1574 — Focusing and clock budgets bound optical rotation
+
+Date 2026-11-27 Eastern. Parents Gravity v15.1572, Audit Round 672 (d4a23e5e181a143eae7ec0010195666aa7b7b2cd, confirmed v15.1571–1572). Live prewrite HEAD d4a23e5e181a143eae7ec0010195666aa7b7b2cd; version search empty. Additive only. Source 9fb3c69f6580aa89e714bfb21ed516247d9df294.
+
+## Gate 1501
+On expanding area interval epsilon<=v<=1, epsilon>0, qbar(epsilon)=I, unit H² speed w, Xi(v)=1/4 integral_epsilon^v t w² dt. Length L=integral w dv <=2 sqrt(Xi(1) log(1/epsilon)) by Cauchy–Schwarz. Equality iff w proportional to 1/v. Optical angle psi=half signed H² area with radial closure, per v15.1572.
+
+## Gate 1502
+Scope: simple arc and geodesic chord forming a Jordan region, arc entirely on one side of the complete geodesic through its endpoints (sufficient for reflection proof). Reflect across chord geodesic to get closed perimeter 2L and area 2|A|; standard unit H² isoperimetric inequality P²>=A²+4pi A implies |psi|<=(sqrt(pi²+L²)-pi)/2. Combine to obtain |psi|<=(sqrt(pi²+4 Xi(1) log(1/epsilon))-pi)/2. Equality for geodesic semicircle of radius R, L=pi sinh R, |psi|=pi(cosh R-1)/2, with logarithmic v parameterization (w proportional 1/v). Endpoint free, initial origin fixed. This is sharp in stated geometric class; not proved here for arbitrary self-intersecting paths. Equality profile is prescribed, not action-selected or certified compatible with smooth regular cone vertex or full diamond characteristic data. Positive epsilon essential to this length estimate; no epsilon→0 claim.
+
+## Gate 1503
+Clock budget D=integral_epsilon^1 (exp Xi(v)-1)dv, normalized delay d=D/(1-epsilon). For nondecreasing Xi, (1-v)(exp Xi(v)-1)<=D, so Xi(v)<=log(1+D/(1-v)). Let b=1-epsilon. Integration by parts (bounded Xi, or truncation and limiting bound) yields I=integral sqrt(1-v) Xi'(v)dv <= (1/2)integral_0^b x^-1/2 log(1+D/x)dx = W=sqrt(b) log(1+D/b)+2 sqrt(D) atan sqrt(b/D). Since w=2 sqrt(Xi'/v), Cauchy–Schwarz and v>=epsilon imply L²<=8 sqrt(b) W/epsilon. Equivalently L²<=8 b/epsilon [log(1+d)+2 sqrt(d) atan(1/sqrt(d))]. Continuous zero-delay limit L=0. Substitute in semicircle bound for clock-only inequality in stated arc class. Conservative, not sharp: pointwise envelope and CS generally cannot both saturate. For arbitrary rectifiable paths starting at origin, independent coarse bound from norm of connection a=(1/2)tanh(r/2), r<= accumulated length: |psi|<=log cosh(L/2), no simplicity needed. No G inserted; standard optical/geometric inequalities, no new Cone-specific law. Clock normalization and finite cutoff required. Clock delay alone does not determine oriented sign.
+
+## Numerical check
+Actually executed /mnt/data/cone_gh/gate_area_bound.py (matching committed source). Six boosted hyperbolic semicircles R=.1,.3,.7,1,1.5,2; numerical connection integral vs analytic equality: maximum absolute discrepancy about 1.2e-14 radians. 27 prescribed radial power histories (epsilon=.1,.3,.5; A=.25,1,2; p=1,2,3) tested both length bounds; all pass. Radial histories have zero optical rotation, so these test length inequality only, not nontrivial clock-to-angle saturation. Audit pending.
+
+Next derive sharp clock-only variational extremizer with free endpoint and length objective, compare to regularity and vacuum optical realization; then test smooth rotating curvature. No physical sector selector, no new G-free gravitational prediction; GH subsidiary/N40 and tidal parity correction remain open.
