@@ -1,0 +1,14 @@
+# Gravity v15.1550 — Coherent amplitudes from the unit factor-row ladder
+
+Date 2026-11-26 Eastern. Parents v15.1549, v15.955, Paper C. Prewrite HEAD 081fa124adb77d99b77553dd70ca6be4ec9354dd. Additive only. No new audit return observed. Search for binomial coherent returned no matches; standard construction, not novelty claim.
+
+## Gate 1459
+Fixed D=n+1, orthonormal states k=0..n, J+|k>=sqrt((k+1)(n-k))|k+1>, J+|n>=0. By multiplication J+^k|0>=sqrt(k! n!/(n-k)!)|k>. Exponential terminates, e^(z J+)|0>=sum sqrt(binomial(n,k)) z^k |k>. Norm squared (1+|z|²)^n by binomial theorem. z=e^(i phi) sqrt(t/(1-t)), t in [0,1], endpoints by limits. Normalized amplitude sqrt(binomial(n,k)) t^(k/2)(1-t)^((n-k)/2)e^(ik phi). This is standard spin coherent construction, recovered from geometric ladder, with Hilbert inner product and coherent exponential choice supplied. Born rule gives binomial probabilities, not derived from geometry.
+
+## Gate 1460
+(n+1) integral_0^1 dt integral_0^(2pi) dphi/(2pi) |z><z|=I: phase orthogonality removes k≠l, beta integral binomial(n,k) B(k+1,n-k+1)=1/(n+1). Hence Husimi measure from v15.1549. This is a POVM (positive operator-valued measure), not a classical hidden-variable realization of every sharp measurement. Uniform dt dphi corresponds to invariant sphere area, not an arbitrary physical time measure. Mean k=nt and variance nt(1-t); thus Var Jz=n t(1-t). The factor-pair product reappears as variance/n. At t=1/2 variance n/4; this is a binomial variance coefficient, distinct from geometric midpoint correction and quarter-grid carrier. The endpoints have zero variance in Jz but nonzero quantum transverse moment j.
+
+## Gate 1461 numerical regression
+Executed /mnt/data/cone_gh/gate1550_coherent.py with OPENBLAS_NUM_THREADS=1. 64 shells n=1..64, 192 matrix exponential rotations exp(+i theta Jy)|0> at theta=.2,1.1,2.4; t=sin²(theta/2). Jy=(J+−J-)/(2i). In ascending k basis this sign gives positive real amplitudes. Gauss-Legendre n+1 nodes integrate the polynomial diagonal resolution exactly in exact arithmetic. Maximum amplitude error 1.3211653993039363e-14, resolution error 2.333688797762079e-13, longitudinal mean error 6.394884621840902e-13. All assertions passed. Source commit 4b6faa4daee7f4fc6cfc0e5b9d831f21203ab6d2, same source as local execution. Audit pending.
+
+Next: investigate exact coherent-state covariance tensor, quantum Fisher metric and Berry curvature as a geometric response to rotation, and distinguish their intrinsic scale from actual time/frequency and gravitational susceptibility. No physical G-free observable, Born rule derivation, new orbital law or quarter-gravity carrier established. Prior GH subsidiary and N40 remain open.
