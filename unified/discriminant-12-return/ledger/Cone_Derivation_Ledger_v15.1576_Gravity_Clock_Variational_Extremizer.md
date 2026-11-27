@@ -1,0 +1,21 @@
+# Gravity v15.1576 — Sharp clock-budget extremizer and maximum-area endpoint
+
+Date 2026-11-27 Eastern. Parents Gravity v15.1574 and Audit Round 673 (763286ae66b3f927338053dc74375277cd3445dd, confirmed v15.1574). Initial live HEAD 763286ae66b3f927338053dc74375277cd3445dd; version search empty. Additive only. Source 764d2f6538879b31accd8b454ecf98789a709fbe. No other lanes touched.
+
+## Gate 1505 — variational principle
+Fix 0<epsilon<1, C=(1-epsilon)(1+delta), delta>0. Set y=Xi'=v w²/4>=0, Xi(v)=int_epsilon^v y, C[y]=int_epsilon^1 exp(Xi)dv, L[y]=2 int sqrt(y/v)dv. Maximize L subject to C[y]<=C. L strictly concave, C convex in y, on locally integrable y with finite clock (endpoint singularity permitted). For F(v)=int_v^1 exp Xi(t)dt, stationarity 1/sqrt(v y)=lambda F; equivalently y=c/(v F²), w=2sqrt(c)/(v F), c=lambda^-2>0. A solution satisfying clock equality is the unique global maximizer a.e.: pointwise sqrt tangent gives L[y]-L[y*]<=lambda int F*(y-y*), exp tangent and Tonelli give C[y]-C[y*]>=int F*(y-y*); integrals finite for feasible y because int F*y<=C[y]-C[y*]+int F*y* and int F*y* = sqrt(c)L*/2 finite. Strict concavity gives uniqueness. delta=0 yields y=0.
+
+## Gate 1506 — continuum existence and endpoint
+Use q=F/C, z=-log q, W=q exp Xi. Initial v=epsilon,W=1,z=0; ODE dv/dz=C exp(-2z)/W, dW/dz=-W+c/(v C), dL/dz=2sqrt(c)exp(-z)/(v W). Require v(infty)=1. For c>0, E=exp Xi nondecreasing, v_z=C exp(-z)/E<=C exp(-z), v<=epsilon+C; W>=exp(-z)+c/[C(epsilon+C)](1-exp(-z)). At c→0, v(infty)→epsilon+C>1 by continuous dependence and dominated convergence; at c→infty, v(infty)→epsilon by same bound and dominated convergence. v(infty) continuous in c; root exists. W→c/C at root. Reconstruction F=C exp(-z), E=W exp(z), dF/dv=-E and y=c/(vF²); C recovered exactly. As v→1, F²~2c(1-v), w~sqrt(2/(1-v)), Xi~-(1/2)log(1-v)+(1/2)log(c/2). L and C finite, Xi(1) infinite. No bounded area-coordinate-speed optimum; truncation and rescaling to same clock approximates optimum by monotone/dominated convergence. rho' proportional exp(-Xi)→0, affine speed w rho' finite; outer cut has zero expansion, not established spacetime singularity. Physical smoothness and complete null-diamond/corner conditions not yet checked. Initial qbar(epsilon)=I and free endpoint chosen; no regular apex claim.
+
+## Gate 1507 — geometric sharp bound
+In the simple one-sided arc class of v15.1574, use hyperbolic semicircle length L* with optimal traversal above; |psi|max=(sqrt(pi²+L*²)-pi)/2, attained in extended class, supremum for bounded speed histories. Sign freely reversible. No dynamical principle selects this maximum in GR. Clock constraint is prescribed, no G inserted; standard geometry/optics, not a new Cone-specific gravitational law.
+
+## Numerical verification
+Actual local execution /mnt/data/cone_gh/gate_clock_variation.py, OPENBLAS_NUM_THREADS=1. Continuum shooting via solve_ivp and brentq, zmax 24 vs 32, rtol 2e-10 vs 2e-12. Five (epsilon,delta,c,L*,psi*) rows:
+(.1,.05,.0077972394425155364,1.2094424027396897,.11238186687876439)
+(.1,.2,.04976620400611282,2.1168702649304443,.3233224735734994)
+(.3,.05,.007595019276707489,.9825742668405447,.07503603032312056)
+(.5,.01,.0008216473250398688,.40647450808790725,.013093341617542498)
+(.5,.2,.043620942461358884,1.347733702419922,.13844257793199022).
+Maximum refinement difference across all quantities 2.2735157090281177e-9, not a rigorous interval error. All endpoint/clock/asymptotic assertions passed. Independent graded-grid optimization on 3 pairs, 4 grid sizes 16–128; objective rises toward continuum and endpoint Xi grows. For epsilon=.1,delta=.05, L=1.16672774484,1.18810124931,1.19886340160,1.20419948264, Xi(1)=1.42568,2.07058,2.74377,3.42813. SLSQP success flags FALSE on 64,128 in that pair, despite clock feasibility within 2e-8 and relative stationarity residual <=3.1e-5; these are approximate comparisons, not passed optimizer convergence. Other ten success flags true. No rigorous continuum numerical enclosure. Audit pending. Next reconstruct affine optical curvature R=-D''D^-1 along extremizing semicircle, verify vacuum tracefree and regular outer cut, then determine whether a regular apex and complete diamond can support it. Tidal parity correction and GH subsidiary/N40 remain open.
